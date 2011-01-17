@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+    Inggison
+    @Author Saphari
+ -->
+<spawns>
+	<!-- Veille (Monster Legendary lvl:55)-->
+	<spawn map="210050000" npcid="258200" pool="1" interval="3600">
+		<object x="1079.35220" y="1493.14600" z="404.86215" h="91"/>
+	</spawn>
+</spawns>
