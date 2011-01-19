@@ -5,23 +5,12 @@
 :######################################################################## 
 
 @echo off
-title Aion-Engine Game Server Console
+title Aion-X Game Server Console
 :start
-echo  ______                          ______                                         
-echo /\  _  \  __                    /\  ___\                                        
-echo \ \ \ \ \/\_\    ___     ___    \ \ \____    ___      __   __    ___      __    
-echo  \ \  __ \/\ \  / __`\ /' _ `\   \ \  ___\ /' _ `\  /'__`\/\_\ /' _ `\  /'__`\  
-echo   \ \ \/\ \ \ \/\ \ \ \/\ \/\ \   \ \ \____/\ \/\ \/\ \ \ \/\ \/\ \/\ \/\  __/  
-echo    \ \_\ \_\ \_\ \____/\ \_\ \_\   \ \_____\ \_\ \_\ \___, \ \ \ \_\ \_\ \____\ 
-echo     \/_/\/_/\/_/\/___/  \/_/\/_/    \/_____/\/_/\/_/\/_____ \ \_\/_/\/_/\/____/ 
-echo                                                        /\____\/_/               
-echo                                                        \/____/                  
-echo.
-echo Starting Aion-Engine Game Server.
-echo.
+echo Starting Aion-X Game Server
 
 set JAVA6="auto"
-set JAR=ae-game-1.0.1.jar
+set JAR=al-game-1.0.1.jar
 
 set X86="%ProgramFiles(x86)%"
 if %JAVA6% == "auto" (

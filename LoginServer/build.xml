@@ -53,7 +53,7 @@
 		</javac>
 	</target>
 	<target name="jar" depends="compile" description="Create the jar file">
-		<jar destfile="${build}/ae-login-1.0.1.jar">
+		<jar destfile="${build}/ax-login-1.0.1.jar">
 			<fileset dir="${build.classes}"/>
 			<manifest>
 				<attribute name="Main-Class" value="loginserver.LoginServer"/>
@@ -68,7 +68,7 @@
 		<mkdir dir="${build.dist.login}/libs"/>
 		<copy todir="${build.dist.login}">
 			<fileset dir="${build}">
-				<include name="ae-login-1.0.1.jar"/>
+				<include name="ax-login-1.0.1.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${build.dist.login}/libs">
@@ -101,6 +101,6 @@
 				<include name="**/*"/>
 			</fileset>
 		</copy>
-		<zip destfile="${build}/ae_login.zip" basedir="${build.dist}"/>
+		<zip destfile="${build}/ax_login.zip" basedir="${build.dist}"/>
 	</target>
 </project>

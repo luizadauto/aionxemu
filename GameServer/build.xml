@@ -56,7 +56,7 @@
 		<tstamp>
 			<format property="date" pattern="yyyy-MM-dd-HH:mm"/>
 		</tstamp>
-		<jar destfile="${build}/ae-game-1.0.1.jar">
+		<jar destfile="${build}/ax-game-1.0.1.jar">
 			<fileset dir="${build.classes}"/>
 			<manifest>
 				<attribute name="Main-Class" value="gameserver.GameServer"/>
@@ -74,7 +74,7 @@
 		<mkdir dir="${build.dist.gs}/sql"/>
 		<copy todir="${build.dist.gs}">
 			<fileset dir="${build}">
-				<include name="ae-game-1.0.1.jar"/>
+				<include name="ax-game-1.0.1.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${build.dist.gs}/libs">
@@ -102,6 +102,6 @@
 				<include name="**/*"/>
 			</fileset>
 		</copy>
-		<zip destfile="${build}/ae_gameserver.zip" basedir="${build.dist}"/>
+		<zip destfile="${build}/ax_gameserver.zip" basedir="${build.dist}"/>
 	</target>
 </project>

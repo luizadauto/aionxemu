@@ -1,27 +1,12 @@
-:######################################################################## 
-:# File name: startLogin.bat
-:# Edited Last By: Magenik 
-:# V 1.0 1
-:######################################################################## 
-
 @echo off
-title Aion-Engine Game Login Console
+title Aion-X Game Login Console
 :start
-echo  ______                          ______                                         
-echo /\  _  \  __                    /\  ___\                                        
-echo \ \ \ \ \/\_\    ___     ___    \ \ \____    ___      __   __    ___      __    
-echo  \ \  __ \/\ \  / __`\ /' _ `\   \ \  ___\ /' _ `\  /'__`\/\_\ /' _ `\  /'__`\  
-echo   \ \ \/\ \ \ \/\ \ \ \/\ \/\ \   \ \ \____/\ \/\ \/\ \ \ \/\ \/\ \/\ \/\  __/  
-echo    \ \_\ \_\ \_\ \____/\ \_\ \_\   \ \_____\ \_\ \_\ \___, \ \ \ \_\ \_\ \____\ 
-echo     \/_/\/_/\/_/\/___/  \/_/\/_/    \/_____/\/_/\/_/\/_____ \ \_\/_/\/_/\/____/ 
-echo                                                        /\____\/_/               
-echo                                                        \/____/                  
-echo.
-echo Starting Aion-Engine Login Server.
+
+echo Starting Aion-X Login Server.
 echo.
 
 set JAVA6="auto"
-set JAR=ae-login-1.0.1.jar
+set JAR=ax-login-1.0.1.jar
 
 set X86="%ProgramFiles(x86)%"
 if %JAVA6% == "auto" (
