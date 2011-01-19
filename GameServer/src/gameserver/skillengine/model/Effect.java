@@ -708,6 +708,9 @@ public class Effect {
      * @return actionObserver for this effect template
      */
     public ActionObserver getActionObserver(int i) {
+        if (actionObserver == null)
+            return null;
+
         return actionObserver[i - 1];
     }
 

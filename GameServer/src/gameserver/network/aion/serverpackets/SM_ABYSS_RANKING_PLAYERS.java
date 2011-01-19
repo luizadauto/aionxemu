@@ -41,6 +41,9 @@ public class SM_ABYSS_RANKING_PLAYERS extends AionServerPacket {
 
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
+        if (data == null)
+            return;
+
         writeD(buf, race);// 0:Elyos 1:Asmo
         writeD(buf, Math.round(AbyssRankingService.getInstance().getTimeOfUpdate() / 1000));//TODO Date
         writeD(buf, 0x01);
