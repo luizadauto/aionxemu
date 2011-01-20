@@ -127,9 +127,14 @@ public class CM_BUY_ITEM extends AionClientPacket {
             visibleObject = (VisibleObject) obj;
 
         for (TradeItem item : tradeList.getTradeItems()) {
-            ItemTemplate template = item.getItemTemplate();
-            QuestEngine.getInstance().onItemSellBuyEvent(new QuestCookie(visibleObject, player, template.getItemQuestId(), 0),
-                    template.getTemplateId());
+            ItemTemplate itemTemplate = item.getItemTemplate();
+            if (itemTemplate == null) {
+                log.warn(String.format("ITEM TEMPLATE NOT FOUND: Player_id %d Item_id %d",
+                    player.getObjectId(), item.getItemId()));
+                continue;
+            }
+            QuestEngine.getInstance().onItemSellBuyEvent(new QuestCookie(visibleObject, player, itemTemplate.getItemQuestId(), 0),
+                    itemTemplate.getTemplateId());
         }
 
     }
