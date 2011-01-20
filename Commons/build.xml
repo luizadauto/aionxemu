@@ -54,7 +54,7 @@
         <tstamp>
             <format property="date" pattern="yyyy-MM-dd-HH:mm"/>
         </tstamp>
-        <jar destfile="${build}/ae_commons.jar">
+        <jar destfile="${build}/ax_commons.jar">
             <fileset dir="${build.classes}"/>
             <manifest>
                 <attribute name="Premain-Class" value="com.aionengine.commons.callbacks.JavaAgentEnhancer"/>
@@ -70,7 +70,7 @@
         <mkdir dir="${build.dist.commons}/config"/>
         <copy todir="${build.dist.commons}/libs">
             <fileset dir="${build}">
-                <include name="ae_commons.jar"/>
+                <include name="ax_commons.jar"/>
             </fileset>
         </copy>
         <copy todir="${build.dist.commons}/libs">
@@ -83,6 +83,6 @@
                 <include name="**/*"/>
             </fileset>
         </copy>
-        <zip destfile="${build}/ae_commons.zip" basedir="${build.dist.commons}"/>
+        <zip destfile="${build}/ax_commons.zip" basedir="${build.dist.commons}"/>
     </target>
 </project>

@@ -6,7 +6,7 @@
 	<classpathentry kind="src" path="config/network"/>
 	<classpathentry excluding="network/" kind="src" path="config"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/ae_commons.jar" sourcepath="/Commons"/>
+	<classpathentry kind="lib" path="lib/ax_commons.jar" sourcepath="/Commons"/>
 	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool-1.5.5.jar"/>
 	<classpathentry kind="lib" path="lib/javac.jar"/>
