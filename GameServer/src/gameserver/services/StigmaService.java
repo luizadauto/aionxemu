@@ -44,16 +44,9 @@ public class StigmaService {
     public static boolean notifyEquipAction(Player player, Item resultItem) {
         if (resultItem.getItemTemplate().isStigma()) {
             int currentStigmaCount = player.getEquipment().getEquippedItemsStigma().size();
-
-            int lvl = player.getLevel();
-			int lvl55 = 55;
-
-            if ((lvl / 10) + player.getCommonData().getAdvencedStigmaSlotSize() <= currentStigmaCount) {
-                log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
-                return false;
-            }
-			if ((lvl = lvl55) + player.getCommonData().getAdvencedStigmaSlotSize() <= currentStigmaCount) {
-				currentStigmaCount = 6;
+            int allowedStigmaSize = player.getCommonData().getAdvencedStigmaSlotSize() +
+                player.getCommonData().getStigmaSlotSize();
+            if (currentStigmaCount > allowedStigmaSize) {
                 log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
                 return false;
             }
@@ -145,26 +138,12 @@ public class StigmaService {
         for (Item item : equippedItems) {
             if (item.getItemTemplate().isStigma()) {
                 int currentStigmaCount = player.getEquipment().getEquippedItemsStigma().size();
-
-                int lvl = player.getLevel();
-
-                if (lvl==55)
-                {
-                	if (player.getCommonData().getAdvencedStigmaSlotSize() +6 < currentStigmaCount)
-                	{
-                		log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
-                		player.getEquipment().unEquipItem(item.getObjectId(), 0);
-                		continue;
-                	}
-                } 
-                else 
-                {
-                	if ((lvl/10) + player.getCommonData().getAdvencedStigmaSlotSize() <= currentStigmaCount) 
-                	{
-                        log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
-                        player.getEquipment().unEquipItem(item.getObjectId(), 0);
-                        continue;
-                	}
+                int allowedStigmaSize = player.getCommonData().getAdvencedStigmaSlotSize() +
+                    player.getCommonData().getStigmaSlotSize();
+                if (currentStigmaCount > allowedStigmaSize) {
+                    log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
+                    player.getEquipment().unEquipItem(item.getObjectId(), 0);
+                    continue;
                 }
 
                 Stigma stigmaInfo = item.getItemTemplate().getStigma();

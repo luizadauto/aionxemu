@@ -103,6 +103,14 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     }
 
     /**
+     * @return the StigmaSlotSize
+     */
+    public int getStigmaSlotSize()
+    {
+        return (this.level < 55) ? (this.level / 10) : 6;
+    }
+
+    /**
      * @param advencedStigmaSlotSize the advencedStigmaSlotSize to set
      */
     public void setAdvencedStigmaSlotSize(int advencedStigmaSlotSize) {
