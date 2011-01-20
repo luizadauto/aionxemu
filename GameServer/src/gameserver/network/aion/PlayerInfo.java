@@ -22,6 +22,8 @@ import gameserver.model.gameobjects.player.PlayerAppearance;
 import gameserver.model.gameobjects.player.PlayerCommonData;
 import gameserver.model.items.GodStone;
 import gameserver.model.items.ItemSlot;
+import gameserver.model.templates.item.ItemTemplate;
+import org.apache.log4j.Logger;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -32,6 +34,8 @@ import java.util.List;
  * @author Niato
  */
 public abstract class PlayerInfo extends AionServerPacket {
+    private static Logger log = Logger.getLogger(PlayerInfo.class);
+    
     protected PlayerInfo() {
 
     }
@@ -144,8 +148,16 @@ public abstract class PlayerInfo extends AionServerPacket {
         List<Item> items = accPlData.getEquipment();
 
         for (Item item : items) {
+            ItemTemplate itemTemplate = item.getItemTemplate();
+            if (itemTemplate == null) {
+                log.warn(String.format("ITEM TEMPLATE NOT FOUND: Player_id %d Item_id %d",
+                    pbd.getPlayerObjId(), item.getObjectId()));
+                continue;
+            }
 
-            if (itemsDataSize < 208 && item.getItemTemplate().getItemSlot() <= ItemSlot.PANTS.getSlotIdMask()) {
+            if (itemsDataSize < 208 &&
+                itemTemplate.getItemSlot() <= ItemSlot.PANTS.getSlotIdMask())
+            {
                 writeC(buf, 1); // this flas is needed to show equipment on selection screen
                 writeD(buf, item.getItemSkinTemplate().getTemplateId());
                 GodStone godStone = item.getGodStone();
