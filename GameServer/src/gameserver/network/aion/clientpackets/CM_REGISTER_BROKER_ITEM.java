@@ -17,15 +17,18 @@
 
 package gameserver.network.aion.clientpackets;
 
+import org.apache.log4j.Logger;
+
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.services.BrokerService;
 
 /**
- * @author kosyak
+ * @author kosyak, Lyahim
  */
 public class CM_REGISTER_BROKER_ITEM extends AionClientPacket {
-    @SuppressWarnings("unused")
+    private static final Logger	log	= Logger.getLogger(CM_REGISTER_BROKER_ITEM.class);
+
     private int brokerId;
     private int itemUniqueId;
     private long price;
@@ -48,9 +51,18 @@ public class CM_REGISTER_BROKER_ITEM extends AionClientPacket {
         Player player = getConnection().getActivePlayer();
         if (price < 1 || itemCount < 1)
         {
+                log.warn("[AUDIT] Possible client hack Player: "+player.getName()+" Account name: "+player.getAcountName()+toString());
+                player.getClientConnection().close(true);
                 return;
         }
 
         BrokerService.getInstance().registerItem(player, itemUniqueId, price, itemCount);
+    }
+
+    @Override
+    public String toString() {
+        return "CM_REGISTER_BROKER_ITEM [brokerId=" + brokerId
+                + ", itemUniqueId=" + itemUniqueId + ", price=" + price
+                + ", itemCount=" + itemCount + "]";
     }
 }

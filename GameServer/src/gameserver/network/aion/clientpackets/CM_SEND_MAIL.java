@@ -17,14 +17,17 @@
 
 package gameserver.network.aion.clientpackets;
 
+import org.apache.log4j.Logger;
+
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.services.MailService;
 
 /**
- * @author kosyachok
+ * @author kosyachok, Lyahim
  */
 public class CM_SEND_MAIL extends AionClientPacket {
+    private static final Logger	log	= Logger.getLogger(CM_SEND_MAIL.class);
 
     private String recipientName;
     private String title;
@@ -54,11 +57,23 @@ public class CM_SEND_MAIL extends AionClientPacket {
     @Override
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
-        if(kinahCount < 0 || itemCount < 0)
-        	return;
+        if(kinahCount < 0 || itemCount < 0) {
+            log.warn("[AUDIT] Possible client hack Player: "+player.getName()+" Account name: "+player.getAcountName()+toString());
+            player.getClientConnection().close(true);
+            return;
+        }
+
         if (player.isTrading())
             return;
 
         MailService.getInstance().sendMail(player, recipientName, title, message, itemObjId, itemCount, kinahCount, express == 1, false);
+    }
+
+    @Override
+    public String toString() {
+        return "CM_SEND_MAIL [recipientName=" + recipientName + ", title="
+                + title + ", message=" + message + ", itemObjId=" + itemObjId
+                + ", itemCount=" + itemCount + ", kinahCount=" + kinahCount
+                + ", express=" + express + "]";
     }
 }
