@@ -10,7 +10,7 @@ title Aion-X Game Server Console
 echo Starting Aion-X Game Server
 
 set JAVA6="auto"
-set JAR=al-game-1.0.1.jar
+set JAR=ax-game-1.0.1.jar
 
 set X86="%ProgramFiles(x86)%"
 if %JAVA6% == "auto" (
