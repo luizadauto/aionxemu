@@ -21,7 +21,11 @@ import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.siege.FortressGeneral;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SKILL_CANCEL;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.skillengine.model.Skill;
 import gameserver.skillengine.model.SkillTemplate;
+import gameserver.utils.PacketSendUtility;
 
 /**
  * @author alexa026
@@ -101,6 +105,18 @@ public class CM_CASTSPELL extends AionClientPacket {
 
             if (!player.getSkillList().isSkillPresent(spellid))
                 return;
+
+            //Custom Skill Cancellation Helper (Implemented by Untamed/TimeBomb)
+            Skill castingSkill = player.getCastingSkill();
+            if (castingSkill != null) {
+                int skillId = castingSkill.getSkillTemplate().getSkillId();
+                castingSkill.cancelCast();
+                player.removeSkillCoolDown(skillId);
+                player.setCasting(null);
+                PacketSendUtility.sendPacket(player, new SM_SKILL_CANCEL(player, skillId));
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_CANCELED());
+            }
+
             player.getController().useSkill(spellid, targetType, x, y, z);
 		}
 	}
