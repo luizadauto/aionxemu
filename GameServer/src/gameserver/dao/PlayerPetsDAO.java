@@ -33,6 +33,8 @@ public abstract class PlayerPetsDAO implements DAO {
 
     public abstract void insertPlayerPet(Player player, int petId, int decoration, String name);
 
+    public abstract void renamePet(Player player, int petId, String name);
+
     public abstract void removePlayerPet(Player player, int petId);
 
     public abstract List<ToyPet> getPlayerPets(int playerId);

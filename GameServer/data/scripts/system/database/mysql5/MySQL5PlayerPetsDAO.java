@@ -57,6 +57,30 @@ public class MySQL5PlayerPetsDAO extends PlayerPetsDAO {
     }
 
     @Override
+    public void renamePet(Player player, int petId, String petName)
+    {
+        Connection con = null;
+        try
+        {
+            con = DatabaseFactory.getConnection();
+            PreparedStatement stmt = con.prepareStatement("UPDATE player_pets SET  name=? WHERE player_id = ? AND pet_id = ?");
+            stmt.setString(1, petName);
+            stmt.setInt(2, player.getObjectId());
+            stmt.setInt(3, petId);
+            stmt.execute();
+            stmt.close();
+        }
+        catch(Exception e)
+        {
+            log.error("Error update pet #" + petId, e);
+        }
+        finally
+        {
+            DatabaseFactory.close(con);
+        }
+    }
+
+    @Override
     public void removePlayerPet(Player player, int petId) {
         Connection con = null;
         try {

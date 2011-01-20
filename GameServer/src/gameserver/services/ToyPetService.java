@@ -86,6 +86,28 @@ public class ToyPetService {
         PacketSendUtility.broadcastPacket(player, new SM_PET(4, uid), true);
     }
 
+    public void renamePet(Player player, int petId, String name)
+    {
+        DAOManager.getDAO(PlayerPetsDAO.class).renamePet(player, petId, name);
+        List<ToyPet> list = DAOManager.getDAO(PlayerPetsDAO.class).getPlayerPets(player.getObjectId());
+        if(list == null)
+            return;
+        ToyPet pet = null;
+        for(ToyPet p : list)
+        {
+            if(p.getPetId() == petId)
+                pet = p;
+        }
+        
+        if(pet != null)
+        {
+            PacketSendUtility.sendPacket(player, new SM_PET(10, pet));
+            dismissPet(player, petId);
+            summonPet(player, petId);
+            onPlayerLogin(player);
+        }
+    }
+
     public void onPlayerLogin(Player player) {
         List<ToyPet> playerPets = DAOManager.getDAO(PlayerPetsDAO.class).getPlayerPets(player.getObjectId());
         if (playerPets != null && playerPets.size() > 0) {

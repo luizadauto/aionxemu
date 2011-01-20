@@ -102,7 +102,7 @@ public class CM_PET extends AionClientPacket {
                 break;
             case 10:
                 // rename
-                PacketSendUtility.sendMessage(player, "Not implemented yet.");
+                ToyPetService.getInstance().renamePet(player, petId, petName);
                 break;
             default:
                 break;
