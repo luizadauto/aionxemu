@@ -1,5 +1,5 @@
 /**
- * This file is part of Aion X Emu <aionxemu.com>
+ * This file is part of Aion X EMU <aionxemu.com>
  *
  *  This is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser Public License as published by
@@ -22,6 +22,7 @@ import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
+import gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
 import gameserver.network.aion.serverpackets.SM_USE_OBJECT;
 import gameserver.questEngine.handlers.QuestHandler;
 import gameserver.questEngine.model.QuestCookie;
@@ -45,11 +46,11 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
     @Override
     public void register() {
         qe.addQuestLvlUp(questId);
-        qe.setNpcQuestData(203557).addOnTalkEvent(questId);
-        qe.setNpcQuestData(700140).addOnTalkEvent(questId);
-        qe.setNpcQuestData(700142).addOnTalkEvent(questId);
-        qe.setNpcQuestData(210753).addOnKillEvent(questId);
-        qe.setNpcQuestData(700141).addOnTalkEvent(questId);
+        qe.setNpcQuestData(203557).addOnTalkEvent(questId); // Commander Suthran
+        qe.setNpcQuestData(700143).addOnTalkEvent(questId); // Abyss Gate into Bregirun
+        qe.setNpcQuestData(700142).addOnTalkEvent(questId); // Guardian Stone
+        qe.setNpcQuestData(210753).addOnKillEvent(questId); // Kuninasha
+        qe.setNpcQuestData(700140).addOnTalkEvent(questId); // Abyss Gate out of Bregirun
     }
 
     @Override
@@ -71,8 +72,12 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
                 case 203557: {
                     if (qs.getQuestVarById(0) == 0) {
                         if (env.getDialogId() == 25)
-                            return sendQuestDialog(env, 1352);
-                        else if (env.getDialogId() == 1009) {
+                        {
+                            PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 66));
+														return sendQuestDialog(env, 1011);
+												}
+                        else if (env.getDialogId() == 10000)
+												{
                             qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
                             updateQuestStatus(env);
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
@@ -82,12 +87,11 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
                     }
                 }
                 break;
-                case 700140: {
+                case 700143: {
                     if (qs.getQuestVarById(0) == 1) {
                         qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
                         updateQuestStatus(env);
                         TeleportService.teleportTo(player, 320030000, 275.68f, 164.03f, 205.19f, 34);
-                        PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
                 }
@@ -101,7 +105,7 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
                             @Override
                             public void run() {
                                 PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), 700142, 3000, 0));
-                                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.START_LOOT, 0, 700142), true);
+                                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.NEUTRALMODE2, 0, 700142), true);
                                 QuestService.addNewSpawn(320030000, 1, 210753, (float) 260.12, (float) 234.93, (float) 216.00, (byte) 90, true);
                             }
                         }, 3000);
@@ -110,19 +114,24 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
 
                 }
                 break;
-                case 700141: {
+                case 700140: {
                     if (qs.getQuestVarById(0) == 4) {
+                        TeleportService.teleportTo(player, 220030000, 2453.0f, 2553.2f, 316.3f, 26);
                         qs.setStatus(QuestStatus.REWARD);
                         updateQuestStatus(env);
-                        TeleportService.teleportTo(player, 220030000, 2453.0f, 2553.2f, 316.3f, 26);
-                        PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
+                        PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 154));
                         return true;
                     }
                 }
             }
         } else if (qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 203557)
-                return defaultQuestEndDialog(env);
+            {
+                if (env.getDialogId() == -1)
+                    return sendQuestDialog(env, 1352);
+                else
+                    return defaultQuestEndDialog(env);
+            }
         }
         return false;
     }
