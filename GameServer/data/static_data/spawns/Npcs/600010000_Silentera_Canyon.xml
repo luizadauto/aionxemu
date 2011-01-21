@@ -246,4 +246,28 @@
 	<spawn map="600010000" npcid="730231" pool="1" interval="295">
 		<object x="1418.62" y="767.215" z="312.866" h="119"/>
 	</spawn>
+   <!-- Silentera to Agrief Ruins -->
+   <spawn map="600010000" npcid="730257" pool="1" interval="295">
+      <object x="1020.5811" y="968.00543" z="310.14017" h="0"/>
+   </spawn>
+   <!-- Silentera to Hanarkand -->
+   <spawn map="600010000" npcid="730258" pool="1" interval="295">
+      <object x="919.65155" y="150.1299" z="346.56458" h="0"/>
+   </spawn>
+   <!-- Silentera to pimeval pass -->
+   <spawn map="600010000" npcid="730259" pool="1" interval="295">
+      <object x="981.41003" y="557.9709" z="311.27164" h="0"/>
+   </spawn>
+   <!-- Silentera to Mitrakand -->
+   <spawn map="600010000" npcid="730261" pool="1" interval="295">
+      <object x="406.69403" y="1407.3597" z="320.91837" h="0"/>
+   </spawn>
+   <!-- Silentera to vorgaltem -->
+   <spawn map="600010000" npcid="730262" pool="1" interval="295">
+      <object x="882.6667" y="1356.9557" z="334.92102" h="0"/>
+   </spawn>
+   <!-- Silentera to Earthfang pass -->
+   <spawn map="600010000" npcid="730263" pool="1" interval="295">
+      <object x="1020.5811" y="968.00543" z="310.14017" h="0"/>
+   </spawn>
 </spawns>

@@ -431,4 +431,8 @@
 		<object x="230.11792" y="268.09174" z="144.89798" h="32"/>
 		<object x="218.20526" y="267.85486" z="144.89798" h="29"/>
 	</spawn>
+	<!-- Debris of Abyss > Divine -->
+	<spawn map="300200000" npcid="730317" pool="1" interval="300">
+		<object x="522.24463" y="666.44861" z="430.14731" h="32"/>
+	</spawn>
 </spawns>

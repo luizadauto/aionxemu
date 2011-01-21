@@ -446,4 +446,28 @@
 		<object staticid="267" x="654.24506" y="153.35245" z="165.93904" h="75"/>
 		<object staticid="266" x="478.52997" y="514.54663" z="187.63083" h="88"/>
 	</spawn>
+	<!-- Assistant's Journal (Quests Project Drakanhammer) -->
+	<spawn map="310110000" npcid="730153" pool="1" interval="295">
+		<object x="525.484" y="740.184" z="203.839" h="31"/>
+	</spawn>
+	<!-- Golem Spirit Nomura (Monster Elite lvl:50) -->
+	<spawn map="310110000" npcid="214665" pool="1" interval="14400">
+		<object x="380.6703" y="503.70212" z="186.03194" h="89"/>
+	</spawn>
+	<!-- Water Spirit Undine (Monster Elite lvl:50) -->
+	<spawn map="310110000" npcid="214666" pool="1" interval="14400">
+		<object x="285.82153" y="510.61017" z="187.60928" h="105"/>
+	</spawn>
+	<!-- Wistful Syripne (Monster Elite lvl:50) -->
+	<spawn map="310110000" npcid="214664" pool="1" interval="14400">
+		<object x="474.90924" y="511.09106" z="187.63083" h="74"/>
+	</spawn>
+	<!-- Mikurinrinerk -->
+	<spawn map="310110000" npcid="798223" pool="1" interval="14400">
+		<object x="361.06635" y="525.2215" z="186.20251" h="58"/>
+	</spawn>
+	<!-- Theobomos Lab Exit (Object Normal lvl:1) -->
+	<spawn map="310110000" npcid="730168" pool="1" interval="295">
+		<object staticid="74" x="635.6851" y="478.9106" z="195.47614" h="58"/>
+	</spawn>	
 </spawns>

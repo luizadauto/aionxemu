@@ -1202,4 +1202,20 @@
     <spawn interval="295" pool="1" npcid="798375" map="300100000">
         <object x="529.74664" y="523.48047" z="952.4911" h="87"/>
     </spawn>
+    <!-- Captain's Cabin Teleport Device -->
+    <spawn interval="295" pool="1" npcid="730197" map="300100000">
+        <object x="406.9" y="496.21" z="1071.9" h="0"/>
+    </spawn>
+    <!-- Elevator Lever (middle deck to lower deck) -->
+    <spawn interval="295" pool="1" npcid="730216" map="300100000">
+        <object x="282.802" y="453.415" z="952.55" h="0"/>
+    </spawn>
+    <!-- The Brig Entrance -->
+    <spawn interval="295" pool="1" npcid="730200" map="300100000">
+        <object x="461.45" y="486.63" z="877.714" h="0"/>
+    </spawn>
+    <!-- The Brig Entrance -->
+    <spawn interval="295" pool="1" npcid="730201" map="300100000">
+        <object x="461.807" y="488.18127" z="877.7017" h="0"/>
+    </spawn>
 </spawns>

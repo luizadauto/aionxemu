@@ -1268,4 +1268,12 @@
 	<spawn map="220020000" npcid="204319" pool="1" interval="295">
 		<object x="311.83" y="2271.25" z="449.41266" h="40"/>
 	</spawn>
+	<!-- Sky Temple Interior / Wind Room Entrance -->
+	<spawn map="220020000" npcid="730043" pool="1" interval="295">
+		<object x="1684.3113" y="1155.8898" z="200.3536" h="0"/>
+	</spawn>
+	<!-- Sky Temple Interior / Fire Room Entrance -->
+	<spawn map="220020000" npcid="730045" pool="1" interval="295">
+		<object x="1686.6586" y="1142.5929" z="200.3536" h="0"/>
+	</spawn>
 </spawns>

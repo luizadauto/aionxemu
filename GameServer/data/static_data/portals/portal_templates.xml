@@ -533,12 +533,12 @@
 		<entrypoint mapid="600010000" x="981.41003" y="557.9709" z="311.27164"/>
 		<exitpoint mapid="210050000" x="405.25473" y="2062.1338" z="332.26474"/>
 	</portal>
-	<!-- Taloc's Hollow Elyos-->
+	<!-- Taloc's Hollow Elyos -->
 	<portal npcid="799022" minlevel="51" maxlevel="55" instance="true" group="false" usedelay="27600" race="ELYOS">
  		<entrypoint mapid="210050000" x="2895.888" y="352.69165" z="299.68256"/>
  		<exitpoint mapid="300190000" x="199.87788" y="212.72118" z="1098.889"/>
  	</portal>
-	<!-- Taloc's Hollow Asmos-->
+	<!-- Taloc's Hollow Asmos -->
 	<portal npcid="799325" minlevel="51" maxlevel="55" instance="true" group="false" usedelay="27600" race="ASMODIANS">
 		<entrypoint mapid="220070000" x="981.11395" y="2565.7437" z="241.7037"/>
 		<exitpoint mapid="300190000" x="199.87788" y="212.72118" z="1098.889"/>
