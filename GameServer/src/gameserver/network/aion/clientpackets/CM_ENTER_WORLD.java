@@ -393,8 +393,8 @@ public class CM_ENTER_WORLD extends AionClientPacket {
     @SuppressWarnings("unused")
 	private static String[] getWelcomeMessage() {
         return new String[]{
-                "Welcome to " + GSConfig.SERVER_NAME + ", powered by Aion Engine rev " + AEVersions.getGameRevision(gs),
-                "This software is under LGPLv3. See our website for more info: http://www.aion-engine.com"
+                "Welcome to " + GSConfig.SERVER_NAME + ", powered by Aion X EMU rev " + AEVersions.getGameRevision(gs),
+                "This software is under LGPLv3. See our website for more info: http://www.aionxemu.com"
         };
     }
 
