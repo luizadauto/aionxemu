@@ -74,7 +74,9 @@ public class CraftSkillUpdateService {
         cost.put(199, 115000);
         cost.put(299, 460000);
         cost.put(399, 1500000);
+		cost.put(449, 3400000);
         cost.put(499, 3500000);
+		cost.put(549, 9400000);
 
         craftingSkillIds.add(40001);
         craftingSkillIds.add(40002);

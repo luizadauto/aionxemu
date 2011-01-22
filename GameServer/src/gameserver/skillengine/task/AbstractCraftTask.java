@@ -19,6 +19,7 @@ package gameserver.skillengine.task;
 import com.aionemu.commons.utils.Rnd;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.configs.main.CraftConfig;
 
 /**
  * @author ATracer
@@ -44,7 +45,7 @@ public abstract class AbstractCraftTask extends AbstractInteractionTask {
         this.successValue = successValue;
         this.failureValue = failureValue;
         this.skillLvlDiff = skillLvlDiff;
-        this.critical = Rnd.get(100) <= 15;
+        this.critical = Rnd.get(100) <= CraftConfig.CRIT_CRAFT;
     }
 
     @Override
