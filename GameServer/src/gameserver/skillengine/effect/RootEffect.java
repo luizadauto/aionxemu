@@ -56,6 +56,8 @@ public class RootEffect extends EffectTemplate {
             /*Temporary hack for unbreakable roots*/
             case 322: //Ankle Snare
 			case 1973: //punishing wave I
+		    case 227: //Tendon Slice I
+		    case 228: //Tendon Slice II
 			case 1974: //punishing wave II
             case 2008: //Flames of Anguish I
             case 8537:

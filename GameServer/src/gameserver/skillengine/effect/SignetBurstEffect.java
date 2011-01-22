@@ -46,11 +46,16 @@ public class SignetBurstEffect extends DamageEffect {
         int valueWithDelta = value + delta * effect.getSkillLevel();
         int finalDamage = valueWithDelta * level / 5;
 
-        effect.setReserved1(finalDamage);
-        effect.addSucessEffect(this);
-
-        signetEffect.endEffect();
-    }
+        if(level <3){
+            effect.setReserved1(finalDamage);
+            signetEffect.endEffect();
+             }
+        else{
+            effect.setReserved1(finalDamage);
+            effect.addSucessEffect(this);
+            signetEffect.endEffect();
+            }
+        }
 
     @Override
     public void startEffect(Effect effect) {
