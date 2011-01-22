@@ -95,6 +95,12 @@ public class TransformEffect extends EffectTemplate {
         {
             case (689):        //MAU transform effect
             case (690):
+            case (10265):   // transform candy
+            case (10266):
+            case (10281):
+            case (10282):
+            case (10260):
+            case (10261):
             case (780):
             case (781):
             case (782):
