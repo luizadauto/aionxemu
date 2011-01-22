@@ -1408,10 +1408,6 @@
 	<spawn map="400010000" npcid="700530" pool="1" interval="295">
 		<object x="2784.9946" y="2664.0283" z="1486.7031" h="0" staticid="1216"/>
 	</spawn>
-	<!-- Artifacts Spawn = for Fortress AI BALAUR -->
-	<spawn map="400010000" npcid_dr="295058" pool="1" interval="295">	
-		<object x="2144.6284" y="1956.2332" z="1595.6572" h="0" staticid="290"/>
-	</spawn>
 	<!-- Flame Meteor -->
 	<spawn map="400010000" npcid="294515" pool="3" interval="295">
 		<object x="-2.9624345E-5" y="4.8502414E-5" z="-1.4372003E-4" h="0" staticid="241"/>
@@ -1419,11 +1415,7 @@
 		<object x="-2.9624345E-5" y="4.8502414E-5" z="-1.4372003E-4" h="0" staticid="336"/>
 	</spawn>
 	<!-- Abyssal Splinter -->
-	<spawn map="400010000" npcid_dr="282014" pool="1" interval="295">	
+	<spawn map="400010000" npcid="282014" pool="1" interval="295">	
 		<object x="2203.18700" y="1928.18119" z="2303.04434" h="0"/>
-	</spawn>
-	<!-- Abyss Core aka Debris of Abyss -->
-	<spawn map="400010000" npcid_dr="730356" pool="1" interval="295">	
-		<object x="2784.99" y="2664.03" z="1486.7" h="0"/>
 	</spawn>
 </spawns>
