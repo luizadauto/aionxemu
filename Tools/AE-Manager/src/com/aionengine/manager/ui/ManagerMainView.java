@@ -201,7 +201,7 @@ public class ManagerMainView extends JFrame {
 					        if (bg.isSelected(loginButton.getModel())){
 					        	serverId=0;
 					        	sb=loginButton;
-						        arg4="./libs/*;ae-login-1.0.1.jar";
+						        arg4="./libs/*;ax-login-1.0.1.jar";
 					        	arg5="-Xbootclasspath/p:./libs/jsr166.jar";
 						        arg6="loginserver.LoginServer";
 						        dr=new File("./loginserver/");
@@ -210,7 +210,7 @@ public class ManagerMainView extends JFrame {
 					        else if (bg.isSelected(gameButton.getModel())){
 					        	serverId=1;
 					        	sb=gameButton;
-						        arg4="./libs/*;ae-game-1.0.1.jar";
+						        arg4="./libs/*;ax-game-1.0.1.jar";
 						        arg5="gameserver.GameServer";
 						        arg6="";
 						        dr=new File("./gameserver/");
@@ -219,7 +219,7 @@ public class ManagerMainView extends JFrame {
 					        else {
 					        	serverId=2;
 					        	sb=chatButton;
-						        arg4="./libs/*;ae-chat-1.0.1.jar";
+						        arg4="./libs/*;ax-chat-1.0.1.jar";
 						        arg5="com.aionengine.chatserver.ChatServer";
 						        arg6="";
 						        dr=new File("./chatserver/");
