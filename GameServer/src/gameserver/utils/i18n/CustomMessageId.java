@@ -20,11 +20,11 @@ package gameserver.utils.i18n;
  * @author xavier
  */
 public enum CustomMessageId {
-	WELCOME_VIP("Welcome VIP Member to %s server.\nCopyright 2010 www.aion-engine.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
-    WELCOME_PREMIUM("Welcome Premium Member to %s server.\nCopyright 2010 www.aion-engine.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
-    WELCOME_REGULAR("Welcome to %s server.\nCopyright 2010 www.aion-engine.com. .\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
+	WELCOME_VIP("Welcome VIP Member to %s server.\nCopyright 2011 www.aionxemu.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
+    WELCOME_PREMIUM("Welcome Premium Member to %s server.\nCopyright 2010 www.aionxemu.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
+    WELCOME_REGULAR("Welcome to %s server.\nCopyright 2011 www.aionxemu.com. .\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
     SERVER_REVISION("Server Revision: %-6s"),
-    WELCOME_BASIC("Welcome to %s server.\nCopyright 2010 www.aion-engine.com."),
+    WELCOME_BASIC("Welcome to %s server.\nCopyright 2011 www.aionxemu.com."),
     ANNOUNCE_GM_CONNECTION("%s just entered into Atreia."),
     COMMAND_NOT_ENOUGH_RIGHTS("You dont have enough rights to execute this command"),
     PLAYER_NOT_ONLINE("The player %s is not online"),
