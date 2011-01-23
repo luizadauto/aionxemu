@@ -51,9 +51,15 @@
 		<exitpoint mapid="300230000" x="228.86" y="251.32818" z="191.239"/>
 	</portal>
 	<!-- Kromede's Trial Under -->
-	<portal npcid="282093" minlevel="37" maxlevel="44" instance="true" group="false">
+	<portal npcid="730308" minlevel="37" maxlevel="44" instance="true" group="false">
 		<entrypoint mapid="300230000" x="350.2753" y="168.3488" z="147.7241"/>
 		<exitpoint mapid="300230000" x="689.103" y="508.88618" z="197.901"/>
+	</portal>
+	<!-- Kromede's Trial Exit-->
+	<portal npcid="700928" minlevel="37" maxlevel="44" instance="false" group="false">
+        <entrypoint mapid="300230000" x="680.7784" y="774.01013" z="216.88036"/>
+        <exitpoint mapid="210040000" x="170.42387" y="1619.6165" z="120.853546" race="ELYOS"/>
+        <exitpoint mapid="220040000" x="1929.999" y="507.82068" z="412.25" race="ASMODIANS"/>
 	</portal>
 	<!-- Kysis Chamber -->
 	<portal npcid="700535" instance="true" minlevel="40" maxlevel="55" group="true" usedelay="57600">
