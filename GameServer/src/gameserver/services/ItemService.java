@@ -1,5 +1,5 @@
 /**
- * This file is part of Aion X Emu <aionxemu.com>
+* This file is part of Aion X Emu <aionxemu.com>
  *
  *  This is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser Public License as published by
@@ -381,6 +381,7 @@ public class ItemService {
             return;
 
         //check if item is storable
+        if(destinationStorageType < 32 || destinationStorageType > 35) //pets storages
         if (!item.isStorable(destinationStorageType))
             return;//TODO: proper message
 

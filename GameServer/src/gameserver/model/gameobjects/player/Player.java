@@ -92,6 +92,7 @@ public class Player extends Creature {
     private ResponseRequester requester;
     private boolean lookingForGroup = false;
     private Storage inventory;
+	private Storage[]	petBag = new Storage[4];
     private Storage regularWarehouse;
     private Storage accountWarehouse;
     private Equipment equipment;
@@ -456,7 +457,12 @@ public class Player extends Creature {
             inventory.setOwner(this);
         }
 
+        if (storageType .getId() > 31 && storageType.getId() < 36) {
+        	this.petBag[storageType.getId()-32] = storage;
+        			}
+        			
         if (storageType == StorageType.REGULAR_WAREHOUSE) {
+
             this.regularWarehouse = storage;
             regularWarehouse.setOwner(this);
         }
@@ -481,6 +487,9 @@ public class Player extends Creature {
         if (storageType == StorageType.LEGION_WAREHOUSE.getId())
             return getLegion().getLegionWarehouse();
 
+        if (storageType > 31 && storageType < 36)
+        	return petBag[storageType-32];
+        	
         if (storageType == StorageType.CUBE.getId())
             return inventory;
         else
@@ -515,6 +524,17 @@ public class Player extends Creature {
             dirtyItems.addAll(accountWhStorage.getDeletedItems());
             accountWhStorage.setPersistentState(PersistentState.UPDATED);
         }
+        	
+        for (int petBagId = 32; petBagId < 36; petBagId++)
+        	{
+        		Storage  petBag = getStorage(petBagId);
+        		if(petBag.getPersistentState() == PersistentState.UPDATE_REQUIRED)
+        			{
+        			dirtyItems.addAll(petBag.getAllItems());
+        			dirtyItems.addAll(petBag.getDeletedItems());
+        			petBag.setPersistentState(PersistentState.UPDATED);
+        			}
+        		}
 
         Equipment equipment = getEquipment();
         if (equipment.getPersistentState() == PersistentState.UPDATE_REQUIRED) {

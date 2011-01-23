@@ -73,6 +73,22 @@ public class Storage {
                 storage = new ItemStorage(25); // TODO: FIND OUT WHAT MAX IS
                 this.storageType = storageType.getId();
                 break;
+            case PET_BAG_6:
+                storage = new ItemStorage(6);
+                this.storageType = storageType.getId();
+                break;
+            case PET_BAG_12:
+            	storage = new ItemStorage(12);
+            	this.storageType = storageType.getId();
+            	break;
+            case PET_BAG_18:
+            	storage = new ItemStorage(18);
+            	this.storageType = storageType.getId();
+            	break;
+            case PET_BAG_24:
+            	storage = new ItemStorage(24);
+            	this.storageType = storageType.getId();
+                break;
         }
     }
 

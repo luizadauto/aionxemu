@@ -199,7 +199,16 @@ public class PlayerService {
 
         player.setStorage(inventory, StorageType.CUBE);
 
-        Storage warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
+       for (int petBagId = 32; petBagId<36; petBagId++) {
+		
+			Storage petBag = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.getStorageTypeById(petBagId));
+			ItemService.loadItemStones(petBag.getStorageItems());
+			
+			player.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
+		}
+        		
+		Storage warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
+
         ItemService.loadItemStones(warehouse.getStorageItems());
 
         player.setStorage(warehouse, StorageType.REGULAR_WAREHOUSE);
@@ -271,7 +280,14 @@ public class PlayerService {
         newPlayer.setEquipment(equipment);
         newPlayer.setMailbox(new Mailbox());
 
-        for (ItemType itemType : items) {
+       for (int petBagId = 32; petBagId < 36; petBagId++) {
+			
+			Storage petBag = new Storage(StorageType.getStorageTypeById(petBagId));
+			newPlayer.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
+        }
+		
+		for (ItemType itemType : items) {
+
             int itemId = itemType.getTemplate().getTemplateId();
             Item item = ItemService.newItem(itemId, itemType.getCount());
             if (item == null)
