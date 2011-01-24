@@ -885,10 +885,6 @@
 		<object x="1458.1332" y="2331.5222" z="639.64655" h="30"/>
 		<object x="1437.9639" y="2333.7866" z="641.33856" h="73"/>
 	</spawn>
-	<!-- Bakarma Cursewitch (Monster Elite lvl:47)-->
-	<spawn map="220040000" npcid="213444" pool="1" interval="300">
-		<object x="1604.0" y="2728.0" z="705.625" h="118"/>
-	</spawn>
 	<!-- Bakarma Duelist (Monster Elite lvl:44)-->
 	<spawn map="220040000" npcid="213667" pool="21" interval="300">
 		<object x="1512.5349" y="2003.2079" z="597.14105" h="14"/>
@@ -2186,10 +2182,6 @@
 		<object x="1519.7378" y="2068.4902" z="594.98456" h="78"/>
 		<object x="1599.1814" y="2129.0999" z="587.89996" h="5"/>
 		<object x="1593.7299" y="2112.558" z="584.6035" h="2"/>
-	</spawn>
-	<!-- Commander Bakarma (Boss Hero lvl:50)-->
-	<spawn map="220040000" npcid="213780" pool="1" interval="14400">
-		<object x="1606.0" y="2730.0" z="705.375" h="44"/>
 	</spawn>
 	<!-- Commander Brhekman (Named Mob Hero lvl:45)-->
 	<spawn map="220040000" npcid="213765" pool="1" interval="14400">
