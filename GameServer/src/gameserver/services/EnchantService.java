@@ -222,7 +222,7 @@ public class EnchantService {
 
         targetItem.setEnchantLevel(currentEnchant);
 
-        if (targetItem.isEquipped())
+        if (targetItem.isEquipped() && !targetItem.isWeaponSwapped(player))
             onItemEquip(player, targetItem);
 
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(targetItem));

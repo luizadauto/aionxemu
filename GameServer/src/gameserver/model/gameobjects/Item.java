@@ -18,6 +18,7 @@ package gameserver.model.gameobjects;
 
 import gameserver.dataholders.DataManager;
 import gameserver.itemengine.actions.ItemActions;
+import gameserver.model.gameobjects.player.Player;
 import gameserver.model.items.FusionStone;
 import gameserver.model.items.GodStone;
 import gameserver.model.items.ItemStorage;
@@ -547,4 +548,26 @@ public class Item extends AionObject {
 		
 		return false;
 	}
+    
+    /**
+     * Tests whether the Item is a weapon and has been swapped into the
+     * non-active hand slot for a given Player.
+     *
+     * @param player
+     * @return Weapon Swapped Outcome.
+     */
+    public boolean isWeaponSwapped(final Player player)
+    {
+        // Does not add weapon stats if the weapon has been swapped.
+        if (itemTemplate.isArmor())
+            return false;
+        if (itemTemplate.isWeapon() &&
+            (this == player.getEquipment().getMainHandWeapon() ||
+             this == player.getEquipment().getOffHandWeapon()))
+        {
+            return false;
+        }
+        return true;
+    }
+
 }
