@@ -93,6 +93,9 @@ public class DarkPoetaInstanceService {
                 break;
             
             default:
+                if (monster.getObjectTemplate().getRace() == null)
+                    break;
+
                 switch (monster.getObjectTemplate().getRace().getRaceId()) {
                     case 22:  //UNDEAD
                         pointsReward = 12;

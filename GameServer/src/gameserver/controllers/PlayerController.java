@@ -346,25 +346,27 @@ public class PlayerController extends CreatureController<Player> {
     }
 
     public void onAttack(Creature creature, int skillId, TYPE type, int damage, int unknown, boolean notifyAttackedObservers) {
-        if (getOwner().getLifeStats().isAlreadyDead())
+        Player player = getOwner();
+
+        if (player.getLifeStats().isAlreadyDead())
             return;
 
         // Reduce the damage to exactly what is required to ensure death.
         // - Important that we don't include 7k worth of damage when the
         //   creature only has 100 hp remaining. (For AggroList dmg count.)
-        if (damage > getOwner().getLifeStats().getCurrentHp())
-            damage = getOwner().getLifeStats().getCurrentHp() + 1;
+        if (damage > player.getLifeStats().getCurrentHp())
+            damage = player.getLifeStats().getCurrentHp() + 1;
 
         super.onAttack(creature, skillId, type, damage, notifyAttackedObservers);
 
-        if (getOwner().isInvul() || getOwner().isProtect() || getOwner().isProtectionActive())
+        if (player.isInvul() || player.isProtect() || player.isProtectionActive())
             damage = 0;
 
-        getOwner().getLifeStats().reduceHp(damage, creature, false);
+        player.getLifeStats().reduceHp(damage, creature, false);
 
-        PacketSendUtility.broadcastPacket(getOwner(), new SM_ATTACK_STATUS(getOwner(), type, skillId, damage, unknown), true);
-        if (getOwner().getLifeStats().isAlreadyDead()) {
-            getOwner().getController().onDie(creature);
+        PacketSendUtility.broadcastPacket(player, new SM_ATTACK_STATUS(player, type, skillId, damage, unknown), true);
+        if (player.getLifeStats().isAlreadyDead()) {
+            player.getController().onDie(creature);
         }
     }
 

@@ -19,7 +19,13 @@ package gameserver.model.gameobjects;
 import gameserver.controllers.VisibleObjectController;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.spawn.SpawnTemplate;
-import gameserver.world.*;
+
+import gameserver.world.World;
+import gameserver.world.WorldPosition;
+import gameserver.world.KnownList;
+import gameserver.world.MapRegion;
+import gameserver.world.WorldType;
+
 
 /**
  * This class is representing visible objects. It's a base class for all in-game objects that can be spawned in the

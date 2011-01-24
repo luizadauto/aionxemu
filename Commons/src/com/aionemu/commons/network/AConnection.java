@@ -98,7 +98,10 @@ public abstract class AConnection {
 
         dispatcher.register(socketChannel, SelectionKey.OP_READ, this);
 
-        this.ip = socketChannel.socket().getInetAddress().getHostAddress();
+        if (socketChannel == null)
+            this.ip = "";
+        else
+            this.ip = socketChannel.socket().getInetAddress().getHostAddress();
     }
 
     /**
