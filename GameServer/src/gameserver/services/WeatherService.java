@@ -117,6 +117,8 @@ public class WeatherService {
     private void checkWeathersTime() {
         List<WeatherKey> toBeRefreshed = new ArrayList<WeatherKey>();
         for (WeatherKey key : worldWeathers.keySet()) {
+            if (key == null)
+                continue;
             if (key.isOutDated()) {
                 toBeRefreshed.add(key);
             }
@@ -152,11 +154,15 @@ public class WeatherService {
      */
     private WeatherKey getKeyFromMapByWorldMap(WorldMap map) {
         for (WeatherKey key : worldWeathers.keySet()) {
+            if (key == null)
+                continue;
             if (key.getMap().equals(map)) {
                 return key;
             }
         }
         WeatherKey newKey = new WeatherKey(new Date(), map);
+        if (newKey == null)
+            return null;
         worldWeathers.put(newKey, getRandomWeather());
         return newKey;
     }
@@ -190,6 +196,8 @@ public class WeatherService {
     public void changeRegionWeather(int regionId, Integer weatherType) {
         WorldMap worldMap = World.getInstance().getWorldMap(regionId);
         WeatherKey key = getKeyFromMapByWorldMap(worldMap);
+        if (key == null)
+            return;
         worldWeathers.put(key, weatherType);
         onWeatherChange(worldMap, null);
     }
