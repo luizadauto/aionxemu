@@ -185,8 +185,8 @@ public class ManagerMainView extends JFrame {
 		btStart.addActionListener (new ActionListener() {
 			  public void actionPerformed (ActionEvent e) {
 					        String cmd="java";
-					        String arg="-Xms512m";
-					        String arg1="-Xmx1536m";
+							String arg;
+					        String arg1;
 					        String arg2="-ea";
 					        String arg3="-cp";
 					        String arg4;
@@ -201,6 +201,8 @@ public class ManagerMainView extends JFrame {
 					        if (bg.isSelected(loginButton.getModel())){
 					        	serverId=0;
 					        	sb=loginButton;
+								arg="-Xms8m";
+								arg1="-Xmx32m";
 						        arg4="./libs/*;ax-login-1.0.1.jar";
 					        	arg5="-Xbootclasspath/p:./libs/jsr166.jar";
 						        arg6="loginserver.LoginServer";
@@ -210,6 +212,8 @@ public class ManagerMainView extends JFrame {
 					        else if (bg.isSelected(gameButton.getModel())){
 					        	serverId=1;
 					        	sb=gameButton;
+								arg="-Xms512m";
+								arg1="-Xmx1536m";
 						        arg4="./libs/*;ax-game-1.0.1.jar";
 						        arg5="gameserver.GameServer";
 						        arg6="";
@@ -219,6 +223,8 @@ public class ManagerMainView extends JFrame {
 					        else {
 					        	serverId=2;
 					        	sb=chatButton;
+								arg="-Xms8m";
+								arg1="-Xmx32m";
 						        arg4="./libs/*;ax-chat-1.0.1.jar";
 						        arg5="com.aionengine.chatserver.ChatServer";
 						        arg6="";
