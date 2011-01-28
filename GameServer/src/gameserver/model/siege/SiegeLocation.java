@@ -114,7 +114,7 @@ public class SiegeLocation
 	/**
 	 * @param nextState
 	 */
-	public void setNextState(Integer nextState)
+	public void setNextState(int nextState)
 	{
 		this.nextState = nextState;
 	}
