@@ -1108,17 +1108,17 @@
 	<spawn map="220020000" npcid="204340" pool="1" interval="295">
 		<object x="2474.867" y="1800.4585" z="95.65601" h="104"/>
 	</spawn>
-	<!-- Teleporter Wind Room -->
-	<spawn map="220020000" npcid="730069" pool="1" interval="295">
-		<object x="1687.0657" y="1162.9025" z="200.35359" h="23"/>
+	<!-- Sky Temple Teleporter - Fire Room -->
+	<spawn map="220020000" npcid="730045" pool="1" interval="295">
+		<object x="1686.95" y="1141.74" z="200.35" h="98"/>
 	</spawn>
-	<!-- Teleporter Water Room -->
-	<spawn map="220020000" npcid="730070" pool="1" interval="295">
-		<object x="1662.9065" y="1145.7198" z="199.42644" h="3"/>
+	<!-- Sky Temple Teleporter - Wind Room -->
+	<spawn map="220020000" npcid="730043" pool="1" interval="295">
+		<object x="1684.85" y="1158.97" z="200.35" h="24"/>
 	</spawn>
-	<!-- Teleporter Fire Room -->
-	<spawn map="220020000" npcid="730111" pool="1" interval="295">
-		<object x="1698.849" y="1139.4103" z="199.31949" h="50"/>
+	<!-- Sky Temple Teleporter - Water Room -->
+	<spawn map="220020000" npcid="730041" pool="1" interval="295">
+		<object x="1670.90" y="1146.98" z="200.44" h="61"/>
 	</spawn>
 	<!-- Teleporter Fire Temple -->
 	<spawn map="220020000" npcid="730047" pool="1" interval="295">
@@ -1267,13 +1267,5 @@
 	<!-- Yornduf (NPC Normal lvl:45)-->
 	<spawn map="220020000" npcid="204319" pool="1" interval="295">
 		<object x="311.83" y="2271.25" z="449.41266" h="40"/>
-	</spawn>
-	<!-- Sky Temple Interior / Wind Room Entrance -->
-	<spawn map="220020000" npcid="730043" pool="1" interval="295">
-		<object x="1684.3113" y="1155.8898" z="200.3536" h="0"/>
-	</spawn>
-	<!-- Sky Temple Interior / Fire Room Entrance -->
-	<spawn map="220020000" npcid="730045" pool="1" interval="295">
-		<object x="1686.6586" y="1142.5929" z="200.3536" h="0"/>
 	</spawn>
 </spawns>
