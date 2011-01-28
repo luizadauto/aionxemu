@@ -49,7 +49,7 @@ public class CM_REGISTER_BROKER_ITEM extends AionClientPacket {
     @Override
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
-        if (price < 1 || itemCount < 1)
+        if (price < 0 || itemCount < 1)
         {
                 log.warn("[AUDIT] Possible client hack Player: "+player.getName()+" Account name: "+player.getAcountName()+toString());
                 player.getClientConnection().close(true);

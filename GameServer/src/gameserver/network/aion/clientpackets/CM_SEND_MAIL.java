@@ -57,7 +57,7 @@ public class CM_SEND_MAIL extends AionClientPacket {
     @Override
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
-        if(kinahCount < 0 || itemCount < 0) {
+        if(kinahCount < 0 || itemCount < -1) {
             log.warn("[AUDIT] Possible client hack Player: "+player.getName()+" Account name: "+player.getAcountName()+toString());
             player.getClientConnection().close(true);
             return;
