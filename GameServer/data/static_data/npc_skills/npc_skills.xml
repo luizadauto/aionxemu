@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <npc_skill_templates>
+	 <!-- Padmarashka -->
+	<npcskills npcid="216580" skill_count="4">
+		<!-- Protective Slumber - invul 15 sec! -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="19186" id="1"/>
+		<!-- Padmarashka's Nurturing - reflect -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18727" id="2"/> 
+		<!-- Destructive Bite - normal attack -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18728" id="3"/>
+		<!-- Destructive Claw -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18729" id="4"/>
+		<!-- Lightning Burst - Ranged lightning attack - 5k dmg -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18732" id="5"/>
+		<!-- Acidic Mist - HydrochloricAcid (Strong DoT) - 750 x 2 -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18733" id="6"/>
+		<!-- Berserk State - Absorb Vitality and massive damage increase. ? -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18730" id="7"/>
+		<!-- aoe 100.000 k -->
+<!--	<npcskill abouthp="false" probability="3" skilllevel="1" skillid="18731" id="8"/>			-->
+		<!-- Acid Bomb - aoe 100.000 k -->
+<!--	<npcskill abouthp="false" probability="3" skilllevel="1" skillid="18734" id="9"/>			-->
+	</npcskills>
+	<!-- Sematariux -->
+	<npcskills npcid="216520" skill_count="7">
+		<!-- Protective Slumber - invul 15 sec! -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="19186" id="1"/>
+		<!-- Padmarashka's Nurturing - reflect -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18727" id="2"/> 
+		<!-- Destructive Bite - normal attack -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18728" id="3"/>
+		<!-- Destructive Claw -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18729" id="4"/>
+		<!-- Lightning Burst - Ranged lightning attack - 5k dmg -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18732" id="5"/>
+		<!-- Acidic Mist - HydrochloricAcid (Strong DoT) - 750 x 2 -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18733" id="6"/>
+		<!-- Berserk State - Absorb Vitality and massive damage increase. ? -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18730" id="7"/>
+		<!-- aoe 100.000 k -->
+<!--	<npcskill abouthp="false" probability="3" skilllevel="1" skillid="18731" id="8"/>			-->
+		<!-- Acid Bomb - aoe 100.000 k -->
+<!--	<npcskill abouthp="false" probability="3" skilllevel="1" skillid="18734" id="9"/>			-->
+	</npcskills>
+	 <!-- Enraged Veille -->
+	<npcskills npcid="258200" skill_count="6">
+		<!-- Agent's Call - Teleport the target in front of the caster and Snare. Area of effect. 90% snare - doesnt teleport -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18709" id="1"/>
+		<!-- Withering Stare - Ranged snare and physical and magical defense decreased. -90% speed -25% phy def / -25% magic res -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18710" id="2"/>
+		<!-- Agent's Wrath - Gamehame Wave - atack normal aoe 990 -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18711" id="3"/>
+		<!-- Trap Strike aoe - Casting time increased. Attack speed decreased -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18712" id="4"/>
+		<!-- Power of Protection - A shield that protects the caster.							15 sec invul - cooldown 180000=3min -->
+		<npcskill abouthp="false" probability="5" skilllevel="1" skillid="18985" id="5"/>
+		<!-- Sinful Retribution - Powerful Attack - 3sec stunn +748 dmg - delta=2 + weapon dmg -->
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18986" id="6"/>
+		<!-- Fool's Bane - Inflicts enough damage to kill the target with a single blow. 100k dmg -->
+<!--	<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18987" id="7"/> -->
+	</npcskills>
+	<!-- Enraged Mastarius -->
+	<npcskills npcid="258205" skill_count="6">
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18709" id="1"/>
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18710" id="2"/>
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18711" id="3"/>
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18712" id="4"/>
+		<npcskill abouthp="false" probability="5" skilllevel="1" skillid="18985" id="5"/>
+		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18986" id="6"/>
+<!--	<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18987" id="7"/> -->
+	</npcskills>
     <npcskills npcid="201010" skill_count="6">
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="17436" id="1"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="17610" id="2"/>
