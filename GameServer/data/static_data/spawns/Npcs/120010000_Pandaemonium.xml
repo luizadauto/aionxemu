@@ -20,6 +20,10 @@
 	@author Magenik 2.0.0.3 Spawn (EU Retail info)
  -->
 <spawns>
+	<!-- Obelisk Pandaemonium (Object Normal lvl:3) -->
+	<spawn map="120010000" npcid="700062" pool="1" interval="295">
+		<object x="1457.07" y="1413.6259" z="178.26524" h="29"/>
+	</spawn>
 	<!-- Tamed Worg -->
 	<spawn map="120010000" npcid="203361" pool="1" interval="295">
 		<object h="30" x="1280.1067" y="1177.0044" z="215.09244"/>

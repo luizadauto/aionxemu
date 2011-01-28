@@ -5,7 +5,7 @@
 	<!-- Sanctum -->
 	<bind_point name="Sanctum" npcid="700018" bindid="1" mapid="110010000" posX="1476.3" posY="1595.5" posZ="572.9" price="1540"/>
 	<!-- Pandemonium -->
-	<bind_point name="Pandaemonium" npcid="700257" bindid="2" mapid="120010000" posX="1456.9" posY="1417.0" posZ="177.5" price="1540"/>
+	<bind_point name="Pandaemonium" npcid="700062" bindid="2" mapid="120010000" posX="1456.9" posY="1417.0" posZ="177.5" price="1540"/>
 	<!-- Poeta -->
 	<bind_point name="Akarios Village" npcid="700013" bindid="3" mapid="210010000" posX="855.3" posY="1209.4" posZ="117.8" price="97"/>
 	<bind_point name="Melponeh Campsite" npcid="700014" bindid="4" mapid="210010000" posX="425.8" posY="1744.5" posZ="119.8" price="134"/>
