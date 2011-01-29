@@ -64,29 +64,24 @@ public class _2938SecretLibraryAccess extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
 
         if (targetId == 204267) {
-            if (qs == null || qs.getStatus() == QuestStatus.NONE) 
-			{
+            if (qs == null || qs.getStatus() == QuestStatus.NONE) {
                 if (env.getDialogId() == 25)
                     return sendQuestDialog(env, 4762);
                 else return defaultQuestStartDialog(env);
             } 
-			else if (qs.getStatus() == QuestStatus.REWARD && qs.getQuestVarById(0) == 0) 
-			{
+			else if (qs.getStatus() == QuestStatus.REWARD && qs.getQuestVarById(0) == 0) {
                 if (env.getDialogId() == -1 && qs.getStatus() == QuestStatus.REWARD)
                     return sendQuestDialog(env, 10002);
-                else if (env.getDialogId() == 17) 
-				{
+                else if (env.getDialogId() == 17) {
                     player.getInventory().removeFromBagByItemId(182207026, 1);
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
                     updateQuestStatus(env);
                     return defaultQuestEndDialog(env);
                 } 
-				else if (env.getDialogId() == 1009) 
-				{
+				else if (env.getDialogId() == 1009) {
                     return defaultQuestEndDialog(env);
                 }
-			else if	(qs.getStatus() == QuestStatus.COMPLETE)
-			{
+			} else if	(qs.getStatus() == QuestStatus.COMPLETE) {
 				ThreadPoolManager.getInstance().schedule(new Runnable() {
                     @Override
                     public void run() {
