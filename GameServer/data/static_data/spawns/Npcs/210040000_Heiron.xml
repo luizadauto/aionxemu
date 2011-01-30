@@ -532,7 +532,7 @@
 	</spawn>
 	<!-- Indratu Fortress Abyss Gate -->
 	<spawn map="210040000" npcid="700565" pool="1" interval="295">
-		<object x="781.1078" y="1665.9824" z="104.672005" h="30"/>
+		<object x="1875.06" y="2585.26" z="140.745" h="9"/>
 	</spawn>
 	<!-- Iorene (NPC Normal lvl:50)-->
 	<spawn map="210040000" npcid="204581" pool="1" interval="295">
@@ -1372,8 +1372,5 @@
 	<!-- Zeuclid (NPC Elite lvl:50)-->
 	<spawn map="210040000" npcid="204607" pool="1" interval="295">
 		<object x="973.54016" y="699.42110" z="136.00000" h="93"/>
-	</spawn>
-	<spawn map="210040000" npcid="700271" pool="1" interval="295">
-		<object x="1875.06" y="2585.26" z="140.745" h="69"/>
 	</spawn>
 </spawns>

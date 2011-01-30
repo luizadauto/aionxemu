@@ -47,7 +47,7 @@
 	<map id="310060000" name="Sliver of Darkness" instance="true" instanceId="40" cooldown="0" death_level="0" water_level="16"/>
 	<map id="310070000" name="Sliver of Darkness_Stigma" instance="true" instanceId="41" cooldown="0" death_level="0" water_level="16"/>
 	<map id="310080000" name="Sanctum Underground Arena" death_level="0" water_level="16"/>
-	<map id="310090000" name="Indratu Fortress" death_level="0" water_level="16"/>
+	<map id="310090000" name="Indratu Fortress" instance="true" instanceId="42" cooldown="0" death_level="0" water_level="16"/>
 	<map id="310100000" name="Azoturan Fortress" instance="true" instanceId="25" cooldown="0" death_level="0" water_level="16"/>
 	<map id="310110000" name="TheobomosLab" instance="true" instanceId="6" cooldown="180" death_level="0" water_level="16"/>
 	<map id="310120000" name="Ataxiar" instance="true" instanceId="32" cooldown="0" death_level="0" water_level="16"/>

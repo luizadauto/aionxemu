@@ -237,6 +237,10 @@
 	<spawn map="400010000" npcid="278559" pool="1" interval="295">
 		<object x="2972.219" y="1051.0922" z="1534.978" h="28"/>
 	</spawn>
+	<!-- Chrysaor (NPC Elite lvl:41)-->
+	<spawn map="400010000" npcid="278594" pool="1" interval="295">
+		<object x="3468.200" y="3011.04" z="1542.004" h="83"/>
+	</spawn>
 	<!-- Clatanan (NPC Elite lvl:50)-->
 	<spawn map="400010000" npcid="278555" pool="1" interval="295">
 		<object x="2858.6946" y="916.062" z="1533.6484" h="0"/>
@@ -700,6 +704,10 @@
 	<!-- Laichinchinerk (NPC Normal lvl:40)-->
 	<spawn map="400010000" npcid="279035" pool="1" interval="295">
 		<object x="549.881" y="1098.7899" z="2842.5654" h="0"/>
+	</spawn>
+	<!-- Laius (NPC Elite lvl:41)-->
+	<spawn map="400010000" npcid="278599" pool="1" interval="295">
+		<object x="3150.038" y="3397.311" z="1540.650" h="78"/>
 	</spawn>
 	<!-- Lakadi (NPC Hero lvl:56 Subtext: Thunder Shout Centurion)-->
 	<spawn map="400010000" npcid="278019" pool="1" interval="295">

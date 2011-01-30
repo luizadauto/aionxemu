@@ -12,7 +12,7 @@
 		<exitpoint mapid="210020000" x="446.38937" y="428.9423" z="274.5"/>
 	</portal>
 	<!-- Indratu Fortress Entrance -->
-	<portal npcid="700565" instance="true" minlevel="41" maxlevel="48" group="true">
+	<portal npcid="700565" instance="true" minlevel="41" maxlevel="55" group="true">
 		<entrypoint mapid="210040000" x="781.1078" y="1665.9824" z="104.672005" race="ELYOS"/>
 		<entrypoint mapid="220040000" x="1466.8792" y="1947.9192" z="588.06555" race="ASMODIANS"/>
 		<exitpoint mapid="310090000" x="562.4863" y="335.8061" z="1015.81885"/>

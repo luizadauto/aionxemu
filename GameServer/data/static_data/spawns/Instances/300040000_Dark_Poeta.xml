@@ -612,39 +612,39 @@
 	</spawn>
 	<!-- Marabata Attack Booster (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700442" pool="1" interval="295">
-		<object x="635.0379" y="326.5157" z="99.375" h="91"/>
+		<object x="636.118" y="325.537" z="99.375" h="49"/>
 	</spawn>
 	<!-- Marabata Attack Booster (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700445" pool="1" interval="295">
-		<object x="606.9008" y="382.39697" z="99.375" h="120"/>
+		<object x="605.625" y="380.479" z="99.375" h="14"/>
 	</spawn>
 	<!-- Marabata Attack Booster (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700439" pool="1" interval="295">
-		<object x="665.46747" y="371.57013" z="99.375" h="95"/>
+		<object x="665.374" y="372.751" z="99.375" h="90"/>
 	</spawn>
 	<!-- Marabata Defense Booster (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700446" pool="1" interval="295">
-		<object x="598.64233" y="342.8548" z="99.375" h="0"/>
+		<object x="598.706" y="345.978" z="99.375" h="98"/>
 	</spawn>
 	<!-- Marabata Defense Booster (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700443" pool="1" interval="295">
-		<object x="669.4074" y="317.93274" z="99.375" h="73"/>
+		<object x="676.257" y="319.650" z="99.375" h="4"/>
 	</spawn>
 	<!-- Marabata Defense Booster (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700440" pool="1" interval="295">
-		<object x="684.5427" y="409.47272" z="100.26938" h="61"/>
+		<object x="681.851" y="408.625" z="100.472" h="13"/>
 	</spawn>
 	<!-- Marabata Property Controller (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700441" pool="1" interval="295">
-		<object x="644.84686" y="407.21613" z="99.375" h="75"/>
+		<object x="646.550" y="406.088" z="99.375" h="49"/>
 	</spawn>
 	<!-- Marabata Property Controller (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700447" pool="1" interval="295">
-		<object x="567.3221" y="366.928" z="99.375" h="0"/>
+		<object x="567.775" y="366.207" z="99.375" h="59"/>
 	</spawn>
 	<!-- Marabata Property Controller (Monster Normal lvl:50) -->
 	<spawn map="300040000" npcid="700444" pool="1" interval="295">
-		<object x="656.95526" y="293.88718" z="99.375" h="79"/>
+		<object x="655.851" y="292.711" z="99.375" h="90"/>
 	</spawn>
 	<!-- Marabata Of Magic (Monster Hero lvl:50) -->
 	<spawn map="300040000" npcid="214850" pool="1" interval="300">
@@ -973,9 +973,9 @@
 		<object staticid="136" x="823.5606" y="555.29865" z="118.97435" h="71"/>
 	</spawn>
 	<!-- Camouflaging Stone Wall (NPC Normal lvl:3) -->
-	<spawn map="300040000" npcid="700516" pool="1" interval="295">
-		<object staticid="142" x="166.0" y="415.0" z="132.74905" h="76"/>
-	</spawn>
+<!--	<spawn map="300040000" npcid="700516" pool="1" interval="295">	-->
+<!--		<object staticid="142" x="166.0" y="415.0" z="132.74905" h="76"/>	-->
+<!--	</spawn>	-->
 	<!-- Controller A (NPC Legendary lvl:50) -->
 	<spawn map="300040000" npcid="700448" pool="1" interval="295">
 		<object x="665.39215" y="389.7151" z="99.375" h="40"/>
