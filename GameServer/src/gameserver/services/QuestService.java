@@ -116,7 +116,10 @@ public final class QuestService {
                 if (classRewardItem != null)
                     questItems.add(classRewardItem);
             } else {
-                QuestItems selectebleRewardItem = rewards.getSelectableRewardItem().get(dialogId - 8);
+                List<QuestItems> selectableRewardItems = rewards.getSelectableRewardItem();
+                if (selectableRewardItems.size() < (dialogId - 8))
+                    return false;
+                QuestItems selectebleRewardItem = selectableRewardItems.get(dialogId - 8);
                 if (selectebleRewardItem != null)
                     questItems.add(selectebleRewardItem);
             }
