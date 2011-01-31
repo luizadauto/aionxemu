@@ -9,5 +9,6 @@ echo Please wait 3 seconds...
 sleep 3;
 
 echo Gameserver is starting now...
-./StartGS.sh
+./startGame.sh
+
 cd ..
