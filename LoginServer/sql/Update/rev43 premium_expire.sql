@@ -1,1 +1,0 @@
-ALTER TABLE `account_data` ADD COLUMN `expire` date DEFAULT NULL after `ip_force`;
