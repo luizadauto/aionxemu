@@ -284,7 +284,7 @@ public class AdminConfig {
     @Property(key = "gameserver.administration.command.html", defaultValue = "3")
     public static int COMMAND_HTML;
     
-    @Property(key = "gameserver.administration.command.gmlist", defaultValue = "3")
+    @Property(key = "gameserver.administration.command.gmlist", defaultValue = "0")
 	public static int COMMAND_GMLIST;
 	
     @Property(key = "gameserver.administration.command.appearance", defaultValue = "3")

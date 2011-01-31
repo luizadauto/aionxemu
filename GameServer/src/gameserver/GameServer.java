@@ -167,7 +167,7 @@ public class GameServer {
         log.info("GameServer started at Server Version: " + GSConfig.SERVER_VERSION);
 
         Util.printSection("GameServerLog");
-        log.info("AE Game Server started in " + (System.currentTimeMillis() - start) / 1000 + " seconds.");
+        log.info("Game Server started in " + (System.currentTimeMillis() - start) / 1000 + " seconds.");
 
         gs.startServers();
         GameTimeManager.startClock();
