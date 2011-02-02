@@ -27,6 +27,7 @@ import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.gameobjects.player.StorageType;
+import gameserver.model.gameobjects.player.Equipment;
 import gameserver.model.items.FusionStone;
 import gameserver.model.items.GodStone;
 import gameserver.model.items.ItemId;
@@ -559,8 +560,12 @@ public class ItemService {
         Storage inventory = player.getInventory();
         Item item = inventory.getItemByObjId(itemObjId);
         if (item == null) {
-            log.warn("Item not found during manastone remove");
-            return;
+            item = player.getEquipment().getEquippedItemByObjId(itemObjId);
+            if (item == null)
+            {
+                log.warn("Item not found during manastone remove");
+                return;
+            }
         }
 
         if (!item.hasManaStones()) {
@@ -597,8 +602,12 @@ public class ItemService {
         Storage inventory = player.getInventory();
         Item item = inventory.getItemByObjId(itemObjId);
         if (item == null) {
-            log.warn("Item not found during manastone remove");
-            return;
+            item = player.getEquipment().getEquippedItemByObjId(itemObjId);
+            if (item == null)
+            {
+                log.warn("Item not found during manastone remove");
+                return;
+            }
         }
 
         if (!item.hasFusionStones()) {
