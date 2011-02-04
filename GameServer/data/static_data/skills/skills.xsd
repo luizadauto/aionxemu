@@ -100,6 +100,7 @@
 			<xs:element name="dispeldebuffphysical" type="DispelDebuffPhysicalEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="dispeldebuff" type="DispelDebuffEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="mpuseovertime" type="MpUseOverTimeEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="hpuseovertime" type="HpUseOverTimeEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="switchhpmp" type="SwitchHpMpEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="aura" type="AuraEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="summon" type="SummonEffect" minOccurs="0" maxOccurs="1"/>
@@ -406,6 +407,15 @@
 			<xs:extension base="Effect">
 				<xs:attribute name="value" type="xs:int" use="required"/>
 				<xs:attribute name="checktime" type="xs:int" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="HpUseOverTimeEffect">
+		<xs:complexContent>
+			<xs:extension base="Effect">
+				<xs:attribute name="value" type="xs:int" use="required"/>
+				<xs:attribute name="checktime" type="xs:int" use="required"/>
+				<xs:attribute name="delta" type="xs:int" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>

@@ -46,6 +46,7 @@ public class Effect {
     private Future<?> task = null;
     private Future<?>[] periodicTasks = null;
     private Future<?> mpUseTask = null;
+    private Future<?> hpUseTask = null;
 
     /**
      * Used for damage/heal values
@@ -253,6 +254,20 @@ public class Effect {
      */
     public void setMpUseTask(Future<?> mpUseTask) {
         this.mpUseTask = mpUseTask;
+    }
+
+    /**
+     * @return the hpUseTask
+     */
+    public Future<?> getHpUseTask() {
+        return hpUseTask;
+    }
+
+    /**
+     * @param hpUseTask the hpUseTask to set
+     */
+    public void setHpUseTask(Future<?> hpUseTask) {
+        this.hpUseTask = hpUseTask;
     }
 
     /**
@@ -630,6 +645,11 @@ public class Effect {
         if (mpUseTask != null) {
             mpUseTask.cancel(true);
             mpUseTask = null;
+        }
+
+        if (hpUseTask != null) {
+            hpUseTask.cancel(true);
+            hpUseTask = null;
         }
     }
 
