@@ -24,14 +24,29 @@ import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
 import gameserver.services.QuestService;
 
+import gameserver.model.EmotionType;
+import gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
+import gameserver.network.aion.serverpackets.SM_EMOTION;
+import gameserver.network.aion.serverpackets.SM_USE_OBJECT;
+import gameserver.services.TeleportService;
+import gameserver.utils.PacketSendUtility;
+import gameserver.utils.ThreadPoolManager;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
- * @author Atomics @edit by Mcrizza
+ * @author Atomics @edit by Mcrizza -- @@edit by Dx
  */
 public class _2041HoldTheFrontLine extends QuestHandler {
 
     private final static int questId = 2041;
-    private final static int[] npcIds = {204301, 204403, 204423, 204432, 700183};
-
+    private final static int[] npcIds = {204301, 204403, 204432, 700183};
+	//	204301 		- Aegir
+	//	204403		- Taisan
+	//	204432		- Kargate
+	//	700183		- Morheim Abyss Gate
 
     public _2041HoldTheFrontLine() {
         super(questId);
@@ -86,7 +101,7 @@ public class _2041HoldTheFrontLine extends QuestHandler {
         } else if (qs.getStatus() != QuestStatus.START)
             return false;
         switch (targetId) {
-            case 204301:
+            case 204301: // Aegir
                 switch (env.getDialogId()) {
                     case 25:
                         if (var == 0)
@@ -100,7 +115,7 @@ public class _2041HoldTheFrontLine extends QuestHandler {
                     default:
                         return false;
                 }
-            case 204403:
+            case 204403: // Taisan
                 switch (env.getDialogId()) {
                     case 25:
                         if (var == 1)
@@ -114,32 +129,55 @@ public class _2041HoldTheFrontLine extends QuestHandler {
                     default:
                         return false;
                 }
-            case 204432:
+			case 700183: { // Morheim Abyss Gate
+                    if (qs.getQuestVarById(0) == 2) {
+						//PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.NEUTRALMODE2, 0, 700183), true); // use item wait delay
+						//Nees some fine touches - make it group, make it harder, more npc spawn in waves and attack Kargate (like retail)
+						//mayb this needs core scripting.
+						//Bregirun might need to be turned into instance and add separate spawns for both quests.
+						//updateQuestStatus(env);
+						TeleportService.teleportTo(player, 320030000, 274.96f, 168.04f, 204.40f, 34);
+                        return true;
+                    }
+                }
+            case 204432: // Kargate 
                 switch (env.getDialogId()) {
                     case 25:
                         if (var == 2)
                             return sendQuestDialog(env, 1693);
-                        else if (var == 9)
+                        else if (var == 4)
                             return sendQuestDialog(env, 2034);
                     case 10002:
                         if (var == 2) {
-                            qs.setQuestVarById(0, var + 1);
+                            qs.setQuestVarById(0, var + 2);
+							//qs.setStatus(QuestStatus.REWARD);
+					
+							List<Npc> mobs = new ArrayList<Npc>();
+							mobs.add((Npc) QuestService.addNewSpawn(320030000, 1, 213575, 282.54f, 179.13f, 204.32f, (byte) 63, true));
+							mobs.add((Npc) QuestService.addNewSpawn(320030000, 1, 213575, 270.79f, 186.59f, 205.68f, (byte) 94, true));
+							mobs.add((Npc) QuestService.addNewSpawn(320030000, 1, 213575, 262.48f, 175.50f, 204.87f, (byte) 3, true));
+								for (Npc mob : mobs) {
+									mob.getAggroList().addDamage(player, 1000);
+								//	mob.getAggroList().addDamage(204432, 1000);
+								}
                             updateQuestStatus(env);
                             return sendQuestDialog(env, 0);
                         }
-                    case 10003:
-                        if (var == 9) {
-                            qs.setQuestVarById(0, var + 1);
-                            updateQuestStatus(env);
-                            return sendQuestDialog(env, 0);
-                        }
+                  case 10003:
+                    if (var == 4) {
+						// set reward + update
+						qs.setStatus(QuestStatus.REWARD);
+						updateQuestStatus(env);
+						// end dialog quest - tp out
+						TeleportService.teleportTo(player, 220020000, 3029.40f, 873.38f, 362.90f, 74);
+						return sendQuestDialog(env, 0);
+                      }
                     default:
                         return false;
                 }
             default:
                 return false;
         }
-
     }
 
     @Override
@@ -154,7 +192,7 @@ public class _2041HoldTheFrontLine extends QuestHandler {
         if (env.getVisibleObject() instanceof Npc)
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
 
-        if (targetId == 214103) {
+        if (targetId == 213575) {
             if (var > 2 && var < 8) {
                 qs.setQuestVarById(0, var + 1);
                 return true;

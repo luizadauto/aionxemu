@@ -18,6 +18,10 @@
 	Morheim
  -->
 <spawns>
+	<!-- Abyss Gate - Hold the Front Line quest -->
+	<spawn map="220020000" npcid="700183" pool="1" interval="295">
+		<object x="3035.79" y="879.628" z="363.81" h="71"/>
+	</spawn>
 	<!-- Adhis (NPC Elite lvl:45)-->
 	<spawn map="220020000" npcid="204344" pool="1" interval="295">
 		<object x="2457.038" y="1767.0385" z="92.0" h="110"/>
