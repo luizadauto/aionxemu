@@ -906,6 +906,10 @@
 	<spawn map="210040000" npcid="205271" pool="1" interval="295">
 		<object x="987.0187" y="706.5387" z="135.22601" h="105"/>
 	</spawn>
+	<!-- Raninia (NPC Normal lvl:3)-->
+	<spawn map="210040000" npcid="205229" pool="1" interval="295">
+		<object x="133.26031" y="1566.3976" z="120.071075" h="7"/>
+	</spawn>
 	<!-- Rance (NPC Elite lvl:50)-->
 	<spawn map="210040000" npcid="204612" pool="1" interval="295">
 		<object x="137.11523" y="1623.29050" z="121.71547" h="10"/>
