@@ -228,17 +228,19 @@
 		<entrypoint mapid="110010000" x="1867" y="2068" z="517" race="ELYOS"/>
 		<exitpoint mapid="300100000" x="237" y="506" z="948"/>
 	</portal>
-	<!-- Instance 2.0 -->
-	<!-- Haramel Entrance Elyos -->
-	<portal npcid="700852" instance="true" minlevel="18" maxlevel="22" group="false" race="ELYOS">
-		<entrypoint mapid="210030000" x="2539.3267" y="834.86957" z="103.967476"/>
-		<exitpoint mapid="300200000" x="175.59499" y="20.50977" z="144.2243"/>
-	</portal>
-	<!-- Haramel Entrance Asmodians -->
-	<portal npcid="700852" instance="true" minlevel="18" maxlevel="22" group="false" race="ASMODIANS">
-		<entrypoint mapid="220030000" x="2909.8335" y="1456.1504" z="252.59262"/>
-		<exitpoint mapid="300200000" x="175.59499" y="20.50977" z="144.2243"/>
-	</portal>
+<!-- Instance 2.0 -->
+	<!-- Haramel Entrance Elyos Asmodians -->
+	<portal npcid="700852" instance="true" minlevel="18" maxlevel="22" group="false">
+    <entrypoint mapid="210030000" x="2539.3267" y="834.86957" z="103.967476" race="ELYOS"/>
+    <entrypoint mapid="220030000" x="2909.8335" y="1456.1504" z="252.59262"  race="ASMODIANS"/>
+    <exitpoint mapid="300200000" x="175.59499" y="20.50977" z="144.2243"/>
+</portal>
+    <!-- Haramel Exit -->
+<portal npcid="730320" minlevel="18" maxlevel="55" group="false">
+    <entrypoint mapid="300200000" x="185.73808" y="20.143583" z="144.22354"/>
+    <exitpoint mapid="210030000" x="2539.3267" y="834.86957" z="103.967476" race="ELYOS"/>
+    <exitpoint mapid="220030000" x="2909.8335" y="1456.1504" z="252.59262"  race="ASMODIANS"/>
+</portal>  
 	<!-- QUEST PORTALS -->
 	<!-- Pernos [Ascension quest] Elyos -->
 	<portal npcid="790001" instance="true" race="ELYOS">

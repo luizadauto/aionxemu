@@ -291,7 +291,7 @@
 	</spawn>
 	<!-- Haramel Teleporter (NPC Normal lvl:20)-->
 	<spawn map="210030000" npcid="700852" pool="1" interval="295">
-		<object x="1480.4034" y="1710.236" z="115.47955" h="112"/>
+		<object x="2538.977" y="835.59406" z="103.967476" h="64"/>
 	</spawn>
 	<!-- Head of Stone Statue (Object Normal lvl:1)-->
 	<spawn map="210030000" npcid="700033" pool="1" interval="295">

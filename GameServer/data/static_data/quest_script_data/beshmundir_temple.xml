@@ -17,17 +17,13 @@
 		along with this software.  If not, see <http://www.gnu.org/licenses/>.
 	-->
 
-	<!-- 30201: Supplies Party -->
-	<item_collecting start_npc_id="798926" id="30201"/>
+	<!-- 30201: Supplies Party handled by script -->
 	<!-- 30202: Suspicious Ceremony handled by script -->
 	<!-- 30203: [Group] Halt the Ceremony! -->
-	<!-- 30204: Pilomenes' Advice -->
-	<report_to id="30204" start_npc_id="798926" end_npc_id="798941"/>
+	<!-- 30204: Pilomenes' Advice handled by script -->
 	<!-- 30205: TODO: A Monument Rubbed -->
-	<!-- 30206: [Group] Dragonbound Diaries -->
-	<item_collecting id="30206" start_npc_id="798941" action_item_id="700750"/>
-	<!-- 30207: Soul Invocation Ceremony -->
-	<item_collecting id="30207" start_npc_id="798941"/>
+	<!-- 30206: [Group] Dragonbound Diaries handled by script -->
+	<!-- 30207: Soul Invocation Ceremony handled by script -->
 	<!-- 30208: TODO: [Group] The Truth Hurts -->
 	<!-- 30209: The Ancient Document -->
 	<report_to id="30209" start_npc_id="798941" end_npc_id="203837" item_id="182209611"/>

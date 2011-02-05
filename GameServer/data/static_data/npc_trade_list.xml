@@ -1583,23 +1583,19 @@
         <tradelist id="751"/>
     </tradelist_template>
     <tradelist_template npc_id="798430" name="jairunerk" count="4">
-        <tradelist id="743"/>
-        <tradelist id="744"/>
-        <tradelist id="745"/>
-        <tradelist id="746"/>
+        <tradelist id="770"/>
+        <tradelist id="771"/>
+        <tradelist id="772"/>
+        <tradelist id="773"/>
     </tradelist_template>
-    <tradelist_template npc_id="798431" name="jairinerk" count="5">
-        <tradelist id="747"/>
-        <tradelist id="748"/>
-        <tradelist id="749"/>
-        <tradelist id="750"/>
-        <tradelist id="742"/>
+    <tradelist_template npc_id="798431" name="jairinerk" count="4">
+        <tradelist id="774"/>
+        <tradelist id="775"/>
+        <tradelist id="776"/>
+        <tradelist id="777"/>
     </tradelist_template>
-    <tradelist_template npc_id="798432" name="jaichinerk" count="4">
-        <tradelist id="761"/>
-        <tradelist id="762"/>
-        <tradelist id="763"/>
-        <tradelist id="764"/>
+    <tradelist_template npc_id="798432" name="jaichinerk" count="1">
+        <tradelist id="769"/>
     </tradelist_template>
     <tradelist_template npc_id="798433" name="huirinerk" count="4">
 		<tradelist id="779"/>

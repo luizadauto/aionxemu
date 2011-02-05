@@ -356,7 +356,7 @@
 	</spawn>
 	<!-- Haramel Teleporter (NPC Normal lvl:20)-->
 	<spawn map="220030000" npcid="700852" pool="1" interval="295">
-		<object x="1655.1398" y="1433.9772" z="254.46942" h="54"/>
+		<object x="2910.8096" y="1455.2594" z="252.59264" h="34"/>
 	</spawn>
 	<!-- Heidunn (NPC Normal lvl:20)-->
 	<spawn map="220030000" npcid="203563" pool="1" interval="295">
