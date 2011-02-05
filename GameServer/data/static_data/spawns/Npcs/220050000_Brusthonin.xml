@@ -322,18 +322,6 @@
 	<spawn map="220050000" npcid="205226" pool="1" interval="295">
 		<object h="63" x="1537.2725" y="380.38794" z="231.125"/>
 	</spawn>
-	<spawn map="220050000" npcid="205264" pool="1" interval="295">
-		<object h="33" x="1526.3882" y="372.11346" z="231.40485"/>
-	</spawn>
-	<spawn map="220050000" npcid="205265" pool="1" interval="295">
-		<object h="66" x="841.7812" y="2016.6052" z="307.4049"/>
-	</spawn>
-	<spawn map="220050000" npcid="205276" pool="1" interval="295">
-		<object h="66" x="1536.0093" y="390.66058" z="231.2089"/>
-	</spawn>
-	<spawn map="220050000" npcid="205277" pool="1" interval="295">
-		<object h="56" x="838.135" y="2006.4783" z="307.25403"/>
-	</spawn>
 	<spawn map="220050000" npcid="205287" pool="1" interval="295">
 		<object h="50" x="2933.6833" y="2423.6077" z="15.454841"/>
 	</spawn>

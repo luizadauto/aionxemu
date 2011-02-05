@@ -27,8 +27,7 @@
 	<item_collecting id="11049" start_npc_id="798909" />
 	<!-- 21049: Stigma Expansion -->
 	<item_collecting id="21049" start_npc_id="799208" />
-	<!-- 30216: TODO: Stigma Dogma -->
-	<report_to id="30216" start_npc_id="798941" end_npc_id="798909"/>
+	<!-- 30216: TODO: Stigma Dogma handled by script-->
 	<!-- 30217: TODO: [Group] Stigmas & Scars -->
 	<!-- 30218: [Group] Aeshma's Vengeance -->
 	<monster_hunt id="30218" start_npc_id="799504">
