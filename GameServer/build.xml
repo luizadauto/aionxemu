@@ -53,6 +53,13 @@
 		</javac>
 	</target>
 	<target name="jar" depends="compile" description="Create the jar file">
+        <exec dir="." executable="svnversion.exe" outputproperty="revision" failifexecutionfails="false"
+              osfamily="windows">
+            <arg line="-n ."/>
+        </exec>
+        <exec dir="." executable="./svnversion" outputproperty="revision" failifexecutionfails="false" osfamily="unix">
+            <arg line="-n ."/>
+        </exec>
 		<tstamp>
 			<format property="date" pattern="yyyy-MM-dd-HH:mm"/>
 		</tstamp>
