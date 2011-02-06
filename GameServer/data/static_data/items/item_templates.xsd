@@ -374,6 +374,7 @@
             <xs:enumeration value="CASH_ACTION_ZERO"/>
             <xs:enumeration value="CASH_AIONJEWELS"/>
             <xs:enumeration value="CASH_AMERICAN_DRESS_BODY"/>
+			<xs:enumeration value="CASH_BEAR_HEAD"/>
             <xs:enumeration value="CASH_BINYEO_HEAD"/>
             <xs:enumeration value="CASH_BOOK"/>
             <xs:enumeration value="CASH_BOW"/>
@@ -394,6 +395,7 @@
             <xs:enumeration value="CASH_DEBRIE_GLOVE"/>
             <xs:enumeration value="CASH_DEBRIE_HEAD"/>
             <xs:enumeration value="CASH_DEBRIE_SHOES"/>
+			<xs:enumeration value="CASH_DEVA_HEAD"/>
             <xs:enumeration value="CASH_DEVIL_HEAD"/>
             <xs:enumeration value="CASH_DYE_BLACK"/>
             <xs:enumeration value="CASH_DYE_DEEP_BLUE"/>
@@ -428,16 +430,19 @@
             <xs:enumeration value="CASH_MACE"/>
             <xs:enumeration value="CASH_MANDURI_HEAD"/>
             <xs:enumeration value="CASH_MINX_HEAD"/>
+			<xs:enumeration value="CASH_MISSA_HEAD"/>
             <xs:enumeration value="CASH_MUTA_HEAD"/>
             <xs:enumeration value="CASH_NAMBAWI_HEAD"/>
             <xs:enumeration value="CASH_ORB"/>
             <xs:enumeration value="CASH_PETADOPTION"/>
+			<xs:enumeration value="CASH_PILOT_HEAD"/>
             <xs:enumeration value="CASH_POLEARM"/>
             <xs:enumeration value="CASH_POLYMORPH_CANDY"/>
             <xs:enumeration value="CASH_PORGUSS_BODY"/>
             <xs:enumeration value="CASH_PORGUSS_GLOVE"/>
             <xs:enumeration value="CASH_PORGUSS_HEAD"/>
             <xs:enumeration value="CASH_PORGUSS_SHOES"/>
+			<xs:enumeration value="CASH_RABBIT_HEAD"/>
             <xs:enumeration value="CASH_RUSSIAN_DRESS_BODY"/>
             <xs:enumeration value="CASH_SANTA_BODY_M"/>
             <xs:enumeration value="CASH_SANTA_BODY_W"/>
