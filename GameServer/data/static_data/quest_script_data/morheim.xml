@@ -51,7 +51,8 @@
         <monster_infos var_id="0" max_kill="25" npc_id="211318"/>
         <monster_infos var_id="1" max_kill="15" npc_id="211317"/>
     </monster_hunt>
-    <!-- 2310: TODO: A Sorrowful Message -->
+    <!-- 2310: A Sorrowful Message -->
+	<report_to id="2310" start_npc_id="730038" end_npc_id="204392" item_id="182204109"/>
     <!-- Disease Carriers -->
     <item_collecting id="2311" start_npc_id="730036"/>
     <!-- Sylphen Pollution -->
@@ -482,7 +483,8 @@
     <!-- 2477: TODO: A Dish For Dukar -->
     <!-- [Spy] Ingredients For Sausage -->
     <item_collecting id="2478" start_npc_id="204355"/>
-    <!-- 2479: TODO: Reaching Out -->
+    <!-- 2479: Reaching Out -->
+	<report_to id="2479" start_npc_id="204392" end_npc_id="730038"/>
     <!-- 2480: TODO: [Spy] Elim of Elysea -->
     <!-- [Spy] Curious Behavior -->
     <item_collecting id="2481" start_npc_id="204210"/>

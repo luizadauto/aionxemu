@@ -1085,6 +1085,12 @@
         <tradelist id="754"/>
         <tradelist id="755"/>
     </tradelist_template>
+	<tradelist_template npc_id="205245" name="porlainerk" count="4">
+        <tradelist id="629"/>
+        <tradelist id="630"/>
+        <tradelist id="631"/>
+        <tradelist id="632"/>
+    </tradelist_template>
     <tradelist_template npc_id="205246" name="gofrunerk" count="4">
         <tradelist id="752"/>
         <tradelist id="753"/>

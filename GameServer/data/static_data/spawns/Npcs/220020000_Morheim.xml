@@ -850,7 +850,7 @@
 		<object x="1781.2538" y="1670.5706" z="198.0" h="75"/>
 	</spawn>
 	<!-- Porlainerk (NPC Normal lvl:40)-->
-	<spawn map="220020000" npcid="798431" pool="1" interval="295">
+	<spawn map="220020000" npcid="205245" pool="1" interval="295">
 		<object x="292.72885" y="2440.3618" z="455.03284" h="42"/>
 	</spawn>
 	<!-- Protector Einbil (NPC Hero lvl:50)-->
