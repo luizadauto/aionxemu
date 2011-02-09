@@ -1426,7 +1426,7 @@ public class Player extends Creature {
     public String getBannedFromWorldRemainingTime() {
         long elapsed = 0;
         if (bannedFromWorldDuring == 0) {
-            return "indeterminé";
+            return "undetermined";
         } else {
             elapsed = bannedFromWorldDuring - (Calendar.getInstance().getTimeInMillis() - bannedFromWorldDate.getTime());
             return HumanTime.approximately(elapsed - (elapsed % 1000));
