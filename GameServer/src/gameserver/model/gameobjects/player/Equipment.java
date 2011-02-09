@@ -158,6 +158,10 @@ public class Equipment {
      */
     private Item equip(int itemSlotToEquip, Item item) {
         synchronized (equipment) {
+            // Check that item is still in Inventory.
+            if (owner.getInventory().getItemByObjId(item.getObjectId()) == null)
+                return null;
+
             //remove item first from inventory to have at least one slot free
             owner.getInventory().removeFromBag(item, false);
 
@@ -793,6 +797,11 @@ public class Equipment {
                     public void run() {
                         PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(),
                                 item.getObjectId(), item.getItemId(), 0, 6), true);
+
+                        // Check that item is still in Inventory.
+                        if (player.getInventory().getItemByObjId(item.getObjectId()) == null)
+                            return;
+
                         if (!position.equals(player.getCommonData().getPosition())) { // player moved, binding is canceled.
                             return;
                         }

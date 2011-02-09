@@ -317,6 +317,21 @@ public class ExchangeService {
         Exchange exchange1 = getCurrentExchange(activePlayer);
         Exchange exchange2 = getCurrentExchange(currentPartner);
 
+        for (ExchangeItem exchangeItem : exchange1.getItems().values()) {
+            Item item = exchangeItem.getItem();
+            Item itemInInventory = activePlayer.getInventory().getItemByObjId(exchangeItem.getItemObjId());
+
+            if (item == null || itemInInventory == null)
+                return false;
+        }
+        for (ExchangeItem exchangeItem : exchange2.getItems().values()) {
+            Item item = exchangeItem.getItem();
+            Item itemInInventory = currentPartner.getInventory().getItemByObjId(exchangeItem.getItemObjId());
+
+            if (item == null || itemInInventory == null)
+                return false;
+        }
+
         return validateInventorySize(activePlayer, exchange2)
                 && validateInventorySize(currentPartner, exchange1);
     }

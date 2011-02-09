@@ -103,6 +103,10 @@ public class EnchantService {
      * @param targetItem
      */
     public static boolean enchantItem(Player player, Item parentItem, Item targetItem, Item supplementItem) {
+        // Check that parentItem is still in Inventory.
+        if (player.getInventory().getItemByObjId(parentItem.getObjectId()) == null)
+            return false;
+
         int enchantStoneLevel = parentItem.getItemTemplate().getLevel();
         int targetItemLevel = targetItem.getItemTemplate().getLevel();
 
@@ -250,6 +254,10 @@ public class EnchantService {
      * @param targetItem
      */
     public static boolean socketManastone(Player player, Item parentItem, Item targetItem, Item supplementItem, int targetWeapon) {
+        // Check that parentItem is still in Inventory.
+        if (player.getInventory().getItemByObjId(parentItem.getObjectId()) == null)
+            return false;
+
         boolean result = false;
         int successRate = 76;
 
