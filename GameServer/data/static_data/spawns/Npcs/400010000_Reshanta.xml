@@ -21,6 +21,18 @@
 	@contributors : HeTuLa
  -->
 <spawns>
+	<!-- Radgrid -->
+	<spawn map="400010000" npcid="278109" pool="1" interval="295">
+		<object x="2376.000" y="1600.000" z="2885.885" h="80"/>
+	</spawn>
+	<!-- Tamed Worg -->
+	<spawn map="400010000" npcid="203357" pool="1" interval="295">
+		<object x="2377.206" y="1599.481" z="2885.807" h="80"/>
+	</spawn>
+	<!-- Modir -->
+	<spawn map="400010000" npcid="278112" pool="1" interval="295">
+		<object x="2378.858" y="1611.362" z="2884.290" h="0"/>
+	</spawn>
 	<!-- "The History of Struggles Primum" (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="730129" pool="1" interval="295">
 		<object x="870.27" y="3105.7075" z="1643.903" h="0" staticid="277"/>
