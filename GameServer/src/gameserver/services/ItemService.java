@@ -38,6 +38,8 @@ import gameserver.model.templates.quest.QuestItems;
 import gameserver.network.aion.serverpackets.*;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.idfactory.IDFactory;
+import gameserver.utils.i18n.CustomMessageId;
+import gameserver.utils.i18n.LanguageHandler;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -68,7 +70,6 @@ public class ItemService {
     public static Item newItem(int itemId, long count) {
         ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
         if (itemTemplate == null) {
-            log.error("Item was not populated correctly. Item template is missing for item id: " + itemId);
             return null;
         }
 
@@ -741,8 +742,14 @@ public class ItemService {
     public static boolean addItems(Player player, List<QuestItems> questItems) {
         int needSlot = 0;
         for (QuestItems qi : questItems) {
-            if (qi.getItemId() != ItemId.KINAH.value() && qi.getCount() != 0) {
-                int stackCount = DataManager.ITEM_DATA.getItemTemplate(qi.getItemId()).getMaxStackCount();
+            int itemId = qi.getItemId();
+            if (itemId != ItemId.KINAH.value() && qi.getCount() != 0) {
+                ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
+                if (itemTemplate == null) {
+                    PacketSendUtility.sendMessage(player, LanguageHandler.translate(CustomMessageId.COMMAND_ADD_FAILURE, itemId, player.getName()));
+                    return false;
+                }
+                int stackCount = itemTemplate.getMaxStackCount();
                 int count = qi.getCount() / stackCount;
                 if (qi.getCount() % stackCount != 0)
                     count++;

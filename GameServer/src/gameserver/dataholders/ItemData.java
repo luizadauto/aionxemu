@@ -26,6 +26,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.log4j.Logger;
+
 import java.util.*;
 
 /**
@@ -34,6 +37,8 @@ import java.util.*;
 @XmlRootElement(name = "item_templates")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ItemData {
+    private static Logger log = Logger.getLogger(ItemData.class);
+    
     @XmlElement(name = "item_template")
     private List<ItemTemplate> its;
 
@@ -74,7 +79,10 @@ public class ItemData {
     }
 
     public ItemTemplate getItemTemplate(int itemId) {
-        return items.get(itemId);
+        ItemTemplate itemTemplate = items.get(itemId);
+        if (itemTemplate == null)
+            log.error("Item was not populated correctly. Item template is missing for item id: " + itemId);
+        return itemTemplate;
     }
 
     /**
