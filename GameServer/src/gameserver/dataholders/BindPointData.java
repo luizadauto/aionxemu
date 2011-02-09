@@ -26,12 +26,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author avol
  */
 @XmlRootElement(name = "bind_points")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BindPointData {
+    private static Logger log = Logger.getLogger(BindPointData.class);
+
     @XmlElement(name = "bind_point")
     private List<BindPointTemplate> bplist;
 
@@ -53,10 +57,20 @@ public class BindPointData {
     }
 
     public BindPointTemplate getBindPointTemplate(int npcId) {
-        return bindplistData.get(npcId);
+        BindPointTemplate bpt = bindplistData.get(npcId);
+        if (bpt == null) {
+            log.error("BindPointTemplate is missing for npcId: " + npcId);            
+            return null;
+        }
+        return bpt;
     }
 
     public BindPointTemplate getBindPointTemplate2(int bindPointId) {
-        return bindplistData2.get(bindPointId);
-	}
+        BindPointTemplate bpt = bindplistData2.get(bindPointId);
+        if (bpt == null) {
+            log.error("BindPointTemplate is missing for bindPointId: " + bindPointId);            
+            return null;
+        }
+        return bpt;
+    }
 }

@@ -458,6 +458,9 @@ public class TeleportService
 		{
 			BindPointTemplate bplist = DataManager.BIND_POINT_DATA.getBindPointTemplate2(player.getCommonData()
 				.getBindPoint());
+            if (bplist == null)
+                return;
+
 			worldId = bplist.getZoneId();
 			x = bplist.getX();
 			y = bplist.getY();
@@ -467,6 +470,9 @@ public class TeleportService
 		{
 			LocationData locationData = DataManager.PLAYER_INITIAL_DATA.getSpawnLocation(player.getCommonData()
 				.getRace());
+            if (locationData == null)
+                return;
+
 			worldId = locationData.getMapId();
 			x = locationData.getX();
 			y = locationData.getY();
