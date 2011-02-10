@@ -36,7 +36,6 @@ public class ItemActions {
             @XmlElement(name = "dye", type = DyeAction.class),
             @XmlElement(name = "craftlearn", type = CraftLearnAction.class),
             @XmlElement(name = "toypetspawn", type = ToyPetSpawnAction.class),
-            @XmlElement(name = "split", type = SplitAction.class),
             @XmlElement(name = "read", type = ReadAction.class)
     })
     protected List<AbstractItemAction> itemActions;
@@ -139,17 +138,6 @@ public class ItemActions {
         for (AbstractItemAction action : itemActions)
             if (action instanceof ToyPetSpawnAction)
                 result.add((ToyPetSpawnAction) action);
-        return result;
-    }
-
-    public List<SplitAction> getSplitActions() {
-        List<SplitAction> result = new ArrayList<SplitAction>();
-        if (itemActions == null)
-            return result;
-
-        for (AbstractItemAction action : itemActions)
-            if (action instanceof SplitAction)
-                result.add((SplitAction) action);
         return result;
     }
 

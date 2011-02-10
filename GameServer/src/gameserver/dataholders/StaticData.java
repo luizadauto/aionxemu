@@ -139,6 +139,9 @@ public class StaticData {
     @XmlElement(name = "pets")
     public PetData petData;
 
+    @XmlElement(name = "compressed_items")
+    public CompressedItemData compressedItemData;
+
     // JAXB callback
 
     @SuppressWarnings("unused")
@@ -178,5 +181,6 @@ public class StaticData {
         DataManager.log.info("Loaded " + shieldData.size() + " shield entries");
         DataManager.log.info("Loaded " + flyRingData.size() + " fly ring entries");
         DataManager.log.info("Loaded " + petData.size() + " pet entries");
+        DataManager.log.info("Loaded " + compressedItemData.size() + " compressed item entries");
     }
 }

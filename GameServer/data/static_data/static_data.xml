@@ -151,4 +151,7 @@
 	<pets>
 		<import file="pets/pets.xml" skipRoot="true"/>
 	</pets>
+	<compressed_items>
+		<import file="compressed_item" skipRoot="true"/>
+	</compressed_items>
 </ae_static_data>

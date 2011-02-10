@@ -1351,6 +1351,20 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
         return new SM_SYSTEM_MESSAGE(1400373, new DescriptionId(nameId));
     }
 
+    public static final SM_SYSTEM_MESSAGE STR_MSG_DECOMPRESS_INVENTORY_IS_FULL = new SM_SYSTEM_MESSAGE(1400363);
+
+    public static final SM_SYSTEM_MESSAGE STR_MSG_GET_ITEM(int nameId) {
+        return new SM_SYSTEM_MESSAGE(1390004, new DescriptionId(nameId));
+    }
+
+    public static final SM_SYSTEM_MESSAGE STR_MSG_GET_ITEM_MULTI(int nameId, int count) {
+        return new SM_SYSTEM_MESSAGE(1390005, new DescriptionId(nameId), count);
+    }
+
+    public static final SM_SYSTEM_MESSAGE STR_UNCOMPRESS_COMPRESSED_ITEM_SUCCEEDED(int nameId) {
+        return new SM_SYSTEM_MESSAGE(1400452, new DescriptionId(nameId));
+    }
+
     private final int code;
     private final Object[] params;
     private boolean npcShout = false;

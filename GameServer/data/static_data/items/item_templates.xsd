@@ -143,8 +143,6 @@
                         minOccurs="0" maxOccurs="1"/>
             <xs:element name="toypetspawn" type="ToyPetSpawnAction"
                         minOccurs="0" maxOccurs="1"/>
-            <xs:element name="split" type="SplitAction"
-                        minOccurs="0" maxOccurs="1"/>
             <xs:element name="read" type="ReadAction"
                         minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
@@ -211,12 +209,6 @@
             <xs:extension base="AbstractItemAction">
                 <xs:attribute name="npcid" type="xs:int"/>
             </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="SplitAction">
-        <xs:complexContent>
-            <xs:extension base="AbstractItemAction"/>
         </xs:complexContent>
     </xs:complexType>
 

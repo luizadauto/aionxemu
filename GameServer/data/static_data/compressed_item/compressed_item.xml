@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<compressed_items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compressed_item.xsd">
+	<!-- Greater Gold Ore > 3 Gold Ore --> 
+	<compressed_item id="152000103">
+		<production chance="100" item_id="152000102" count="3"/>
+	</compressed_item>
+	<!-- Greater Platinum Ore > 3 Platinum Ore --> 
+	<compressed_item id="152000105">
+		<production chance="100" item_id="152000104" count="3"/>
+	</compressed_item>
+	<!-- Greater Mithril Ore > 3 Mythril Ore --> 
+	<compressed_item id="152000108">
+		<production chance="100" item_id="152000107" count="3"/>
+	</compressed_item>
+	<!-- Pure Mithril Ore > 3 Greater Mithril Ores --> 
+	<compressed_item id="152000109">
+		<production chance="100" item_id="152000108" count="3"/>
+	</compressed_item>
+	<!-- Pure Platinum Ore > 3 Greater Platinum Ores --> 
+	<compressed_item id="152000106">
+		<production chance="100" item_id="152000105" count="3"/>
+	</compressed_item>
+	<!-- Brilliant Mithril Ore > 3 Pure Mithril Ores --> 
+	<compressed_item id="152000112">
+		<production chance="100" item_id="152000109" count="3"/>
+	</compressed_item>
+	<!-- Greater Malevite Ore > 3 Malevite Ore --> 
+	<compressed_item id="152000114">
+		<production chance="100" item_id="152000113" count="3"/>
+	</compressed_item>
+	<!-- Pure Malevite Ore > 3 Greater Malevite Ore--> 
+	<compressed_item id="152000115">
+		<production chance="100" item_id="152000114" count="3"/>
+	</compressed_item>
+	<!-- Brilliant Malevite Ore > 3 Pure Malevite Ore --> 
+	<compressed_item id="152000116">
+		<production chance="100" item_id="152000115" count="3"/>
+	</compressed_item>
+	<!-- Greater Titanium Ore > 3 Titanium Ore --> 
+	<compressed_item id="152000203">
+		<production chance="100" item_id="152000202" count="3"/>
+	</compressed_item>
+	<!-- Greater Titanium Ore > 3 Titanium Ore --> 
+	<compressed_item id="152000203">
+		<production chance="100" item_id="152000202" count="3"/>
+	</compressed_item>
+	<!-- Greater Adamantium Ore > 3 Adamantium Ore --> 
+	<compressed_item id="152000205">
+		<production chance="100" item_id="152000204" count="3"/>
+	</compressed_item>
+	<!-- Pure Adamantium Ore > 3 Greater Adamantium Ore --> 
+	<compressed_item id="152000206">
+		<production chance="100" item_id="152000205" count="3"/>
+	</compressed_item>
+	<!-- Greater Orichalcum Ore > 3 Orichalcum Ore --> 
+	<compressed_item id="152000208">
+		<production chance="100" item_id="152000207" count="3"/>
+	</compressed_item>
+	<!-- Pure Orichalcum Ore > 3 Greater Orichalcum Ore --> 
+	<compressed_item id="152000209">
+		<production chance="100" item_id="152000208" count="3"/>
+	</compressed_item>
+	<!-- Brilliant Orichalcum Ore > 3 Pure Orichalcum Ore --> 
+	<compressed_item id="152000213">
+		<production chance="100" item_id="152000209" count="3"/>
+	</compressed_item>
+	<!-- Greater Drenite Ore > 3 Drenite Ore --> 
+	<compressed_item id="152000215">
+		<production chance="100" item_id="152000214" count="3"/>
+	</compressed_item>
+	<!-- Pure Drenite Ore > 3 Greater Drenite Ore --> 
+	<compressed_item id="152000216">
+		<production chance="100" item_id="152000215" count="3"/>
+	</compressed_item>
+	<!-- Brillirant Drenite Ore > 3 Pure Drenite Ore --> 
+	<compressed_item id="152000217">
+		<production chance="100" item_id="152000216" count="3"/>
+	</compressed_item>
+	<!-- Big Garnet Ore > 3 Garnet Ore --> 
+	<compressed_item id="152000308">
+		<production chance="100" item_id="152000307" count="3"/>
+	</compressed_item>
+	<!-- Big Lazuli Ore > 3 Lazuli Ore --> 
+	<compressed_item id="152000310">
+		<production chance="100" item_id="152000309" count="3"/>
+	</compressed_item>
+	<!-- Big Moonstone Ore > 3 Moonstone Ore --> 
+	<compressed_item id="152000312">
+		<production chance="100" item_id="152000311" count="3"/>
+	</compressed_item>
+	<!-- Big Ruby Ore > 3 Ruby Ore --> 
+	<compressed_item id="152000314">
+		<production chance="100" item_id="152000313" count="3"/>
+	</compressed_item>
+	<!-- Big Sapphire Ore > 3 Sapphire Ore --> 
+	<compressed_item id="152000316">
+		<production chance="100" item_id="152000315" count="3"/>
+	</compressed_item>
+	<!-- Big Diamond Ore > 3 Diamond Ore --> 
+	<compressed_item id="152000318">
+		<production chance="100" item_id="152000317" count="3"/>
+	</compressed_item>
+	<!-- Big Corundum Ore > 3 Corundum Ore --> 
+	<compressed_item id="152000321">
+		<production chance="100" item_id="152000320" count="3"/>
+	</compressed_item>
+	<!-- Big Turquoise Ore > 3 Turquoise Ore --> 
+	<compressed_item id="152000323">
+		<production chance="100" item_id="152000322" count="3"/>
+	</compressed_item>
+	<!-- Big Elatrite Ore > 3 Elatrite Ore --> 
+	<compressed_item id="152000325">
+		<production chance="100" item_id="152000324" count="3"/>
+	</compressed_item>
+	<!-- Dazzling Corundum Ore > 3 Big Corundum Ore --> 
+	<compressed_item id="152000326">
+		<production chance="100" item_id="152000321" count="3"/>
+	</compressed_item>
+	<!-- Dazzling Turquoise Ore > 3 Big Turquoise Ore --> 
+	<compressed_item id="152000327">
+		<production chance="100" item_id="152000323" count="3"/>
+	</compressed_item>
+	<!-- Dazzling Elatrite Ore > 3 Big Elatrite Ore --> 
+	<compressed_item id="152000328">
+		<production chance="100" item_id="152000325" count="3"/>
+	</compressed_item>
+	<!-- Fresh Aria > 3 Aria --> 
+	<compressed_item id="152000402">
+		<production chance="100" item_id="152000401" count="3"/>
+	</compressed_item>
+	<!-- Fresh Targena > 3 Targena --> 
+	<compressed_item id="152000404">
+		<production chance="100" item_id="152000403" count="3"/>
+	</compressed_item>
+	<!-- Fresh Lumesia > 3 Lumesia --> 
+	<compressed_item id="152000406">
+		<production chance="100" item_id="152000405" count="3"/>
+	</compressed_item>
+	<!-- Fresh Umblia > 3 Umblia --> 
+	<compressed_item id="152000408">
+		<production chance="100" item_id="152000407" count="3"/>
+	</compressed_item>
+	<!-- Fresh Nepeta > 3 Nepeta --> 
+	<compressed_item id="152000410">
+		<production chance="100" item_id="152000409" count="3"/>
+	</compressed_item>
+	<!-- Fresh Amalil > 3 Amalil --> 
+	<compressed_item id="152000412">
+		<production chance="100" item_id="152000411" count="3"/>
+	</compressed_item>
+	<!-- Fresh Ferilla > 3 Ferilla --> 
+	<compressed_item id="152000414">
+		<production chance="100" item_id="152000413" count="3"/>
+	</compressed_item>
+	<!-- Fresh Griffonia > 3 Griffonia --> 
+	<compressed_item id="152000416">
+		<production chance="100" item_id="152000415" count="3"/>
+	</compressed_item>
+	<!-- Fresh Zeldt > 3 Zeldt --> 
+	<compressed_item id="152000418">
+		<production chance="100" item_id="152000417" count="3"/>
+	</compressed_item>
+	<!-- Fresh Hintera > 3 Hintera --> 
+	<compressed_item id="152000420">
+		<production chance="100" item_id="152000419" count="3"/>
+	</compressed_item>
+	<!-- Fresh Azpha > 3 Azpha --> 
+	<compressed_item id="152000452">
+		<production chance="100" item_id="152000451" count="3"/>
+	</compressed_item>
+	<!-- Fresh Kandula > 3 Kandula --> 
+	<compressed_item id="152000454">
+		<production chance="100" item_id="152000453" count="3"/>
+	</compressed_item>
+	<!-- Fresh Theonia > 3 Theonia --> 
+	<compressed_item id="152000456">
+		<production chance="100" item_id="152000455" count="3"/>
+	</compressed_item>
+	<!-- Fresh Hasia > 3 Hasia --> 
+	<compressed_item id="152000458">
+		<production chance="100" item_id="152000457" count="3"/>
+	</compressed_item>
+	<!-- Fresh Neunan > 3 Neunan --> 
+	<compressed_item id="152000460">
+		<production chance="100" item_id="152000459" count="3"/>
+	</compressed_item>
+	<!-- Fresh Calamot > 3 Calamot --> 
+	<compressed_item id="152000462">
+		<production chance="100" item_id="152000461" count="3"/>
+	</compressed_item>
+	<!-- Fresh Subella > 3 Subella --> 
+	<compressed_item id="152000464">
+		<production chance="100" item_id="152000463" count="3"/>
+	</compressed_item>
+	<!-- Fresh Groblue > 3 Groblue --> 
+	<compressed_item id="152000466">
+		<production chance="100" item_id="152000465" count="3"/>
+	</compressed_item>
+	<!-- Fresh Plia > 3 Plia --> 
+	<compressed_item id="152000469">
+		<production chance="100" item_id="152000468" count="3"/>
+	</compressed_item>
+	<!-- Fresh Liconsis > 3 Liconsis --> 
+	<compressed_item id="152000471">
+		<production chance="100" item_id="152000470" count="3"/>
+	</compressed_item>
+	<!-- Greater Aether Crystal > 3 Aether Crystal --> 
+	<compressed_item id="152000903">
+		<production chance="100" item_id="152000902" count="3"/>
+	</compressed_item>
+	<!-- Greater Aether Gem > 3 Aether Gem --> 
+	<compressed_item id="152000905">
+		<production chance="100" item_id="152000904" count="3"/>
+	</compressed_item>
+	<!-- Pure Aether Gem > 3 Greater Aether Gem --> 
+	<compressed_item id="152000906">
+		<production chance="100" item_id="152000905" count="3"/>
+	</compressed_item>
+	<!-- Greater Aether > 3 Aether --> 
+	<compressed_item id="152000908">
+		<production chance="100" item_id="152000907" count="3"/>
+	</compressed_item>
+	<!-- Pure Aether > 3 Greater Aether --> 
+	<compressed_item id="152000909">
+		<production chance="100" item_id="152000908" count="3"/>
+	</compressed_item>
+	<!-- Brilliant Aether > 3 Pure Aether --> 
+	<compressed_item id="152000910">
+		<production chance="100" item_id="152000909" count="3"/>
+	</compressed_item>
+	<!-- Greater Magical Aether > 3 Magical Aether --> 
+	<compressed_item id="152000912">
+		<production chance="100" item_id="152000911" count="3"/>
+	</compressed_item>
+	<!-- Pure Magical Aether > 3 Greater Magical Aether --> 
+	<compressed_item id="152000913">
+		<production chance="100" item_id="152000912" count="3"/>
+	</compressed_item>
+	<!-- Brilliant Magical Aether > 3 Pure Magical Aether --> 
+	<compressed_item id="152000914">
+		<production chance="100" item_id="152000913" count="3"/>
+	</compressed_item>
+	
+    <!-- Fat Bundle of Hair and Written Oath -->
+	<!--
+    <compressed_item id="188051184">
+	<production chance="100" item_id="186000029" count="40"/>
+	<production chance="100" item_id="186000047" count="40"/>
+	</compressed_item>
+    -->
+	<!-- Thick Bundle of Hair and Written Oath -->
+	<!--
+    <compressed_item id="188051183">
+	<production chance="100" item_id="186000029" count="30"/>
+	<production chance="100" item_id="186000047" count="30"/>
+	</compressed_item>
+    -->
+	<!-- Thin Bundle of Hair and Written Oath -->
+	<!--
+    <compressed_item id="188051182">
+	<production chance="100" item_id="186000029" count="20"/>
+	<production chance="100" item_id="186000047" count="20"/>
+	</compressed_item>
+    -->
+	<!-- Fat Bundle of Molar and Insignia -->
+	<!--
+    <compressed_item id="188051180">
+	<production chance="100" item_id="186000028" count="40"/>
+	<production chance="100" item_id="186000046" count="40"/>
+	</compressed_item>
+    -->
+	<!-- Thick Bundle of Molar and Insignia -->
+	<!--
+    <compressed_item id="188051179">
+	<production chance="100" item_id="186000028" count="30"/>
+	<production chance="100" item_id="186000046" count="30"/>
+	</compressed_item>
+    -->
+	<!-- Thin Bundle of Molar and Insignia -->
+	<!--
+    <compressed_item id="188051178">
+	<production chance="100" item_id="186000028" count="20"/>
+	<production chance="100" item_id="186000046" count="20"/>
+	</compressed_item>
+    -->
+</compressed_items>

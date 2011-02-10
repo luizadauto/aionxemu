@@ -225,6 +225,13 @@ public class ItemTemplate extends VisibleObjectTemplate {
     }
 
     /**
+     * @return the actions
+     */
+    public void setActions(ItemActions itemActions) {
+        this.actions = itemActions;
+    }
+
+    /**
      * @return the equipmentType
      */
     public EquipType getEquipmentType() {

@@ -37,6 +37,7 @@
 	<xs:include schemaLocation="bonuses/bonuses.xsd"/>
 	<xs:include schemaLocation="fly_rings/fly_rings.xsd"/>
 	<xs:include schemaLocation="pets/pets.xsd"/>
+	<xs:include schemaLocation="compressed_item/compressed_item.xsd" />
 	<xs:element name="ae_static_data">
 		<xs:complexType>
 			<xs:sequence>
@@ -77,6 +78,7 @@
 				<xs:element ref="bonuses" minOccurs="0"/>
 				<xs:element ref="fly_rings" minOccurs="0"/>
 				<xs:element ref="pets" minOccurs="0"/>
+				<xs:element ref="compressed_items" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

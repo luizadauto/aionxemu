@@ -17,6 +17,9 @@
 package gameserver.dataholders;
 
 import gameserver.dataholders.loadingutils.XmlDataLoader;
+import gameserver.itemengine.actions.ItemActions;
+import gameserver.model.templates.compressed_items.CompressedItem;
+import gameserver.model.templates.item.ItemTemplate;
 import gameserver.utils.Util;
 import org.apache.log4j.Logger;
 
@@ -209,6 +212,12 @@ public final class DataManager {
         log.info("##### [load time: " + timeMsg + "] #####");
         log.info("##### STATIC DATA [section end] #####");
 
+        for (CompressedItem item : data.compressedItemData.getCompressedItem()) {
+            ItemTemplate itemTemplate = ITEM_DATA.getItemTemplate(item.getId());
+            if (itemTemplate.getActions() == null)
+                itemTemplate.setActions(new ItemActions());
+            itemTemplate.getActions().getItemActions().add(item);
+        }
     }
 
     @SuppressWarnings("synthetic-access")
