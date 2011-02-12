@@ -282,6 +282,11 @@
 		<entrypoint mapid="210030000" x="2684.308" y="1068.7382" z="199.375" race="ELYOS"/>
 		<exitpoint mapid="310030000" x="270.5" y="174.3" z="204.3"/>
 	</portal>
+	<!-- Abyss Gate [Crushing the Conspiracy] Asmodians -->
+	<portal npcid="700143" instance="true" group="true" race="ASMODIANS">
+		<entrypoint mapid="220030000" x="2452.0867" y="2547.304" z="317.40292" race="ASMODIANS"/>
+		<exitpoint mapid="310030000" x="270.5" y="174.3" z="204.3"/>
+	</portal>   
 	<!-- ABYSS GATES -->
 	<!-- Verteron to Abyss -->
 	<portal npcid="700088" minlevel="25" maxlevel="55" instance="false" group="false" race="ELYOS">
