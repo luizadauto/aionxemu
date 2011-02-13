@@ -46,7 +46,7 @@ if %JAVA6% == "auto" (
   exit
 ) else (
   echo Starting java from %JAVA6%
-  %JAVA6% -Xms512m -Xmx1536m -ea -Xbootclasspath/p:./libs/jsr166.jar -cp ./libs/*;%JAR% gameserver.GameServer
+  %JAVA6% -Xms512m -Xmx1024m -ea -Xbootclasspath/p:./libs/jsr166.jar -cp ./libs/*;%JAR% gameserver.GameServer
 
   if errorlevel 11 (
     if not exist %JAR% (
