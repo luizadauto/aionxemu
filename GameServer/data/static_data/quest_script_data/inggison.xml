@@ -184,8 +184,8 @@
 	<!-- 11102: Petrified Sampling -->
 	<monster_hunt start_npc_id="798981" id="11102">
 		<monster_infos var_id="0" npc_id="216489" max_kill="1"/>
-		<monster_infos var_id="0" npc_id="216490" max_kill="1"/>
-		<monster_infos var_id="1" npc_id="216491" max_kill="1"/>
+		<monster_infos var_id="1" npc_id="216490" max_kill="1"/>
+		<monster_infos var_id="2" npc_id="216491" max_kill="1"/>
 	</monster_hunt>
 	<!-- 11103: Finite for a Walk -->
 	<item_collecting id="11103" start_npc_id="798933" end_npc_id="798942"/>

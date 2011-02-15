@@ -3647,7 +3647,7 @@
         <object x="2494.039" y="2808.658" z="109.00244" h="46"/>
     </spawn>
     <!-- Klaw Sentinel (Monster Normal lvl:38)-->
-    <spawn map="220020000" npcid="211146" pool="8" interval="270">
+    <spawn map="220020000" npcid="211558" pool="8" interval="270">
         <object x="2460.6" y="2809.673" z="105.12164" h="31"/>
         <object x="2415.18" y="2834.0486" z="108.0" h="48"/>
         <object x="2500.6023" y="2840.043" z="109.79971" h="68"/>
