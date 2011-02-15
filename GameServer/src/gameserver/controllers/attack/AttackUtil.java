@@ -268,6 +268,9 @@ public class AttackUtil {
             case RESIST:
                 damage = 0;
                 break;
+			case CRITICAL:
+				damage = Math.round(damage * 1.5f);
+				break;
             default:
                 break;
         }
@@ -304,8 +307,11 @@ public class AttackUtil {
 
     public static AttackStatus calculateMagicalStatus(Creature attacker, Creature attacked) {
         if (Rnd.get(0, 100) < StatFunctions.calculateMagicalResistRate(attacker, attacked))
-			return AttackStatus.RESIST;
+            return AttackStatus.RESIST;
 
-		return AttackStatus.NORMALHIT;
-	}
+        if (Rnd.get(0, 100) < StatFunctions.calculateMagicCriticalRate(attacker, attacked))
+            return AttackStatus.CRITICAL;
+
+        return AttackStatus.NORMALHIT;
+    }
 }

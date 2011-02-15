@@ -709,6 +709,36 @@ public class StatFunctions {
     }
 
     /**
+     * Calculates MAGIC CRITICAL chance
+     *
+     * @param attacker
+     * @return double
+     */
+    public static double calculateMagicCriticalRate(Creature attacker, Creature attacked) {
+        int critical;
+
+        // check always critical
+        if (attacker.getObserveController().checkAttackerStatus(AttackStatus.CRITICAL))
+            return 100;
+
+        critical = attacker.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.MAGICAL_RESIST);
+
+        double criticalRate;
+
+        if (critical <= 440)
+            criticalRate = critical * 0.1f;
+        else if (critical <= 600)
+            criticalRate = (440 * 0.1f) + ((critical - 440) * 0.05f);
+        else
+            criticalRate = (440 * 0.1f) + (160 * 0.05f) + ((critical - 600) * 0.02f);
+        // minimal critical rate
+        if (criticalRate < 1)
+            criticalRate = 1;
+
+        return criticalRate;
+    }
+
+    /**
      * Calculates RESIST chance
      *
      * @param attacker
