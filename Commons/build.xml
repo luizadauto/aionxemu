@@ -48,7 +48,7 @@
               osfamily="windows">
             <arg line="-n ."/>
         </exec>
-        <exec dir="." executable="./svnversion" outputproperty="revision" failifexecutionfails="false" osfamily="unix">
+        <exec dir="." executable="svnversion" outputproperty="revision" failifexecutionfails="false" osfamily="unix">
             <arg line="-n ."/>
         </exec>
         <tstamp>

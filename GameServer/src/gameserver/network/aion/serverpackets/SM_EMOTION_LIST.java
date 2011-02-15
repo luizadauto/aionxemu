@@ -26,8 +26,8 @@ public class SM_EMOTION_LIST extends AionServerPacket {
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
         writeC(buf, 0x00);
-        writeH(buf, 56);
-        for (int i = 0; i < 56; i++) {
+        writeH(buf, 57);
+        for (int i = 0; i < 57; i++) {
             writeD(buf, 64 + i);
             writeH(buf, 0x00);
         }
