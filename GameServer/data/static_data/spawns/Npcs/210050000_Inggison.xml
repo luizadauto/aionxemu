@@ -5741,6 +5741,9 @@
 	<spawn map="210050000" npcid="296489" pool="1" interval="295">
 		<object h="26" x="1784.3473" y="1353.8737" z="375.5079"/>
 	</spawn>
+	<spawn map="210050000" npcid="296490" pool="1" interval="295">
+		<object h="65" x="1370.93" y="1677.48" z="358.586"/>
+	</spawn>
 	<spawn map="210050000" npcid="296491" pool="1" interval="295">
 		<object h="18" x="635.6119" y="1271.0509" z="390.75"/>
 	</spawn>
