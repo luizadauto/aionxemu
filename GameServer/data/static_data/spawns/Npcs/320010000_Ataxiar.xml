@@ -18,10 +18,6 @@
 	Ataxiar
  -->
 <spawns>
-	<!-- Hagen -->
-	<spawn map="320010000" npcid="205020" pool="1" interval="105">
-		<object x="434.75" y="399.5" z="235.0" h="25"/>
-	</spawn>
 	<spawn map="320010000" npcid="205023" pool="1" interval="105">
 		<object x="444.0" y="416.0" z="229.0" h="0"/>
 	</spawn>
