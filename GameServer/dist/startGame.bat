@@ -1,80 +1,42 @@
-:######################################################################## 
-:# File name: startGame.bat
-:# Edited Last By: Magenik 
-:# V 1.0 1
-:######################################################################## 
-
 @echo off
-title Aion-X Game Server Console
+title Aion X GameServer Console
+
+REM Start...
 :start
-echo Starting Aion-X Game Server
+echo Starting Aion X Emu Game Server.
+echo.
 
-set JAVA6="auto"
-set JAR=ax-game-1.0.1.jar
+REM SET PATH="Type here your path to java jdk/jre (including bin folder)."
+REM NOTE: Remove tag REM from previous line.
 
-set X86="%ProgramFiles(x86)%"
-if %JAVA6% == "auto" (
-  echo Autodetecting java
-  if %X86% NEQ "" (
-    echo Testing x86 folder
-    for /D %%j in ("%ProgramFiles(x86)%\jre6*" "%ProgramFiles(x86)%\jre1.6.*" "%ProgramFiles(x86)%\jdk1.6.*" "%ProgramFiles(x86)%\Java\jre6*" "%ProgramFiles(x86)%\Java\jre1.6.*" "%ProgramFiles(x86)%\Java\jdk1.6.*") do (
-      echo Checking %%j folder
-      if exist "%%j\bin\java.exe" (
-        echo Found java in %%j folder
-        set JAVA6="%%j\bin\java.exe"
-      )
-    )
-  ) else (
-    echo Testing default folder
-    if defined ProgramFiles (
-    for /D %%j in ("%ProgramFiles%\jre6*" "%ProgramFiles%\jre1.6.*" "%ProgramFiles%\jdk1.6.*" "%ProgramFiles%\Java\jre6*" "%ProgramFiles%\Java\jre1.6.*" "%ProgramFiles%\Java\jdk1.6.*") do (
-        echo Checking %%j folder
-        if exist "%%j\bin\java.exe" (
-          echo Found java in %%j folder
-          set JAVA6="%%j\bin\java.exe"
-        )
-      )
-    )
-  )
-)
+REM -------------------------------------
+REM Default parameters for a basic server.
+java -Xms512m -Xmx1024m -ea -Xbootclasspath/p:./libs/jsr166.jar -cp ./libs/*;ax-game-1.0.1.jar gameserver.GameServer
+REM -------------------------------------
 
-:rerun
-if %JAVA6% == "auto" (
-  echo ERROR: Java not found!
-  echo Please download and install from java.com
-  pause
-  exit
-) else (
-  echo Starting java from %JAVA6%
-  %JAVA6% -Xms512m -Xmx1024m -ea -Xbootclasspath/p:./libs/jsr166.jar -cp ./libs/*;%JAR% gameserver.GameServer
+SET CLASSPATH=%OLDCLASSPATH%
 
-  if errorlevel 11 (
-    if not exist %JAR% (
-      echo ========================================
-      echo Warning: %JAR% not not found.
-      echo ========================================
-    )
+if ERRORLEVEL 2 goto restart
+if ERRORLEVEL 1 goto error
+if ERRORLEVEL 0 goto end
 
-    echo ERROR: Failed to run %JAR%
-    echo JAVA6=%JAVA6%
-    pause
-    exit
-  )
+REM Restart...
+:restart
+echo.
+echo Administrator Restart ...
+echo.
+goto start
 
-  if errorlevel 10 (
-    goto rerun
-  )
+REM Error...
+:error
+echo.
+echo Server is terminated abnormaly ...
+echo.
+goto end
 
-  if errorlevel 1 (
-    if not exist %JAR% (
-      echo ========================================
-      echo Warning: %JAR% not found.
-      echo ========================================
-    )
-
-    echo ERROR: Failed to run %JAR%
-    echo JAVA6=%JAVA6%
-    pause
-    exit
-  )
-)
+REM End...
+:end
+echo.
+echo Server is terminated ...
+echo.
+pause
