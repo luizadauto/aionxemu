@@ -544,6 +544,10 @@
 	<spawn map="220040000" npcid="798119" pool="1" interval="295">
 		<object x="1277.3582" y="834.96606" z="262.9973" h="0"/>
 	</spawn>
+	<!-- Hudrunerk (NPC Normal lvl:50)-->
+	<spawn map="220040000" npcid="205233" pool="1" interval="295">
+		<object x="358.796" y="439.151" z="222.112" h="105"/>
+	</spawn>
 	<!-- Huge Mamut Skull (Object Normal lvl:1)-->
 	<spawn map="220040000" npcid="700323" pool="1" interval="295">
 		<object x="2860" y="147.37" z="304.46" h="0"/>

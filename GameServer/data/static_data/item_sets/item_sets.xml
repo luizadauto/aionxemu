@@ -3797,18 +3797,18 @@
         <itempart itemid="114101003"/>
         <partbonus count="3">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="63" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="69" bonus="true"/>
             </modifiers>
         </partbonus>
         <partbonus count="5">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="75" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="82" bonus="true"/>
             </modifiers>
         </partbonus>
         <fullbonus>
             <modifiers>
-                <add name="MAGICAL_ACCURACY" value="26" bonus="true"/>
-                <add name="PHYSICAL_CRITICAL" value="34" bonus="true"/>
+                <add name="MAGICAL_ACCURACY" value="30" bonus="true"/>
+                <add name="MAGICAL_CRITICAL" value="10" bonus="true"/>
             </modifiers>
         </fullbonus>
     </itemset>
@@ -3820,18 +3820,18 @@
         <itempart itemid="114301024"/>
         <partbonus count="3">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="63" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="69" bonus="true"/>
             </modifiers>
         </partbonus>
         <partbonus count="5">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="75" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="82" bonus="true"/>
             </modifiers>
         </partbonus>
         <fullbonus>
             <modifiers>
-                <add name="PHYSICAL_ATTACK" value="14" bonus="true"/>
-                <add name="PHYSICAL_CRITICAL" value="34" bonus="true"/>
+                <add name="PHYSICAL_ATTACK" value="19" bonus="true"/>
+                <add name="PHYSICAL_CRITICAL" value="33" bonus="true"/>
             </modifiers>
         </fullbonus>
     </itemset>
@@ -3843,18 +3843,18 @@
         <itempart itemid="114500967"/>
         <partbonus count="3">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="63" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="69" bonus="true"/>
             </modifiers>
         </partbonus>
         <partbonus count="5">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="75" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="82" bonus="true"/>
             </modifiers>
         </partbonus>
         <fullbonus>
             <modifiers>
-                <add name="BOOST_HEAL" value="20" bonus="true"/>
-                <add name="PHYSICAL_CRITICAL" value="34" bonus="true"/>
+                <add name="BOOST_HEAL" value="22" bonus="true"/>
+                <add name="PHYSICAL_ACCURACY" value="74" bonus="true"/>
             </modifiers>
         </fullbonus>
     </itemset>
@@ -3866,18 +3866,18 @@
         <itempart itemid="114600926"/>
         <partbonus count="3">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="63" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="69" bonus="true"/>
             </modifiers>
         </partbonus>
         <partbonus count="5">
             <modifiers>
-                <add name="MAGICAL_RESIST" value="75" bonus="true"/>
+                <add name="MAGICAL_RESIST" value="82" bonus="true"/>
             </modifiers>
         </partbonus>
         <fullbonus>
             <modifiers>
-                <add name="PHYSICAL_ACCURACY" value="65" bonus="true"/>
-                <add name="PHYSICAL_CRITICAL" value="34" bonus="true"/>
+                <add name="PHYSICAL_ACCURACY" value="74" bonus="true"/>
+                <add name="PHYSICAL_ATTACK" value="19" bonus="true"/>
             </modifiers>
         </fullbonus>
     </itemset>
@@ -5517,8 +5517,8 @@
         </partbonus>
         <fullbonus>
             <modifiers>
-                <add name="PHYSICAL_ACCURACY" value="54" bonus="true"/>
-                <add name="PHYSICAL_CRITICAL_DAMAGE_REDUCE" value="28" bonus="true"/>
+                <add name="PHYSICAL_ACCURACY" value="64" bonus="true"/>
+                <add name="PHYSICAL_ATTACK" value="16" bonus="true"/>
             </modifiers>
         </fullbonus>
     </itemset>
@@ -5758,7 +5758,7 @@
         <partbonus count="2">
             <modifiers>
                 <add name="PHYSICAL_ACCURACY" value="124" bonus="true"/>
-                <add name="ATTACK_SPEED" value="-19" bonus="true"/>
+                <add name="PHYSICAL_CRITICAL" value="56" bonus="true"/>
             </modifiers>
         </partbonus>
     </itemset>

@@ -4,8 +4,12 @@
     @Author Saphari
  -->
 <spawns>
-	<!-- Veille (Monster Legendary lvl:55)-->
+	<!-- Enraged Veille (Monster Legendary lvl:55)-->
 	<spawn map="210050000" npcid="258200" pool="1" interval="3600">
 		<object x="1079.35220" y="1493.14600" z="404.86215" h="91"/>
+	</spawn>
+	<!-- King Myrn (Monster Normal lvl:54)-->
+	<spawn map="210050000" npcid="216497" pool="1" interval="360">
+		<object x="1256.9" y="886.859" z="408.654" h="29"/>
 	</spawn>
 </spawns>
