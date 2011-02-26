@@ -6123,7 +6123,7 @@
 		<object h="0" staticid="1199" x="903.1469" y="1639.7188" z="338.2734"/>
 	</spawn>
 		<!-- Meslamtaeda Monument Q30205 -->
-	<spawn map="210050000" npcid="700746" pool="20" interval="295">
+	<spawn map="210050000" npcid="700746" pool="1" interval="295">
 		<object staticid="205" h="0" x="2381.2864" y="1823.943" z="238.13921"/>
 	</spawn>
 		<!-- Ereshkigal Monument Q30205 -->
