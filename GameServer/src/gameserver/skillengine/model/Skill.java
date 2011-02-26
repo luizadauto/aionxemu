@@ -215,7 +215,34 @@ public class Skill {
                 if (p.getEffectController() != null && p.getEffectController().hasAbnormalEffect(1724))
                     duration = 0;
             }
-        }
+		}
+
+		//locked up skill duration
+		switch(skillTemplate.getSkillId()){
+			case (8198): //move scroll
+			case (1443): //Sleeping Strom
+			case (1497): //Tranquilzing Cloud
+			case (1495): //Sleep
+			case (1454): //Curse of Roots
+			case (1685): //Fear Shriek
+			case (1636): //Fear
+			case (2006): //Hand of Torpor
+			case (1803): //Bandage Heal
+
+			case (1804): //Herb Treatment
+			case (1805):
+			case (1825):
+			case (1827):
+
+			case (1823): //Mana Treatment
+			case (1824):
+			case (1826):
+			case (1828):
+				duration = skillDuration;
+				break;
+			default:
+				break;
+		}
 
         if (skillTemplate.isActive() || skillTemplate.isToggle()) {
             startCast();

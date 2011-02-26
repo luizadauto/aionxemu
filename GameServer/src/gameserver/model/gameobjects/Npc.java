@@ -188,20 +188,26 @@ public class Npc extends Creature {
         this.npcSkillList = npcSkillList;
     }
 
-    @Override
-    protected boolean isEnemyNpc(Npc visibleObject) {
-        return false;//TODO
-    }
+	@Override
+	protected boolean isEnemyNpc(Npc visibleObject)
+	{
+		return ((DataManager.TRIBE_RELATIONS_DATA.isAggressiveRelation(getTribe(),visibleObject.getTribe())) || (DataManager.TRIBE_RELATIONS_DATA.isHostileRelation(getTribe(),visibleObject.getTribe())));
+	}
 
-    @Override
-    protected boolean isEnemyPlayer(Player visibleObject) {
-        return true;//TODO
-    }
-
-    @Override
-    protected boolean isEnemySummon(Summon visibleObject) {
-        return true;//TODO
-    }
+	@Override
+	protected boolean isEnemyPlayer(Player visibleObject)
+	{
+		return (!((DataManager.TRIBE_RELATIONS_DATA.isSupportRelation(getTribe(),visibleObject.getTribe())) || (DataManager.TRIBE_RELATIONS_DATA.isFriendlyRelation(getTribe(),visibleObject.getTribe()))) );
+	}
+	
+	@Override
+	protected boolean isEnemySummon(Summon visibleObject)
+	{
+		Player player = visibleObject.getMaster();
+		if (player != null)
+			return (!((DataManager.TRIBE_RELATIONS_DATA.isSupportRelation(getTribe(),player.getTribe())) || (DataManager.TRIBE_RELATIONS_DATA.isFriendlyRelation(getTribe(),player.getTribe()))) );
+		return true;
+	}
 
     @Override
     protected boolean canSeeNpc(Npc npc) {

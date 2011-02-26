@@ -25,6 +25,7 @@ import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.model.templates.item.WeaponType;
 import gameserver.skillengine.model.Effect;
 import gameserver.utils.stats.StatFunctions;
+import gameserver.model.gameobjects.player.Equipment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -177,7 +178,7 @@ public class AttackUtil {
                 break;
             case STAFF_2H:
             case BOW:
-                damages = Math.round(damages * 1.8f);
+                damages = Math.round(damages * 1.7f);
                 break;
             default:
                 damages = Math.round(damages * 1.5f);
@@ -212,8 +213,33 @@ public class AttackUtil {
                 damage = 0;
                 break;
             case CRITICAL:
-                damage *= 2;
-                break;
+	            Equipment equipment = ((Player)effector).getEquipment(); 
+	            WeaponType weaponType = equipment.getMainHandWeaponType();					
+
+				switch(weaponType)
+				{
+					case DAGGER_1H:
+						damage = Math.round(damage * 2.3f);
+						break;
+					case SWORD_1H:
+						damage = Math.round(damage * 2.2f);
+						break;
+					case MACE_1H:
+						damage *= 2;
+						break;
+					case SWORD_2H:
+					case POLEARM_2H:
+						damage = Math.round(damage * 1.8f);
+						break;
+					case STAFF_2H:
+					case BOW:
+						damage = Math.round(damage * 1.7f);
+						break;
+					default:
+						damage = Math.round(damage * 1.5f);
+						break;
+				}
+				break;
             case PARRY:
                 damage *= 0.5;
                 break;

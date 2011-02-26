@@ -56,7 +56,7 @@ public class SM_EMOTION extends AionServerPacket
 	/**
 	 * Temporary Speed..
 	 */
-	private float				speed = 6.0f;
+	private float				speed;
 
 	private int					state;
 
@@ -107,10 +107,13 @@ public class SM_EMOTION extends AionServerPacket
 		this.baseAttackSpeed = creature.getGameStats().getBaseStat(StatEnum.ATTACK_SPEED);
 		this.currentAttackSpeed = creature.getGameStats().getCurrentStat(StatEnum.ATTACK_SPEED);
 
+		this.state = creature.getState();
+		this.speed = creature.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
+		
 		if (creature.isInState(CreatureState.FLYING))
 			this.speed = creature.getGameStats().getCurrentStat(StatEnum.FLY_SPEED) / 1000f;
-		else
-			this.speed = creature.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
+		else if (creature.isInState(CreatureState.WALKING))
+			this.speed = (speed * 25f) / 100f;
 	}
 
 	/**
@@ -140,10 +143,13 @@ public class SM_EMOTION extends AionServerPacket
 		this.heading = heading;
 		this.targetObjectId = targetObjectId;
 
+		this.state = player.getState();
+		this.speed = player.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
+		
 		if (player.isInState(CreatureState.FLYING))
 			this.speed = player.getGameStats().getCurrentStat(StatEnum.FLY_SPEED) / 1000f;
-		else
-			this.speed = player.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
+		else if (player.isInState(CreatureState.WALKING))
+			this.speed = (speed * 25f) / 100f;
 
 		this.state = player.getState();
 		this.baseAttackSpeed = player.getGameStats().getBaseStat(StatEnum.ATTACK_SPEED);
@@ -277,7 +283,7 @@ public class SM_EMOTION extends AionServerPacket
 			case WALK:
 				// toggle walk
 				writeH(buf, state);
-				writeF(buf, (speed - (speed * 75f) / 100f));
+				writeF(buf, speed);
 				break;
 			case RUN:
 				// toggle run
