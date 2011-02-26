@@ -11,7 +11,7 @@ REM NOTE: Remove tag REM from previous line.
 
 REM -------------------------------------
 REM Default parameters for a basic server.
-java -Xms512m -Xmx1024m -ea -Xbootclasspath/p:./libs/jsr166.jar -cp ./libs/*;ax-game-1.0.1.jar gameserver.GameServer
+java -Xms512m -Xmx1536m -ea -Xbootclasspath/p:./libs/jsr166.jar -cp ./libs/*;ax-game-1.0.1.jar gameserver.GameServer
 REM -------------------------------------
 
 SET CLASSPATH=%OLDCLASSPATH%

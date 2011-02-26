@@ -213,7 +213,7 @@ public class ManagerMainView extends JFrame {
 					        	serverId=1;
 					        	sb=gameButton;
 								arg="-Xms512m";
-								arg1="-Xmx1024m";
+								arg1="-Xmx1536m";
 						        arg4="./libs/*;ax-game-1.0.1.jar";
 						        arg5="-Xbootclasspath/p:./libs/jsr166.jar";
 						        arg6="gameserver.GameServer";
