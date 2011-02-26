@@ -288,10 +288,10 @@
 		<exitpoint mapid="310030000" x="270.5" y="174.3" z="204.3"/>
 	</portal>   
 	<!-- ABYSS GATES -->
-	<!-- Verteron to Abyss -->
-	<portal npcid="700088" minlevel="25" maxlevel="55" instance="false" group="false" race="ELYOS">
+		<!-- Verteron To Abyss -->
+	<portal npcid="730059" minlevel="25" maxlevel="55" instance="false" group="false" race="ELYOS">
 		<entrypoint mapid="210030000" x="0" y="0" z="0" race="ELYOS"/>
-		<exitpoint mapid="400010000" x="2867" y="1036" z="1528"/>
+		<exitpoint mapid="400010000" x="2845.921" y="931.41455" z="1533.6484"/>
 	</portal>
 	<!-- Eltnen to Abyss -->
 	<portal npcid="730060" minlevel="25" maxlevel="55" instance="false" group="false" race="ELYOS">
@@ -596,20 +596,10 @@
 		<entrypoint mapid="210050000" x="136.9814" y="2006.6646" z="434.29237"/>
 		<exitpoint mapid="210050000" x="142.5754" y="2063.49154" z="438.43626"/>
 	</portal>
-	<!-- Sematariux hideout entrance cave -->
-	<portal npcid="730292" instance="false" minlevel="50" maxlevel="55" group="false">
-		<entrypoint mapid="210050000" x="144.2154" y="2061.28154" z="438.14926"/>
-		<exitpoint mapid="210050000" x="136.9814" y="2006.6646" z="434.29237"/>
-	</portal>
 	<!-- Padmarashka Entrance -->
 	<portal npcid="730293" instance="false" minlevel="50" maxlevel="55" group="false">
 		<entrypoint mapid="220070000" x="2971.7256" y="1215.9103" z="242.0056"/>
 		<exitpoint mapid="220070000" x="2928.694" y="922.9771" z="36.80308"/>
-	</portal>
-	<!-- Padmarashka hideout entrance cave -->
-	<portal npcid="730294" instance="false" minlevel="50" maxlevel="55" group="false">
-		<entrypoint mapid="220070000" x="2928.694" y="922.9771" z="36.80308"/>
-		<exitpoint mapid="220070000" x="2971.7256" y="1215.9103" z="242.0056"/>
 	</portal>
 	<!-- Abyss Core aka Debris of Abyss -->
 	<portal npcid="730356" instance="true" minlevel="50" maxlevel="55" group="true">

@@ -236,38 +236,47 @@
    </spawn>
 	<!-- Gelkmaros Passage -->
 	<spawn map="600010000" npcid="730271" pool="1" interval="295">
-	  <object x="472.426" y="1079.65" z="335.677" h="21"/>
+		<object staticid="47" x="471.53934" y="1078.136" h="60" z="335.80417"/>
 	</spawn>
+	
 	<!-- Inggison Passage -->
 	<spawn map="600010000" npcid="730270" pool="1" interval="295">
-		<object x="469.904" y="461.658" z="330.153" h="102"/>
+		<object staticid="48" x="466.39011" y="465.98611" z="329.17526" h="102"/>
 	</spawn>
 	<!-- Tempeleingang Beshmundir_Temple -->
 	<spawn map="600010000" npcid="730231" pool="1" interval="295">
-		<object x="1418.62" y="767.215" z="312.866" h="119"/>
+		<object x="1418.62" y="767.215" z="312.866" h="119" staticid="33"/>
 	</spawn>
    <!-- Silentera to Agrief Ruins -->
-   <spawn map="600010000" npcid="730257" pool="1" interval="295">
-      <object x="1020.5811" y="968.00543" z="310.14017" h="0"/>
+    <spawn map="600010000" npcid="730257" pool="1" interval="295">
+		<object staticid="121" x="486.70847" y="105.148705" z="326.16504" h="59"/>
    </spawn>
    <!-- Silentera to Hanarkand -->
    <spawn map="600010000" npcid="730258" pool="1" interval="295">
-      <object x="919.65155" y="150.1299" z="346.56458" h="0"/>
+		<object staticid="122" x="920.4469" y="148.93167" h="60" z="347.11508"/>
    </spawn>
    <!-- Silentera to pimeval pass -->
    <spawn map="600010000" npcid="730259" pool="1" interval="295">
-      <object x="981.41003" y="557.9709" z="311.27164" h="0"/>
+		<object staticid="127" x="981.3028" y="555.31494" h="60" z="311.61133"/>
    </spawn>
    <!-- Silentera to Mitrakand -->
    <spawn map="600010000" npcid="730261" pool="1" interval="295">
-      <object x="406.69403" y="1407.3597" z="320.91837" h="0"/>
+		<object staticid="124" x="493.67923" y="1440.8508" h="60" z="329.04456"/>
    </spawn>
    <!-- Silentera to vorgaltem -->
    <spawn map="600010000" npcid="730262" pool="1" interval="295">
-      <object x="882.6667" y="1356.9557" z="334.92102" h="0"/>
+		<object staticid="123" x="931.4014" y="1404.8104" h="60" z="339.90656"/>
    </spawn>
    <!-- Silentera to Earthfang pass -->
    <spawn map="600010000" npcid="730263" pool="1" interval="295">
-      <object x="1020.5811" y="968.00543" z="310.14017" h="0"/>
+		<object staticid="118" x="1020.2776" y="970.36206" h="60" z="310.15427"/>
    </spawn>
+   	<!-- Statue Sinigalla (Level 1 Q30156) -->
+	<spawn map="600010000" npcid="700570" pool="1" interval="295">
+		<object staticid="149" x="546.8678" y="1233.7532" h="0" z="304.33652"/>
+	</spawn>
+    <!-- Icorunerk (Level 55) -->
+	<spawn map="600010000" npcid="799087" pool="1" interval="295">
+		<object x="531" y="335" h="110" z="299.625"/>
+	</spawn>
 </spawns>

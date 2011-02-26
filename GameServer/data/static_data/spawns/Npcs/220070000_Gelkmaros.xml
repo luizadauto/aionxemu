@@ -8,7 +8,7 @@
 	</spawn>
 	<!-- Silentera Entrance -->
 	<spawn map="220070000" npcid="730260" pool="1" interval="295">
-		<object x="1449.097" y="905.3585" z="294.02194" h="33"/>
+		<object staticid="1254" x="1449.2313" y="903.72229" z="302.2702" h="33"/>
 	</spawn>
 	<!-- Udas temple entrance -->
 	<spawn map="220070000" npcid="730278" pool="1" interval="295">
@@ -20,15 +20,14 @@
 	</spawn>
 	<!-- Padmarashka Entrance -->
 	<spawn map="220070000" npcid="730293" pool="1" interval="295">
-		<object x="2971.7256" y="1215.9103" z="242.0056" h="0"/>
+		<object staticid="1235" x="2971.7256" y="1215.9103" z="242.0056" h="0"/>
 	</spawn>
-	<!-- Padmarashka hideout entrance cave -->
-	<spawn map="220070000" npcid="730294" pool="1" interval="295">
-		<object x="2928.694" y="922.9771" z="36.80308" h="0"/>
-	</spawn>
-	<!-- Inggison Passage -->
-	<spawn map="220070000" npcid="730270" pool="1" interval="295">
-		<object x="1551.144" y="1052.2751" z="339.3922" h="22"/>
+	<!-- Padmarashka ShieldObject -->
+	<spawn map="220070000" npcid="282123" pool="4" interval="295">
+		<object staticid="2790" x="2904.7544" y="862.76312" z="34.349998" h="0"/>
+		<object staticid="2791" x="2918.4556" y="878.5542" z="34.349998" h="0"/>
+		<object staticid="2792" x="2949.1445" y="879.78491" z="34.220001" h="0"/>
+		<object staticid="2793" x="2962.9775" y="862.7937" z="34.419998" h="0"/>
 	</spawn>
 	<spawn map="220070000" npcid="205298" pool="1" interval="295">
 		<object h="70" x="1793.4579" y="2892.9265" z="548.52515"/>

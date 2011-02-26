@@ -804,4 +804,8 @@
 	<spawn map="210060000" npcid="798213" pool="1" interval="295" time="DAY">
 		<object x="1531.68100" y="279.73330" z="102.51712" h="102"/>
 	</spawn>
+	<!-- A Guardian's Life The Early Years -->
+	<spawn map="210060000" npcid="748005" pool="1" interval="295" time="DAY">
+		<object staticid="976" x="401.30161" y="1234.5601" z="135.65903" h="102"/>
+	</spawn>
 </spawns>

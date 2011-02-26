@@ -817,9 +817,9 @@
 	<spawn map="210030000" npcid="203157" pool="1" interval="295">
 		<object x="2071.3406" y="2415.5107" z="274.0412" h="72"/>
 	</spawn>
-	<!-- Verteron Abyss Gate (Object Normal lvl:20)-->
-	<spawn map="210030000" npcid="700088" pool="1" interval="295">
-		<object x="1685.3575" y="1491.2106" z="240.05261" h="52"/>
+	<!-- Verteron Abyss Gate (Object Normal lvl:20) -->
+	<spawn map="210030000" npcid="730059" pool="1" interval="295">
+		<object h="0" staticid="1190" x="1687.52" y="1490.02" z="248.999"/>
 	</spawn>
 	<!-- Vine Pumpkin (Object Normal lvl:1)-->
 	<spawn map="210030000" npcid="700109" pool="27" interval="295">
