@@ -302,8 +302,8 @@
 	<!-- 11201: TODO: [League] Securing Avarice -->
 	<!-- 11202: A Safer Crater -->
 	<monster_hunt start_npc_id="799009" id="11202">
-		<monster_infos var_id="0" npc_id="215730" max_kill="12"/>
-		<monster_infos var_id="1" npc_id="215733" max_kill="10"/>
+		<monster_infos var_id="0" npc_id="215730" max_kill="10"/>
+		<monster_infos var_id="1" npc_id="215733" max_kill="12"/>
 	</monster_hunt>
 	<!-- 11203: Essence Of Sulfur -->
 	<item_collecting id="11203" start_npc_id="799008"/>
