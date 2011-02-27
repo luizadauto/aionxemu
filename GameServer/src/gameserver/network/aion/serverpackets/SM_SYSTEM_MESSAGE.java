@@ -1166,6 +1166,36 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     public static SM_SYSTEM_MESSAGE SUMMON_CANT_ORDER_BY_TOO_DISTANCE() {
         return new SM_SYSTEM_MESSAGE(1300074);
     }
+	
+	public static SM_SYSTEM_MESSAGE RECALL_CANNOT_ACCEPT_EFFECT(String summonedName)
+	{
+		return new SM_SYSTEM_MESSAGE(1400097, summonedName);
+	}
+
+	public static SM_SYSTEM_MESSAGE RECALL_DONOT_ACCEPT_EFFECT(String summonerName)
+	{
+		return new SM_SYSTEM_MESSAGE(1400098, summonerName);
+	}
+
+	public static SM_SYSTEM_MESSAGE RECALL_REJECT_EFFECT(String summonedName)
+	{
+		return new SM_SYSTEM_MESSAGE(1400099, summonedName);
+	}
+
+	public static SM_SYSTEM_MESSAGE RECALL_REJECTED_EFFECT(String summonedName)
+	{
+		return new SM_SYSTEM_MESSAGE(1400100, summonedName);
+	}
+	// Looking for info about where to use the following 2 messages
+	public static SM_SYSTEM_MESSAGE RECALL_CANCEL_EFFECT(String summonedName)
+	{
+		return new SM_SYSTEM_MESSAGE(1400101, summonedName);
+	}
+
+	public static SM_SYSTEM_MESSAGE RECALL_DUPLICATE_EFFECT(String summonerName)
+	{
+		return new SM_SYSTEM_MESSAGE(1400102, summonerName);
+	}
 
     /**
      * Loot

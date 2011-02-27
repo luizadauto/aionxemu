@@ -82,6 +82,9 @@ public class SM_CASTSPELL_END extends AionServerPacket {
                 writeF(buf, y);
                 writeF(buf, z + 0.4f);
                 break;
+			case 3:
+				writeD(buf, 0);
+				break;
         }
         writeH(buf, spellid);
         writeC(buf, level);

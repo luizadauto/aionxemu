@@ -50,7 +50,7 @@ public class SM_QUESTION_WINDOW extends AionServerPacket {
     public static final int STR_SOUL_BOUND_ITEM_DO_YOU_WANT_SOUL_BOUND = 95006;
     public static final int STR_ASK_GROUP_GATE_DO_YOU_ACCEPT_MOVE = 160014;
     public static final int STR_QUEST_GIVEUP_WHEN_DELETE_QUEST_ITEM = 150001;
-
+    public static final int STR_SUMMON_PARTY_DO_YOU_ACCEPT_REQUEST = 901721;
     /**
      * %0 is an untradable item. Are you sure you want to acquire it?
      */

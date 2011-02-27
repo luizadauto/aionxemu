@@ -129,8 +129,8 @@ public class Effects {
             @XmlElement(name = "healcastoronatk", type = HealCastorOnAttackedEffect.class),
             @XmlElement(name = "switchhostile", type = SwitchHostileEffect.class),
             @XmlElement(name = "xpboost", type = XPBoostEffect.class),
-			@XmlElement(name = "leap", type = LeapEffect.class)
-
+            @XmlElement(name = "leap", type = LeapEffect.class),
+            @XmlElement(name = "recallinstant", type = RecallInstantEffect.class)
     })
     protected List<EffectTemplate> effects;
 
