@@ -23,6 +23,7 @@ import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.skillengine.model.Effect;
 import gameserver.skillengine.model.HealType;
 import gameserver.utils.ThreadPoolManager;
+import gameserver.model.gameobjects.stats.CreatureLifeStats;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -45,6 +46,8 @@ public class HealOverTimeEffect extends EffectTemplate {
     protected int delta;
     @XmlAttribute
     protected HealType type;
+	@XmlAttribute
+	protected boolean percent;
 
     private float finalRate;
 
@@ -67,6 +70,10 @@ public class HealOverTimeEffect extends EffectTemplate {
     public void onPeriodicAction(Effect effect) {
         Creature effected = effect.getEffected();
         int valueWithDelta = value + delta * effect.getSkillLevel();
+
+		final CreatureLifeStats<? extends Creature> cls = effect.getEffected().getLifeStats();
+		if(percent)
+			valueWithDelta = Math.round(cls.getMaxHp() * (value / 100f));
 
         if (type == HealType.FP) {
             effected.getLifeStats().increaseFp(valueWithDelta);
