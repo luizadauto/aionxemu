@@ -69,11 +69,13 @@ public class HealOverTimeEffect extends EffectTemplate {
     @Override
     public void onPeriodicAction(Effect effect) {
         Creature effected = effect.getEffected();
-        int valueWithDelta = value + delta * effect.getSkillLevel();
+        int valueWithDelta;
 
 		final CreatureLifeStats<? extends Creature> cls = effect.getEffected().getLifeStats();
 		if(percent)
 			valueWithDelta = Math.round(cls.getMaxHp() * (value / 100f));
+		else
+			valueWithDelta = value + delta * effect.getSkillLevel();
 
         if (type == HealType.FP) {
             effected.getLifeStats().increaseFp(valueWithDelta);
