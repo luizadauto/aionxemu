@@ -107,10 +107,15 @@
 		<exitpoint mapid="300070000" x="503.74" y="395.70" z="94.34"/>
 	</portal>
 	<!-- Alquimia Research Center Entrance -->
-	<portal npcid="730110" instance="true" minlevel="41" maxlevel="55" group="true">
+	<portal npcid="730110" instance="true" minlevel="40" maxlevel="55" group="true">
 		<entrypoint mapid="220040000" x="2203.19" y="2923.57" z="699.81"/>
 		<exitpoint mapid="320110000" x="602.62976" y="526.6474" z="200.05792"/>
 	</portal>
+	<!-- Alquimia Research Center Exit -->
+	<portal npcid="730111" instance="true" minlevel="40" maxlevel="55" group="true">
+		<entrypoint mapid="320110000" x="602.62976" y="526.6474" z="200.05792"/>
+		<exitpoint mapid="220040000" x="2203.19" y="2923.57" z="699.81"/>
+	</portal>	
 	<!-- Nochsana Training Camp Asmodians -->
 	<portal npcid="700414" instance="true" minlevel="25" maxlevel="28" group="true" race="ASMODIANS">
 		<entrypoint mapid="400010000" x="876.7211" y="3079.2874" z="1644.5786" race="ASMODIANS"/>
@@ -396,8 +401,8 @@
 	<!-- SCROLL TELEPORTS ASMODIANS END-->
 	<!-- ZONE TELEPORT -->
 	<!--Symbol of Mau Hero to Chieftain Nuaka-->
-	<portal npcid="730049" instance="false" minlevel="29" maxlevel="55" group="false" race="ASMODIANS">
-		<entrypoint mapid="220020000" x="2399.2" y="540.37" z="266.15" race="ASMODIANS"/>
+	<portal npcid="730049" instance="false" minlevel="29" maxlevel="55" group="false">
+		<entrypoint mapid="220020000" x="2399.2" y="540.37" z="266.15"/>
 		<exitpoint mapid="220020000" x="2401.9648" y="570.7738" z="329.09976"/>
 	</portal>
 	<!-- STEEL RAKE TELEPORTS -->

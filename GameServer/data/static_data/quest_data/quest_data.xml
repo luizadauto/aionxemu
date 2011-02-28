@@ -32116,7 +32116,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228433" name="Noble Siel's Supreme Sword" id="30016">
 		<collect_items>
 			<collect_item count="1" item_id="100000897"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100000939"/>
@@ -32128,7 +32128,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228437" name="Noble Siel's Supreme Greatsword" id="30018">
 		<collect_items>
 			<collect_item count="1" item_id="100900687"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100900716"/>
@@ -32140,7 +32140,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228441" name="Noble Siel's Supreme Polearm" id="30020">
 		<collect_items>
 			<collect_item count="1" item_id="101300658"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="101300686"/>
@@ -32152,7 +32152,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228445" name="Noble Siel's Supreme Staff" id="30022">
 		<collect_items>
 			<collect_item count="1" item_id="101500701"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="101500731"/>
@@ -32164,7 +32164,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228449" name="Noble Siel's Supreme Spellbook" id="30024">
 		<collect_items>
 			<collect_item count="1" item_id="100600758"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100600787"/>
@@ -32176,7 +32176,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228453" name="Noble Siel's Supreme Orb" id="30026">
 		<collect_items>
 			<collect_item count="1" item_id="100500701"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100500730"/>
@@ -32188,7 +32188,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228457" name="Noble Siel's Supreme Bow" id="30028">
 		<collect_items>
 			<collect_item count="1" item_id="101700725"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="101700754"/>
@@ -32200,7 +32200,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228461" name="Noble Siel's Supreme Dagger" id="30030">
 		<collect_items>
 			<collect_item count="1" item_id="100200810"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100200839"/>
@@ -32212,7 +32212,7 @@
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228465" name="Noble Siel's Supreme Mace" id="30032">
 		<collect_items>
 			<collect_item count="1" item_id="100100679"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100100711"/>
@@ -32405,7 +32405,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228497" name="Releasing the Sword's Potential" id="30116">
 		<collect_items>
 			<collect_item count="1" item_id="100000897"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100000944"/>
@@ -32417,7 +32417,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228501" name="Releasing the Greatsword's Potential" id="30118">
 		<collect_items>
 			<collect_item count="1" item_id="100900687"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100900721"/>
@@ -32429,7 +32429,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228505" name="Releasing the Polearm's Potential" id="30120">
 		<collect_items>
 			<collect_item count="1" item_id="101300658"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="101300691"/>
@@ -32441,7 +32441,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228509" name="Releasing the Staff's Potential" id="30122">
 		<collect_items>
 			<collect_item count="1" item_id="101500701"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="101500736"/>
@@ -32453,7 +32453,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228513" name="Releasing the Spellbook's Potential" id="30124">
 		<collect_items>
 			<collect_item count="1" item_id="100600758"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100600792"/>
@@ -32465,7 +32465,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228517" name="Releasing the Orb's Potential" id="30126">
 		<collect_items>
 			<collect_item count="1" item_id="100500701"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100500735"/>
@@ -32477,7 +32477,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228521" name="Releasing the Bow's Potential" id="30128">
 		<collect_items>
 			<collect_item count="1" item_id="101700725"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="101700759"/>
@@ -32489,7 +32489,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228525" name="Releasing the Dagger's Potential" id="30130">
 		<collect_items>
 			<collect_item count="1" item_id="100200810"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100200844"/>
@@ -32501,7 +32501,7 @@
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="52" nameId="2228529" name="Releasing the Mace's Potential" id="30132">
 		<collect_items>
 			<collect_item count="1" item_id="100100679"/>
-			<collect_item count="11" item_id="186000095"/>
+			<collect_item count="1" item_id="186000095"/>
 		</collect_items>
 		<rewards exp="4372400">
 			<reward_item count="1" item_id="100100716"/>

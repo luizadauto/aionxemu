@@ -279,4 +279,8 @@
 	<spawn map="320110000" npcid="204814" pool="1" interval="295">
 		<object x="456.04303" y="503.59927" z="206.73636" h="77"/>
 	</spawn>
+	<!-- Alquimia Research Center Exit (NPC Normal lvl:1) -->
+	<spawn map="320110000" npcid="730111" pool="1" interval="295">
+		<object x="602.62976" y="526.6474" z="200.05792" h="44"/>
+	</spawn>	
 </spawns>
