@@ -295,6 +295,7 @@
 			<selectable_reward_item count="1" item_id="101500508"/>
 			<selectable_reward_item count="1" item_id="100500510"/>
 			<selectable_reward_item count="1" item_id="115000777"/>
+			<reward_item count="1" item_id="186000003"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="50" item_id="182201014" npc_id="210832"/>
 		<quest_drop drop_each_member="true" chance="50" item_id="182201014" npc_id="210853"/>
@@ -1185,7 +1186,10 @@
 			<collect_item count="1" item_id="182200532"/>
 			<collect_item count="1" item_id="182200533"/>
 		</collect_items>
-		<rewards exp="26500" gold="18160"/>
+		<rewards exp="26500" gold="18160">
+			<selectable_reward_item count="1" item_id="120001129"/>
+			<selectable_reward_item count="1" item_id="120001130"/>
+		</rewards>
 		<quest_drop drop_each_member="false" chance="30" item_id="182200531" npc_id="210098"/>
 		<quest_drop drop_each_member="false" chance="30" item_id="182200531" npc_id="210099"/>
 		<quest_drop drop_each_member="false" chance="30" item_id="182200532" npc_id="210090"/>
@@ -1549,7 +1553,10 @@
 		<collect_items>
 			<collect_item count="5" item_id="152000101"/>
 		</collect_items>
-		<rewards exp="5000" gold="5220"/>
+		<rewards exp="5000" gold="5220">
+			<selectable_reward_item count="1" item_id="123001107"/>
+			<selectable_reward_item count="1" item_id="123001108"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="255" minlevel_permitted="99" nameId="2204759" name="[Spend Coin] Iron (Warrior and Scout)" id="1209">
 		<class_permitted>WARRIOR SCOUT GLADIATOR TEMPLAR ASSASSIN RANGER</class_permitted>
@@ -1828,6 +1835,10 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204857" name="Maeki Attack" id="1328">
 		<rewards exp="105150" gold="49560">
+			<selectable_reward_item count="1" item_id="125002496"/>
+			<selectable_reward_item count="1" item_id="125002497"/>
+			<selectable_reward_item count="1" item_id="125002498"/>
+			<selectable_reward_item count="1" item_id="125002499"/>
 			<reward_item count="100" item_id="169000005"/>
 		</rewards>
 		<finished_quest_conds>
@@ -3050,7 +3061,10 @@
 			<collect_item count="4" item_id="182201394"/>
 			<collect_item count="4" item_id="182201395"/>
 		</collect_items>
-		<rewards exp="55900" gold="51280"/>
+		<rewards exp="55900" gold="51280">
+			<selectable_reward_item count="1" item_id="121001047"/>
+			<selectable_reward_item count="1" item_id="121001048"/>
+		</rewards>
 		<quest_drop drop_each_member="false" chance="50" item_id="182201394" npc_id="210779"/>
 		<quest_drop drop_each_member="false" chance="50" item_id="182201394" npc_id="210792"/>
 		<quest_drop drop_each_member="false" chance="50" item_id="182201395" npc_id="211646"/>
