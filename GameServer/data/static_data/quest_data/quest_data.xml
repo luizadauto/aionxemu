@@ -606,17 +606,21 @@
 		<rewards reward_abyss_point="500" exp="15000" gold="58760">
 			<reward_item count="100" item_id="169000005"/>
 			<reward_item count="1" item_id="184000017"/>
+			<reward_item count="1" item_id="188050788"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204245" name="Saving Elyos Captives" id="1073">
 		<rewards reward_abyss_point="1000" exp="180100" gold="67860">
 			<reward_item count="4" item_id="164000077"/>
+			<reward_item count="1" item_id="188050790"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="26" nameId="2204247" name="Fragment of Memory" id="1074">
 		<rewards reward_abyss_point="1500" exp="340400" gold="102110">
 			<reward_item count="1" item_id="161000003"/>
 			<reward_item count="1" item_id="167000465"/>
+			<reward_item count="1" item_id="186000003"/>
+			<reward_item count="1" item_id="188050796"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="32" nameId="2204249" name="New Wings" id="1075">
@@ -642,8 +646,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="35" nameId="2204253" name="Fragment of Memory 3" id="1077">
 		<rewards title="46" reward_abyss_point="3000" exp="3693300" gold="319440">
-			<selectable_reward_item count="1" item_id="121000779"/>
-			<selectable_reward_item count="1" item_id="121000780"/>
+			<reward_item count="1" item_id="187000035"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="45" nameId="2204261" name="A Request From Atropos" id="1091">
@@ -7762,6 +7765,7 @@
 			<selectable_reward_item count="1" item_id="114300807"/>
 			<selectable_reward_item count="1" item_id="114500769"/>
 			<selectable_reward_item count="1" item_id="114600728"/>
+			<reward_item count="1" item_id="188050873"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="50" item_id="182204001" npc_id="211315"/>
 		<quest_drop drop_each_member="true" chance="50" item_id="182204001" npc_id="211321"/>
@@ -7777,6 +7781,7 @@
 			<selectable_reward_item count="1" item_id="113300793"/>
 			<selectable_reward_item count="1" item_id="113500764"/>
 			<selectable_reward_item count="1" item_id="113600738"/>
+			<reward_item count="1" item_id="188050875"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="65" item_id="182204003" npc_id="212414"/>
 		<quest_drop drop_each_member="true" chance="65" item_id="182204003" npc_id="212415"/>
@@ -7805,6 +7810,7 @@
 			<selectable_reward_item count="1" item_id="125001770"/>
 			<selectable_reward_item count="1" item_id="125001771"/>
 			<selectable_reward_item count="1" item_id="125001772"/>
+			<reward_item count="1" item_id="188050884"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="50" item_id="182204019" npc_id="212431"/>
 		<quest_drop drop_each_member="true" chance="50" item_id="182204019" npc_id="212432"/>
@@ -7831,6 +7837,7 @@
 			<selectable_reward_item count="1" item_id="110300817"/>
 			<selectable_reward_item count="1" item_id="110500787"/>
 			<selectable_reward_item count="1" item_id="110600773"/>
+			<reward_item count="1" item_id="188050891"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182204014" npc_id="700236"/>
 		<finished_quest_conds>
@@ -7843,6 +7850,8 @@
 			<selectable_reward_item count="1" item_id="112300724"/>
 			<selectable_reward_item count="1" item_id="112500712"/>
 			<selectable_reward_item count="1" item_id="112600723"/>
+			<reward_item count="1" item_id="186000008"/>
+			<reward_item count="1" item_id="188050890"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="33" nameId="2206277" name="A Lost Daeva" id="2038">
@@ -7873,17 +7882,30 @@
 			<condition quest="2039"/>
 		</finished_quest_conds>
 	</quest>
-	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="34" nameId="2206283" name="[Group] Hold The Front Line" id="2041">
-		<rewards title="60" exp="2108600" gold="221620">
-			<selectable_reward_item count="1" item_id="100200609"/>
-			<selectable_reward_item count="1" item_id="100000645"/>
-			<selectable_reward_item count="1" item_id="100100501"/>
-			<selectable_reward_item count="1" item_id="101300482"/>
-			<selectable_reward_item count="1" item_id="101700520"/>
-			<selectable_reward_item count="1" item_id="101500501"/>
-			<selectable_reward_item count="1" item_id="100600537"/>
-			<selectable_reward_item count="1" item_id="100500503"/>
-		</rewards>
+	<quest race_permitted="ASMODIANS" use_class_reward="true" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="34" nameId="2206283" name="[Group] Hold The Front Line" id="2041">
+		<rewards title="60" exp="2108600" gold="221620"/>
+		<fighter_selectable_reward count="1" item_id="100001108"/>
+		<fighter_selectable_reward count="1" item_id="100100847"/>
+		<fighter_selectable_reward count="1" item_id="100900842"/>
+		<fighter_selectable_reward count="1" item_id="101300810"/>
+		<fighter_selectable_reward count="1" item_id="101700885"/>
+		<knight_selectable_reward count="1" item_id="100001108"/>
+		<knight_selectable_reward count="1" item_id="100100847"/>
+		<knight_selectable_reward count="1" item_id="100900842"/>
+		<ranger_selectable_reward count="1" item_id="100200976"/>
+		<ranger_selectable_reward count="1" item_id="100001108"/>
+		<ranger_selectable_reward count="1" item_id="101700885"/>
+		<assassin_selectable_reward count="1" item_id="100200976"/>
+		<assassin_selectable_reward count="1" item_id="100001108"/>
+		<assassin_selectable_reward count="1" item_id="101700885"/>
+		<wizard_selectable_reward count="1" item_id="100600917"/>
+		<wizard_selectable_reward count="1" item_id="100500861"/>
+		<elementalist_selectable_reward count="1" item_id="100600917"/>
+		<elementalist_selectable_reward count="1" item_id="100500861"/>
+		<priest_selectable_reward count="1" item_id="100100847"/>
+		<priest_selectable_reward count="1" item_id="101500870"/>
+		<chanter_selectable_reward count="1" item_id="100100847"/>
+		<chanter_selectable_reward count="1" item_id="101500870"/>
 	</quest>
 	<quest race_permitted="ASMODIANS" use_class_reward="true" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2206285" name="The Last Checkpoint" id="2042">
 		<rewards exp="134300" gold="58760"/>
@@ -8051,17 +8073,21 @@
 		<rewards reward_abyss_point="500" exp="15000" gold="58760">
 			<reward_item count="100" item_id="169000005"/>
 			<reward_item count="1" item_id="184000021"/>
+			<reward_item count="1" item_id="188050878"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2206347" name="Captured Comrades" id="2073">
 		<rewards reward_abyss_point="1000" exp="200600" gold="71890">
 			<reward_item count="4" item_id="164000077"/>
+			<reward_item count="1" item_id="188050880"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="26" nameId="2206349" name="Looking for Leibo" id="2074">
 		<rewards reward_abyss_point="1500" exp="340400" gold="102110">
 			<reward_item count="1" item_id="161000003"/>
 			<reward_item count="1" item_id="167000465"/>
+			<reward_item count="1" item_id="186000008"/>
+			<reward_item count="1" item_id="188050886"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="33" nameId="2206351" name="Putting on the Speed" id="2075">
@@ -8074,10 +8100,16 @@
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="33" nameId="2206353" name="The Shadow Summons" id="2076">
 		<rewards title="96" reward_abyss_point="2500" exp="3693300" gold="319440">
-			<reward_item count="5" item_id="162000050"/>
-			<reward_item count="10" item_id="164000070"/>
-			<reward_item count="5" item_id="164000071"/>
+			<reward_item count="1" item_id="187000036"/>
 		</rewards>
+		<finished_quest_conds>
+			<condition quest="2701"/>
+			<condition quest="2071"/>
+			<condition quest="2072"/>
+			<condition quest="2073"/>
+			<condition quest="2074"/>
+			<condition quest="2075"/>
+		</finished_quest_conds>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="99" nameId="2206355" name="Regarding Hierni" id="2077">
 		<rewards gold="4140"/>
@@ -8110,6 +8142,8 @@
 		<rewards exp="5621300" gold="436560">
 			<selectable_reward_item count="1" item_id="120000892"/>
 			<selectable_reward_item count="1" item_id="120000893"/>
+			<reward_item count="1" item_id="186000010"/>
+			<reward_item count="1" item_id="188050928"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="80" item_id="182209010" npc_id="214482"/>
 		<quest_drop drop_each_member="true" chance="80" item_id="182209010" npc_id="214483"/>
@@ -9248,7 +9282,9 @@
 		<rewards exp="300"/>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="19" nameId="2207001" name="Morheim Commander's Call" id="2300">
-		<rewards exp="10000" gold="30000"/>
+		<rewards exp="10000" gold="30000">
+			<reward_item count="1" item_id="188050880"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" max_repeat_count="1" minlevel_permitted="19" nameId="2207003" name="Teleporter Troubles" id="2301">
 		<collect_items>
