@@ -1240,9 +1240,9 @@
         <tradelist id="5011"/>
     </tradelist_template>
     <tradelist_template npc_id="279026" name="Sienrurerk" count="4">
-        <tradelist id="835"/>
+        <tradelist id="836"/>
         <tradelist id="671"/>
-        <tradelist id="239"/>
+        <tradelist id="118"/>
         <tradelist id="5011"/>
     </tradelist_template>
     <tradelist_template npc_id="279046" name="thea" count="2" abyss="true">
@@ -2187,7 +2187,7 @@
     </tradelist_template>
     <tradelist_template npc_id="278007" name="siana" count="2">
         <tradelist id="371"/>
-        <tradelist id="239"/>
+        <tradelist id="118"/>
     </tradelist_template>
     <tradelist_template npc_id="278008" name="koag" count="1">
         <tradelist id="373"/>
@@ -2320,5 +2320,41 @@
 		<tradelist id="1002"/>
 		<tradelist id="1003"/>
 		<tradelist id="1004"/>
+	</tradelist_template>
+	<tradelist_template npc_id="279033" name="Guyarunerk" count="4" abyss="true">
+		<tradelist id="1096"/>
+		<tradelist id="1097"/>
+		<tradelist id="1098"/>
+		<tradelist id="1099"/>
+	</tradelist_template>
+	<tradelist_template npc_id="279035" name="Laichinchinerk" count="4" abyss="true">
+		<tradelist id="1100"/>
+		<tradelist id="1101"/>
+		<tradelist id="1102"/>
+		<tradelist id="1103"/>
+	</tradelist_template>
+	<tradelist_template npc_id="279036" name="Muirunerk" count="4" abyss="true">
+		<tradelist id="1104"/>
+		<tradelist id="1105"/>
+		<tradelist id="1106"/>
+		<tradelist id="1107"/>
+	</tradelist_template>
+	<tradelist_template npc_id="279037" name="Juimonmonerk" count="4" abyss="true">
+		<tradelist id="1108"/>
+		<tradelist id="1109"/>
+		<tradelist id="1110"/>
+		<tradelist id="1111"/>
+	</tradelist_template>
+	<tradelist_template npc_id="279038" name="Fayrunerk" count="4" abyss="true">
+		<tradelist id="1112"/>
+		<tradelist id="1113"/>
+		<tradelist id="1114"/>
+		<tradelist id="1115"/>
+	</tradelist_template>
+	<tradelist_template npc_id="279061" name="Baorunerk" count="4" abyss="true">
+		<tradelist id="1116"/>
+		<tradelist id="1117"/>
+		<tradelist id="1118"/>
+		<tradelist id="1119"/>
 	</tradelist_template>
 </npc_trade_list>

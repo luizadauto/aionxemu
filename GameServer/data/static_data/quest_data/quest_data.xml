@@ -8708,6 +8708,8 @@
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="13" nameId="2206647" name="A Mythical Monster" id="2223">
 		<rewards exp="15500" gold="6980">
+			<selectable_reward_item count="1" item_id="120001131"/>
+			<selectable_reward_item count="1" item_id="120001132"/>
 			<reward_item count="3" item_id="162000013"/>
 		</rewards>
 		<quest_work_items>
@@ -8726,7 +8728,10 @@
 		<quest_drop drop_each_member="false" chance="95" item_id="182203218" npc_id="210503"/>
 	</quest>
 	<quest race_permitted="ASMODIANS" max_repeat_count="1" minlevel_permitted="13" nameId="2206651" name="No-Good Slime" id="2225">
-		<rewards exp="13300" gold="16740"/>
+		<rewards exp="13300" gold="16740">
+			<selectable_reward_item count="1" item_id="123001109"/>
+			<selectable_reward_item count="1" item_id="123001110"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="13" nameId="2206653" name="A Cure for Crazy" id="2226">
 		<rewards exp="3890"/>
@@ -9202,7 +9207,10 @@
 		</quest_work_items>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="13" nameId="2206777" name="Money Where Your Mouth Is" id="2288">
-		<rewards exp="15800" gold="18160"/>
+		<rewards exp="15800" gold="18160">
+			<selectable_reward_item count="1" item_id="122001284"/>
+			<selectable_reward_item count="1" item_id="122001285"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="13" nameId="2206779" name="Rampaging Mosbears" id="2289">
 		<collect_items>

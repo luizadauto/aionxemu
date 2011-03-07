@@ -153,6 +153,10 @@
 	<spawn map="400010000" npcid="279034" pool="1" interval="295">
 		<object x="536.8435" y="1110.3967" z="2842.5654" h="0"/>
 	</spawn>
+	<!-- Baorunerk (NPC Normal lvl:40)-->
+	<spawn map="400010000" npcid="279061" pool="1" interval="295">
+		<object x="530.88727" y="1091.0481" z="2841.2747" h="10"/>
+	</spawn>
 	<!-- Barono (NPC Elite lvl:50)-->
 	<spawn map="400010000" npcid="278549" pool="1" interval="295">
 		<object x="2905.1697" y="1015.36115" z="1527.9968" h="58"/>
