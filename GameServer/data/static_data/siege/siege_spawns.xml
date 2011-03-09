@@ -3675,7 +3675,7 @@ Forteresses et Artefacts Abyssaux-->
 		</guards>
 		<artifact>
 			<!--Artefact - Vengeance du Mookie -->
-			<baseinfo npcid_dr="257209" npcid_da="257208" npcid_li="257207" x="1537.4923" y="2111.6814" z="323.75555" h="0"/>
+			<baseinfo npcid_dr="257209" npcid_da="257208" npcid_li="257207" x="1537.3347" y="2111.3865" z="322.03833" h="0" staticid="475"/>
 			<artifact_effect skillid="9959" range="ABYSS"/>
 			<artifact_protector>
 				<!-- Gardien de l'Artefact, hero -->

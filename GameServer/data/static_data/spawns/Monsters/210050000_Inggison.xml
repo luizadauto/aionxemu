@@ -12,4 +12,8 @@
 	<spawn map="210050000" npcid="216497" pool="1" interval="360">
 		<object x="1256.9" y="886.859" z="408.654" h="29"/>
 	</spawn>
+	<!--  Queen Klawnickt (Monster lvl:55)-->
+	<spawn map="210050000" npcid="216514" pool="1" interval="3600">
+		<object x="1190.01" y=" 788.459" z="388.921" h="28"/>
+	</spawn>
 </spawns>
