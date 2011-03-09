@@ -240,7 +240,7 @@ public class SpawnEngine {
         int mapId = DataManager.SIEGE_LOCATION_DATA.getSiegeLocations().get(fortressId).getLocationTemplate().getWorldId();
         int fgNpcId = template.getBaseInfo().getNpcId(race);
         SpawnTemplate sTemplate = addNewSpawn(mapId, 1, fgNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
-        FortressGate gate = new FortressGate(IDFactory.getInstance().nextId(), new FortressGateController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(fgNpcId), fortressId, template.getBaseInfo().getStaticId());
+        FortressGate gate = new FortressGate(IDFactory.getInstance().nextId(), new FortressGateController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(fgNpcId), fortressId, template.getBaseInfo().getStaticId(), template);
         gate.setKnownlist(new NpcKnownList(gate));
         gate.setEffectController(new EffectController(gate));
         gate.setLifeStats(new NpcLifeStats(gate));

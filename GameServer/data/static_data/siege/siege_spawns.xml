@@ -3675,7 +3675,7 @@ Forteresses et Artefacts Abyssaux-->
 		</guards>
 		<artifact>
 			<!--Artefact - Vengeance du Mookie -->
-			<baseinfo npcid_dr="257209" npcid_da="257208" npcid_li="257207" x="1537.3347" y="2111.3865" z="322.03833" h="0" staticid="475"/>
+			<baseinfo npcid_dr="257209" npcid_da="257208" npcid_li="257207" x="1537.3347" y="2111.3865" z="322.03833" h="0"/>
 			<artifact_effect skillid="9959" range="ABYSS"/>
 			<artifact_protector>
 				<!-- Gardien de l'Artefact, hero -->
@@ -4007,15 +4007,21 @@ Forteresses et Artefacts Abyssaux-->
 		</fortress_general>
 		<!--Fortress Gate A-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257494" npcid_da="257493" npcid_li="257492" x="834.12292" y="1863.2976" z="334.07114" h="0" static_id="373" /> 
+  			<baseinfo npcid_dr="257494" npcid_da="257493" npcid_li="257492" x="834.12292" y="1863.2976" z="334.07114" h="0" static_id="373" />
+			<tele_enter x="833.33" y="1861.55" z="334.1" h="0"/>
+			<tele_exit x="835.09" y="1865.75" z="333.78" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate B-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257538" npcid_da="257537" npcid_li="257536" x="774.46759" y="1904.3273" z="333.06738" h="0" static_id="380" /> 
+  			<baseinfo npcid_dr="257538" npcid_da="257537" npcid_li="257536" x="774.46759" y="1904.3273" z="333.06738" h="0" static_id="380" />
+			<tele_enter x="776.98" y="1903.46" z="333.26" h="0"/>
+			<tele_exit x="771.77" y="1905.62" z="333.26" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate C-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257541" npcid_da="257540" npcid_li="257539" x="858.85724" y="1918.7584" z="335.74753" h="0" static_id="388" /> 
+  			<baseinfo npcid_dr="257541" npcid_da="257540" npcid_li="257539" x="858.85724" y="1918.7584" z="335.74753" h="0" static_id="388" />
+			<tele_enter x="858.05" y="1917.02" z="335.66" h="0"/>
+			<tele_exit x="860.01" y="1921.36" z="336.25" h="0"/>
   		</fortress_gate>
 		<!-- Artefact - Faveur de la Cupidité-->
 		<artifact>
@@ -4273,15 +4279,21 @@ Forteresses et Artefacts Abyssaux-->
 		</fortress_general>
 		<!--Fortress Gate A-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257194" npcid_da="257193" npcid_li="257192" x="1763.8739" y="2114.5952" z="321.56815" h="95" static_id="379" /> 
+  			<baseinfo npcid_dr="257194" npcid_da="257193" npcid_li="257192" x="1763.8739" y="2114.5952" z="321.56815" h="95" static_id="379" />
+			<tele_enter x="1762.45" y="2118.48" z="320.71" h="0"/>
+			<tele_exit x="1764.18" y="2113.00" z="321.59" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate B-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257538" npcid_da="257537" npcid_li="257536" x="1691.6344" y="2107.7178" z="320.8342" h="0" static_id="376" /> 
+  			<baseinfo npcid_dr="257538" npcid_da="257537" npcid_li="257536" x="1691.6344" y="2107.7178" z="320.8342" h="0" static_id="376" />
+			<tele_enter x="1688.39" y="2107.28" z="320.84" h="0"/>
+			<tele_exit x="1694.33" y="2108.51" z="320.84" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate C-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257241" npcid_da="257240" npcid_li="257239" x="1748.7954" y="2173.7253" z="323.47775" h="95" static_id="389" /> 
+  			<baseinfo npcid_dr="257241" npcid_da="257240" npcid_li="257239" x="1748.7954" y="2173.7253" z="323.47775" h="95" static_id="389" />
+			<tele_enter x="1745.67" y="2176.77" z="323.95" h="0"/>
+			<tele_exit x="1747.41" y="2170.80" z="323.19" h="0"/>
   		</fortress_gate>
 		<!-- Artefact - Faveur de Dragon 257201 staticid:386-->
 		<artifact>
@@ -4674,15 +4686,21 @@ Forteresses et Artefacts Abyssaux-->
 		</fortress_general>
 		<!--Fortress Gate A-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257794" npcid_da="257793" npcid_li="257792" x="1198.4962" y="930.19611" z="306.77377" h="0" static_id="963" /> 
+  			<baseinfo npcid_dr="257794" npcid_da="257793" npcid_li="257792" x="1198.4962" y="930.19611" z="306.77377" h="0" static_id="963" />
+			<tele_enter x="1198.54" y="932.64" z="306.72" h="0"/>
+			<tele_exit x="1198.18" y="927.18" z="306.23" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate B-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257838" npcid_da="257837" npcid_li="257836" x="1269.3287" y="915.85083" z="305.69504" h="0" static_id="965" /> 
+  			<baseinfo npcid_dr="257838" npcid_da="257837" npcid_li="257836" x="1269.3287" y="915.85083" z="305.69504" h="0" static_id="965" />
+			<tele_enter x="1267.26" y="915.93" z="305.97" h="0"/>
+			<tele_exit x="1272.09" y="916.00" z="305.97" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate C-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="257841" npcid_da="257840" npcid_li="257839" x="1197.3901" y="869.55334" z="308.40991" h="0" static_id="981" /> 
+  			<baseinfo npcid_dr="257841" npcid_da="257840" npcid_li="257839" x="1197.3901" y="869.55334" z="308.40991" h="0" static_id="981" />
+			<tele_enter x="1197.29" y="871.48" z="308.37" h="0"/>
+			<tele_exit x="1197.25" y="866.41" z="308.99" h="0"/>
   		</fortress_gate>
 		<!-- Artefact - Faveur de Vorgaltem -->
 		<artifact>
@@ -4959,15 +4977,21 @@ Forteresses et Artefacts Abyssaux-->
 		</fortress_general>
 		<!--Fortress Gate A-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="258094" npcid_da="258093" npcid_li="258092" x="1880.2562" y="1168.7518" z="323.62369" h="0" static_id="846" /> 
+  			<baseinfo npcid_dr="258094" npcid_da="258093" npcid_li="258092" x="1880.2562" y="1168.7518" z="323.62369" h="0" static_id="846" />
+			<tele_enter x="1880.59" y="1171.10" z="323.57" h="0"/>
+			<tele_exit x="1880.15" y="1165.64" z="323.01" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate B-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="258138" npcid_da="258137" npcid_li="258136" x="1951.3099" y="1155.6827" z="322.63516" h="0" static_id="979" /> 
+  			<baseinfo npcid_dr="258138" npcid_da="258137" npcid_li="258136" x="1951.3099" y="1155.6827" z="322.63516" h="0" static_id="979" />
+			<tele_enter x="1949.06" y="1155.68" z="322.82" h="0"/>
+			<tele_exit x="1954.32" y="1155.69" z="322.82" h="0"/>
   		</fortress_gate>
 		<!--Fortress Gate C-->
 		<fortress_gate>
-  			<baseinfo npcid_dr="258141" npcid_da="258140" npcid_li="258139" x="1880.16" y="1108.09" z="325.15915" h="0" static_id="983" /> 
+  			<baseinfo npcid_dr="258141" npcid_da="258140" npcid_li="258139" x="1880.16" y="1108.09" z="325.15915" h="0" static_id="983" />
+			<tele_enter x="1880.28" y="1110.76" z="325.13" h="0"/>
+			<tele_exit x="1880.25" y="1104.80" z="325.86" h="0"/>
   		</fortress_gate>
 		<!-- Artefact - Faveur écarlate -->
 		<artifact>

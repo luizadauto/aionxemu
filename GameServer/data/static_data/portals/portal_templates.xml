@@ -702,4 +702,44 @@
 		<entrypoint mapid="120010000" x="1293.52" y="1348.27" z="203.67"/>
 		<exitpoint mapid="320120000" x="407.6533" y="399.1897" z="245.10768"/>
 	</portal>
+	<!-- Crimson Temple Asmodian -->
+	<portal npcid="258134" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="220070000" x="1831.01" y="1155.4" z="320.84637" race="ASMODIANS"/>
+		<exitpoint mapid="220070000" x="1818.41" y="1089.64" z="338.98"/>
+	</portal>
+	<!-- Crimson Temple Elyos -->
+	<portal npcid="258133" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="220070000" x="1831.01" y="1155.4" z="320.84637" race="ELYOS"/>
+		<exitpoint mapid="220070000" x="1818.41" y="1089.64" z="338.98"/>
+	</portal>
+	<!-- Vorgaltem Citadel Asmodian -->
+	<portal npcid="257834" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="220070000" x="1150.4642" y="918.155" z="303.99667" race="ASMODIANS"/>
+		<exitpoint mapid="220070000" x="1134.81" y="852.93" z="322.13"/>
+	</portal>
+	<!-- Vorgaltem Citadel Elyos -->
+	<portal npcid="257833" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="220070000" x="1150.4642" y="918.155" z="303.99667" race="ELYOS"/>
+		<exitpoint mapid="220070000" x="1134.81" y="852.93" z="322.13"/>
+	</portal>
+	<!-- Altar of Avarice Asmodian -->
+	<portal npcid="257534" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="210050000" x="881.9489" y="1857.465" z="331.2942" race="ASMODIANS"/>
+		<exitpoint mapid="210050000" x="922.92" y="1910.16" z="349.42"/>
+	</portal>
+	<!-- Altar of Avarice Elyos -->
+	<portal npcid="257533" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="210050000" x="881.9489" y="1857.465" z="331.2942" race="ELYOS"/>
+		<exitpoint mapid="210050000" x="922.92" y="1910.16" z="349.42"/>
+	</portal>
+	<!-- Temple of Scales Asmodian -->
+	<portal npcid="257234" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="210050000" x="1804.62" y="2141.16" z="318.86935" race="ASMODIANS"/>
+		<exitpoint mapid="210050000" x="1801.14" y="2207.80" z="337.00"/>
+	</portal>
+	<!-- Temple of Scales Elyos -->
+	<portal npcid="257233" instance="false" minlevel="50" maxlevel="55" group="false">
+		<entrypoint mapid="210050000" x="1804.62" y="2141.16" z="318.86935" race="ELYOS"/>
+		<exitpoint mapid="210050000" x="1801.14" y="2207.80" z="337.00"/>
+	</portal>
 </portal_templates>

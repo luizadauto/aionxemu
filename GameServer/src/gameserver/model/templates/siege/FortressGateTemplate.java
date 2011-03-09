@@ -33,6 +33,10 @@ public class FortressGateTemplate {
     protected SiegeSingleSpawnBaseInfo baseInfo;
     @XmlElement(name = "heal_gate")
     protected FortressGateArtifactTemplate gateArtifact;
+    @XmlElement(name = "tele_enter")
+    protected SiegeSpawnLocationTemplate teleEnter;
+    @XmlElement(name = "tele_exit")
+    protected SiegeSpawnLocationTemplate teleExit;
 
     public SiegeSingleSpawnBaseInfo getBaseInfo() {
         return baseInfo;
@@ -40,6 +44,14 @@ public class FortressGateTemplate {
 
     public FortressGateArtifactTemplate getArtifact() {
         return gateArtifact;
+    }
+    
+    public SiegeSpawnLocationTemplate getTeleEnter() {
+    	return teleEnter;
+    }
+    
+    public SiegeSpawnLocationTemplate getTeleExit() {
+    	return teleExit;
     }
 
 }

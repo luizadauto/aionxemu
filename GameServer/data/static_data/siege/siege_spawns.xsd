@@ -84,6 +84,8 @@
 		<xs:sequence>
 			<xs:element name="baseinfo" type="SingleSpawnBaseInfo" minOccurs="1" maxOccurs="1" />
 			<xs:element name="fortress_gate_artifact" type="FortressGateArtifact" minOccurs="0" maxOccurs="1" />
+			<xs:element name="tele_enter" type="MultipleSpawnInfo" minOccurs="0" maxOccurs="1" />
+			<xs:element name="tele_exit" type="MultipleSpawnInfo" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
 	</xs:complexType>
 	

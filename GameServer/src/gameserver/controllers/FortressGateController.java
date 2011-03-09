@@ -17,16 +17,22 @@
 package gameserver.controllers;
 
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.player.Player;
 import gameserver.model.siege.FortressGate;
+import gameserver.model.templates.siege.FortressGateTemplate;
+import gameserver.model.templates.siege.SiegeSpawnLocationTemplate;
+import gameserver.services.TeleportService;
+import gameserver.utils.MathUtil;
+import gameserver.world.WorldPosition;
 
 /**
- * @author Xitanium
+ * @author Xitanium, SuneC
  */
 public class FortressGateController extends NpcController {
 
     @Override
     public void onDie(Creature lastAttacker) {
-
+    	super.onDie(lastAttacker);
     }
 
     @Override
@@ -37,5 +43,31 @@ public class FortressGateController extends NpcController {
     @Override
     public FortressGate getOwner() {
         return (FortressGate) super.getOwner();
+    }
+    
+    @Override
+    public void onDialogRequest(Player player) {
+    	if(getOwner().isEnemy(player))
+    		return;
+    	
+    	FortressGateTemplate fgTemplate = getOwner().getTemplate();
+    	SiegeSpawnLocationTemplate teleEnter = fgTemplate.getTeleEnter();
+    	SiegeSpawnLocationTemplate teleExit = fgTemplate.getTeleExit();
+    	
+    	WorldPosition playerPos = player.getPosition();
+    	
+    	double fDistEnter = MathUtil.getDistance(playerPos.getX(), playerPos.getY(), playerPos.getZ(),
+    		teleEnter.getX(), teleEnter.getY(), teleEnter.getZ());
+    	double fDistExit = MathUtil.getDistance(playerPos.getX(), playerPos.getY(), playerPos.getZ(),
+    		teleExit.getX(), teleExit.getY(), teleExit.getZ());
+    	
+    	if(fDistEnter < fDistExit) //Closer to entrance than exit -> port to Exit
+    	{
+    		TeleportService.teleportTo(player, playerPos.getMapId(), teleExit.getX(), teleExit.getY(), teleExit.getZ(), 0);
+    	}
+    	else //Closer to exit than entrance -> port to Entrance
+    	{
+    		TeleportService.teleportTo(player, playerPos.getMapId(), teleEnter.getX(), teleEnter.getY(), teleEnter.getZ(), 0);
+    	}
     }
 }

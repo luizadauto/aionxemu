@@ -519,15 +519,17 @@ public class SiegeService {
                 if (fortressGatesTemplates != null && fortressGatesTemplates.size() > 0) {
                     for (FortressGateTemplate fgTemplate : fortressGatesTemplates) {
                         FortressGate gate = SpawnEngine.getInstance().spawnFortressGate(locationId, spawnRace, fgTemplate);
-                        if (gate != null && fgTemplate.getArtifact() != null) {
+                        if (gate != null) {
                             spawnedCounter++;
                             fortressRelatedObjectIds.get(locationId).add(gate.getObjectId());
-                            FortressGateArtifactTemplate aTemplate = fgTemplate.getArtifact();
-                            FortressGateArtifact fga = SpawnEngine.getInstance().spawnFortressGateArtifact(locationId, spawnRace, aTemplate);
-                            if (fga != null) {
-                                fga.setRelatedGate(gate);
-                                spawnedCounter++;
-                                fortressRelatedObjectIds.get(locationId).add(fga.getObjectId());
+                            if(fgTemplate.getArtifact() != null) {
+                            	FortressGateArtifactTemplate aTemplate = fgTemplate.getArtifact();
+                            	FortressGateArtifact fga = SpawnEngine.getInstance().spawnFortressGateArtifact(locationId, spawnRace, aTemplate);
+                            	if (fga != null) {
+                            		fga.setRelatedGate(gate);
+                            		spawnedCounter++;
+                            		fortressRelatedObjectIds.get(locationId).add(fga.getObjectId());
+                            	}
                             }
                         }
                     }
