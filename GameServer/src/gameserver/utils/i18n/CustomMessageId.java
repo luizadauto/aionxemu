@@ -110,7 +110,8 @@ public enum CustomMessageId {
     COMMAND_XP_DISABLED("Your experience gain has been disabled. Type .xpon to re-enable"),
     COMMAND_XP_ALREADY_DISABLED("Your experience gain is already disabled"),
     COMMAND_XP_ENABLED("Your experience gain has been enabled"),
-    COMMAND_XP_ALREADY_ENABLED("Your experience gain is already enabled");
+    COMMAND_XP_ALREADY_ENABLED("Your experience gain is already enabled"),
+    ERROR_ITEM_COMPRESSED("An error occurred while attempting to open the item, please report it to the administrator");
 
     private String fallbackMessage;
 

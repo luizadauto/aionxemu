@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * @author Mr. Poke
+ * @author Mr. Poke, Jefe
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -36,8 +36,12 @@ public class Production
     protected int	chance;
     @XmlAttribute(name = "item_id", required = true)
     protected int	itemId;
-    @XmlAttribute(required = true)
+    @XmlAttribute(required = false)
     protected int	count;
+    @XmlAttribute(required = false)
+    protected int	min;
+    @XmlAttribute(required = false)
+    protected int	max;
 
     /**
      * Gets the value of the chance property.
@@ -61,5 +65,21 @@ public class Production
      */
     public int getCount() {
         return count;
+    }
+    
+    /**
+    * Gets the value of the Min property.
+    * 
+    */
+    public int getMin() {
+        return min;
+    }  
+    
+    /**
+    * Gets the value of the Max property.
+    * 
+    */
+    public int getMax() {
+        return max;
     }
 }

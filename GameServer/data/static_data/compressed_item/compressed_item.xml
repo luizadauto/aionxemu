@@ -240,8 +240,118 @@
 	<compressed_item id="152000914">
 		<production chance="100" item_id="152000913" count="3"/>
 	</compressed_item>
-	
-    <!-- Fat Bundle of Hair and Written Oath -->
+	<!-- Bronze Coin Chest Ely -->
+	<compressed_item id="188050773">
+		<production chance="100" item_id="186000002" min="1" max="10"/>
+	</compressed_item>
+	<!-- Bronze Coin Chest Ely ### test combination max min count and maximum production items ## -->
+	<compressed_item id="188050774" maxproduction="4">
+		<production chance="50" item_id="188050773" count="2"/>
+		<production chance="50" item_id="188050774" count="1"/>
+		<production chance="50" item_id="167000450" min="5" max="10"/>
+		<production chance="50" item_id="167000451" min="1" max="5"/>
+		<production chance="50" item_id="167000452" min="5" max="10"/>
+		<production chance="50" item_id="167000453" min="1" max="5"/>
+   	</compressed_item>
+   		<!-- Gift Filled with Sincerity -->
+	<compressed_item id="188051146" maxproduction="1">
+		<production chance="100" item_id="186000002" min="1" max="10"/>
+	</compressed_item>
+		<!-- Gift Filled with Heart -->
+	<compressed_item id="188051147" maxproduction="1">
+		<production chance="100" item_id="186000002" min="1" max="10"/>
+	</compressed_item>
+		<!-- [Event] Red Gift -->
+	<compressed_item id="188051136" maxproduction="1">
+		<production chance="1" item_id="100001080" count="1"/>
+		<production chance="1" item_id="100000893" count="1"/>
+		<production chance="1" item_id="100100676" count="1"/>
+		<production chance="1" item_id="100200807" count="1"/>
+		<production chance="1" item_id="100500698" count="1"/>
+		<production chance="1" item_id="100600755" count="1"/>
+		<production chance="1" item_id="100900684" count="1"/>
+		<production chance="1" item_id="101300655" count="1"/>
+		<production chance="1" item_id="101500698" count="1"/>
+		<production chance="1" item_id="101700722" count="1"/>
+		<production chance="1" item_id="115000966" count="1"/>
+		<production chance="1" item_id="115000967" count="1"/>
+		<production chance="1" item_id="100100581" count="1"/>
+		<production chance="1" item_id="100600636" count="1"/>
+		<production chance="1" item_id="100000768" count="1"/>
+		<production chance="1" item_id="101300564" count="1"/>
+		<production chance="1" item_id="115000860" count="1"/>
+		<production chance="1" item_id="101700620" count="1"/>
+		<production chance="1" item_id="100500602" count="1"/>
+		<production chance="1" item_id="100900591" count="1"/>
+		<production chance="1" item_id="100200702" count="1"/>
+		<production chance="1" item_id="182206098" count="1"/>
+		<production chance="1" item_id="186000077" count="1"/>
+		<production chance="1" item_id="169660000" count="1"/>
+		<production chance="10" item_id="169650000" count="1"/>
+		<production chance="10" item_id="166000190" min="5" max="10"/>
+		<production chance="10" item_id="166100008" min="10" max="20"/>
+		<production chance="10" item_id="167000561" min="5" max="10"/>
+		<production chance="10" item_id="167000556" min="5" max="10"/>
+		<production chance="10" item_id="167000559" min="5" max="10"/>
+		<production chance="10" item_id="167000560" min="5" max="10"/>
+		<production chance="10" item_id="167000555" min="5" max="10"/>
+		<production chance="10" item_id="167000552" min="5" max="10"/>
+		<production chance="10" item_id="167000551" min="5" max="10"/>
+		<production chance="10" item_id="167000554" min="5" max="10"/>
+		<production chance="10" item_id="167000558" min="5" max="10"/>
+		<production chance="10" item_id="167000557" min="5" max="10"/>
+		<production chance="100" item_id="167000553" min="5" max="10"/>
+	</compressed_item>
+		<!-- [Event] Blue Gift -->
+	<compressed_item id="188051135" maxproduction="1">
+		<production chance="1" item_id="101500394" count="1"/>
+		<production chance="1" item_id="100600421" count="1"/>
+		<production chance="1" item_id="101700406" count="1"/>
+		<production chance="1" item_id="100100396" count="1"/>
+		<production chance="1" item_id="100900388" count="1"/>
+		<production chance="1" item_id="100200502" count="1"/>
+		<production chance="1" item_id="101300379" count="1"/>
+		<production chance="1" item_id="100000513" count="1"/>
+		<production chance="1" item_id="100500390" count="1"/>
+		<production chance="1" item_id="100200245" count="1"/>
+		<production chance="1" item_id="100500153" count="1"/>
+		<production chance="1" item_id="101700164" count="1"/>
+		<production chance="1" item_id="100900148" count="1"/>
+		<production chance="1" item_id="101300145" count="1"/>
+		<production chance="1" item_id="101500154" count="1"/>
+		<production chance="1" item_id="100000228" count="1"/>
+		<production chance="1" item_id="100600166" count="1"/>
+		<production chance="1" item_id="100100142" count="1"/>
+		<production chance="1" item_id="125040037" count="1"/>
+		<production chance="1" item_id="125000929" count="1"/>
+		<production chance="1" item_id="125001101" count="1"/>
+		<production chance="1" item_id="125001106" count="1"/>
+		<production chance="1" item_id="125001884" count="1"/>
+		<production chance="1" item_id="125001111" count="1"/>
+		<production chance="1" item_id="125000950" count="1"/>
+		<production chance="1" item_id="125001117" count="1"/>
+		<production chance="1" item_id="125000955" count="1"/>
+		<production chance="1" item_id="125001499" count="1"/>
+		<production chance="1" item_id="115000959" count="1"/>
+		<production chance="1" item_id="101700719" count="1"/>
+		<production chance="1" item_id="101500695" count="1"/>
+		<production chance="1" item_id="101300652" count="1"/>
+		<production chance="1" item_id="100900681" count="1"/>
+		<production chance="1" item_id="100600752" count="1"/>
+		<production chance="1" item_id="100500695" count="1"/>
+		<production chance="1" item_id="100200803" count="1"/>
+		<production chance="1" item_id="100100673" count="1"/>
+		<production chance="1" item_id="100000879" count="1"/>
+		<production chance="1" item_id="110900067" count="1"/>
+		<production chance="1" item_id="110900063" count="1"/>
+		<production chance="1" item_id="110900066" count="1"/>
+		<production chance="1" item_id="110900064" count="1"/>
+		<production chance="1" item_id="110900062" count="1"/>
+		<production chance="1" item_id="110900061" count="1"/>
+		<production chance="50" item_id="166100005" min="10" max="20"/>
+		<production chance="100" item_id="166100002" min="10" max="20"/>
+	</compressed_item>
+	<!-- Fat Bundle of Hair and Written Oath -->
 	<!--
     <compressed_item id="188051184">
 	<production chance="100" item_id="186000029" count="40"/>
