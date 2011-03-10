@@ -48,6 +48,7 @@ public class AionPacketHandlerFactory
 	private AionPacketHandlerFactory()
 	{
 		handler = new AionPacketHandler();
+		addPacket(new CM_QUESTIONNAIRE(0x03), State.IN_GAME);// 2.1
 		addPacket(new CM_CHARACTER_LIST(0x04), State.AUTHED);// 2.1
 		addPacket(new CM_CREATE_CHARACTER(0x05), State.AUTHED);// 2.1
 		addPacket(new CM_TELEPORT_SELECT(0x06), State.IN_GAME);// 2.1
@@ -126,7 +127,6 @@ public class AionPacketHandlerFactory
 		addPacket(new CM_GET_MAIL_ATTACHMENT(0x7A), State.IN_GAME);// 2.1
 		addPacket(new CM_DELETE_MAIL(0x7B), State.IN_GAME);// 2.1
 		addPacket(new CM_CLIENT_COMMAND_LOC(0x7C), State.IN_GAME);// 2.1
-		addPacket(new CM_QUESTIONNAIRE(0x7D), State.IN_GAME);// 2.1
 		addPacket(new CM_CRAFT(0x7F), State.IN_GAME);// 2.1
 		addPacket(new CM_TIME_CHECK(0x80), State.CONNECTED, State.AUTHED, State.IN_GAME);// 2.1
 		addPacket(new CM_GATHER(0x81), State.IN_GAME);// 2.1

@@ -20,6 +20,7 @@ import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.configs.main.GSConfig;
 import gameserver.dao.SurveyDAO;
 import gameserver.model.gameobjects.Survey;
+import gameserver.model.gameobjects.SurveyOption;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_QUESTIONNAIRE;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
@@ -33,19 +34,25 @@ import java.util.List;
 
 /**
  * Use this service to send raw html to the client
- * Absolut alpha phase. Not yet tested what is allowed
+ * Absolute alpha phase. Not yet tested what is allowed
  *
- * @author lhw, ginho1
+ * @author lhw, ginho1, ZeroSignal
  */
 public class HTMLService {
     private static final Logger log = Logger.getLogger(HTMLService.class);
 
-    private static String HTMLTemplate(String title, String message, String select_text, int itemId, int itemCount) {
+    private static String HTMLTemplate(Survey survey) {
+        int itemId = survey.getItemId();
+        int itemCount = survey.getItemCount();
+
+        if (survey.getSurveyOptions() == null)
+            return null;
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("<poll>\n");
         sb.append("<poll_introduction>\n");
-        sb.append("	<![CDATA[<font color='4CB1E5'>" + title + "</font>]]>\n");
+        sb.append("	<![CDATA[<font color='4CB1E5'>" + survey.getTitle() + "</font>]]>\n");
         sb.append("</poll_introduction>\n");
         sb.append("<poll_title>\n");
         sb.append("	<font color='ffc519'></font>\n");
@@ -57,26 +64,64 @@ public class HTMLService {
         sb.append("<race></race>\n");
         sb.append("<main_class></main_class>\n");
         sb.append("<world_id></world_id>\n");
+
         sb.append("<item_id>");
-        sb.append(itemId);
+        if (itemId > 0 && itemCount > 0) {
+            sb.append(itemId);
+        }
+        if (itemId == 0 && itemCount == 0 && survey.getSurveyOptionsSize() == 1) {
+            SurveyOption surveyOption = survey.getSurveyOption(0);
+            if (surveyOption.getItemId() > 0) {
+                sb.append(surveyOption.getItemId());
+            }
+        }
+        else {
+            for (SurveyOption surveyOption : survey.getSurveyOptions()) {
+                if (surveyOption.getItemId() > 0) {
+                    sb.append("," + surveyOption.getItemId());
+                }
+            }
+        }
         sb.append("</item_id>\n");
+
         sb.append("<item_cnt>");
-        sb.append(itemCount);
+        if (itemId > 0 && itemCount > 0) {
+            sb.append(itemCount);
+        }
+        if (itemId == 0 && itemCount == 0 && survey.getSurveyOptionsSize() == 1) {
+            SurveyOption surveyOption = survey.getSurveyOption(0);
+            if (surveyOption.getItemId() > 0) {
+                sb.append(surveyOption.getItemCount());
+            }
+        }
+        else {
+            for (SurveyOption surveyOption : survey.getSurveyOptions()) {
+                if (surveyOption.getItemId() > 0) {
+                    sb.append("," + surveyOption.getItemCount());
+                }
+            }
+        }
         sb.append("</item_cnt>\n");
-        sb.append("<level>1~55</level>\n");
+
+        if (survey.getPlayerLevelMin() > 0 && survey.getPlayerLevelMax() > 0)
+            sb.append("<level>" + survey.getPlayerLevelMin() + "~" + survey.getPlayerLevelMax() + "</level>\n");
+        else
+            sb.append("<level>1~55</level>\n");
         sb.append("<questions>\n");
         sb.append("	<question>\n");
         sb.append("		<title>\n");
         sb.append("			<![CDATA[\n");
         sb.append("<br><br>");
-        sb.append(message);
+        sb.append(survey.getMessage());
         sb.append("<br><br><br>\n");
         sb.append("			]]>\n");
         sb.append("		</title>\n");
         sb.append("		<select>\n");
-        sb.append("<input type='radio'>");
-        sb.append(select_text);
-        sb.append("</input>\n");
+        for (SurveyOption surveyOption : survey.getSurveyOptions()) {
+            sb.append("<input type='radio' value='" + surveyOption.getOptionId() + "'>");
+            sb.append(surveyOption.getOptionText());
+            sb.append("</input>\n");
+        }
         sb.append("		</select>\n");
         sb.append("	</question>\n");
         sb.append("</questions>\n");
@@ -85,36 +130,60 @@ public class HTMLService {
         return sb.toString();
     }
 
-    public static void onPlayerLogin(Player player) {
+    public static void checkSurveys(Player player) {
         if (player == null)
             return;
 
-        List<Survey> surveys = DAOManager.getDAO(SurveyDAO.class).loadSurveys(player.getObjectId());
+        List<Survey> surveys = DAOManager.getDAO(SurveyDAO.class).loadSurveys(player);
 
+        int playerId = player.getObjectId();
         for (Survey survey : surveys) {
-            String html = HTMLTemplate(survey.getTitle(), survey.getMessage(), survey.getSelectText(), survey.getItemId(), survey.getItemCount());
-            sendData(player, survey.getSurveyId(), html);
+            int surveyId = survey.getSurveyId();
+            String html = HTMLTemplate(survey);
+            sendData(player, surveyId, html);
+            int optionId = DAOManager.getDAO(SurveyDAO.class).loadPlayerSurvey(surveyId, playerId);
+            if (optionId < 0)
+                DAOManager.getDAO(SurveyDAO.class).insertPlayerSurvey(surveyId, playerId, 0);
         }
     }
 
-    public static void getMessage(Player player, int messageId) {
+    public static void getMessage(Player player, int messageId, int choiceId) {
         if (player == null)
             return;
 
         if (messageId < 1)
             return;
 
-        Survey survey = DAOManager.getDAO(SurveyDAO.class).loadSurvey(player.getObjectId(), messageId);
+        int playerId = player.getObjectId();
+        Survey survey = DAOManager.getDAO(SurveyDAO.class).loadSurvey(messageId, playerId);
 
         if (survey != null) {
+            // TODO: Add better check to see if all Items will properly fit in player Inventory.
             if (player.getInventory().isFull()) {
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DICE_INVEN_ERROR);
                 return;
             }
-            DAOManager.getDAO(SurveyDAO.class).deleteSurvey(survey.getSurveyId());
-            ItemService.addItem(player, survey.getItemId(), survey.getItemCount());
-            if (GSConfig.LOG_ITEM)
-                log.info(String.format("[ITEM] Item Survey ID/Count - %d/%d to player %s.", survey.getItemId(), survey.getItemCount(), player.getName()));
+
+            if (choiceId <= 0)
+                return;
+
+            DAOManager.getDAO(SurveyDAO.class).updatePlayerSurvey(messageId, playerId, choiceId);
+
+            if (survey.getItemId() > 0 && survey.getItemCount() > 0) {
+                ItemService.addItem(player, survey.getItemId(), survey.getItemCount());
+                if (GSConfig.LOG_ITEM)
+                    log.info(String.format("[ITEM] Item Survey ID/Count - %d/%d to player %s.", survey.getItemId(), survey.getItemCount(), player.getName()));
+            }
+
+            SurveyOption surveyOption = survey.getSurveyOption((choiceId - 1));
+            if (surveyOption == null)
+                return;
+
+            if (surveyOption.getItemId() > 0 && surveyOption.getItemCount() > 0) {
+                ItemService.addItem(player, surveyOption.getItemId(), surveyOption.getItemCount());
+                if (GSConfig.LOG_ITEM)
+                    log.info(String.format("[ITEM] Item Survey ID/Count - %d/%d to player %s.", surveyOption.getItemId(), surveyOption.getItemCount(), player.getName()));
+            }
         }
     }
 
@@ -130,6 +199,10 @@ public class HTMLService {
     }
 
     public static void showHTML(Player player, String html) {
+        if (html == null) {
+            log.error("showHTML no html found for player: " + player.getName());
+            return;
+        }
         sendData(player, IDFactory.getInstance().nextId(), html);
     }
 

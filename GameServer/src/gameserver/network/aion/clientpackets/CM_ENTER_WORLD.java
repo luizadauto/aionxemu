@@ -383,7 +383,7 @@ public class CM_ENTER_WORLD extends AionClientPacket {
                 HTMLService.showHTML(player, HTMLCache.getInstance().getHTML("welcome.xhtml"));
 
             if (CustomConfig.ENABLE_SURVEYS)
-                HTMLService.onPlayerLogin(player);
+                HTMLService.checkSurveys(player);
 
         } else {
             // TODO this is an client error - inform client.

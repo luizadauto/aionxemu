@@ -30,6 +30,7 @@ import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.network.aion.serverpackets.*;
 import gameserver.skillengine.model.Effect;
 import gameserver.skillengine.model.SkillTemplate;
+import gameserver.services.HTMLService;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.stats.XPLossEnum;
 import gameserver.world.World;
@@ -182,12 +183,16 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     
     public void addExp(long value, RewardType rewardType)
     {
-    	long reward = value;
-    	if(rewardType != null)
-    		reward = rewardType.calcReward(getPlayer(), value);
-    	this.setExp(this.exp + reward);
-    	if(this.getPlayer() != null)
-    	PacketSendUtility.sendPacket(this.getPlayer(),SM_SYSTEM_MESSAGE.EXP(Long.toString(reward)));
+        Player player = getPlayer();
+        if (player == null) {
+            log.warn("CHECKPOINT : getPlayer in PCD return null for addExp " + isOnline() + " " + getPosition());
+            return;
+        }
+        long reward = value;
+        if(rewardType != null)
+            reward = rewardType.calcReward(player, value);
+        this.setExp(this.exp + reward);
+        PacketSendUtility.sendPacket(player,SM_SYSTEM_MESSAGE.EXP(Long.toString(reward)));
     }
 
     /**
@@ -195,17 +200,23 @@ public class PlayerCommonData extends VisibleObjectTemplate {
      * @param fromObject The object that gave the exp.
      */
     public void addExp(long value, VisibleObject fromObject) {
-        if (CustomConfig.PLAYER_EXPERIENCE_CONTROL && getPlayer() != null && getPlayer().isNoExperienceGain()) {
+        Player player = getPlayer();
+        if (player == null) {
+            log.warn("CHECKPOINT : getPlayer in PCD return null for addExp " + isOnline() + " " + getPosition());
+            return;
+        }
+
+        if (CustomConfig.PLAYER_EXPERIENCE_CONTROL && player.isNoExperienceGain()) {
             value = 0;
         }
         this.setExp(this.exp + value);
-        if (this.getPlayer() != null) {
-            if (fromObject == null || fromObject.getObjectTemplate() == null)
-                PacketSendUtility.sendPacket(this.getPlayer(), SM_SYSTEM_MESSAGE.EXP(Long.toString(value)));
-            else
-                PacketSendUtility.sendPacket(this.getPlayer(), SM_SYSTEM_MESSAGE.EXP(value, fromObject
-                        .getObjectTemplate().getNameId()));
-        }
+
+        if (fromObject == null || fromObject.getObjectTemplate() == null)
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(Long.toString(value)));
+        else
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(value, fromObject
+                    .getObjectTemplate().getNameId()));
+
     }
 
     /**
@@ -214,6 +225,7 @@ public class PlayerCommonData extends VisibleObjectTemplate {
      * @param exp
      */
     public void setExp(long exp) {
+
         //maxLevel is 51 but in game 50 should be shown with full XP bar
         int maxLevel = DataManager.PLAYER_EXPERIENCE_TABLE.getMaxLevel();
 
@@ -227,18 +239,22 @@ public class PlayerCommonData extends VisibleObjectTemplate {
             exp = maxExp;
         }
 
+        Player player = getPlayer();
+
         //make sure level is never larger than maxLevel-1
         while ((level + 1) != maxLevel && exp >= DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(level + 1)) {
             level++;
+            if (CustomConfig.ENABLE_SURVEYS && player != null)
+                HTMLService.checkSurveys(player);
         }
 
         if (level != this.level) {
-            if (GSConfig.FACTIONS_RATIO_LIMITED && getPlayer() != null) {
-                if (level > this.level && level >= GSConfig.FACTIONS_RATIO_LEVEL && getPlayer().getPlayerAccount().getNumberOf(getRace()) == 1) {
+            if (GSConfig.FACTIONS_RATIO_LIMITED && player != null) {
+                if (level > this.level && level >= GSConfig.FACTIONS_RATIO_LEVEL && player.getPlayerAccount().getNumberOf(getRace()) == 1) {
                     GameServer.updateRatio(getRace(), 1);
                 }
 
-                if (level < this.level && this.level >= GSConfig.FACTIONS_RATIO_LEVEL && getPlayer().getPlayerAccount().getNumberOf(getRace()) == 1) {
+                if (level < this.level && this.level >= GSConfig.FACTIONS_RATIO_LEVEL && player.getPlayerAccount().getNumberOf(getRace()) == 1) {
                     GameServer.updateRatio(getRace(), -1);
                 }
             }
@@ -246,15 +262,15 @@ public class PlayerCommonData extends VisibleObjectTemplate {
             this.level = level;
             this.exp = exp;
 
-            if (this.getPlayer() != null) {
+            if (player != null)
                 upgradePlayer();
-            }
-        } else {
+        }
+        else {
             this.exp = exp;
 
-            if (this.getPlayer() != null) {
-                PacketSendUtility.sendPacket(this.getPlayer(),
-                        new SM_STATUPDATE_EXP(this.getExpShown(), this.getExpRecoverable(), this.getExpNeed()));
+            if (player != null) {
+                PacketSendUtility.sendPacket(player,
+                    new SM_STATUPDATE_EXP(this.getExpShown(), this.getExpRecoverable(), this.getExpNeed()));
             }
         }
     }
@@ -466,6 +482,8 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     public void setLevel(int level) {
         if (level <= DataManager.PLAYER_EXPERIENCE_TABLE.getMaxLevel()) {
             this.setExp(DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(level));
+            if (CustomConfig.ENABLE_SURVEYS)
+                HTMLService.checkSurveys(getPlayer());
         }
     }
 
@@ -520,19 +538,21 @@ public class PlayerCommonData extends VisibleObjectTemplate {
      * @param dp
      */
     public void setDp(int dp) {
-        if (getPlayer() != null) {
-            if (playerClass.isStartingClass())
-                return;
-
-            int maxDp = getPlayer().getGameStats().getCurrentStat(StatEnum.MAXDP);
-            this.dp = dp > maxDp ? maxDp : dp;
-
-            PacketSendUtility.broadcastPacket(getPlayer(), new SM_DP_INFO(playerObjId, this.dp), true);
-            PacketSendUtility.sendPacket(getPlayer(), new SM_STATS_INFO(getPlayer()));
-            PacketSendUtility.sendPacket(getPlayer(), new SM_STATUPDATE_DP(this.dp));
-        } else {
+        Player player = getPlayer();
+        if (player == null) {
             log.warn("CHECKPOINT : getPlayer in PCD return null for setDP " + isOnline() + " " + getPosition());
+            return;
         }
+
+        if (playerClass.isStartingClass())
+            return;
+
+        int maxDp = player.getGameStats().getCurrentStat(StatEnum.MAXDP);
+        this.dp = dp > maxDp ? maxDp : dp;
+
+        PacketSendUtility.broadcastPacket(player, new SM_DP_INFO(playerObjId, this.dp), true);
+        PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
+        PacketSendUtility.sendPacket(player, new SM_STATUPDATE_DP(this.dp));
     }
 
     public int getDp() {
@@ -565,10 +585,10 @@ public class PlayerCommonData extends VisibleObjectTemplate {
 
     public void setMailboxLetters(int count) {
         this.mailboxLetters = count;
-	}
-	
-	public int getMailboxLetters()
-	{
-		return mailboxLetters;
-	}
+    }
+
+    public int getMailboxLetters()
+    {
+        return mailboxLetters;
+    }
 }

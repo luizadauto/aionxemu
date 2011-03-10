@@ -1,5 +1,5 @@
 /**
- * This file is part of Aion X Emu <aionxemu.com>
+ *  This file is part of Aion X Emu <aionxemu.com>
  *
  *  This is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser Public License as published by
@@ -20,7 +20,7 @@ package gameserver.utils.i18n;
  * @author xavier
  */
 public enum CustomMessageId {
-	WELCOME_VIP("Welcome VIP Member to %s server.\nCopyright 2011 www.aionxemu.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
+    WELCOME_VIP("Welcome VIP Member to %s server.\nCopyright 2011 www.aionxemu.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
     WELCOME_PREMIUM("Welcome Premium Member to %s server.\nCopyright 2010 www.aionxemu.com..\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
     WELCOME_REGULAR("Welcome to %s server.\nCopyright 2011 www.aionxemu.com. .\nSERVER RATES:\nExp Rate: %d\nQuest Rate: %d\nDrop Rate: %d\n"),
     SERVER_REVISION("Server Revision: %-6s"),
@@ -56,6 +56,32 @@ public enum CustomMessageId {
     COMMAND_SEND_SYNTAX("Syntax: //send <filename>"),
     COMMAND_SEND_MAPPING_NOT_FOUND("Mapping %s not found"),
     COMMAND_SEND_NO_PACKET("No packet to send"),
+    COMMAND_SURVEY_ADD_SUCCESS("The Survey has been successfully added."),
+    COMMAND_SURVEY_ADD_FAILURE("There was an error adding the Survey, please check the syntax with //survey add"),
+    COMMAND_SURVEY_DEL_SUCCESS("The Survey has been successfully deleted."),
+    COMMAND_SURVEY_DEL_FAILURE("There was an error deleting the Survey, please check the syntax with //survey del"),
+    COMMAND_SURVEY_EDIT_SUCCESS("The Survey has been successfully edited."),
+    COMMAND_SURVEY_EDIT_FAILURE("There was an error editing the Survey. surveyId: %d, columnName: %s, newValue: %s"),
+    COMMAND_SURVEY_INFO_SUCCESS("The Survey has been successfully retrieved."),
+    COMMAND_SURVEY_INFO_FAILURE("The was an error retrieving the Survey SurveyId: %d."),
+    COMMAND_SURVEY_INFO_ALL_SUCCESS("All Surveys has been successfully retrieved."),
+    COMMAND_SURVEY_INFO_ALL_FAILURE("The was an error retrieving the all Surveys."),
+    COMMAND_SURVEY_RESULT_SUCCESS("The Survey Stats has been successfully retrieved."),
+    COMMAND_SURVEY_RESULT_FAILURE("The was an error retrieving the Survey Stats SurveyId: %d."),
+    COMMAND_SURVEYOPTION_ADD_SUCCESS("The SurveyOption has been successfully added."),
+    COMMAND_SURVEYOPTION_ADD_FAILURE("There was an error adding the SurveyOption, please check the syntax with //survey addoption"),
+    COMMAND_SURVEYOPTION_DEL_SUCCESS("The SurveyOption has been successfully deleted."),
+    COMMAND_SURVEYOPTION_DEL_FAILURE("There was an error deleting the SurveyOption, please check the syntax with //survey deloption"),
+    COMMAND_SURVEYOPTION_EDIT_SUCCESS("The SurveyOption has been successfully edited."),
+    COMMAND_SURVEYOPTION_EDIT_FAILURE("There was an error editing the SurveyOption. surveyId: %d, optionId: %d, columnName: %s, newValue: %s"),
+    COMMAND_SURVEYPLAYER_ADD_SUCCESS("The Player Survey has been successfully added for Survey \"%s\", Player \"%s\"."),
+    COMMAND_SURVEYPLAYER_ADD_FAILURE("There was an error adding the Player Survey, SurveyId: %d, TargetId: %d, TargetName: \"%s\""),
+    COMMAND_SURVEYPLAYER_DEL_SUCCESS("The Player Survey has been successfully deleted for Survey \"%s\", Player \"%s\"."),
+    COMMAND_SURVEYPLAYER_DEL_FAILURE("There was an error deleting the Player Survey, SurveyId: %d, TargetId: %d, TargetName: \"%s\""),
+    COMMAND_SURVEYPLAYER_INFO_SUCCESS("The Player Survey has been successfully retrieved for Survey \"%s\", Player \"%s\"."),
+    COMMAND_SURVEYPLAYER_INFO_FAILURE("There was an error retreiving the Player Survey, SurveyId: %d, TargetId: %d, TargetName: \"%s\""),
+    COMMAND_SURVEYPLAYER_INFO_NOTTAKEN("The Player Survey has been not been taken for Survey \"%s\", Player \"%s\"."),
+    COMMAND_TARGET_PLAYER_NOT_ACQUIRED("Target Player could not be Acquired."),
     CHANNEL_WORLD_DISABLED("The channel %s is disabled, please use channel %s or %s according to your faction"),
     CHANNEL_ALL_DISABLED("The custom channels are disabled"),
     CHANNEL_ALREADY_FIXED("Your channel is already fixed on %s"),

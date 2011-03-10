@@ -75,6 +75,7 @@ public class Rename extends AdminCommand {
         }
 
         player.getCommonData().setName(params[1]);
+        DAOManager.getDAO(PlayerDAO.class).storePlayer(player);
         PacketSendUtility.sendPacket(player, new SM_PLAYER_INFO(player, false));
         Iterator<Friend> knownFriends = player.getFriendList().iterator();
 

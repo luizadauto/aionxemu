@@ -21,11 +21,19 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.services.HTMLService;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author lhw, Kaipo and ginho1
  */
 public class CM_QUESTIONNAIRE extends AionClientPacket {
+    private static final Logger log = Logger.getLogger(CM_QUESTIONNAIRE.class);
+
     private int objectId;
+    private int unknown1;
+    private int choice;
+    private int unknown2;
+    private int unknown3;
 
     public CM_QUESTIONNAIRE(int opcode) {
         super(opcode);
@@ -37,11 +45,11 @@ public class CM_QUESTIONNAIRE extends AionClientPacket {
 
     @Override
     protected void readImpl() {
-        objectId = readD();
-        readH();
-        readH();
-        readH();
-        readH();
+        objectId = readD(); // when one option given is the Player ID.
+        unknown1 = readH(); // seems to be always 34.
+        choice = (readH() - 48); // removing 48 gives the actual option value.
+        unknown2 = readH(); // seems to be always 34.
+        unknown3 = readH(); // seems to be always 0.
     }
 
     /* (non-Javadoc)
@@ -50,9 +58,10 @@ public class CM_QUESTIONNAIRE extends AionClientPacket {
 
     @Override
     protected void runImpl() {
+        //log.info("CM_QUESTION_RESPONSE - " + " objectId:" + objectId + " unknown1:" + unknown1 + " choice:" + choice + " unknown2:" + unknown2 + " unknown3:" + unknown3);
         if (objectId > 0) {
             Player player = getConnection().getActivePlayer();
-            HTMLService.getMessage(player, objectId);
+            HTMLService.getMessage(player, objectId, choice);
         }
     }
 }

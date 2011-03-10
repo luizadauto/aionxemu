@@ -25,6 +25,7 @@ import gameserver.utils.PacketSendUtility;
 import gameserver.utils.i18n.CustomMessageId;
 import gameserver.utils.i18n.LanguageHandler;
 import javolution.util.FastMap;
+import gameserver.utils.Util;
 import org.apache.log4j.Logger;
 
 import java.util.Map;
@@ -121,10 +122,16 @@ public class CommandChatHandler implements ChatHandler {
             }
 
             String[] params = new String[]{};
-            if (commandAndParams.length > 1)
-                params = commandAndParams[1].split(" ", admc.getSplitSize());
 
-            admc.executeCommand(sender, params);
+            if (commandAndParams.length > 1)
+                params = Util.splitCommandArgs(commandAndParams[1]);
+
+            try {
+                admc.executeCommand(sender, params);
+            }
+            catch (Exception e) {
+                return ChatHandlerResponse.BLOCKED_MESSAGE;
+            }
             return ChatHandlerResponse.BLOCKED_MESSAGE;
         }
     }

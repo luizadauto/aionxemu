@@ -17,6 +17,10 @@
 package gameserver.utils;
 
 import java.nio.ByteBuffer;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * @author -Nemesiss-
@@ -101,7 +105,28 @@ public class Util {
     public static String convertName(String name) {
         if (!name.isEmpty())
             return name.substring(0, 1).toUpperCase() + name.toLowerCase().substring(1);
-		else
-			return "";
-	}
+        else
+            return "";
+    }
+
+    public static String[] splitCommandArgs(String rawData) {
+        List<String> matchList = new ArrayList<String>();
+
+        Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'"); 
+        Matcher regexMatcher = regex.matcher(rawData); 
+
+        while (regexMatcher.find()) {
+            if (regexMatcher.group(1) != null) {
+                matchList.add(regexMatcher.group(1));
+            } else if (regexMatcher.group(2) != null) {
+                matchList.add(regexMatcher.group(2));
+            } else {
+                matchList.add(regexMatcher.group());
+            }
+        }
+
+        String matchArray[] = new String[matchList.size()];
+        matchArray = matchList.toArray(matchArray);
+        return matchArray; 
+    }
 }
