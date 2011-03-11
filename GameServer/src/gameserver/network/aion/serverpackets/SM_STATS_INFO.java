@@ -130,10 +130,11 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_ACCURACY));// [current magic accuracy]
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_CRITICAL)); // [current crit spell]
 
-        writeH(buf, 0); // [old current magic boost location]
+        writeH(buf, 0);// [unk]
 
-        writeH(buf, 0);// [unk] 1.9 version
-        writeH(buf, 16256);// [unk] 1.9 version
+        writeF(buf, (pgs.getBaseStat(StatEnum.BOOST_CASTING_TIME) -
+            pgs.getCurrentStat(StatEnum.BOOST_CASTING_TIME)) / 100f + 1); // [current boost casting time]
+
         writeH(buf, 40);// [unk] 1.9 version
 
         // FIXME: TempFix MBoost Cap 2600
@@ -198,7 +199,7 @@ public class SM_STATS_INFO extends AionServerPacket {
 
         writeH(buf, 0); // [unk]
 
-        writeF(buf, pgs.getCurrentStat(StatEnum.ATTACK_RANGE) / 1000f);// [current attack range]
+        writeF(buf, pgs.getBaseStat(StatEnum.ATTACK_RANGE) / 1000f);// [current attack range]
 
         writeH(buf, pgs.getBaseStat(StatEnum.EVASION)); // [base evasion]
 
