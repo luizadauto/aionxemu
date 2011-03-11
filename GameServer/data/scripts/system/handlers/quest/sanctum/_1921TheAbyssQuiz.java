@@ -24,7 +24,6 @@ import gameserver.questEngine.handlers.QuestHandler;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
-import gameserver.services.QuestService;
 import gameserver.utils.PacketSendUtility;
 
 public class _1921TheAbyssQuiz extends QuestHandler {
@@ -44,6 +43,11 @@ public class _1921TheAbyssQuiz extends QuestHandler {
         qe.setNpcQuestData(203834).addOnTalkEvent(questId);
         qe.setNpcQuestData(203833).addOnTalkEvent(questId);
         qe.setNpcQuestData(203830).addOnTalkEvent(questId);
+    }
+
+    @Override
+    public boolean onLvlUpEvent(QuestCookie env) {
+        return defaultQuestOnLvlUpEvent(env);
     }
 
     @Override
@@ -132,16 +136,4 @@ public class _1921TheAbyssQuiz extends QuestHandler {
         return false;
     }
 
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env) {
-        Player player = env.getPlayer();
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
-        if (qs != null)
-            return false;
-
-        if (!QuestService.checkLevelRequirement(questId, player.getCommonData().getLevel()))
-            return false;
-
-        return QuestService.startQuest(env, QuestStatus.START);
-    }
 }

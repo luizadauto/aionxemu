@@ -44,7 +44,6 @@ public class _2947FollowingThrough extends QuestHandler {
     @Override
     public void register() {
         qe.addQuestLvlUp(questId);
-
         qe.setNpcQuestData(204053).addOnTalkEvent(questId);
         qe.setNpcQuestData(204301).addOnTalkEvent(questId);
         qe.setNpcQuestData(212396).addOnKillEvent(questId);
@@ -55,6 +54,11 @@ public class _2947FollowingThrough extends QuestHandler {
         qe.setNpcQuestData(700369).addOnTalkEvent(questId);
         qe.setNpcQuestData(210343).addOnKillEvent(questId);
         qe.setNpcQuestData(700268).addOnTalkEvent(questId);
+    }
+
+    @Override
+    public boolean onLvlUpEvent(QuestCookie env) {
+        return defaultQuestOnLvlUpEvent(env);
     }
 
     @Override
@@ -270,9 +274,4 @@ public class _2947FollowingThrough extends QuestHandler {
             return false;
     }
 
-
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env) {
-        return defaultQuestOnLvlUpEvent(env, 2946);
-    }
 }

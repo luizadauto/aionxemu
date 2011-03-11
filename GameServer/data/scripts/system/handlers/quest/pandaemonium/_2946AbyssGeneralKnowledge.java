@@ -46,6 +46,11 @@ public class _2946AbyssGeneralKnowledge extends QuestHandler {
     }
 
     @Override
+    public boolean onLvlUpEvent(QuestCookie env) {
+        return defaultQuestOnLvlUpEvent(env);
+    }
+
+    @Override
     public boolean onDialogEvent(QuestCookie env) {
         final Player player = env.getPlayer();
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
@@ -131,8 +136,4 @@ public class _2946AbyssGeneralKnowledge extends QuestHandler {
         return false;
     }
 
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env) {
-        return defaultQuestOnLvlUpEvent(env, 2945);
-    }
 }

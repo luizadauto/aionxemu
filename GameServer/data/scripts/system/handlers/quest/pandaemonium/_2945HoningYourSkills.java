@@ -23,6 +23,7 @@ import gameserver.questEngine.handlers.QuestHandler;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
+import gameserver.services.QuestService;
 import gameserver.utils.PacketSendUtility;
 
 /**
@@ -40,6 +41,19 @@ public class _2945HoningYourSkills extends QuestHandler {
         qe.addQuestLvlUp(questId);
         qe.setNpcQuestData(204075).addOnTalkEvent(questId);
         qe.setNpcQuestData(204088).addOnTalkEvent(questId);
+    }
+    
+    @Override
+    public boolean onLvlUpEvent(QuestCookie env) {
+        Player player = env.getPlayer();
+        QuestState qs = player.getQuestStateList().getQuestState(questId);
+        if (qs != null)
+            return false;
+        boolean lvlCheck = QuestService.checkLevelRequirement(questId, player.getCommonData().getLevel());
+        if (!lvlCheck)
+            return false;
+        QuestService.startQuest(env, QuestStatus.START);
+        return true;
     }
 
     @Override
@@ -88,17 +102,19 @@ public class _2945HoningYourSkills extends QuestHandler {
             }
         } else if (qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 204075) {
-                if (env.getDialogId() == -1)
+                if (env.getDialogId() == -1){
+                    int[] ids = {2946, 2947, 2042};
+                    for (int id : ids) {
+                        QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);
+                        }
                     return sendQuestDialog(env, 10002);
-                else
+                }
+                else {
                     return defaultQuestEndDialog(env);
+                }
             }
         }
         return false;
     }
 
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env) {
-        return defaultQuestOnLvlUpEvent(env);
-    }
 }

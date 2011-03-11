@@ -42,7 +42,6 @@ public class _1922DeliveronYourPromises extends QuestHandler {
     @Override
     public void register() {
         qe.addQuestLvlUp(questId);
-
         qe.setNpcQuestData(203830).addOnTalkEvent(questId);
         qe.setNpcQuestData(203901).addOnTalkEvent(questId);
         qe.setNpcQuestData(210802).addOnKillEvent(questId);
@@ -56,6 +55,11 @@ public class _1922DeliveronYourPromises extends QuestHandler {
         qe.setNpcQuestData(213580).addOnKillEvent(questId);
         qe.setNpcQuestData(213581).addOnKillEvent(questId);
         qe.setNpcQuestData(700264).addOnTalkEvent(questId);
+    }
+
+    @Override
+    public boolean onLvlUpEvent(QuestCookie env) {
+        return defaultQuestOnLvlUpEvent(env);
     }
 
     @Override
@@ -273,9 +277,4 @@ public class _1922DeliveronYourPromises extends QuestHandler {
             return false;
     }
 
-
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env) {
-        return defaultQuestOnLvlUpEvent(env, 1921);
-    }
 }

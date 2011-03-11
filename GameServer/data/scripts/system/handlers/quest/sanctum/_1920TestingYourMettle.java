@@ -44,6 +44,19 @@ public class _1920TestingYourMettle extends QuestHandler {
     }
 
     @Override
+    public boolean onLvlUpEvent(QuestCookie env) {
+        Player player = env.getPlayer();
+        QuestState qs = player.getQuestStateList().getQuestState(questId);
+        if (qs != null)
+            return false;
+        boolean lvlCheck = QuestService.checkLevelRequirement(questId, player.getCommonData().getLevel());
+        if (!lvlCheck)
+            return false;
+        QuestService.startQuest(env, QuestStatus.START);
+        return true;
+    }
+
+    @Override
     public boolean onDialogEvent(QuestCookie env) {
         final Player player = env.getPlayer();
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
@@ -89,8 +102,13 @@ public class _1920TestingYourMettle extends QuestHandler {
             }
         } else if (qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 203752) {
-                if (env.getDialogId() == -1)
+                if (env.getDialogId() == -1){
+                    int[] ids = {1921, 1922, 1044};
+                    for (int id : ids) {
+                        QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);
+                    }
                     return sendQuestDialog(env, 10002);
+                }
                 else
                     return defaultQuestEndDialog(env);
             }
@@ -98,16 +116,4 @@ public class _1920TestingYourMettle extends QuestHandler {
         return false;
     }
 
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env)
-    {
-        Player player = env.getPlayer();
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
-        if (qs != null)
-            return false;
-        if (!QuestService.checkLevelRequirement(questId, player.getCommonData().getLevel()))
-            return false;
-        QuestService.startQuest(env, QuestStatus.START);
-        return true;
-    }
 }
