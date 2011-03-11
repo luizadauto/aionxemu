@@ -88,7 +88,7 @@ public class TargetRelationProperty extends Property {
                 //party has higher priority
                 int counter = 0;
                 while (effectedList.size() > skill.getMaxEffected()) {
-                    if (counter == effectedList.size())
+                    if (counter >= effectedList.size())
                         break;
                     Creature nextEffected = effectedList.get(counter);
                     counter++;
