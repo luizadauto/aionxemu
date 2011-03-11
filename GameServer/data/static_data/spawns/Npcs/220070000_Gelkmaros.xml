@@ -1247,4 +1247,28 @@
 	<spawn map="220070000" npcid="799893" pool="1" interval="295">
 		<object h="36" x="797.65" y="1701.2336" z="358.19476"/>
 	</spawn>
+	<!-- Olga -->
+	<spawn map="220070000" npcid="799319" pool="1" interval="295">
+		<object x="2179.417" y="679.1506" z="153.68147" h="22"/>
+	</spawn>
+	<!-- Helline -->
+	<spawn map="220070000" npcid="799320" pool="1" interval="295">
+		<object x="2175.133" y="682.8867" z="153.6832" h="9"/>
+	</spawn>
+	<!-- Itar -->
+	<spawn map="220070000" npcid="799316" pool="1" interval="295">
+		<object x="2458.792" y="1295.593" z="331.5763" h="65"/>
+	</spawn>
+	<!-- Tanar -->
+	<spawn map="220070000" npcid="799317" pool="1" interval="295">
+		<object x="2458.746" y="1293.665" z="331.81757" h="59"/>
+	</spawn>
+	<!-- Vegrim -->
+	<spawn map="220070000" npcid="799298" pool="1" interval="295">
+		<object x="568.9799" y="1223.085" z="295.3178" h="61"/>
+	</spawn>
+	<!-- Lucal -->
+	<spawn map="220070000" npcid="799300" pool="1" interval="295">
+		<object x="574.3663" y="1223.965" z="295.2293" h="2"/>
+	</spawn>
 </spawns>
