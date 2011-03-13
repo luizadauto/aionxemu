@@ -41,10 +41,17 @@ public class SM_ABYSS_RANKING_LEGIONS extends AionServerPacket {
 
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
+        if (race == null)
+            return;
+
         writeD(buf, race.getRaceId());// 0:Elyos 1:Asmo
         writeD(buf, Math.round(AbyssRankingService.getInstance().getTimeOfUpdate() / 1000));// Date
         writeD(buf, 0x01);// 0:Nothing 1:Update Table
         writeD(buf, 0x01);// 0:Nothing 1:Update Table
+        if (data == null || data.isEmpty()) {
+            writeH(buf, 0);
+            return;
+        }
         writeH(buf, data.size());// list size
         for (AbyssRankingResult rs : data) {
             writeD(buf, rs.getLegionRank());// Current Rank
