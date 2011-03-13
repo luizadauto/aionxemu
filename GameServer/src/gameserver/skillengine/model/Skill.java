@@ -208,11 +208,11 @@ public class Skill {
             duration = 0;
 
         // Summoning Alacrity
-        // http://aion.yg.com/skill/summoning-alacrity-i?id=1724
+        // http://www.aiondatabase.com/skill/1778
         if (skillTemplate.getName().contains("Elemental_") || skillTemplate.getName().contains("Servent_")) {
             if (effector instanceof Player) {
                 Player p = (Player) effector;
-                if (p.getEffectController() != null && p.getEffectController().hasAbnormalEffect(1724))
+                if (p.getEffectController() != null && p.getEffectController().hasAbnormalEffect(1778))
                     duration = 0;
             }
 		}
