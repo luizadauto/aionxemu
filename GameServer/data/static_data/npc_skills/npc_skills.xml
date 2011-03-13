@@ -25827,12 +25827,13 @@
 		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18914" id="4"/>
 		<npcskill abouthp="false" probability="10" skilllevel="1" skillid="18959" id="5"/>	
 	</npcskills>	
-    <npcskills npcid="216183" skill_count="5">
+    <npcskills npcid="216183" skill_count="6">
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18612" id="1"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18616" id="2"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18614" id="3"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18615" id="4"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18613" id="5"/>
+        <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18617" id="6"/>
     </npcskills>
     <npcskills npcid="216188" skill_count="4">
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="16565" id="1"/>
