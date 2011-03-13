@@ -371,6 +371,13 @@
 	<report_to id="3976" start_npc_id="203723" end_npc_id="798222" item_id="182206136"/>
 	<!-- 3977: [Coin/Group] Expunge the Drana Fed -->
 	<monster_hunt start_npc_id="203384" id="3977">
+		<monster_infos var_id="0" npc_id="214849" max_kill="8"/>
+		<monster_infos var_id="0" npc_id="214850" max_kill="8"/>
+		<monster_infos var_id="0" npc_id="214851" max_kill="8"/>
+		<monster_infos var_id="0" npc_id="214894" max_kill="8"/>
+		<monster_infos var_id="0" npc_id="214895" max_kill="8"/>
+		<monster_infos var_id="0" npc_id="214896" max_kill="8"/>
+		<monster_infos var_id="0" npc_id="214897" max_kill="8"/>
 		<monster_infos var_id="0" npc_id="214880" max_kill="8"/>
 		<monster_infos var_id="0" npc_id="215388" max_kill="8"/>
 		<monster_infos var_id="0" npc_id="215389" max_kill="8"/>

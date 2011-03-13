@@ -168,8 +168,8 @@
 	<!-- 1553: [Spy/Group] Mirror, Mirror handled by script -->
 	<!-- [Spy/Group] The Seiren's Fin -->
 	<item_collecting id="1554" start_npc_id="204584" end_npc_id="204596" />
-	<!-- 1555: TODO: Delivery to Arbolu's Haven -->
-	<item_collecting id="1555" start_npc_id="204583" end_npc_id="204568" />
+	<!-- Delivery to Arbolu's Haven -->
+	<report_to id="1555" start_npc_id="204583" end_npc_id="204568" item_id="182201779" />
 	<!-- Which Came First? -->
 	<item_collecting id="1556" start_npc_id="204585" action_item_id="700192" />
 	<!-- The Agrint Problem -->

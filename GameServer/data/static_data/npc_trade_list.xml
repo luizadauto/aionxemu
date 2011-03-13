@@ -1618,10 +1618,8 @@
     <tradelist_template sell_price_rate="6000" npc_id="798435" name="huimonerk" count="1">
 		<tradelist id="778"/>
 	</tradelist_template>
-    <tradelist_template sell_price_rate="6000" npc_id="798436" name="tacitus" count="3">
-        <tradelist id="5028"/>
-        <tradelist id="5029"/>
-        <tradelist id="5030"/>
+    <tradelist_template sell_price_rate="6000" npc_id="798436" name="tacitus" count="1">
+        <tradelist id="5037"/>
     </tradelist_template>
     <tradelist_template npc_id="798437" name="baleyg" count="1">
         <tradelist id="5062"/>

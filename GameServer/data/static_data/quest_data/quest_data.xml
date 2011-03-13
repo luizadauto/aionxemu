@@ -265,8 +265,6 @@
 			<selectable_reward_item count="1" item_id="112300730"/>
 			<selectable_reward_item count="1" item_id="112500718"/>
 			<selectable_reward_item count="1" item_id="112600729"/>
-		</rewards>
-		<rewards exp="145000" gold="58760">
 			<reward_item count="1" item_id="122000888"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201019" npc_id="210799"/>
@@ -373,6 +371,8 @@
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="31" nameId="2204119" name="Scouting the Scouts" id="1040">
 		<rewards exp="987100" gold="170280">
 			<reward_item count="1" item_id="120000848"/>
+			<reward_item count="1" item_id="186000003"/>
+			<reward_item count="1" item_id="188050798"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1036"/>
@@ -433,6 +433,7 @@
 			<selectable_reward_item count="1" item_id="113300802"/>
 			<selectable_reward_item count="1" item_id="113500773"/>
 			<selectable_reward_item count="1" item_id="113600746"/>
+			<reward_item count="1" item_id="188050797"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201602" npc_id="700303"/>
 	</quest>
@@ -443,6 +444,7 @@
 		</collect_items>
 		<rewards exp="633400" gold="137930">
 			<reward_item count="1" item_id="125001838"/>
+			<reward_item count="1" item_id="186000003"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201603" npc_id="211078"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201603" npc_id="211087"/>
@@ -500,6 +502,7 @@
 			<selectable_reward_item count="1" item_id="114300823"/>
 			<selectable_reward_item count="1" item_id="114500785"/>
 			<selectable_reward_item count="1" item_id="114600742"/>
+			<reward_item count="10" item_id="162000015"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201609" npc_id="204628"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201610" npc_id="204627"/>
@@ -3397,7 +3400,9 @@
 		</finished_quest_conds>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="30" nameId="2205401" name="Orders From Perento" id="1500">
-		<rewards exp="20000" gold="94010"/>
+		<rewards exp="20000" gold="94010">
+			<reward_item count="1" item_id="166000037"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="30" nameId="2205403" name="Eliminating Ettins" id="1501">
 		<rewards exp="251850" gold="57960"/>
