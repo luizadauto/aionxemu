@@ -240,28 +240,747 @@
 	<compressed_item id="152000914">
 		<production chance="100" item_id="152000913" count="3"/>
 	</compressed_item>
-	<!-- Bronze Coin Chest Ely -->
+	<!--Star Elyos Coins-->
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
 	<compressed_item id="188050773">
-		<production chance="100" item_id="186000002" min="1" max="10"/>
+		<production chance="100" item_id="186000002" min="2" max="5"/>
 	</compressed_item>
-	<!-- Bronze Coin Chest Ely ### test combination max min count and maximum production items ## -->
-	<compressed_item id="188050774" maxproduction="4">
-		<production chance="50" item_id="188050773" count="2"/>
-		<production chance="50" item_id="188050774" count="1"/>
-		<production chance="50" item_id="167000450" min="5" max="10"/>
-		<production chance="50" item_id="167000451" min="1" max="5"/>
-		<production chance="50" item_id="167000452" min="5" max="10"/>
-		<production chance="50" item_id="167000453" min="1" max="5"/>
-   	</compressed_item>
-   		<!-- Gift Filled with Sincerity -->
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050774">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050775">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050776">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050777">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050778">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050779">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050780">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050781">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050782">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050783">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050784">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050785">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050786">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050787">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050788">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050789">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Elyos Bronze Coin-->
+	<compressed_item id="188050790">
+		<production chance="100" item_id="186000002" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050791">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050791">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050792">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050793">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050794">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050795">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050796">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050797">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050798">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050799">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050800">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050801">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050802">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050803">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050804">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050805">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050806">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050807">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Elyos Silver Coin-->
+	<compressed_item id="188050808">
+		<production chance="100" item_id="186000003" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050809">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050810">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050811">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050812">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050813">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050814">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050815">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050816">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050817">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050818">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050819">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050820">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050821">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050822">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050823">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050824">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050825">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050826">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Elyos Gold Coin-->
+	<compressed_item id="188050826">
+		<production chance="100" item_id="186000004" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050827">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050828">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050829">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050830">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050831">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050832">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050833">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050834">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050835">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050836">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050837">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050838">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050839">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050840">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050841">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050842">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050843">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Elyos Platinum Coin-->
+	<compressed_item id="188050844">
+		<production chance="100" item_id="186000005" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050845">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050846">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050847">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+		<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050848">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050849">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050850">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050851">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050852">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050853">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050854">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050855">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050856">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050857">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050858">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050859">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050860">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050861">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Elyos Mithril Coin-->
+	<compressed_item id="188050862">
+		<production chance="100" item_id="186000018" min="2" max="5"/>
+	</compressed_item>
+	<!--End Elyos Coins-->
+	<!--Start Asmodian Coins-->
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050863">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050864">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050865">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050866">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050867">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050868">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050869">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050870">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050871">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050872">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050873">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050874">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050875">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050876">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050877">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050878">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050879">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Bronze Coin Chest > Asmodian Bronze Coin-->
+	<compressed_item id="188050880">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050881">
+		<production chance="100" item_id="186000007" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050882">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050883">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050884">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050885">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050886">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050887">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050888">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050889">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050890">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050891">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050892">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050893">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050894">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050895">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050896">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050897">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Silver Coin Chest > Asmodian Silver Coin-->
+	<compressed_item id="188050898">
+		<production chance="100" item_id="186000008" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050899">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050900">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050901">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050902">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050903">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050904">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050905">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050906">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050907">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050908">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050909">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050910">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050911">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050912">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050913">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050914">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050915">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050916">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Gold Coin Chest > Asmodian Gold Coin-->
+	<compressed_item id="188050917">
+		<production chance="100" item_id="186000009" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050918">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050919">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050920">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050921">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050922">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050923">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050924">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050925">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050926">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050927">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050928">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050929">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050930">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050931">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050932">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050933">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Platinum Coin Chest > Asmodian Platinum Coin-->
+	<compressed_item id="188050934">
+		<production chance="100" item_id="186000010" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050935">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050936">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050937">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050938">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050939">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050940">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050941">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050942">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050943">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050944">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050945">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050946">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050947">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050948">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050949">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050950">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050951">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--Mithril Coin Chest > Asmodian Mithril Coin-->
+	<compressed_item id="188050952">
+		<production chance="100" item_id="186000019" min="2" max="5"/>
+	</compressed_item>
+	<!--End Asmodian Coins-->
+	<!-- Gift Filled with Sincerity -->
 	<compressed_item id="188051146" maxproduction="1">
 		<production chance="100" item_id="186000002" min="1" max="10"/>
 	</compressed_item>
-		<!-- Gift Filled with Heart -->
+	<!-- Gift Filled with Heart -->
 	<compressed_item id="188051147" maxproduction="1">
 		<production chance="100" item_id="186000002" min="1" max="10"/>
 	</compressed_item>
-		<!-- [Event] Red Gift -->
+	<!-- [Event] Red Gift -->
 	<compressed_item id="188051136" maxproduction="1">
 		<production chance="1" item_id="100001080" count="1"/>
 		<production chance="1" item_id="100000893" count="1"/>
@@ -302,7 +1021,7 @@
 		<production chance="10" item_id="167000557" min="5" max="10"/>
 		<production chance="100" item_id="167000553" min="5" max="10"/>
 	</compressed_item>
-		<!-- [Event] Blue Gift -->
+	<!-- [Event] Blue Gift -->
 	<compressed_item id="188051135" maxproduction="1">
 		<production chance="1" item_id="101500394" count="1"/>
 		<production chance="1" item_id="100600421" count="1"/>

@@ -197,7 +197,7 @@
 	<spawn map="400010000" npcid="278046" pool="1" interval="295">
 		<object x="1002.6555" y="2941.296" z="1642.3378" h="0"/>
 	</spawn>
-	<!-- Bone of Ancient Dragon (Object Normal lvl:1)-->
+	<!-- Bone of Ancient Dragon Q2797(Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700308" pool="1" interval="295">
 		<object x="2136.9846" y="2452.8564" z="2913.1685" h="0" staticid="1005"/>
 	</spawn>
@@ -371,7 +371,7 @@
 	</spawn>
 	<!-- Eltnen Teleport Tower (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="730074" pool="1" interval="295">
-		<object x="2886" y="1014.35" z="1528.34" h="43"/>
+		<object staticid="998" x="2886" y="1014.35" z="1528.34" h="43"/>
 	</spawn>
 	<!-- Enno (NPC Elite lvl:50)-->
 	<spawn map="400010000" npcid="278032" pool="1" interval="295">
@@ -383,7 +383,7 @@
 	</spawn>
 	<!-- Ereshkigal Legend (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="730184" pool="1" interval="295">
-		<object x="926.21" y="3033.98" z="1647.35" h="0"/>
+		<object staticid="1222" x="926.21" y="3033.98" z="1647.35" h="0"/>
 	</spawn>
 	<!-- Erienne (NPC Hero lvl:50)-->
 	<spawn map="400010000" npcid="278518" pool="1" interval="295">
@@ -525,9 +525,9 @@
 	<spawn map="400010000" npcid="278040" pool="1" interval="295">
 		<object x="912.88184" y="3021.4285" z="1655.4788" h="76"/>
 	</spawn>
-	<!-- Heart Core (Object Normal lvl:1)-->
+	<!-- Heart Core Q2783B(Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700310" pool="1" interval="295">
-		<object x="2526.5" y="1601.86" z="2919.59" h="0"/>
+		<object staticid="1008" x="2526.5" y="1601.86" z="2919.59" h="0"/>
 	</spawn>
 	<!-- Hecabe (NPC Elite lvl:53)-->
 	<spawn map="400010000" npcid="278527" pool="1" interval="295">
@@ -535,7 +535,7 @@
 	</spawn>
 	<!-- Heiron Teleport Tower (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="730075" pool="1" interval="295">
-		<object x="2970.3" y="1032.47" z="1534.02" h="26"/>
+		<object staticid="283" x="2970.3" y="1032.47" z="1534.02" h="26"/>
 	</spawn>
 	<!-- Henir (NPC Elite lvl:53 Subtext: Archon)-->
 	<spawn map="400010000" npcid="279042" pool="1" interval="295">
@@ -547,7 +547,7 @@
 	</spawn>
 	<!-- Hidden Stone Door (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700452" pool="1" interval="295">
-		<object x="1344.07" y="1243.71" z="1498.31" h="0"/>
+		<object staticid="34" x="1344.0844" y="1243.928" z="1496.489" h="0"/>
 	</spawn>
 	<!-- Hikelen (NPC Elite lvl:48)-->
 	<spawn map="400010000" npcid="278584" pool="1" interval="295">
@@ -1030,7 +1030,7 @@
 	</spawn>
 	<!-- Primum Coin Fountain (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="730143" pool="1" interval="295">
-		<object x="847.67" y="2732.66" z="1567.86" h="0"/>
+		<object staticid="1288" x="847.67" y="2732.66" z="1567.86" h="0"/>
 	</spawn>
 	<!-- Protector Agnar (NPC Hero lvl:56)-->
 	<spawn map="400010000" npcid="278140" pool="1" interval="295">
@@ -1150,12 +1150,12 @@
 	</spawn>
 	<!-- Shining Magic Ward (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700454" pool="1" interval="295">
-		<object x="2784.99" y="2664.03" z="1486.7" h="0"/>
+		<object staticid="1216" x="2784.99" y="2664.03" z="1485.9668" h="0"/>
 	</spawn>
-	<!-- Shoulder Core (Object Normal lvl:1)-->
+	<!-- Shoulder Core Q2783A(Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700309" pool="2" interval="295">
-		<object x="2552.7" y="1563.43" z="2976.12" h="0"/>
-		<object x="2534.92" y="1571.44" z="2955.87" h="0"/>
+		<object staticid="1019" x="2552.7" y="1563.43" z="2976.12" h="0"/>
+		<object staticid="1027" x="2534.92" y="1571.44" z="2955.87" h="0"/>
 	</spawn>
 	<!-- Shue (NPC Elite lvl:53 Subtext: Protector of Primum Legionary)-->
 	<spawn map="400010000" npcid="278044" pool="1" interval="295">
@@ -1359,7 +1359,7 @@
 	</spawn>
 	<!-- Verteron Teleport Tower (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="730073" pool="1" interval="295">
-		<object x="2857.81" y="932.03" z="1534.01" h="0"/>
+		<object staticid="992" x="2857.81" y="932.03" z="1534.01" h="0"/>
 	</spawn>
 	<!-- Vicht (NPC Normal lvl:50)-->
 	<spawn map="400010000" npcid="278127" pool="1" interval="295">
@@ -1381,10 +1381,10 @@
 	<spawn map="400010000" npcid="279053" pool="1" interval="295">
 		<object x="900.9409" y="2973.0742" z="1641.652" h="104"/>
 	</spawn>
-	<!-- Wing Core (Object Normal lvl:1)-->
+	<!-- Wing Core Q2783C (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700311" pool="2" interval="295">
-		<object x="2568.14" y="1667.61" z="2910.04" h="0"/>
-		<object x="2490.32" y="1550.33" z="2949.38" h="0"/>
+		<object staticid="1010" x="2568.14" y="1667.61" z="2910.04" h="0"/>
+		<object staticid="1015" x="2490.32" y="1550.33" z="2949.38" h="0"/>
 	</spawn>
 	<!-- Yourunerk (NPC Normal lvl:40)-->
 	<spawn map="400010000" npcid="279003" pool="1" interval="295">
@@ -1429,8 +1429,9 @@
 	<spawn map="400010000" npcid="700536" pool="1" interval="295">
 		<object x="1815.0714" y="2321.572" z="2931.347" h="0" staticid="1217"/>
 	</spawn>
-	<spawn map="400010000" npcid="700530" pool="1" interval="295">
-		<object x="2784.9946" y="2664.0283" z="1486.7031" h="0" staticid="1216"/>
+	<!-- Black Cloud Traders Guidebook (Book) -->
+	<spawn map="400010000" npcid="730130" pool="1" interval="295">	
+		<object staticid="270" x="3384.9695" y="2426.4709" z="2767.7966" h="0"/>
 	</spawn>
 	<!-- Flame Meteor -->
 	<spawn map="400010000" npcid="294515" pool="3" interval="295">

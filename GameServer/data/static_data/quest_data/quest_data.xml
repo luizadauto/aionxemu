@@ -132,6 +132,7 @@
 			<selectable_reward_item count="1" item_id="112300729"/>
 			<selectable_reward_item count="1" item_id="112500717"/>
 			<selectable_reward_item count="1" item_id="112600728"/>
+			<reward_item count="1" item_id="186000001"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="12" nameId="2204033" name="Source of the Pollution" id="1016">
@@ -151,6 +152,7 @@
 			<selectable_reward_item count="1" item_id="114300818"/>
 			<selectable_reward_item count="1" item_id="114500780"/>
 			<selectable_reward_item count="1" item_id="114600737"/>
+			<reward_item count="2" item_id="186000001"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182200025" npc_id="210171"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182200025" npc_id="210167"/>
@@ -205,6 +207,7 @@
 		<rewards title="2" exp="208500" gold="36200">
 			<selectable_reward_item count="1" item_id="122000886"/>
 			<selectable_reward_item count="1" item_id="122000887"/>
+			<reward_item count="1" item_id="188050780"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182200024" npc_id="210753"/>
 	</quest>
@@ -245,6 +248,7 @@
 			<selectable_reward_item count="1" item_id="114300819"/>
 			<selectable_reward_item count="1" item_id="114500781"/>
 			<selectable_reward_item count="1" item_id="114600738"/>
+			<reward_item count="1" item_id="188050778"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="19" nameId="2204103" name="A Ruler's Duty" id="1032">
@@ -322,6 +326,7 @@
 			<selectable_reward_item count="1" item_id="112300731"/>
 			<selectable_reward_item count="1" item_id="112500719"/>
 			<selectable_reward_item count="1" item_id="112600730"/>
+			<reward_item count="1" item_id="188050801"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201020" npc_id="211762"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201020" npc_id="211763"/>
@@ -348,6 +353,7 @@
 			<selectable_reward_item count="1" item_id="114300821"/>
 			<selectable_reward_item count="1" item_id="114500783"/>
 			<selectable_reward_item count="1" item_id="114600740"/>
+			<reward_item count="1" item_id="188050803"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201015" npc_id="210943"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201015" npc_id="210965"/>
@@ -362,6 +368,7 @@
 		</collect_items>
 		<rewards exp="633400" gold="137930">
 			<reward_item count="1" item_id="121000771"/>
+			<reward_item count="1" item_id="188050802"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1016"/>
@@ -411,7 +418,9 @@
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" use_class_reward="true" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204127" name="Testing Flight Skills" id="1044">
-		<rewards exp="134300" gold="58760"/>
+		<rewards exp="134300" gold="58760">
+			<reward_item count="1" item_id="188050783"/>
+		</rewards>
 		<finished_quest_conds>
 			<condition quest="1922"/>
 		</finished_quest_conds>
@@ -592,14 +601,10 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="41" nameId="2204225" name="Brigadier Indratu" id="1063">
 		<rewards title="25" exp="5621300" gold="436560">
-			<selectable_reward_item count="1" item_id="100200620"/>
-			<selectable_reward_item count="1" item_id="100000662"/>
-			<selectable_reward_item count="1" item_id="100100514"/>
-			<selectable_reward_item count="1" item_id="100900497"/>
-			<selectable_reward_item count="1" item_id="101700533"/>
-			<selectable_reward_item count="1" item_id="101500512"/>
-			<selectable_reward_item count="1" item_id="100600552"/>
-			<selectable_reward_item count="1" item_id="100500514"/>
+			<selectable_reward_item count="1" item_id="114101177"/>
+			<selectable_reward_item count="1" item_id="114301184"/>
+			<selectable_reward_item count="1" item_id="114501138"/>
+			<selectable_reward_item count="1" item_id="114601085"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204241" name="Speaking Balaur" id="1071">
@@ -674,6 +679,8 @@
 		<rewards exp="5621300" gold="436560">
 			<selectable_reward_item count="1" item_id="122000923"/>
 			<selectable_reward_item count="1" item_id="122000924"/>
+			<reward_item count="1" item_id="186000005"/>
+			<reward_item count="1" item_id="188050838"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1092"/>
@@ -1643,7 +1650,9 @@
 		</acquired_quest_conds>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="19" nameId="2204801" name="Orders from Telemachus" id="1300">
-		<rewards exp="10000" gold="30000"/>
+		<rewards exp="10000" gold="30000">
+			<reward_item count="1" item_id="188050790"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="19" nameId="2204803" name="Aether Powder" id="1301">
 		<collect_items>
@@ -6616,7 +6625,9 @@
 		<rewards reward_abyss_point="250" exp="10000" gold="58760"/>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2205843" name="The Abyss Quiz" id="1921">
-		<rewards reward_abyss_point="250" exp="15000" gold="58760"/>
+		<rewards reward_abyss_point="250" exp="15000" gold="58760">
+			<reward_item count="1" item_id="188050788"/>
+		</rewards>
 		<finished_quest_conds>
 			<condition quest="1920"/>
 		</finished_quest_conds>
@@ -7673,6 +7684,7 @@
 			<selectable_reward_item count="1" item_id="111300769"/>
 			<selectable_reward_item count="1" item_id="111500752"/>
 			<selectable_reward_item count="1" item_id="111600744"/>
+			<reward_item count="1" item_id="186000006"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="2014"/>
@@ -7700,6 +7712,7 @@
 			<selectable_reward_item count="1" item_id="112300721"/>
 			<selectable_reward_item count="1" item_id="112500709"/>
 			<selectable_reward_item count="1" item_id="112600720"/>
+			<reward_item count="2" item_id="186000006"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182203020" npc_id="210532"/>
 		<finished_quest_conds>
@@ -7913,7 +7926,9 @@
 		<chanter_selectable_reward count="1" item_id="101500870"/>
 	</quest>
 	<quest race_permitted="ASMODIANS" use_class_reward="true" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2206285" name="The Last Checkpoint" id="2042">
-		<rewards exp="134300" gold="58760"/>
+		<rewards exp="134300" gold="58760">
+			<reward_item count="1" item_id="188050873"/>
+		</rewards>
 		<finished_quest_conds>
 			<condition quest="2947"/>
 		</finished_quest_conds>
@@ -7946,6 +7961,7 @@
 		<rewards exp="633400" gold="137930">
 			<selectable_reward_item count="1" item_id="123000871"/>
 			<selectable_reward_item count="1" item_id="123000872"/>
+			<reward_item count="1" item_id="188050888"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="50" item_id="182204303" npc_id="213022"/>
 		<quest_drop drop_each_member="true" chance="50" item_id="182204303" npc_id="213023"/>
@@ -7959,6 +7975,8 @@
 			<selectable_reward_item count="1" item_id="114300810"/>
 			<selectable_reward_item count="1" item_id="114500772"/>
 			<selectable_reward_item count="1" item_id="114600731"/>
+			<reward_item count="1" item_id="186000008"/>
+			<reward_item count="1" item_id="188050890"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182204307" npc_id="213281"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182204307" npc_id="213282"/>
@@ -8040,14 +8058,10 @@
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="39" nameId="2206323" name="Suppressing the Bakarma Legion" id="2061">
 		<rewards title="74" exp="5621300" gold="436560">
-			<selectable_reward_item count="1" item_id="100200610"/>
-			<selectable_reward_item count="1" item_id="100000648"/>
-			<selectable_reward_item count="1" item_id="100100502"/>
-			<selectable_reward_item count="1" item_id="100900492"/>
-			<selectable_reward_item count="1" item_id="101700522"/>
-			<selectable_reward_item count="1" item_id="101500504"/>
-			<selectable_reward_item count="1" item_id="100600540"/>
-			<selectable_reward_item count="1" item_id="100500505"/>
+			<selectable_reward_item count="1" item_id="114101178"/>
+			<selectable_reward_item count="1" item_id="114301185"/>
+			<selectable_reward_item count="1" item_id="114501139"/>
+			<selectable_reward_item count="1" item_id="114601086"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="99" nameId="2206325" name="DF3 Mission" id="2062">
@@ -11092,7 +11106,9 @@
 		<quest_drop drop_each_member="false" chance="100" item_id="182204233" npc_id="700322"/>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="30" nameId="2207601" name="Orders From Nerita" id="2500">
-		<rewards exp="233100" gold="94010"/>
+		<rewards exp="233100" gold="94010">
+			<reward_item count="1" item_id="188050878"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" max_repeat_count="1" minlevel_permitted="30" nameId="2207603" name="Falling Fragments" id="2501">
 		<rewards exp="92700" gold="6560"/>
@@ -14601,7 +14617,9 @@
 		<rewards reward_abyss_point="250" exp="10000" gold="58760"/>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2208293" name="Abyss General Knowledge" id="2946">
-		<rewards reward_abyss_point="250" exp="15000" gold="58760"/>
+		<rewards reward_abyss_point="250" exp="15000" gold="58760">
+			<reward_item count="1" item_id="188050878"/>
+		</rewards>
 		<finished_quest_conds>
 			<condition quest="2945"/>
 		</finished_quest_conds>
@@ -25601,6 +25619,8 @@
 		<rewards exp="8870800" gold="580750">
 			<selectable_reward_item count="1" item_id="122001214"/>
 			<selectable_reward_item count="1" item_id="122001215"/>
+			<reward_item count="1" item_id="186000018"/>
+			<reward_item count="1" item_id="188050854"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="10026"/>
@@ -25615,6 +25635,8 @@
 			<selectable_reward_item count="1" item_id="113301030"/>
 			<selectable_reward_item count="1" item_id="113501000"/>
 			<selectable_reward_item count="1" item_id="113600971"/>
+			<reward_item count="1" item_id="186000018"/>
+			<reward_item count="1" item_id="188050854"/>
 		</rewards>
 		<quest_drop drop_each_member="false" chance="100" item_id="182206602" npc_id="215488"/>
 		<finished_quest_conds>
@@ -25628,6 +25650,8 @@
 		<rewards exp="10203200" gold="685040">
 			<selectable_reward_item count="1" item_id="120001077"/>
 			<selectable_reward_item count="1" item_id="120001078"/>
+			<reward_item count="2" item_id="186000018"/>
+			<reward_item count="1" item_id="188050852"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182206604" npc_id="215694"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182206604" npc_id="215695"/>
@@ -25644,6 +25668,8 @@
 			<selectable_reward_item count="1" item_id="125002372"/>
 			<selectable_reward_item count="1" item_id="125002373"/>
 			<selectable_reward_item count="1" item_id="125002374"/>
+			<reward_item count="2" item_id="186000018"/>
+			<reward_item count="3" item_id="164000106"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182206613" npc_id="216494"/>
 		<finished_quest_conds>
@@ -25658,10 +25684,8 @@
 			<collect_item count="1" item_id="182206619"/>
 		</collect_items>
 		<rewards exp="13560400" gold="744060">
-			<selectable_reward_item count="1" item_id="112100961"/>
-			<selectable_reward_item count="1" item_id="112300959"/>
-			<selectable_reward_item count="1" item_id="112500946"/>
-			<selectable_reward_item count="1" item_id="112600961"/>
+			<selectable_reward_item count="1" item_id="115001177"/>
+			<selectable_reward_item count="1" item_id="115001178"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="50" item_id="182206617" npc_id="216472"/>
 		<quest_drop drop_each_member="true" chance="50" item_id="182206618" npc_id="216473"/>
@@ -28786,6 +28810,8 @@
 		<rewards exp="8870800" gold="580750">
 			<selectable_reward_item count="1" item_id="122001222"/>
 			<selectable_reward_item count="1" item_id="122001223"/>
+			<reward_item count="1" item_id="186000019"/>
+			<reward_item count="1" item_id="188050944"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207601" npc_id="216091"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207601" npc_id="216095"/>
@@ -28808,6 +28834,8 @@
 			<selectable_reward_item count="1" item_id="113301032"/>
 			<selectable_reward_item count="1" item_id="113501002"/>
 			<selectable_reward_item count="1" item_id="113600973"/>
+			<reward_item count="1" item_id="186000019"/>
+			<reward_item count="1" item_id="188050944"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="20020"/>
@@ -28826,6 +28854,8 @@
 		<rewards exp="10203200" gold="685040">
 			<selectable_reward_item count="1" item_id="120001085"/>
 			<selectable_reward_item count="1" item_id="120001086"/>
+			<reward_item count="2" item_id="186000019"/>
+			<reward_item count="1" item_id="188050942"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207605" npc_id="700703"/>
 		<quest_drop drop_each_member="true" chance="80" item_id="182207606" npc_id="216543"/>
@@ -28848,6 +28878,8 @@
 			<selectable_reward_item count="1" item_id="125002377"/>
 			<selectable_reward_item count="1" item_id="125002378"/>
 			<selectable_reward_item count="1" item_id="125002379"/>
+			<reward_item count="2" item_id="186000019"/>
+			<reward_item count="3" item_id="164000107"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207610" npc_id="700810"/>
 		<finished_quest_conds>
@@ -28865,10 +28897,8 @@
 			<collect_item count="1" item_id="182207614"/>
 		</collect_items>
 		<rewards exp="13560400" gold="744060">
-			<selectable_reward_item count="1" item_id="112100963"/>
-			<selectable_reward_item count="1" item_id="112300961"/>
-			<selectable_reward_item count="1" item_id="112500948"/>
-			<selectable_reward_item count="1" item_id="112600963"/>
+			<selectable_reward_item count="1" item_id="115001179"/>
+			<selectable_reward_item count="1" item_id="115001180"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207614" npc_id="216573"/>
 		<finished_quest_conds>
@@ -28886,10 +28916,10 @@
 			<collect_item count="5" item_id="182207618"/>
 		</collect_items>
 		<rewards title="150" exp="17082400" gold="871560">
-			<selectable_reward_item count="1" item_id="110101107"/>
-			<selectable_reward_item count="1" item_id="110301056"/>
-			<selectable_reward_item count="1" item_id="110501024"/>
-			<selectable_reward_item count="1" item_id="110601004"/>
+			<selectable_reward_item count="1" item_id="110101252"/>
+			<selectable_reward_item count="1" item_id="110301184"/>
+			<selectable_reward_item count="1" item_id="110501158"/>
+			<selectable_reward_item count="1" item_id="110601131"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207618" npc_id="216124"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182207618" npc_id="216125"/>
