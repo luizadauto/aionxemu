@@ -45,6 +45,7 @@ import gameserver.model.siege.FortressGeneral;
 import gameserver.model.templates.stats.PlayerStatsTemplate;
 import gameserver.network.aion.AionConnection;
 import gameserver.questEngine.model.QuestCookie;
+import gameserver.questEngine.model.QuestStatus;
 import gameserver.services.BrokerService;
 import gameserver.services.ExchangeService;
 import gameserver.services.PlayerService;
@@ -1490,4 +1491,20 @@ public class Player extends Creature {
 	{
 		return noExperienceGain;
 	}
+
+    /**
+     * isQuestComplete by ZeroSignal
+     */
+    public boolean isQuestComplete(int questId)
+    {
+        return (questStateList.getQuestState(questId).getStatus() == QuestStatus.COMPLETE);
+    }
+    
+    /**
+     * isQuestStart by ZeroSignal
+     */
+    public boolean isQuestStart(int questId)
+    {
+        return (questStateList.getQuestState(questId).getStatus() == QuestStatus.START);
+    }
 }

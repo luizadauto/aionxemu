@@ -123,7 +123,7 @@ public class Equipment {
                     break;
             }
 
-            if (!StigmaService.notifyEquipAction(owner, item))
+            if (!StigmaService.notifyEquipAction(owner, item, slot))
                 return null;
             // find correct slot
             List<ItemSlot> possibleSlots = ItemSlot.getSlotsFor(itemSlotMask);
@@ -481,10 +481,36 @@ public class Equipment {
     public List<Item> getEquippedItemsStigma() {
         List<Item> equippedItems = new ArrayList<Item>();
         for (Item item : equipment.values()) {
-            if (item.getEquipmentSlot() >= ItemSlot.STIGMA1.getSlotIdMask())
+            if (item.getEquipmentSlot() >= ItemSlot.STIGMA1.getSlotIdMask() && item.getEquipmentSlot() <= ItemSlot.STIGMA6.getSlotIdMask()) 
                 equippedItems.add(item);
         }
+        return equippedItems;
+    }
 
+     /**
+      * @return List<Item>
+      */
+    public List<Item> getEquippedItemsAdvancedStigma() {
+        List<Item> equippedItems = new ArrayList<Item>();
+        for (Item item : equipment.values()) {
+            if (item.getEquipmentSlot() >= ItemSlot.ADV_STIGMA1.getSlotIdMask() && item.getEquipmentSlot() <= ItemSlot.ADV_STIGMA5.getSlotIdMask())
+                equippedItems.add(item);
+        }
+        return equippedItems;
+    }
+
+     /**
+      * @return List<Item>
+      */
+    public List<Item> getEquippedItemsAllStigma() {
+        List<Item> equippedItems = new ArrayList<Item>();
+        for (Item item : equipment.values()) {
+            if ((item.getEquipmentSlot() >= ItemSlot.ADV_STIGMA1.getSlotIdMask() && item.getEquipmentSlot() <= ItemSlot.ADV_STIGMA5.getSlotIdMask()) ||
+                (item.getEquipmentSlot() >= ItemSlot.STIGMA1.getSlotIdMask() && item.getEquipmentSlot() <= ItemSlot.STIGMA6.getSlotIdMask()))
+            {
+                equippedItems.add(item);
+            }
+        }
         return equippedItems;
     }
 

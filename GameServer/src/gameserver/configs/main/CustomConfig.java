@@ -56,6 +56,18 @@ public class CustomConfig {
     @Property(key = "gameserver.stigma.autolearn", defaultValue = "false")
     public static boolean STIGMA_AUTOLEARN;
 
+     /**
+     * Stigma level antihack
+     */
+    @Property(key = "gameserver.stigma.antihack", defaultValue = "quest")
+    public static String STIGMA_ANTIHACK;
+
+    /**
+     * Advanced Stigma level antihack
+     */
+    @Property(key = "gameserver.advstigma.antihack", defaultValue = "quest")
+    public static String ADVANCED_STIGMA_ANTIHACK;
+
     /**
      * Retail like char deletion
      */

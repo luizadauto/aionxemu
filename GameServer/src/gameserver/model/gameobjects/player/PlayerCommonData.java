@@ -68,7 +68,7 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     private WorldPosition position;
     private int cubeSize = 0;
     private int warehouseSize = 0;
-    private int advencedStigmaSlotSize = 0;
+    private int advancedStigmaSlotSize = 0;
     private int bindPoint;
     private int titleId = -1;
     private int dp = 0;
@@ -97,25 +97,65 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     }
 
     /**
-     * @return the advencedStigmaSlotSize
-     */
-    public int getAdvencedStigmaSlotSize() {
-        return advencedStigmaSlotSize;
-    }
-
-    /**
      * @return the StigmaSlotSize
      */
-    public int getStigmaSlotSize()
-    {
-        return (this.level < 55) ? (this.level / 10) : 6;
+    public int getStigmaSlotSize() {
+        if (CustomConfig.STIGMA_ANTIHACK.equals("quest")) {
+            Player player = getPlayer();
+            if(player == null)
+                return 0;
+
+            boolean isQuestComplete = false;
+            if(player.getCommonData().getRace() == Race.ELYOS) {
+                isQuestComplete = player.isQuestComplete(1929) || player.isQuestStart(1929) &&
+                    player.getQuestStateList().getQuestState(1929).getQuestVars().getQuestVars() == 98;
+            }
+            else {
+                isQuestComplete = player.isQuestComplete(2900) || player.isQuestStart(2900) &&
+                    player.getQuestStateList().getQuestState(2900).getQuestVars().getQuestVars() == 99;
+            }
+            if(isQuestComplete)
+                return (this.level < 55) ? (this.level / 10) : 6;
+            else
+                return 0;
+        }
+        else if (CustomConfig.STIGMA_ANTIHACK.equals("level")) {
+            if (this.level < 20)
+                return 0;
+            return (this.level < 55) ? (this.level / 10) : 6;
+        }
+        else
+            return 6;
     }
 
     /**
-     * @param advencedStigmaSlotSize the advencedStigmaSlotSize to set
+     * @return the advancedStigmaSlotSize
      */
-    public void setAdvencedStigmaSlotSize(int advencedStigmaSlotSize) {
-        this.advencedStigmaSlotSize = advencedStigmaSlotSize;
+    public int getAdvancedStigmaSlotSize() {
+        if (CustomConfig.STIGMA_ANTIHACK.equals("quest")) {
+            return advancedStigmaSlotSize;
+        }
+        else if (CustomConfig.STIGMA_ANTIHACK.equals("level")) {
+            // Since quests are not checked return slots by level.
+            if (this.level >= 55)
+                return 5;
+            if (this.level >= 52)
+                return 4;
+            if (this.level >= 50)
+                return 3;
+            if (this.level >= 45)
+                return 2;
+            return 0;
+        }
+        else
+            return 5;
+    }
+
+    /**
+     * @param advancedStigmaSlotSize the advancedStigmaSlotSize to set
+     */
+    public void setAdvancedStigmaSlotSize(int advancedStigmaSlotSize) {
+        this.advancedStigmaSlotSize = advancedStigmaSlotSize;
     }
 
     public long getExpShown() {

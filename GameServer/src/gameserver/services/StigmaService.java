@@ -18,22 +18,25 @@ package gameserver.services;
 
 import gameserver.dataholders.DataManager;
 import gameserver.model.DescriptionId;
+import gameserver.model.Race;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.SkillListEntry;
+import gameserver.model.items.ItemSlot;
 import gameserver.model.templates.item.RequireSkill;
 import gameserver.model.templates.item.Stigma;
 import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import gameserver.network.aion.serverpackets.SM_STIGMA_SKILL_REMOVE;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.utils.PacketSendUtility;
+import gameserver.configs.main.CustomConfig;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
 /**
- * @author ATracer
+ * @author ATracer, 10ton, ZeroSignal
  */
 public class StigmaService {
     private static final Logger log = Logger.getLogger(StigmaService.class);
@@ -41,17 +44,25 @@ public class StigmaService {
     /**
      * @param resultItem
      */
-    public static boolean notifyEquipAction(Player player, Item resultItem) {
+    public static boolean notifyEquipAction(Player player, Item resultItem, int slot) {
         if (resultItem.getItemTemplate().isStigma()) {
             int currentStigmaCount = player.getEquipment().getEquippedItemsStigma().size();
-            int allowedStigmaSize = player.getCommonData().getAdvencedStigmaSlotSize() +
-                player.getCommonData().getStigmaSlotSize();
-            if (currentStigmaCount > allowedStigmaSize) {
-                log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
-                return false;
+            int currentAdvancedStigmaCount = player.getEquipment().getEquippedItemsAdvancedStigma().size();
+
+            if (slot >= ItemSlot.STIGMA1.getSlotIdMask() && slot <= ItemSlot.STIGMA6.getSlotIdMask() &&
+                player.getCommonData().getStigmaSlotSize() <= currentStigmaCount)
+            {   
+                log.info("[AUDIT]Possible client hack stigma count big player: " + player.getName());
+                 return false;
+            }
+            if (slot >= ItemSlot.ADV_STIGMA1.getSlotIdMask() && slot <= ItemSlot.ADV_STIGMA5.getSlotIdMask() &&
+                player.getCommonData().getAdvancedStigmaSlotSize() <= currentAdvancedStigmaCount)
+            {
+                log.info("[AUDIT]Possible client hack advanced stigma count big player: " + player.getName());
+                 return false;
             }
 
-            if (resultItem.getItemTemplate().isClassSpecific(player.getCommonData().getPlayerClass()) == false) {
+            if (!resultItem.getItemTemplate().isClassSpecific(player.getCommonData().getPlayerClass())) {
                 log.info("[AUDIT]Possible client hack not valid for class. player: " + player.getName());
                 return false;
             }
@@ -78,7 +89,7 @@ public class StigmaService {
                 }
             }
             if (needSkill != 0) {
-                log.info("[AUDIT]Possible client hack advenced stigma skill player: " + player.getName());
+                log.info("[AUDIT]Possible client hack advanced stigma skill player: " + player.getName());
             }
 
             player.getInventory().removeFromBagByItemId(141000001, shardCount);
@@ -108,6 +119,20 @@ public class StigmaService {
                     }
                 }
             }
+
+            // check the stigma depends on advanced stimga
+            for (Item item : player.getEquipment().getEquippedItemsAdvancedStigma()) {
+                Stigma si = item.getItemTemplate().getStigma();
+                if (resultItem == item || si == null)
+                    continue;
+                for (RequireSkill rs : si.getRequireSkill()) {
+                    if (rs.getSkillId().contains(skillId)) {
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300410, new DescriptionId(resultItem.getItemTemplate().getNameId()), new DescriptionId(item.getItemTemplate().getNameId())));
+                        return false;
+                    }
+                }
+            }
+            
             player.getSkillList().removeSkill(skillId);
             int nameId = DataManager.SKILL_DATA.getSkillTemplate(skillId).getNameId();
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300403, new DescriptionId(nameId)));
@@ -120,61 +145,100 @@ public class StigmaService {
      * @param player
      */
     public static void onPlayerLogin(Player player) {
-        List<Item> equippedItems = player.getEquipment().getEquippedItemsStigma();
-        for (Item item : equippedItems) {
-            if (item.getItemTemplate().isStigma()) {
-                Stigma stigmaInfo = item.getItemTemplate().getStigma();
+        if (CustomConfig.STIGMA_AUTOLEARN)
+            return;
 
-                if (stigmaInfo == null) {
-                    log.warn("Stigma info missing for item: " + item.getItemTemplate().getTemplateId());
-                    return;
-                }
-                int skillId = stigmaInfo.getSkillid();
-                SkillListEntry skill = new SkillListEntry(skillId, true, stigmaInfo.getSkilllvl(), PersistentState.NOACTION);
-                player.getSkillList().addSkill(skill);
+        List<Item> stigmaItems = player.getEquipment().getEquippedItemsAllStigma();
+
+        for (Item item : stigmaItems) {
+            Stigma stigmaInfo = item.getItemTemplate().getStigma();
+            if (stigmaInfo == null) {
+                log.warn("Stigma info missing for item: " + item.getItemTemplate().getTemplateId());
+                return;
             }
+            int skillId = stigmaInfo.getSkillid();
+            SkillListEntry skill = new SkillListEntry(skillId, true, stigmaInfo.getSkilllvl(), PersistentState.NOACTION);
+            player.getSkillList().addSkill(skill);
         }
 
-        for (Item item : equippedItems) {
-            if (item.getItemTemplate().isStigma()) {
-                int currentStigmaCount = player.getEquipment().getEquippedItemsStigma().size();
-                int allowedStigmaSize = player.getCommonData().getAdvencedStigmaSlotSize() +
-                    player.getCommonData().getStigmaSlotSize();
-                if (currentStigmaCount > allowedStigmaSize) {
-                    log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
-                    player.getEquipment().unEquipItem(item.getObjectId(), 0);
-                    continue;
-                }
+        for (Item item : stigmaItems) {
+            if(!isPossibleEquippedStigma(player, item)) {
+                log.info("[AUDIT]Possible client hack stigma count big :O player: " + player.getName());
+                player.getEquipment().unEquipItem(item.getObjectId(), 0);
+                continue;
+            }
 
-                Stigma stigmaInfo = item.getItemTemplate().getStigma();
-
-                if (stigmaInfo == null) {
-                    log.warn("Stigma info missing for item: " + item.getItemTemplate().getTemplateId());
-                    player.getEquipment().unEquipItem(item.getObjectId(), 0);
-                    continue;
-                }
-
-                int needSkill = stigmaInfo.getRequireSkill().size();
-                for (RequireSkill rs : stigmaInfo.getRequireSkill()) {
-                    for (int id : rs.getSkillId()) {
-                        if (player.getSkillList().isSkillPresent(id)) {
-                            needSkill--;
-                            break;
-                        }
+            Stigma stigmaInfo = item.getItemTemplate().getStigma();
+            int needSkill = stigmaInfo.getRequireSkill().size();
+            for (RequireSkill rs : stigmaInfo.getRequireSkill()) {
+                for (int id : rs.getSkillId()) {
+                    if (player.getSkillList().isSkillPresent(id)) {
+                        needSkill--;
+                        break;
                     }
                 }
-                if (needSkill != 0) {
-                    log.info("[AUDIT]Possible client hack advenced stigma skill player: " + player.getName());
-                    player.getEquipment().unEquipItem(item.getObjectId(), 0);
-                    continue;
-                }
-                if (item.getItemTemplate().isClassSpecific(player.getCommonData().getPlayerClass()) == false) {
-                    log.info("[AUDIT]Possible client hack not valid for class. player: " + player.getName());
-                    player.getEquipment().unEquipItem(item.getObjectId(), 0);
-                    continue;
-                }
+            }
+            if (needSkill != 0) {
+                log.info("[AUDIT]Possible client hack stigma skill player: " + player.getName());
+                player.getEquipment().unEquipItem(item.getObjectId(), 0);
+                continue;
+            }
+            if (!item.getItemTemplate().isClassSpecific(player.getCommonData().getPlayerClass())) {
+                log.info("[AUDIT]Possible client hack not valid for class. player: " + player.getName());
+                player.getEquipment().unEquipItem(item.getObjectId(), 0);
+                continue;
             }
         }
     }
 
+    private static boolean isPossibleEquippedStigma(Player player, Item item)
+    {
+        if(player == null || item == null || !item.getItemTemplate().isStigma())
+            return false;
+
+        int itemSlotToEquip = item.getEquipmentSlot();
+        if(itemSlotToEquip >= ItemSlot.STIGMA1.getSlotIdMask() &&
+           itemSlotToEquip <= ItemSlot.STIGMA6.getSlotIdMask())
+        {
+            int stigmaCount = player.getCommonData().getStigmaSlotSize();
+            if(stigmaCount <= 0)
+                return false;
+            if(stigmaCount == 6)
+                return true;
+
+            int[] itemSlotStigma = {
+                ItemSlot.STIGMA1.getSlotIdMask(),
+                ItemSlot.STIGMA2.getSlotIdMask(),
+                ItemSlot.STIGMA3.getSlotIdMask(),
+                ItemSlot.STIGMA4.getSlotIdMask(),
+                ItemSlot.STIGMA5.getSlotIdMask(),
+            };         
+            for(int i = 0; i < stigmaCount; ++i) {
+                if (itemSlotToEquip == itemSlotStigma[i])
+                    return true;
+            }
+        }
+        else if(itemSlotToEquip >= ItemSlot.ADV_STIGMA1.getSlotIdMask() &&
+            itemSlotToEquip <= ItemSlot.ADV_STIGMA5.getSlotIdMask())
+        {
+            int advStigmaCount = player.getCommonData().getAdvancedStigmaSlotSize();
+            if(advStigmaCount <= 0)
+                return false;
+            if(advStigmaCount == 5)
+                return true;
+
+            int[] itemSlotAdvStigma = {
+                ItemSlot.ADV_STIGMA1.getSlotIdMask(),
+                ItemSlot.ADV_STIGMA2.getSlotIdMask(),
+                ItemSlot.ADV_STIGMA3.getSlotIdMask(),
+                ItemSlot.ADV_STIGMA4.getSlotIdMask(),
+            };
+            for(int i = 0; i < advStigmaCount; ++i) {
+                if (itemSlotToEquip == itemSlotAdvStigma[i])
+                    return true;
+            }
+        }
+        return false;
+    }
 }
+

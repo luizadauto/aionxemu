@@ -104,7 +104,7 @@ public class MySQL5PlayerDAO extends PlayerDAO {
             stmt.setString(10, player.getCommonData().getPlayerClass().toString());
             stmt.setTimestamp(11, player.getCommonData().getLastOnline());
             stmt.setInt(12, player.getCubeSize());
-            stmt.setInt(13, player.getCommonData().getAdvencedStigmaSlotSize());
+            stmt.setInt(13, player.getCommonData().getAdvancedStigmaSlotSize());
             stmt.setInt(14, player.getWarehouseSize());
             stmt.setString(15, player.getCommonData().getNote());
             stmt.setInt(16, player.getCommonData().getBindPoint());
@@ -232,7 +232,7 @@ public class MySQL5PlayerDAO extends PlayerDAO {
                 cd.setLastOnline(resultSet.getTimestamp("last_online"));
                 cd.setNote(resultSet.getString("note"));
                 cd.setCubesize(resultSet.getInt("cube_size"));
-                cd.setAdvencedStigmaSlotSize(resultSet.getInt("advenced_stigma_slot_size"));
+                cd.setAdvancedStigmaSlotSize(resultSet.getInt("advenced_stigma_slot_size"));
                 cd.setBindPoint(resultSet.getInt("bind_point"));
                 cd.setTitleId(resultSet.getInt("title_id"));
                 cd.setWarehouseSize(resultSet.getInt("warehouse_size"));

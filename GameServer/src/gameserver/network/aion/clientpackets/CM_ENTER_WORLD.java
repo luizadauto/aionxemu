@@ -164,6 +164,8 @@ public class CM_ENTER_WORLD extends AionClientPacket {
                 World.getInstance().removeObject(player2);
             World.getInstance().storeObject(player);
 
+            PlayerService.playerLoggedIn(player);
+
             StigmaService.onPlayerLogin(player);
             client.sendPacket(new SM_SKILL_LIST(player));
 
@@ -216,11 +218,9 @@ public class CM_ENTER_WORLD extends AionClientPacket {
 
             client.sendPacket(new SM_INVENTORY_INFO());
 
-            PlayerService.playerLoggedIn(player);
-
             client.sendPacket(new SM_STATS_INFO(player));
 
-            client.sendPacket(new SM_CUBE_UPDATE(player, 6, player.getCommonData().getAdvencedStigmaSlotSize()));
+            client.sendPacket(new SM_CUBE_UPDATE(player, 6, player.getCommonData().getAdvancedStigmaSlotSize()));
 
             KiskService.onLogin(player);
             TeleportService.sendSetBindPoint(player);

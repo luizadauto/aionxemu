@@ -150,8 +150,8 @@ public final class QuestService {
 
             if (rewards.getExtendStigma() != null) {
                 PlayerCommonData pcd = player.getCommonData();
-                pcd.setAdvencedStigmaSlotSize(pcd.getAdvencedStigmaSlotSize() + 1);
-                PacketSendUtility.sendPacket(player, new SM_CUBE_UPDATE(player, 6, pcd.getAdvencedStigmaSlotSize()));
+                pcd.setAdvancedStigmaSlotSize(pcd.getAdvancedStigmaSlotSize() + 1);
+                PacketSendUtility.sendPacket(player, new SM_CUBE_UPDATE(player, 6, pcd.getAdvancedStigmaSlotSize()));
             }
 
             //remove all worker list item if finished.
