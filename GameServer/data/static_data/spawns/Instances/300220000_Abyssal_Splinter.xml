@@ -192,4 +192,12 @@
         <object x="667.801" y="360.7182" z="466.45486" h="98"/>
         <object x="687.6208" y="314.90414" z="465.58585" h="78"/>
     </spawn>
+	<!-- Fallen Shugo -->
+    <spawn map="300220000" npcid="207945" pool="1" interval="295">
+        <object x="705.8095" y="349.45715" z="466.99664" h="63"/>
+    </spawn>
+	<!-- Broken Orkanimum -->
+    <spawn map="300220000" npcid="700862" pool="1" interval="295">
+        <object x="814.7477" y="645.96875" z="455.1076" h="72"/>
+    </spawn>
 </spawns>
