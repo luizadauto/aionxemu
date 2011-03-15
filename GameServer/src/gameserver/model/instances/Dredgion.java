@@ -119,12 +119,12 @@ public class Dredgion {
 
     public void sendSorryMessage() {
         for (Player p : participants.keySet())
-            PacketSendUtility.sendMessage(p, "Pas assez de players pour demarre.");
+            PacketSendUtility.sendMessage(p, "Not enough players to start.");
     }
 
     public void sendBeginMessage() {
         for (Player p : participants.keySet()) {
-            PacketSendUtility.sendSysMessage(p, "Bienvenue dans le dredgion. Que la bataille commence !");
+            PacketSendUtility.sendSysMessage(p, "Welcome to the Dredgion. Let the battle begin!");
         }
     }
 
@@ -156,7 +156,7 @@ public class Dredgion {
             else score += 1500;
             message += ("player : " + p.getName() + " a fait : " + String.valueOf(score) + " Points.\n");
         }
-        message += "Vous allez etre teleporter dans 15s";
+        message += "You will be teleported in 15s";
         for (Player p : participants.keySet()) {
             PacketSendUtility.sendSysMessage(p, message);
         }
