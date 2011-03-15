@@ -16,6 +16,7 @@
  */
 package gameserver.controllers;
 
+import gameserver.configs.administration.AdminConfig;
 import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.model.EmotionType;
@@ -93,21 +94,35 @@ public class PortalController extends NpcController {
                 }
 
                 PlayerGroup group = player.getPlayerGroup();
-                if (portalTemplate.isGroup() && group == null) {
-                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_ENTER_ONLY_PARTY_DON);
-                    return;
-                }
+                if(player.getAccessLevel() < AdminConfig.INSTANCE_NO_GROUP) {
+                	if (portalTemplate.isGroup() && group == null) {
+                		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_ENTER_ONLY_PARTY_DON);
+                		return;
+                	}
+            	}
 
-                if (portalTemplate.isGroup() && group != null) {
+                if (portalTemplate.isGroup()) {
                     int worldId = 0;
                     for (ExitPoint point : portalTemplate.getExitPoint()) {
                         if (point.getRace() == null || point.getRace().equals(group.getGroupLeader().getCommonData().getRace()))
                             worldId = point.getMapId();
                     }
 
-                    WorldMapInstance instance = InstanceService.getRegisteredInstance(worldId, group.getGroupId());
+                    WorldMapInstance instance;
+                    if(group != null) {
+                    	instance = InstanceService.getRegisteredInstance(worldId, group.getGroupId());
+                    }
+                    else {
+                    	instance = InstanceService.getRegisteredInstance(worldId, player.getObjectId());
+                    	if(instance != null)
+                    		transfer(player, instance);
+                    	else
+                    		port(player);
+                    	return;
+                    }
+                    
                     // register if not yet created
-                    if (instance == null) {
+                    if (instance == null && group != null) {
                         instance = registerGroup(group);
                     }
 

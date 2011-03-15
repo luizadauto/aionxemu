@@ -26,6 +26,8 @@ import gameserver.model.templates.item.WeaponType;
 import gameserver.skillengine.model.Effect;
 import gameserver.utils.stats.StatFunctions;
 import gameserver.model.gameobjects.player.Equipment;
+import gameserver.dataholders.DataManager;
+import gameserver.skillengine.model.SkillTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -325,11 +327,41 @@ public class AttackUtil {
 
         if (attacker instanceof Player && ((Player) attacker).getEquipment().getMainHandWeaponType() != null           // CRITICAL can only be done with weapon, weapon can have humanoid mobs also,
                 && Rnd.get(0, 100) < StatFunctions.calculatePhysicalCriticalRate(attacker, attacked)) // but for now there isnt implementation of monster category
-            return AttackStatus.CRITICAL;
+		{
+			launchEffectOnCritical((Player)attacker, attacked);
+            return AttackStatus.CRITICAL;			
+		}
 
         return AttackStatus.NORMALHIT;
     }
 
+    public static void launchEffectOnCritical(Player attacker, Creature attacked)
+	{
+		int skillId = 0;
+		switch(attacker.getEquipment().getMainHandWeaponType())
+		{
+			case POLEARM_2H:
+			case STAFF_2H:
+			case SWORD_2H:
+				skillId = 8218;
+				break;
+			case BOW:
+				skillId = 8217;
+				break;
+		}
+		if (skillId == 0)
+			return;
+		
+		if (Rnd.get(100) > 25)//hardcoded 25% chance
+			return;
+		
+		SkillTemplate template = DataManager.SKILL_DATA.getSkillTemplate(skillId);
+		if (template == null)
+			return;
+		Effect e = new Effect(attacker, attacked, template, template.getLvl(), template.getEffectsDuration());
+		e.initialize();
+		e.applyEffect();
+	}
 
     public static AttackStatus calculateMagicalStatus(Creature attacker, Creature attacked) {
         if (Rnd.get(0, 100) < StatFunctions.calculateMagicalResistRate(attacker, attacked))

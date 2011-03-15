@@ -68,6 +68,8 @@ public abstract class Creature extends VisibleObject {
 
     private AggroList aggroList;
 	
+    private long lastAttack = 0;
+	
 	private int			isAdminNeutral = 0;
 	private int			isAdminEnmity = 0;
 
@@ -607,5 +609,21 @@ public abstract class Creature extends VisibleObject {
 	public void setAdminEnmity(int newValue)
 	{
 		isAdminEnmity = newValue;
+	}
+
+	/**
+	 * @param lastAttack the lastAttack to set
+	 */
+	public void setLastAttack(long lastAttack)
+	{
+		this.lastAttack = lastAttack;
+	}
+
+	/**
+	 * @return the lastAttack
+	 */
+	public long getLastAttack()
+	{
+		return lastAttack;
 	}
 }

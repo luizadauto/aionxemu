@@ -293,6 +293,9 @@ public class AdminConfig {
     @Property(key = "gameserver.administration.command.see", defaultValue = "3")
     public static int COMMAND_SEE;
     
+    @Property(key = "gameserver.administration.instancenogroup", defaultValue = "3")
+    public static int INSTANCE_NO_GROUP;
+    
     @Property(key = "gameserver.administration.command.survey", defaultValue = "3")
     public static int COMMAND_SURVEY;
 
