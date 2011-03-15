@@ -34,7 +34,7 @@ import gameserver.utils.ThreadPoolManager;
  */
 public class _1031TheMandurisSecret extends QuestHandler {
 
-    private final static int[] mob_ids = {210770, 210771, 210759, 210758};
+    private final static int[] mob_ids = {210770, 210771, 210763, 210764};
     private final static int questId = 1031;
 
     public _1031TheMandurisSecret() {
