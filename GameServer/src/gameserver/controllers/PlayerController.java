@@ -16,6 +16,7 @@
  */
 package gameserver.controllers;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.configs.main.GSConfig;
 import gameserver.configs.main.GeoDataConfig;
 import gameserver.controllers.SummonController.UnsummonType;
@@ -518,7 +519,12 @@ public class PlayerController extends CreatureController<Player> {
         player.getLifeStats().synchronizeWithMaxStats();
         player.getLifeStats().updateCurrentStats();
 
-        PacketSendUtility.broadcastPacket(player, new SM_LEVEL_UPDATE(player.getObjectId(), 0, level), true);
+        PacketSendUtility.broadcastPacket(player, new SM_LEVEL_UPDATE(
+            player.getObjectId(), 0, level), true);
+        PacketSendUtility.sendPacket(player, new SM_CUBE_UPDATE(
+            player, 6, player.getCommonData().getAdvancedStigmaSlotSize()));
+        PacketSendUtility.sendPacket(player, new SM_CUBE_UPDATE(
+            player, 5, player.getCommonData().getStigmaSlotSize()));
 
         // Temporal
         ClassChangeService.showClassChangeDialog(player);
@@ -546,6 +552,9 @@ public class PlayerController extends CreatureController<Player> {
             AllianceService.getInstance().updateAllianceUIToEvent(player, PlayerAllianceEvent.UPDATE);
         if (player.isLegionMember())
             LegionService.getInstance().updateMemberInfo(player);
+
+        if (CustomConfig.ENABLE_SURVEYS)
+            HTMLService.checkSurveys(player);
     }
 
     /**

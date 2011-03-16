@@ -59,13 +59,13 @@ public class CustomConfig {
      /**
      * Stigma level antihack
      */
-    @Property(key = "gameserver.stigma.antihack", defaultValue = "quest")
+    @Property(key = "gameserver.stigma.antihack", defaultValue = "level")
     public static String STIGMA_ANTIHACK;
 
     /**
      * Advanced Stigma level antihack
      */
-    @Property(key = "gameserver.advstigma.antihack", defaultValue = "quest")
+    @Property(key = "gameserver.advstigma.antihack", defaultValue = "level")
     public static String ADVANCED_STIGMA_ANTIHACK;
 
     /**

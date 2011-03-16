@@ -659,7 +659,7 @@ public class ItemTemplate extends VisibleObjectTemplate {
      * @return the temporaryExchangeMins
      */
     public int getTempExchangeMinutes()
-	{
-		return temporaryExchangeMins;
-	}
+    {
+        return temporaryExchangeMins;
+    }
 }

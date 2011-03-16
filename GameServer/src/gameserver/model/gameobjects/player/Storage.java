@@ -364,10 +364,6 @@ public class Storage {
      */
     public Item getItemByObjId(int value) {
         Item item = storage.getItemFromStorageByItemObjId(value);
-        if (item == null)
-            log.warn("Storage.getItemByObjId("+value+") is null." +
-                " playerId: " + owner.getObjectId() +
-                ", playerName: " + owner.getName());
         return item;
     }
 

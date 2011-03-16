@@ -132,10 +132,10 @@ public class PlayerCommonData extends VisibleObjectTemplate {
      * @return the advancedStigmaSlotSize
      */
     public int getAdvancedStigmaSlotSize() {
-        if (CustomConfig.STIGMA_ANTIHACK.equals("quest")) {
+        if (CustomConfig.ADVANCED_STIGMA_ANTIHACK.equals("quest")) {
             return advancedStigmaSlotSize;
         }
-        else if (CustomConfig.STIGMA_ANTIHACK.equals("level")) {
+        else if (CustomConfig.ADVANCED_STIGMA_ANTIHACK.equals("level")) {
             // Since quests are not checked return slots by level.
             if (this.level >= 55)
                 return 5;
@@ -284,8 +284,6 @@ public class PlayerCommonData extends VisibleObjectTemplate {
         //make sure level is never larger than maxLevel-1
         while ((level + 1) != maxLevel && exp >= DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(level + 1)) {
             level++;
-            if (CustomConfig.ENABLE_SURVEYS && player != null)
-                HTMLService.checkSurveys(player);
         }
 
         if (level != this.level) {
@@ -302,8 +300,7 @@ public class PlayerCommonData extends VisibleObjectTemplate {
             this.level = level;
             this.exp = exp;
 
-            if (player != null)
-                upgradePlayer();
+            upgradePlayer();
         }
         else {
             this.exp = exp;
@@ -522,9 +519,8 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     public void setLevel(int level) {
         if (level <= DataManager.PLAYER_EXPERIENCE_TABLE.getMaxLevel()) {
             this.setExp(DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(level));
-            if (CustomConfig.ENABLE_SURVEYS)
-                HTMLService.checkSurveys(getPlayer());
         }
+        upgradePlayer();
     }
 
     public String getNote() {

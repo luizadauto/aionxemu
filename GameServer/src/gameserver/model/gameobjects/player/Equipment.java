@@ -210,8 +210,12 @@ public class Equipment {
      * @return item or null in case of failure
      */
     public Item unEquipItem(int itemUniqueId, int slot) {
+        Storage inventory = owner.getInventory(); 
+        if (inventory == null)
+            return null;
+
         //if inventory is full unequip action is disabled
-        if (owner.getInventory().isFull())
+        if (inventory.isFull())
             return null;
 
         synchronized (equipment) {
