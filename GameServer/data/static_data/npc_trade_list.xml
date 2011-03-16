@@ -2355,4 +2355,10 @@
 		<tradelist id="1118"/>
 		<tradelist id="1119"/>
 	</tradelist_template>
+	<tradelist_template npc_id="799704" name="Zena" count="1" abyss="true">
+		<tradelist id="1058"/>
+	</tradelist_template>
+	<tradelist_template npc_id="799792" name="Elma" count="1" abyss="true">
+		<tradelist id="1059"/>
+	</tradelist_template>
 </npc_trade_list>
