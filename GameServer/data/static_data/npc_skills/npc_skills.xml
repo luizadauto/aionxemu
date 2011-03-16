@@ -27036,7 +27036,7 @@
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="16516" id="1"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="17256" id="2"/>
     </npcskills>
-    <npcskills npcid="216576" skill_count="14">
+    <npcskills npcid="216576" skill_count="12">
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18672" id="1"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18674" id="2"/>
         <npcskill abouthp="false" probability="10" skilllevel="1" skillid="18675" id="3"/>
