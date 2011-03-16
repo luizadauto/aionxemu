@@ -359,7 +359,12 @@ public class MySQL5PlayerDAO extends PlayerDAO {
             public void handleRead(ResultSet rset) throws SQLException {
                 rset.next();
 
-                acData.setDeletionDate(rset.getTimestamp("deletion_date"));
+                try {
+                    acData.setDeletionDate(rset.getTimestamp("deletion_date"));
+                }
+                catch (SQLException e) {
+                    acData.setDeletionDate(null);
+                }
                 acData.setCreationDate(rset.getTimestamp("creation_date"));
             }
         });

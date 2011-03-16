@@ -414,12 +414,17 @@ public class MailService {
      * @param attachedItemCount
      * @return
      */
-    private boolean validateMailSendPrice(Player sender, int attachedKinahCount, int attachedItemObjId,
-                                          int attachedItemCount) {
+    private boolean validateMailSendPrice(Player sender, int attachedKinahCount,
+        int attachedItemObjId, int attachedItemCount)
+    {
         int itemMailCommission = 0;
         int kinahMailCommission = Math.round(attachedKinahCount * 0.01f);
+
         if (attachedItemObjId != 0) {
             Item senderItem = sender.getInventory().getItemByObjId(attachedItemObjId);
+            if (senderItem == null)
+                return false;
+
             float qualityPriceRate;
             switch (senderItem.getItemTemplate().getItemQuality()) {
                 case JUNK:

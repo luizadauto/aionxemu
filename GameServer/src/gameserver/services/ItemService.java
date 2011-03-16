@@ -79,7 +79,7 @@ public class ItemService {
         }
 
         //TODO if Item object will contain ownerId - item can be saved to DB before return
-        Item temp = new Item(IDFactory.getInstance().nextId(), itemTemplate, count, false, 0);
+        Item temp = new Item(IDFactory.getInstance().nextId(), itemId, itemTemplate, count, false, 0);
         if (itemTemplate.isWeapon() || itemTemplate.isArmor()) {
             temp.setOptionalSocket(Rnd.get(0, itemTemplate.getOptionSlotBonus()));
         }

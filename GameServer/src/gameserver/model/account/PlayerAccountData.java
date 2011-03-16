@@ -37,8 +37,8 @@ public class PlayerAccountData {
     private PlayerCommonData playerCommonData;
     private PlayerAppearance appereance;
     private List<Item> equipment;
-    private Timestamp creationDate;
-    private Timestamp deletionDate;
+    private Timestamp creationDate = null;
+    private Timestamp deletionDate = null;
     private LegionMember legionMember;
 
     public PlayerAccountData(PlayerCommonData playerCommonData, PlayerAppearance appereance,

@@ -353,7 +353,7 @@ FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDAT
 CREATE TABLE IF NOT EXISTS  `mail` (
 `mailUniqueId` int(11) NOT NULL,
 `mailRecipientId` int(11) NOT NULL,
-`senderName` varchar(35) character set utf8 NOT NULL,
+`senderName` varchar(50) character set utf8 NOT NULL,
 `mailTitle` varchar(20) character set utf8 NOT NULL,
 `mailMessage` varchar(1000) character set utf8 NOT NULL,
 `unread` tinyint(4) NOT NULL default '1',

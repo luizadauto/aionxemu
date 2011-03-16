@@ -319,7 +319,11 @@ public class Player extends Creature {
      */
     @Override
     public PlayerGameStats getGameStats() {
-        return (PlayerGameStats) super.getGameStats();
+        PlayerGameStats pgs = (PlayerGameStats) super.getGameStats();
+        if (pgs == null)
+            log.warn("Player.getGameStats() coud not be retrieved. " +
+                "PlayerId: " + getObjectId() + ", PlayerName: " + getName());
+        return pgs;
     }
 
     /**

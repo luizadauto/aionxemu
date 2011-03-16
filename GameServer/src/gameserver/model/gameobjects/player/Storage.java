@@ -363,7 +363,12 @@ public class Storage {
      * @return Item
      */
     public Item getItemByObjId(int value) {
-        return storage.getItemFromStorageByItemObjId(value);
+        Item item = storage.getItemFromStorageByItemObjId(value);
+        if (item == null)
+            log.warn("Storage.getItemByObjId("+value+") is null." +
+                " playerId: " + owner.getObjectId() +
+                ", playerName: " + owner.getName());
+        return item;
     }
 
     /**

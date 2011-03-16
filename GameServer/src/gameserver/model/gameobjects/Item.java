@@ -29,6 +29,8 @@ import gameserver.model.templates.item.ItemTemplate;
 import gameserver.model.templates.item.ItemType;
 import gameserver.services.ItemService;
 
+import org.apache.log4j.Logger;
+
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,6 +39,10 @@ import java.util.TreeSet;
  * @author ATracer
  */
 public class Item extends AionObject {
+    private static Logger log = Logger.getLogger(Item.class);
+
+    private int itemId;
+
     private long itemCount = 1;
 
     private int itemColor = 0;
@@ -70,15 +76,17 @@ public class Item extends AionObject {
 
     /**
      * @param objId
+     * @param itemId
      * @param itemTemplate
      * @param itemCount
      * @param isEquipped
      * @param equipmentSlot This constructor should be called from ItemService
      *                      for newly created items and loadedFromDb
      */
-    public Item(int objId, ItemTemplate itemTemplate, long itemCount, boolean isEquipped, int equipmentSlot) {
+    public Item(int objId, int itemId, ItemTemplate itemTemplate, long itemCount, boolean isEquipped, int equipmentSlot) {
         super(objId);
 
+        this.itemId = itemId;
         this.itemTemplate = itemTemplate;
         this.itemCount = itemCount;
         this.isEquipped = isEquipped;
@@ -98,6 +106,7 @@ public class Item extends AionObject {
         super(objId);
 
         this.itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
+        this.itemId = itemId;
         this.itemCount = itemCount;
         this.itemColor = itemColor;
         this.isEquipped = isEquipped;
@@ -154,6 +163,10 @@ public class Item extends AionObject {
      * @return the itemTemplate
      */
     public ItemTemplate getItemTemplate() {
+        if (itemTemplate == null)
+            log.warn("Item was not populated correctly. Item template is missing" +
+                ", ItemObjectId: " + getObjectId() +
+                ", ItemId: " + itemId);
         return itemTemplate;
     }
 

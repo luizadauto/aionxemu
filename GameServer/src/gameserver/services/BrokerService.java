@@ -248,6 +248,12 @@ public class BrokerService {
         Race playerRace = player.getCommonData().getRace();
 
         BrokerItem buyingItem = getRaceBrokerItems(playerRace).get(itemUniqueId);
+        if (buyingItem == null) {
+            log.warn("BrokerService.buyBrokerItem - getRaceBrokerItems("+playerRace+").get("+itemUniqueId+")" +
+                ", playerId: "+player.getObjectId() +
+                ", playerName: "+player.getName());
+            return;
+        }
 
         if (player.getObjectId() == buyingItem.getSellerId()) {
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400750));
