@@ -421,7 +421,7 @@ public class EnchantService {
             boolean isWeapon = item.getItemTemplate().isWeapon();
             boolean isArmor = item.getItemTemplate().isArmor();
             if (isWeapon) {
-                TreeSet<StatModifier> modifiers = getWeaponModifiers(item);
+                TreeSet<StatModifier> modifiers = getWeaponModifiers(player, item);
 
                 if (modifiers == null)
                     return;
@@ -434,7 +434,7 @@ public class EnchantService {
             }
 
             if (isArmor) {
-                TreeSet<StatModifier> modifiers = getArmorModifiers(item);
+                TreeSet<StatModifier> modifiers = getArmorModifiers(player, item);
 
                 if (modifiers == null)
                     return;
@@ -475,95 +475,93 @@ public class EnchantService {
      * @param item
      * @return
      */
-    private static TreeSet<StatModifier> getArmorModifiers(Item item) {
+    private static TreeSet<StatModifier> getArmorModifiers(Player player, Item item) {
         TreeSet<StatModifier> modifiers = null;
 
         ArmorType armorType = item.getItemTemplate().getArmorType();
         if (armorType == null)
             return null;
 
-        int enchantLevel = item.getEnchantLevel();
-
         switch (armorType) {
             case ROBE:
                 switch (item.getEquipmentSlot()) {
                     case 1 << 3: // torso
-                        modifiers = EnchantWeapon.DEF3.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF3.getModifiers(player, item);
                         break;
                     case 1 << 5: // boots
-                        modifiers = EnchantWeapon.DEF1.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF1.getModifiers(player, item);
                         break;
                     case 1 << 11: // pauldrons
-                        modifiers = EnchantWeapon.DEF1.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF1.getModifiers(player, item);
                         break;
                     case 1 << 12: // pants
-                        modifiers = EnchantWeapon.DEF2.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF2.getModifiers(player, item);
                         break;
                     case 1 << 4: // gloves
-                        modifiers = EnchantWeapon.DEF1.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF1.getModifiers(player, item);
                         break;
                 }
                 break;
             case LEATHER:
                 switch (item.getEquipmentSlot()) {
                     case 1 << 3: // torso
-                        modifiers = EnchantWeapon.DEF6.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF6.getModifiers(player, item);
                         break;
                     case 1 << 5: // boots
-                        modifiers = EnchantWeapon.DEF4.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF4.getModifiers(player, item);
                         break;
                     case 1 << 11: // pauldrons
-                        modifiers = EnchantWeapon.DEF4.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF4.getModifiers(player, item);
                         break;
                     case 1 << 12: // pants
-                        modifiers = EnchantWeapon.DEF5.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF5.getModifiers(player, item);
                         break;
                     case 1 << 4: // gloves
-                        modifiers = EnchantWeapon.DEF4.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF4.getModifiers(player, item);
                         break;
                 }
                 break;
             case CHAIN:
                 switch (item.getEquipmentSlot()) {
                     case 1 << 3: // torso
-                        modifiers = EnchantWeapon.DEF9.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF9.getModifiers(player, item);
                         break;
                     case 1 << 5: // boots
-                        modifiers = EnchantWeapon.DEF7.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF7.getModifiers(player, item);
                         break;
                     case 1 << 11: // pauldrons
-                        modifiers = EnchantWeapon.DEF7.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF7.getModifiers(player, item);
                         break;
                     case 1 << 12: // pants
-                        modifiers = EnchantWeapon.DEF8.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF8.getModifiers(player, item);
                         break;
                     case 1 << 4: // gloves
-                        modifiers = EnchantWeapon.DEF7.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF7.getModifiers(player, item);
                         break;
                 }
                 break;
             case PLATE:
                 switch (item.getEquipmentSlot()) {
                     case 1 << 3: // torso
-                        modifiers = EnchantWeapon.DEF12.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF12.getModifiers(player, item);
                         break;
                     case 1 << 5: // boots
-                        modifiers = EnchantWeapon.DEF10.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF10.getModifiers(player, item);
                         break;
                     case 1 << 11: // pauldrons
-                        modifiers = EnchantWeapon.DEF10.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF10.getModifiers(player, item);
                         break;
                     case 1 << 12: // pants
-                        modifiers = EnchantWeapon.DEF11.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF11.getModifiers(player, item);
                         break;
                     case 1 << 4: // gloves
-                        modifiers = EnchantWeapon.DEF10.getModifiers(enchantLevel);
+                        modifiers = EnchantWeapon.DEF10.getModifiers(player, item);
                         break;
                 }
                 break;
-			case SHIELD:
-				modifiers = EnchantWeapon.SHIELD.getModifiers(enchantLevel);
-				break;		
+            case SHIELD:
+                modifiers = EnchantWeapon.SHIELD.getModifiers(player, item);
+                break;
         }
         return modifiers;
     }
@@ -572,42 +570,40 @@ public class EnchantService {
      * @param item
      * @return
      */
-    private static TreeSet<StatModifier> getWeaponModifiers(Item item) {
+    private static TreeSet<StatModifier> getWeaponModifiers(Player player, Item item) {
         WeaponType weaponType = item.getItemTemplate().getWeaponType();
 
         if (weaponType == null)
             return null;
 
-        int enchantLevel = item.getEnchantLevel();
-
         TreeSet<StatModifier> modifiers = null;
         switch (weaponType) {
-            case BOOK_2H:
-                modifiers = EnchantWeapon.SPELLBOOK.getModifiers(enchantLevel);
-                break;
             case DAGGER_1H:
-                modifiers = EnchantWeapon.DAGGER.getModifiers(enchantLevel);
-                break;
-            case BOW:
-                modifiers = EnchantWeapon.BOW.getModifiers(enchantLevel);
-                break;
-            case ORB_2H:
-                modifiers = EnchantWeapon.ORB.getModifiers(enchantLevel);
-                break;
-            case STAFF_2H:
-                modifiers = EnchantWeapon.STAFF.getModifiers(enchantLevel);
+                modifiers = EnchantWeapon.DAGGER.getModifiers(player, item);
                 break;
             case SWORD_1H:
-                modifiers = EnchantWeapon.SWORD.getModifiers(enchantLevel);
-                break;
-            case SWORD_2H:
-                modifiers = EnchantWeapon.GREATSWORD.getModifiers(enchantLevel);
+                modifiers = EnchantWeapon.SWORD.getModifiers(player, item);
                 break;
             case MACE_1H:
-                modifiers = EnchantWeapon.MACE.getModifiers(enchantLevel);
+                modifiers = EnchantWeapon.MACE.getModifiers(player, item);
+                break;
+            case BOOK_2H:
+                modifiers = EnchantWeapon.SPELLBOOK.getModifiers(player, item);
+                break;
+            case BOW:
+                modifiers = EnchantWeapon.BOW.getModifiers(player, item);
+                break;
+            case ORB_2H:
+                modifiers = EnchantWeapon.ORB.getModifiers(player, item);
+                break;
+            case STAFF_2H:
+                modifiers = EnchantWeapon.STAFF.getModifiers(player, item);
+                break;
+            case SWORD_2H:
+                modifiers = EnchantWeapon.GREATSWORD.getModifiers(player, item);
                 break;
             case POLEARM_2H:
-                modifiers = EnchantWeapon.POLEARM.getModifiers(enchantLevel);
+                modifiers = EnchantWeapon.POLEARM.getModifiers(player, item);
                 break;
         }
         return modifiers;
@@ -618,64 +614,70 @@ public class EnchantService {
      */
     private enum EnchantWeapon {
         DAGGER() {
-            @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
-                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 2 * level, true));
+                StatEnum stat = (player.getEquipment().getMainHandWeapon() == item) ?
+                    StatEnum.MAIN_HAND_POWER : StatEnum.OFF_HAND_POWER;
+                mod.add(AddModifier.newInstance(stat, 2 * item.getEnchantLevel(), true));
                 return mod;
             }
         },
 
         SWORD() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
-                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 2 * level, true));
-                return mod;
-            }
-        },
-
-        GREATSWORD() {
-            @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
-                TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
-                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 4 * level, true));
-                return mod;
-            }
-        },
-
-        POLEARM() {
-            @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
-                TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
-                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 4 * level, true));
-                return mod;
-            }
-        },
-
-        BOW() {
-            @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
-                TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
-                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 4 * level, true));
+                StatEnum stat = (player.getEquipment().getMainHandWeapon() == item) ?
+                    StatEnum.MAIN_HAND_POWER : StatEnum.OFF_HAND_POWER;
+                mod.add(AddModifier.newInstance(stat, 2 * item.getEnchantLevel(), true));
                 return mod;
             }
         },
 
         MACE() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
-                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 3 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.BOOST_MAGICAL_SKILL, 20 * level, true));
+                StatEnum stat = (player.getEquipment().getMainHandWeapon() == item) ?
+                    StatEnum.MAIN_HAND_POWER : StatEnum.OFF_HAND_POWER;
+                mod.add(AddModifier.newInstance(stat, 3 * item.getEnchantLevel(), true));
+                mod.add(AddModifier.newInstance(StatEnum.BOOST_MAGICAL_SKILL, 20 * item.getEnchantLevel(), true));
+                return mod;
+            }
+        },
+
+        GREATSWORD() {
+            @Override
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
+                TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 4 * item.getEnchantLevel(), true));
+                return mod;
+            }
+        },
+
+        POLEARM() {
+            @Override
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
+                TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 4 * item.getEnchantLevel(), true));
+                return mod;
+            }
+        },
+
+        BOW() {
+            @Override
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
+                TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 4 * item.getEnchantLevel(), true));
                 return mod;
             }
         },
 
         STAFF() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.BOOST_MAGICAL_SKILL, 20 * level, true));
                 return mod;
@@ -684,8 +686,9 @@ public class EnchantService {
 
         SPELLBOOK() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.BOOST_MAGICAL_SKILL, 20 * level, true));
                 return mod;
@@ -694,8 +697,9 @@ public class EnchantService {
 
         ORB() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_ATTACK, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.BOOST_MAGICAL_SKILL, 20 * level, true));
                 return mod;
@@ -704,22 +708,24 @@ public class EnchantService {
 
         SHIELD() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 if(level <= 10)
-					mod.add(AddModifier.newInstance(StatEnum.DAMAGE_REDUCE, 2 * level, true));
-				else {
-					mod.add(AddModifier.newInstance(StatEnum.BLOCK, 30 * (level - 10), true));
-					mod.add(AddModifier.newInstance(StatEnum.DAMAGE_REDUCE, 20, true));
-				}	
+                    mod.add(AddModifier.newInstance(StatEnum.DAMAGE_REDUCE, 2 * level, true));
+                else {
+                    mod.add(AddModifier.newInstance(StatEnum.BLOCK, 30 * (level - 10), true));
+                    mod.add(AddModifier.newInstance(StatEnum.DAMAGE_REDUCE, 20, true));
+                }
                 return mod;
             }
         },
 
         DEF1() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 1 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 10 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
@@ -729,8 +735,9 @@ public class EnchantService {
 
         DEF2() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 2 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 12 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
@@ -740,8 +747,9 @@ public class EnchantService {
 
         DEF3() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 14 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
@@ -751,8 +759,9 @@ public class EnchantService {
 
         DEF4() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 8 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
@@ -762,8 +771,9 @@ public class EnchantService {
 
         DEF5() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 5 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 10 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
@@ -773,8 +783,9 @@ public class EnchantService {
 
         DEF6() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 12 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
@@ -784,8 +795,9 @@ public class EnchantService {
 
         DEF7() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 6 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
@@ -795,8 +807,9 @@ public class EnchantService {
 
         DEF8() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 8 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
@@ -806,8 +819,9 @@ public class EnchantService {
 
         DEF9() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 5 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 10 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
@@ -817,8 +831,9 @@ public class EnchantService {
 
         DEF10() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
@@ -828,8 +843,9 @@ public class EnchantService {
 
         DEF11() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 5 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 6 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
@@ -839,8 +855,9 @@ public class EnchantService {
 
         DEF12() {
             @Override
-            public TreeSet<StatModifier> getModifiers(int level) {
+            public TreeSet<StatModifier> getModifiers(Player player, Item item) {
                 TreeSet<StatModifier> mod = new TreeSet<StatModifier>();
+                int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 6 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 8 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
@@ -848,7 +865,7 @@ public class EnchantService {
             }
         };
 
-        public abstract TreeSet<StatModifier> getModifiers(int level);
+        public abstract TreeSet<StatModifier> getModifiers(Player player, Item item);
 
-	}
+    }
 }
