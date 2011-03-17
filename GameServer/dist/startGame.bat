@@ -1,5 +1,5 @@
 @echo off
-title Aion X GameServer Console
+title Aion X Emu Game Server Console
 
 REM Start...
 :start
