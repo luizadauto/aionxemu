@@ -186,6 +186,11 @@ public class CreatureGameStats<T extends Creature> {
                     List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
                     for (ItemSlot slot : oSlots) {
                         StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(slot);
+
+                        if ((slot == ItemSlot.SUB_HAND && statToModify == StatEnum.PARRY && !modifier.isBonus())
+                            || (slot == ItemSlot.SUB_HAND && statToModify == StatEnum.MAGICAL_ACCURACY && !modifier.isBonus()))
+                           continue;
+
                         if (!orderedModifiers.containsKey(statToModify)) {
                             orderedModifiers.put(statToModify, new StatModifiers());
                         }

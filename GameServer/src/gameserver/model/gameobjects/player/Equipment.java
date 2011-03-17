@@ -65,8 +65,14 @@ public class Equipment {
      * @return item or null in case of failure
      */
     public Item equipItem(int itemUniqueId, int slot) {
-        Item item = owner.getInventory().getItemByObjId(itemUniqueId);
+        if (owner == null)
+            return null;
 
+        Storage inventory = owner.getInventory();
+        if (inventory == null)
+            return null;
+
+        Item item = inventory.getItemByObjId(itemUniqueId);
         if (item == null)
             return null;
 
@@ -688,6 +694,9 @@ public class Equipment {
      * Switch OFF and MAIN hands
      */
     public void switchHands() {
+        if (owner == null)
+            return;
+
         Item mainHandItem = equipment.get(ItemSlot.MAIN_HAND.getSlotIdMask());
         Item subHandItem = equipment.get(ItemSlot.SUB_HAND.getSlotIdMask());
         Item mainOffHandItem = equipment.get(ItemSlot.MAIN_OFF_HAND.getSlotIdMask());

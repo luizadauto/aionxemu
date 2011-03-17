@@ -149,7 +149,10 @@ public abstract class Dispatcher extends Thread {
      */
     final void accept(SelectionKey key) {
         try {
-            ((Acceptor) key.attachment()).accept(key);
+            Acceptor acceptor = (Acceptor) key.attachment();
+            if (acceptor == null)
+                return;
+            acceptor.accept(key);
         }
         catch (Exception e) {
             log.error("Error while accepting connection: +" + e, e);

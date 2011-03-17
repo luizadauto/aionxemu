@@ -574,12 +574,15 @@ public class Player extends Creature {
     }
 
     public Storage getInventory() {
-        World world = World.getInstance();
-        Player player = world.findPlayer(getName());
-        if (inventory == null)
+        if (inventory == null) {
+            World world = World.getInstance();
+            Player player = world.findPlayer(getName());
+            if (player == null)
+                return null;
             log.warn("Storage.getInventory(): Could not be restored for " +
                 "playerId: " + player.getObjectId() +
                 ", playerName: " + getName());
+        }
         return inventory;
     }
 

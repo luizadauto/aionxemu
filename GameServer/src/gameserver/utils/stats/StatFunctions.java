@@ -721,7 +721,7 @@ public class StatFunctions {
         if (attacker.getObserveController().checkAttackerStatus(AttackStatus.CRITICAL))
             return 100;
 
-        critical = attacker.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.MAGICAL_RESIST);
+        critical = attacker.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL_RESIST);
 
         double criticalRate;
 

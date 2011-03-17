@@ -107,6 +107,12 @@ public class EnchantService {
         if (player.getInventory().getItemByObjId(parentItem.getObjectId()) == null)
             return false;
 
+        if (player.getInventory().getItemByObjId(targetItem.getObjectId()) == null &&
+            player.getEquipment().getEquippedItemByObjId(targetItem.getObjectId()) == null)
+        {
+            return false;
+        }
+
         int enchantStoneLevel = parentItem.getItemTemplate().getLevel();
         int targetItemLevel = targetItem.getItemTemplate().getLevel();
 
@@ -145,6 +151,9 @@ public class EnchantService {
         }
 
         if (supplementItem != null) {
+            if (player.getInventory().getItemByObjId(supplementItem.getObjectId()) == null)
+                return false;
+
             int supplementUseCount = 1;
             int addsuccessRate = 10;
             int supplementId = supplementItem.getItemTemplate().getTemplateId();
@@ -257,16 +266,29 @@ public class EnchantService {
         // Check that parentItem is still in Inventory.
         if (player.getInventory().getItemByObjId(parentItem.getObjectId()) == null)
             return false;
+        if (player.getInventory().getItemByObjId(targetItem.getObjectId()) == null &&
+            player.getEquipment().getEquippedItemByObjId(targetItem.getObjectId()) == null)
+        {
+            return false;
+        }
 
         boolean result = false;
         int successRate = 76;
 
         int stoneCount;
+        int checkCount;
         if (targetWeapon == 1) {
             stoneCount = targetItem.getItemStones().size();
-
+            checkCount = targetItem.getMaxStoneSlots();
         } else {
             stoneCount = targetItem.getFusionStones().size();
+            Item fusionedItem = ItemService.newItem(targetItem.getFusionedItem(), 1);
+            checkCount = fusionedItem.getMaxStoneSlots();
+        }
+
+        if (stoneCount >= checkCount){
+            log.info("[AUDIT] Possible use Manastone bug player  : " + player.getName());
+            return false;
         }
 
         switch (stoneCount) {
@@ -296,6 +318,9 @@ public class EnchantService {
         }
 
         if (supplementItem != null) {
+            if (player.getInventory().getItemByObjId(supplementItem.getObjectId()) == null)
+                return false;
+
             int supplementUseCount = 1;
             int addsuccessRate = 10;
             int supplementId = supplementItem.getItemTemplate().getTemplateId();

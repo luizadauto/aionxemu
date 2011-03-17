@@ -583,4 +583,41 @@ public class Item extends AionObject {
         return true;
     }
 
+    public int getMaxStoneSlots()
+    {
+        
+        int slots = 0;
+        switch(itemTemplate.getItemQuality())
+        {
+            case COMMON:
+            case JUNK:
+                slots = 1;
+                break;
+            case RARE:
+                slots = 2;
+                break;
+            case LEGEND:
+                slots = 3;
+                break;
+            case UNIQUE:
+                slots = 4;
+                break;
+            case EPIC:
+                slots = 5;
+                break;
+            default:
+                slots = 0;
+                break;
+        }
+        if(itemTemplate.getItemType() == ItemType.DRACONIC)
+            slots += 1;
+        if(itemTemplate.getItemType() == ItemType.ABYSS)
+            slots += 2;
+
+        slots += optionalSocket;
+
+        if(slots > 6)
+            slots = 6;
+        return slots;
+    }
 }
