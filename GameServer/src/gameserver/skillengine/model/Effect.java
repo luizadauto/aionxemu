@@ -335,6 +335,11 @@ public class Effect {
         return effects != null && effects.isFood();
     }
 
+	public boolean isItemheal() {
+		Effects effects = skillTemplate.getEffects();
+		return effects != null && effects.isItemHeal();
+	}
+
 
     public boolean isToggle() {
         return skillTemplate.getActivationAttribute() == ActivationAttribute.TOGGLE;

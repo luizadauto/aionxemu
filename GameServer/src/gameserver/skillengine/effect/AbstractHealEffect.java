@@ -56,7 +56,11 @@ public abstract class AbstractHealEffect extends EffectTemplate {
         //each player start with boost_heal 100, therefore -100
         float boostHeal = ((float) (effect.getEffector().getGameStats().getCurrentStat(StatEnum.BOOST_HEAL) - 100) / 1000f);
         float healRate = effect.getEffector().getController().getHealRate();
-        effect.setReserved1(Math.round(-healValue * (healRate + boostHeal)));
+		if (effect.isItemheal())
+			effect.setReserved1(-healValue);
+		else
+			effect.setReserved1(Math.round(-healValue * (healRate + boostHeal)));
+
     }
 
     /**

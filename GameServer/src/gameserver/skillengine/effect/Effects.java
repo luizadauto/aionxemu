@@ -200,4 +200,14 @@ public class Effects {
 		}
 		return false;
 	}
+
+    public boolean isItemHeal() {
+        for (EffectTemplate template : getEffects()) {
+            if (template instanceof ItemHealEffect)
+				return true;
+		}
+		return false;
+	}
+
+
 }
