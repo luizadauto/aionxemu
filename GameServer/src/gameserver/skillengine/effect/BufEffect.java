@@ -46,7 +46,7 @@ public abstract class BufEffect extends EffectTemplate {
     @Override
     public void applyEffect(final Effect effect) {
         if (isOnFly()) {
-            effect.getEffected().getObserveController().addObserver(new ActionObserver(ObserverType.STATECHANGE) {
+            ActionObserver observer = new ActionObserver(ObserverType.STATECHANGE) {
                 @Override
                 public void stateChanged(CreatureState state, boolean isSet) {
                     if (state == CreatureState.FLYING) {
@@ -57,7 +57,9 @@ public abstract class BufEffect extends EffectTemplate {
                         }
                     }
                 }
-            });
+            };
+            effect.getEffected().getObserveController().addObserver(observer);
+            effect.setActionObserver(observer, position);
         } else {
             effect.addToEffectedController();
         }
@@ -77,6 +79,9 @@ public abstract class BufEffect extends EffectTemplate {
         Creature effected = effect.getEffected();
         int skillId = effect.getSkillId();
         effected.getGameStats().endEffect(SkillEffectId.getInstance(skillId, effectid, position));
+        ActionObserver observer = effect.getActionObserver(position);
+        if (observer != null)
+            effect.getEffected().getObserveController().removeObserver(observer);
     }
 
     /**
