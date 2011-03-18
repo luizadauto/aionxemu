@@ -12,10 +12,6 @@
 		<object staticid="1464" x="142.35001" y="2110.25" z="441" h="93"/>
 		<object staticid="1757" x="161.46001" y="2119.23" z="441" h="93"/>
 	</spawn>
-	<!-- Sematariux -->
-	<spawn map="210050000" npcid="216520" pool="1" interval="295">
-		<object x="142" y="2141" z="440" h="93"/>
-	</spawn>
 	<spawn map="210050000" npcid="205291" pool="1" interval="295">
 		<object h="110" x="1385.3496" y="277.646" z="589.67065"/>
 	</spawn>
@@ -4948,14 +4944,8 @@
 	<spawn map="210050000" npcid="216511" pool="1" interval="295">
 		<object h="46" x="328.79514" y="1211.588" z="344.35468"/>
 	</spawn>
-	<spawn map="210050000" npcid="216512" pool="1" interval="295">
-		<object h="92" x="216.11339" y="1167.0162" z="270.55908"/>
-	</spawn>
 	<spawn map="210050000" npcid="216513" pool="1" interval="295">
 		<object h="21" x="1023.202" y="928.1603" z="415.26334"/>
-	</spawn>
-	<spawn map="210050000" npcid="216516" pool="1" interval="3600">
-		<object h="75" x="1489.3362" y="2015.7526" z="305.45798"/>
 	</spawn>
 	<spawn map="210050000" npcid="216593" pool="15" interval="295">
 		<object h="0" x="1880.2732" y="1688.5616" z="329.5654"/>

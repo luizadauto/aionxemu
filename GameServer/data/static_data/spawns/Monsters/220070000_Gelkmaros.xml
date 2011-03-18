@@ -4473,8 +4473,9 @@
 	<spawn map="220070000" npcid="216575" pool="1" interval="14400">
 		<object x="829.268" y="582.042" z="366.2399" h="0"/>
 	</spawn>
-	<spawn map="220070000" npcid="216576" pool="1" interval="3600">
-		<object x="1828.72" y="1337.69" z="317.74" h="0"/>
+	<!-- Ragnarok (Monster Legendary lvl:55) -->
+	<spawn map="220070000" npcid="216576" pool="1" interval="10800">
+		<object x="2039.8925" y="1325.509" z="317.48148" h="63" w="220070001"/>
 	</spawn>
 	<spawn map="220070000" npcid="216577" pool="2" interval="295">
 		<object x="2409.89" y="767.221" z="262.54868" h="0"/>

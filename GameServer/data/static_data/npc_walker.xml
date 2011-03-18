@@ -1930,4 +1930,61 @@
 			<routestep loc_x="1765.75" loc_y="2154.25" loc_z="527.2" rest_time="0" step="12"/>
 		</routes>
 	</walker_template>
+    <!--Walker route for npc id 216576 (Ragnarok)-->
+    <walker_template route_id="220070001">
+        <routes>
+			<routestep loc_x="2039.8925" loc_y="1325.509" loc_z="317.48148" rest_time="1" step="1"/>
+			<routestep loc_x="1962.3245" loc_y="1312.7288" loc_z="311.92053" rest_time="0" step="2"/>
+			<routestep loc_x="1876.375" loc_y="1319.2432" loc_z="312.4054" rest_time="0" step="3"/>
+			<routestep loc_x="1806.4067" loc_y="1343.912" loc_z="318.7445" rest_time="0" step="4"/>
+			<routestep loc_x="1746.5503" loc_y="1376.5942" loc_z="322.2156" rest_time="0" step="5"/>
+			<routestep loc_x="1691.9865" loc_y="1364.4034" loc_z="322.9252" rest_time="0" step="6"/>
+			<routestep loc_x="1620.9319" loc_y="1356.5328" loc_z="315.79974" rest_time="0" step="7"/>
+			<routestep loc_x="1522.569" loc_y="1369.9912" loc_z="298.9461" rest_time="0" step="8"/>
+			<routestep loc_x="1429.9415" loc_y="1351.1823" loc_z="292.44888" rest_time="1" step="9"/> <!-- -->
+			<routestep loc_x="1348.817" loc_y="1314.9167" loc_z="289.16565" rest_time="0" step="10"/>
+			<routestep loc_x="1315.2229" loc_y="1275.4272" loc_z="287.23724" rest_time="1" step="11"/>
+			<routestep loc_x="1384.2594" loc_y="1217.8625" loc_z="294.37598" rest_time="1" step="12"/>
+			<routestep loc_x="1432.9595" loc_y="1253.576" loc_z="296.11993" rest_time="1" step="13"/>
+			<routestep loc_x="1429.9415" loc_y="1351.1823" loc_z="292.44888" rest_time="1" step="14"/> <!-- -->
+			<routestep loc_x="1522.569" loc_y="1369.9912" loc_z="298.9461" rest_time="0" step="15"/>
+			<routestep loc_x="1620.9319" loc_y="1356.5328" loc_z="315.79974" rest_time="0" step="16"/>
+			<routestep loc_x="1691.9865" loc_y="1364.4034" loc_z="322.9252" rest_time="0" step="17"/>
+			<routestep loc_x="1746.5503" loc_y="1376.5942" loc_z="322.2156" rest_time="0" step="18"/>
+			<routestep loc_x="1806.4067" loc_y="1343.912" loc_z="318.7445" rest_time="0" step="19"/>
+			<routestep loc_x="1876.375" loc_y="1319.2432" loc_z="312.4054" rest_time="0" step="20"/>
+			<routestep loc_x="1962.3245" loc_y="1312.7288" loc_z="311.92053" rest_time="0" step="21"/>
+			<routestep loc_x="2039.8925" loc_y="1325.509" loc_z="317.48148" rest_time="1" step="22"/>
+        </routes>
+    </walker_template>
+    <!--Walker route for npc id 216516 Omega-->
+    <walker_template route_id="210050001">
+        <routes>
+			<routestep loc_x="1511.4512" loc_y="2022.809" loc_z="302.74417" rest_time="1" step="1"/>
+			<routestep loc_x="1471.0603" loc_y="2007.579" loc_z="307.01877" rest_time="0" step="2"/>
+			<routestep loc_x="1445.2809" loc_y="1979.8856" loc_z="307.75" rest_time="0" step="3"/>
+			<routestep loc_x="1424.8173" loc_y="1919.9907" loc_z="307.62558" rest_time="1" step="4"/>
+			<routestep loc_x="1330.2971" loc_y="1918.8292" loc_z="307.48145" rest_time="0" step="5"/>
+			<routestep loc_x="1299.7604" loc_y="1906.1208" loc_z="309.51498" rest_time="0" step="6"/>
+			<routestep loc_x="1244.1516" loc_y="1910.6254" loc_z="313.74054" rest_time="0" step="7"/>
+			<routestep loc_x="1156.6449" loc_y="1896.193" loc_z="319.52026" rest_time="0" step="8"/>
+			<routestep loc_x="1101.2351" loc_y="1852.3008" loc_z="327.9416" rest_time="0" step="9"/>
+			<routestep loc_x="1002.2456" loc_y="1810.462" loc_z="329.23465" rest_time="0" step="10"/>
+			<routestep loc_x="971.76965" loc_y="1775.8724" loc_z="332.39093" rest_time="0" step="11"/>
+			<routestep loc_x="924.8423" loc_y="1763.8997" loc_z="330.5464" rest_time="0" step="12"/>
+			<routestep loc_x="868.04834" loc_y="1759.2008" loc_z="327.375" rest_time="2" step="13"/>
+			<routestep loc_x="924.8423" loc_y="1763.8997" loc_z="330.5464" rest_time="0" step="14"/>
+			<routestep loc_x="971.76965" loc_y="1775.8724" loc_z="332.39093" rest_time="0" step="15"/>
+			<routestep loc_x="1002.2456" loc_y="1810.462" loc_z="329.23465" rest_time="0" step="16"/>
+			<routestep loc_x="1101.2351" loc_y="1852.3008" loc_z="327.9416" rest_time="0" step="17"/>
+			<routestep loc_x="1156.6449" loc_y="1896.193" loc_z="319.52026" rest_time="0" step="18"/>
+			<routestep loc_x="1244.1516" loc_y="1910.6254" loc_z="313.74054" rest_time="0" step="19"/>
+			<routestep loc_x="1299.7604" loc_y="1906.1208" loc_z="309.51498" rest_time="0" step="20"/>
+			<routestep loc_x="1330.2971" loc_y="1918.8292" loc_z="307.48145" rest_time="0" step="21"/>
+			<routestep loc_x="1424.8173" loc_y="1919.9907" loc_z="307.62558" rest_time="1" step="22"/>
+			<routestep loc_x="1445.2809" loc_y="1979.8856" loc_z="307.75" rest_time="0" step="23"/>
+			<routestep loc_x="1471.0603" loc_y="2007.579" loc_z="307.01877" rest_time="0" step="24"/>
+			<routestep loc_x="1511.4512" loc_y="2022.809" loc_z="302.74417" rest_time="1" step="25"/>
+        </routes>
+    </walker_template>	
 </npc_walker>
