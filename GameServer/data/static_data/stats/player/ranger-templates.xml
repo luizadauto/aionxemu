@@ -190,18 +190,18 @@
 	</player_stats>
 	<!-- Checked By Magenik at PTS EU  -->
 	<player_stats class="RANGER" level="52">
-		<stats_template maxHp="3926" maxMp="3753" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="813" block="753" parry="833" main_hand_attack="21" main_hand_accuracy="716" main_hand_crit_rate="3" magic_accuracy="741"/>
+		<stats_template maxHp="3926" maxMp="3753" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="813" block="753" parry="833" main_hand_attack="18" main_hand_accuracy="716" main_hand_crit_rate="3" magic_accuracy="741"/>
 	</player_stats>
 	<!-- Checked By Magenik at PTS EU  -->
 	<player_stats class="RANGER" level="53">
-		<stats_template maxHp="4041" maxMp="3824" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="825" block="765" parry="845" main_hand_attack="21" main_hand_accuracy="724" main_hand_crit_rate="3" magic_accuracy="740"/>
+		<stats_template maxHp="4041" maxMp="3824" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="825" block="765" parry="845" main_hand_attack="18" main_hand_accuracy="724" main_hand_crit_rate="3" magic_accuracy="740"/>
 	</player_stats>
 	<!-- Checked By Magenik at PTS EU  -->
 	<player_stats class="RANGER" level="54">
-		<stats_template maxHp="4156" maxMp="3850" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.6" evasion="760" block="760" parry="760" main_hand_attack="21" main_hand_accuracy="732" main_hand_crit_rate="3" magic_accuracy="750"/>
+		<stats_template maxHp="4156" maxMp="3850" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="760" block="760" parry="760" main_hand_attack="18" main_hand_accuracy="732" main_hand_crit_rate="3" magic_accuracy="750"/>
 	</player_stats>
 	<!-- Checked By Magenik at PTS EU  -->
 	<player_stats class="RANGER" level="55">
-		<stats_template maxHp="4275" maxMp="3965" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="850" block="790" parry="870" main_hand_attack="21" main_hand_accuracy="740" main_hand_crit_rate="3" magic_accuracy="784"/>
+		<stats_template maxHp="4275" maxMp="3965" power="100" health="100" agility="115" accuracy="115" knowledge="90" will="90" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="850" block="790" parry="870" main_hand_attack="18" main_hand_accuracy="740" main_hand_crit_rate="3" magic_accuracy="784"/>
 	</player_stats>
 </player_stats_templates>

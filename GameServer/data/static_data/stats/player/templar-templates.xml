@@ -189,15 +189,15 @@
 		<stats_template maxHp="6190" maxMp="3743" power="115" health="100" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="696" block="696" parry="696" main_hand_attack="19" main_hand_accuracy="598" main_hand_crit_rate="2" magic_accuracy="727"/>
 	</player_stats>
 	<player_stats class="TEMPLAR" level="52">
-		<stats_template maxHp="6374" maxMp="3815" power="120" health="100" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="7" fly_speed="9" attack_speed="1.5" evasion="711" block="711" parry="711" main_hand_attack="19" main_hand_accuracy="606" main_hand_crit_rate="2" magic_accuracy="741"/>
+		<stats_template maxHp="6374" maxMp="3815" power="115" health="100" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="711" block="711" parry="711" main_hand_attack="19" main_hand_accuracy="606" main_hand_crit_rate="2" magic_accuracy="741"/>
 	</player_stats>
 	<player_stats class="TEMPLAR" level="53">
-		<stats_template maxHp="6560" maxMp="3888" power="120" health="110" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="7" fly_speed="9" attack_speed="1.6" evasion="727" block="727" parry="727" main_hand_attack="19" main_hand_accuracy="614" main_hand_crit_rate="2" magic_accuracy="755"/>
+		<stats_template maxHp="6560" maxMp="3888" power="115" health="100" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="727" block="727" parry="727" main_hand_attack="19" main_hand_accuracy="614" main_hand_crit_rate="2" magic_accuracy="755"/>
 	</player_stats>
 	<player_stats class="TEMPLAR" level="54">
-		<stats_template maxHp="6748" maxMp="3962" power="120" health="110" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="7" fly_speed="9" attack_speed="1.6" evasion="744" block="744" parry="744" main_hand_attack="19" main_hand_accuracy="622" main_hand_crit_rate="2" magic_accuracy="769"/>
+		<stats_template maxHp="6748" maxMp="3962" power="115" health="100" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="744" block="744" parry="744" main_hand_attack="19" main_hand_accuracy="622" main_hand_crit_rate="2" magic_accuracy="769"/>
 	</player_stats>
 	<player_stats class="TEMPLAR" level="55">
-		<stats_template maxHp="6938" maxMp="4037" power="125" health="115" agility="110" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="7" fly_speed="9" attack_speed="1.6" evasion="762" block="762" parry="762" main_hand_attack="20" main_hand_accuracy="630" main_hand_crit_rate="3" magic_accuracy="783"/>
+		<stats_template maxHp="6938" maxMp="4037" power="115" health="100" agility="100" accuracy="100" knowledge="90" will="105" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="762" block="762" parry="762" main_hand_attack="19" main_hand_accuracy="630" main_hand_crit_rate="2" magic_accuracy="783"/>
 	</player_stats>
 </player_stats_templates>

@@ -192,12 +192,12 @@
 		<stats_template maxHp="3855" maxMp="5775" power="90" health="90" agility="100" accuracy="100" knowledge="115" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="711" block="711" parry="711" main_hand_attack="16" main_hand_accuracy="606" main_hand_crit_rate="2" magic_accuracy="741"/>
 	</player_stats>
 	<player_stats class="SPIRIT_MASTER" level="53">
-		<stats_template maxHp="3971" maxMp="5877" power="90" health="90" agility="100" accuracy="100" knowledge="120" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.6" evasion="727" block="727" parry="727" main_hand_attack="16" main_hand_accuracy="614" main_hand_crit_rate="2" magic_accuracy="755"/>
+		<stats_template maxHp="3971" maxMp="5877" power="90" health="90" agility="100" accuracy="100" knowledge="115" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="727" block="727" parry="727" main_hand_attack="16" main_hand_accuracy="614" main_hand_crit_rate="2" magic_accuracy="755"/>
 	</player_stats>
 	<player_stats class="SPIRIT_MASTER" level="54">
-		<stats_template maxHp="4088" maxMp="5978" power="90" health="90" agility="100" accuracy="100" knowledge="120" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.6" evasion="744" block="744" parry="744" main_hand_attack="16" main_hand_accuracy="622" main_hand_crit_rate="2" magic_accuracy="769"/>
+		<stats_template maxHp="4088" maxMp="5978" power="90" health="90" agility="100" accuracy="100" knowledge="115" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="744" block="744" parry="744" main_hand_attack="16" main_hand_accuracy="622" main_hand_crit_rate="2" magic_accuracy="769"/>
 	</player_stats>
 	<player_stats class="SPIRIT_MASTER" level="55">
-		<stats_template maxHp="4206" maxMp="6078" power="90" health="90" agility="100" accuracy="100" knowledge="120" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.6" evasion="762" block="762" parry="762" main_hand_attack="17" main_hand_accuracy="630" main_hand_crit_rate="3" magic_accuracy="783"/>
+		<stats_template maxHp="4206" maxMp="6078" power="90" health="90" agility="100" accuracy="100" knowledge="115" will="115" walk_speed="1.5" run_speed="6" fly_speed="9" attack_speed="1.5" evasion="762" block="762" parry="762" main_hand_attack="16" main_hand_accuracy="630" main_hand_crit_rate="2" magic_accuracy="783"/>
 	</player_stats>
 </player_stats_templates>
