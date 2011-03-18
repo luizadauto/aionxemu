@@ -15757,7 +15757,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="255" minlevel_permitted="45" nameId="2226121" name="[Coin] Obstacle to Cultivation" id="3061">
 		<collect_items>
-			<collect_item count="57" item_id="182208044"/>
+			<collect_item count="15" item_id="182208044"/>
 		</collect_items>
 		<rewards exp="1273650">
 			<reward_item count="1" item_id="186000005"/>
@@ -15773,7 +15773,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="255" minlevel_permitted="47" nameId="2226123" name="[Coin] Calydon Eradication" id="3062">
 		<collect_items>
-			<collect_item count="52" item_id="182208045"/>
+			<collect_item count="15" item_id="182208045"/>
 		</collect_items>
 		<rewards exp="1588950">
 			<reward_item count="1" item_id="186000005"/>
@@ -15784,7 +15784,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="255" minlevel_permitted="48" nameId="2226125" name="[Coin] Excavation Safety" id="3063">
 		<collect_items>
-			<collect_item count="49" item_id="182208046"/>
+			<collect_item count="15" item_id="182208046"/>
 		</collect_items>
 		<rewards exp="1641450">
 			<reward_item count="1" item_id="186000005"/>

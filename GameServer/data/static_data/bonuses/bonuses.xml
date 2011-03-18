@@ -686,13 +686,13 @@
         <wrap bonusLevel="5121" itemId="188050589" maxCount="5" type="MANASTONE"/>
     </bonus_info>
     <bonus_info questId="3061">
-        <redeem bonusLevel="6401" count="57" checkItem="182208044"/>
+        <redeem bonusLevel="6401" count="15" checkItem="182208044"/>
     </bonus_info>
     <bonus_info questId="3062">
-        <redeem bonusLevel="6401" count="52" checkItem="182208045"/>
+        <redeem bonusLevel="6401" count="15" checkItem="182208045"/>
     </bonus_info>
     <bonus_info questId="3063">
-        <redeem bonusLevel="6401" count="49" checkItem="182208046"/>
+        <redeem bonusLevel="6401" count="15" checkItem="182208046"/>
     </bonus_info>
     <bonus_info questId="3072">
         <manastone bonusLevel="6402" count="1" checkItem="167000354"/>
