@@ -1443,4 +1443,12 @@
 	<spawn map="400010000" npcid="282014" pool="1" interval="295">	
 		<object x="2203.18700" y="1928.18119" z="2303.04434" h="0"/>
 	</spawn>
+	<!-- Laum (Abyssal Splinter Elyos) -->
+	<spawn map="400010000" npcid="278652" pool="1" interval="295">
+		<object x="2937.53" y="980.109" z="1541.225" h="83"/>
+	</spawn>
+	<!-- Darkhum (Abyssal Splinter Asmodians) -->
+	<spawn map="400010000" npcid="278152" pool="1" interval="295">
+		<object x="980.59515" y="2913.7305" z="1642.3359" h="8"/>
+	</spawn>
 </spawns>
