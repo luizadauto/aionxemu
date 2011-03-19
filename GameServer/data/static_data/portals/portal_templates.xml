@@ -405,6 +405,11 @@
 		<entrypoint mapid="220020000" x="2399.2" y="540.37" z="266.15"/>
 		<exitpoint mapid="220020000" x="2401.9648" y="570.7738" z="329.09976"/>
 	</portal>
+	<!--Statue of Akairun of Medeus-->
+	<portal npcid="730033" instance="false" minlevel="30" maxlevel="55" group="false">
+		<entrypoint mapid="210040000" x="182.18" y="2703.0397" z="143.65"/>
+		<exitpoint mapid="210040000" x="196.99632" y="2726.6453" z="141.91672"/>
+	</portal>	
 	<!-- STEEL RAKE TELEPORTS -->
 	<!-- Escape Anchor -->
 	<portal npcid="730198" instance="false" minlevel="40" maxlevel="55" group="false">
