@@ -60,7 +60,7 @@ public class MoveToTargetDesire extends AbstractDesire implements MoveDesire {
          and not only if target is too far away **/
         if (owner.getSpawn() != null) {
             double dist = MathUtil.getDistance(owner.getX(), owner.getY(), owner.getZ(), owner.getSpawn().getX(), owner.getSpawn().getY(), owner.getSpawn().getZ());
-            if (dist > 100) {
+            if (dist > 100 && !owner.hasWalkRoutes()) {
                 owner.getLifeStats().increaseHp(TYPE.NATURAL_HP, owner.getLifeStats().getMaxHp());
                 ai.setAiState(AIState.MOVINGTOHOME);
                 return false;
