@@ -31,11 +31,11 @@
 	<map id="300120000" name="KysisChamber" instance="true" instanceId="16" cooldown="1080" death_level="0" water_level="16" world_type="ABYSS"/>
 	<map id="300130000" name="MirenChamber" instance="true" instanceId="17" cooldown="1080" death_level="0" water_level="16" world_type="ABYSS"/>
 	<map id="300140000" name="KrotanChamber" instance="true" instanceId="15" cooldown="1080" death_level="0" water_level="16" world_type="ABYSS"/>
-	<map id="300150000" name="Udas Temple" instance="true" death_level="0" water_level="16"/>
-	<map id="300160000" name="Lower Udas Temple" instance="true" death_level="0" water_level="16"/>
-	<map id="300170000" name="Beshmundir Temple" instance="true" death_level="0" water_level="16"/>
-	<map id="300190000" name="TalocsHollow" instance="true" death_level="0" water_level="16" world_type="ABYSS"/>
-	<map id="300200000" name="Haramel" instance="true" death_level="0" water_level="16"/>
+	<map id="300150000" name="Udas Temple" instance="true" instanceId="26" cooldown="360" death_level="0" water_level="16"/>
+	<map id="300160000" name="Lower Udas Temple" instance="true" instanceId="27" cooldown="360" death_level="0" water_level="16"/>
+	<map id="300170000" name="Beshmundir Temple" instance="true" instanceId="28" cooldown="720" death_level="0" water_level="16"/>
+	<map id="300190000" name="TalocsHollow" instance="true" instanceId="29" cooldown="2760" death_level="0" water_level="16" world_type="ABYSS"/>
+	<map id="300200000" name="Haramel" instance="true" instanceId="46" death_level="0" water_level="16"/>
 	<map id="300210000" name="IDDreadgion_02" instance="true" death_level="0" water_level="16"/>
 	<map id="300220000" name="Hidden Cave" instance="true" instanceId="44" cooldown="2760" death_level="0" water_level="16"/>
 	<map id="300230000" name="KromedesTrial" instance="true" instanceId="45" cooldown="1320" death_level="0" water_level="16"/>
