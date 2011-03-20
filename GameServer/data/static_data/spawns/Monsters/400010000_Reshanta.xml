@@ -119,7 +119,7 @@
 		<object x="2999.355" y="743.9324" z="2743.894" h="44"/>
 	</spawn>
 	<!-- Anduha the Greedy (Named Mob Elite lvl:34)  -->
-	<spawn map="400010000" npcid="256653" pool="2" interval="10800" rw="6">
+	<spawn map="400010000" npcid="256653" pool="1" interval="10800" rw="6">
 		<object x="620.1056" y="2080.9" z="2735.1382" h="113"/>
 		<object x="622.8976" y="2035.834" z="2736.4043" h="74"/>
 	</spawn>
@@ -397,7 +397,7 @@
 		<object x="2874.5" y="3348.875" z="1492.3494" h="104"/>
 	</spawn>
 	<!-- Brigade General Akius (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253007" pool="21" interval="1800" rw="6">
+	<spawn map="400010000" npcid="253007" pool="1" interval="1800" rw="6">
 		<object x="2325.0" y="2970.0" z="1691.9019" h="95"/>
 		<object x="2350.18" y="2978.26" z="1692.1857" h="3"/>
 		<object x="2336.25" y="3002.61" z="1686.1813" h="34"/>
@@ -432,12 +432,12 @@
 		<object x="3295.523" y="836.9677" z="2820.0771" h="21"/>
 	</spawn>
 	<!-- Captain Lahbri (Named Mob Hero lvl:42)  -->
-	<spawn map="400010000" npcid="256115" pool="2" interval="14400"  rw="4">
+	<spawn map="400010000" npcid="256115" pool="1" interval="14400"  rw="4">
 		<object x="1633.52" y="1776.69" z="2883.456" h="17"/>
 		<object x="1583.59" y="1829.8" z="2886.581" h="0"/>
 	</spawn>
 	<!-- Captain Semund (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253016" pool="21" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253016" pool="1" interval="10800" rw="6">
 		<object x="2275.0" y="3124.0" z="1667.7844" h="119"/>
 		<object x="2141.55" y="3164.3" z="1654.7881" h="91"/>
 		<object x="2271.02" y="3224.25" z="1668.4082" h="77"/>
@@ -652,7 +652,7 @@
 		<object x="2775.95" y="560.37" z="2888.9116" h="37"/>
 	</spawn>
 	<!-- Deputy Lagel (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253032" pool="20" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253032" pool="1" interval="10800" rw="6">
 		<object x="2182.16" y="3146.87" z="1666.7201" h="78"/>
 		<object x="2112.09" y="3183.19" z="1655.3282" h="53"/>
 		<object x="2292.52" y="3185.27" z="1666.3558" h="33"/>
@@ -675,7 +675,7 @@
 		<object x="2166.94" y="3088.09" z="1666.3573" h="90"/>
 	</spawn>
 	<!-- Deputy Lohan (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253028" pool="20" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253028" pool="1" interval="10800" rw="6">
 		<object x="2192.0" y="3120.0" z="1666.829" h="12"/>
 		<object x="2217.69" y="3026.84" z="1676.6844" h="73"/>
 		<object x="2351.78" y="2977.25" z="1692.5287" h="76"/>
@@ -838,7 +838,7 @@
 		<object x="969.99" y="2437.43" z="1492.3986" h="120"/>
 	</spawn>
 	<!-- Dredgion (Monster Legendary lvl:50)  -->
-	<spawn map="400010000" npcid="276724" pool="39" interval="21600" rw="4">
+	<spawn map="400010000" npcid="276724" pool="1" interval="21600" rw="4">
 		<object x="1038.2" y="1505.17" z="1602.72" h="83"/>
 		<object x="1031.88" y="1505.41" z="1604.04" h="83"/>
 		<object x="1039.13" y="1504.19" z="1605.0" h="21"/>
@@ -1237,7 +1237,7 @@
 		<object x="1413.4" y="1526.79" z="1553.8785" h="54"/>
 	</spawn>
 	<!-- Flame Tear Brerkun (Named Mob Elite lvl:50)  -->
-	<spawn map="400010000" npcid="251017" pool="2" interval="10800" rw="6">
+	<spawn map="400010000" npcid="251017" pool="1" interval="10800" rw="6">
 		<object x="2292.33" y="1992.16" z="2275.9526" h="52"/>
 		<object x="2141.29" y="2162.15" z="2268.2312" h="113"/>
 	</spawn>
@@ -1265,7 +1265,7 @@
 		<object x="1071.809" y="1934.6317" z="2918.8677" h="58"/>
 	</spawn>
 	<!-- General Luhut (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253020" pool="21" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253020" pool="1" interval="10800" rw="6">
 		<object x="2252.0" y="3146.0" z="1665.5314" h="11"/>
 		<object x="2267.07" y="3221.85" z="1668.4287" h="48"/>
 		<object x="2143.59" y="3133.56" z="1655.0559" h="87"/>
@@ -1384,7 +1384,7 @@
 		<object x="1996.37" y="1259.09" z="2945.788" h="106"/>
 	</spawn>
 	<!-- Highmage Nobris (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253011" pool="21" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253011" pool="1" interval="10800" rw="6">
 		<object x="2192.0" y="3120.0" z="1666.829" h="28"/>
 		<object x="2318.91" y="2997.8" z="1687.3363" h="6"/>
 		<object x="2184.03" y="3064.39" z="1676.2559" h="93"/>
@@ -1408,7 +1408,7 @@
 		<object x="2228.81" y="3010.9" z="1677.4296" h="14"/>
 	</spawn>
 	<!-- Highmage Pasau (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253036" pool="21" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253036" pool="1" interval="10800" rw="6">
 		<object x="2182.0" y="3146.0" z="1666.6335" h="73"/>
 		<object x="2158.03" y="3246.68" z="1665.5446" h="85"/>
 		<object x="2203.55" y="3279.21" z="1657.443" h="96"/>
@@ -2091,7 +2091,7 @@
 		<object x="2763.37" y="2635.57" z="1504.068" h="11"/>
 	</spawn>
 	<!-- Lumion (Named Mob Normal lvl:26)  -->
-	<spawn map="400010000" npcid="253024" pool="20" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253024" pool="1" interval="10800" rw="6">
 		<object x="2252.0" y="3146.0" z="1665.5314" h="74"/>
 		<object x="2176.22" y="2998.05" z="1683.4512" h="59"/>
 		<object x="2217.47" y="3020.95" z="1676.6598" h="75"/>
@@ -2175,7 +2175,7 @@
 		<object x="1923.65" y="2021.414" z="2180.4897" h="56"/>
 	</spawn>
 	<!-- Merciless Ryugrad (Named Mob Elite lvl:34)  -->
-	<spawn map="400010000" npcid="254528" pool="15" interval="10800" rw="6">
+	<spawn map="400010000" npcid="254528" pool="1" interval="10800" rw="6">
 		<object x="3015.0" y="1099.0" z="2755.0" h="26"/>
 		<object x="3175.6" y="1304.64" z="2696.8308" h="101"/>
 		<object x="3064.05" y="1118.69" z="2746.9675" h="69"/>
@@ -2311,7 +2311,7 @@
 		<object x="2269.59" y="1800.41" z="2238.576" h="47"/>
 	</spawn>
 	<!-- Neved the Forgotten (Named Mob Elite lvl:27)  -->
-	<spawn map="400010000" npcid="252503" pool="4" interval="10800" rw="6">
+	<spawn map="400010000" npcid="252503" pool="1" interval="10800" rw="6">
 		<object x="3155.0" y="2219.0" z="1445.6118" h="24"/>
 		<object x="3226.108" y="1977.413" z="1450.0682" h="100"/>
 		<object x="3043.0" y="2129.0" z="1466.4554" h="12"/>
@@ -2377,7 +2377,7 @@
 		<object x="2817.249" y="1081.696" z="2815.0164" h="11"/>
 	</spawn>
 	<!-- Poor Poevius (Named Mob Elite lvl:33)  -->
-	<spawn map="400010000" npcid="254569" pool="15" interval="10800" rw="6">
+	<spawn map="400010000" npcid="254569" pool="1" interval="10800" rw="6">
 		<object x="2757.0" y="1436.0" z="2825.4253" h="0"/>
 		<object x="3021.74" y="1593.86" z="2849.2214" h="101"/>
 		<object x="2782.47" y="1420.72" z="2838.2947" h="101"/>
@@ -2395,7 +2395,7 @@
 		<object x="2783.39" y="1420.16" z="2838.449" h="93"/>
 	</spawn>
 	<!-- Primus General (Monster Legendary lvl:40)  -->
-	<spawn map="400010000" npcid="271813" pool="7" interval="21600" rw="3">
+	<spawn map="400010000" npcid="271813" pool="1" interval="21600" rw="3">
 		<object x="2744.86" y="2657.83" z="1457.4062" h="53"/>
 		<object x="2744.86" y="2657.83" z="1457.4062" h="33"/>
 		<object x="2660.28" y="2806.66" z="1480.3668" h="105"/>
@@ -2482,12 +2482,12 @@
 		<object x="1614.5" y="1430.25" z="1538.5393" h="90"/>
 	</spawn>
 	<!-- Purehorn (Named Mob Normal lvl:32)  -->
-	<spawn map="400010000" npcid="256667" pool="2" interval="10800" rw="6">
+	<spawn map="400010000" npcid="256667" pool="1" interval="10800" rw="6">
 		<object x="483.7617" y="2801.203" z="2837.143" h="95"/>
 		<object x="973.6027" y="2780.382" z="2925.3074" h="40"/>
 	</spawn>
 	<!-- Queen Klawtinel (Named Mob Hero lvl:41)  -->
-	<spawn map="400010000" npcid="255155" pool="3" interval="14400"  rw="4">
+	<spawn map="400010000" npcid="255155" pool="1" interval="14400"  rw="4">
 		<object x="2458.25" y="1470.7" z="2901.2988" h="0"/>
 		<object x="2585.63" y="1683.12" z="2874.0488" h="74"/>
 		<object x="2356.5" y="1720.38" z="2880.8486" h="35"/>
@@ -2508,7 +2508,7 @@
 		<object x="952.4534" y="2857.854" z="2751.8481" h="10"/>
 	</spawn>
 	<!-- Ragerock (Named Mob Elite lvl:31)  -->
-	<spawn map="400010000" npcid="254540" pool="4" interval="10800" rw="6">
+	<spawn map="400010000" npcid="254540" pool="1" interval="10800" rw="6">
 		<object x="2694.0" y="551.0" z="2936.7803" h="75"/>
 		<object x="2693.81" y="550.93" z="2936.7485" h="103"/>
 		<object x="2674.88" y="643.7" z="2952.51" h="0"/>
@@ -3204,13 +3204,13 @@
 		<object x="1046.13" y="1736.623" z="1596.9674" h="116"/>
 	</spawn>
 	<!-- Tertius General (Monster Legendary lvl:40)  -->
-	<spawn map="400010000" npcid="271806" pool="3" interval="21600" rw="4">
+	<spawn map="400010000" npcid="271806" pool="1" interval="21600" rw="4">
 		<object x="2744.86" y="2657.83" z="1457.4062" h="88"/>
 		<object x="2660.28" y="2806.66" z="1480.3668" h="55"/>
 		<object x="1299.9" y="1184.44" z="1481.2083" h="103"/>
 	</spawn>
 	<!-- Tertius General (Monster Legendary lvl:27)  -->
-	<spawn map="400010000" npcid="271811" pool="6" interval="21600" rw="4">
+	<spawn map="400010000" npcid="271811" pool="1" interval="21600" rw="4">
 		<object x="2744.86" y="2657.83" z="1457.4062" h="73"/>
 		<object x="2744.86" y="2657.83" z="1457.4062" h="29"/>
 		<object x="2660.28" y="2806.66" z="1480.3668" h="37"/>
@@ -3223,7 +3223,7 @@
 		<object x="2543.069" y="2854.181" z="1488.8108" h="85"/>
 	</spawn>
 	<!-- The Everwatcher (Named Mob Normal lvl:30)  -->
-	<spawn map="400010000" npcid="253705" pool="19" interval="10800" rw="6">
+	<spawn map="400010000" npcid="253705" pool="1" interval="10800" rw="6">
 		<object x="951.0" y="936.0" z="1667.7017" h="20"/>
 		<object x="950.22" y="939.86" z="1667.5762" h="76"/>
 		<object x="832.62" y="684.21" z="1681.5653" h="38"/>
@@ -3368,7 +3368,7 @@
 		<object x="868.0" y="948.0" z="1656.6721" h="118"/>
 	</spawn>
 	<!-- Wandering Gazan (Named Mob Normal lvl:32)  -->
-	<spawn map="400010000" npcid="254549" pool="7" interval="10800" rw="6">
+	<spawn map="400010000" npcid="254549" pool="1" interval="10800" rw="6">
 		<object x="3325.11" y="739.25" z="2731.0542" h="102"/>
 		<object x="3325.85" y="738.58" z="2730.9475" h="33"/>
 		<object x="3189.29" y="678.19" z="2796.2288" h="102"/>
