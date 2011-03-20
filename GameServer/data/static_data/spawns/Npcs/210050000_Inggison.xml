@@ -6000,12 +6000,21 @@
 	<spawn map="210050000" npcid="700623" pool="1" interval="295">
 		<object h="0" staticid="614" x="487.19287" y="1607.9493" z="290.48383"/>
 	</spawn>
+	<!-- Enhanced Obelisk ( Q10020 ) -->
+	<spawn map="210050000" npcid="700600" pool="3" interval="295">
+		<object h="0" x="177.02051" y="63.099205" z="531.62"/>
+		<object h="0" x="458" y="514" z="461.89"/>
+		<object h="0" x="389.79901" y="104.0647" z="464.96"/>
+	</spawn>
+	<!-- Eastern Obelisk Support ( Q10020 D ) -->	
 	<spawn map="210050000" npcid="700628" pool="1" interval="295">
 		<object h="0" staticid="159" x="457.55" y="513.11" z="461.76376"/>
 	</spawn>
+	<!-- Western Obelisk Support  ( Q10020 E ) -->
 	<spawn map="210050000" npcid="700629" pool="1" interval="295">
 		<object h="0" staticid="165" x="390.12" y="104.3" z="464.5"/>
 	</spawn>
+	<!--Northern Obelisk Support ( Q10020 F ) -->
 	<spawn map="210050000" npcid="700630" pool="1" interval="295">
 		<object h="0" staticid="156" x="176.88803" y="62.911697" z="531.375"/>
 	</spawn>
@@ -6819,8 +6828,61 @@
 	<spawn map="210050000" npcid="206155" pool="1" interval="295">
 		<object staticid="604" h="0" x="1782.7194" y="1417.7476" z="179.01659"/>
 	</spawn>
-		<!-- Artifact Light-->
+	<!-- Artifact Light-->
 	<spawn map="210050000" npcid="700956" pool="1" interval="295">
 		<object staticid="2253" h="0" x="101.95615" y="2240.2744" z="473.82977"/>
 	</spawn>
+	<!-- Membrane ( Q11128 ) -->
+	<spawn map="210050000" npcid="700617" pool="1" interval="295">
+		<object h="0" x="1220.3702" y="930.35956" z="416.84677" staticid="345"/>
+	</spawn>
+	<!-- Balaur Prison Entrance ( door Q10024 B ) -->
+	<spawn map="210050000" npcid="700743" pool="1" interval="295">
+		<object h="0" x="2372.6104" y="2043.3992" z="252.18994" staticid="509"/>
+	</spawn>
+	<!-- Eastern Star (  Q11216 A ) -->
+	<spawn map="210050000" npcid="700624" pool="1" interval="295">
+		<object h="0" x="2472.2546" y="1885.702" z="235" staticid="140"/>
+	</spawn>
+	<!-- Western Star (  Q11216 B ) -->
+	<spawn map="210050000" npcid="700625" pool="1" interval="295">
+		<object h="0" x="2467.2827" y="1808.0356" z="235" staticid="142"/>
+	</spawn>
+	<!-- Southern Star (  Q11216 C ) -->
+	<spawn map="210050000" npcid="700626" pool="1" interval="295">
+		<object h="0" x="2508.6985" y="1844.3026" z="235" staticid="141"/>
+	</spawn>
+	<!-- Northern Star ( Q11216 D ) -->
+	<spawn map="210050000" npcid="700627" pool="1" interval="295">
+		<object h="0" x="2431.8853" y="1848.3344" z="235" staticid="143"/>
+	</spawn>
+	<!-- Old Sack ( Q11211 A ) -->
+	<spawn map="210050000" npcid="700620" pool="1" interval="295">
+		<object h="0" x="460.1033" y="2027.9733" z="287.59979" staticid="616"/>
+	</spawn>
+	<!-- Extra Clothing ( Q11211 B ) -->
+	<spawn map="210050000" npcid="700621" pool="1" interval="295">
+		<object h="0" x="488.63745" y="1881.882" z="281.20047" staticid="617"/>
+	</spawn>
+	<!-- Fineblade  ( Monster Normal Level:54 ) -->
+	<spawn map="210050000" npcid="217094" pool="1" interval="295">
+		<object h="0" x="2720.2305" y="1462.6742" z="276.76816" />
+	</spawn>
+	<!-- Votaic Column  ( Monster Normal Level:54 ) -->
+	<spawn map="210050000" npcid="281829" pool="6" interval="295">
+		<object h="0" x="117.8819" y="2097.471" z="450" />
+		<object h="0" x="101.3011" y="2130.592" z="450" />
+		<object h="0" x="126.6355" y="2175.415" z="450" />
+		<object h="0" x="158.6319" y="2160.602" z="450" />
+		<object h="0" x="187.1294" y="2137.048" z="450" />
+		<object h="0" x="160.6781" y="2099.394" z="450" />
+	</spawn>
+	<!-- Veille's Aetheric Concentrator A ( Monster Veteran Level:55 ) -->
+	<spawn map="210050000" npcid="296907" pool="1" interval="295">
+		<object h="0" x="1045.3037" y="1491.6146" z="404.52542" staticid="1214"/>
+	</spawn>
+	<!-- Veille's Aetheric Concentrator B ( Monster Veteran Level:55 ) -->
+	<spawn map="210050000" npcid="296908" pool="1" interval="295">
+		<object h="0" x="1113.8162" y="1491.432" z="404.52542" staticid="1213"/>
+	</spawn>	
 </spawns>
