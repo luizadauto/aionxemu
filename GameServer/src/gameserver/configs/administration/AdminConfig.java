@@ -24,10 +24,10 @@ import com.aionemu.commons.configuration.Property;
 public class AdminConfig {
 	
 	@Property(key = "gameserver.administration.command.enemy", defaultValue = "3")
-	public static int	COMMAND_ENEMY;
+	public static int COMMAND_ENEMY;
 	
 	@Property(key = "gameserver.administration.command.who", defaultValue = "3")
-	public static int	COMMAND_WHO;
+	public static int COMMAND_WHO;
 
     @Property(key = "administration.command.passkeyreset", defaultValue = "3")
     public static int COMMAND_PASSKEY_RESET;
@@ -145,6 +145,9 @@ public class AdminConfig {
 
     @Property(key = "gameserver.administration.command.prison", defaultValue = "3")
     public static int COMMAND_PRISON;
+	
+	@Property(key = "gameserver.administration.command.admin", defaultValue = "1")
+    public static int COMMAND_ADMIN;
 
     @Property(key = "gameserver.administration.command.promote", defaultValue = "3")
     public static int COMMAND_PROMOTE;
@@ -225,16 +228,16 @@ public class AdminConfig {
     public static int COMMAND_ZONE;
 
     @Property(key = "gameserver.administration.command.enchant", defaultValue = "3")
-    public static int	COMMAND_ENCHANT;
+    public static int COMMAND_ENCHANT;
 
     @Property(key = "gameserver.administration.command.socket", defaultValue = "3")
-    public static int	COMMAND_SOCKET;
+    public static int COMMAND_SOCKET;
 
     @Property(key = "gameserver.administration.command.powerup", defaultValue = "3")
-    public static int	COMMAND_POWERUP;
+    public static int COMMAND_POWERUP;
 	
     @Property(key = "gameserver.administration.command.godstone", defaultValue = "3")
-    public static int	COMMAND_GODSTONE;
+    public static int COMMAND_GODSTONE;
 
     @Property(key = "gameserver.administration.command.worldban", defaultValue = "3")
     public static int COMMAND_WORLDBAN;
