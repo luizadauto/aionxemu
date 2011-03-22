@@ -45,6 +45,7 @@ import gameserver.model.siege.FortressGeneral;
 import gameserver.model.templates.stats.PlayerStatsTemplate;
 import gameserver.network.aion.AionConnection;
 import gameserver.questEngine.model.QuestCookie;
+import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
 import gameserver.services.BrokerService;
 import gameserver.services.ExchangeService;
@@ -93,7 +94,7 @@ public class Player extends Creature {
     private ResponseRequester requester;
     private boolean lookingForGroup = false;
     private Storage inventory;
-	private Storage[]	petBag = new Storage[4];
+    private Storage[] petBag = new Storage[4];
     private Storage regularWarehouse;
     private Storage accountWarehouse;
     private Equipment equipment;
@@ -183,7 +184,7 @@ public class Player extends Creature {
     
     public void setPlayerAppearance(PlayerAppearance playerAppearance)
     {
-    	this.playerAppearance = playerAppearance;
+        this.playerAppearance = playerAppearance;
     }
     
     /**
@@ -193,7 +194,7 @@ public class Player extends Creature {
      */
     public PlayerAppearance getSavedPlayerAppearance()
     {
-    	return savedPlayerAppearance;
+        return savedPlayerAppearance;
     }
     
     /**
@@ -203,7 +204,7 @@ public class Player extends Creature {
      */
     public void setSavedPlayerAppearance(PlayerAppearance savedPlayerAppearance)
     {
-    		this.savedPlayerAppearance = savedPlayerAppearance;
+        this.savedPlayerAppearance = savedPlayerAppearance;
     }
 
     /**
@@ -529,17 +530,15 @@ public class Player extends Creature {
             dirtyItems.addAll(accountWhStorage.getDeletedItems());
             accountWhStorage.setPersistentState(PersistentState.UPDATED);
         }
-        	
-        for (int petBagId = 32; petBagId < 36; petBagId++)
-        	{
-        		Storage  petBag = getStorage(petBagId);
-        		if(petBag.getPersistentState() == PersistentState.UPDATE_REQUIRED)
-        			{
-        			dirtyItems.addAll(petBag.getAllItems());
-        			dirtyItems.addAll(petBag.getDeletedItems());
-        			petBag.setPersistentState(PersistentState.UPDATED);
-        			}
-        		}
+
+        for (int petBagId = 32; petBagId < 36; petBagId++) {
+            Storage  petBag = getStorage(petBagId);
+            if(petBag.getPersistentState() == PersistentState.UPDATE_REQUIRED) {
+                dirtyItems.addAll(petBag.getAllItems());
+                dirtyItems.addAll(petBag.getDeletedItems());
+                petBag.setPersistentState(PersistentState.UPDATED);
+            }
+        }
 
         Equipment equipment = getEquipment();
         if (equipment.getPersistentState() == PersistentState.UPDATE_REQUIRED) {
@@ -1036,8 +1035,8 @@ public class Player extends Creature {
      */
     @Override
     public boolean isEnemyPlayer(Player player) {
-    	return (getAdminEnmity() > 1 || player.getAdminEnmity() > 1) && player.getName() != getName() ?
-    		true : player.getCommonData().getRace() != getCommonData().getRace() || getController().isDueling(player);
+        return (getAdminEnmity() > 1 || player.getAdminEnmity() > 1) && player.getName() != getName() ?
+            true : player.getCommonData().getRace() != getCommonData().getRace() || getController().isDueling(player);
     }
 
     /**
@@ -1473,44 +1472,46 @@ public class Player extends Creature {
         this.zephyrObjectId = zephyrObjectId;
     }
 
-
     /**
      * @param editmode
      */
-	public void setEditMode(boolean edit_mode)
-	{
-		this.edit_mode = edit_mode;
-	}
-	
-	/**
+    public void setEditMode(boolean edit_mode)
+    {
+        this.edit_mode = edit_mode;
+    }
+
+    /**
      * @return editmode
      */
-	public boolean isInEditMode()
-	{
-		return edit_mode;
-	}
+    public boolean isInEditMode()
+    {
+        return edit_mode;
+    }
 
-	private boolean	noExperienceGain = false;
-	
-	public void setNoExperienceGain(boolean noExperienceGain)
-	{
-		this.noExperienceGain = noExperienceGain;
-	}
-	
-	/**
-	 * @return
-	 */
-	public boolean isNoExperienceGain()
-	{
-		return noExperienceGain;
-	}
+    private boolean	noExperienceGain = false;
+
+    public void setNoExperienceGain(boolean noExperienceGain)
+    {
+        this.noExperienceGain = noExperienceGain;
+    }
+
+    /**
+     * @return
+     */
+    public boolean isNoExperienceGain()
+    {
+        return noExperienceGain;
+    }
 
     /**
      * isQuestComplete by ZeroSignal
      */
     public boolean isQuestComplete(int questId)
     {
-        return (questStateList.getQuestState(questId).getStatus() == QuestStatus.COMPLETE);
+        QuestState questState = questStateList.getQuestState(questId);
+        if (questState == null)
+            return false;
+        return (questState.getStatus() == QuestStatus.COMPLETE);
     }
     
     /**
@@ -1518,6 +1519,9 @@ public class Player extends Creature {
      */
     public boolean isQuestStart(int questId)
     {
-        return (questStateList.getQuestState(questId).getStatus() == QuestStatus.START);
+        QuestState questState = questStateList.getQuestState(questId);
+        if (questState == null)
+            return false;
+        return (questState.getStatus() == QuestStatus.START);
     }
 }

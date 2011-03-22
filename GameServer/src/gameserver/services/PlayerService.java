@@ -200,14 +200,12 @@ public class PlayerService {
         player.setStorage(inventory, StorageType.CUBE);
 
        for (int petBagId = 32; petBagId<36; petBagId++) {
-		
-			Storage petBag = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.getStorageTypeById(petBagId));
-			ItemService.loadItemStones(petBag.getStorageItems());
-			
-			player.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
-		}
-        		
-		Storage warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
+            Storage petBag = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.getStorageTypeById(petBagId));
+            ItemService.loadItemStones(petBag.getStorageItems());
+
+            player.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
+        }
+        Storage warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
 
         ItemService.loadItemStones(warehouse.getStorageItems());
 
@@ -281,12 +279,12 @@ public class PlayerService {
         newPlayer.setMailbox(new Mailbox());
 
        for (int petBagId = 32; petBagId < 36; petBagId++) {
-			
-			Storage petBag = new Storage(StorageType.getStorageTypeById(petBagId));
-			newPlayer.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
+            
+            Storage petBag = new Storage(StorageType.getStorageTypeById(petBagId));
+            newPlayer.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
         }
-		
-		for (ItemType itemType : items) {
+        
+        for (ItemType itemType : items) {
 
             int itemId = itemType.getTemplate().getTemplateId();
             Item item = ItemService.newItem(itemId, itemType.getCount());
@@ -305,7 +303,6 @@ public class PlayerService {
             } else
                 playerInventory.onLoadHandler(item);
         }
-        equipment.onLoadApplyEquipmentStats();
         /**
          * Mark inventory and equipment as UPDATE_REQUIRED to be saved during
          * character creation
@@ -498,16 +495,16 @@ public class PlayerService {
     public static void removeMacro(Player player, int macroOrder) {
         if (player.getMacroList().removeMacro(macroOrder)) {
             DAOManager.getDAO(PlayerMacrossesDAO.class).deleteMacro(player.getObjectId(), macroOrder);
-		}
-	}
+        }
+    }
 
-	/**
+    /**
      * Gets a player ONLY if he is in the cache
      *
      * @return Player or null if not cached
      */
-	public static Player getCachedPlayer(int playerObjectId)
-	{
-		return playerCache.get(playerObjectId);
-	}
+    public static Player getCachedPlayer(int playerObjectId)
+    {
+        return playerCache.get(playerObjectId);
+    }
 }

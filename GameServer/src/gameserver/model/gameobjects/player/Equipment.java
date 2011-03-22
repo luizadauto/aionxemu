@@ -216,6 +216,9 @@ public class Equipment {
      * @return item or null in case of failure
      */
     public Item unEquipItem(int itemUniqueId, int slot) {
+        if (owner == null)
+            return null;
+
         Storage inventory = owner.getInventory(); 
         if (inventory == null)
             return null;
