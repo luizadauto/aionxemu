@@ -419,6 +419,10 @@ public class DropService {
     }
 
     private void resendDropList(Player player, int npcId, Set<DropItem> dropItems) {
+        if (player != null) {
+            player.unsetState(CreatureState.LOOTING);
+            player.setState(CreatureState.ACTIVE);
+        }
         if (dropItems.size() != 0) {
             if (player != null) {
                 boolean hasItemsForPlayer = false;
@@ -432,16 +436,12 @@ public class DropService {
                     PacketSendUtility.sendPacket(player, new SM_LOOT_ITEMLIST(npcId, dropItems, player));
                 } else {
                     PacketSendUtility.sendPacket(player, new SM_LOOT_STATUS(npcId, 3));
-                    player.unsetState(CreatureState.LOOTING);
-                    player.setState(CreatureState.ACTIVE);
                     PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.END_LOOT, 0, npcId), true);
                 }
             }
         } else {
             if (player != null) {
                 PacketSendUtility.sendPacket(player, new SM_LOOT_STATUS(npcId, 3));
-                player.unsetState(CreatureState.LOOTING);
-                player.setState(CreatureState.ACTIVE);
                 PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.END_LOOT, 0, npcId), true);
             }
             AionObject obj = World.getInstance().findAionObject(npcId);

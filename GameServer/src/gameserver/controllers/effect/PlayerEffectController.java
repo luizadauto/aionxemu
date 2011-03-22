@@ -101,7 +101,7 @@ public class PlayerEffectController extends EffectController {
     private boolean checkDuelCondition(Effect effect) {
         Creature creature = effect.getEffector();
         if (creature instanceof Player) {
-            if (getOwner().isFriend((Player) creature) && effect.getTargetSlot() == SkillTargetSlot.DEBUFF.ordinal())
+            if (getOwner().isFriend((Player) creature) && effect.getTargetSlot() == SkillTargetSlot.DEBUFF.ordinal() && getOwner().getAdminEnmity() < 2)
                 return true;
         }
 

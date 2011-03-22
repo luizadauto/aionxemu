@@ -53,7 +53,7 @@ public class Announce extends AdminCommand {
         }
 
         if (params == null || params.length != 2) {
-            PacketSendUtility.sendMessage(admin, "Syntax: //announce <anonymous|name> <message>");
+            PacketSendUtility.sendMessage(admin, "Syntax: //announce <anonymous|name> \"<message>\"");
             return;
         }
 
@@ -74,11 +74,12 @@ public class Announce extends AdminCommand {
 
             message += admin.getName() + ": ";
         } else {
-            PacketSendUtility.sendMessage(admin, "Syntax: //announce <anonymous|name> <message>");
+            PacketSendUtility.sendMessage(admin, "Syntax: //announce <anonymous|name> \"<message>\"");
             return;
         }
 
         message += params[1];
+
         final String _message = message;
 
         World.getInstance().doOnAllPlayers(new Executor<Player>() {

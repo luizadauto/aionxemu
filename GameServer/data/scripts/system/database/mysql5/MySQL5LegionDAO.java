@@ -305,6 +305,9 @@ public class MySQL5LegionDAO extends LegionDAO {
      */
     @Override
     public boolean saveNewAnnouncement(final int legionId, final Timestamp currentTime, final String message) {
+        if (!isLegionIdUsed(legionId))
+            return false;
+
         boolean success = DB.insertUpdate(INSERT_ANNOUNCEMENT_QUERY, new IUStH() {
             @Override
             public void handleInsertUpdate(PreparedStatement preparedStatement) throws SQLException {
@@ -524,8 +527,28 @@ public class MySQL5LegionDAO extends LegionDAO {
                 preparedStatement.setString(3, legionHistory.getLegionHistoryType().toString());
                 preparedStatement.setString(4, legionHistory.getName());
                 preparedStatement.execute();
-			}
-		});
-		return success;
-	}
+            }
+        });
+        return success;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    private boolean isLegionIdUsed(final int legionId) {
+        PreparedStatement s = DB.prepareStatement("SELECT id FROM legions WHERE id=?");
+        try {
+            s.setInt(1, legionId);
+            ResultSet rs = s.executeQuery();
+            rs.next();
+            return rs.getInt("legionId") > 0;
+        }
+        catch (SQLException e) {
+            log.error("Can't check if legionId " + legionId + ", is used. ", e);
+            return false;
+        }
+        finally {
+            DB.close(s);
+        }
+    }
 }

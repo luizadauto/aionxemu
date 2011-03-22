@@ -34,49 +34,52 @@ import gameserver.model.templates.stats.PetStatsTemplate;
 @XmlRootElement(name = "pet")
 public class PetTemplate
 {
-	@XmlAttribute(name = "id", required = true)
-	private int id;
-	@XmlAttribute(name = "name", required = true)
-	private String name;
-	@XmlAttribute(name = "nameid", required = true)
-	private int nameId;
-	@XmlElement(name = "petfunction")
-	private List<PetFunction> petFunctions;
-	@XmlElement(name = "petstats")
-	private PetStatsTemplate petStats;
+    @XmlAttribute(name = "id", required = true)
+    private int id;
+    @XmlAttribute(name = "name", required = true)
+    private String name;
+    @XmlAttribute(name = "nameid", required = true)
+    private int nameId;
+    @XmlElement(name = "petfunction")
+    private List<PetFunction> petFunctions;
+    @XmlElement(name = "petstats")
+    private PetStatsTemplate petStats;
 
-	public int getPetId()
-	{
-		return id;
-	}
-	
-	
-	public String getName()
-	{
-		return name;
-	}
+    public int getPetId()
+    {
+        return id;
+    }
 
-	public int getNameId()
-	{
-		return nameId;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public List<PetFunction> getPetFunction()
-	{
-		return petFunctions;
-	}
+    public int getNameId()
+    {
+        return nameId;
+    }
 
-	public PetFunction getWarehouseFunction()
-	{
-		for (PetFunction pf : petFunctions)
-		{
-			if (pf.getPetFunctionType() == PetFunctionType.WAREHOUSE)
-				return pf;
-		}
-		return null;
-	}
-	public PetStatsTemplate getPetStats()
-	{
-		return petStats;
-	}
+    public List<PetFunction> getPetFunction()
+    {
+        return petFunctions;
+    }
+
+    public PetFunction getWarehouseFunction()
+    {
+        if (petFunctions == null)
+            return null;
+
+        for (PetFunction pf : petFunctions)
+        {
+            if (pf.getPetFunctionType() == PetFunctionType.WAREHOUSE)
+                return pf;
+        }
+        return null;
+    }
+
+    public PetStatsTemplate getPetStats()
+    {
+        return petStats;
+    }
 }

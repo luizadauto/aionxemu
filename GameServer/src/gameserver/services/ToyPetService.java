@@ -77,37 +77,36 @@ public class ToyPetService {
         ToyPet pet = DAOManager.getDAO(PlayerPetsDAO.class).getPlayerPet(player.getObjectId(), petId);
         if (pet != null) {
             PetTemplate petTemplate = DataManager.PET_DATA.getPetTemplate(petId);
-			if(petTemplate == null)
-				return;
-			player.setToyPet(pet);
+            if(petTemplate == null)
+                return;
+            player.setToyPet(pet);
             pet.setMaster(player);
             PacketSendUtility.broadcastPacket(player, new SM_PET(3, pet), true);
-			PetFunction pf = petTemplate.getWarehouseFunction();
+            PetFunction pf = petTemplate.getWarehouseFunction();
 
-			if (pf != null) {
-				int itemLocation = 0;
-				
-				switch(pf.getSlots()) {
-					case 6:
-						itemLocation = 32;
-						break;
-					case 12:
-						itemLocation = 33;
-						break;
-					case 18:
-						itemLocation = 34;
-						break;
-					case 24:
-						itemLocation = 35;
-						break;
-				}
-				if (itemLocation != 0) {
-					PacketSendUtility.sendPacket(player, new SM_WAREHOUSE_INFO(player.getStorage(itemLocation).getAllItems(),
-						itemLocation, 0, true));
-					PacketSendUtility.sendPacket(player, new SM_WAREHOUSE_INFO(null, itemLocation, 0, false));
-				}
-				
-			}
+            if (pf == null)
+                return;
+
+            int itemLocation = 0;
+            switch(pf.getSlots()) {
+                case 6:
+                    itemLocation = 32;
+                    break;
+                case 12:
+                    itemLocation = 33;
+                    break;
+                case 18:
+                    itemLocation = 34;
+                    break;
+                case 24:
+                    itemLocation = 35;
+                    break;
+            }
+            if (itemLocation != 0) {
+                PacketSendUtility.sendPacket(player, new SM_WAREHOUSE_INFO(player.getStorage(itemLocation).getAllItems(),
+                    itemLocation, 0, true));
+                PacketSendUtility.sendPacket(player, new SM_WAREHOUSE_INFO(null, itemLocation, 0, false));
+            }
         }
     }
 

@@ -392,6 +392,8 @@ public class Item extends AionObject {
      * @param enchantLevel the echantLevel to set
      */
     public void setEnchantLevel(int enchantLevel) {
+        if (enchantLevel > 127)
+            enchantLevel = 127;
         this.enchantLevel = enchantLevel;
         setPersistentState(PersistentState.UPDATE_REQUIRED);
     }
@@ -551,17 +553,17 @@ public class Item extends AionObject {
                 break;
             case 2://account warehouse
                 if (this.getItemTemplate().isStorableinAccWarehouse())
-					return true;
-			break;
-			case 3://legion warehouse
-				if (this.getItemTemplate().isStorableinLegionWarehouse())
-					return true;
-			break;
-		}
-		
-		return false;
-	}
-    
+                    return true;
+            break;
+            case 3://legion warehouse
+                if (this.getItemTemplate().isStorableinLegionWarehouse())
+                    return true;
+            break;
+        }
+        
+        return false;
+    }
+
     /**
      * Tests whether the Item is a weapon and has been swapped into the
      * non-active hand slot for a given Player.
