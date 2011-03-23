@@ -848,13 +848,13 @@
         <wrap bonusLevel="8961" itemId="188050586" maxCount="5" type="ENCHANT"/>
     </bonus_info>
     <bonus_info questId="4061">
-        <redeem bonusLevel="6401" count="54" checkItem="182209038"/>
+        <redeem bonusLevel="6401" count="15" checkItem="182209038"/>
     </bonus_info>
     <bonus_info questId="4062">
-        <redeem bonusLevel="6401" count="51" checkItem="182209039"/>
+        <redeem bonusLevel="6401" count="15" checkItem="182209039"/>
     </bonus_info>
     <bonus_info questId="4063">
-        <redeem bonusLevel="6401" count="50" checkItem="182209040"/>
+        <redeem bonusLevel="6401" count="15" checkItem="182209040"/>
     </bonus_info>
     <bonus_info questId="4072">
         <manastone bonusLevel="6402" count="1" checkItem="167000354"/>
