@@ -77,7 +77,8 @@ public class MacroList {
      */
     public synchronized boolean addMacro(int macroPosition, String macroXML) {
         if (macrosses.containsKey(macroPosition)) {
-            logger.warn("Trying to add macro with already existing order.");
+            macrosses.remove(macroPosition);
+            macrosses.put(macroPosition, macroXML);
             return false;
         }
 

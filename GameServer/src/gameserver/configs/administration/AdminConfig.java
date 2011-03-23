@@ -176,6 +176,9 @@ public class AdminConfig {
     @Property(key = "gameserver.administration.command.savespawndata", defaultValue = "3")
     public static int COMMAND_SAVESPAWNDATA;
 
+    @Property(key = "gameserver.administration.command.seedroplist", defaultValue = "3")
+    public static int COMMAND_SEEDROPLIST;
+
     @Property(key = "gameserver.administration.command.sendfakeserverpacket", defaultValue = "3")
     public static int COMMAND_SENDFAKESERVERPACKET;
 

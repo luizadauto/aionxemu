@@ -40,6 +40,7 @@ public class MySQL5PlayerMacrossesDAO extends PlayerMacrossesDAO {
     private static Logger log = Logger.getLogger(MySQL5PlayerMacrossesDAO.class);
 
     public static final String INSERT_QUERY = "INSERT INTO `player_macrosses` (`player_id`, `order`, `macro`) VALUES (?,?,?)";
+    public static final String UPDATE_QUERY = "UPDATE `player_macrosses` SET `macro`=? WHERE `player_id`=? AND `order`=?";
     public static final String DELETE_QUERY = "DELETE FROM `player_macrosses` WHERE `player_id`=? AND `order`=?";
     public static final String SELECT_QUERY = "SELECT `order`, `macro` FROM `player_macrosses` WHERE `player_id`=?";
 
@@ -58,6 +59,20 @@ public class MySQL5PlayerMacrossesDAO extends PlayerMacrossesDAO {
                 stmt.setInt(1, playerId);
                 stmt.setInt(2, macroPosition);
                 stmt.setString(3, macro);
+                stmt.execute();
+            }
+        });
+    }
+    
+    @Override
+    public void updateMacro(final int playerId, final int macroPosition, final String macro) {
+        DB.insertUpdate(UPDATE_QUERY, new IUStH() {
+            @Override
+            public void handleInsertUpdate(PreparedStatement stmt) throws SQLException {
+                log.debug("[DAO: MySQL5PlayerMacrossesDAO] updating macro "+playerId+" "+macroPosition);
+                stmt.setString(1, macro);
+                stmt.setInt(2, playerId);
+                stmt.setInt(3, macroPosition);
                 stmt.execute();
             }
         });

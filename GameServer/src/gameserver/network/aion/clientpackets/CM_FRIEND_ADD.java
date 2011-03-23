@@ -16,6 +16,7 @@
  */
 package gameserver.network.aion.clientpackets;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.DeniedStatus;
 import gameserver.model.gameobjects.player.Player;
@@ -25,6 +26,7 @@ import gameserver.network.aion.serverpackets.SM_FRIEND_RESPONSE;
 import gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.SocialService;
+import gameserver.utils.Util;
 import gameserver.world.World;
 
 /**
@@ -53,9 +55,18 @@ public class CM_FRIEND_ADD extends AionClientPacket {
      */
     @Override
     protected void runImpl() {
+        if (CustomConfig.GMTAG_DISPLAY) {
+            targetName = targetName.replaceAll(CustomConfig.GM_LEVEL1, "");
+            targetName = targetName.replaceAll(CustomConfig.GM_LEVEL2, "");
+            targetName = targetName.replaceAll(CustomConfig.GM_LEVEL3, "");
+            targetName = targetName.replaceAll(CustomConfig.GM_LEVEL4, "");
+            targetName = targetName.replaceAll(CustomConfig.GM_LEVEL5, "");
+        }
+        
+        final String target = Util.convertName(targetName);
 
         final Player activePlayer = getConnection().getActivePlayer();
-        final Player targetPlayer = World.getInstance().findPlayer(targetName);
+        final Player targetPlayer = World.getInstance().findPlayer(target);
 
 
         if (targetName.equalsIgnoreCase(activePlayer.getName())) {

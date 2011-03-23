@@ -17,6 +17,7 @@
 
 package gameserver.network.aion.clientpackets;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.model.gameobjects.player.DeniedStatus;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
@@ -54,6 +55,14 @@ public class CM_INVITE_TO_GROUP extends AionClientPacket {
      */
     @Override
     protected void runImpl() {
+        if (CustomConfig.GMTAG_DISPLAY) {
+            name = name.replaceAll(CustomConfig.GM_LEVEL1, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL2, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL3, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL4, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL5, "");
+        }
+        
         final String playerName = Util.convertName(name);
 
         final Player inviter = getConnection().getActivePlayer();

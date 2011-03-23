@@ -77,6 +77,14 @@ public class CM_CHAT_MESSAGE_WHISPER extends AionClientPacket {
      */
     @Override
     protected void runImpl() {
+        if (CustomConfig.GMTAG_DISPLAY) {
+            name = name.replaceAll(CustomConfig.GM_LEVEL1, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL2, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL3, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL4, "");
+            name = name.replaceAll(CustomConfig.GM_LEVEL5, "");
+        }
+        
         String formatname = Util.convertName(name);
 
         Player sender = getConnection().getActivePlayer();

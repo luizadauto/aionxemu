@@ -16,6 +16,7 @@
 */
 package admincommands;
 
+import gameserver.configs.administration.AdminConfig;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.VisibleObject;
@@ -33,28 +34,22 @@ public class SeeDroplist extends AdminCommand
 {
     public SeeDroplist()
     {
-        super("Droplist");
+        super("droplist");
     }
 
     @Override
     public void executeCommand(Player admin, String[] params)
     {
-        if(admin.getAccessLevel() < 3 )
+        if(admin.getAccessLevel() < AdminConfig.COMMAND_SEEDROPLIST )
         {
             PacketSendUtility.sendMessage(admin, "No right to use the command");
-            return;
-        }
-
-        if(params.length != 1)
-        {
-            PacketSendUtility.sendMessage(admin, "Syntax: //Droplist");
             return;
         }
         
         VisibleObject target = admin.getTarget();
         if(target == null)
         {
-            PacketSendUtility.sendMessage(admin, "Please select a destination, and enter //Droplist");
+            PacketSendUtility.sendMessage(admin, "Please select a destination, and enter //droplist");
             return;
         }
         
@@ -72,7 +67,7 @@ public class SeeDroplist extends AdminCommand
             PacketSendUtility.sendMessage(admin, dropname);
         }
         else
-            PacketSendUtility.sendMessage(admin, "Please select a NPC as the goal, then enter //Droplist");
+            PacketSendUtility.sendMessage(admin, "Please select a NPC as the goal, then enter //droplist");
 
     }
 } 

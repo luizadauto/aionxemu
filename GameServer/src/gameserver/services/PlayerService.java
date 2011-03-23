@@ -483,6 +483,8 @@ public class PlayerService {
     public static void addMacro(Player player, int macroOrder, String macroXML) {
         if (player.getMacroList().addMacro(macroOrder, macroXML)) {
             DAOManager.getDAO(PlayerMacrossesDAO.class).addMacro(player.getObjectId(), macroOrder, macroXML);
+        } else {
+            DAOManager.getDAO(PlayerMacrossesDAO.class).updateMacro(player.getObjectId(), macroOrder, macroXML);
         }
     }
 

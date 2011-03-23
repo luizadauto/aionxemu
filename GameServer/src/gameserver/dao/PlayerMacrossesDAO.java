@@ -56,6 +56,15 @@ public abstract class PlayerMacrossesDAO implements DAO {
     public abstract void addMacro(int playerId, int macroPosition, String macro);
 
     /**
+     * Update a macro information in database
+     *
+     * @param playerId      player object id
+     * @param macroPosition macro order # of player
+     * @param macro         macro contents.
+     */
+    public abstract void updateMacro(int playerId, int macroPosition, String macro);
+
+    /**
      * Remove macro in database
      *
      * @param playerId      player object id
