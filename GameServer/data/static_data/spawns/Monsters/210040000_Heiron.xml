@@ -75,7 +75,7 @@
 		<object x="537.2245" y="2845.5178" z="107.1368" h="65"/>
 	</spawn>
 	<!-- Akairun of Medeus (Monster Legendary lvl:47)-->
-	<spawn map="210040000" npcid="211232" pool="1" interval="18000">
+	<spawn map="210040000" npcid="212008" pool="1" interval="18000">
 		<object x="182.00174" y="2703.6094" z="150.00" h="19"/>
 	</spawn>	
 	<!-- Anubite Fighter (Monster Normal lvl:43)-->
