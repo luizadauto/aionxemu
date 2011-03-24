@@ -6,7 +6,7 @@
  -->
 <spawns>
     <!-- Abyss Gate (Object Normal lvl:1) -->
-	<spawn map="310030000" npcid="700141" pool="1" interval="295">
+	<spawn map="310030000" npcid="730041" pool="1" interval="295">
        	<object x="276.24802" y="161.69484" z="205.62405" h="34"/>
     </spawn>
 	<!-- Crusader (Monster Normal lvl:20) -->

@@ -177,6 +177,13 @@ public class _1020SealingTheAbyssGate extends QuestHandler {
                                 npc.getController().onDespawn(false);
                             }
                         }, 3000);
+
+						qs.setQuestVarById(0, 4);
+						qs.setStatus(QuestStatus.REWARD);
+						player.getInventory().removeFromBagByItemId(182200024, 1);
+						updateQuestStatus(env);
+						TeleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 2684.308f, 1068.7382f, 199.375f, 0);
+
                         return true;
                     }
                 }
