@@ -27,6 +27,8 @@ import gameserver.network.aion.serverpackets.*;
 import gameserver.restrictions.RestrictionsManager;
 import gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
 import gameserver.utils.PacketSendUtility;
+import gameserver.utils.i18n.CustomMessageId;
+import gameserver.utils.i18n.LanguageHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -241,10 +243,13 @@ public class ExchangeService {
      * @param currentPartner
      */
     private void performTrade(Player activePlayer, Player currentPartner) {
-        //TODO message here
-        //TODO release item id if return
-        if (!validateExchange(activePlayer, currentPartner))
+        if (!validateExchange(activePlayer, currentPartner)) {
+            cancelExchange(activePlayer);
+            PacketSendUtility.sendPacket(activePlayer, new SM_EXCHANGE_CONFIRMATION(1));
+            PacketSendUtility.sendMessage(activePlayer, LanguageHandler.translate(CustomMessageId.ERROR_INVALID_EXCHANGE));
+            PacketSendUtility.sendMessage(currentPartner, LanguageHandler.translate(CustomMessageId.ERROR_INVALID_EXCHANGE));
             return;
+        }
 
         PacketSendUtility.sendPacket(activePlayer, new SM_EXCHANGE_CONFIRMATION(0));
         PacketSendUtility.sendPacket(currentPartner, new SM_EXCHANGE_CONFIRMATION(0));
@@ -318,21 +323,29 @@ public class ExchangeService {
         Exchange exchange1 = getCurrentExchange(activePlayer);
         Exchange exchange2 = getCurrentExchange(currentPartner);
 
+        // Validate correct amount of Kinah still present.
+        if (activePlayer.getInventory().getKinahCount() < exchange1.getKinahCount())
+            return false;
+        if (currentPartner.getInventory().getKinahCount() < exchange2.getKinahCount())
+            return false;
+
+        // Validate all Items still present and have correct Amounts.
         for (ExchangeItem exchangeItem : exchange1.getItems().values()) {
             Item item = exchangeItem.getItem();
             Item itemInInventory = activePlayer.getInventory().getItemByObjId(exchangeItem.getItemObjId());
 
-            if (item == null || itemInInventory == null)
+            if (item == null || itemInInventory == null || itemInInventory.getItemCount() < exchangeItem.getItemCount())
                 return false;
         }
         for (ExchangeItem exchangeItem : exchange2.getItems().values()) {
             Item item = exchangeItem.getItem();
             Item itemInInventory = currentPartner.getInventory().getItemByObjId(exchangeItem.getItemObjId());
 
-            if (item == null || itemInInventory == null)
+            if (item == null || itemInInventory == null || itemInInventory.getItemCount() < exchangeItem.getItemCount())
                 return false;
         }
 
+        
         return validateInventorySize(activePlayer, exchange2)
                 && validateInventorySize(currentPartner, exchange1);
     }
