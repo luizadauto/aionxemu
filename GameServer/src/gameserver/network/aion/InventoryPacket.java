@@ -65,7 +65,12 @@ public abstract class InventoryPacket extends AionServerPacket {
      * @param item
      */
     protected void writeGeneralItemInfo(ByteBuffer buf, Item item, boolean privateStore, boolean mail) {
-        writeH(buf, 0x1A); //length of details
+        //length of details
+        if (privateStore)
+            writeH(buf, 0x16);
+        else
+            writeH(buf, 0x1A);
+
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
@@ -74,8 +79,10 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeD(buf, 0); //Disappears time
         writeC(buf, 0);
         writeD(buf, 0);
-        if (!privateStore)
+        if (!privateStore) {
+            writeD(buf, 0);
             writeH(buf, 0);
+        }
         writeC(buf, 0);
         if (!mail)
             writeH(buf, item.getEquipmentSlot()); // not equipable items
@@ -267,7 +274,7 @@ public abstract class InventoryPacket extends AionServerPacket {
                 * writeD(buf, bonusAmount); //ex. 0xC4 is 196
                 */
 
-            writeH(buf, 0x00);//seperator between item bonus and item mask
+            writeH(buf, 0x00); // seperator between item bonus and item mask
 
             writeH(buf, item.getItemMask());
             writeQ(buf, item.getItemCount());
@@ -286,7 +293,7 @@ public abstract class InventoryPacket extends AionServerPacket {
             buf.position(placeHolder);
 
             if (!mail) writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot()); // FF FF equipment
-            if (isInventory) writeC(buf, 0);//item.isEquipped() ? 1 : 0
+            if (isInventory) writeC(buf, 0); // item.isEquipped() ? 1 : 0
         }
     }
 
@@ -365,10 +372,8 @@ public abstract class InventoryPacket extends AionServerPacket {
      */
     protected void writeArmorInfo(ByteBuffer buf, Item item, boolean isInventory, boolean privateStore, boolean mail) {
         int itemSlotId = item.getEquipmentSlot();
-        int placeHolder, sizeLoc, size;
 
         writeH(buf, 0x53);
-        sizeLoc = buf.position();
         writeC(buf, 0x06);
         writeD(buf, item.isEquipped() ? itemSlotId : 0);
         writeC(buf, 0x02);
@@ -398,11 +403,7 @@ public abstract class InventoryPacket extends AionServerPacket {
         if (!privateStore)
             writeH(buf, 0);
         writeC(buf, 0);
-        size = buf.position() - sizeLoc;
-        placeHolder = buf.position();
-        buf.position(sizeLoc - 2);
-        writeH(buf, size);
-        buf.position(placeHolder);
+
         if (!mail)
             writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot()); // FF FF equipment
         if (isInventory)
