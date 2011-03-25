@@ -57,7 +57,10 @@ public class ItemService {
      * @return The ItemTemplate related to the given itemId.
      */
     public static ItemTemplate getItemTemplate(int itemId) {
-        return DataManager.ITEM_DATA.getItemTemplate(itemId);
+        ItemTemplate it = DataManager.ITEM_DATA.getItemTemplate(itemId);
+        if (it == null)
+            log.warn("Item was not populated correctly. Item template is missing for itemId: " + itemId);
+        return it;
     }
 
    /**
@@ -331,7 +334,6 @@ public class ItemService {
             for (Item existingItem : existingItems) {
                 if (count == 0)
                     break;
-
                 long freeCount = maxStackCount - existingItem.getItemCount();
                 if (count <= freeCount) {
                     inventory.increaseItemCount(existingItem, count);
@@ -340,14 +342,12 @@ public class ItemService {
                     inventory.increaseItemCount(existingItem, freeCount);
                     count -= freeCount;
                 }
-
                 updateItem(player, existingItem, false);
             }
 
             /**
              * Create new stacks
              */
-
             while (!inventory.isFull() && count > 0) {
                 // item count still more than maxStack value
                 if (count > maxStackCount) {

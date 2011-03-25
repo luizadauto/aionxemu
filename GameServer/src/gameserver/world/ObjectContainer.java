@@ -20,12 +20,20 @@ import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
 
-import java.util.*;
+import org.apache.log4j.Logger;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * @author xavier
  */
 public class ObjectContainer {
+    private static Logger log = Logger.getLogger(ObjectContainer.class);
+
     protected Map<Integer, Player> allPlayersById;
     protected Map<String, Player> allPlayersByName;
     protected Map<Integer, AionObject> allObjects;
@@ -76,7 +84,10 @@ public class ObjectContainer {
     }
 
     public AionObject findAionObject(int objectId) {
-        return allObjects.get(objectId);
+        AionObject ao = allObjects.get(objectId);
+        if (ao == null)
+            log.warn("ObjectContainer.findAionObject(" + objectId + ") Not Found.");
+        return ao;
     }
 
     public void doOnAllPlayers(Executor<Player> playerExecutor, boolean now) {

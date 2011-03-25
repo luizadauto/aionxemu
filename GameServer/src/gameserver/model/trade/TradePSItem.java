@@ -16,8 +16,10 @@
  */
 package gameserver.model.trade;
 
+import gameserver.services.ItemService;
+
 /**
- * @author Simple
+ * @author Simple, ZeroSignal
  */
 public class TradePSItem extends TradeItem {
     private int itemObjId;
@@ -29,8 +31,9 @@ public class TradePSItem extends TradeItem {
      */
     public TradePSItem(int itemObjId, int itemId, long count, long price) {
         super(itemId, count);
-        this.setPrice(price);
-        this.setItemObjId(itemObjId);
+        this.itemObjId = itemObjId;
+        this.price = price;
+        this.itemTemplate = ItemService.getItemTemplate(itemId);
     }
 
     /**
@@ -59,6 +62,14 @@ public class TradePSItem extends TradeItem {
      */
     public int getItemObjId() {
         return itemObjId;
-	}
-
+    }
+    
+    @Override
+    public String toString() {
+        return "TradePSItem - " +
+            "itemId: " + itemId +
+            ", count: " + count +
+            ", itemObjId: " + itemObjId +
+            ", price: " + price + ". ";
+    }
 }

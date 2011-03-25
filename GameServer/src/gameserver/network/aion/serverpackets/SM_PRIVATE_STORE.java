@@ -25,13 +25,16 @@ import gameserver.model.trade.TradePSItem;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.InventoryPacket;
 
+import org.apache.log4j.Logger;
+
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
- * @author Simple
+ * @author Simple, ZeroSignal
  */
 public class SM_PRIVATE_STORE extends InventoryPacket {
+    private static final Logger log = Logger.getLogger(SM_PRIVATE_STORE.class);
     /**
      * Private store Information *
      */
@@ -43,31 +46,32 @@ public class SM_PRIVATE_STORE extends InventoryPacket {
 
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
-        if (store != null) {
-            Player storePlayer = store.getOwner();
-            LinkedHashMap<Integer, TradePSItem> soldItems = store.getSoldItems();
+        if (store == null)
+            return;
+        List<TradePSItem> storeItems = store.getSoldItems();
+        if (storeItems.isEmpty())
+            return;
+        Player storePlayer = store.getOwner();
+        writeD(buf, storePlayer.getObjectId());
+        writeH(buf, storeItems.size());
+        for (TradePSItem storeItem : storeItems) {
+            Item item = storePlayer.getInventory().getItemByObjId(storeItem.getItemObjId());
+            writeD(buf, storeItem.getItemObjId());
+            writeD(buf, storeItem.getItemTemplate().getTemplateId());
+            writeH(buf, (int) storeItem.getCount());
+            writeD(buf, (int) storeItem.getPrice());
 
-            writeD(buf, storePlayer.getObjectId());
-            writeH(buf, soldItems.size());
-            for (Integer itemObjId : soldItems.keySet()) {
-                Item item = storePlayer.getInventory().getItemByObjId(itemObjId);
-                TradePSItem tradeItem = store.getTradeItemById(itemObjId);
-                long price = tradeItem.getPrice();
-                writeD(buf, itemObjId);
-                writeD(buf, item.getItemTemplate().getTemplateId());
-                writeH(buf, (int) tradeItem.getCount());
-                writeD(buf, (int) price);
-
-                ItemTemplate itemTemplate = item.getItemTemplate();
-
-                if (itemTemplate.isWeapon()) {
-                    writeWeaponInfo(buf, item, false, false, true, false);
-                } else if (itemTemplate.isArmor()) {
-                    writeArmorInfo(buf, item, false, true, false);
-                } else {
-                    writeGeneralItemInfo(buf, item, true, false);
-                }
+            ItemTemplate itemTemplate = storeItem.getItemTemplate();
+            if (item == null || itemTemplate == null) {
+                log.warn("SM_PRIVATE_STORE.writeImpl - Item is null or ItemTemplate is null. " + storeItem.toString());
+            }
+            if (itemTemplate.isWeapon()) {
+                writeWeaponInfo(buf, item, false, false, true, false);
+            } else if (itemTemplate.isArmor()) {
+                writeArmorInfo(buf, item, false, true, false);
+            } else {
+                writeGeneralItemInfo(buf, item, true, false);
             }
         }
-	}
+    }
 }

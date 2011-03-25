@@ -18,14 +18,16 @@ package gameserver.model.gameobjects.player;
 
 import gameserver.model.trade.TradePSItem;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
- * @author Xav Modified by Simple
+ * @author Xav, Simple, ZeroSignal
  */
 public class PrivateStore {
     private Player owner;
-    private LinkedHashMap<Integer, TradePSItem> items;
+    private List<TradePSItem> items = new ArrayList<TradePSItem>();
     private String storeMessage;
 
     /**
@@ -35,7 +37,6 @@ public class PrivateStore {
      */
     public PrivateStore(Player owner) {
         this.owner = owner;
-        this.items = new LinkedHashMap<Integer, TradePSItem>();
     }
 
     /**
@@ -50,9 +51,9 @@ public class PrivateStore {
     /**
      * This method will return the items being sold
      *
-     * @return LinkedHashMap<Integer, TradePSItem>
+     * @return List<TradePSItem>
      */
-    public LinkedHashMap<Integer, TradePSItem> getSoldItems() {
+    public List<TradePSItem> getSoldItems() {
         return items;
     }
 
@@ -62,33 +63,29 @@ public class PrivateStore {
      * @param tradeList
      * @param price
      */
-    public void addItemToSell(int itemObjId, TradePSItem tradeItem) {
-        items.put(itemObjId, tradeItem);
+    public void addItemToSell(TradePSItem tradeItem) {
+        items.add(tradeItem);
     }
 
     /**
      * This method will remove an item from the list
      *
-     * @param item
+     * @param itemSlot
      */
-    public void removeItem(int itemObjId) {
-        if (items.containsKey(itemObjId)) {
-            LinkedHashMap<Integer, TradePSItem> newItems = new LinkedHashMap<Integer, TradePSItem>();
-            for (int itemObjIds : items.keySet()) {
-                if (itemObjId != itemObjIds)
-                    newItems.put(itemObjIds, items.get(itemObjIds));
-            }
-            this.items = newItems;
-        }
+    public boolean removeItem(int itemSlot) {
+        return (items.remove(itemSlot) != null);
     }
 
     /**
-     * @param itemId return tradeItem
+     * @param itemSlot return tradeItem
      */
-    public TradePSItem getTradeItemById(int itemObjId) {
-        if (items.containsKey(itemObjId))
-            return items.get(itemObjId);
-        return null;
+    public TradePSItem getTradeItemBySlot(int itemSlot) {
+        try {
+            return items.get(itemSlot);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -100,9 +97,19 @@ public class PrivateStore {
 
     /**
      * @return the storeMessage
-	 */
-	public String getStoreMessage()
-	{
-		return storeMessage;
-	}
+     */
+    public String getStoreMessage() {
+        return storeMessage;
+    }
+
+    public String toString() {
+        String output;
+        output = "PrivateStore - " +
+            "owner: " + owner.getObjectId() +
+            ",storeMessage: " + storeMessage;
+        for (TradePSItem storeItem : items) {
+            output += ",storeItem: " + storeItem.toString();
+        }
+        return output;
+    }
 }

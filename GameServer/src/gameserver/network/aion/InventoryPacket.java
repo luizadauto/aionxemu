@@ -74,10 +74,7 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
-        writeH(buf, 0);//Creator name
-        writeC(buf, 0);
         writeD(buf, 0); //Disappears time
-        writeC(buf, 0);
         writeD(buf, 0);
         if (!privateStore) {
             writeD(buf, 0);
@@ -89,7 +86,7 @@ public abstract class InventoryPacket extends AionServerPacket {
     }
 
     protected void writeStigmaInfo(ByteBuffer buf, Item item) {
-        writeH(buf, 329); //length of details 45 01
+        writeH(buf, 325); //length of details 45 01
         writeC(buf, 0x6);
         if (item.isEquipped())
             writeD(buf, item.getEquipmentSlot());

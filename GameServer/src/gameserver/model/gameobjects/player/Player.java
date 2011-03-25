@@ -375,7 +375,7 @@ public class Player extends Creature {
     }
 
     /**
-     * @return the inventory
+     * @return the equipment
      */
 
     public Equipment getEquipment() {
@@ -464,11 +464,10 @@ public class Player extends Creature {
         }
 
         if (storageType .getId() > 31 && storageType.getId() < 36) {
-        	this.petBag[storageType.getId()-32] = storage;
-        			}
-        			
-        if (storageType == StorageType.REGULAR_WAREHOUSE) {
+            this.petBag[storageType.getId()-32] = storage;
+        }
 
+        if (storageType == StorageType.REGULAR_WAREHOUSE) {
             this.regularWarehouse = storage;
             regularWarehouse.setOwner(this);
         }
@@ -494,8 +493,8 @@ public class Player extends Creature {
             return getLegion().getLegionWarehouse();
 
         if (storageType > 31 && storageType < 36)
-        	return petBag[storageType-32];
-        	
+            return petBag[storageType-32];
+
         if (storageType == StorageType.CUBE.getId())
             return inventory;
         else
@@ -1187,7 +1186,7 @@ public class Player extends Creature {
         return itemCoolDowns;
     }
 
-	/**
+    /**
      * @param delayId
      * @param time
      * @param useDelay
@@ -1488,7 +1487,7 @@ public class Player extends Creature {
         return edit_mode;
     }
 
-    private boolean	noExperienceGain = false;
+    private boolean noExperienceGain = false;
 
     public void setNoExperienceGain(boolean noExperienceGain)
     {
@@ -1504,7 +1503,35 @@ public class Player extends Creature {
     }
 
     /**
-     * isQuestComplete by ZeroSignal
+     * @return KinahAmount
+     */
+    public long getKinah() {
+        return inventory.getKinahItem().getItemCount();
+    }
+
+    /**
+     * This method will increase the kinah amount of a player
+     *
+     * @param price
+     */
+    public void addKinah(long price) {
+        inventory.increaseKinah(price);
+    }
+
+    /**
+     * This method will decrease the kinah amount of a player
+     *
+     * @param price
+     */
+    public void removeKinah(long price) {
+        inventory.decreaseKinah(price);
+    }
+
+    /**
+     * isQuestComplete
+     *
+     * @param questId
+     * @param return boolean value if Quest Complete or not.
      */
     public boolean isQuestComplete(int questId)
     {
@@ -1513,9 +1540,12 @@ public class Player extends Creature {
             return false;
         return (questState.getStatus() == QuestStatus.COMPLETE);
     }
-    
+
     /**
-     * isQuestStart by ZeroSignal
+     * isQuestStart
+     *
+     * @param questId
+     * @param return boolean value if Quest Started or not.
      */
     public boolean isQuestStart(int questId)
     {

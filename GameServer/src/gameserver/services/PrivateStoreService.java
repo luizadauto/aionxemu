@@ -32,22 +32,24 @@ import gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
 import gameserver.network.aion.serverpackets.SM_PRIVATE_STORE_NAME;
 import gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import gameserver.utils.PacketSendUtility;
+import gameserver.utils.i18n.CustomMessageId;
+import gameserver.utils.i18n.LanguageHandler;
+
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 import java.util.Set;
 
 /**
- * @author Simple
+ * @author Simple, ZeroSignal
  */
 public class PrivateStoreService {
-
+    private static Logger log = Logger.getLogger(PrivateStoreService.class);
     /**
      * @param activePlayer
-     * @param itemObjId
-     * @param itemId
-     * @param itemAmount
-     * @param itemPrice
+     * @param tradePSItems
      */
     public static void addItem(Player activePlayer, TradePSItem[] tradePSItems) {
         /**
@@ -77,7 +79,7 @@ public class PrivateStoreService {
                 /**
                  * Add item to private store
                  */
-                store.addItemToSell(tradePSItems[i].getItemObjId(), tradePSItems[i]);
+                store.addItemToSell(tradePSItems[i]);
             }
         }
     }
@@ -121,13 +123,22 @@ public class PrivateStoreService {
 
     /**
      * This method will move the item to the new player and move kinah to item owner
+     *
+     * @param seller
+     * @param buyer
+     * @param tradeList
+     * @return tradeList thats updated.
      */
-    public static void sellStoreItem(Player seller, Player buyer, TradeList tradeList) {
+    public static TradeList sellStoreItem(Player seller, Player buyer, TradeList tradeList) {
         /**
          * 1. Check if we are busy with two valid participants
          */
-        if (!validateParticipants(seller, buyer))
-            return;
+        if (!validateParticipants(seller, buyer)) {
+            log.warn("PrivateStoreService.sellStoreItem : invalid Participants." +
+                " sellerId: " + seller.getObjectId() +
+                ", buyerId: " + buyer.getObjectId());
+            return null;
+        }
 
         /**
          * Define store to make life easier
@@ -138,16 +149,24 @@ public class PrivateStoreService {
          * 2. Load all item object id's and validate if seller really owns them
          */
         tradeList = loadObjIds(seller, tradeList);
-        if (tradeList == null)
-            return; // Invalid items found or store was empty
+        if (tradeList == null) {
+            log.warn("PrivateStoreService.sellStoreItem: loadObjIds tradeList returned null. " +
+                "sellerId: " + seller.getObjectId());
+            return null; // Invalid items found or store was empty
+        }
 
         /**
          * 3. Check free slots
          */
         Storage inventory = buyer.getInventory();
-        int freeSlots = inventory.getLimit() - inventory.getAllItems().size() + 1;
-        if (freeSlots < tradeList.size())
-            return; // TODO message
+        int freeSlots = inventory.getLimit() - (inventory.getAllItems().size() - 1);
+        if (freeSlots < tradeList.size()) {
+            PacketSendUtility.sendMessage(buyer, LanguageHandler.translate(CustomMessageId.PLAYER_INVENTORY_FULL));
+            log.warn("PrivateStoreService.sellStoreItem : not enough free slots. " +
+                "freeSlots: " + freeSlots +
+                ", tradeList.size(): " + tradeList.size());
+            return null; // TODO message
+        }
 
         /**
          * Create total price and items
@@ -156,50 +175,64 @@ public class PrivateStoreService {
 
         /**
          * Check if player has enough kinah and remove it
-         */
-        if (getKinahAmount(buyer) >= price) {
-            /**
-             * Decrease kinah for buyer and Increase kinah for seller
-             */
-            decreaseKinahAmount(buyer, price);
-            increaseKinahAmount(seller, price);
-
-            List<Item> newItems = new ArrayList<Item>();
-            for (TradeItem tradeItem : tradeList.getTradeItems()) {
-                Item item = getItemByObjId(seller, tradeItem.getItemId());
-                if (item != null) {
-                    TradePSItem storeItem = store.getTradeItemById(tradeItem.getItemId());
-
-                    // number of items in store before decreasing
-                    long storeItemCount = storeItem.getCount();
-
-                    Set<ManaStone> manaStones = null;
-                    if (item.hasManaStones())
-                        manaStones = item.getItemStones();
-
-                    GodStone godStone = item.getGodStone();
-                    decreaseItemFromPlayer(seller, item, tradeItem);
-                    ItemService.addFullItem(buyer, item.getItemTemplate().getTemplateId(),
-                        tradeItem.getCount(), item.getItemCreator(), manaStones, godStone,
-                        item.getEnchantLevel());
-                    if (storeItemCount == tradeItem.getCount())
-                        store.removeItem(storeItem.getItemObjId());
-                }
-            }
-
-            /**
-             * Add item to buyer's inventory
-             */
-            if (newItems.size() > 0)
-                PacketSendUtility.sendPacket(buyer, new SM_INVENTORY_UPDATE(newItems));
-
-            /**
-             * Remove item from store and check if last item
-             */
-            if (store.getSoldItems().size() == 0)
-                closePrivateStore(seller);
-            return;
+         */        
+        if (buyer.getKinah() < price) {
+            log.warn("PrivateStoreService.sellStoreItem : buyer not enough kinah. " +
+                "buyerId: " + buyer.getObjectId() +
+                ", kinah: " + buyer.getKinah() +
+                ", price: " + price);
+            return null;
         }
+
+        /**
+         * Decrease kinah for buyer and Increase kinah for seller
+         */
+        buyer.removeKinah(price);
+        seller.addKinah(price);
+
+        List<Item> newItems = new ArrayList<Item>();
+        List<Integer> removeSlots = new ArrayList<Integer>();
+
+        for (TradeItem tradeItem : tradeList.getTradeItems()) {
+            Item item = getItemByObjId(seller, tradeItem.getItemId());
+            if (item == null)
+                continue;
+
+            TradePSItem storeItem = store.getTradeItemBySlot(tradeItem.getItemSlot());
+
+            Set<ManaStone> manaStones = null;
+            if (item.hasManaStones())
+                manaStones = item.getItemStones();
+
+            GodStone godStone = item.getGodStone();
+
+            if (storeItem.getCount() == tradeItem.getCount())
+                removeSlots.add(tradeItem.getItemSlot());
+
+            decreaseItemFromPlayer(seller, item, tradeItem);
+            ItemService.addFullItem(buyer, item.getItemTemplate().getTemplateId(),
+                tradeItem.getCount(), item.getItemCreator(), manaStones, godStone,
+                item.getEnchantLevel());
+            tradeItem.setItemId(storeItem.getItemId());
+        }
+
+        /** 
+         * Remove the store Items that have been sold in reverse order to avoid memory errors.
+         */
+        if (!removeSlots.isEmpty()) {
+            Collections.sort(removeSlots, Collections.reverseOrder());
+            for (int slot : removeSlots) {
+                store.removeItem(slot);
+            }
+        }
+
+        /**
+         * Remove item from store and check if last item
+         */
+        if (store.getSoldItems().isEmpty())
+            closePrivateStore(seller);
+
+        return tradeList;
     }
 
     /**
@@ -211,8 +244,7 @@ public class PrivateStoreService {
     private static void decreaseItemFromPlayer(Player seller, Item item, TradeItem tradeItem) {
         seller.getInventory().decreaseItemCount(item, tradeItem.getCount());
         PacketSendUtility.sendPacket(seller, new SM_UPDATE_ITEM(item));
-        PrivateStore store = seller.getStore();
-        store.getTradeItemById(item.getObjectId()).decreaseCount(tradeItem.getCount());
+        seller.getStore().getTradeItemBySlot(tradeItem.getItemSlot()).decreaseCount(tradeItem.getCount());
     }
 
     /**
@@ -225,11 +257,12 @@ public class PrivateStoreService {
         TradeList newTradeList = new TradeList();
 
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
-            int i = 0;
-            for (int itemObjId : store.getSoldItems().keySet()) {
-                if (i == tradeItem.getItemId())
-                    newTradeList.addPSItem(itemObjId, tradeItem.getCount());
-                i++;
+            TradePSItem psItem = store.getTradeItemBySlot(tradeItem.getItemId());
+            if (psItem == null)
+                continue;
+            if (!newTradeList.addSellPSItem(tradeItem, psItem))
+            {
+                log.error("TradeList.addSellPSItem failed. " + psItem.toString() + tradeItem.toString());
             }
         }
 
@@ -268,36 +301,6 @@ public class PrivateStoreService {
     }
 
     /**
-     * This method will return the amount of kinah of a player
-     *
-     * @param newOwner
-     * @return
-     */
-    private static long getKinahAmount(Player player) {
-        return player.getInventory().getKinahItem().getItemCount();
-    }
-
-    /**
-     * This method will decrease the kinah amount of a player
-     *
-     * @param player
-     * @param price
-     */
-    private static void decreaseKinahAmount(Player player, long price) {
-        player.getInventory().decreaseKinah(price);
-    }
-
-    /**
-     * This method will increase the kinah amount of a player
-     *
-     * @param player
-     * @param price
-     */
-    private static void increaseKinahAmount(Player player, long price) {
-        player.getInventory().increaseKinah(price);
-    }
-
-    /**
      * This method will return the item in a inventory by object id
      *
      * @param player
@@ -318,7 +321,7 @@ public class PrivateStoreService {
     private static long getTotalPrice(PrivateStore store, TradeList tradeList) {
         long totalprice = 0;
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
-            TradePSItem item = store.getTradeItemById(tradeItem.getItemId());
+            TradePSItem item = store.getTradeItemBySlot(tradeItem.getItemSlot());
             totalprice += item.getPrice() * tradeItem.getCount();
         }
         return totalprice;
@@ -333,8 +336,8 @@ public class PrivateStoreService {
             PacketSendUtility.broadcastPacket(activePlayer,
                     new SM_PRIVATE_STORE_NAME(activePlayer.getObjectId(), name), true);
         } else {
-			PacketSendUtility.broadcastPacket(activePlayer, new SM_PRIVATE_STORE_NAME(activePlayer.getObjectId(), ""),
-				true);
-		}
-	}
+            PacketSendUtility.broadcastPacket(activePlayer, new SM_PRIVATE_STORE_NAME(activePlayer.getObjectId(), ""),
+                true);
+        }
+    }
 }

@@ -19,15 +19,15 @@ package gameserver.model.trade;
 import gameserver.model.templates.item.ItemTemplate;
 
 /**
- * @author ATracer
+ * @author ATracer, ZeroSignal
  */
 public class TradeItem {
-    private int itemId;
-    private long count;
-    private ItemTemplate itemTemplate;
+    protected int itemSlot = 0;
+    protected int itemId;
+    protected long count;
+    protected ItemTemplate itemTemplate;
 
     public TradeItem(int itemId, long count) {
-        super();
         this.itemId = itemId;
         this.count = count;
     }
@@ -57,14 +57,33 @@ public class TradeItem {
      * @return the count
      */
     public long getCount() {
-        return count;
+        return this.count;
+    }
+
+    public int getItemSlot() {
+        return this.itemSlot;
+    }
+
+    public void setItemSlot(int slot) {
+        this.itemSlot = slot;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     /**
      * This method will decrease the current count
      */
     public void decreaseCount(long decreaseCount) {
-        if (decreaseCount < count)
-            this.count = count - decreaseCount;
-	}
+        if (decreaseCount < this.count)
+            this.count -= decreaseCount;
+    }
+
+    public String toString() {
+        return "TradeItem - " +
+            "itemSlot: " + itemSlot +
+            ", itemId: " + itemId +
+            ", count: " + count + ". ";
+    }
 }

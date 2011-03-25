@@ -24,11 +24,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
- * @author ATracer
- *         reimplemented by RotO
+ * @author ATracer, RotO
  */
 public class ItemStorage {
+    private static Logger log = Logger.getLogger(ItemStorage.class);
+
     public static final int FIRST_AVAILABLE_SLOT = 65535;
 
     /**
@@ -107,6 +110,7 @@ public class ItemStorage {
                 return item;
             }
         }
+        log.warn("ItemStorage.getItemFromStorageByItemObjId("+itemObjId+") Item could not Found.");
         return null;
     }
 
@@ -121,6 +125,7 @@ public class ItemStorage {
                 return item.getEquipmentSlot();
             }
         }
+        log.warn("ItemStorage.getSlotIdByItemId("+itemId+") Item could not Found.");
         return -1;
     }
 

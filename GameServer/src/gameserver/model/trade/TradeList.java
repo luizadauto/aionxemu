@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author ATracer
+ * @author ATracer, ZeroSignal
  */
 public class TradeList {
     private int sellerObjId;
@@ -43,35 +43,45 @@ public class TradeList {
      * @param itemId
      * @param count
      */
-    public void addBuyItem(int itemId, long count) {
+    public boolean addBuyItem(int itemId, long count) {
 
         ItemTemplate itemTemplate = ItemService.getItemTemplate(itemId);
-        if (itemTemplate != null) {
-            TradeItem tradeItem = new TradeItem(itemId, count);
-            tradeItem.setItemTemplate(itemTemplate);
-            tradeItems.add(tradeItem);
-        }
+        if (itemTemplate == null)
+            return false;
+
+        TradeItem tradeItem = new TradeItem(itemId, count);
+        tradeItem.setItemTemplate(itemTemplate);
+        if(!tradeItems.add(tradeItem))
+            return false;
+        return true;
     }
 
     /**
-     * @param itemId
-     * @param count
+     * @param tradeItem
+     * @param tradePSItem
      */
-    public void addPSItem(int itemId, long count) {
-        ItemTemplate itemTemplate = ItemService.getItemTemplate(itemId);
-        if (itemTemplate != null) {
-            TradeItem tradeItem = new TradeItem(itemId, count);
-            tradeItems.add(tradeItem);
-        }
+    public boolean addSellPSItem(TradeItem tradeItem, TradePSItem tradePSItem) {
+        ItemTemplate itemTemplate = ItemService.getItemTemplate(tradePSItem.getItemId());
+        if (itemTemplate == null)
+            return false;
+
+        TradeItem newTradeItem = new TradeItem(tradePSItem.getItemObjId(), tradeItem.getCount());
+        newTradeItem.setItemTemplate(itemTemplate);
+        newTradeItem.setItemSlot(tradeItem.getItemId());
+        if(!tradeItems.add(newTradeItem))
+            return false;
+        return true;
     }
 
     /**
      * @param itemObjId
      * @param count
      */
-    public void addSellItem(int itemObjId, long count) {
+    public boolean addSellItem(int itemObjId, long count) {
         TradeItem tradeItem = new TradeItem(itemObjId, count);
-        tradeItems.add(tradeItem);
+        if(!tradeItems.add(tradeItem))
+            return false;
+        return true;
     }
 
     /**

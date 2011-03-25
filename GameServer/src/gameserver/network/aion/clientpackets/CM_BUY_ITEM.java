@@ -39,11 +39,13 @@ import org.apache.log4j.Logger;
  *         modified by Simple
  */
 public class CM_BUY_ITEM extends AionClientPacket {
+    private static final Logger log = Logger.getLogger(CM_BUY_ITEM.class);
 
     private int sellerObjId;
     private int unk1;
     private int amount;
-    private int itemId;
+    private int itemId = 0;
+    private int itemSlot = 0;
     private int count;
 
     public int unk2;
@@ -51,11 +53,6 @@ public class CM_BUY_ITEM extends AionClientPacket {
     public CM_BUY_ITEM(int opcode) {
         super(opcode);
     }
-
-    /**
-     * Logger
-     */
-    private static final Logger log = Logger.getLogger(CM_BUY_ITEM.class);
 
     private TradeList tradeList;
 
@@ -72,7 +69,12 @@ public class CM_BUY_ITEM extends AionClientPacket {
         tradeList.setSellerObjId(sellerObjId);
 
         for (int i = 0; i < amount; i++) {
-            itemId = readD();
+            int tmpInt1 = readD();
+            if (unk1 == 0)
+                itemSlot = tmpInt1;
+            else
+                itemId = tmpInt1;
+
             count = readD();
             unk2 = readD();
 
@@ -82,8 +84,12 @@ public class CM_BUY_ITEM extends AionClientPacket {
 
             if (unk1 == 13 || unk1 == 14) {
                 tradeList.addBuyItem(itemId, count);
-            } else if (unk1 == 0 || unk1 == 1) {
+            }
+            else if (unk1 == 1) {
                 tradeList.addSellItem(itemId, count);
+            }
+            else if (unk1 == 0) {
+                tradeList.addSellItem(itemSlot, count);
             }
         }
     }
@@ -99,7 +105,7 @@ public class CM_BUY_ITEM extends AionClientPacket {
         switch (unk1) {
             case 0:
                 Player targetPlayer = (Player) obj;
-                PrivateStoreService.sellStoreItem(targetPlayer, player, tradeList);
+                tradeList = PrivateStoreService.sellStoreItem(targetPlayer, player, tradeList);
                 break;
 
             case 1:
@@ -121,6 +127,9 @@ public class CM_BUY_ITEM extends AionClientPacket {
                 log.info(String.format("Unhandle shop action unk1: %d", unk1));
                 break;
         }
+
+        if (tradeList == null)
+            return;
 
         VisibleObject visibleObject = null;
         if (obj instanceof VisibleObject)
