@@ -199,8 +199,7 @@ public class SM_BROKER_ITEMS extends AionServerPacket {
         writeD(buf, 0);
         writeD(buf, 0);
         writeS(buf, item.getSeller());
-        writeS(buf, ""); //creator
-
+        writeS(buf, item.getItem().getItemCreator()); //creator
     }
 
     private void writeItemStones(ByteBuffer buf, Item item) {
@@ -255,6 +254,6 @@ public class SM_BROKER_ITEMS extends AionServerPacket {
         writeD(buf, 0);
         writeH(buf, 0);
         writeS(buf, item.getSeller());
-        writeS(buf, ""); //creator
+        writeS(buf, item.getItem().getItemCreator()); //creator
     }
 }

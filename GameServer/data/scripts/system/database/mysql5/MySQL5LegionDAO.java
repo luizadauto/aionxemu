@@ -78,7 +78,7 @@ public class MySQL5LegionDAO extends LegionDAO {
     /**
      * Storage Queries *
      */
-    private static final String SELECT_STORAGE_QUERY = "SELECT `itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `isEquiped`, `slot`, `enchant`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket` FROM `inventory` WHERE `itemOwner`=? AND `itemLocation`=? AND `isEquiped`=?";
+    private static final String SELECT_STORAGE_QUERY = "SELECT `itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `isEquiped`, `slot`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket` FROM `inventory` WHERE `itemOwner`=? AND `itemLocation`=? AND `isEquiped`=?";
 
     /**
      * History Queries *
@@ -453,7 +453,11 @@ public class MySQL5LegionDAO extends LegionDAO {
                     int fusionedItem = rset.getInt("fusionedItem");
                     int optionalSocket = rset.getInt("optionalSocket");
                     int optionalFusionSocket = rset.getInt("optionalFusionSocket");
-                    Item item = new Item(itemUniqueId, itemId, itemCount, itemColor, isEquiped == 1, false, slot, storage, enchant, itemSkin, fusionedItem, optionalSocket, optionalFusionSocket);
+                    String itemCreator = rset.getString("itemCreator");
+                    Item item = new Item(itemUniqueId, itemId, itemCount,
+                        itemColor, itemCreator, (isEquiped == 1), false, slot,
+                        storage, enchant, itemSkin, fusionedItem,
+                        optionalSocket, optionalFusionSocket);
                     item.setPersistentState(PersistentState.UPDATED);
                     inventory.onLoadHandler(item);
                 }

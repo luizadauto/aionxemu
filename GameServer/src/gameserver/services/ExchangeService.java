@@ -169,7 +169,8 @@ public class ExchangeService {
         if (exchangeItem == null) {
             Item newItem = null;
             if (itemCount < item.getItemCount()) {
-                newItem = ItemService.newItem(item.getItemId(), itemCount);
+                newItem = ItemService.newItem(item.getItemId(), itemCount,
+                    item.getItemCreator());
             } else {
                 newItem = item;
             }

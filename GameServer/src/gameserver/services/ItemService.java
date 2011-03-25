@@ -60,6 +60,15 @@ public class ItemService {
         return DataManager.ITEM_DATA.getItemTemplate(itemId);
     }
 
+   /**
+     * @param itemId
+     * @param count
+     * @return Creates new Item instance.
+     */
+    public static Item newItem(int itemId, long count) {
+        return newItem(itemId, count, null);
+    }
+
     /**
      * @param itemId
      * @param count
@@ -67,7 +76,7 @@ public class ItemService {
      *         If count is greater than template maxStackCount, count value will be cut to maximum allowed
      *         This method will return null if ItemTemplate for itemId was not found.
      */
-    public static Item newItem(int itemId, long count) {
+    public static Item newItem(int itemId, long count, String itemCreator) {
         ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
         if (itemTemplate == null) {
             return null;
@@ -79,7 +88,7 @@ public class ItemService {
         }
 
         //TODO if Item object will contain ownerId - item can be saved to DB before return
-        Item temp = new Item(IDFactory.getInstance().nextId(), itemId, itemTemplate, count, false, 0);
+        Item temp = new Item(IDFactory.getInstance().nextId(), itemId, itemTemplate, count, itemCreator, false, 0);
         if (itemTemplate.isWeapon() || itemTemplate.isArmor()) {
             temp.setOptionalSocket(Rnd.get(0, itemTemplate.getOptionSlotBonus()));
         }
@@ -265,6 +274,10 @@ public class ItemService {
         sendStorageUpdatePacket(player, replaceStorageType, newReplaceItem);
     }
 
+    public static long addItem(Player player, int itemId, long count) {
+        return addItem(player, itemId, count, null);
+    }
+
     /**
      * Adds item count to player inventory
      * I moved this method to service cause right implementation of it is critical to server
@@ -274,25 +287,31 @@ public class ItemService {
      *
      * @param player
      * @param itemId
-     * @param count  - amount of item that were not added to player's inventory
+     * @param count
+     * @param itemCreator
+     *
+     * amount of item that were not added to player's inventory
      */
-    public static long addItem(Player player, int itemId, long count) {
+    public static long addItem(Player player, int itemId, long count, String itemCreator) {
         if (GSConfig.LOG_ITEM)
             log.info(String.format("[ITEM] ID/Count - %d/%d to player %s.", itemId, count, player.getName()));
 
-        return addFullItem(player, itemId, count, null, null, 0);
+        return addFullItem(player, itemId, count, itemCreator, null, null, 0);
     }
 
     /**
      * @param player
      * @param itemId
      * @param count
-     * @param isQuestItem
+     * @param itemCreator
      * @param manastones
      * @param godStone
      * @param enchantLevel
      */
-    public static long addFullItem(Player player, int itemId, long count, Set<ManaStone> manastones, GodStone godStone, int enchantLevel) {
+    public static long addFullItem(Player player, int itemId, long count,
+        String itemCreator, Set<ManaStone> manastones, GodStone godStone,
+        int enchantLevel)
+    {
         Storage inventory = player.getInventory();
 
         ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
@@ -332,12 +351,12 @@ public class ItemService {
             while (!inventory.isFull() && count > 0) {
                 // item count still more than maxStack value
                 if (count > maxStackCount) {
-                    Item item = newItem(itemId, maxStackCount);
+                    Item item = newItem(itemId, maxStackCount, itemCreator);
                     count -= maxStackCount;
                     inventory.putToBag(item);
                     updateItem(player, item, true);
                 } else {
-                    Item item = newItem(itemId, count);
+                    Item item = newItem(itemId, count, itemCreator);
 
                     //add item stones if available
                     //1. manastones

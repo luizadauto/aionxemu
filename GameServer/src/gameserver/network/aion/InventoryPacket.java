@@ -65,11 +65,14 @@ public abstract class InventoryPacket extends AionServerPacket {
      * @param item
      */
     protected void writeGeneralItemInfo(ByteBuffer buf, Item item, boolean privateStore, boolean mail) {
-        writeH(buf, 0x16); //length of details
+        writeH(buf, 0x1A); //length of details
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
-        writeD(buf, 0);
+        writeH(buf, 0);//Creator name
+        writeC(buf, 0);
+        writeD(buf, 0); //Disappears time
+        writeC(buf, 0);
         writeD(buf, 0);
         if (!privateStore)
             writeH(buf, 0);
@@ -79,7 +82,7 @@ public abstract class InventoryPacket extends AionServerPacket {
     }
 
     protected void writeStigmaInfo(ByteBuffer buf, Item item) {
-        writeH(buf, 325); //length of details 45 01
+        writeH(buf, 329); //length of details 45 01
         writeC(buf, 0x6);
         if (item.isEquipped())
             writeD(buf, item.getEquipmentSlot());
@@ -159,7 +162,6 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeH(buf, 0);
         writeH(buf, 0x0b); //0b
 
-
         writeC(buf, 0);
         writeD(buf, item.getItemTemplate().getTemplateId());
 
@@ -190,7 +192,7 @@ public abstract class InventoryPacket extends AionServerPacket {
      * @param item
      */
     protected void writeKinah(ByteBuffer buf, Item item, boolean isInventory) {
-        writeH(buf, 0x16); //length of details
+        writeH(buf, 0x1A); //length of details
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
@@ -198,6 +200,7 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeD(buf, 0);
         writeH(buf, 0);
         writeC(buf, 0);
+        writeD(buf, 0);
         writeH(buf, 255); // FF FF equipment
         if (isInventory)
             writeC(buf, 0);
@@ -268,9 +271,12 @@ public abstract class InventoryPacket extends AionServerPacket {
 
             writeH(buf, item.getItemMask());
             writeQ(buf, item.getItemCount());
-            writeD(buf, 0); // PlayerObjId of crafter
+            writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
+            writeH(buf, 0);
+            writeD(buf, 0);
             writeD(buf, 0); // For temp items: Remaining seconds
-            if (!privateStore) writeH(buf, 0);
+            if (!privateStore)
+                writeH(buf, 0);
             writeC(buf, 0);
 
             size = buf.position() - sizeLoc;
@@ -359,7 +365,10 @@ public abstract class InventoryPacket extends AionServerPacket {
      */
     protected void writeArmorInfo(ByteBuffer buf, Item item, boolean isInventory, boolean privateStore, boolean mail) {
         int itemSlotId = item.getEquipmentSlot();
-        writeH(buf, 0x4F);
+        int placeHolder, sizeLoc, size;
+
+        writeH(buf, 0x53);
+        sizeLoc = buf.position();
         writeC(buf, 0x06);
         writeD(buf, item.isEquipped() ? itemSlotId : 0);
         writeC(buf, 0x02);
@@ -370,28 +379,33 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeC(buf, item.isSoulBound() ? 1 : 0);
         writeC(buf, item.getEnchantLevel()); //enchant (1-15)
         writeD(buf, item.getItemSkinTemplate().getTemplateId());
-
         writeC(buf, item.hasOptionalSocket() ? item.getOptionalSocket() : 0x00);
 
         writeItemStones(buf, item);
 
         writeC(buf, 0);
         writeD(buf, item.getItemColor());
+
         writeD(buf, 0);
-
-        writeD(buf, 0);//unk 1.5.1.9
-        writeC(buf, 0);//unk 1.5.1.9
-
+        writeD(buf, 0); //unk 1.5.1.9
+        writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
+        writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
+        writeH(buf, 0);
         writeD(buf, 0);
         writeD(buf, 0);
         if (!privateStore)
             writeH(buf, 0);
         writeC(buf, 0);
+        size = buf.position() - sizeLoc;
+        placeHolder = buf.position();
+        buf.position(sizeLoc - 2);
+        writeH(buf, size);
+        buf.position(placeHolder);
         if (!mail)
             writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot()); // FF FF equipment
         if (isInventory)
-            writeC(buf, 1);//item.isEquipped() ? 1 : 0
+            writeC(buf, 1); //item.isEquipped() ? 1 : 0
     }
 }

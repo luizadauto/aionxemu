@@ -72,6 +72,8 @@ public class Item extends AionObject {
 
     private int enchantLevel;
 
+    private String itemCreator;
+
     private int fusionedItemId = 0;
 
     /**
@@ -79,16 +81,20 @@ public class Item extends AionObject {
      * @param itemId
      * @param itemTemplate
      * @param itemCount
+     * @param itemCreator
      * @param isEquipped
      * @param equipmentSlot This constructor should be called from ItemService
      *                      for newly created items and loadedFromDb
      */
-    public Item(int objId, int itemId, ItemTemplate itemTemplate, long itemCount, boolean isEquipped, int equipmentSlot) {
+    public Item(int objId, int itemId, ItemTemplate itemTemplate, long itemCount,
+        String itemCreator, boolean isEquipped, int equipmentSlot)
+    {
         super(objId);
 
         this.itemId = itemId;
         this.itemTemplate = itemTemplate;
         this.itemCount = itemCount;
+        this.itemCreator = itemCreator;
         this.isEquipped = isEquipped;
         this.equipmentSlot = equipmentSlot;
         this.persistentState = PersistentState.NEW;
@@ -98,17 +104,32 @@ public class Item extends AionObject {
      * @param objId
      * @param itemId
      * @param itemCount
+     * @param itemColor
+     * @param itemCreator
      * @param isEquipped
-     * @param equipmentSlot This constructor should be called only from DAO while loading from DB
+     * @param isSoulBound
+     * @param equipmentSlot
+     * @param itemLocation
+     * @param enchant
+     * @param itemSkin
+     * @param fusionedItem
+     * @param optionalSocket
+     * @param optionalFusionSocket
+     *
+     * This constructor should be called only from DAO while loading from DB.
      */
-    public Item(int objId, int itemId, long itemCount, int itemColor, boolean isEquipped, boolean isSoulBound, int equipmentSlot, int itemLocation,
-                int enchant, int itemSkin, int fusionedItem, int optionalSocket, int optionalFusionSocket) {
+    public Item(int objId, int itemId, long itemCount, int itemColor,
+        String itemCreator, boolean isEquipped, boolean isSoulBound,
+        int equipmentSlot, int itemLocation, int enchant, int itemSkin,
+        int fusionedItem, int optionalSocket, int optionalFusionSocket)
+    {
         super(objId);
 
         this.itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
         this.itemId = itemId;
         this.itemCount = itemCount;
         this.itemColor = itemColor;
+        this.itemCreator = itemCreator;
         this.isEquipped = isEquipped;
         this.isSoulBound = isSoulBound;
         this.equipmentSlot = equipmentSlot;
@@ -621,5 +642,22 @@ public class Item extends AionObject {
         if(slots > 6)
             slots = 6;
         return slots;
+    }
+
+    /**
+     * @param return itemCreator
+     */
+    public String getItemCreator()
+    {
+        return itemCreator;
+    }
+
+    /**
+     * @param itemCreator the itemCreator to set
+     */
+    public void setItemCreator(String itemCreator)
+    {
+        this.itemCreator = itemCreator;
+        setPersistentState(PersistentState.UPDATE_REQUIRED);
     }
 }

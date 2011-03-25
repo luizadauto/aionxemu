@@ -58,7 +58,7 @@ public class CraftService {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_COMBINE_SUCCESS(new DescriptionId(ItemService.getItemTemplate(productItemId).getNameId())));
         } else if ((productItemId != 0) && (recipetemplate.getSkillid() != 40009)) {
             int xpReward = (int) ((0.008 * (recipetemplate.getSkillpoint() + 100) * (recipetemplate.getSkillpoint() + 100) + 60));
-            ItemService.addItem(player, productItemId, recipetemplate.getQuantity());
+            ItemService.addItem(player, productItemId, recipetemplate.getQuantity(), player.getName());
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_COMBINE_SUCCESS(new DescriptionId(ItemService.getItemTemplate(productItemId).getNameId())));
 
             if (player.getSkillList().addSkillXp(player, recipetemplate.getSkillid(), (int)RewardType.CRAFTING.calcReward(player, xpReward)))
@@ -141,6 +141,6 @@ public class CraftService {
                 player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, critItemTemplate, skillLvlDiff));
             }
             player.getCraftingTask().start();
-		}
-	}	
+        }
+    }
 }

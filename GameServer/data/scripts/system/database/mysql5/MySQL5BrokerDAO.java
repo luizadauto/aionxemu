@@ -102,7 +102,11 @@ public class MySQL5BrokerDAO extends BrokerDAO {
                     int fusionedItem = rset.getInt("fusionedItem");
                     int optionalSocket = rset.getInt("optionalSocket");
                     int optionalFusionSocket = rset.getInt("optionalFusionSocket");
-                    brokerItems.add(new Item(itemUniqueId, itemId, itemCount, itemColor, false, false, slot, location, enchant, itemSkin, fusionedItem, optionalSocket, optionalFusionSocket));
+                    String itemCreator = rset.getString("itemCreator");
+                    brokerItems.add(new Item(itemUniqueId, itemId, itemCount,
+                        itemColor, itemCreator, false, false, slot, location,
+                        enchant, itemSkin, fusionedItem, optionalSocket,
+                        optionalFusionSocket));
                 }
             }
         });

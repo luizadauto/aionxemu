@@ -172,7 +172,8 @@ public class MailService {
                             .getItemCount())
                             * qualityPriceRate);
                 } else if (senderItem.getItemCount() > attachedItemCount) {
-                    attachedItem = ItemService.newItem(senderItem.getItemTemplate().getTemplateId(), attachedItemCount);
+                    attachedItem = ItemService.newItem(senderItem.getItemTemplate().getTemplateId(),
+                        attachedItemCount, senderItem.getItemCreator());
                     senderItem.decreaseItemCount(attachedItemCount);
                     PacketSendUtility.sendPacket(sender, new SM_UPDATE_ITEM(senderItem));
 

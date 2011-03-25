@@ -113,11 +113,16 @@ public class MySQL5MailDAO extends MailDAO {
                     int isSoulBound = rset.getInt("isSoulBound");
                     int slot = rset.getInt("slot");
                     int enchant = rset.getInt("enchant");
+                    String itemCreator = rset.getString("itemCreator");
                     int itemSkin = rset.getInt("itemSkin");
                     int fusionedItem = rset.getInt("fusionedItem");
                     int optionalSocket = rset.getInt("optionalSocket");
                     int optionalFusionSocket = rset.getInt("optionalFusionSocket");
-                    Item item = new Item(itemUniqueId, itemId, itemCount, itemColor, isEquiped == 1, isSoulBound == 1, slot, StorageType.MAILBOX.getId(), enchant, itemSkin, fusionedItem, optionalSocket, optionalFusionSocket);
+                    Item item = new Item(itemUniqueId, itemId, itemCount,
+                        itemColor, itemCreator, (isEquiped == 1),
+                        (isSoulBound == 1), slot, StorageType.MAILBOX.getId(),
+                        enchant, itemSkin, fusionedItem, optionalSocket,
+                        optionalFusionSocket);
                     item.setPersistentState(PersistentState.UPDATED);
                     mailboxItems.add(item);
                 }

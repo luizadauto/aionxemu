@@ -19,16 +19,16 @@ package gameserver.network.aion.serverpackets;
 
 import gameserver.model.gameobjects.Item;
 import gameserver.network.aion.AionConnection;
-import gameserver.network.aion.AionServerPacket;
+import gameserver.network.aion.InventoryPacket;
 
 import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * @author Avol
+ * @author Avol, AionChs
  */
 
-public class SM_VIEW_PLAYER_DETAILS extends AionServerPacket {
+public class SM_VIEW_PLAYER_DETAILS extends InventoryPacket {
     private List<Item> items;
     private int size;
     private int targetObjId;
@@ -38,46 +38,29 @@ public class SM_VIEW_PLAYER_DETAILS extends AionServerPacket {
         this.size = items.size();
     }
 
-
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
-
         writeD(buf, targetObjId); // unk
         writeC(buf, 11); //unk
         writeC(buf, size); // itemCount
         writeC(buf, 0);
         writeD(buf, 0);
         for (Item item : items) {
-            //////general info/////////////
-            writeD(buf, item.getItemTemplate().getTemplateId());//itemId
-            writeH(buf, 36); //
-            writeD(buf, item.getItemTemplate().getNameId());// itemNameId
-            writeH(buf, 0);
-            /////who knows/////////////
-            writeH(buf, 36);
-            writeC(buf, 4);
-            writeC(buf, 1);
-            writeH(buf, 0);
-            writeH(buf, 0);
-            writeC(buf, 0);
-            ////////////////////////
-            writeH(buf, 0);
-            writeC(buf, 6);
-            writeH(buf, item.getEquipmentSlot()); // slot
-            writeH(buf, 0);
-            writeC(buf, 0);
-            writeH(buf, 62);
-            writeH(buf, (int) item.getItemCount()); // count
-            ////////////////////////
-            //Here comes the lol part.
-            ////////////////////////
-            writeD(buf, 0);
-            writeD(buf, 0);
-            writeD(buf, 0);
-            writeD(buf, 0);
-            writeD(buf, 0);
-            writeC(buf, 0);
+            writeGeneralInfo(buf, item);
+            if (item.getItemTemplate().isArmor())
+                writeArmorInfo(buf, item, false, false, true);
+            else if (item.getItemTemplate().isWeapon())
+                writeWeaponInfo(buf, item, false, false, false, true);
+            else
+                writeGeneralItemInfo(buf, item, false, true);
         }
-
     }
+
+   protected void writeGeneralInfo(ByteBuffer buf, Item item) {
+        writeD(buf, 0);
+        writeD(buf, item.getItemTemplate().getTemplateId()); // itemId
+        writeH(buf, 36); //
+        writeD(buf, item.getItemTemplate().getNameId()); // itemNameId
+        writeH(buf, 0);
+   }
 }

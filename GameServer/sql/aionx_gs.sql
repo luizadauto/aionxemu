@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `slot` INT NOT NULL DEFAULT '0',
   `itemLocation` TINYINT(1) DEFAULT '0',
   `enchant` TINYINT(1) DEFAULT '0',
+  `itemCreator` varchar(50),
   `itemSkin`  int(11) NOT NULL DEFAULT 0,
   `fusionedItem` INT(11) NOT NULL DEFAULT '0',
   `optionalSocket` INT(1) NOT NULL DEFAULT '0',
