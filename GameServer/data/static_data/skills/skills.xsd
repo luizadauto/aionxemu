@@ -791,7 +791,9 @@
 	</xs:complexType>
 	<xs:complexType name="ResurrectEffect">
 		<xs:complexContent>
-			<xs:extension base="Effect"/>
+			<xs:extension base="Effect">
+				<xs:attribute name="teleport" type="xs:string"/>
+			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="DispelDebuffMentalEffect">

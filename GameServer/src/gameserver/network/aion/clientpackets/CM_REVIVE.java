@@ -73,5 +73,6 @@ public class CM_REVIVE extends AionClientPacket {
                 break;
         }
 		
+        activePlayer.getReviveController().setToBeTeleported(false);
 	}
 }

@@ -18,11 +18,13 @@ package gameserver.skillengine.effect;
 
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_RESURRECT;
+import gameserver.services.TeleportService;
 import gameserver.skillengine.model.Effect;
 import gameserver.utils.PacketSendUtility;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -31,14 +33,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ResurrectEffect")
 public class ResurrectEffect extends EffectTemplate {
+	@XmlAttribute
+	protected String teleport = "";
+	
     @Override
     public void applyEffect(Effect effect) {
-        PacketSendUtility.sendPacket((Player) effect.getEffected(), new SM_RESURRECT(effect.getEffector(), effect.getSkillId()));
+        Player effector = (Player) effect.getEffector();
+        Player effected = (Player) effect.getEffected();
+        
+        if(!(effected instanceof Player) || !effected.getLifeStats().isAlreadyDead())
+        	return;
+        
+        if(teleport.equals("self")) {
+        	effected.getReviveController().setTeleportTarget(effector);
+        	effected.getReviveController().setToBeTeleported(true);
+        }
+        
+        PacketSendUtility.sendPacket(effected, new SM_RESURRECT(effector, effect.getSkillId()));
     }
 
     @Override
     public void calculate(Effect effect) {
-        if (effect.getEffected() instanceof Player && effect.getEffected().getLifeStats().isAlreadyDead())
-            effect.addSucessEffect(this);
+        effect.addSucessEffect(this);
     }
 }

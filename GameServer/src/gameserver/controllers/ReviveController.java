@@ -19,6 +19,7 @@ package gameserver.controllers;
 import gameserver.model.EmotionType;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Kisk;
+import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.*;
 import gameserver.services.TeleportService;
@@ -38,6 +39,8 @@ public class ReviveController {
 
     private Player player;
     private int rebirthResurrectPercent;
+    private boolean toBeTeleported;
+    private VisibleObject teleportTarget;
 
     public ReviveController(Player player) {
         this.player = player;
@@ -55,6 +58,9 @@ public class ReviveController {
         PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.REVIVE);
         PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
 
+        if (toBeTeleported && teleportTarget != null)
+        	TeleportService.teleportTo(player, teleportTarget.getWorldId(), teleportTarget.getInstanceId(), teleportTarget.getX(), teleportTarget.getY(), teleportTarget.getZ(), teleportTarget.getHeading(), 0);
+        
         if (player.isInPrison())
             TeleportService.teleportToPrison(player);
     }
@@ -223,5 +229,37 @@ public class ReviveController {
     private void applySoulSickness() {
         Skill skill = SkillEngine.getInstance().getSkill(player,8291,1,player);
 		skill.useSkill();
+	}
+
+	/**
+	 * @param toBeTeleported the toBeTeleported to set
+	 */
+	public void setToBeTeleported(boolean toBeTeleported)
+	{
+		this.toBeTeleported = toBeTeleported;
+	}
+
+	/**
+	 * @return the toBeTeleported
+	 */
+	public boolean isToBeTeleported()
+	{
+		return toBeTeleported;
+	}
+
+	/**
+	 * @param teleportTarget the teleportTarget to set
+	 */
+	public void setTeleportTarget(VisibleObject teleportTarget)
+	{
+		this.teleportTarget = teleportTarget;
+	}
+
+	/**
+	 * @return the teleportTarget
+	 */
+	public VisibleObject getTeleportTarget()
+	{
+		return teleportTarget;
 	}
 }
