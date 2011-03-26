@@ -40,7 +40,7 @@ public class QuestCommand extends AdminCommand {
     public void executeCommand(Player admin, String[] params) {
         if (admin.getAccessLevel() >= AdminConfig.COMMAND_QUESTCOMMAND) {
             if (params == null || params.length < 1) {
-                PacketSendUtility.sendMessage(admin, "syntax //quest <start | set>");
+                PacketSendUtility.sendMessage(admin, "syntax //quest <start | set | vars>");
                 return;
             }
 
@@ -122,8 +122,25 @@ public class QuestCommand extends AdminCommand {
                 qs.setStatus(questStatus);
                 qs.setQuestVarById(varId, var);
                 PacketSendUtility.sendPacket(target, new SM_QUEST_ACCEPTED(questId, qs.getStatus(), qs.getQuestVars().getQuestVars()));
+            } else if (params[0].equals("vars") && params.length == 2) {
+                int questId, varId, var;
+                QuestStatus questStatus;
+
+                try {
+                    questId = Integer.valueOf(params[1]);
+                }
+                catch (NumberFormatException e) {
+                    PacketSendUtility.sendMessage(admin, "syntax //quest vars questId");
+                    return;
+                }
+                QuestState qs = target.getQuestStateList().getQuestState(questId);
+                if (qs == null) {
+                    PacketSendUtility.sendMessage(admin, "syntax //quest vars questId");
+                    return;
+                }
+                PacketSendUtility.sendMessage(admin, "vars: "+ qs.getQuestVarById(0));
             } else
-                PacketSendUtility.sendMessage(admin, "syntax //quest <start | set>");
+                PacketSendUtility.sendMessage(admin, "syntax //quest <start | set | vars>");
             return;
         } else if (admin.getAccessLevel() >= AdminConfig.COMMAND_QUESTCOMMANDPLAYERS) {
             if (params == null || params.length < 1) {
