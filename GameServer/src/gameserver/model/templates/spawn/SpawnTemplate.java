@@ -197,6 +197,10 @@ public class SpawnTemplate {
         return staticid;
     }
 
+    public void setStaticid(int staticId) {
+    	staticid = staticId;
+    }
+
     public void setSpawnId(int spawnId) {
         this.spawnId = spawnId;
     }

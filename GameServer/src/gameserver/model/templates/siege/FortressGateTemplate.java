@@ -31,7 +31,7 @@ public class FortressGateTemplate {
 
     @XmlElement(name = "baseinfo")
     protected SiegeSingleSpawnBaseInfo baseInfo;
-    @XmlElement(name = "heal_gate")
+    @XmlElement(name = "fortress_gate_artifact")
     protected FortressGateArtifactTemplate gateArtifact;
     @XmlElement(name = "tele_enter")
     protected SiegeSpawnLocationTemplate teleEnter;

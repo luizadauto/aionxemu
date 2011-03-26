@@ -196,15 +196,13 @@ public class SM_NPC_INFO extends AionServerPacket {
         writeF(buf, npc.getY());// y
         writeF(buf, npc.getZ());// z
         writeC(buf, 0x00); // move type
-        if (npc instanceof FortressGate) {
-            writeH(buf, ((FortressGate) npc).getStaticId());
-        } else {
-            SpawnTemplate spawn = npc.getSpawn();
-            if (spawn == null)
-                writeH(buf, 0);
-            else
-                writeH(buf, spawn.getStaticid());
-        }
+
+        SpawnTemplate spawn = npc.getSpawn();
+        if (spawn == null)
+        	writeH(buf, 0);
+        else
+        	writeH(buf, spawn.getStaticid());
+
         writeC(buf, 0);
         writeC(buf, 0); // all unknown
         writeC(buf, 0);

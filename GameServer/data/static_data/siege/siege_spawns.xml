@@ -8,11 +8,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- Spawned when Fortress is under Siege Siels Ostfestung-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Egill / Stenoleus, Guerisseur d'ame, Elite, level 45-->
-			<!-- Festungstor, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="2613.91" y="2890.54" z="1506" h="26"/>
-				<loc x="2599.96" y="2812.27" z="1505.96" h="86"/>
-			</siege_guard>
 			<siege_guard npcid_dr="263521" npcid_da="263520" npcid_li="263519">
 				<loc x="2585.4" y="2882.3" z="1506.5" h="102"/>
 			</siege_guard>
@@ -309,6 +304,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="263315" npcid_da="263310" npcid_li="263303" x="2621.608" y="2857.7712" z="1460.7179" h="41"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275205" npcid_da="275204" npcid_li="275203" x="2616.5176" y="2905.7314" z="1504.9023" h="0" static_id="23" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="275208" npcid_da="275207" npcid_li="275206" x="2609.4724" y="2866.356" z="1507.5076" h="0" static_id="225" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2597.9324" y="2615.7983" z="1505.2831" h="0"/>
+			<tele_exit x="2617.2192" y="2909.6096" z="1504.7772" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275205" npcid_da="275204" npcid_li="275203" x="2597.4167" y="2797.6025" z="1504.9023" h="0" static_id="6" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="275208" npcid_da="275207" npcid_li="275206" x="2604.3684" y="2836.4485" z="1507.5076" h="0" static_id="202" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2597.9324" y="2801.3823" z="1505.2623" h="0"/>
+			<tele_exit x="2596.9905" y="2794.2842" z="1504.8104" h="0"/>
+  		</fortress_gate>
 		<!--Artefact - Maitrise etheree-->
 		<artifact>
 			<baseinfo npcid_dr="277047" npcid_da="277046" npcid_li="277045" x="2556.4885" y="2848.8594" z="1487.5" h="0"/>
@@ -328,11 +345,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Spawned when Fortress is under Siege (MIREN)-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-			<!-- Festungstor Miren, Elite, level 40-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="1760.08" y="2328.94" z="2948.4" h="98"/>
-				<loc x="1800.15" y="2243.64" z="2948.84" h="98"/>
-			</siege_guard>
 			<!-- Moynen / Cora, Teleporteur de la forteresse, Elite, level 50-->
 			<siege_guard npcid_dr="270124" npcid_da="270123" npcid_li="270122">
 				<loc x="1794.7" y="2316.4" z="2949.7" h="68"/>
@@ -549,6 +561,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="269915" npcid_da="269910" npcid_li="269905" x="1772.2528" y="2268.5317" z="2906.9924" h="105"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276408" npcid_da="276407" npcid_li="276406" x="1805.3768" y="2232.49" z="2948.0569" h="0" static_id="19" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276411" npcid_da="276410" npcid_li="276409" x="1788.4398" y="2268.8516" z="2950.6692" h="0" static_id="215" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="1803.9808" y="2235.3267" z="2948.3176" h="0"/>
+			<tele_exit x="1806.5831" y="2229.7153" z="2947.966" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276408" npcid_da="276407" npcid_li="276406" x="1758.6643" y="2332.2007" z="2948.0569" h="0" static_id="110" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276411" npcid_da="276410" npcid_li="276409" x="1775.3726" y="2296.3271" z="2950.6692" h="0" static_id="214" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="1760.2833" y="2328.5266" z="2948.4297" h="0"/>
+			<tele_exit x="1757.1439" y="2334.6187" z="2947.997" h="0"/>
+  		</fortress_gate>
 		<!--Artefact - Legere brise de Miren-->
 		<artifact>
 			<baseinfo npcid_dr="277062" npcid_da="277061" npcid_li="277060" x="1821.94" y="2313.83" z="2930.6" h="71"/>
@@ -569,11 +603,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- Spawned when Fortress is under Siege Siels Westfestung-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Hohen / Ortia, Proprietaire d'entrepot, normal, level 40-->
-			<!-- Festungstor, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="2748.52" y="2609.18" z="1503.45" h="60"/>
-				<loc x="2829.26" y="2608.99" z="1503.52" h="0"/>
-			</siege_guard>
 			<siege_guard npcid_dr="0" npcid_da="263217" npcid_li="263215">
 				<loc x="2764.1" y="2582.6" z="1504.1" h="30"/>
 			</siege_guard>
@@ -866,6 +895,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="263015" npcid_da="263010" npcid_li="263005" x="2789.9211" y="2608.7219" z="1507.1716" h="0"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275105" npcid_da="275104" npcid_li="275103" x="2844.3115" y="2609.1204" z="1502.4509" h="0" static_id="25" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="275108" npcid_da="275107" npcid_li="275106" x="2804.311" y="2609.2209" z="1505.0562" h="0" static_id="200" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2840.5898" y="2609.1614" z="1502.803" h="0"/>
+			<tele_exit x="2848.0923" y="2609.238" z="1502.3278" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275105" npcid_da="275104" npcid_li="275103" x="2734.5088" y="2609.1545" z="1502.4509" h="0" static_id="53" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="275108" npcid_da="275107" npcid_li="275106" x="2773.9717" y="2609.054" z="1505.0562" h="0" static_id="199" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2738.0278" y="2609.0686" z="1502.7924" h="0"/>
+			<tele_exit x="2731.3643" y="2609.0552" z="1502.3715" h="0"/>
+  		</fortress_gate>
 		<!--Artefact - Colere perforant-->
 		<artifact>
 			<baseinfo npcid_dr="277044" npcid_da="277043" npcid_li="277042" x="2777.8374" y="2658.3555" z="1485.0039" h="93"/>
@@ -887,11 +938,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- Spawned when Fortress is under Siege Schwefelbaum-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Danorum / Kiniras, Guerisseur d'ame, Elite, level 45-->
-			<!-- Festungstor, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="1410.98" y="1209.42" z="1514.12" h="12"/>
-				<loc x="1345.41" y="1163.98" z="1514.12" h="71"/>
-			</siege_guard>
 			<siege_guard npcid_dr="264721" npcid_da="264720" npcid_li="264719">
 				<loc x="1383.3" y="1221.0" z="1514.7" h="101"/>
 			</siege_guard>
@@ -1189,6 +1235,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="264515" npcid_da="264510" npcid_li="264505" x="1393.3375" y="1180.9839" z="1473.4489" h="27"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275402" npcid_da="275401" npcid_li="275400" x="1423.3719" y="1217.8861" z="1513.0509" h="0" static_id="50" />
+					<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="275405" npcid_da="275404" npcid_li="275403" x="1390.4165" y="1195.2146" z="1515.6561" h="0" static_id="205" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="1420.01" y="1215.6539" z="1513.4252" h="0"/>
+			<tele_exit x="1426.038" y="1219.7262" z="1512.9657" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275402" npcid_da="275401" npcid_li="275400" x="1333.0459" y="1155.453" z="1513.0509" h="0" static_id="49" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="275405" npcid_da="275404" npcid_li="275403" x="1365.5592" y="1177.8187" z="1515.6561" h="0" static_id="204" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="1337.6982" y="1158.5342" z="1513.5222" h="0"/>
+			<tele_exit x="1330.2091" y="1153.2798" z="1512.9443" h="0"/>
+  		</fortress_gate>
 		<!--Artefact - Aura de guerison-->
 		<artifact>
 			<baseinfo npcid_dr="277050" npcid_da="277049" npcid_li="277048" x="1334.7935" y="1236.0947" z="1495.6266" h="100"/>
@@ -1216,10 +1284,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- Bey / Yana, Teleporteur de la forteresse, Elite, level 50-->
 			<siege_guard npcid_dr="271024" npcid_da="271023" npcid_li="271022">
 				<loc x="719.4" y="3004.8" z="2893.0" h="76"/>
-			</siege_guard>
-			<!-- Festungstor, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="684.302" y="2992.17" z="2892.3147" h="0"/>
 			</siege_guard>
 			<!-- Phymapeng / Eumolpuce, Guerisseur d'ame, Elite, level 50-->
 			<siege_guard npcid_dr="271021" npcid_da="271020" npcid_li="271019">
@@ -1399,6 +1463,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="270815" npcid_da="270810" npcid_li="270805" x="693.87518" y="2984.1997" z="2769.8257" h="105"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276505" npcid_da="276504" npcid_li="276503" x="703.41058" y="2979.0959" z="2727.1362" h="0" static_id="111" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276508" npcid_da="276507" npcid_li="276506" x="733.57404" y="2952.7739" z="2729.7415" h="0" static_id="209" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="706.1124" y="2976.7402" z="2727.0676" h="0"/>
+			<tele_exit x="700.64795" y="2981.4446" z="2727.0361" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276505" npcid_da="276504" npcid_li="276503" x="669.18866" y="3005.2656" z="2890.9038" h="0" static_id="116" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276508" npcid_da="276507" npcid_li="276506" x="706.65991" y="2972.5347" z="2894.1982" h="0" static_id="208" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="671.227" y="3003.4792" z="2891.2197" h="0"/>
+			<tele_exit x="666.3855" y="3007.4397" z="2890.824" h="0"/>
+  		</fortress_gate>
 		<!-- Artefact - Regard apaisant d'Asteria-->
 		<artifact>
 			<baseinfo npcid_dr="277065" npcid_da="277064" npcid_li="257492" x="708.0636" y="2915.918" z="2876.2573" h="6"/>
@@ -1420,11 +1506,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- Spawned when Fortress is under Siege -->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Brakert / Therenus, Guerisseur d'ame, Elite, level 55-->
-			<!-- Festungstor, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="2137.91" y="1971.03" z="2321.86" h="30"/>
-				<loc x="2137.87" y="1891.42" z="2321.96" h="91"/>
-			</siege_guard>
 			<siege_guard npcid_dr="260220" npcid_da="260219" npcid_li="260218">
 				<loc x="2154.1" y="1910.5" z="2322.1" h="47"/>
 			</siege_guard>
@@ -1756,6 +1837,30 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="260014" npcid_da="260009" npcid_li="260004" x="2135.9543" y="1931.4821" z="2323.4438" h="90"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275029" npcid_da="275028" npcid_li="275027" x="2137.8599" y="1875.7925" z="2320.7739" h="0" static_id="126" />
+			<tele_enter x="2137.8135" y="1879.3939" z="2321.1584" h="0"/>
+			<tele_exit x="2137.8904" y="1869.0432" z="2320.3503" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275029" npcid_da="275028" npcid_li="275027" x="2137.894" y="1985.5953" z="2320.7739" h="0" static_id="125" />
+			<tele_enter x="2137.84" y="1981.4928" z="2321.1748" h="0"/>
+			<tele_exit x="2137.5935" y="1989.6464" z="2320.6404" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate C-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275035" npcid_da="275034" npcid_li="275033" x="2137.8799" y="2039.855" z="2311.0049" h="0" static_id="146" />
+			<tele_enter x="2138.0671" y="2035.6703" z="2310.8752" h="0"/>
+			<tele_exit x="2137.8904" y="2043.875" z="2309.776" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate D-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="275035" npcid_da="275034" npcid_li="275033" x="2137.8796" y="1821.6476" z="2310.884" h="0" static_id="147" />
+			<tele_enter x="2137.8462" y="1826.3424" z="2310.8752" h="0"/>
+			<tele_exit x="2137.9922" y="1817.4502" z="2309.7178" h="0"/>
+  		</fortress_gate>
 		<!-- Artefact - Aura reposante-->
 		<artifact>
 			<baseinfo npcid_dr="277041" npcid_da="277040" npcid_li="277039" x="2192.691" y="1926.8291" z="2301.6294" h="33"/>
@@ -1776,11 +1881,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Spawned when Fortress is under Siege -->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-			<!-- Festungstor Krotan, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="2056.24" y="1313.27" z="2962.92" h="30"/>
-				<loc x="2058.39" y="1231.4" z="2962.81" h="91"/>
-			</siege_guard>
 			<!-- Hildebrant / Moirai, Officier d'etat-major, normal, level 50-->
 			<siege_guard npcid_dr="0" npcid_da="268052" npcid_li="268051">
 				<loc x="2057.8" y="1245.0" z="2956.3" h="30"/>
@@ -2010,6 +2110,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="267815" npcid_da="267810" npcid_li="267805" x="2070.1191" y="1284.1936" z="2920.6848" h="45"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276211" npcid_da="276210" npcid_li="276209" x="2055.895" y="1329.3607" z="2961.9248" h="0" static_id="119" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276214" npcid_da="276213" npcid_li="276212" x="2056.7954" y="1289.2581" z="2964.5371" h="0" static_id="210" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2055.9631" y="1324.9545" z="2962.2563" h="0"/>
+			<tele_exit x="2055.6501" y="1334.8652" z="2961.6892" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276211" npcid_da="276210" npcid_li="276209" x="2058.6086" y="1219.2838" z="2961.9248" h="0" static_id="118" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276214" npcid_da="276213" npcid_li="276212" x="2057.7219" y="1258.8474" z="2964.5371" h="0" static_id="211" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2058.5876" y="1224.3187" z="2962.362" h="0"/>
+			<tele_exit x="2058.7917" y="1215.7333" z="2961.8196" h="0"/>
+  		</fortress_gate>
 		<!-- Artefact - Assaut de Krotan-->
 		<artifact>
 			<baseinfo npcid_dr="277056" npcid_da="277055" npcid_li="277054" x="2008.227" y="1261.6769" z="2944.5237" h="4"/>
@@ -2030,11 +2152,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Spawned when Fortress is under Siege -->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-			<!-- Festungstor Kysis, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="2463.66" y="2102.71" z="3049.13" h="3"/>
-				<loc x="2550.97" y="2113.87" z="3049.1" h="3"/>
-			</siege_guard>
 			<!-- Varna / Igistus, Quartier-maitre de la forteresse abyssale, normal, level 50-->
 			<siege_guard npcid_dr="268014" npcid_da="269250" npcid_li="269249">
 				<loc x="2527.8" y="2135.5" z="3050.0" h="92"/>
@@ -2256,6 +2373,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="269015" npcid_da="269010" npcid_li="269005" x="2495.3391" y="2119.5603" z="3007.3096" h="77"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276308" npcid_da="276307" npcid_li="276306" x="2560.7166" y="2115.3032" z="3048.354" h="0" static_id="24" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276311" npcid_da="276310" npcid_li="276309" x="2521.4604" y="2110.2996" z="3050.9663" h="0" static_id="212" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2555.7876" y="2114.4639" z="3048.7888" h="0"/>
+			<tele_exit x="2564.3745" y="2115.5405" z="3048.2422" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276308" npcid_da="276307" npcid_li="276306" x="2451.5212" y="2101.1365" z="3048.354" h="0" static_id="121" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276311" npcid_da="276310" npcid_li="276309" x="2491.312" y="2106.2097" z="3050.9663" h="0" static_id="213" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2455.6726" y="2101.5112" z="3048.6719" h="0"/>
+			<tele_exit x="2447.3428" y="2100.4695" z="3048.1946" h="0"/>
+  		</fortress_gate>
 		<!-- Artefact : Renouveau de Kysis-->
 		<artifact>
 			<baseinfo npcid_dr="277059" npcid_da="277058" npcid_li="277057" x="2523.9421" y="2060.7366" z="3030.917" h="36"/>
@@ -2276,11 +2415,6 @@ Forteresses et Artefacts Abyssaux-->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 			<!-- Spawned when Fortress is under Siege -->
 			<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-			<!-- Festungstor Roah, Elite, level 50-->
-			<siege_guard npcid_dr="257494" npcid_da="257493" npcid_li="257492">
-				<loc x="2776.28" y="806.179" z="2871.7" h="3"/>
-				<loc x="2692.72" y="795.296" z="2871.68" h="63"/>
-			</siege_guard>
 			<!-- Tazze / Semelle, Quartier-maitre de la Forteresse abyssale, normal, level 50-->
 			<siege_guard npcid_dr="268014" npcid_da="266552" npcid_li="266551">
 				<loc x="2761.1" y="778.8" z="2872.4" h="33"/>
@@ -2603,6 +2737,28 @@ Forteresses et Artefacts Abyssaux-->
 		<fortress_general>
 			<baseinfo npcid_dr="266315" npcid_da="266310" npcid_li="266305" x="2678.0686" y="807.02557" z="2829.4734" h="77"/>
 		</fortress_general>
+		<!--Fortress Gate A-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276011" npcid_da="276010" npcid_li="276009" x="2680.1648" y="793.6076" z="2870.7644" h="0" static_id="51" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276014" npcid_da="276013" npcid_li="276012" x="2719.3103" y="798.60413" z="2873.3696" h="0" static_id="206" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2684.0605" y="794.1804" z="2871.132" h="0"/>
+			<tele_exit x="2677.267" y="793.1537" z="2870.6982" h="0"/>
+  		</fortress_gate>
+		<!--Fortress Gate B-->
+		<fortress_gate>
+  			<baseinfo npcid_dr="276011" npcid_da="276010" npcid_li="276009" x="2789.0525" y="807.75378" z="2870.7644" h="0" static_id="54" />
+		<!--Fortress Gate Stone B-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="276014" npcid_da="276013" npcid_li="276012" x="2749.3738" y="802.68781" z="2873.3696" h="0" static_id="207" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
+			<tele_enter x="2684.0605" y="794.1804" z="2871.132" h="0"/>
+			<tele_exit x="2677.267" y="793.1537" z="2870.6982" h="0"/>
+  		</fortress_gate>
 		<!-- Artefact - Fortification aerienne-->
 		<artifact>
 			<baseinfo npcid_dr="277053" npcid_da="277052" npcid_li="277051" x="2706.702" y="747.93427" z="2853.4187" h="36"/>
@@ -4008,6 +4164,11 @@ Forteresses et Artefacts Abyssaux-->
 		<!--Fortress Gate A-->
 		<fortress_gate>
   			<baseinfo npcid_dr="257494" npcid_da="257493" npcid_li="257492" x="834.12292" y="1863.2976" z="334.07114" h="0" static_id="373" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="257497" npcid_da="257496" npcid_li="257495" x="843.04651" y="1883.4232" z="333.33499" h="0" static_id="382" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
 			<tele_enter x="833.33" y="1861.55" z="334.1" h="0"/>
 			<tele_exit x="835.09" y="1865.75" z="333.78" h="0"/>
   		</fortress_gate>
@@ -4280,6 +4441,11 @@ Forteresses et Artefacts Abyssaux-->
 		<!--Fortress Gate A-->
 		<fortress_gate>
   			<baseinfo npcid_dr="257194" npcid_da="257193" npcid_li="257192" x="1763.8739" y="2114.5952" z="321.56815" h="95" static_id="379" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="257197" npcid_da="257196" npcid_li="257195" x="1757.5753" y="2135.5664" z="320.90491" h="0" static_id="478" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
 			<tele_enter x="1762.45" y="2118.48" z="320.71" h="0"/>
 			<tele_exit x="1764.18" y="2113.00" z="321.59" h="0"/>
   		</fortress_gate>
@@ -4687,6 +4853,11 @@ Forteresses et Artefacts Abyssaux-->
 		<!--Fortress Gate A-->
 		<fortress_gate>
   			<baseinfo npcid_dr="257794" npcid_da="257793" npcid_li="257792" x="1198.4962" y="930.19611" z="306.77377" h="0" static_id="963" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="257797" npcid_da="257796" npcid_li="257795" x="1198.1444" y="908.58746" z="306.01913" h="0" static_id="969" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
 			<tele_enter x="1198.54" y="932.64" z="306.72" h="0"/>
 			<tele_exit x="1198.18" y="927.18" z="306.23" h="0"/>
   		</fortress_gate>
@@ -4978,6 +5149,11 @@ Forteresses et Artefacts Abyssaux-->
 		<!--Fortress Gate A-->
 		<fortress_gate>
   			<baseinfo npcid_dr="258094" npcid_da="258093" npcid_li="258092" x="1880.2562" y="1168.7518" z="323.62369" h="0" static_id="846" />
+		<!--Fortress Gate Stone A-->
+		<fortress_gate_artifact>
+  			<baseinfo npcid_dr="258097" npcid_da="258096" npcid_li="258095" x="1880.2723" y="1147.1469" z="322.87787" h="0" static_id="855" />
+			<heal_gate percent="1"/>
+		</fortress_gate_artifact>
 			<tele_enter x="1880.59" y="1171.10" z="323.57" h="0"/>
 			<tele_exit x="1880.15" y="1165.64" z="323.01" h="0"/>
   		</fortress_gate>

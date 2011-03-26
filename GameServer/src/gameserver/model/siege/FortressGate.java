@@ -30,12 +30,9 @@ public class FortressGate extends Npc {
     private FortressGateArtifact gateArtifact;
     private FortressGateTemplate fgTemplate;
 
-    private int spawnStaticId;
-
-    public FortressGate(int objId, FortressGateController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId, int staticId, FortressGateTemplate template) {
+    public FortressGate(int objId, FortressGateController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId, FortressGateTemplate template) {
         super(objId, controller, spawn, objectTemplate);
         this.fortressId = fortressId;
-        this.spawnStaticId = staticId;
         this.fgTemplate = template;
     }
 
@@ -46,10 +43,6 @@ public class FortressGate extends Npc {
     public void setArtifact(FortressGateArtifact artifact) {
         gateArtifact = artifact;
         gateArtifact.setRelatedGate(this);
-    }
-
-    public int getStaticId() {
-        return spawnStaticId;
     }
     
     public FortressGateTemplate getTemplate() {

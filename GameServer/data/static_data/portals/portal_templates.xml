@@ -81,10 +81,20 @@
 		<entrypoint mapid="400010000" x="1344.07" y="1243.71" z="1498.31"/>
 		<exitpoint mapid="300060000" x="462.352" y="345.609" z="162.817"/>
 	</portal>
+	<!-- Sulfur tree nest -->
+	<portal npcid="700453" instance="false" minlevel="35" maxlevel="55" group="false">
+		<entrypoint mapid="300060000" x="462.6254" y="332.89355" z="162.80669"/>
+		<exitpoint mapid="400010000" x="1341.6997" y="1242.4253" z="1496.5812"/>
+	</portal>
 	<!-- Asteria chamber -->
 	<portal npcid="700460" instance="true" minlevel="45" maxlevel="55" group="true">
 		<entrypoint mapid="400010000" x="705.45" y="2921.74" z="2880.84"/>
 		<exitpoint mapid="300050000" x="469.343" y="567.713" z="201.732"/>
+	</portal>
+	<!-- Out Asteria -->
+	<portal npcid="700461" instance="false" minlevel="45" maxlevel="55" group="false">
+		<entrypoint mapid="300050000" x="461.05597" y="567.03485" z="205.75105"/>
+		<exitpoint mapid="400010000" x="707.98" y="2919.22" z="2877.51"/>
 	</portal>
 	<!-- Aetherogenetics Lab rein -->
 	<portal npcid="730034" instance="true" minlevel="41" maxlevel="55" group="true">

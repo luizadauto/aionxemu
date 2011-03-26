@@ -3188,7 +3188,10 @@
 		<quest_drop drop_each_member="false" chance="100" item_id="182201409" npc_id="700315"/>
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="24" nameId="2205177" name="Three Kurin Brothers" id="1488">
-		<rewards title="20" exp="230200" gold="66520"/>
+		<rewards title="20" exp="230200" gold="66520">
+			<selectable_reward_item count="1" item_id="122001286"/>
+			<selectable_reward_item count="1" item_id="122001287"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="24" nameId="2205179" name="Marfonda of Darkness" id="1489"/>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="24" nameId="2205181" name="A Lepharist Box" id="1490">

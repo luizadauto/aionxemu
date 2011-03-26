@@ -88,4 +88,9 @@
 	<spawn map="300050000" npcid="700476" pool="1" interval="14400">
 		<object x="521.091" y="419.727" z="199.759" h="88"/>
 	</spawn>
+	<!-- Beautiful Landscape Painting (Portal lvl:1) -->
+	<spawn map="300050000" npcid="700461" pool="1" interval="295">
+		<object staticid="33" x="461.05597" y="567.03485" z="205.75105" h="0"/>
+	</spawn>
+
 </spawns>
