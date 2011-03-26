@@ -308,8 +308,10 @@
 			<collect_item count="1" item_id="182201003"/>
 		</collect_items>
 		<rewards title="10" exp="701470" gold="81600">
-			<selectable_reward_item count="1" item_id="123000880"/>
-			<selectable_reward_item count="1" item_id="123000881"/>
+			<selectable_reward_item count="1" item_id="114101175"/>
+			<selectable_reward_item count="1" item_id="114301182"/>
+			<selectable_reward_item count="1" item_id="114501136"/>
+			<selectable_reward_item count="1" item_id="114601083"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201003" npc_id="210838"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201003" npc_id="210866"/>
