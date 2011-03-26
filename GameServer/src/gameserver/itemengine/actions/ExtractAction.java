@@ -16,6 +16,8 @@
  */
 package gameserver.itemengine.actions;
 
+import gameserver.controllers.movement.StartMovingListener;
+import gameserver.model.DescriptionId;
 import gameserver.model.TaskId;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
@@ -30,7 +32,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * @author ATracer
+ * @author ATracer, ZeroSignal, PZIKO333
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExtractAction")
@@ -50,14 +52,23 @@ public class ExtractAction extends AbstractItemAction {
         PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(),
                 parentItem.getObjectId(), parentItem.getItemTemplate().getTemplateId(), 5000, 0, 0));
         player.getController().cancelTask(TaskId.ITEM_USE);
+        player.getObserveController().attach(new StartMovingListener() {
+
+            @Override
+            public void moved() {
+            	player.getController().cancelTask(TaskId.ITEM_USE);
+            	PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_DECOMPOSE_ITEM_CANCELED(new DescriptionId(Integer.parseInt(targetItem.getName()))));
+            	PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), parentItem
+                    .getObjectId(), parentItem.getItemTemplate().getTemplateId(), 0, 2, 0));
+            }
+        });
         player.getController().addNewTask(TaskId.ITEM_USE,
                 ThreadPoolManager.getInstance().schedule(new Runnable() {
                     @Override
                     public void run() {
+                        boolean result = EnchantService.breakItem(player, targetItem, parentItem);
                         PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), parentItem
-                                .getObjectId(), parentItem.getItemTemplate().getTemplateId(), 0, 1, 0));
-
-                        EnchantService.breakItem(player, targetItem, parentItem);
+                            .getObjectId(), parentItem.getItemTemplate().getTemplateId(), 0, result ? 1 : 2, 0));
                     }
                 }, 5000));
 

@@ -46,7 +46,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * @author ATracer
+ * @author ATracer, ZeroSignal
  */
 public class EnchantService {
     private static final Logger log = Logger.getLogger(EnchantService.class);
@@ -56,8 +56,13 @@ public class EnchantService {
      * @param targetItem
      * @param parentItem
      */
-    public static void breakItem(Player player, Item targetItem, Item parentItem) {
+    public static boolean breakItem(Player player, Item targetItem, Item parentItem) {
         Storage inventory = player.getInventory();
+
+        if (inventory.getItemByObjId(targetItem.getObjectId()) == null)
+            return false;
+        if (inventory.getItemByObjId(parentItem.getObjectId()) == null)
+            return false;
 
         ItemTemplate itemTemplate = targetItem.getItemTemplate();
         ItemQuality quality = itemTemplate.getItemQuality();
@@ -95,6 +100,7 @@ public class EnchantService {
         inventory.removeFromBagByObjectId(parentItem.getObjectId(), 1);
 
         ItemService.addItem(player, enchantItemId, number);
+        return true;
     }
 
     /**
