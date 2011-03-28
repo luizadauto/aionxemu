@@ -103,7 +103,7 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     public static SM_SYSTEM_MESSAGE STR_MSG_COMBAT_FRIENDLY_DEATH_TO_B(String nameA, String nameB) {
         return new SM_SYSTEM_MESSAGE(1350001, nameA, nameB);
     }
-
+    
     /**
      * Gather-related
      */
@@ -432,6 +432,10 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
 
     public static SM_SYSTEM_MESSAGE DONT_HAVE_RECOVERED_EXP() {
         return new SM_SYSTEM_MESSAGE(1300682);
+    }
+    
+    public static SM_SYSTEM_MESSAGE STR_EXCHANGE_PARTNER_IS_EXCHANGING_WITH_OTHER() {
+        return new SM_SYSTEM_MESSAGE(1300355);
     }
 
     /**

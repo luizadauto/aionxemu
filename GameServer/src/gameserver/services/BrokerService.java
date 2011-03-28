@@ -29,6 +29,7 @@ import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.*;
+import gameserver.restrictions.RestrictionsManager;
 import gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
@@ -248,6 +249,11 @@ public class BrokerService {
         Race playerRace = player.getCommonData().getRace();
 
         BrokerItem buyingItem = getRaceBrokerItems(playerRace).get(itemUniqueId);
+        if (player.isTrading())
+        {
+        	PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300355));
+            return;
+        }
         if (buyingItem == null) {
             log.warn("BrokerService.buyBrokerItem - getRaceBrokerItems("+playerRace+").get("+itemUniqueId+")" +
                 ", playerId: "+player.getObjectId() +
