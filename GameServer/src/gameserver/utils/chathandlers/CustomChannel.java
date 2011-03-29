@@ -133,6 +133,13 @@ public abstract class CustomChannel extends UserCommand {
 
     @Override
     public void executeCommand(Player player, String params) {
+		if(player.getAccessLevel() < 1)
+        {
+            if(player.lastChat + CustomConfig.TALK_DELAY*1000 > System.currentTimeMillis())
+                return;
+            player.lastChat = System.currentTimeMillis();
+        }
+	
         if (!CustomConfig.CHANNEL_ALL_ENABLED) {
             PacketSendUtility.sendMessage(player, LanguageHandler.translate(CustomMessageId.CHANNEL_ALL_DISABLED));
             return;

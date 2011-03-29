@@ -311,4 +311,10 @@ public class CustomConfig {
      */
     @Property(key = "gameserver.topranking.delay", defaultValue = "24")
     public static int TOP_RANKING_DELAY;
+
+    /**
+     * Time between using worldchat
+     */
+    @Property(key = "gameserver.chat.talkdelay", defaultValue = "10")
+    public static int TALK_DELAY;
 }

@@ -144,6 +144,8 @@ public class Player extends Creature {
     private String bannedFromWorldReason = "";
     private ScheduledFuture<?> taskToUnbanFromWorld = null;
 
+    public long lastChat = 0;
+
     /**
      * Static information for players
      */
