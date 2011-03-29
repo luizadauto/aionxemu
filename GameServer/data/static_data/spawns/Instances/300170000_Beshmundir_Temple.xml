@@ -890,6 +890,14 @@
     	<spawn map="300170000" npcid="730275" pool="1" interval="295">
         	<object  x="1611.1266" y="1604.6935" z="311.5" h="17" />
     	</spawn>
+	<!-- Aeshma (q30218 30219 30318 30319)-->
+        <spawn map="300170000" npcid="799504" pool="1" interval="295">
+            <object x="1110.9486" y="275.336" z="232.50575" h="32"/>
+        </spawn>
+	<!-- Bhemah (q30220 30221 30320 30321)-->
+	    <spawn map="300170000" npcid="799505" pool="1" interval="295">
+            <object x="1080.0" y="366.0" z="232.45583" h="84"/>
+        </spawn>
 	<!-- Beshmundir Temple (Macunbello) Exit Portal -->
 <!--    <spawn map="300170000" npcid="730276" pool="1" interval="295">	-->
 <!--		<object  x="790.68585" y="319.889" z="220.89594" h="97" />	-->
