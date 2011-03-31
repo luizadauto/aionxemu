@@ -30,6 +30,8 @@ import gameserver.utils.PacketSendUtility;
 import gameserver.utils.i18n.CustomMessageId;
 import gameserver.utils.i18n.LanguageHandler;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -38,6 +40,7 @@ import java.util.Set;
  * @author ATracer
  */
 public class ExchangeService {
+    private static Logger log = Logger.getLogger(ExchangeService.class);
 
     private Map<Integer, Exchange> exchanges = new HashMap<Integer, Exchange>();
 
@@ -176,7 +179,7 @@ public class ExchangeService {
             } else {
                 newItem = item;
             }
-            exchangeItem = new ExchangeItem(itemObjId, itemCount, newItem);
+            exchangeItem = new ExchangeItem(itemObjId, itemCount, newItem, item.getItemCount());
             currentExchange.addItem(itemObjId, exchangeItem);
             actuallAddCount = itemCount;
         }
@@ -334,18 +337,25 @@ public class ExchangeService {
             Item item = exchangeItem.getItem();
             Item itemInInventory = activePlayer.getInventory().getItemByObjId(exchangeItem.getItemObjId());
 
-            if (item == null || itemInInventory == null || itemInInventory.getItemCount() < exchangeItem.getItemCount())
+            if (item == null || itemInInventory == null ||
+                itemInInventory.getItemCount() < exchangeItem.getItemCount() ||
+                exchangeItem.getOriginalItemCount() != itemInInventory.getItemCount())
+            {
                 return false;
+            }
         }
         for (ExchangeItem exchangeItem : exchange2.getItems().values()) {
             Item item = exchangeItem.getItem();
             Item itemInInventory = currentPartner.getInventory().getItemByObjId(exchangeItem.getItemObjId());
 
-            if (item == null || itemInInventory == null || itemInInventory.getItemCount() < exchangeItem.getItemCount())
+            if (item == null || itemInInventory == null ||
+                itemInInventory.getItemCount() < exchangeItem.getItemCount() ||
+                exchangeItem.getOriginalItemCount() != itemInInventory.getItemCount())
+            {
                 return false;
+            }
         }
 
-        
         return validateInventorySize(activePlayer, exchange2)
                 && validateInventorySize(currentPartner, exchange1);
     }
@@ -365,6 +375,7 @@ public class ExchangeService {
             Item itemToPut = exchangeItem.getItem();
             itemToPut.setEquipmentSlot(0);
             player.getInventory().putToBag(itemToPut);
+
             ItemService.updateItem(player, itemToPut, true);
             exchange2.addItemToUpdate(itemToPut);
         }

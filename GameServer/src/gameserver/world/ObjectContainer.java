@@ -84,9 +84,12 @@ public class ObjectContainer {
     }
 
     public AionObject findAionObject(int objectId) {
+        if (objectId == 0)
+            return null;
+
         AionObject ao = allObjects.get(objectId);
         if (ao == null)
-            log.warn("ObjectContainer.findAionObject(" + objectId + ") Not Found.");
+            log.info("ObjectContainer.findAionObject(" + objectId + ") Not Found.");
         return ao;
     }
 

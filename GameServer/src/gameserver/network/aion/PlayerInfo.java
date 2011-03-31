@@ -23,6 +23,9 @@ import gameserver.model.gameobjects.player.PlayerCommonData;
 import gameserver.model.items.GodStone;
 import gameserver.model.items.ItemSlot;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.utils.i18n.CustomMessageId;
+import gameserver.utils.i18n.LanguageHandler;
+
 import org.apache.log4j.Logger;
 
 import java.nio.ByteBuffer;
@@ -150,8 +153,8 @@ public abstract class PlayerInfo extends AionServerPacket {
         for (Item item : items) {
             ItemTemplate itemTemplate = item.getItemTemplate();
             if (itemTemplate == null) {
-                log.warn(String.format("ITEM TEMPLATE NOT FOUND: Player_id %d Item_id %d",
-                    pbd.getPlayerObjId(), item.getObjectId()));
+                log.warn(LanguageHandler.translate(CustomMessageId.ERROR_ITEM_TEMPATE_MISSING,
+                    pbd.getPlayerObjId(), item.getObjectId(), item.getItemId()));
                 continue;
             }
 

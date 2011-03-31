@@ -17,6 +17,7 @@
 package gameserver.network.aion.clientpackets;
 
 import gameserver.model.gameobjects.Npc;
+import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.templates.item.ItemCategory;
 import gameserver.model.templates.item.ItemTemplate;
@@ -56,7 +57,11 @@ public class CM_GODSTONE_SOCKET extends AionClientPacket {
         if (!MathUtil.isInRange(activePlayer, npc, 15))
             return;
 
-        ItemTemplate temp = (activePlayer.getInventory().getItemByObjId(stoneId)).getItemTemplate();
+        Item itemStone = activePlayer.getInventory().getItemByObjId(stoneId);
+        if (itemStone == null)
+            return;
+
+        ItemTemplate temp = itemStone.getItemTemplate();
         if (temp.getItemCategory() != ItemCategory.HOLYSTONE)
             return;
 

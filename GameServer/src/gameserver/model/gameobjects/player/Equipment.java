@@ -164,12 +164,19 @@ public class Equipment {
      */
     private Item equip(int itemSlotToEquip, Item item) {
         synchronized (equipment) {
+            if (owner == null)
+                return null;
+
+            Storage inventory = owner.getInventory(); 
+            if (inventory == null)
+                return null;
+
             // Check that item is still in Inventory.
-            if (owner.getInventory().getItemByObjId(item.getObjectId()) == null)
+            if (!inventory.isItemByObjId(item.getObjectId()))
                 return null;
 
             //remove item first from inventory to have at least one slot free
-            owner.getInventory().removeFromBag(item, false);
+            inventory.removeFromBag(item, false);
 
             //do unequip of necessary items
             Item equippedItem = equipment.get(itemSlotToEquip);
@@ -217,6 +224,10 @@ public class Equipment {
      */
     public Item unEquipItem(int itemUniqueId, int slot) {
         if (owner == null)
+            return null;
+
+        // Check that item is still in Equipment.
+        if (!isItemByObjId(itemUniqueId))
             return null;
 
         Storage inventory = owner.getInventory(); 
@@ -445,8 +456,20 @@ public class Equipment {
                     return item;
             }
         }
-
         return null;
+    }
+
+    /**
+     * @param value
+     * @return whether ObjectId exists.
+     */
+    public boolean isItemByObjId(int value) {
+        for (Item item : equipment.values()) {
+            if (item.getObjectId() == value) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

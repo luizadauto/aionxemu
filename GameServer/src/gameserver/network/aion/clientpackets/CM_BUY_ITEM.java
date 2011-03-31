@@ -31,7 +31,10 @@ import gameserver.questEngine.QuestEngine;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.services.PrivateStoreService;
 import gameserver.services.TradeService;
+import gameserver.utils.i18n.CustomMessageId;
+import gameserver.utils.i18n.LanguageHandler;
 import gameserver.world.World;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -138,7 +141,7 @@ public class CM_BUY_ITEM extends AionClientPacket {
         for (TradeItem item : tradeList.getTradeItems()) {
             ItemTemplate itemTemplate = item.getItemTemplate();
             if (itemTemplate == null) {
-                log.warn(String.format("ITEM TEMPLATE NOT FOUND: Player_id %d Item_id %d",
+                log.warn(LanguageHandler.translate(CustomMessageId.ERROR_TRADEITEM_TEMPATE_MISSING,
                     player.getObjectId(), item.getItemId()));
                 continue;
             }

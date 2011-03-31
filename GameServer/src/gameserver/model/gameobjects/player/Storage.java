@@ -192,7 +192,6 @@ public class Storage {
      * @return Item
      */
     public Item putToBag(Item item) {
-
         Item resultItem = storage.putToNextAvailableSlot(item);
         if (resultItem != null) {
             resultItem.setItemLocation(storageType);
@@ -365,6 +364,16 @@ public class Storage {
     public Item getItemByObjId(int value) {
         Item item = storage.getItemFromStorageByItemObjId(value);
         return item;
+    }
+
+    /**
+     * Will look item in default item bag
+     *
+     * @param value
+     * @return isItem contained.
+     */
+    public boolean isItemByObjId(int value) {
+        return storage.isItemFromStorageByItemObjId(value);
     }
 
     /**

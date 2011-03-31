@@ -170,24 +170,19 @@ public class TradeService {
         }
 
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
+            if(tradeItem.getCount() < 1)
+            {
+                log.warn("[AUDIT] Player: " + player.getName() + " posible client hack. Trade count < 1");
 
-      /**
-       * @author AionEngine, Flay
-       *
-       */
-			if(tradeItem.getCount() < 1)
-			{
-				log.warn("[AUDIT] Player: " + player.getName() + " posible client hack. Trade count < 1");
+                return false;
+            }
 
-				return false;
-			}
+            if((long)tradeItem.getItemTemplate().getMaxStackCount() < tradeItem.getCount())
+            {
+            log.warn("[AUDIT] Player: " + player.getName() + " posible client hack. item count > MaxStackCount");
 
-			if((long)tradeItem.getItemTemplate().getMaxStackCount() < tradeItem.getCount())
-			{
-  			log.warn("[AUDIT] Player: " + player.getName() + " posible client hack. item count > MaxStackCount");
-
-				return false;
-			}
+                return false;
+            }
             if (!allowedItems.contains(tradeItem.getItemId()))
                 return false;
         }
@@ -202,19 +197,27 @@ public class TradeService {
     public static boolean performSellToShop(Player player, TradeList tradeList) {
         Storage inventory = player.getInventory();
 
+        boolean result = true;
         long kinahReward = 0;
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
             Item item = inventory.getItemByObjId(tradeItem.getItemId());
-            // 1) don't allow to sell fake items;
-            if (item == null)
-                return false;
+            if (item == null) {
+                result = false;
+                continue;
+            }
+
+            if (item.getItemTemplate() == null) {
+                result = false;
+                continue;
+            }
 
             tradeItem.setItemTemplate(item.getItemTemplate());
 
             // 2) don't allow to sell non-sellable items
             if (!item.getItemTemplate().isSellable()) {
                 log.warn("[AUDIT] Selling exploit, tried to sell unsellable item: " + player.getName());
-                return false;
+                result = false;
+                continue;
             }
 
             if (item.getItemCount() - tradeItem.getCount() == 0) {
@@ -229,10 +232,14 @@ public class TradeService {
                     // TODO check retail packet here
                     kinahReward += item.getItemTemplate().getPrice() * tradeItem.getCount();
                     PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(item));
-                } else
-                    return false;
-            } else
-                return false;
+                } else {
+                    result = false;
+                    continue;
+                }
+            } else {
+                result = false;
+                continue;
+            }
         }
 
         Item kinahItem = inventory.getKinahItem();
@@ -240,7 +247,7 @@ public class TradeService {
         inventory.increaseKinah(kinahReward);
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(kinahItem));
 
-        return true;
+        return result;
     }
 
     /**
@@ -249,5 +256,4 @@ public class TradeService {
     public static TradeListData getTradeListData() {
         return tradeListData;
     }
-
 }

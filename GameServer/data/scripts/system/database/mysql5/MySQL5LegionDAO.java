@@ -545,10 +545,10 @@ public class MySQL5LegionDAO extends LegionDAO {
             s.setInt(1, legionId);
             ResultSet rs = s.executeQuery();
             rs.next();
-            return rs.getInt("legionId") > 0;
+            return rs.getInt("id") > 0;
         }
         catch (SQLException e) {
-            log.error("Can't check if legionId " + legionId + ", is used. ", e);
+            log.error("Can't check if id " + legionId + ", is used. ", e);
             return false;
         }
         finally {

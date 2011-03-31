@@ -72,7 +72,7 @@ public class PrivateStoreService {
          * Check if player owns itemObjId else don't add item
          */
         for (int i = 0; i < tradePSItems.length; i++) {
-            Item item = getItemByObjId(activePlayer, tradePSItems[i].getItemObjId());
+            Item item = activePlayer.getInventory().getItemByObjId( tradePSItems[i].getItemObjId());
             if (item != null && item.getItemTemplate().isTradeable()) {
                 if (!validateItem(item, tradePSItems[i].getItemId(), tradePSItems[i].getCount()))
                     return;
@@ -194,7 +194,7 @@ public class PrivateStoreService {
         List<Integer> removeSlots = new ArrayList<Integer>();
 
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
-            Item item = getItemByObjId(seller, tradeItem.getItemId());
+            Item item = seller.getInventory().getItemByObjId( tradeItem.getItemId());
             if (item == null)
                 continue;
 
@@ -289,26 +289,14 @@ public class PrivateStoreService {
     private static boolean validateBuyItems(Player seller, TradeList tradeList) {
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
             Item item = seller.getInventory().getItemByObjId(tradeItem.getItemId());
-
-            // 1) don't allow to sell fake items;
             if (item == null)
                 return false;
+
             // check amount of item, if amount to buy is not higher than amount available
             if (!validateItem(item, item.getItemId(), tradeItem.getCount()))
                 return false;
         }
         return true;
-    }
-
-    /**
-     * This method will return the item in a inventory by object id
-     *
-     * @param player
-     * @param tradePSItems
-     * @return
-     */
-    private static Item getItemByObjId(Player seller, int itemObjId) {
-        return seller.getInventory().getItemByObjId(itemObjId);
     }
 
     /**

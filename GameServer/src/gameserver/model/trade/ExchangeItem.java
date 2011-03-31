@@ -24,6 +24,7 @@ import gameserver.model.gameobjects.Item;
 public class ExchangeItem {
     private int itemObjId;
     private long itemCount;
+    private long originalItemCount;
     private int itemDesc;
     private Item item;
 
@@ -35,10 +36,23 @@ public class ExchangeItem {
      * @param item
      */
     public ExchangeItem(int itemObjId, long itemCount, Item item) {
+        Init(itemObjId, itemCount, item, 0);
+    }
+
+    public ExchangeItem(int itemObjId, long itemCount, Item item, long originalItemCount) {
+        Init(itemObjId, itemCount, item, originalItemCount);
+    }
+
+    public void Init(int itemObjId, long itemCount, Item item, long originalItemCount) {
         this.itemObjId = itemObjId;
         this.itemCount = itemCount;
+        this.originalItemCount = originalItemCount;
         this.item = item;
         this.itemDesc = item.getItemTemplate().getNameId();
+    }
+
+    public long getOriginalItemCount() {
+        return originalItemCount;
     }
 
     /**

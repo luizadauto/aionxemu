@@ -126,65 +126,65 @@ public class MailService {
 
         if (attachedItemObjId != 0) {
             Item senderItem = senderInventory.getItemByObjId(attachedItemObjId);
+            if (senderItem == null)
+                return;
 
             // Check Mailing Untradeable Hack
             if (!senderItem.getItemTemplate().isTradeable())
                 return;
 
-            if (senderItem != null) {
-                float qualityPriceRate;
-                switch (senderItem.getItemTemplate().getItemQuality()) {
-                    case JUNK:
-                    case COMMON:
-                        qualityPriceRate = 0.02f;
-                        break;
+            float qualityPriceRate;
+            switch (senderItem.getItemTemplate().getItemQuality()) {
+                case JUNK:
+                case COMMON:
+                    qualityPriceRate = 0.02f;
+                    break;
 
-                    case RARE:
-                        qualityPriceRate = 0.03f;
-                        break;
+                case RARE:
+                    qualityPriceRate = 0.03f;
+                    break;
 
-                    case LEGEND:
-                    case UNIQUE:
-                        qualityPriceRate = 0.04f;
-                        break;
+                case LEGEND:
+                case UNIQUE:
+                    qualityPriceRate = 0.04f;
+                    break;
 
-                    case MYTHIC:
-                    case EPIC:
-                        qualityPriceRate = 0.05f;
-                        break;
+                case MYTHIC:
+                case EPIC:
+                    qualityPriceRate = 0.05f;
+                    break;
 
-                    default:
-                        qualityPriceRate = 0.02f;
-                        break;
-                }
+                default:
+                    qualityPriceRate = 0.02f;
+                    break;
+            }
 
-                if (senderItem.getItemCount() == attachedItemCount) {
-                    senderInventory.removeFromBag(senderItem, false);
-                    PacketSendUtility.sendPacket(sender, new SM_DELETE_ITEM(attachedItemObjId));
+            if (senderItem.getItemCount() == attachedItemCount) {
+                senderInventory.removeFromBag(senderItem, false);
+                PacketSendUtility.sendPacket(sender, new SM_DELETE_ITEM(attachedItemObjId));
 
-                    senderItem.setEquipped(false);
-                    senderItem.setEquipmentSlot(0);
-                    senderItem.setItemLocation(StorageType.MAILBOX.getId());
+                senderItem.setEquipped(false);
+                senderItem.setEquipmentSlot(0);
+                senderItem.setItemLocation(StorageType.MAILBOX.getId());
 
-                    attachedItem = senderItem;
+                attachedItem = senderItem;
 
-                    itemMailCommission = Math.round((senderItem.getItemTemplate().getPrice() * attachedItem
-                            .getItemCount())
-                            * qualityPriceRate);
-                } else if (senderItem.getItemCount() > attachedItemCount) {
-                    attachedItem = ItemService.newItem(senderItem.getItemTemplate().getTemplateId(),
-                        attachedItemCount, senderItem.getItemCreator());
-                    senderItem.decreaseItemCount(attachedItemCount);
-                    PacketSendUtility.sendPacket(sender, new SM_UPDATE_ITEM(senderItem));
+                itemMailCommission = Math.round((senderItem.getItemTemplate().getPrice() * attachedItem
+                        .getItemCount())
+                        * qualityPriceRate);
+            } else if (senderItem.getItemCount() > attachedItemCount) {
+                attachedItem = ItemService.newItem(senderItem.getItemTemplate().getTemplateId(),
+                    attachedItemCount, senderItem.getItemCreator());
+                senderItem.decreaseItemCount(attachedItemCount);
+                PacketSendUtility.sendPacket(sender, new SM_UPDATE_ITEM(senderItem));
 
-                    attachedItem.setEquipped(false);
-                    attachedItem.setEquipmentSlot(0);
-                    attachedItem.setItemLocation(StorageType.MAILBOX.getId());
+                attachedItem.setEquipped(false);
+                attachedItem.setEquipmentSlot(0);
+                attachedItem.setItemLocation(StorageType.MAILBOX.getId());
 
-                    itemMailCommission = Math.round((attachedItem.getItemTemplate().getPrice() * attachedItem
-                            .getItemCount())
-                            * qualityPriceRate);
-                }
+                itemMailCommission = Math.round((attachedItem.getItemTemplate().getPrice() * attachedItem
+                        .getItemCount())
+                        * qualityPriceRate);
             }
         }
 

@@ -28,11 +28,13 @@ import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 public class RestoreHealthDesire extends AbstractDesire {
     private Creature owner;
     private int restoreHpValue;
+    private int restoreMpValue;
 
     public RestoreHealthDesire(Creature owner, int desirePower) {
         super(desirePower);
         this.owner = owner;
-        restoreHpValue = owner.getLifeStats().getMaxHp() / 5;
+        restoreHpValue = owner.getLifeStats().getMaxHp() / 3;
+        restoreMpValue = owner.getLifeStats().getMaxMp() / 3;
     }
 
     @Override
@@ -41,6 +43,7 @@ public class RestoreHealthDesire extends AbstractDesire {
             return false;
 
         owner.getLifeStats().increaseHp(TYPE.NATURAL_HP, restoreHpValue);
+        owner.getLifeStats().increaseMp(TYPE.NATURAL_MP, restoreMpValue);
         if (owner.getLifeStats().isFullyRestoredHpMp()) {
             ai.handleEvent(Event.RESTORED_HEALTH);
             return false;
@@ -51,7 +54,7 @@ public class RestoreHealthDesire extends AbstractDesire {
 
     @Override
     public int getExecutionInterval() {
-        return 1;
+        return 2;
     }
 
     @Override

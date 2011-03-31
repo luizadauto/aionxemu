@@ -228,6 +228,7 @@ public class AionConnection extends AConnection {
         if (getActivePlayer() != null) {
             final Player player = getActivePlayer();
 
+            PlayerService.storePlayer(player);
             if (player.getController().isInShutdownProgress())
                 PlayerService.playerLoggedOut(player);
 

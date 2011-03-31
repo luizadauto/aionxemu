@@ -62,6 +62,9 @@ public class SkillLearnAction extends AbstractItemAction {
         player.getSkillList().addSkill(player, skillid, 1, true);
         //remove book from inventory (assuming its not stackable)
         Item item = player.getInventory().getItemByObjId(parentItem.getObjectId());
+        if (item == null)
+            return;
+
         player.getInventory().removeFromBag(item, true);
         PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(parentItem.getObjectId()));
     }

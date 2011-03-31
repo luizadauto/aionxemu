@@ -105,13 +105,29 @@ public class ItemStorage {
      * @return Item
      */
     public Item getItemFromStorageByItemObjId(int itemObjId) {
+        if (itemObjId == 0)
+            return null;
+
         for (Item item : storageItems) {
             if (item.getObjectId() == itemObjId) {
                 return item;
             }
         }
-        log.warn("ItemStorage.getItemFromStorageByItemObjId("+itemObjId+") Item could not Found.");
+        log.info("ItemStorage.getItemFromStorageByItemObjId("+itemObjId+") Item could not Found.");
         return null;
+    }
+
+    /**
+     * @param itemObjId
+     * @return Item
+     */
+    public boolean isItemFromStorageByItemObjId(int itemObjId) {
+        for (Item item : storageItems) {
+            if (item.getObjectId() == itemObjId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -52,6 +52,10 @@ public class ReflectorEffect extends EffectTemplate {
 
     @Override
     public void startEffect(final Effect effect) {
+        ActionObserver oldObserver = effect.getActionObserver(position);
+        if (oldObserver != null)
+            return;
+
         final Creature effected = effect.getEffected();
         ActionObserver observer = null;
 

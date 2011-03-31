@@ -21,6 +21,7 @@ import gameserver.itemengine.actions.EnchantItemAction;
 import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.templates.item.ItemCategory;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
@@ -76,16 +77,20 @@ public class CM_MANASTONE extends AionClientPacket {
     protected void runImpl() {
         AionObject npc = World.getInstance().findAionObject(npcObjId);
         Player player = getConnection().getActivePlayer();
+        Storage inventory = player.getInventory();
 
         switch (actionType) {
             case 1: //enchant stone
             case 2: //add manastone
                 EnchantItemAction action = new EnchantItemAction();
-                Item manastone = player.getInventory().getItemByObjId(stoneUniqueId);
-                Item targetItem = player.getInventory().getItemByObjId(targetItemUniqueId);
-                if (targetItem == null) {
-                    targetItem = player.getEquipment().getEquippedItemByObjId(targetItemUniqueId);
-                }
+                Item manastone = inventory.getItemByObjId(stoneUniqueId);
+                if (manastone == null)
+                    return;
+                Item targetItem = (inventory.isItemByObjId(targetItemUniqueId)) ?
+                    inventory.getItemByObjId(targetItemUniqueId) :
+                    player.getEquipment().getEquippedItemByObjId(targetItemUniqueId);
+                if (targetItem == null)
+                    return;
 
                 if (actionType == 1)
                     actionCategory = ItemCategory.ENCHANTSTONE;

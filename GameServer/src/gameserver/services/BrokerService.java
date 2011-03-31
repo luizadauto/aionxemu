@@ -381,10 +381,10 @@ public class BrokerService {
         }
 
         Item itemToRegister = player.getInventory().getItemByObjId(itemUniqueId);
-        Race playerRace = player.getCommonData().getRace();
-
         if (itemToRegister == null)
             return;
+
+        Race playerRace = player.getCommonData().getRace();
 
         // Check Trade Hack
         if (!itemToRegister.getItemTemplate().isTradeable()) {

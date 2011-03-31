@@ -21,6 +21,7 @@ import gameserver.dao.InventoryDAO;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.items.ManaStone;
 import gameserver.model.templates.item.ItemQuality;
 import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
@@ -40,13 +41,15 @@ public class ArmsfusionService {
     private static final Logger log = Logger.getLogger(ArmsfusionService.class);
 
     public static void fusionWeapons(Player player, int firstItemUniqueId, int secondItemUniqueId) {
-        Item firstItem = player.getInventory().getItemByObjId(firstItemUniqueId);
-        if (firstItem == null)
-            firstItem = player.getEquipment().getEquippedItemByObjId(firstItemUniqueId);
+        Storage inventory = player.getInventory();
 
-        Item secondItem = player.getInventory().getItemByObjId(secondItemUniqueId);
-        if (secondItem == null)
-            secondItem = player.getEquipment().getEquippedItemByObjId(secondItemUniqueId);
+        Item firstItem = (inventory.isItemByObjId(firstItemUniqueId)) ?
+            inventory.getItemByObjId(firstItemUniqueId) :
+            player.getEquipment().getEquippedItemByObjId(firstItemUniqueId);
+
+        Item secondItem = (inventory.isItemByObjId(secondItemUniqueId)) ?
+            inventory.getItemByObjId(secondItemUniqueId) :
+            player.getEquipment().getEquippedItemByObjId(secondItemUniqueId);
 
         /*
            * Need to have items in bag, and target the fusion NPC

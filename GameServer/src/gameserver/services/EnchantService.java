@@ -59,9 +59,9 @@ public class EnchantService {
     public static boolean breakItem(Player player, Item targetItem, Item parentItem) {
         Storage inventory = player.getInventory();
 
-        if (inventory.getItemByObjId(targetItem.getObjectId()) == null)
+        if (!inventory.isItemByObjId(targetItem.getObjectId()))
             return false;
-        if (inventory.getItemByObjId(parentItem.getObjectId()) == null)
+        if (!inventory.isItemByObjId(parentItem.getObjectId()))
             return false;
 
         ItemTemplate itemTemplate = targetItem.getItemTemplate();
@@ -110,11 +110,11 @@ public class EnchantService {
      */
     public static boolean enchantItem(Player player, Item parentItem, Item targetItem, Item supplementItem) {
         // Check that parentItem is still in Inventory.
-        if (player.getInventory().getItemByObjId(parentItem.getObjectId()) == null)
+        if (!player.getInventory().isItemByObjId(parentItem.getObjectId()))
             return false;
 
-        if (player.getInventory().getItemByObjId(targetItem.getObjectId()) == null &&
-            player.getEquipment().getEquippedItemByObjId(targetItem.getObjectId()) == null)
+        if (!player.getInventory().isItemByObjId(targetItem.getObjectId()) &&
+            !player.getEquipment().isItemByObjId(targetItem.getObjectId()))
         {
             return false;
         }
@@ -157,7 +157,7 @@ public class EnchantService {
         }
 
         if (supplementItem != null) {
-            if (player.getInventory().getItemByObjId(supplementItem.getObjectId()) == null)
+            if (!player.getInventory().isItemByObjId(supplementItem.getObjectId()))
                 return false;
 
             int supplementUseCount = 1;
@@ -270,10 +270,11 @@ public class EnchantService {
      */
     public static boolean socketManastone(Player player, Item parentItem, Item targetItem, Item supplementItem, int targetWeapon) {
         // Check that parentItem is still in Inventory.
-        if (player.getInventory().getItemByObjId(parentItem.getObjectId()) == null)
+        if (!player.getInventory().isItemByObjId(parentItem.getObjectId()))
             return false;
-        if (player.getInventory().getItemByObjId(targetItem.getObjectId()) == null &&
-            player.getEquipment().getEquippedItemByObjId(targetItem.getObjectId()) == null)
+
+        if (!player.getInventory().isItemByObjId(targetItem.getObjectId()) &&
+            !player.getEquipment().isItemByObjId(targetItem.getObjectId()))
         {
             return false;
         }
@@ -324,7 +325,7 @@ public class EnchantService {
         }
 
         if (supplementItem != null) {
-            if (player.getInventory().getItemByObjId(supplementItem.getObjectId()) == null)
+            if (!player.getInventory().isItemByObjId(supplementItem.getObjectId()))
                 return false;
 
             int supplementUseCount = 1;
@@ -745,7 +746,7 @@ public class EnchantService {
                 if(level <= 10)
                     mod.add(AddModifier.newInstance(StatEnum.DAMAGE_REDUCE, 2 * level, true));
                 else {
-                    mod.add(AddModifier.newInstance(StatEnum.BLOCK, 30 * (level - 10), true));
+                    mod.add(AddModifier.newInstance(StatEnum.BLOCK, 5 * level, true));
                     mod.add(AddModifier.newInstance(StatEnum.DAMAGE_REDUCE, 20, true));
                 }
                 return mod;

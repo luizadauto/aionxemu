@@ -397,7 +397,6 @@ public class ItemService {
     public static void moveItem(Player player, int itemObjId, int sourceStorageType, int destinationStorageType, int slot) {
         Storage sourceStorage = player.getStorage(sourceStorageType);
         Item item = player.getStorage(sourceStorageType).getItemByObjId(itemObjId);
-
         if (item == null)
             return;
 

@@ -108,7 +108,7 @@ public class PlayerService {
      *
      * @param player
      */
-    private static void storePlayer(Player player) {
+    public static void storePlayer(Player player) {
         DAOManager.getDAO(PlayerDAO.class).storePlayer(player);
         DAOManager.getDAO(PlayerSkillListDAO.class).storeSkills(player);
         DAOManager.getDAO(PlayerSettingsDAO.class).saveSettings(player);
