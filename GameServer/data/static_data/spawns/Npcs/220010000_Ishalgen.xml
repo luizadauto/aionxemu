@@ -94,7 +94,7 @@
 		<object x="610.8011" y="2417.865" z="280.625" h="29"/>
 	</spawn>
 	<!-- Cute Ribbit (NPC Normal lvl:17)-->
-	<spawn map="220010000" npcid="203538" pool="1" interval="295">
+	<spawn map="220010000" npcid="203538" pool="1" interval="30">
 		<object h="30" x="946.53107" y="2297.9006" z="265.30402"/>
 	</spawn>
 	<!-- Dabi (NPC Normal lvl:20)-->

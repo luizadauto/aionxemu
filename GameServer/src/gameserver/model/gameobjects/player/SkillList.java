@@ -157,6 +157,15 @@ public class SkillList {
                     return false;
             case 30002:
             case 30003:
+                switch (skillEntry.getSkillLevel()) {
+                    case 99:
+                    case 199:
+                    case 299:
+                    case 399:
+                    case 449:
+                    case 499:
+                        return false;
+                }
             case 40001:
             case 40002:
             case 40003:

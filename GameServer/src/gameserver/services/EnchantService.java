@@ -760,7 +760,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 1 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 10 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 2 * level, true));
                 return mod;
             }
         },
@@ -772,7 +772,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 2 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 12 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 3 * level, true));
                 return mod;
             }
         },
@@ -784,7 +784,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 14 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 4 * level, true));
                 return mod;
             }
         },
@@ -796,7 +796,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 8 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 2 * level, true));
                 return mod;
             }
         },
@@ -808,7 +808,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 5 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 10 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 3 * level, true));
                 return mod;
             }
         },
@@ -820,7 +820,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 12 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 4 * level, true));
                 return mod;
             }
         },
@@ -832,7 +832,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 3 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 6 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 2 * level, true));
                 return mod;
             }
         },
@@ -844,7 +844,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 8 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 3 * level, true));
                 return mod;
             }
         },
@@ -856,7 +856,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 5 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 10 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 4 * level, true));
                 return mod;
             }
         },
@@ -868,7 +868,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 4 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 4 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 2 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 2 * level, true));
                 return mod;
             }
         },
@@ -880,7 +880,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 5 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 6 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 3 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 3 * level, true));
                 return mod;
             }
         },
@@ -892,7 +892,7 @@ public class EnchantService {
                 int level = item.getEnchantLevel();
                 mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_DEFENSE, 6 * level, true));
                 mod.add(AddModifier.newInstance(StatEnum.MAXHP, 8 * level, true));
-                mod.add(AddModifier.newInstance(StatEnum.CRITICAL_RESIST, 4 * level, true));
+                mod.add(AddModifier.newInstance(StatEnum.PHYSICAL_CRITICAL_RESIST, 4 * level, true));
                 return mod;
             }
         };

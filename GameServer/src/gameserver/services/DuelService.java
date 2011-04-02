@@ -66,8 +66,11 @@ public class DuelService {
             PacketSendUtility.sendPacket(requester, SM_SYSTEM_MESSAGE.DUEL_PARTNER_INVALID(responder.getName()));
             return;
         }
-        if (requester.isEnemyPlayer(responder) || isDueling(requester.getObjectId()))
+        if (requester.isEnemyPlayer(responder) || isDueling(requester.getObjectId()) || isDueling(responder.getObjectId()))
+        {
+            PacketSendUtility.sendPacket(requester, SM_SYSTEM_MESSAGE.DUEL_REJECTED_BY(responder.getName()));
             return;
+        }
 
         RequestResponseHandler rrh = new RequestResponseHandler(requester) {
             @Override

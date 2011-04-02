@@ -487,6 +487,8 @@ public class NpcController extends CreatureController<Npc> {
             log.warn("CHECKPOINT: npc attacked without ai " + npc.getObjectTemplate().getTemplateId());
             return;
         }
+        if(getOwner().getTribe().equals("DUMMY"))
+        	damage = 0;
 
         getOwner().getKnownList().doOnAllNpcs(new Executor<Npc>() {
             @Override

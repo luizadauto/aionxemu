@@ -19,6 +19,7 @@
 package gameserver.network.aion.serverpackets;
 
 import gameserver.model.DescriptionId;
+import gameserver.model.EmotionType;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
 import gameserver.network.aion.SystemMessageId;
@@ -296,10 +297,17 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     }
 
     /**
-     * You cancelled the soul-binding of %0.
+     * You canceled the soul-binding of %0.
      */
     public static SM_SYSTEM_MESSAGE SOUL_BOUND_ITEM_CANCELED(DescriptionId itemDescId) {
         return new SM_SYSTEM_MESSAGE(1300487, itemDescId);
+    }
+
+    /**
+     * Soul-binding of items not possible while %0.
+     */
+    public static SM_SYSTEM_MESSAGE STR_SOUL_BOUND_INVALID_STANCE(int state) {
+        return new SM_SYSTEM_MESSAGE(1300489, state);
     }
 
     /*

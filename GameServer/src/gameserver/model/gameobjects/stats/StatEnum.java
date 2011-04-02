@@ -85,7 +85,6 @@ public enum StatEnum {
     OFF_HAND_CRITICAL(0, "offhandcritical"),
     OFF_HAND_POWER(0, "offhandpower"),
     OFF_HAND_ATTACK_SPEED(0, "offhandattackspeed"),
-    CRITICAL_RESIST(0, "physicalcriticalreducerate"),
 
     MAGICAL_ATTACK(27, "magicalattack"),
     MAGICAL_ACCURACY(105, "magicalhitaccuracy"),

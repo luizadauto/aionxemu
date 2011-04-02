@@ -144,7 +144,7 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeH(buf, totalBoostMagicalSkill); // [current magic boost] 1.9 version
 
         writeH(buf, pgs.getCurrentStat(StatEnum.BOOST_HEAL)); // [current boost_heal]
-        writeH(buf, pgs.getCurrentStat(StatEnum.CRITICAL_RESIST)); // [current strike resist]
+        writeH(buf, pgs.getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST)); // [current strike resist]
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_CRITICAL_RESIST));// [current spell resist]
         writeH(buf, pgs.getCurrentStat(StatEnum.PHYSICAL_CRITICAL_DAMAGE_REDUCE));// [current strike fortitude]
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_CRITICAL_DAMAGE_REDUCE));// [current spell fortitude]
@@ -224,7 +224,7 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_ATTACK) + pgs.getBaseStat(StatEnum.BOOST_MAGICAL_SKILL));// [base magic boost]
 
         writeH(buf, pgs.getBaseStat(StatEnum.BOOST_HEAL)); // [base boostheal]
-        writeH(buf, pgs.getBaseStat(StatEnum.CRITICAL_RESIST)); // [base strike resist]
+        writeH(buf, pgs.getBaseStat(StatEnum.PHYSICAL_CRITICAL_RESIST)); // [base strike resist]
         writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_CRITICAL_RESIST));// [base spell resist]
         writeH(buf, pgs.getBaseStat(StatEnum.PHYSICAL_CRITICAL_DAMAGE_REDUCE)); // [base strike fortitude]
         writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_CRITICAL_DAMAGE_REDUCE)); // [base spell fortitude]

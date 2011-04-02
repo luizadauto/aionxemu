@@ -79,7 +79,7 @@ public class SM_ATTACK extends AionServerPacket {
             case 0:  // case DODGE
                 writeH(buf, 128);
                 break;
-            case -58:  // case CRITICAL_RESIST
+            case -58:  // case PHYSICAL_CRITICAL_RESIST
             case 6:  // case RESIST
                 writeH(buf, 256); // need more info becuz sometimes 0
                 break;

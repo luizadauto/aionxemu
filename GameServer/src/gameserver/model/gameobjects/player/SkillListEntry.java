@@ -86,13 +86,23 @@ public class SkillListEntry {
         switch (skillId) {
             case 30002:
             case 30003:
+            	return skillLvl / 100;
             case 40001:
             case 40002:
             case 40003:
             case 40004:
             case 40007:
             case 40008:
-                return skillLvl / 100;
+            	if(skillLvl<400)
+            	{
+            		return skillLvl / 100;
+            	} else if(skillLvl<450){
+            		return 4;
+            	} else if(skillLvl<500){
+            		return 5;
+            	} else {
+            		return 6;
+            	}
         }
         return 0;
     }

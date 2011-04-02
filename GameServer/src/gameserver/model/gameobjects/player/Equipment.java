@@ -854,10 +854,31 @@ public class Equipment {
                 PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), item
                         .getObjectId(), item.getItemId(), 5000, 4), true);
 
+                if(player.isInState(CreatureState.CHAIR) || player.isInState(CreatureState.FLYING)
+                	 || player.isInState(CreatureState.RESTING) || player.isInState(CreatureState.WEAPON_EQUIPPED)
+                	 || player.isInState(CreatureState.GLIDING))
+                {
+                	PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SOUL_BOUND_INVALID_STANCE(player.getState()));
+                	return;
+                }
+                player.getController().cancelTask(TaskId.ITEM_USE);
+
+                player.getObserveController().attach(new StartMovingListener() {
+
+                    @Override
+                    public void moved() {
+                    	player.getController().cancelTask(TaskId.ITEM_USE);
+                    	PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.SOUL_BOUND_ITEM_CANCELED(new DescriptionId(Integer.parseInt(item.getName()))));
+                    	PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), item
+                            .getObjectId(), item.getItemId(), 0, 8), true);
+                    }
+                });
+
                 final WorldPosition position = player.getCommonData().getPosition().clone();
 
                 // item usage animation
-                ThreadPoolManager.getInstance().schedule(new Runnable() {
+                player.getController().addNewTask(TaskId.ITEM_USE,
+                    ThreadPoolManager.getInstance().schedule(new Runnable() {
 
                     public void run() {
                         PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(),
@@ -877,7 +898,7 @@ public class Equipment {
                         PacketSendUtility.broadcastPacket(player, new SM_UPDATE_PLAYER_APPEARANCE(player.getObjectId(),
                                 getEquippedItemsWithoutStigma()), true);
                     }
-                }, 5100);
+                }, 5100));
             }
 
             public void denyRequest(Creature requester, Player responder) {

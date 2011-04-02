@@ -40,7 +40,7 @@ import gameserver.world.WorldMapInstance;
  */
 public class _2002WheresRae extends QuestHandler {
     private final static int questId = 2002;
-    private final static int[] npc_ids = {203519, 203534, 203553, 700045, 203516, 205020, 203537};
+    private final static int[] npc_ids = {203519, 203534, 203553, 700045, 203516, 205020, 203538};
 
     public _2002WheresRae() {
         super(questId);
@@ -181,13 +181,16 @@ public class _2002WheresRae extends QuestHandler {
                         }, 3000);
                     }
                     return true;
-                case 203537:
+                case 203538:
                     if (var == 14 && env.getDialogId() == -1) {
                         qs.setQuestVarById(0, var + 1);
                         updateQuestStatus(env);
                         Npc npc = (Npc) env.getVisibleObject();
+                        PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         QuestService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 203553, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true);
                         npc.getController().onDie(null); //TODO check null or player
+                        npc.getController().onDespawn(true);
+                        PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 256));
                         return true;
                     }
                     break;

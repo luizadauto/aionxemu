@@ -688,9 +688,9 @@ public class StatFunctions {
 
         if (attacker instanceof Player && ((Player) attacker).getEquipment().getOffHandWeaponType() != null)
             critical = Math.round(((attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL) + attacker
-                    .getGameStats().getCurrentStat(StatEnum.OFF_HAND_CRITICAL)) / 2) - attacked.getGameStats().getCurrentStat(StatEnum.CRITICAL_RESIST));
+                    .getGameStats().getCurrentStat(StatEnum.OFF_HAND_CRITICAL)) / 2) - attacked.getGameStats().getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST));
         else
-            critical = attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.CRITICAL_RESIST);
+            critical = attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST);
 
 
         double criticalRate;
