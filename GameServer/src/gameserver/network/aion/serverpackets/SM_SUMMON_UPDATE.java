@@ -46,7 +46,7 @@ public class SM_SUMMON_UPDATE extends AionServerPacket {
         writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.PHYSICAL_DEFENSE));
         writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.MAGICAL_RESIST));
         writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.ACCURACY));
-        writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.CRITICAL_RESIST));
+        writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL));
         writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.BOOST_MAGICAL_SKILL));
         writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.MAGICAL_ACCURACY));
         writeH(buf, summon.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL));
@@ -57,7 +57,7 @@ public class SM_SUMMON_UPDATE extends AionServerPacket {
         writeH(buf, summon.getGameStats().getBaseStat(StatEnum.PHYSICAL_DEFENSE));
         writeH(buf, summon.getGameStats().getBaseStat(StatEnum.MAGICAL_RESIST));
         writeH(buf, summon.getGameStats().getBaseStat(StatEnum.ACCURACY));
-        writeH(buf, summon.getGameStats().getBaseStat(StatEnum.CRITICAL_RESIST));
+        writeH(buf, summon.getGameStats().getBaseStat(StatEnum.MAIN_HAND_CRITICAL));
         writeH(buf, summon.getGameStats().getBaseStat(StatEnum.BOOST_MAGICAL_SKILL));
         writeH(buf, summon.getGameStats().getBaseStat(StatEnum.MAGICAL_ACCURACY));
         writeH(buf, summon.getGameStats().getBaseStat(StatEnum.MAGICAL_CRITICAL));

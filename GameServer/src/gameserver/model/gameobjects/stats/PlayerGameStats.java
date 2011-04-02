@@ -151,7 +151,7 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
         initStat(StatEnum.PVP_DEFEND_RATIO, 0);
         initStat(StatEnum.BOOST_CASTING_TIME, 100);
         initStat(StatEnum.BOOST_HATE, 100);
-        initStat(StatEnum.BOOST_HEAL, 100);
+        initStat(StatEnum.BOOST_HEAL, 0);
         initStat(StatEnum.MAGICAL_RESIST, 50); // 1.9 every class start with 50 points of spell resist.
         initStat(StatEnum.MAGICAL_CRITICAL, 50);
         initStat(StatEnum.MAGICAL_CRITICAL_RESIST, 0);

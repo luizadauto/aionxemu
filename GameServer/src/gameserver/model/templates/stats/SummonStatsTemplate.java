@@ -31,6 +31,8 @@ public class SummonStatsTemplate extends StatsTemplate {
     private int pdefense;
     @XmlAttribute(name = "mresist")
     private int mresist;
+	@XmlAttribute(name = "mcrit")
+	private int mcrit;
 
     /**
      * @return the pdefense
@@ -45,6 +47,9 @@ public class SummonStatsTemplate extends StatsTemplate {
     public int getMresist() {
         return mresist;
     }
+	public int getMcrit() {
+		return mcrit;
+	}
 
 
 }

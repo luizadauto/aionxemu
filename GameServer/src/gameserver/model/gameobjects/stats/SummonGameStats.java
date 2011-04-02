@@ -34,6 +34,13 @@ public class SummonGameStats extends CreatureGameStats<Summon> {
         initStat(StatEnum.MAXMP, statsTemplate.getMaxMp());
         initStat(StatEnum.MAIN_HAND_POWER, statsTemplate.getMainHandAttack());
         initStat(StatEnum.PHYSICAL_DEFENSE, statsTemplate.getPdefense());
+		initStat(StatEnum.ACCURACY, statsTemplate.getMainHandAccuracy());
+		initStat(StatEnum.MAIN_HAND_CRITICAL, statsTemplate.getMainHandCritRate());
+		initStat(StatEnum.MAGICAL_CRITICAL, statsTemplate.getMcrit());
+		initStat(StatEnum.BOOST_MAGICAL_SKILL, 0);
+		initStat(StatEnum.MAGICAL_ACCURACY, statsTemplate.getMagicAccuracy());
+		initStat(StatEnum.PARRY, statsTemplate.getParry());
+		initStat(StatEnum.EVASION, statsTemplate.getEvasion());
         initStat(StatEnum.MAGICAL_RESIST, statsTemplate.getMresist());
         initStat(StatEnum.ATTACK_SPEED, 2000);
         initStat(StatEnum.SPEED, Math.round(statsTemplate.getRunSpeed() * 1000));
