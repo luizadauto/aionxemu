@@ -196,7 +196,7 @@
 	<spawn map="210050000" npcid="216512" pool="1" interval="7000">
 		<object h="92" x="216.11339" y="1167.0162" z="270.55908"/>
 	</spawn>	
-	<spawn map="210050000" npcid="216514" pool="1" interval="7200">
+	<spawn map="210050000" npcid="216514" pool="1" interval="3600">
 		<object x="1190.01" y="778.459" h="63" z="388.964"/>
 	</spawn>
 	<spawn map="210050000" npcid="216510" pool="3" interval="295">
@@ -444,9 +444,5 @@
 	</spawn>
 	<spawn map="210050000" npcid="206104" pool="1" interval="295">
 		<object x="334.114" y="1351.62" h="64" z="263.492"/>
-	</spawn>
-	<!--  Queen Klawnickt (Monster lvl:55)-->
-	<spawn map="210050000" npcid="216514" pool="1" interval="3600">
-		<object x="1190.01" y=" 788.459" z="388.921" h="28"/>
 	</spawn>
 </spawns>
