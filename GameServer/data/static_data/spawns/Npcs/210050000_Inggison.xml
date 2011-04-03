@@ -65,6 +65,12 @@
 	<spawn map="210050000" npcid="209019" pool="1" interval="295">
 		<object h="106" x="1319.2017" y="202.3404" z="599.28424"/>
 	</spawn>
+	<spawn map="210050000" npcid="798985" pool="1" interval="295">
+		<object h="49" x="1868.3838" y="1041.036" z="394.31744"/>
+	</spawn>
+	<spawn map="210050000" npcid="798986" pool="1" interval="295">
+		<object h="58" x="1869.7917" y="1042.569" z="394.0909"/>
+	</spawn>
 	<spawn map="210050000" npcid="209024" pool="3" interval="295">
 		<object h="18" x="1398.352" y="231.00687" z="597.85114"/>
 		<object h="17" x="1395.4594" y="233.79813" z="597.8511"/>

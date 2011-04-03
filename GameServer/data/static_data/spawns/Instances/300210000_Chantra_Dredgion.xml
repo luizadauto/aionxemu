@@ -22,13 +22,19 @@
 		<object x="556.88983" y="489.41568" z="393.64752" h="1"/>
 	</spawn>
 	<!-- Chantra Assassin (Monsters Elite lvl:55) -->
-	<spawn map="300210000" npcid="216860" pool="6" interval="295">
+	<spawn map="300210000" npcid="216860" pool="12" interval="295">
 		<object x="542.8912" y="267.28976" z="409.7311" h="10"/>
 		<object x="566.3013" y="270.95233" z="409.95044" h="51"/>
 		<object x="540.1242" y="277.08664" z="409.7311" h="119"/>
 		<object x="540.3019" y="289.2601" z="409.83398" h="110"/>
 		<object x="554.2" y="296.83896" z="409.78235" h="90"/>
 		<object x="568.2108" y="286.81363" z="410.15076" h="64"/>
+		<object x="416.388" y="297.409" z="409.842" h="87"/>
+		<object x="403.275" y="283.322" z="410.121" h="2"/>
+		<object x="408.61" y="267.298" z="409.773" h="23"/>
+		<object x="427.702" y="265.254" z="410.094" h="55"/>
+		<object x="429.839" y="279.191" z="409.731" h="57"/>
+		<object x="428.186" y="291.214" z="409.731" h="69"/>
 	</spawn>
 	<!-- Chantra Curatus (Monsters Elite lvl:55) -->
 	<spawn map="300210000" npcid="216869" pool="14" interval="295">
@@ -313,5 +319,162 @@
 		<object x="395.96454" y="716.7551" z="402.22354" h="20"/>
 		<object x="397.5062" y="706.1081" z="402.22354" h="107"/>
 		<object x="388.84778" y="704.83923" z="402.27155" h="87"/>
+	</spawn>	
+	<!-- Armory Maintenance Surkana 1 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700838" pool="1" interval="295">
+		<object staticid="21" x="418.58847" y="281.88992" z="409.69183" h="0"/>
+	</spawn>
+	<!-- Armory Maintenance Surkana 2 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700839" pool="1" interval="295">
+		<object staticid="30" x="553.40283" y="279.28409" z="409.74921" h="0"/>
+	</spawn>
+	<!-- Gravity Control Surkana Surkana 3 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700840" pool="1" interval="295">
+		<object staticid="19" x="484.983" y="292.94415" z="402.19073" h="0"/>
+	</spawn>
+	<!-- Nuclear Control Surkana 4 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700841" pool="1" interval="295">
+		<object staticid="20" x="346.1355" y="414.7247" z="410.52921" h="0"/>
+	</spawn>
+	<!-- Nuclear Control Surkana 5 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700842" pool="1" interval="295">
+		<object staticid="28" x="625.67969" y="412.05869" z="410.48172" h="0"/>
+	</spawn>
+	<!-- Main Cannon Control Surkana 6 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700843" pool="1" interval="295">
+		<object staticid="25" x="393.52335" y="567.06299" z="408.93356" h="0"/>
+	</spawn>
+	<!-- Main Cannon Control Surkana 7 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700844" pool="1" interval="295">
+		<object staticid="31" x="579.93268" y="566.64429" z="408.83276" h="0"/>
+	</spawn>
+	<!-- Drop Device Surkana 8 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700845" pool="1" interval="295">
+		<object staticid="23" x="413.06436" y="490.79669" z="393.62073" h="0"/>
+	</spawn>
+	<!-- Main Cannon Control Surkana 9 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700846" pool="1" interval="295">
+		<object staticid="32" x="555.76239" y="491.23868" z="393.54401" h="0"/>
+	</spawn>
+	<!-- Fighter Enhancing Surkana 10 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700847" pool="1" interval="295">
+		<object staticid="22" x="466.01926" y="607.22192" z="391.61496" h="0"/>
+	</spawn>
+	<!-- Storage Power Surkana 11 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700848" pool="1" interval="295">
+		<object staticid="29" x="392.2063" y="710.7605" z="401.78912" h="0"/>
+	</spawn>
+	<!-- Storage Power Surkana 12 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700849" pool="1" interval="295">
+		<object staticid="24" x="577.82098" y="711.19012" z="401.75961" h="0"/>
+	</spawn>
+	<!-- Bridge Power Surkana 13 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700850" pool="1" interval="295">
+		<object staticid="27" x="485.00003" y="881.68243" z="404.95462" h="0"/>
+	</spawn>
+	<!-- Captain's Cabin Power Surkana 14 (Monsters Normal lvl:80) -->
+	<spawn map="300210000" npcid="700851" pool="1" interval="295">
+		<object staticid="26" x="485.34122" y="817.6004" z="416.68781" h="0"/>
+	</spawn>
+	<!-- Portside Defense Shield Generator Left (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730351" pool="1" interval="295">
+		<object staticid="16" x="363.65765" y="571.69086" z="410.74249" h="0"/>
+	</spawn>
+	<!-- Starboard Defense Shield Generator Right (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730352" pool="1" interval="295">
+		<object staticid="7" x="604.64386" y="570.05841" z="409.4982" h="0"/>
+	</spawn>
+	<!-- Portside Central Teleporter (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730311" pool="1" interval="295">
+		<object staticid="9" x="554.83081" y="173.87158" z="432.52448" h="0"/>
+	</spawn>
+	<!-- Starboard Central Teleporter (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730312" pool="1" interval="295">
+		<object staticid="42" x="397.11661" y="184.29782" z="432.80328" h="0"/>
+	</spawn>
+	<!-- Captain's Cabin Teleport Device (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730313" pool="1" interval="295">
+		<object staticid="33" x="473.62231" y="761.99506" z="388.66" h="0"/>
+	</spawn>
+	<!-- Port Supply Room Teleporter Left (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730314" pool="1" interval="295">
+		<object staticid="10" x="572.10443" y="185.23933" z="432.56024" h="0"/>
+	</spawn>
+	<!-- Starboard Supply Room Teleporter Right (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730315" pool="1" interval="295">
+		<object staticid="34" x="415.07663" y="173.85265" z="432.53436" h="0"/>
+	</spawn>
+	<!-- Elyos Captain's Cabin Teleporter (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730357" pool="1" interval="295">
+		<object staticid="186" x="496.52225" y="761.99506" z="388.66" h="0"/>
+	</spawn>
+	<!-- Portside Teleporter Generator Left (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730349" pool="1" interval="295">
+		<object staticid="40" x="467.42523" y="586.23065" z="391.53033" h="0"/>
+	</spawn>
+	<!-- Starboard Teleporter Generator Right Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730350" pool="1" interval="295">
+		<object staticid="41" x="503.45291" y="586.89984" z="391.51694" h="0"/>
+	</spawn>
+	<!-- Portside Defense Shield Left (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730345" pool="1" interval="295">
+		<object staticid="12" x="448.39151" y="493.64182" z="394.13174" h="0"/>
+	</spawn>
+	<!-- Starboard Defense Shield Right (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730346" pool="1" interval="295">
+		<object staticid="133" x="520.87555" y="493.40115" z="394.43292" h="0"/>
+	</spawn>
+	<!-- Port Bulkhead Left (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730353" pool="1" interval="295">
+		<object staticid="95" x="445.52554" y="322.47467" z="402.4762" h="0"/>
+	</spawn>
+	<!-- Starboard Bulkhead Right (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="730354" pool="1" interval="295">
+		<object staticid="98" x="524.67957" y="322.53738" z="402.4071" h="0"/>
+	</spawn>
+	<!-- Weapon Chest (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="700836" pool="12" interval="295">
+		<object staticid="146" x="430.69876" y="291.90088" z="409.72235" h="0"/>
+		<object staticid="149" x="407.61917" y="265.64264" z="409.66641" h="0"/>
+		<object staticid="145" x="432.61469" y="278.62134" z="409.72235" h="0"/>
+		<object staticid="148" x="401.19568" y="282.93854" z="410.09802" h="0"/>
+		<object staticid="147" x="416.87045" y="299.0592" z="409.72235" h="0"/>	
+		<object staticid="144" x="429.09814" y="264.37674" z="409.72235" h="0"/>
+		<object staticid="118" x="554.5553" y="298.67249" z="409.56042" h="0"/>
+		<object staticid="131" x="570.68848" y="287.48849" z="410.3638" h="0"/>
+		<object staticid="134" x="568.13556" y="269.95218" z="409.87991" h="0"/>
+		<object staticid="137" x="538.70697" y="290.14844" z="409.66641" h="0"/>
+		<object staticid="136" x="537.89832" y="277.14233" z="409.8688" h="0"/>
+		<object staticid="135" x="540.5567" y="265.74448" z="409.74835" h="10"/>
+	</spawn>
+	<!-- Balaur Weapon Q3721 (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="700948" pool="12" interval="295">
+		<object staticid="158" x="570.59308" y="287.59137" z="411.07193" h="0"/>
+		<object staticid="163" x="540.62366" y="265.88641" z="410.39618" h="10"/>
+		<object staticid="159" x="537.88" y="277.133" z="410.379" h="0"/>
+		<object staticid="156" x="430.47748" y="291.82193" z="410.47348" h="0"/>
+		<object staticid="49" x="432.73969" y="278.62134" z="410.30725" h="0"/>
+		<object staticid="91" x="428.87259" y="264.36536" z="409.71182" h="0"/>
+		<object staticid="65" x="401.52963" y="283.01334" z="410.08698" h="0"/>
+		<object staticid="64" x="416.80634" y="298.85071" z="410.40125" h="0"/>
+		<object staticid="161" x="538.88611" y="290.03235" z="409.62915" h="0"/>
+		<object staticid="155" x="407.76978" y="266.11749" z="410.38855" h="0"/>
+		<object staticid="162" x="554.61279" y="298.35638" z="410.13425" h="0"/>
+		<object staticid="160" x="567.64368" y="270.08945" z="409.95734" h="0"/>
+	</spawn>
+	<!-- Balaur Supplies Q3723 (Monsters Normal lvl:55) -->
+	<spawn map="300210000" npcid="700837" pool="12" interval="295">
+		<object staticid="141" x="380.33847" y="697.06158" z="402.19339" h="0"/>
+		<object staticid="139" x="377.426" y="710.0556" z="402.214" h="0"/>
+		<object staticid="142" x="387.53107" y="724.72626" z="403.24188" h="0"/>
+		<object staticid="143" x="405.443" y="715.20154" z="402.211" h="0"/>
+		<object staticid="140" x="409.04288" y="708.29089" z="403.151" h="0"/>
+		<object staticid="138" x="404.14856" y="695.797" z="403.12708" h="0"/>
+		<object staticid="109" x="569.249" y="695.968" z="402.208" h="0"/>
+		<object staticid="15" x="562.13953" y="699.6568" z="403.151" h="0"/>
+		<object staticid="93" x="562.63232" y="714.33685" z="403.12708" h="0"/>
+		<object staticid="114" x="584.932" y="723.724" z="402.224" h="0"/>
+		<object staticid="108" x="590.46301" y="716.15936" z="402.19888" h="0"/>
+		<object staticid="6" x="589.48749" y="701.35193" z="402.19339" h="0"/>
 	</spawn>
 </spawns>

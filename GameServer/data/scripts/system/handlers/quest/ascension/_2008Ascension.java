@@ -32,6 +32,8 @@ import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
 import gameserver.services.*;
+import gameserver.skillengine.SkillEngine;
+import gameserver.skillengine.model.Skill;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.world.WorldMapInstance;
@@ -72,8 +74,20 @@ public class _2008Ascension extends QuestHandler {
     @Override
     public boolean onKillEvent(QuestCookie env) {
         if (defaultQuestOnKillEvent(env, 205040, 51, 54))
+        {
+        	if(env.getVisibleObject() instanceof Npc)
+        	{
+        		Npc npc = (Npc) env.getVisibleObject();
+        		npc.getController().onDelete();
+        	}
             return true;
+        }
         if (defaultQuestOnKillEvent(env, 205040, 54, 55)) {
+        	if(env.getVisibleObject() instanceof Npc)
+        	{
+        		Npc npc = (Npc) env.getVisibleObject();
+        		npc.getController().onDelete();
+        	}
             Player player = env.getPlayer();
             QuestState qs = player.getQuestStateList().getQuestState(questId);
             qs.setQuestVar(5);
@@ -309,6 +323,8 @@ public class _2008Ascension extends QuestHandler {
                     PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
                 } else {
                     PacketSendUtility.sendPacket(player, new SM_ASCENSION_MORPH(1));
+                    Skill skill = SkillEngine.getInstance().getSkill(player,1853,1,player);
+                    skill.useSkill();
                     return true;
                 }
             }
@@ -317,17 +333,21 @@ public class _2008Ascension extends QuestHandler {
     }
 
     @Override
-    public boolean onMovieEndEvent(QuestCookie env, int movieId) {
+    public boolean onMovieEndEvent(final QuestCookie env, int movieId) {
         if (movieId != 152)
             return false;
-        Player player = env.getPlayer();
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
+        final Player player = env.getPlayer();
+        final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() != QuestStatus.START || qs.getQuestVars().getQuestVars() != 5)
             return false;
-        int instanceId = player.getInstanceId();
-        QuestService.addNewSpawn(320010000, instanceId, 203550, 301.92999f, 274.26001f, 205.7f, (byte) 0, true);
-        qs.setQuestVar(6);
-        updateQuestStatus(env);
+            ThreadPoolManager.getInstance().schedule(new Runnable() {
+            	@Override
+            	public void run() {
+        				QuestService.addNewSpawn(320010000, player.getInstanceId(), 203550, 301.92999f, 274.26001f, 205.7f, (byte) 0, true);
+        				qs.setQuestVar(6);
+       				  updateQuestStatus(env);
+              }
+        		}, 3000);
         return true;
     }
 

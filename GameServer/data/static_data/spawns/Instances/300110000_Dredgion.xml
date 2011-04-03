@@ -174,7 +174,7 @@
 	</spawn>
 	<!-- Supervisor Lakhane (Named Mob Elite lvl:50) -->
 	<spawn map="300110000" npcid="215427" pool="1" interval="3600">
-		<object x="504.50238" y="607.6224" z="394.73" h="33"/>
+		<object x="504.50238" y="607.6224" z="391.58" h="33"/>
 	</spawn>
 	<!-- Technician Sarpa (Monster Elite lvl:50) -->
 	<spawn map="300110000" npcid="215082" pool="1" interval="300">
@@ -188,22 +188,61 @@
 	<spawn map="300110000" npcid="215091" pool="1" interval="300">
 		<object x="391.25076" y="564.9824" z="408.92206" h="98"/>
 	</spawn>
-	<!-- Captain's Cabin Power Surkana (Object Normal lvl:50) -->
-	<spawn map="300110000" npcid="700498" pool="14" interval="295">
-		<object staticid="26" x="485.34122" y="817.6004" z="416.67175" h="62"/>
-		<object staticid="19" x="484.983" y="292.94415" z="402.24442" h="46"/>
-		<object staticid="22" x="466.01926" y="607.2219" z="391.57822" h="96"/>
-		<object staticid="20" x="346.1355" y="414.7247" z="410.5666" h="86"/>
+	<!--Armory Maintenance Surkana 1 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700485" pool="1" interval="295">
 		<object staticid="21" x="418.58847" y="281.88992" z="409.7311" h="40"/>
-		<object staticid="23" x="413.06436" y="490.7967" z="393.68185" h="38"/>
-		<object staticid="24" x="577.821" y="711.1901" z="401.7698" h="72"/>
-		<object staticid="25" x="393.52335" y="567.063" z="408.91293" h="50"/>
-		<object staticid="27" x="485.00003" y="881.68243" z="405.01794" h="48"/>
-		<object staticid="28" x="625.6797" y="412.0587" z="410.52228" h="50"/>
-		<object staticid="29" x="392.2063" y="710.7605" z="401.7698" h="16"/>
+	</spawn>
+	<!--Armory Maintenance Surkana 2 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700486" pool="1" interval="295">
 		<object staticid="30" x="553.40283" y="279.2841" z="409.7311" h="1"/>
+	</spawn>
+	<!--Gravity Control Surkana 3 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700487" pool="1" interval="295">
+		<object staticid="19" x="484.983" y="292.94415" z="402.24442" h="46"/>
+	</spawn>
+	<!--Nuclear Control Surkana 4 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700488" pool="1" interval="295">
+		<object staticid="20" x="346.1355" y="414.7247" z="410.5666" h="86"/>
+	</spawn>
+	<!--Nuclear Control Surkana 5 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700489" pool="1" interval="295">
+		<object staticid="28" x="625.6797" y="412.0587" z="410.52228" h="50"/>
+	</spawn>
+	<!--Main Cannon Control Surkana 6 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700490" pool="1" interval="295">
+		<object staticid="25" x="393.52335" y="567.063" z="408.91293" h="50"/>
+	</spawn>
+	<!--Main Cannon Control Surkana 7 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700491" pool="1" interval="295">
 		<object staticid="31" x="579.9327" y="566.6443" z="408.83307" h="78"/>
+	</spawn>
+	<!--Drop Device Surkana 8 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700492" pool="1" interval="295">
+		<object staticid="23" x="413.06436" y="490.7967" z="393.68185" h="38"/>
+	</spawn>
+	<!--Drop Device Surkana 9 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700493" pool="1" interval="295">
 		<object staticid="32" x="555.7624" y="491.23868" z="393.66724" h="55"/>
+	</spawn>
+	<!--Fighter Enhancing Surkana 10 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700494" pool="1" interval="295">
+		<object staticid="22" x="466.01926" y="607.2219" z="391.57822" h="96"/>
+	</spawn>
+	<!--Prisoner Holding Surkana 11 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700495" pool="1" interval="295">
+		<object staticid="29" x="392.2063" y="710.7605" z="401.7698" h="16"/>
+	</spawn>
+	<!--Prisoner Holding Surkana 12 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700496" pool="1" interval="295">
+		<object staticid="24" x="577.821" y="711.1901" z="401.7698" h="72"/>
+	</spawn>
+	<!-- Bridge Power Surkana 13 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700497" pool="1" interval="295">
+		<object staticid="27" x="485.00003" y="881.68243" z="405.01794" h="48"/>
+	</spawn>
+	<!-- Captain's Cabin Power Surkana 14 (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700498" pool="1" interval="295">
+		<object staticid="26" x="485.34122" y="817.6004" z="416.67175" h="62"/>
 	</spawn>
 	<!-- Captured Archon (NPC Normal lvl:45) -->
 	<spawn map="300110000" npcid="798328" pool="1" interval="295">
@@ -226,32 +265,72 @@
 		<object x="388.76578" y="173.58968" z="432.5741" h="52"/>
 		<object x="583.13477" y="172.48105" z="432.59354" h="56"/>
 	</spawn>
-	<!-- No. 2 Nuclear Control Room Teleporter (Object Normal lvl:1) -->
-	<spawn map="300110000" npcid="730214" pool="5" interval="295">
-		<object staticid="9" x="571.88" y="160.62" z="432.2848" h="112"/>
-		<object staticid="10" x="398.4565" y="160.15234" z="432.28445" h="20"/>
+	<!-- Portside Central Teleporter Left (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="730187" pool="1" interval="295">
+ 		<object staticid="9" x="571.88" y="160.62" z="432.2848" h="112"/>
+	</spawn>
+	<!-- Starboard Central Teleporter Right (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="730188" pool="1" interval="295">
+ 		<object staticid="10" x="398.4565" y="160.15234" z="432.28445" h="20"/>
+	</spawn>
+	<!-- No. 1 Nuclear Control Room Teleporter (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="730213" pool="1" interval="295">
 		<object staticid="64" x="402.3343" y="175.11707" z="432.28482" h="41"/>
+	</spawn>
+	<!-- No. 2 Nuclear Control Room Teleporter (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="730214" pool="1" interval="295">
 		<object staticid="65" x="567.5912" y="175.19655" z="432.2847" h="64"/>
+	</spawn>
+	<!-- Captain's Cabin Teleport Device (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="730197" pool="1" interval="295">
 		<object staticid="91" x="484.72" y="761.42" z="388.6547" h="29"/>
 	</spawn>
-	<!-- Starboard Defense Shield (Object Normal lvl:50) -->
-	<spawn map="300110000" npcid="700502" pool="2" interval="295">
+	<!-- Portside Defense Shield (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700501" pool="1" interval="295">
 		<object staticid="12" x="448.3915" y="493.6418" z="395.04062" h="108"/>
+	</spawn>
+	<!-- Starboard Defense Shield (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700502" pool="1" interval="295">
 		<object staticid="16" x="520.87555" y="493.40115" z="395.3418" h="28"/>
 	</spawn>
-	<!-- Starboard Defense Shield Generator (Object Normal lvl:1) -->
-	<spawn map="300110000" npcid="700508" pool="2" interval="295">
-		<object staticid="6" x="513" y="310.22" z="404.0853" h="58"/>
+	<!-- Portside Defense Shield Generator Left (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700507" pool="1" interval="295">
 		<object staticid="7" x="458.01" y="310.14" z="404.08" h="8"/>
 	</spawn>
-	<!-- Starboard Door of Captain's Cabin (Object Normal lvl:50) -->
-	<spawn map="300110000" npcid="700504" pool="2" interval="295">
+	<!-- Starboard Defense Shield Generator Right (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700508" pool="1" interval="295">
+		<object staticid="6" x="513" y="310.22" z="404.0853" h="58"/>
+	</spawn>
+	<!-- Portside Door of Captain's Cabin Left (Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700504" pool="1" interval="295">
 		<object staticid="1" x="512.8729" y="812.5232" z="416.6392" h="112"/>
+	</spawn>	
+	<!-- Starboard Door of Captain's Cabin Right(Object Normal lvl:50) -->
+	<spawn map="300110000" npcid="700503" pool="1" interval="295">
 		<object staticid="5" x="456.71008" y="812.3168" z="416.72446" h="35"/>
 	</spawn>
-	<!-- Starboard Teleporter Generator (Object Normal lvl:1) -->
-	<spawn map="300110000" npcid="700506" pool="2" interval="295">
+	<!-- Portside Teleporter Generator (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700505" pool="1" interval="295">
 		<object staticid="131" x="467.42523" y="586.23065" z="391.57822" h="78"/>
+	</spawn>
+	<!-- Starboard Teleporter Generator (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700506" pool="1" interval="295">
 		<object staticid="133" x="503.4529" y="586.89984" z="392.51694" h="37"/>
+	</spawn>
+	<!-- Port Bulkhead Left (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700598" pool="1" interval="295">
+		<object staticid="95" x="445.52554" y="322.47467" z="402.4762" h="0"/>
+	</spawn>
+	<!-- Starboard Bulkhead Right (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700599" pool="1" interval="295">
+		<object staticid="98" x="524.67957" y="322.53738" z="402.4071" h="0"/>
+	</spawn>
+	<!-- Escape Hatch (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700499" pool="1" interval="295">
+		<object staticid="17" x="408.37442" y="183.5789" z="438.10223" h="0"/>
+	</spawn>
+	<!-- Secondary Escape Hatch (Object Normal lvl:1) -->
+	<spawn map="300110000" npcid="700500" pool="1" interval="295">
+		<object staticid="18" x="562.40637" y="183.64265" z="438.13846" h="0"/>
 	</spawn>
 </spawns>
