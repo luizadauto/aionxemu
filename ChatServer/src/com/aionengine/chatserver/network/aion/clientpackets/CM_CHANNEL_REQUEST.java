@@ -16,6 +16,8 @@
  */
 package com.aionengine.chatserver.network.aion.clientpackets;
 
+import java.io.UnsupportedEncodingException;
+
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 
@@ -74,6 +76,17 @@ public class CM_CHANNEL_REQUEST extends AbstractClientPacket
 		if (channel != null)
 		{
 			clientChannelHandler.sendPacket(new SM_CHANNEL_RESPONSE(chatClient, channel));
+		}
+		else {
+			try
+			{
+				log.info("No channel with index " + channelIndex + " with channel identifier " + new String(channelIdentifier, "UTF-16le") + " for client " + chatClient.getClientId());
+				//log.info("Channel requested " + new String(channelIdentifier, "UTF-16le"));
+			}
+			catch (UnsupportedEncodingException e)
+			{
+				e.printStackTrace();
+			}			
 		}
 	}
 

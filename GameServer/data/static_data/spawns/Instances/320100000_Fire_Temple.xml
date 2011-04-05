@@ -13,6 +13,10 @@
 		<object x="280.7697" y="284.3958" z="127.58309" h="6"/>
 		<object x="283.1936" y="282.2035" z="127.482315" h="27"/>
 	</spawn>
+	<!-- Schatzkiste -->
+	<spawn map="320100000" npcid="212949" pool="1" interval="300">
+		<object x="303.84454" y="247.64423" z="117.27706" h="10"/>
+	</spawn>
 	<!-- Aetheric Kalgolem -->
 	<spawn map="320100000" npcid="212792" pool="5" interval="300">
 		<object x="160.26738" y="165.23744" z="103.47858" h="53"/>

@@ -53,6 +53,8 @@ public class ChatService {
                 } else {
                     log.warn("Player already registered with chat server " + player.getName());
                     // TODO do force relog in chat server?
+                    onPlayerLogout(player);
+                    ChatServer.getInstance().sendPlayerLoginRequst(player);
                 }
             }
         }, 10000);

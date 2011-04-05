@@ -51,7 +51,11 @@ public enum Channels
 	TRADE_ALTGARD_E(new TradeChannel(Race.ELYOS), "@\u0001trade_DF1A\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
 	TRADE_BRUSTHONIN_E(new TradeChannel(Race.ELYOS), "@\u0001trade_DF2A\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
 	TRADE_ABYSS_E(new TradeChannel(Race.ELYOS), "@\u0001trade_Ab1\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
-	
+	TRADE_KAISINEL_E(new TradeChannel(Race.ELYOS), "@\u0001trade_LC2\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
+	TRADE_INGGISON_E(new TradeChannel(Race.ELYOS), "@\u0001trade_LF4\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
+	TRADE_MARCHUTAN_E(new TradeChannel(Race.ELYOS), "@\u0001trade_DC2\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),	
+	TRADE_GELKMAROS_E(new TradeChannel(Race.ELYOS), "@\u0001trade_DF4\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),	
+	TRADE_UNDERPASS_E(new TradeChannel(Race.ELYOS), "@\u0001trade_Underpass\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),	
 	
 	TRADE_POETA_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_lf1\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	TRADE_VERTERON_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_LF1A\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
@@ -66,7 +70,11 @@ public enum Channels
 	TRADE_ALTGARD_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_DF1A\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	TRADE_BRUSTHONIN_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_DF2A\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	TRADE_ABYSS_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_Ab1\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
-	
+	TRADE_KAISINEL_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_LC2\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+	TRADE_INGGISON_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_LF4\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+	TRADE_MARCHUTAN_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_DC2\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),	
+	TRADE_GELKMAROS_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_DF4\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+	TRADE_UNDERPASS_A(new TradeChannel(Race.ASMODIANS), "@\u0001trade_Underpass\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	/**
 	 * Region channels
 	 */
@@ -83,7 +91,12 @@ public enum Channels
 	REGION_ALTGARD_E(new RegionChannel(WorldMapType.ALTGARD.getId(), Race.ELYOS), "@\u0001public_DF1A\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
 	REGION_BRUSTHONIN_E(new RegionChannel(WorldMapType.BRUSTHONIN.getId(), Race.ELYOS), "@\u0001public_DF2A\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
 	REGION_ABYSS_E(new RegionChannel(WorldMapType.RESHANTA.getId(), Race.ELYOS), "@\u0001public_Ab1\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
-	
+	REGION_KAISINEL_E(new RegionChannel(WorldMapType.KAISINEL.getId(), Race.ELYOS), "@\u0001public_LC2\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
+	REGION_INGGISON_E(new RegionChannel(WorldMapType.INGGISON.getId(), Race.ELYOS), "@\u0001public_LF4\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
+	REGION_MARCHUTAN_E(new RegionChannel(WorldMapType.MARCHUTAN.getId(), Race.ELYOS), "@\u0001public_DC2\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),	
+	REGION_GELKMAROS_E(new RegionChannel(WorldMapType.GELKMAROS.getId(), Race.ELYOS), "@\u0001public_DF4\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
+	REGION_UNDERPASS_E(new RegionChannel(WorldMapType.UNDERPASS.getId(), Race.ELYOS), "@\u0001public_Underpass\u0001" + GameServerService.GAMESERVER_ID + ".0.AION.KOR"),
+		
 	REGION_POETA_A(new RegionChannel(WorldMapType.POETA.getId(), Race.ASMODIANS), "@\u0001public_lf1\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	REGION_VERTERON_A(new RegionChannel(WorldMapType.VERTERON.getId(), Race.ASMODIANS), "@\u0001public_LF1A\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	REGION_SANCTUM_A(new RegionChannel(WorldMapType.SANCTUM.getId(), Race.ASMODIANS), "@\u0001public_LC1\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
@@ -97,7 +110,12 @@ public enum Channels
 	REGION_ALTGARD_A(new RegionChannel(WorldMapType.ALTGARD.getId(), Race.ASMODIANS), "@\u0001public_DF1A\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	REGION_BRUSTHONIN_A(new RegionChannel(WorldMapType.BRUSTHONIN.getId(), Race.ASMODIANS), "@\u0001public_DF2A\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
 	REGION_ABYSS_A(new RegionChannel(WorldMapType.RESHANTA.getId(), Race.ASMODIANS), "@\u0001public_Ab1\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
-	
+	REGION_KAISINEL_A(new RegionChannel(WorldMapType.KAISINEL.getId(), Race.ASMODIANS), "@\u0001public_LC2\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+	REGION_INGGISON_A(new RegionChannel(WorldMapType.INGGISON.getId(), Race.ASMODIANS), "@\u0001public_LF4\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+	REGION_MARCHUTAN_A(new RegionChannel(WorldMapType.MARCHUTAN.getId(), Race.ASMODIANS), "@\u0001public_DC2\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),	
+	REGION_GELKMAROS_A(new RegionChannel(WorldMapType.GELKMAROS.getId(), Race.ASMODIANS), "@\u0001public_DF4\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+	REGION_UNDERPASS_A(new RegionChannel(WorldMapType.UNDERPASS.getId(), Race.ASMODIANS), "@\u0001public_Underpass\u0001" + GameServerService.GAMESERVER_ID + ".1.AION.KOR"),
+
 	/**
 	 * Job channels
 	 */
