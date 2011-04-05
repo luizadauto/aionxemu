@@ -126,4 +126,9 @@ public class CalculatedPlayerStatsTemplate extends PlayerStatsTemplate {
         return 1.5f;
     }
 
+    @Override
+    public int getBoostHeal() {
+        return ClassStats.getBoostHealFor(playerClass);
+    }
+
 }

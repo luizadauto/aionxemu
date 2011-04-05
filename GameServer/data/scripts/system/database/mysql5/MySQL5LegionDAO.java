@@ -25,6 +25,8 @@ import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.StorageType;
 import gameserver.model.legion.*;
+import gameserver.services.RentalService;
+
 import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
@@ -78,7 +80,7 @@ public class MySQL5LegionDAO extends LegionDAO {
     /**
      * Storage Queries *
      */
-    private static final String SELECT_STORAGE_QUERY = "SELECT `itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `isEquiped`, `slot`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket` FROM `inventory` WHERE `itemOwner`=? AND `itemLocation`=? AND `isEquiped`=?";
+    private static final String SELECT_STORAGE_QUERY = "SELECT `itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `isEquiped`, `slot`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket`, `expireTime` FROM `inventory` WHERE `itemOwner`=? AND `itemLocation`=? AND `isEquiped`=?";
 
     /**
      * History Queries *
@@ -453,11 +455,12 @@ public class MySQL5LegionDAO extends LegionDAO {
                     int fusionedItem = rset.getInt("fusionedItem");
                     int optionalSocket = rset.getInt("optionalSocket");
                     int optionalFusionSocket = rset.getInt("optionalFusionSocket");
+                    Timestamp expireTime = rset.getTimestamp("expireTime");
                     String itemCreator = rset.getString("itemCreator");
                     Item item = new Item(itemUniqueId, itemId, itemCount,
                         itemColor, itemCreator, (isEquiped == 1), false, slot,
                         storage, enchant, itemSkin, fusionedItem,
-                        optionalSocket, optionalFusionSocket);
+                        optionalSocket, optionalFusionSocket, expireTime);
                     item.setPersistentState(PersistentState.UPDATED);
                     inventory.onLoadHandler(item);
                 }

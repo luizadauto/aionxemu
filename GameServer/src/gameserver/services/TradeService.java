@@ -155,6 +155,49 @@ public class TradeService {
     }
 
     /**
+	 * @param player
+	 * @param tradeList
+	 */
+	public static boolean performBuyFromSpecialShop(Player player, TradeList tradeList)
+	{
+		if (!validateBuyItems(tradeList, player)) {
+            PacketSendUtility.sendMessage(player, "Some items are not allowed to be selled from this npc");
+            if (CustomConfig.ARTMONEY_HACK)
+            PunishmentService.setIsInPrison(player, true, CustomConfig.ARTMONEY_HACKBUY_TIME);
+            return false;
+        }
+
+		if (!tradeList.calculateSpecialBuyListPrice(player))
+			return false;
+
+		Storage inventory = player.getInventory();
+        int freeSlots = inventory.getLimit() - inventory.getAllItems().size() + 1;
+
+        if (freeSlots < tradeList.size())
+        	return false;
+
+        List<Item> addedItems = new ArrayList<Item>();
+
+        for (TradeItem tradeItem : tradeList.getTradeItems()) {
+        	long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+        	if (count != 0) {
+        		log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
+                    .getObjectId(), tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount(), count));
+        		return false;
+        	}
+        }
+
+        Map<Integer, Integer> requiredItems = tradeList.getRequiredItems();
+        for (Integer itemId : requiredItems.keySet()) {
+        	player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
+        }
+
+        PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(addedItems));
+
+		return true;
+	}
+
+    /**
      * @param tradeList
      */
     private static boolean validateBuyItems(TradeList tradeList, Player player) {

@@ -113,7 +113,7 @@ public class ItemStorage {
                 return item;
             }
         }
-        log.info("ItemStorage.getItemFromStorageByItemObjId("+itemObjId+") Item could not Found.");
+        //log.info("ItemStorage.getItemFromStorageByItemObjId("+itemObjId+") Item could not Found.");
         return null;
     }
 

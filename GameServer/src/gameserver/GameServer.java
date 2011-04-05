@@ -159,6 +159,8 @@ public class GameServer {
 
         AbyssRankingService.getInstance();
 
+		RentalService.getInstance();
+
         Util.printSection("System");
         AEVersions.printFullVersionInfo();
         System.gc();

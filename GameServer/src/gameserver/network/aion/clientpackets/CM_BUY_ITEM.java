@@ -85,7 +85,7 @@ public class CM_BUY_ITEM extends AionClientPacket {
             if (count < 1)
                 continue;
 
-            if (unk1 == 13 || unk1 == 14) {
+            if (unk1 == 13 || unk1 == 14 || unk1 == 15) {
                 tradeList.addBuyItem(itemId, count);
             }
             else if (unk1 == 1) {
@@ -104,6 +104,8 @@ public class CM_BUY_ITEM extends AionClientPacket {
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
         AionObject obj = World.getInstance().findAionObject(sellerObjId);
+		TradeListTemplate tlist = null;
+		Npc npc = null;
 
         switch (unk1) {
             case 0:
@@ -120,11 +122,18 @@ public class CM_BUY_ITEM extends AionClientPacket {
                 break;
 
             case 14:
-                Npc npc = (Npc) World.getInstance().findAionObject(sellerObjId);
-                TradeListTemplate tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
-                if (tlist.isAbyss())
+                npc = (Npc) World.getInstance().findAionObject(sellerObjId);
+                tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
+                if (tlist.getCategory() == 1)
                     TradeService.performBuyFromAbyssShop(player, tradeList);
                 break;
+
+            case 15:
+            	npc = (Npc) World.getInstance().findAionObject(sellerObjId);
+            	tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
+            	if (tlist.getCategory() == 3)
+            		TradeService.performBuyFromSpecialShop(player, tradeList);
+            	break;
 
             default:
                 log.info(String.format("Unhandle shop action unk1: %d", unk1));

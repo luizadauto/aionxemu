@@ -491,7 +491,7 @@ public class Player extends Creature {
         if (storageType == StorageType.ACCOUNT_WAREHOUSE.getId())
             return accountWarehouse;
 
-        if (storageType == StorageType.LEGION_WAREHOUSE.getId())
+        if (storageType == StorageType.LEGION_WAREHOUSE.getId() && getLegion() != null)
             return getLegion().getLegionWarehouse();
 
         if (storageType > 31 && storageType < 36)

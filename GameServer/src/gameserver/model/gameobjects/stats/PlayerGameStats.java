@@ -79,7 +79,7 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
     private void initStats(PlayerStatsTemplate pst, int level) {
         this.initStats(pst.getMaxHp(), pst.getMaxMp(), pst.getPower(), pst.getHealth(), pst.getAgility(), pst
                 .getAccuracy(), pst.getKnowledge(), pst.getWill(), pst.getMainHandAttack(), pst.getMainHandCritRate(), Math
-                .round(pst.getAttackSpeed() * 1000), 1500, Math.round(pst.getRunSpeed() * 1000), Math.round(pst.getFlySpeed() * 1000));
+                .round(pst.getAttackSpeed() * 1000), 1500, Math.round(pst.getRunSpeed() * 1000), Math.round(pst.getFlySpeed() * 1000), pst.getBoostHeal());
         setAttackCounter(1);
         initStat(StatEnum.PARRY, pst.getParry());
         initStat(StatEnum.BLOCK, pst.getBlock());
@@ -113,7 +113,7 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
      * @param runSpeed
      * @param flySpeed
      */
-    protected void initStats(int maxHp, int maxMp, int power, int health, int agility, int accuracy, int knowledge, int will, int mainHandAttack, int mainHandCritRate, int attackSpeed, int attackRange, int runSpeed, int flySpeed) {
+    protected void initStats(int maxHp, int maxMp, int power, int health, int agility, int accuracy, int knowledge, int will, int mainHandAttack, int mainHandCritRate, int attackSpeed, int attackRange, int runSpeed, int flySpeed, int boostHeal) {
         stats.clear();
         initStat(StatEnum.MAXHP, maxHp);
         initStat(StatEnum.MAXMP, maxMp);
@@ -151,7 +151,7 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
         initStat(StatEnum.PVP_DEFEND_RATIO, 0);
         initStat(StatEnum.BOOST_CASTING_TIME, 100);
         initStat(StatEnum.BOOST_HATE, 100);
-        initStat(StatEnum.BOOST_HEAL, 100);
+        initStat(StatEnum.BOOST_HEAL, boostHeal);
         initStat(StatEnum.MAGICAL_RESIST, 50); // 1.9 every class start with 50 points of spell resist.
         initStat(StatEnum.MAGICAL_CRITICAL, 50);
         initStat(StatEnum.MAGICAL_CRITICAL_RESIST, 0);

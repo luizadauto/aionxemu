@@ -24,6 +24,7 @@ import gameserver.model.items.ItemSlot;
 import gameserver.model.items.ItemStone;
 import gameserver.model.items.ManaStone;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.services.RentalService;
 
 import java.nio.ByteBuffer;
 import java.util.Set;
@@ -276,9 +277,10 @@ public abstract class InventoryPacket extends AionServerPacket {
             writeH(buf, item.getItemMask());
             writeQ(buf, item.getItemCount());
             writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
-            writeH(buf, 0);
+            writeC(buf, 0);
+            writeD(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
+            writeC(buf, 0);
             writeD(buf, 0);
-            writeD(buf, 0); // For temp items: Remaining seconds
             if (!privateStore)
                 writeH(buf, 0);
             writeC(buf, 0);
@@ -394,8 +396,9 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
         writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
-        writeH(buf, 0);
-        writeD(buf, 0);
+        writeC(buf, 0);
+        writeD(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
+        writeC(buf, 0);
         writeD(buf, 0);
         if (!privateStore)
             writeH(buf, 0);

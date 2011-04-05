@@ -279,17 +279,20 @@ public class PlayerService {
         newPlayer.setMailbox(new Mailbox());
 
        for (int petBagId = 32; petBagId < 36; petBagId++) {
-            
+
             Storage petBag = new Storage(StorageType.getStorageTypeById(petBagId));
             newPlayer.setStorage(petBag, StorageType.getStorageTypeById(petBagId));
         }
-        
+
         for (ItemType itemType : items) {
 
             int itemId = itemType.getTemplate().getTemplateId();
             Item item = ItemService.newItem(itemId, itemType.getCount());
             if (item == null)
                 continue;
+
+			if (RentalService.getInstance().isRentalItem(item))
+				RentalService.getInstance().addRentalItem(newPlayer, item);
 
             // When creating new player - all equipment that has slot values will be equipped
             // Make sure you will not put into xml file more items than possible to equip.

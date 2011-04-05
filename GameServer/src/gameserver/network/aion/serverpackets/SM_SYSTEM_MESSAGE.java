@@ -1411,6 +1411,14 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
         return new SM_SYSTEM_MESSAGE(1400452, new DescriptionId(nameId));
     }
 
+    public static final SM_SYSTEM_MESSAGE STR_ITEM_CANCELED() {
+    	return new SM_SYSTEM_MESSAGE(1300427);
+    }
+
+    public static final SM_SYSTEM_MESSAGE STR_MSG_DELETE_CASH_ITEM_BY_TIMEOUT(int nameId) {
+    	return new SM_SYSTEM_MESSAGE(1400034, new DescriptionId(nameId));
+    }
+
     private final int code;
     private final Object[] params;
     private boolean npcShout = false;

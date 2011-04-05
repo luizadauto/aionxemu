@@ -27,12 +27,15 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.gameobjects.player.StorageType;
 import gameserver.services.ItemService;
+import gameserver.services.RentalService;
+
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +45,9 @@ import java.util.List;
 public class MySQL5InventoryDAO extends InventoryDAO {
     private static final Logger log = Logger.getLogger(MySQL5InventoryDAO.class);
 
-    public static final String SELECT_QUERY = "SELECT `itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `isEquiped`, `isSoulBound`, `slot`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket` FROM `inventory` WHERE `itemOwner`=? AND `itemLocation`=? AND `isEquiped`=?";
-    public static final String INSERT_QUERY = "INSERT INTO `inventory` (`itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `itemOwner`, `isEquiped`, isSoulBound, `slot`, `itemLocation`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    public static final String UPDATE_QUERY = "UPDATE `inventory` SET  `itemCount`=?, `itemColor`=?, `itemOwner`=?, `isEquiped`=?, `isSoulBound`=?, `slot`=?, `itemLocation`=?, `enchant`=?, `itemCreator`=?, `itemSkin`=?, `fusionedItem`=?, `optionalSocket`=?, `optionalFusionSocket`=? WHERE `itemUniqueId`=?";
+    public static final String SELECT_QUERY = "SELECT `itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `isEquiped`, `isSoulBound`, `slot`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket`, `expireTime` FROM `inventory` WHERE `itemOwner`=? AND `itemLocation`=? AND `isEquiped`=?";
+    public static final String INSERT_QUERY = "INSERT INTO `inventory` (`itemUniqueId`, `itemId`, `itemCount`, `itemColor`, `itemOwner`, `isEquiped`, isSoulBound, `slot`, `itemLocation`, `enchant`, `itemCreator`, `itemSkin`, `fusionedItem`, `optionalSocket`, `optionalFusionSocket`, `expireTime`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String UPDATE_QUERY = "UPDATE `inventory` SET  `itemCount`=?, `itemColor`=?, `itemOwner`=?, `isEquiped`=?, `isSoulBound`=?, `slot`=?, `itemLocation`=?, `enchant`=?, `itemCreator`=?, `itemSkin`=?, `fusionedItem`=?, `optionalSocket`=?, `optionalFusionSocket`=?, `expireTime`=? WHERE `itemUniqueId`=?";
     public static final String DELETE_QUERY = "DELETE FROM `inventory` WHERE `itemUniqueId`=?";
     public static final String DELETE_CLEAN_QUERY = "DELETE FROM `inventory` WHERE `itemOwner`=? AND (`itemLocation`=0 OR `itemLocation`=1)";
     public static final String SELECT_ACCOUNT_QUERY = "SELECT `account_id` FROM `players` WHERE `id`=?";
@@ -82,13 +85,17 @@ public class MySQL5InventoryDAO extends InventoryDAO {
                 int fusionedItem = rset.getInt("fusionedItem");
                 int optionalSocket = rset.getInt("optionalSocket");
                 int optionalFusionSocket = rset.getInt("optionalFusionSocket");
+                Timestamp expireTime = rset.getTimestamp("expireTime");
                 String itemCreator = rset.getString("itemCreator");
                 Item item = new Item(itemUniqueId, itemId, itemCount, itemColor,
                     itemCreator, (isEquiped == 1), (isSoulBound == 1), slot,
                     storage, enchant, itemSkin, fusionedItem, optionalSocket,
-                    optionalFusionSocket);
+                    optionalFusionSocket, expireTime);
                 item.setPersistentState(PersistentState.UPDATED);
                 inventory.onLoadHandler(item);
+
+                if (RentalService.getInstance().isRentalItem(item))
+                	RentalService.getInstance().addRentalItem(owner, item);
             }
             rset.close();
             stmt.close();
@@ -131,12 +138,16 @@ public class MySQL5InventoryDAO extends InventoryDAO {
                 int fusionedItem = rset.getInt("fusionedItem");
                 int optionalSocket = rset.getInt("optionalSocket");
                 int optionalFusionSocket = rset.getInt("optionalFusionSocket");
+                Timestamp expireTime = rset.getTimestamp("expireTime");
                 String  itemCreator = rset.getString("itemCreator");
                 Item item = new Item(itemUniqueId, itemId, itemCount, itemColor,
                     itemCreator, true, (isSoulBound == 1), slot, storage, enchant,
-                    itemSkin, fusionedItem, optionalSocket, optionalFusionSocket);
+                    itemSkin, fusionedItem, optionalSocket, optionalFusionSocket, expireTime);
                 item.setPersistentState(PersistentState.UPDATED);
                 equipment.onLoadHandler(item);
+
+                if (RentalService.getInstance().isRentalItem(item))
+                	RentalService.getInstance().addRentalItem(owner, item);
             }
             rset.close();
             stmt.close();
@@ -177,11 +188,15 @@ public class MySQL5InventoryDAO extends InventoryDAO {
                 int fusionedItem = rset.getInt("fusionedItem");
                 int optionalSocket = rset.getInt("optionalSocket");
                 int optionalFusionSocket = rset.getInt("optionalFusionSocket");
+                Timestamp expireTime = rset.getTimestamp("expireTime");
                 String itemCreator = rset.getString("itemCreator");
                 Item item = new Item(itemUniqueId, itemId, itemCount, itemColor,
                     itemCreator, true, (isSoulBound == 1), slot, storage, enchant,
-                    itemSkin, fusionedItem, optionalSocket, optionalFusionSocket);
+                    itemSkin, fusionedItem, optionalSocket, optionalFusionSocket, expireTime);
                 items.add(item);
+
+                if (RentalService.getInstance().isRentalItem(item))
+                	RentalService.getInstance().addRentalItem(owner, item);
             }
             rset.close();
             stmt.close();
@@ -285,6 +300,7 @@ public class MySQL5InventoryDAO extends InventoryDAO {
             stmt.setInt(13, item.getFusionedItem());
             stmt.setInt(14, item.getOptionalSocket());
             stmt.setInt(15, item.getOptionalFusionSocket());
+            stmt.setTimestamp(16, item.getExpireTime());
             stmt.execute();
             stmt.close();
         }
@@ -320,7 +336,8 @@ public class MySQL5InventoryDAO extends InventoryDAO {
             stmt.setInt(11, item.getFusionedItem());
             stmt.setInt(12, item.getOptionalSocket());
             stmt.setInt(13, item.getOptionalFusionSocket());
-            stmt.setInt(14, item.getObjectId());
+            stmt.setTimestamp(14, item.getExpireTime());
+            stmt.setInt(15, item.getObjectId());
             stmt.execute();
             stmt.close();
         }

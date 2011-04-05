@@ -48,7 +48,8 @@ public class SM_TRADELIST extends AionServerPacket {
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
         if ((tlist != null) && (tlist.getNpcId() != 0) && (tlist.getCount() != 0)) {
             writeD(buf, targetObjectId);
-            writeC(buf, tlist.isAbyss() ? 2 : 1); //abyss or normal
+            //writeC(buf, tlist.isAbyss() ? 2 : 1); //abyss or normal
+            writeC(buf, tlist.getCategory() + 1);
             writeD(buf, buyPriceModifier); // Vendor Buy Price Modifier
             writeH(buf, tlist.getCount());
             for (TradeTab tradeTabl : tlist.getTradeTablist()) {

@@ -76,6 +76,12 @@ public class ItemTemplate extends VisibleObjectTemplate {
     @XmlAttribute(name = "weapon_boost")
     private int weaponBoost;
 
+    @XmlAttribute(name = "extra_currency_item")
+    private int extraCurrencyItem;
+
+    @XmlAttribute(name = "extra_currency_item_count")
+    private int extraCurrencyItemCount;
+
     @XmlAttribute(name = "price")
     private int price;
 
@@ -236,6 +242,20 @@ public class ItemTemplate extends VisibleObjectTemplate {
      */
     public EquipType getEquipmentType() {
         return equipmentType;
+    }
+
+    /**
+     * @return the extraCurrencyItem
+     */
+    public int getExtraCurrencyItem() {
+    	return extraCurrencyItem;
+    }
+
+    /**
+     * @return the extraCurrencyItemCount
+     */
+    public int getExtraCurrencyItemCount() {
+    	return extraCurrencyItemCount;
     }
 
     /**

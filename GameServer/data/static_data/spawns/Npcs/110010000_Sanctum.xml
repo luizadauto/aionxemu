@@ -49,7 +49,7 @@
 	</spawn>
 	<!-- Fasimedes (NPC Normal lvl:50)-->
 	<spawn map="110010000" npcid="203700" pool="1" interval="295">
-		<object h="60" x="1876.2905" y="1511.203" z="812.6754"/>
+		<object h="0" x="1877.0549" y="1511.0132" z="812.6754"/>
 	</spawn>
 	<!-- Lavirintos (NPC Normal lvl:50)-->
 	<spawn map="110010000" npcid="203701" pool="1" interval="295">

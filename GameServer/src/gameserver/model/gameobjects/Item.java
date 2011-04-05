@@ -28,9 +28,12 @@ import gameserver.model.templates.item.ItemQuality;
 import gameserver.model.templates.item.ItemTemplate;
 import gameserver.model.templates.item.ItemType;
 import gameserver.services.ItemService;
+import gameserver.services.RentalService;
+import gameserver.world.World;
 
 import org.apache.log4j.Logger;
 
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -76,6 +79,8 @@ public class Item extends AionObject {
 
     private int fusionedItemId = 0;
 
+    private Timestamp expireTime = null;
+
     /**
      * @param objId
      * @param itemId
@@ -97,6 +102,10 @@ public class Item extends AionObject {
         this.itemCreator = itemCreator;
         this.isEquipped = isEquipped;
         this.equipmentSlot = equipmentSlot;
+
+        if(itemTemplate.getExpireMinutes() > 0)
+        	this.expireTime = new Timestamp(System.currentTimeMillis() + itemTemplate.getExpireMinutes() * 60 * 1000);
+
         this.persistentState = PersistentState.NEW;
     }
 
@@ -121,7 +130,7 @@ public class Item extends AionObject {
     public Item(int objId, int itemId, long itemCount, int itemColor,
         String itemCreator, boolean isEquipped, boolean isSoulBound,
         int equipmentSlot, int itemLocation, int enchant, int itemSkin,
-        int fusionedItem, int optionalSocket, int optionalFusionSocket)
+        int fusionedItem, int optionalSocket, int optionalFusionSocket, Timestamp expireTime)
     {
         super(objId);
 
@@ -139,6 +148,7 @@ public class Item extends AionObject {
         this.itemSkinTemplate = DataManager.ITEM_DATA.getItemTemplate(itemSkin);
         this.optionalSocket = optionalSocket;
         this.optionalFusionSocket = optionalFusionSocket;
+        this.expireTime = expireTime;
     }
 
     @Override
@@ -660,4 +670,21 @@ public class Item extends AionObject {
         this.itemCreator = itemCreator;
         setPersistentState(PersistentState.UPDATE_REQUIRED);
     }
+
+	/**
+	 * @param expireTime the expireTime to set
+	 */
+	public void setExpireTime(Timestamp expireTime)
+	{
+		this.expireTime = expireTime;
+		setPersistentState(PersistentState.UPDATE_REQUIRED);
+	}
+
+	/**
+	 * @return the expireTime
+	 */
+	public Timestamp getExpireTime()
+	{
+		return expireTime;
+	}
 }

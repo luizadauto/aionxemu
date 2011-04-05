@@ -78,6 +78,8 @@
         <xs:attribute name="aic" type="xs:int" default="0"/>
         <xs:attribute name="ai" type="xs:int" default="0"/>
         <xs:attribute name="ap" type="xs:int" default="0"/>
+		<xs:attribute name="extra_currency_item" type="xs:int" default="0"/>
+		<xs:attribute name="extra_currency_item_count" type="xs:int" default="0"/>
         <xs:attribute name="price" type="xs:int" default="0"/>
         <xs:attribute name="quality" type="itemQuality"/>
         <xs:attribute name="item_category" type="itemCategory"/>

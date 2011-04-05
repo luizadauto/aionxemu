@@ -62,6 +62,8 @@ public abstract class StatsTemplate {
 
     @XmlAttribute(name = "magic_accuracy")
     private int magicAccuracy;
+    @XmlAttribute(name = "boost_heal")
+    private int boostHeal;
 
     /* ======================================= */
 
@@ -124,5 +126,8 @@ public abstract class StatsTemplate {
 
     public int getMagicAccuracy() {
         return magicAccuracy;
+    }
+    public int getBoostHeal() {
+        return boostHeal;
     }
 }

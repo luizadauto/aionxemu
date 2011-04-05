@@ -131,6 +131,31 @@ public class TradeList {
         return true;
     }
 
+    /**
+     * @return true or false
+     */
+    public boolean calculateSpecialBuyListPrice(Player player) {
+    	this.requiredItems.clear();
+
+    	for (TradeItem tradeItem : tradeItems) {
+    		int itemId = tradeItem.getItemTemplate().getExtraCurrencyItem();
+    		Integer alreadyAddedCount = requiredItems.get(itemId);
+
+    		if (alreadyAddedCount == null)
+    			requiredItems.put(itemId, tradeItem.getItemTemplate().getExtraCurrencyItemCount());
+    		else
+    			requiredItems.put(itemId, alreadyAddedCount + tradeItem.getItemTemplate().getExtraCurrencyItemCount());
+    	}
+
+    	for (Integer itemId : requiredItems.keySet()) {
+    		long count = player.getInventory().getItemCountByItemId(itemId);
+    		if (count < requiredItems.get(itemId))
+    			return false;
+    	}
+
+    	return true;
+    }
+
 
     /**
      * @return the tradeItems

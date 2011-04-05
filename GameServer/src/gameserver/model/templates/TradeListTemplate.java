@@ -44,8 +44,8 @@ public class TradeListTemplate {
     @XmlAttribute(name = "count", required = true)
     private int Count = 0;
 
-    @XmlAttribute(name = "abyss")
-    private boolean abyss;
+    @XmlAttribute(name = "category")
+    private int category = 0;
 
     @XmlElement(name = "tradelist")
     protected List<TradeTab> tradeTablist;
@@ -73,10 +73,14 @@ public class TradeListTemplate {
     }
 
     /**
-     * @return the abyss
+     * @return the category
      */
+    public int getCategory() {
+        return category;
+    }
+
     public boolean isAbyss() {
-        return abyss;
+    	return false;
     }
 
 

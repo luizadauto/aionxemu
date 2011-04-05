@@ -355,6 +355,9 @@ public class ItemService {
                     count -= maxStackCount;
                     inventory.putToBag(item);
                     updateItem(player, item, true);
+
+                    if (RentalService.getInstance().isRentalItem(item))
+                    	RentalService.getInstance().addRentalItem(player, item);
                 } else {
                     Item item = newItem(itemId, count, itemCreator);
 
@@ -376,6 +379,9 @@ public class ItemService {
                     inventory.putToBag(item);
                     updateItem(player, item, true);
                     count = 0;
+
+                    if (RentalService.getInstance().isRentalItem(item))
+                    	RentalService.getInstance().addRentalItem(player, item);
                 }
             }
 

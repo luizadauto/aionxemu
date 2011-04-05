@@ -30,6 +30,8 @@ import gameserver.model.gameobjects.player.Mailbox;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.PlayerCommonData;
 import gameserver.model.gameobjects.player.StorageType;
+import gameserver.services.RentalService;
+
 import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
@@ -118,13 +120,17 @@ public class MySQL5MailDAO extends MailDAO {
                     int fusionedItem = rset.getInt("fusionedItem");
                     int optionalSocket = rset.getInt("optionalSocket");
                     int optionalFusionSocket = rset.getInt("optionalFusionSocket");
+                    Timestamp expireTime = rset.getTimestamp("expireTime");
                     Item item = new Item(itemUniqueId, itemId, itemCount,
                         itemColor, itemCreator, (isEquiped == 1),
                         (isSoulBound == 1), slot, StorageType.MAILBOX.getId(),
                         enchant, itemSkin, fusionedItem, optionalSocket,
-                        optionalFusionSocket);
+                        optionalFusionSocket, expireTime);
                     item.setPersistentState(PersistentState.UPDATED);
                     mailboxItems.add(item);
+
+                    if (RentalService.getInstance().isRentalItem(item))
+                    	RentalService.getInstance().addRentalItem(playerId, item);
                 }
             }
         });

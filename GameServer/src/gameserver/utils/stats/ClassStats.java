@@ -200,4 +200,12 @@ public class ClassStats {
     public static int getSpeedFor(PlayerClass playerClass) {
         return SPEED.valueOf(playerClass.toString()).getValue();
     }
+
+    /**
+     * @param playerClass
+     * @return int
+     */
+    public static int getBoostHealFor(PlayerClass playerClass) {
+        return BOOST_HEAL.valueOf(playerClass.toString()).getValue();
+    }
 }
