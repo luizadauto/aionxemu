@@ -29,10 +29,14 @@ import gameserver.services.RentalService;
 import java.nio.ByteBuffer;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 /**
- * @author ATracer
+ * @author ATracer, ZeroSignal
  */
 public abstract class InventoryPacket extends AionServerPacket {
+    private static Logger log = Logger.getLogger(InventoryPacket.class);
+
     /**
      * The header of every item block
      *
@@ -230,10 +234,10 @@ public abstract class InventoryPacket extends AionServerPacket {
      */
     protected void writeWeaponInfo(ByteBuffer buf, Item item, boolean isInventory, boolean isWeaponSwitch, boolean privateStore, boolean mail) {
         int itemSlotId = item.getEquipmentSlot();
-        int placeHolder, sizeLoc, size;
+        int sizeLoc;
 
-        writeH(buf, 0x05);
         sizeLoc = buf.position();
+        writeH(buf, 5);
 
         if (!isWeaponSwitch && item.getItemTemplate().getWeaponType().getRequiredSlots() == 2) {
             writeC(buf, 0x0E);
@@ -245,55 +249,60 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeC(buf, 0x06);
         writeD(buf, item.isEquipped() ? itemSlotId : 0x00);
 
-        if (!isWeaponSwitch) {
-            writeC(buf, 0x01);
-            writeD(buf, ItemSlot.getSlotsFor(item.getItemTemplate().getItemSlot()).get(0).getSlotIdMask());
-            writeD(buf, item.hasFusionedItem() ? 0x00 : 0x02);
-            writeC(buf, 0x0B); //? some details separator
-            writeC(buf, item.isSoulBound() ? 1 : 0);
-            writeC(buf, item.getEnchantLevel()); //enchant (1-15)
-            writeD(buf, item.getItemSkinTemplate().getTemplateId());
-            writeC(buf, item.hasOptionalSocket() ? item.getOptionalSocket() : 0x00);
+        if (isWeaponSwitch)
+            return;
 
-            writeItemStones(buf, item);
+        writeC(buf, 0x01);
+        writeD(buf, ItemSlot.getSlotsFor(item.getItemTemplate().getItemSlot()).get(0).getSlotIdMask());
+        writeD(buf, item.hasFusionedItem() ? 0x00 : 0x02);
+        writeC(buf, 0x0B); //? some details separator
+        writeC(buf, item.isSoulBound() ? 1 : 0);
+        writeC(buf, item.getEnchantLevel()); //enchant (1-15)
+        writeD(buf, item.getItemSkinTemplate().getTemplateId());
+        writeC(buf, item.hasOptionalSocket() ? item.getOptionalSocket() : 0x00);
 
-            ItemStone god = item.getGodStone();
-            writeD(buf, god == null ? 0 : god.getItemId());
+        writeItemStones(buf, item);
 
-            writeD(buf, 0);
+        ItemStone god = item.getGodStone();
+        writeD(buf, god == null ? 0 : god.getItemId());
 
-            writeD(buf, 0);//unk 1.5.1.9
+        writeD(buf, 0);
 
-            /*
-                * This is where item bonuses should be inserted.
-                * The format is as follows:
-                * writeH(buf, 2560); 0x000A
-                * writeH(buf, bonusType); //ex. 0x12 is +HP
-                * writeD(buf, bonusAmount); //ex. 0xC4 is 196
-                */
+        writeD(buf, 0);//unk 1.5.1.9
 
-            writeH(buf, 0x00); // seperator between item bonus and item mask
+        /*
+            * This is where item bonuses should be inserted.
+            * The format is as follows:
+            * writeH(buf, 2560); 0x000A
+            * writeH(buf, bonusType); //ex. 0x12 is +HP
+            * writeD(buf, bonusAmount); //ex. 0xC4 is 196
+            */
 
-            writeH(buf, item.getItemMask());
-            writeQ(buf, item.getItemCount());
+        writeH(buf, 0x00); // seperator between item bonus and item mask
+
+        writeH(buf, item.getItemMask());
+        writeQ(buf, item.getItemCount());
+        if (privateStore)
+            writeH(buf, 0);
+        else
             writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
-            writeC(buf, 0);
-            writeD(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
-            writeC(buf, 0);
-            writeD(buf, 0);
-            if (!privateStore)
-                writeH(buf, 0);
-            writeC(buf, 0);
+        writeC(buf, 0);
+        writeD(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
+        writeC(buf, 0);
+        writeD(buf, 0);
+        if (!privateStore)
+            writeH(buf, 0);
+        writeC(buf, 0);
 
-            size = buf.position() - sizeLoc;
-            placeHolder = buf.position();
-            buf.position(sizeLoc - 2);
-            writeH(buf, size);
-            buf.position(placeHolder);
+        int placeHolder, size;
+        size = (privateStore) ? 103 : (buf.position() - sizeLoc - 2);
+        placeHolder = buf.position();
+        buf.position(sizeLoc);
+        writeH(buf, size);
+        buf.position(placeHolder);
 
-            if (!mail) writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot()); // FF FF equipment
-            if (isInventory) writeC(buf, 0); // item.isEquipped() ? 1 : 0
-        }
+        if (!mail) writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot()); // FF FF equipment
+        if (isInventory) writeC(buf, 0); // item.isEquipped() ? 1 : 0
     }
 
     /**
@@ -372,7 +381,9 @@ public abstract class InventoryPacket extends AionServerPacket {
     protected void writeArmorInfo(ByteBuffer buf, Item item, boolean isInventory, boolean privateStore, boolean mail) {
         int itemSlotId = item.getEquipmentSlot();
 
-        writeH(buf, 0x53);
+        int sizeLoc = buf.position();
+        writeH(buf, 83);
+
         writeC(buf, 0x06);
         writeD(buf, item.isEquipped() ? itemSlotId : 0);
         writeC(buf, 0x02);
@@ -395,7 +406,10 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
-        writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
+        if (privateStore)
+            writeH(buf, 0);
+        else
+            writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
         writeC(buf, 0);
         writeD(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
         writeC(buf, 0);
@@ -404,9 +418,19 @@ public abstract class InventoryPacket extends AionServerPacket {
             writeH(buf, 0);
         writeC(buf, 0);
 
+        if (!privateStore) {
+            int placeHolder, size;
+            size = buf.position() - sizeLoc - 2;
+            placeHolder = buf.position();
+            buf.position(sizeLoc);
+            writeH(buf, size);
+            buf.position(placeHolder);
+        }
+
         if (!mail)
             writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot()); // FF FF equipment
         if (isInventory)
             writeC(buf, 1); //item.isEquipped() ? 1 : 0
+
     }
 }
