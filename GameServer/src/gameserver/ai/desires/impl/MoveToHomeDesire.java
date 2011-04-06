@@ -22,6 +22,7 @@ import gameserver.ai.desires.MoveDesire;
 import gameserver.ai.events.Event;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.templates.spawn.SpawnTemplate;
+import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import gameserver.utils.MathUtil;
 
 /**
@@ -32,6 +33,8 @@ public class MoveToHomeDesire extends AbstractDesire implements MoveDesire {
     private float x;
     private float y;
     private float z;
+    private int restoreHpValue;
+    private int restoreMpValue;
 
     public MoveToHomeDesire(Npc owner, int desirePower) {
         super(desirePower);
@@ -40,6 +43,8 @@ public class MoveToHomeDesire extends AbstractDesire implements MoveDesire {
         x = template.getX();
         y = template.getY();
         z = template.getZ();
+        restoreHpValue = owner.getLifeStats().getMaxHp() / 5;
+        restoreMpValue = owner.getLifeStats().getMaxMp() / 5;
     }
 
     @Override
@@ -53,6 +58,9 @@ public class MoveToHomeDesire extends AbstractDesire implements MoveDesire {
         if (!owner.getMoveController().isScheduled())
             owner.getMoveController().schedule();
 
+        owner.getLifeStats().increaseHp(TYPE.NATURAL_HP, restoreHpValue);
+        owner.getLifeStats().increaseHp(TYPE.NATURAL_MP, restoreHpValue);
+
         double dist = MathUtil.getDistance(owner.getX(), owner.getY(), owner.getZ(), x, y, z);
         if (dist < 2) {
             ai.handleEvent(Event.BACK_HOME);
@@ -63,7 +71,7 @@ public class MoveToHomeDesire extends AbstractDesire implements MoveDesire {
 
     @Override
     public int getExecutionInterval() {
-        return 1;
+        return 2;
     }
 
     @Override

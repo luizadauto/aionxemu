@@ -681,8 +681,6 @@ public class SiegeService {
                     break;
             }
 
-            portEnemiesToBindPoint(la, players);
-
             // Do Reward
             SiegeRewardTemplate rewardTemplate = locations.get(general.getFortressId()).getLocationTemplate().getSiegeRewards().get(0);
             for (Player pl : players) {

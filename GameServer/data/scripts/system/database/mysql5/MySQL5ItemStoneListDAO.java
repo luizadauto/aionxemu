@@ -113,6 +113,9 @@ public class MySQL5ItemStoneListDAO extends ItemStoneListDAO {
                     addItemStone(manaStone.getItemObjId(), manaStone.getItemId(),
                             manaStone.getSlot());
                     break;
+                case UPDATE_REQUIRED:
+                    updateItemStone(manaStone.getItemObjId(), manaStone.getItemId());
+                    break;
                 case DELETED:
                     deleteItemStone(manaStone.getItemObjId(), manaStone.getSlot());
                     break;
@@ -184,6 +187,22 @@ public class MySQL5ItemStoneListDAO extends ItemStoneListDAO {
                 stmt.setInt(2, itemId);
                 stmt.setInt(3, slot);
                 stmt.setInt(4, ItemStoneType.MANASTONE.ordinal());
+                stmt.execute();
+            }
+        });
+    }
+
+    /**
+     * @param itemObjId
+     * @param itemId
+     */
+    private void updateItemStone(final int itemObjId, final int itemId) {
+        DB.insertUpdate(UPDATE_QUERY, new IUStH() {
+            @Override
+            public void handleInsertUpdate(PreparedStatement stmt) throws SQLException {
+                stmt.setInt(1, itemId);
+                stmt.setInt(2, itemObjId);
+                stmt.setInt(3, ItemStoneType.MANASTONE.ordinal());
                 stmt.execute();
             }
         });

@@ -63,6 +63,7 @@
 			<xs:element name="weaponstatboost" type="WeaponStatboostEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="wpnmastery" type="WeaponMasteryEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="statdown" type="StatdownEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="statswitch" type="StatswitchEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="dot" type="DamageOverTimeEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="hot" type="HealOverTimeEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="transform" type="TransformEffect" minOccurs="0" maxOccurs="1"/>
@@ -485,6 +486,11 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="StatdownEffect">
+		<xs:complexContent>
+			<xs:extension base="BufEffect"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StatswitchEffect">
 		<xs:complexContent>
 			<xs:extension base="BufEffect"/>
 		</xs:complexContent>

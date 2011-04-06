@@ -436,6 +436,12 @@ public class EnchantService {
         }
 
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(targetItem));
+
+        if (targetItem.isEquipped())
+            player.getEquipment().setPersistentState(PersistentState.UPDATE_REQUIRED);
+        else
+            player.getInventory().setPersistentState(PersistentState.UPDATE_REQUIRED);
+
         return result;
     }
 

@@ -119,6 +119,11 @@ public class _1073SavingElyosCaptives extends QuestHandler {
             return false;
         if (qs == null || qs.getQuestVarById(0) != 4)
             return false;
+        if (qs.getStatus() == QuestStatus.REWARD ||
+            qs.getStatus() == QuestStatus.COMPLETE)
+        {
+            return false;
+        }
         PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 270));
         qs.setStatus(QuestStatus.REWARD);
         updateQuestStatus(env);

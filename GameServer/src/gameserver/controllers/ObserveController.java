@@ -28,6 +28,7 @@ import gameserver.skillengine.model.Skill;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -46,7 +47,8 @@ public class ObserveController {
     protected Queue<ActionObserver> jumpObservers = new ConcurrentLinkedQueue<ActionObserver>();
     protected Queue<ActionObserver> dotObservers = new ConcurrentLinkedQueue<ActionObserver>();
 
-    protected ActionObserver[] observers = new ActionObserver[0];
+    protected List<ActionObserver> observers = new ArrayList<ActionObserver>();
+    
     protected ActionObserver[] equipObservers = new ActionObserver[0];
     protected AttackCalcObserver[] attackCalcObservers = new AttackCalcObserver[0];
 
@@ -59,6 +61,7 @@ public class ObserveController {
                 attackObservers.add(observer);
                 break;
             case ATTACKED:
+                
                 attackedObservers.add(observer);
                 break;
             case MOVE:
@@ -185,7 +188,7 @@ public class ObserveController {
      */
     public void addObserver(ActionObserver observer) {
         synchronized (observers) {
-            observers = (ActionObserver[]) ArrayUtils.add(observers, observer);
+            observers.add(observer);
         }
     }
 
@@ -212,7 +215,7 @@ public class ObserveController {
      */
     public void removeObserver(ActionObserver observer) {
         synchronized (observers) {
-            observers = (ActionObserver[]) ArrayUtils.removeElement(observers, observer);
+            observers.remove(observer);
         }
     }
 
@@ -335,9 +338,9 @@ public class ObserveController {
         }
         synchronized (observers) {
             for(ActionObserver observer : observers)
-			{
-				observer.onDot(creature);
-			}
-		}
-	}
+            {
+                observer.onDot(creature);
+            }
+        }
+    }
 }

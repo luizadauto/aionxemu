@@ -271,7 +271,7 @@ public class TradeService {
                 // TODO check retail packet here
                 PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(item.getObjectId()));
             } else if (item.getItemCount() - tradeItem.getCount() > 0) {
-                if (inventory.decreaseItemCount(item, tradeItem.getCount()) > 0) {
+                if (inventory.decreaseItemCount(item, tradeItem.getCount()) >= 0) {
                     // TODO check retail packet here
                     kinahReward += item.getItemTemplate().getPrice() * tradeItem.getCount();
                     PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(item));

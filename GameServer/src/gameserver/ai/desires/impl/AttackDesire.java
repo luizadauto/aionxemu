@@ -64,10 +64,12 @@ public final class AttackDesire extends AbstractDesire {
     @Override
     public boolean handleDesire(AI<?> ai) {
         if (target == null || target.getLifeStats().isAlreadyDead()) {
-            //TODO lower hate and not reset
             owner.getAggroList().stopHating(target);
-            owner.getAi().handleEvent(Event.TIRED_ATTACKING_TARGET);
-            return false;
+            target = owner.getAggroList().getMostHated();
+            if (target == null) {
+                owner.getAi().handleEvent(Event.TIRED_ATTACKING_TARGET);
+                return false;
+            }
         }
 
         double distance = MathUtil.getDistance(owner.getX(), owner.getY(), owner.getZ(), target.getX(), target.getY(), target.getZ());
