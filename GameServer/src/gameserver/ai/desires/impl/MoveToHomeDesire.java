@@ -59,7 +59,7 @@ public class MoveToHomeDesire extends AbstractDesire implements MoveDesire {
             owner.getMoveController().schedule();
 
         owner.getLifeStats().increaseHp(TYPE.NATURAL_HP, restoreHpValue);
-        owner.getLifeStats().increaseHp(TYPE.NATURAL_MP, restoreHpValue);
+        owner.getLifeStats().increaseMp(TYPE.NATURAL_MP, restoreMpValue);
 
         double dist = MathUtil.getDistance(owner.getX(), owner.getY(), owner.getZ(), x, y, z);
         if (dist < 2) {
