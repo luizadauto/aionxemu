@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("aionXemu")]
 [assembly: AssemblyProduct("aionXemu Launcher")]
-[assembly: AssemblyCopyright("Copyright © aionXemu.xom 2011")]
+[assembly: AssemblyCopyright("Copyright © aionXemu.com 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
