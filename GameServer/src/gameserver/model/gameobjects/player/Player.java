@@ -532,6 +532,15 @@ public class Player extends Creature {
             accountWhStorage.setPersistentState(PersistentState.UPDATED);
         }
 
+        Storage legionWhStorage = getStorage(StorageType.LEGION_WAREHOUSE.getId());
+        if(legionWhStorage != null) {
+            if (legionWhStorage.getPersistentState() == PersistentState.UPDATE_REQUIRED) {
+                dirtyItems.addAll(legionWhStorage.getAllItems());
+                dirtyItems.addAll(legionWhStorage.getDeletedItems());
+                legionWhStorage.setPersistentState(PersistentState.UPDATED);
+            }
+        }
+
         for (int petBagId = 32; petBagId < 36; petBagId++) {
             Storage  petBag = getStorage(petBagId);
             if(petBag.getPersistentState() == PersistentState.UPDATE_REQUIRED) {

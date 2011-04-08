@@ -181,7 +181,7 @@ public class LegionConfig {
     /*
       * Enable/disable Legion Warehouse
       */
-    @Property(key = "gameserver.legion.warehouse", defaultValue = "false")
+    @Property(key = "gameserver.legion.warehouse", defaultValue = "true")
     public static boolean LEGION_WAREHOUSE;
 
     /*

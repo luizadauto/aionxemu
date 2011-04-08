@@ -144,6 +144,10 @@ public class Storage {
 
         if (storageType == StorageType.ACCOUNT_WAREHOUSE.getId())
             PacketSendUtility.sendPacket(getOwner(), new SM_UPDATE_WAREHOUSE_ITEM(kinahItem, storageType));
+
+        if (storageType == StorageType.LEGION_WAREHOUSE.getId())
+            PacketSendUtility.sendPacket(getOwner(), new SM_UPDATE_WAREHOUSE_ITEM(kinahItem, storageType));
+
         setPersistentState(PersistentState.UPDATE_REQUIRED);
     }
 
@@ -160,6 +164,9 @@ public class Storage {
 
             if (storageType == StorageType.ACCOUNT_WAREHOUSE.getId())
                 PacketSendUtility.sendPacket(getOwner(), new SM_UPDATE_WAREHOUSE_ITEM(kinahItem, storageType));
+            
+            if (storageType == StorageType.LEGION_WAREHOUSE.getId())
+            	PacketSendUtility.sendPacket(getOwner(), new SM_UPDATE_WAREHOUSE_ITEM(kinahItem, storageType));
         }
         setPersistentState(PersistentState.UPDATE_REQUIRED);
         return operationResult;

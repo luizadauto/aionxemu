@@ -908,9 +908,6 @@ public class LegionService {
      * @param activePlayer
      */
     public void openLegionWarehouse(Player activePlayer) {
-        //Wharehouse exploit - fix Legion this function before activate.
-        if (true)
-            return;
         if (legionRestrictions.canOpenWarehouse(activePlayer)) {
             // TODO: ADD WAREHOUSE EXPAND TO LEGION!!!
             // TODO send splitted wh packets ?
