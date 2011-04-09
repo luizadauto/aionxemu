@@ -229,7 +229,7 @@
         <monster_infos var_id="2" max_kill="5" npc_id="212794"/>
     </monster_hunt>
     <!-- [Group] All Nyerk and No Play -->
-    <monster_hunt id="2375" start_npc_id="798079">
+    <monster_hunt id="2375" start_npc_id="798079" end_npc_id="798080">
         <monster_infos var_id="0" max_kill="5" npc_id="212685"/>
         <monster_infos var_id="1" max_kill="5" npc_id="212689"/>
     </monster_hunt>
