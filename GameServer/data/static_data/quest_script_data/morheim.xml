@@ -277,6 +277,8 @@
     <!-- The Tripeed Thief -->
     <monster_hunt id="2390" start_npc_id="204342">
         <monster_infos var_id="0" max_kill="5" npc_id="210895"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="211505"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="211516"/>
     </monster_hunt>
     <!-- Rynoce Horn -->
     <item_collecting id="2391" start_npc_id="204343"/>
