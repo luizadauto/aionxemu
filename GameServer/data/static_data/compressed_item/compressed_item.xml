@@ -3340,7 +3340,7 @@
 	<compressed_item id="188050555">
 		<production chance="100" item_id="115001052" count="1"/>
 	</compressed_item>
-	<!-- Old Green Sack -->
+	<!-- Old Green Sack (level 10) -->
 	<compressed_item id="188051195">
 		<production chance="1" item_id="167000228" count="2"/>
 		<production chance="1" item_id="167000230" count="2"/>
@@ -3372,7 +3372,7 @@
 		<production chance="1" item_id="167000259" count="2"/>
 		<production chance="1" item_id="167000264" count="2"/>
 	</compressed_item>
-	<!-- Old Green Sack -->
+	<!-- Old Green Sack (level 30) -->
 	<compressed_item id="188050588">
 		<production chance="1" item_id="167000228" count="2"/>
 		<production chance="1" item_id="167000230" count="2"/>
@@ -3454,7 +3454,7 @@
 		<production chance="1" item_id="167000291" count="2"/>
 		<production chance="1" item_id="167000296" count="2"/>
 	</compressed_item>
-	<!-- Old Red Sack (lvl 40) -->
+	<!-- Old Red Sack (level 40) -->
 	<compressed_item id="188050589">
 		<production chance="1" item_id="167000484" count="2"/>
 		<production chance="1" item_id="167000489" count="2"/>
@@ -3476,7 +3476,7 @@
 		<production chance="1" item_id="167000323" count="2"/>
 		<production chance="1" item_id="167000328" count="2"/>
 	</compressed_item>
-		<!-- Strange Red Sack -->
+	<!-- Strange Red Sack -->
 	<compressed_item id="188051193">
 		<production chance="1" item_id="166000030" count="2"/>
 		<production chance="1" item_id="166000031" count="2"/>
@@ -3490,7 +3490,7 @@
 		<production chance="1" item_id="166000039" count="2"/>
 		<production chance="1" item_id="166000040" count="2"/>
 	</compressed_item>
-		<!-- Suspicious Red Sack -->
+	<!-- Suspicious Red Sack -->
 	<compressed_item id="188050586">
 		<production chance="1" item_id="166000050" count="2"/>
 		<production chance="1" item_id="166000051" count="2"/>
@@ -3504,7 +3504,7 @@
 		<production chance="1" item_id="166000059" count="2"/>
 		<production chance="1" item_id="166000060" count="2"/>
 	</compressed_item>
-		<!-- Old Yellow Sack -->
+	<!-- Old Yellow Sack -->
 	<compressed_item id="188050590">
 		<production chance="1" item_id="167000516" count="2"/>
 		<production chance="1" item_id="167000518" count="2"/>
@@ -3541,7 +3541,7 @@
 		<production chance="1" item_id="166000049" count="2"/>
 		<production chance="1" item_id="166000050" count="2"/>
 	</compressed_item>
-		<!-- Suspicious Yellow Sack -->
+	<!-- Suspicious Yellow Sack -->
 	<compressed_item id="188050587">
 		<production chance="1" item_id="166000050" count="2"/>
 		<production chance="1" item_id="166000051" count="2"/>
