@@ -3432,7 +3432,7 @@
 		<production chance="1" item_id="166000049" count="2"/>
 		<production chance="1" item_id="166000050" count="2"/>
 	</compressed_item>
-	<!-- Old Red Sack -->
+	<!-- Old Red Sack (level 20) -->
 	<compressed_item id="188051196">
 		<production chance="1" item_id="167000452" count="2"/>
 		<production chance="1" item_id="167000454" count="2"/>
@@ -3454,7 +3454,7 @@
 		<production chance="1" item_id="167000291" count="2"/>
 		<production chance="1" item_id="167000296" count="2"/>
 	</compressed_item>
-	<!-- Old Red Sack -->
+	<!-- Old Red Sack (lvl 40) -->
 	<compressed_item id="188050589">
 		<production chance="1" item_id="167000484" count="2"/>
 		<production chance="1" item_id="167000489" count="2"/>
