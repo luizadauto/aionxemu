@@ -241,6 +241,82 @@
 		<production chance="100" item_id="152000913" count="3"/>
 	</compressed_item>
 	<!--Star Elyos Coins-->
+	<!-- Chest Containing Silver Medal -->
+	<compressed_item id="188050580">
+		<production chance="100" item_id="186000031" min="2" max="5"/>
+	</compressed_item>
+	<!-- Chest Containing Gold Medal -->
+	<compressed_item id="188050581">
+		<production chance="100" item_id="186000030" min="2" max="5"/>
+	</compressed_item>
+	<!-- Chest Containing Silver Medal -->
+	<compressed_item id="188050582">
+		<production chance="100" item_id="186000031" min="2" max="5"/>
+	</compressed_item>
+	<!-- Chest Containing Gold Medal -->
+	<compressed_item id="188050583">
+		<production chance="100" item_id="186000030" min="2" max="5"/>
+	</compressed_item>
+	<!-- Radiant Lesser Godstone Pack -->
+	<compressed_item id="188050731">
+		<production chance="2" item_id="168000042" count="1"/>
+		<production chance="2" item_id="168000041" count="1"/>
+		<production chance="2" item_id="168000039" count="1"/>
+		<production chance="2" item_id="168000075" count="1"/>
+		<production chance="2" item_id="168000074" count="1"/>
+		<production chance="2" item_id="168000036" count="1"/>
+		<production chance="2" item_id="168000073" count="1"/>
+	</compressed_item>	
+		<!-- Crusader's Lesser Godstone Pack -->
+	<compressed_item id="188050732">
+		<production chance="2" item_id="168000042" count="1"/>
+		<production chance="2" item_id="168000041" count="1"/>
+		<production chance="2" item_id="168000039" count="1"/>
+		<production chance="2" item_id="168000075" count="1"/>
+		<production chance="2" item_id="168000074" count="1"/>
+		<production chance="2" item_id="168000036" count="1"/>
+		<production chance="2" item_id="168000073" count="1"/>
+	</compressed_item>
+	<!-- Fortuneer's Enchantment Stone Pack -->
+	<compressed_item id="188050733">
+		<production chance="2" item_id="166000055" min="2" max="5"/>
+		<production chance="2" item_id="166000056" min="2" max="5"/>
+		<production chance="2" item_id="166000057" min="2" max="5"/>
+		<production chance="2" item_id="166000058" min="2" max="5"/>
+		<production chance="2" item_id="166000059" min="2" max="5"/>
+		<production chance="2" item_id="166000060" min="2" max="5"/>
+	</compressed_item>
+	<!-- Daemon's Enchantment Stone Pack -->
+	<compressed_item id="188050734">
+		<production chance="2" item_id="166000055" min="2" max="5"/>
+		<production chance="2" item_id="166000056" min="2" max="5"/>
+		<production chance="2" item_id="166000057" min="2" max="5"/>
+		<production chance="2" item_id="166000058" min="2" max="5"/>
+		<production chance="2" item_id="166000059" min="2" max="5"/>
+		<production chance="2" item_id="166000060" min="2" max="5"/>
+	</compressed_item>
+	<!-- Fortuneer's Godstone Pack -->
+	<compressed_item id="188050735">
+		<production chance="5" item_id="168000044" count="1"/>
+		<production chance="4" item_id="168000046" count="1"/>
+		<production chance="4" item_id="168000045" count="1"/>
+		<production chance="3" item_id="168000043" count="1"/>
+		<production chance="3" item_id="168000048" count="1"/>
+		<production chance="2" item_id="168000050" count="1"/>
+		<production chance="2" item_id="168000049" count="1"/>
+		<production chance="1" item_id="168000047" count="1"/>
+	</compressed_item>
+	<!-- Daemon's Godstone Pack -->
+	<compressed_item id="188050736">
+		<production chance="5" item_id="168000044" count="1"/>
+		<production chance="4" item_id="168000046" count="1"/>
+		<production chance="4" item_id="168000045" count="1"/>
+		<production chance="3" item_id="168000043" count="1"/>
+		<production chance="3" item_id="168000048" count="1"/>
+		<production chance="2" item_id="168000050" count="1"/>
+		<production chance="2" item_id="168000049" count="1"/>
+		<production chance="1" item_id="168000047" count="1"/>
+	</compressed_item>	
 	<!--Bronze Coin Chest > Elyos Bronze Coin-->
 	<compressed_item id="188050773">
 		<production chance="100" item_id="186000002" min="2" max="5"/>
@@ -3263,5 +3339,220 @@
 	<!-- Fugue Shield Package (14 days) > Fugue Shield (14 days) -->
 	<compressed_item id="188050555">
 		<production chance="100" item_id="115001052" count="1"/>
+	</compressed_item>
+	<!-- Old Green Sack -->
+	<compressed_item id="188051195">
+		<production chance="1" item_id="167000228" count="2"/>
+		<production chance="1" item_id="167000230" count="2"/>
+		<production chance="1" item_id="167000233" count="2"/>
+		<production chance="1" item_id="167000235" count="2"/>
+		<production chance="1" item_id="167000229" count="2"/>
+		<production chance="1" item_id="167000226" count="2"/>
+		<production chance="1" item_id="167000231" count="2"/>
+		<production chance="1" item_id="167000525" count="2"/>
+		<production chance="1" item_id="167000227" count="2"/>
+		<production chance="1" item_id="167000232" count="2"/>
+		<production chance="1" item_id="167000526" count="2"/>
+		<production chance="1" item_id="167000420" count="2"/>
+		<production chance="1" item_id="167000425" count="2"/>
+		<production chance="1" item_id="167000427" count="2"/>
+		<production chance="1" item_id="167000421" count="2"/>
+		<production chance="1" item_id="167000418" count="2"/>
+		<production chance="1" item_id="167000423" count="2"/>
+		<production chance="1" item_id="167000535" count="2"/>
+		<production chance="1" item_id="167000419" count="2"/>
+		<production chance="1" item_id="167000424" count="2"/>
+		<production chance="1" item_id="167000536" count="2"/>
+		<production chance="1" item_id="167000260" count="2"/>
+		<production chance="1" item_id="167000265" count="2"/>
+		<production chance="1" item_id="167000267" count="2"/>
+		<production chance="1" item_id="167000261" count="2"/>
+		<production chance="1" item_id="167000258" count="2"/>
+		<production chance="1" item_id="167000263" count="2"/>
+		<production chance="1" item_id="167000259" count="2"/>
+		<production chance="1" item_id="167000264" count="2"/>
+	</compressed_item>
+	<!-- Old Green Sack -->
+	<compressed_item id="188050588">
+		<production chance="1" item_id="167000228" count="2"/>
+		<production chance="1" item_id="167000230" count="2"/>
+		<production chance="1" item_id="167000233" count="2"/>
+		<production chance="1" item_id="167000235" count="2"/>
+		<production chance="1" item_id="167000229" count="2"/>
+		<production chance="1" item_id="167000226" count="2"/>
+		<production chance="1" item_id="167000231" count="2"/>
+		<production chance="1" item_id="167000525" count="2"/>
+		<production chance="1" item_id="167000227" count="2"/>
+		<production chance="1" item_id="167000232" count="2"/>
+		<production chance="1" item_id="167000526" count="2"/>
+		<production chance="1" item_id="167000420" count="2"/>
+		<production chance="1" item_id="167000425" count="2"/>
+		<production chance="1" item_id="167000427" count="2"/>
+		<production chance="1" item_id="167000421" count="2"/>
+		<production chance="1" item_id="167000418" count="2"/>
+		<production chance="1" item_id="167000423" count="2"/>
+		<production chance="1" item_id="167000535" count="2"/>
+		<production chance="1" item_id="167000419" count="2"/>
+		<production chance="1" item_id="167000424" count="2"/>
+		<production chance="1" item_id="167000536" count="2"/>
+		<production chance="1" item_id="167000260" count="2"/>
+		<production chance="1" item_id="167000265" count="2"/>
+		<production chance="1" item_id="167000267" count="2"/>
+		<production chance="1" item_id="167000261" count="2"/>
+		<production chance="1" item_id="167000258" count="2"/>
+		<production chance="1" item_id="167000263" count="2"/>
+		<production chance="1" item_id="167000259" count="2"/>
+		<production chance="1" item_id="167000264" count="2"/>
+	</compressed_item>
+	<!-- Strange Green Sack -->
+	<compressed_item id="188051192">
+		<production chance="1" item_id="166000020" count="2"/>
+		<production chance="1" item_id="166000021" count="2"/>
+		<production chance="1" item_id="166000022" count="2"/>
+		<production chance="1" item_id="166000023" count="2"/>
+		<production chance="1" item_id="166000024" count="2"/>
+		<production chance="1" item_id="166000025" count="2"/>
+		<production chance="1" item_id="166000026" count="2"/>
+		<production chance="1" item_id="166000027" count="2"/>
+		<production chance="1" item_id="166000028" count="2"/>
+		<production chance="1" item_id="166000029" count="2"/>
+		<production chance="1" item_id="166000030" count="2"/>
+	</compressed_item>
+	<!-- Suspicious Green Sack -->
+	<compressed_item id="188050585">
+		<production chance="1" item_id="166000040" count="2"/>
+		<production chance="1" item_id="166000041" count="2"/>
+		<production chance="1" item_id="166000042" count="2"/>
+		<production chance="1" item_id="166000043" count="2"/>
+		<production chance="1" item_id="166000044" count="2"/>
+		<production chance="1" item_id="166000045" count="2"/>
+		<production chance="1" item_id="166000046" count="2"/>
+		<production chance="1" item_id="166000047" count="2"/>
+		<production chance="1" item_id="166000048" count="2"/>
+		<production chance="1" item_id="166000049" count="2"/>
+		<production chance="1" item_id="166000050" count="2"/>
+	</compressed_item>
+	<!-- Old Red Sack -->
+	<compressed_item id="188051196">
+		<production chance="1" item_id="167000452" count="2"/>
+		<production chance="1" item_id="167000454" count="2"/>
+		<production chance="1" item_id="167000457" count="2"/>
+		<production chance="1" item_id="167000459" count="2"/>
+		<production chance="1" item_id="167000453" count="2"/>
+		<production chance="1" item_id="167000450" count="2"/>
+		<production chance="1" item_id="167000455" count="2"/>
+		<production chance="1" item_id="167000451" count="2"/>
+		<production chance="1" item_id="167000456" count="2"/>
+		<production chance="1" item_id="167000292" count="2"/>
+		<production chance="1" item_id="167000294" count="2"/>
+		<production chance="1" item_id="167000297" count="2"/>
+		<production chance="1" item_id="167000299" count="2"/>
+		<production chance="1" item_id="167000293" count="2"/>
+		<production chance="1" item_id="167000290" count="2"/>
+		<production chance="1" item_id="167000295" count="2"/>
+		<production chance="1" item_id="167000529" count="2"/>
+		<production chance="1" item_id="167000291" count="2"/>
+		<production chance="1" item_id="167000296" count="2"/>
+	</compressed_item>
+	<!-- Old Red Sack -->
+	<compressed_item id="188050589">
+		<production chance="1" item_id="167000484" count="2"/>
+		<production chance="1" item_id="167000489" count="2"/>
+		<production chance="1" item_id="167000491" count="2"/>
+		<production chance="1" item_id="167000485" count="2"/>
+		<production chance="1" item_id="167000482" count="2"/>
+		<production chance="1" item_id="167000487" count="2"/>
+		<production chance="1" item_id="167000539" count="2"/>
+		<production chance="1" item_id="167000483" count="2"/>
+		<production chance="1" item_id="167000488" count="2"/>
+		<production chance="1" item_id="167000540" count="2"/>
+		<production chance="1" item_id="167000324" count="2"/>
+		<production chance="1" item_id="167000329" count="2"/>
+		<production chance="1" item_id="167000331" count="2"/>
+		<production chance="1" item_id="167000325" count="2"/>
+		<production chance="1" item_id="167000322" count="2"/>
+		<production chance="1" item_id="167000327" count="2"/>
+		<production chance="1" item_id="167000531" count="2"/>
+		<production chance="1" item_id="167000323" count="2"/>
+		<production chance="1" item_id="167000328" count="2"/>
+	</compressed_item>
+		<!-- Strange Red Sack -->
+	<compressed_item id="188051193">
+		<production chance="1" item_id="166000030" count="2"/>
+		<production chance="1" item_id="166000031" count="2"/>
+		<production chance="1" item_id="166000032" count="2"/>
+		<production chance="1" item_id="166000033" count="2"/>
+		<production chance="1" item_id="166000034" count="2"/>
+		<production chance="1" item_id="166000035" count="2"/>
+		<production chance="1" item_id="166000036" count="2"/>
+		<production chance="1" item_id="166000037" count="2"/>
+		<production chance="1" item_id="166000038" count="2"/>
+		<production chance="1" item_id="166000039" count="2"/>
+		<production chance="1" item_id="166000040" count="2"/>
+	</compressed_item>
+		<!-- Suspicious Red Sack -->
+	<compressed_item id="188050586">
+		<production chance="1" item_id="166000050" count="2"/>
+		<production chance="1" item_id="166000051" count="2"/>
+		<production chance="1" item_id="166000052" count="2"/>
+		<production chance="1" item_id="166000053" count="2"/>
+		<production chance="1" item_id="166000054" count="2"/>
+		<production chance="1" item_id="166000055" count="2"/>
+		<production chance="1" item_id="166000056" count="2"/>
+		<production chance="1" item_id="166000057" count="2"/>
+		<production chance="1" item_id="166000058" count="2"/>
+		<production chance="1" item_id="166000059" count="2"/>
+		<production chance="1" item_id="166000060" count="2"/>
+	</compressed_item>
+		<!-- Old Yellow Sack -->
+	<compressed_item id="188050590">
+		<production chance="1" item_id="167000516" count="2"/>
+		<production chance="1" item_id="167000518" count="2"/>
+		<production chance="1" item_id="167000521" count="2"/>
+		<production chance="1" item_id="167000522" count="2"/>
+		<production chance="1" item_id="167000517" count="2"/>
+		<production chance="1" item_id="167000514" count="2"/>
+		<production chance="1" item_id="167000519" count="2"/>
+		<production chance="1" item_id="167000541" count="2"/>
+		<production chance="1" item_id="167000515" count="2"/>
+		<production chance="1" item_id="167000520" count="2"/>
+		<production chance="1" item_id="167000542" count="2"/>
+		<production chance="1" item_id="167000356" count="2"/>
+		<production chance="1" item_id="167000358" count="2"/>
+		<production chance="1" item_id="167000361" count="2"/>
+		<production chance="1" item_id="167000363" count="2"/>
+		<production chance="1" item_id="167000357" count="2"/>
+		<production chance="1" item_id="167000354" count="2"/>
+		<production chance="1" item_id="167000359" count="2"/>
+		<production chance="1" item_id="167000355" count="2"/>
+		<production chance="1" item_id="167000360" count="2"/>
+	</compressed_item>
+	<!-- Strange Yellow Sack -->
+	<compressed_item id="188051194">
+		<production chance="1" item_id="166000040" count="2"/>
+		<production chance="1" item_id="166000041" count="2"/>
+		<production chance="1" item_id="166000042" count="2"/>
+		<production chance="1" item_id="166000043" count="2"/>
+		<production chance="1" item_id="166000044" count="2"/>
+		<production chance="1" item_id="166000045" count="2"/>
+		<production chance="1" item_id="166000046" count="2"/>
+		<production chance="1" item_id="166000047" count="2"/>
+		<production chance="1" item_id="166000048" count="2"/>
+		<production chance="1" item_id="166000049" count="2"/>
+		<production chance="1" item_id="166000050" count="2"/>
+	</compressed_item>
+		<!-- Suspicious Yellow Sack -->
+	<compressed_item id="188050587">
+		<production chance="1" item_id="166000050" count="2"/>
+		<production chance="1" item_id="166000051" count="2"/>
+		<production chance="1" item_id="166000052" count="2"/>
+		<production chance="1" item_id="166000053" count="2"/>
+		<production chance="1" item_id="166000054" count="2"/>
+		<production chance="1" item_id="166000055" count="2"/>
+		<production chance="1" item_id="166000056" count="2"/>
+		<production chance="1" item_id="166000057" count="2"/>
+		<production chance="1" item_id="166000058" count="2"/>
+		<production chance="1" item_id="166000059" count="2"/>
+		<production chance="1" item_id="166000060" count="2"/>
 	</compressed_item>
 </compressed_items>
