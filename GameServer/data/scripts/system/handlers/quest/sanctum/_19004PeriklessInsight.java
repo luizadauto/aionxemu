@@ -38,11 +38,11 @@ public class _19004PeriklessInsight extends QuestHandler {
 
     @Override
     public void register() {
+        qe.setNpcQuestData(203757).addOnQuestStart(questId);
         qe.setNpcQuestData(203757).addOnTalkEvent(questId);
         qe.setNpcQuestData(203752).addOnTalkEvent(questId);
         qe.setNpcQuestData(203701).addOnTalkEvent(questId);
         qe.setNpcQuestData(798500).addOnTalkEvent(questId);
-        qe.setQuestEnterZone(ZoneName.SANCTUM_GATE).add(questId);
     }
 
     @Override
@@ -54,37 +54,27 @@ public class _19004PeriklessInsight extends QuestHandler {
     public boolean onDialogEvent(QuestCookie env) {
         final Player player = env.getPlayer();
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
-        if (qs == null)
-            return false;
 
-        int var = qs.getQuestVarById(0);
         int targetId = 0;
         if (env.getVisibleObject() instanceof Npc)
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
-        if (qs.getStatus() == QuestStatus.START) {
+        if (qs == null || qs.getStatus() == QuestStatus.NONE) {
+            if (targetId == 203757) {
+                if (env.getDialogId() == 25)
+                    return sendQuestDialog(env, 1011);
+                else
+                    return defaultQuestStartDialog(env);
+            }
+        } else if (qs != null && qs.getStatus() == QuestStatus.START) {
+            int var = qs.getQuestVarById(0);
             switch (targetId) {
-                case 203757: {
-                    switch (env.getDialogId()) {
-                        case 25:
-                            if (var == 0)
-                                return sendQuestDialog(env, 1011);
-                        case 10000:
-                            if (var == 0) {
-                                qs.setQuestVarById(0, var + 1);
-                                updateQuestStatus(env);
-                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-                                return true;
-                            }
-                    }
-                }
-                break;
                 case 203752: {
                     switch (env.getDialogId()) {
                         case 25:
-                            if (var == 1)
+                            if (var == 0)
                                 return sendQuestDialog(env, 1352);
-                        case 10001:
-                            if (var == 1) {
+                        case 10000:
+                            if (var == 0) {
                                 qs.setQuestVarById(0, var + 1);
                                 updateQuestStatus(env);
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
@@ -96,11 +86,11 @@ public class _19004PeriklessInsight extends QuestHandler {
                 case 203701: {
                     switch (env.getDialogId()) {
                         case 25:
-                            if (var == 2)
+                            if (var == 1)
                                 return sendQuestDialog(env, 1693);
-                        case 10255:
-                            if (var == 2) {
-                                qs.setStatus(QuestStatus.REWARD);
+                        case 10001:
+                            if (var == 1) {
+                                qs.setQuestVarById(0, var + 1);
                                 updateQuestStatus(env);
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
@@ -108,27 +98,29 @@ public class _19004PeriklessInsight extends QuestHandler {
                     }
                 }
                 break;
+                case 798500: {
+                    switch (env.getDialogId()) {
+                        case 25:
+                            if (var == 2)
+                                return sendQuestDialog(env, 2375);
+                        case 1009:
+                            if (var == 2) {
+                                qs.setStatus(QuestStatus.REWARD);
+                                updateQuestStatus(env);
+                                return sendQuestDialog(env, 5);
+                            }
+                    }
+                }
+                break;
             }
-        } else if (qs.getStatus() == QuestStatus.REWARD) {
+        } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 798500) {
                 if (env.getDialogId() == -1)
-                    return sendQuestDialog(env, 10002);
+                    return sendQuestDialog(env, 5);
                 else
                     return defaultQuestEndDialog(env);
             }
         }
         return false;
-    }
-
-    @Override
-    public boolean onEnterZoneEvent(QuestCookie env, ZoneName zoneName) {
-        Player player = env.getPlayer();
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
-        if (zoneName != ZoneName.SANCTUM_GATE)
-            return false;
-        if (qs != null)
-            return false;
-        QuestService.startQuest(env, QuestStatus.START);
-        return true;
     }
 }

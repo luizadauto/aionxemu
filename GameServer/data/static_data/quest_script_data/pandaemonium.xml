@@ -303,4 +303,6 @@
 	<!-- 29038: TODO: [Master] Cook's Potential -->
 	<!-- 29039: TODO: [Master] Cooking Master -->
 	<!-- 29040: TODO: Mane's Best Friend -->
+	<!-- 29043: [Daily] Flower Power -->
+	<item_collecting id="29043" start_npc_id="798445" />
 </quest_scripts>

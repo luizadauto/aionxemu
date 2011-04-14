@@ -951,6 +951,9 @@
 	<spawn map="110010000" npcid="798440" pool="1" interval="295">
 		<object h="90" x="1551.1426" y="1457.9706" z="572.87195"/>
 	</spawn>
+	<spawn map="110010000" npcid="798444" pool="1" interval="295">
+		<object h="49" x="1864.846" y="2054.782" z="519"/>
+	</spawn>
 	<spawn map="110010000" npcid="799704" pool="1" interval="295">
 		<object h="30" x="1532.0792" y="1496.442" z="565.9188"/>
 	</spawn>

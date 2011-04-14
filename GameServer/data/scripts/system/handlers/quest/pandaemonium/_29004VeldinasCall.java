@@ -39,63 +39,39 @@ public class _29004VeldinasCall extends QuestHandler {
 
     @Override
     public void register() {
-        qe.addQuestLvlUp(questId);
+        qe.setNpcQuestData(204071).addOnQuestStart(questId);
         for (int npc_id : npc_ids)
             qe.setNpcQuestData(npc_id).addOnTalkEvent(questId);
-    }
-
-    @Override
-    public boolean onLvlUpEvent(QuestCookie env) {
-        Player player = env.getPlayer();
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
-        boolean lvlCheck = QuestService.checkLevelRequirement(questId, player.getCommonData().getLevel());
-        QuestState qs2 = player.getQuestStateList().getQuestState(2009);
-        if (qs2 == null || qs2.getStatus() != QuestStatus.COMPLETE)
-            return false;
-        if (qs == null && lvlCheck) {
-            QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), questId, env.getDialogId()), QuestStatus.START);
-        }
-        return false;
     }
 
     @Override
     public boolean onDialogEvent(QuestCookie env) {
         final Player player = env.getPlayer();
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
-        if (qs == null)
-            return false;
 
-        int var = qs.getQuestVarById(0);
         int targetId = 0;
         if (env.getVisibleObject() instanceof Npc)
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
-        if (qs.getStatus() == QuestStatus.START) {
+        if (qs == null || qs.getStatus() == QuestStatus.NONE) {
+            if (targetId == 204071) {
+                if (env.getDialogId() == 25)
+                    return sendQuestDialog(env, 1011);
+                else
+                    return defaultQuestStartDialog(env);
+            }
+        }else if (qs != null && qs.getStatus() == QuestStatus.START) {
+            int var = qs.getQuestVarById(0);
             switch (targetId) {
-                case 204071: {
+                case 204075: {
                     switch (env.getDialogId()) {
                         case 25:
                             if (var == 0)
-                                return sendQuestDialog(env, 1011);
+                                return sendQuestDialog(env, 1352);
                         case 10000:
                             if (var == 0) {
                                 qs.setQuestVarById(0, 1);
                                 updateQuestStatus(env);
-                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
-                                return true;
-                            }
-                    }
-                }
-                break;
-                case 204075: {
-                    switch (env.getDialogId()) {
-                        case 25:
-                            if (var == 1)
-                                return sendQuestDialog(env, 1352);
-                        case 10001:
-                            if (var == 1) {
-                                qs.setQuestVarById(0, 2);
-                                updateQuestStatus(env);
-                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
+                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
                     }
@@ -104,26 +80,38 @@ public class _29004VeldinasCall extends QuestHandler {
                 case 204053: {
                     switch (env.getDialogId()) {
                         case 25:
-                            if (var == 2)
+                            if (var == 1)
                                 return sendQuestDialog(env, 1693);
-                        case 10255:
-                            if (var == 2) {
+                        case 10001:
+                            if (var == 1) {
 
-                                qs.setQuestVarById(0, 3);
+                                qs.setQuestVarById(0, 2);
                                 updateQuestStatus(env);
-                                qs.setStatus(QuestStatus.REWARD);
-                                updateQuestStatus(env);
-                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
+                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
                     }
                 }
                 break;
+                case 798700: {
+                    switch (env.getDialogId()) {
+                        case 25:
+                            if (var == 2)
+                                return sendQuestDialog(env, 2375);
+                        case 1009:
+                            if (var == 2) {
+                                qs.setStatus(QuestStatus.REWARD);
+                                updateQuestStatus(env);
+                                return sendQuestDialog(env, 5);
+                            }
+                    }
+                }
+                break;
             }
-        } else if (qs.getStatus() == QuestStatus.REWARD) {
+        } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 798700) {
                 if (env.getDialogId() == -1)
-                    return sendQuestDialog(env, 10002);
+                    return sendQuestDialog(env, 5);
                 else
                     return defaultQuestEndDialog(env);
             }

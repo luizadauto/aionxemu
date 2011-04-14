@@ -489,12 +489,12 @@
 	<!-- TODO: Quest Id: 1830  [Craft] Tigraki Cooking -->
 	<!-- TODO: Quest Id: 1831  [Craft] Tigraki Alchemy -->
 	<!-- TODO: Quest Id: 1832  [Craft] Tigraki Tailoring -->
-	<!-- TODO: Quest Id: 1833  [Relic Reward] Ancient Icon -->
-	<!-- TODO: Quest Id: 1834  [Relic Reward] Ancient Seal -->
-	<!-- TODO: Quest Id: 1835  [Relic Reward] Ancient Goblet -->
-	<!-- TODO: Quest Id: 1836  [Relic Reward] Ancient Crown -->
-	<!-- TODO: Quest Id: 1849  [Relic Reward] Ancient Goblet_Elyoses and Asmodians -->
-	<!-- TODO: Quest Id: 1850  [Relic Reward] Ancient Crown_Elyoses and Asmodians -->
+	<!-- 1833: [Relic Reward] Ancient Icon handled by script -->
+	<!-- 1834: [Relic Reward] Ancient Seal handled by script -->
+	<!-- 1835: [Relic Reward] Ancient Goblet handled by script -->
+	<!-- 1836: [Relic Reward] Ancient Crown handled by script -->
+	<!-- 1849: [Relic Reward] Ancient Goblet_Elyoses and Asmodians handled by script -->
+	<!-- 1850: [Relic Reward] Ancient Crown_Elyoses and Asmodians handled by script -->
 	<!-- 2782: It's always Moinn, Moinn, Moinn -->
 	<monster_hunt start_npc_id="278111" id="2782">
 		<monster_infos var_id="0" npc_id="255160" max_kill="10"/>
@@ -585,10 +585,10 @@
 		<monster_infos var_id="1" npc_id="256181" max_kill="3"/>
 		<monster_infos var_id="2" npc_id="256185" max_kill="3"/>
 	</monster_hunt>
-	<!-- TODO: Quest Id: 2834  [Relic Reward] Ancient Icon -->
-	<!-- TODO: Quest Id: 2835  [Relic Reward] Ancient Seal -->
-	<!-- TODO: Quest Id: 2836  [Relic Reward] Ancient Goblet -->
-	<!-- TODO: Quest Id: 2837  [Relic Reward] Ancient Crown -->
+	<!-- 2834: [Relic Reward] Ancient Icon handled by script -->
+	<!-- 2835: [Relic Reward] Ancient Seal handled by script -->
+	<!-- 2836: [Relic Reward] Ancient Goblet handled by script -->
+	<!-- 2837: [Relic Reward] Ancient Crown handled by script -->
 	<!-- TODO: Quest Id: 2827  [Craft] Tigraki Weaponsmithing -->
 	<!-- TODO: Quest Id: 2828  [Craft] Tigraki Armorsmithing -->
 	<!-- TODO: Quest Id: 2829  [Craft] Tigraki Handicrafting -->

@@ -417,4 +417,6 @@
 	<!-- 19038: TODO: [Master] Cook's Potential -->
 	<!-- 19039: TODO: [Master] Cooking Master -->
 	<!-- 19040: TODO: Leah's Loneliness -->
+	<!-- 19043: [Daily] The Sanctum Shulackwalk --> 
+	<item_collecting id="19043" start_npc_id="798444" /> 
 </quest_scripts>
