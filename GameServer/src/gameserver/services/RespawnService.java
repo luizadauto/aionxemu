@@ -36,8 +36,7 @@ public class RespawnService {
      * @return Future<?>
      */
     public static Future<?> scheduleDecayTask(final Npc npc) {
-        int respawnInterval = npc.getSpawn().getSpawnGroup().getInterval();
-        int decayInterval = Math.round(respawnInterval * 0.8f);
+        int decayInterval = (npc.getSpawn().getSpawnGroup().getInterval() - 2);
         if (decayInterval > 240)
             decayInterval = 240;
 
@@ -82,5 +81,5 @@ public class RespawnService {
             }
 
         }, interval * 1000);
-	}
+    }
 }

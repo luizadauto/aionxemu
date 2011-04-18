@@ -244,7 +244,7 @@ public class _1929ASliverofDarkness extends QuestHandler {
                         break;
                     }
             }
-        } else if (qs.getStatus() == QuestStatus.REWARD && targetId == 203711) {
+        } else if (qs.getStatus() == QuestStatus.REWARD && targetId == 203711 && qs.getStatus() != QuestStatus.COMPLETE) {
             if (env.getDialogId() == -1)
                 return sendQuestDialog(env, 10002);
             return defaultQuestEndDialog(env);

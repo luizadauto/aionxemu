@@ -153,8 +153,8 @@ public class ObserveController {
             observer.stateChanged(state, isSet);
         }
         synchronized (observers) {
-            for (ActionObserver observer : observers) {
-                observer.stateChanged(state, isSet);
+            for (int i=0; i<observers.size(); i++){
+                observers.get(i).stateChanged(state, isSet);
             }
         }
     }

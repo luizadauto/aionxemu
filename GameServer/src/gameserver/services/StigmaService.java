@@ -224,7 +224,7 @@ public class StigmaService {
             int advStigmaCount = player.getCommonData().getAdvancedStigmaSlotSize();
             if(advStigmaCount <= 0)
                 return false;
-            if(advStigmaCount == 5)
+            if(advStigmaCount >= 5)
                 return true;
 
             int[] itemSlotAdvStigma = {

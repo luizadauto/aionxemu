@@ -54,7 +54,8 @@ public class StatFunctions {
         int baseXP = ((Npc) target).getObjectTemplate().getStatsTemplate().getMaxXp();
         int xpPercentage = XPRewardEnum.xpRewardFrom(targetLevel - playerLevel);
 
-        return (int) Math.floor(baseXP * xpPercentage / 100);
+        long rewardXP = (long) Math.floor(baseXP * xpPercentage / 100);
+        return (rewardXP < 0) ? Long.MAX_VALUE : rewardXP;
     }
 
     /**
@@ -68,7 +69,8 @@ public class StatFunctions {
         int baseXP = ((Npc) target).getObjectTemplate().getStatsTemplate().getMaxXp();
         int xpPercentage = XPRewardEnum.xpRewardFrom(targetLevel - maxLevelInRange);
 
-        return (int) Math.floor(baseXP * xpPercentage / 100);
+        long rewardXP = (long) Math.floor(baseXP * xpPercentage / 100);
+        return (rewardXP < 0) ? Long.MAX_VALUE : rewardXP;
     }
 
     /**
@@ -78,7 +80,6 @@ public class StatFunctions {
      * @param target
      * @return DP reward from target
      */
-
     public static int calculateSoloDPReward(Player player, Creature target) {
         int playerLevel = player.getCommonData().getLevel();
         int targetLevel = target.getLevel();
@@ -89,10 +90,10 @@ public class StatFunctions {
         int baseDP = targetLevel * calculateRankMultipler(npcRank);
 
         int xpPercentage = XPRewardEnum.xpRewardFrom(targetLevel - playerLevel);
-        return (int) Math.floor(baseDP * xpPercentage * player.getRates().getXpRate() / 100);
-
+        int rewardDP = (int) Math.floor(baseDP * xpPercentage * player.getRates().getDpRate() / 100);
+        return (rewardDP < 0) ? Integer.MAX_VALUE : rewardDP;
     }
-    
+
     public static int calculatePvpSoloDPReward(Player defeated, Player winner) {
         int playerLevel = winner.getCommonData().getLevel();
         int targetLevel = defeated.getLevel();
@@ -100,12 +101,12 @@ public class StatFunctions {
         int baseDP = targetLevel * calculateRankPVPMultipler(playerRank);
 
         int xpPercentage = XPRewardEnum.xpRewardFrom(targetLevel - playerLevel);
-        return (int) Math.floor(baseDP * xpPercentage * winner.getRates().getXpRate() / 100);
 
+        int rewardDP = (int) Math.floor(baseDP * xpPercentage * winner.getRates().getPvpDpRate() / 100);
+        return (rewardDP < 0) ? Integer.MAX_VALUE : rewardDP;
     }
 
-
-	/**
+    /**
      * @param player
      * @param target
      * @return AP reward
@@ -114,7 +115,9 @@ public class StatFunctions {
         int playerLevel = player.getCommonData().getLevel();
         int targetLevel = target.getLevel();
         int percentage = XPRewardEnum.xpRewardFrom(targetLevel - playerLevel);
-        return (int) Math.floor(10 * percentage * player.getRates().getApNpcRate() / 100);
+
+        int rewardAP = (int) Math.floor(10 * percentage * player.getRates().getApNpcRate() / 100);
+        return (rewardAP < 0) ? Integer.MAX_VALUE : rewardAP;
     }
 
     /**
@@ -130,8 +133,8 @@ public class StatFunctions {
         int baseAP = 10 + calculateRankMultipler(npcRank) - 1;
 
         int apPercentage = XPRewardEnum.xpRewardFrom(targetLevel - maxLevelInRange);
-
-        return (int) Math.floor(baseAP * apPercentage / 100);
+        int rewardAP = (int) Math.floor(baseAP * apPercentage / 100);
+        return (rewardAP < 0) ? Integer.MAX_VALUE : rewardAP;
     }
 
     /**
@@ -221,7 +224,7 @@ public class StatFunctions {
 
         int xpPercentage = XPRewardEnum.xpRewardFrom(targetLevel - playerLevel);
 
-        return (int) Math.floor(baseDP * xpPercentage * player.getRates().getGroupXpRate() / 100);
+        return (int) Math.floor(baseDP * xpPercentage * player.getRates().getGroupDpRate() / 100);
     }
 
     /**

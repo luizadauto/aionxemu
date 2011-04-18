@@ -42,6 +42,12 @@ public abstract class Rates {
 
     public abstract int getKinahRate();
 
+    public abstract int getDpRate();
+
+    public abstract int getPvpDpRate();
+    
+    public abstract int getGroupDpRate();
+
     /**
      * @param membership
      * @return Rates

@@ -67,7 +67,7 @@ public class MoveToTargetDesire extends AbstractDesire implements MoveDesire {
             }
         }
 
-        if (distance > 150)
+        if (distance > 125)
             return false;
 
         return true;

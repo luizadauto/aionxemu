@@ -29,6 +29,42 @@ public class RateConfig {
     public static boolean DISPLAY_RATE;
 
     /**
+     * Dp Rate - Regular,Vip and Premium
+     */
+    @Property(key = "gameserver.rate.regular.dp", defaultValue = "1")
+    public static int DP_RATE;
+
+    @Property(key = "gameserver.rate.premium.dp", defaultValue = "2")
+    public static int PREMIUM_DP_RATE;
+
+    @Property(key = "gameserver.rate.vip.dp", defaultValue = "3")
+    public static int VIP_DP_RATE;
+
+    /**
+     * PvP Dp Rate - Regular,Vip and Premium
+     */
+    @Property(key = "gameserver.rate.regular.pvp.dp", defaultValue = "1")
+    public static int PVP_DP_RATE;
+
+    @Property(key = "gameserver.rate.premium.pvp.dp", defaultValue = "2")
+    public static int PREMIUM_PVP_DP_RATE;
+
+    @Property(key = "gameserver.rate.vip.pvp.dp", defaultValue = "3")
+    public static int VIP_PVP_DP_RATE;
+
+    /**
+     * Group Dp Rate - Regular,Vip and Premium
+     */
+    @Property(key = "gameserver.rate.regular.group.dp", defaultValue = "1")
+    public static int GROUPDP_RATE;
+
+    @Property(key = "gameserver.rate.premium.group.dp", defaultValue = "2")
+    public static int PREMIUM_GROUPDP_RATE;
+
+    @Property(key = "gameserver.rate.vip.group.dp", defaultValue = "3")
+    public static int VIP_GROUPDP_RATE;
+
+    /**
      * Group Xp Rate - Regular,Vip and Premium
      */
     @Property(key = "gameserver.rate.regular.group.xp", defaultValue = "1")

@@ -120,6 +120,7 @@ public class AbyssRank {
     public void setAp(int ap) {
         if (ap < 0)
             ap = 0;
+
         this.ap = ap;
 
         AbyssRankEnum newRank = AbyssRankEnum.getRankForAp(this.ap);

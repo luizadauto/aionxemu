@@ -84,4 +84,20 @@ public class PremiumRates extends Rates {
     public int getKinahRate() {
         return RateConfig.PREMIUM_KINAH_RATE;
     }
+
+    @Override
+    public int getDpRate() {
+        return RateConfig.PREMIUM_DP_RATE;
+    };
+
+    @Override
+    public int getPvpDpRate() {
+        return RateConfig.PREMIUM_PVP_DP_RATE;
+    };
+
+    @Override
+    public int getGroupDpRate() {
+        return RateConfig.PREMIUM_GROUPDP_RATE;
+    };
+
 }

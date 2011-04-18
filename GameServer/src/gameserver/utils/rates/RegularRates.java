@@ -84,4 +84,20 @@ public class RegularRates extends Rates {
     public int getKinahRate() {
         return RateConfig.KINAH_RATE;
     }
+
+    @Override
+    public int getDpRate() {
+        return RateConfig.DP_RATE;
+    };
+
+    @Override
+    public int getPvpDpRate() {
+        return RateConfig.PVP_DP_RATE;
+    };
+
+    @Override
+    public int getGroupDpRate() {
+        return RateConfig.GROUPDP_RATE;
+    };
+
 }

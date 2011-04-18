@@ -85,4 +85,19 @@ public class VipRates extends Rates {
         return RateConfig.VIP_GATHERING_XP_RATE;
     }
 
+    @Override
+    public int getDpRate() {
+        return RateConfig.VIP_DP_RATE;
+    };
+
+    @Override
+    public int getPvpDpRate() {
+        return RateConfig.VIP_PVP_DP_RATE;
+    };
+
+    @Override
+    public int getGroupDpRate() {
+        return RateConfig.VIP_GROUPDP_RATE;
+    };
+
 }

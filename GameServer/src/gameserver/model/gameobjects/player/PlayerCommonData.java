@@ -231,6 +231,8 @@ public class PlayerCommonData extends VisibleObjectTemplate {
         long reward = value;
         if(rewardType != null)
             reward = rewardType.calcReward(player, value);
+        reward = (reward < 0) ? Long.MAX_VALUE : reward;
+
         this.setExp(this.exp + reward);
         PacketSendUtility.sendPacket(player,SM_SYSTEM_MESSAGE.EXP(Long.toString(reward)));
     }
@@ -249,6 +251,7 @@ public class PlayerCommonData extends VisibleObjectTemplate {
         if (CustomConfig.PLAYER_EXPERIENCE_CONTROL && player.isNoExperienceGain()) {
             value = 0;
         }
+
         this.setExp(this.exp + value);
 
         if (fromObject == null || fromObject.getObjectTemplate() == null)
@@ -256,7 +259,6 @@ public class PlayerCommonData extends VisibleObjectTemplate {
         else
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(value, fromObject
                     .getObjectTemplate().getNameId()));
-
     }
 
     /**
@@ -265,8 +267,9 @@ public class PlayerCommonData extends VisibleObjectTemplate {
      * @param exp
      */
     public void setExp(long exp) {
+        if (exp < 0)
+            return;
 
-        //maxLevel is 51 but in game 50 should be shown with full XP bar
         int maxLevel = DataManager.PLAYER_EXPERIENCE_TABLE.getMaxLevel();
 
         if (getPlayerClass() != null && getPlayerClass().isStartingClass())
@@ -348,6 +351,9 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     }
 
     public void setAp(int value) {
+        if (value < 0)
+            return;
+
         Player player = this.getPlayer();
 
         if (player == null)
@@ -574,6 +580,9 @@ public class PlayerCommonData extends VisibleObjectTemplate {
      * @param dp
      */
     public void setDp(int dp) {
+        if (dp < 0)
+            return;
+
         Player player = getPlayer();
         if (player == null) {
             log.warn("CHECKPOINT : getPlayer in PCD return null for setDP " + isOnline() + " " + getPosition());
@@ -584,7 +593,7 @@ public class PlayerCommonData extends VisibleObjectTemplate {
             return;
 
         int maxDp = player.getGameStats().getCurrentStat(StatEnum.MAXDP);
-        this.dp = dp > maxDp ? maxDp : dp;
+        this.dp = (dp > maxDp) ? maxDp : dp;
 
         PacketSendUtility.broadcastPacket(player, new SM_DP_INFO(playerObjId, this.dp), true);
         PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));

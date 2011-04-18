@@ -26,6 +26,7 @@ import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.group.PlayerGroup;
 import gameserver.model.siege.ArtifactProtector;
 import gameserver.model.siege.FortressGeneral;
+import gameserver.model.siege.FortressGate;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.skillengine.effect.EffectId;
 import gameserver.skillengine.model.Skill;
@@ -234,8 +235,12 @@ public class PlayerRestrictions extends AbstractRestrictions {
         if (creature instanceof Monster)
             return true;
 
-        if (creature instanceof FortressGeneral || creature instanceof ArtifactProtector)
+        if (creature instanceof FortressGeneral ||
+            creature instanceof ArtifactProtector ||
+            creature instanceof FortressGate)
+        {
             return true;
+        }
 
         if (creature instanceof Npc) {
             Npc npc = (Npc) creature;

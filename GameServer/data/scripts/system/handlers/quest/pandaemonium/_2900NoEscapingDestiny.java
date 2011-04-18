@@ -237,7 +237,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
                     }
                     break;
             }
-        } else if (qs.getStatus() == QuestStatus.REWARD && targetId == 204061)
+        } else if (qs.getStatus() == QuestStatus.REWARD && targetId == 204061 && qs.getStatus() != QuestStatus.COMPLETE)
             return defaultQuestEndDialog(env);
         return false;
     }
