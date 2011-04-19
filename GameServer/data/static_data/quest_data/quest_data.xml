@@ -55,9 +55,9 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="4" nameId="2204011" name="Barring the Gate" id="1005">
 		<rewards title="1" exp="11500" gold="8370">
-			<selectable_reward_item count="1" item_id="110100869"/>
-			<selectable_reward_item count="1" item_id="110300824"/>
-			<selectable_reward_item count="1" item_id="110500794"/>
+			<selectable_reward_item count="1" item_id="110101249"/>
+			<selectable_reward_item count="1" item_id="110301181"/>
+			<selectable_reward_item count="1" item_id="110501155"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="9" nameId="2204013" name="Ascension" id="1006">
@@ -110,6 +110,7 @@
 		<rewards exp="38500" gold="14640">
 			<reward_item count="3" item_id="162000012"/>
 			<reward_item count="3" item_id="162000017"/>
+			<reward_item count="2" item_id="188051195"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="10" nameId="2204029" name="Odium in the Dukaki Settlement" id="1014">
@@ -198,6 +199,7 @@
 			<selectable_reward_item count="1" item_id="113300800"/>
 			<selectable_reward_item count="1" item_id="113500771"/>
 			<selectable_reward_item count="1" item_id="113600744"/>
+			<reward_item count="1" item_id="188051196"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="15" nameId="2204041" name="Sealing the Abyss Gate" id="1020">
@@ -205,8 +207,8 @@
 			<collect_item count="1" item_id="182200024"/>
 		</collect_items>
 		<rewards title="2" exp="208500" gold="36200">
-			<selectable_reward_item count="1" item_id="122000886"/>
-			<selectable_reward_item count="1" item_id="122000887"/>
+			<selectable_reward_item count="1" item_id="122001290"/>
+			<selectable_reward_item count="1" item_id="122001291"/>
 			<reward_item count="1" item_id="188050780"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182200024" npc_id="210753"/>
@@ -222,6 +224,7 @@
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="14" nameId="2204045" name="Krall Desecration" id="1022">
 		<rewards exp="86400" gold="27360">
 			<reward_item count="1" item_id="123000879"/>
+			<reward_item count="1" item_id="188051191"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1017"/>
@@ -260,6 +263,7 @@
 			<selectable_reward_item count="1" item_id="111300778"/>
 			<selectable_reward_item count="1" item_id="111500761"/>
 			<selectable_reward_item count="1" item_id="111600753"/>
+			<reward_item count="2" item_id="188051192"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201001" npc_id="700157"/>
 	</quest>
@@ -393,6 +397,7 @@
 			<selectable_reward_item count="1" item_id="113300803"/>
 			<selectable_reward_item count="1" item_id="113500774"/>
 			<selectable_reward_item count="1" item_id="113600747"/>
+			<reward_item count="1" item_id="188051194"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1034"/>
@@ -492,6 +497,7 @@
 			<selectable_reward_item count="1" item_id="101500511"/>
 			<selectable_reward_item count="1" item_id="100600551"/>
 			<selectable_reward_item count="1" item_id="100500513"/>
+			<reward_item count="1" item_id="188051194"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201605" npc_id="211146"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201605" npc_id="211161"/>
@@ -507,6 +513,7 @@
 			<selectable_reward_item count="1" item_id="110300828"/>
 			<selectable_reward_item count="1" item_id="110500798"/>
 			<selectable_reward_item count="1" item_id="110600783"/>
+			<reward_item count="1" item_id="188050585"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201608" npc_id="211101"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201608" npc_id="211131"/>
@@ -561,6 +568,7 @@
 			<selectable_reward_item count="1" item_id="112300736"/>
 			<selectable_reward_item count="1" item_id="112500724"/>
 			<selectable_reward_item count="1" item_id="112600735"/>
+			<reward_item count="2" item_id="188051194"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1056"/>
@@ -627,7 +635,9 @@
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204241" name="Speaking Balaur" id="1071">
-		<rewards title="30" reward_abyss_point="800" exp="874234" gold="94010"/>
+		<rewards title="30" reward_abyss_point="800" exp="874234" gold="94010">
+		        <reward_item count="1" item_id="188051193"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204243" name="Abyss Training" id="1072">
 		<rewards reward_abyss_point="500" exp="134337" gold="58760">
@@ -653,6 +663,7 @@
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="32" nameId="2204249" name="New Wings" id="1075">
 		<rewards reward_abyss_point="2000" exp="3903276" gold="196620">
 			<reward_item count="5" item_id="162000027"/>
+			<reward_item count="1" item_id="188051193"/>
 		</rewards>
 		<finished_quest_conds>
 			<condition quest="1072"/>
