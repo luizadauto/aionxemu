@@ -75,24 +75,14 @@ public class _2008Ascension extends QuestHandler {
     public boolean onKillEvent(QuestCookie env) {
         if (defaultQuestOnKillEvent(env, 205040, 51, 54))
         {
-        	if(env.getVisibleObject() instanceof Npc)
-        	{
-        		Npc npc = (Npc) env.getVisibleObject();
-        		npc.getController().onDelete();
-        	}
             return true;
         }
         if (defaultQuestOnKillEvent(env, 205040, 54, 55)) {
-        	if(env.getVisibleObject() instanceof Npc)
-        	{
-        		Npc npc = (Npc) env.getVisibleObject();
-        		npc.getController().onDelete();
-        	}
             Player player = env.getPlayer();
             QuestState qs = player.getQuestStateList().getQuestState(questId);
             qs.setQuestVar(5);
             updateQuestStatus(env);
-            Npc mob = (Npc) QuestService.addNewSpawn(320010000, player.getInstanceId(), 205041, 301f, 259f, 205.5f, (byte) 0, true);
+            Npc mob = (Npc) QuestService.addNewSpawn(320010000, player.getInstanceId(), 205041, (float) 310.49f, (float) 271.50f, (float) 205.78f, (byte) 0, true);
             // TODO: Tempt decrease P attack.
             mob.getGameStats().setStat(StatEnum.MAIN_HAND_POWER, mob.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_POWER) / 3);
             mob.getAggroList().addDamage(player, 1000);
@@ -123,7 +113,6 @@ public class _2008Ascension extends QuestHandler {
     @Override
     public boolean onDialogEvent(final QuestCookie env) {
         final Player player = env.getPlayer();
-        final int instanceId = player.getInstanceId();
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null)
             return false;
@@ -166,7 +155,7 @@ public class _2008Ascension extends QuestHandler {
                             // Create instance
                             WorldMapInstance newInstance = InstanceService.getNextAvailableInstance(320010000);
                             InstanceService.registerPlayerWithInstance(newInstance, player);
-                            TeleportService.teleportTo(player, 320010000, newInstance.getInstanceId(), 457.65f, 426.8f, 230.4f, 0);
+                            TeleportService.teleportTo(player, 320010000, newInstance.getInstanceId(), (float) 457.65f, (float) 426.8f, (float) 230.4f, 0);
                             return true;
                         }
                     case 10005:
@@ -260,6 +249,8 @@ public class _2008Ascension extends QuestHandler {
                 switch (env.getDialogId()) {
                     case 25:
                         if (var == 99) {
+                            Skill skill = SkillEngine.getInstance().getSkill(player,1853,1,player);
+                            skill.useSkill();
                             PacketSendUtility.sendPacket(player, new SM_EMOTION(player, EmotionType.START_FLYTELEPORT, 3001, 0));
                             qs.setQuestVar(50);
                             updateQuestStatus(env);
@@ -269,10 +260,10 @@ public class _2008Ascension extends QuestHandler {
                                     qs.setQuestVar(51);
                                     updateQuestStatus(env);
                                     List<Npc> mobs = new ArrayList<Npc>();
-                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 294f, 277f, 207f, (byte) 0, true));
-                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 305f, 279f, 206.5f, (byte) 0, true));
-                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 298f, 253f, 205.7f, (byte) 0, true));
-                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 306f, 251f, 206f, (byte) 0, true));
+                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, player.getInstanceId(), 205040, (float) 294f, (float) 277f, (float) 207f, (byte) 0, true));
+                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, player.getInstanceId(), 205040, (float) 305f, (float) 279f, (float) 206.5f, (byte) 0, true));
+                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, player.getInstanceId(), 205040, (float) 298f, (float) 253f, (float) 205.7f, (byte) 0, true));
+                                    mobs.add((Npc) QuestService.addNewSpawn(320010000, player.getInstanceId(), 205040, (float) 306f, (float) 251f, (float) 206f, (byte) 0, true));
                                     for (Npc mob : mobs) {
                                         // TODO: Tempt decrease P attack.
                                         mob.getGameStats().setStat(StatEnum.MAIN_HAND_POWER, mob.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_POWER) / 3);
@@ -323,8 +314,6 @@ public class _2008Ascension extends QuestHandler {
                     PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
                 } else {
                     PacketSendUtility.sendPacket(player, new SM_ASCENSION_MORPH(1));
-                    Skill skill = SkillEngine.getInstance().getSkill(player,1853,1,player);
-                    skill.useSkill();
                     return true;
                 }
             }
@@ -343,9 +332,9 @@ public class _2008Ascension extends QuestHandler {
             ThreadPoolManager.getInstance().schedule(new Runnable() {
             	@Override
             	public void run() {
-        				QuestService.addNewSpawn(320010000, player.getInstanceId(), 203550, 301.92999f, 274.26001f, 205.7f, (byte) 0, true);
+        				QuestService.addNewSpawn(320010000, player.getInstanceId(), 203550, (float) 310.49f, (float) 271.50f, (float) 205.78f, (byte) 0, true);
         				qs.setQuestVar(6);
-       				  updateQuestStatus(env);
+        				updateQuestStatus(env);
               }
         		}, 3000);
         return true;

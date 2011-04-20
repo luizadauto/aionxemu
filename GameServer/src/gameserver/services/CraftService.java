@@ -32,7 +32,7 @@ import gameserver.world.World;
 import org.apache.log4j.Logger;
 
 /**
- * @author MrPoke, sphinx
+ * @author MrPoke, sphinx, PZIKO333
  */
 public class CraftService {
     private static final Logger log = Logger.getLogger(CraftService.class);
@@ -42,13 +42,15 @@ public class CraftService {
      * @param recipetemplate
      * @param critical
      */
-    public static void finishCrafting(Player player, RecipeTemplate recipetemplate, boolean critical) {
+    public static void finishCrafting(Player player, RecipeTemplate recipetemplate, int comboStep) {
         int productItemId = 0;
 
-        if (critical && recipetemplate.getComboProduct() != null)
-            productItemId = recipetemplate.getComboProduct();
-        else
-            productItemId = recipetemplate.getProductid();
+        if(recipetemplate.getComboProduct(comboStep) != null)
+        {
+        	productItemId = recipetemplate.getComboProduct(comboStep);
+        } else {
+        	productItemId = recipetemplate.getProductid();
+        }
 
 
         if (recipetemplate.getSkillid() == 40009)
@@ -67,6 +69,31 @@ public class CraftService {
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_DONT_GET_PRODUCTION_EXP(new DescriptionId(recipetemplate.getSkillid())));
         }
         player.setCraftingTask(null);
+    }
+
+    /**
+     * @param player
+     * @param targetTemplateId
+     * @param recipeId
+     * @param targetObjId
+     */
+    public static void startComboCrafting(Player player, int recipeId, int targetObjId, int comboStep) {
+        RecipeTemplate recipeTemplate = DataManager.RECIPE_DATA.getRecipeTemplateById(recipeId);
+
+        if (recipeTemplate != null) {
+
+            int skillId = recipeTemplate.getSkillid();
+            AionObject target = World.getInstance().findAionObject(targetObjId);
+
+            ItemTemplate itemTemplate = ItemService.getItemTemplate(recipeTemplate.getComboProduct(comboStep));
+            if (itemTemplate == null)
+                return;
+
+            int skillLvlDiff = player.getSkillList().getSkillLevel(skillId) - recipeTemplate.getSkillpoint();
+
+            player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, skillLvlDiff, comboStep));
+            player.getCraftingTask().combo();
+        }
     }
 
     /**
@@ -112,16 +139,9 @@ public class CraftService {
             // ---------------------------------------------------------------------------------
 
             //craft item template --------------------------------------------------------------
-            ItemTemplate critItemTemplate = null;
             ItemTemplate itemTemplate = ItemService.getItemTemplate(recipeTemplate.getProductid());
             if (itemTemplate == null)
                 return;
-
-            if (recipeTemplate.getComboProduct() != null)
-                critItemTemplate = ItemService.getItemTemplate(recipeTemplate.getComboProduct());
-
-            if (critItemTemplate == null)
-                critItemTemplate = itemTemplate;
 
             if (recipeTemplate.getDp() != null)
                 player.getCommonData().addDp(-recipeTemplate.getDp());
@@ -136,9 +156,9 @@ public class CraftService {
             int morph = 99999;
 
             if (skillId == 40009) {
-                player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, critItemTemplate, morph));
+                player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, morph, -1));
             } else {
-                player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, critItemTemplate, skillLvlDiff));
+                player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, skillLvlDiff, -1));
             }
             player.getCraftingTask().start();
         }

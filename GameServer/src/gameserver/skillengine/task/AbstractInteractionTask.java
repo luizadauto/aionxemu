@@ -63,6 +63,11 @@ public abstract class AbstractInteractionTask {
     protected abstract void onInteractionStart();
 
     /**
+     * Called before combo interaction is started
+     */
+    protected abstract void onComboStart();
+
+    /**
      * Called when interaction is not complete and need to be aborted
      */
     protected abstract void onInteractionAbort();
@@ -73,6 +78,27 @@ public abstract class AbstractInteractionTask {
     public void start() {
         onInteractionStart();
 
+        task = ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable() {
+
+            @Override
+            public void run() {
+                if (!validateParticipants())
+                    stop();
+
+                boolean stopTask = onInteraction();
+                if (stopTask)
+                    stop();
+            }
+
+        }, 1000, interval);
+    }
+
+    /**
+     * Interaction scheduling method
+     */
+    public void combo() {
+        stop();
+        onComboStart();
         task = ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable() {
 
             @Override

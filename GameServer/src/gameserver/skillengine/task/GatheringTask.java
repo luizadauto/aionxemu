@@ -83,4 +83,9 @@ public class GatheringTask extends AbstractCraftTask {
         ItemService.addItem(requestor, material.getItemid(), 1);
         ((Gatherable) responder).getController().rewardPlayer(requestor);
     }
+
+	@Override
+	protected void onComboStart()
+	{		
+	}
 }

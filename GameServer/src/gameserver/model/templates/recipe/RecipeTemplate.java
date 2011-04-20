@@ -87,11 +87,12 @@ public class RecipeTemplate {
         return this.component;
     }
 
-    public Integer getComboProduct() {
-        if (comboproduct == null) {
-            return null;
+    public Integer getComboProduct(int comboStep) {
+    	if(comboproduct == null || comboStep >= comboproduct.size() || comboStep == -1) {
+    		return null;
+    	} else {
+        	return comboproduct.get(comboStep).getItemid();
         }
-        return comboproduct.get(0).getItemid();
     }
 
     /**

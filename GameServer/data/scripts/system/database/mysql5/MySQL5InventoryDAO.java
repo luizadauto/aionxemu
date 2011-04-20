@@ -51,6 +51,7 @@ public class MySQL5InventoryDAO extends InventoryDAO {
     public static final String DELETE_QUERY = "DELETE FROM `inventory` WHERE `itemUniqueId`=?";
     public static final String DELETE_CLEAN_QUERY = "DELETE FROM `inventory` WHERE `itemOwner`=? AND (`itemLocation`=0 OR `itemLocation`=1)";
     public static final String SELECT_ACCOUNT_QUERY = "SELECT `account_id` FROM `players` WHERE `id`=?";
+    public static final String SELECT_LEGION_QUERY = "SELECT `legion_id` FROM `legion_members` WHERE `player_id`=?";
 
     @Override
     public Storage loadStorage(Player player, StorageType storageType) {
@@ -233,6 +234,29 @@ public class MySQL5InventoryDAO extends InventoryDAO {
         return accountId;
     }
 
+    public int getLegionId(final int playerId) {
+        Connection con = null;
+        int legionId = 0;
+        try {
+            con = DatabaseFactory.getConnection();
+            PreparedStatement stmt = con.prepareStatement(SELECT_LEGION_QUERY);
+            stmt.setInt(1, playerId);
+            ResultSet rset = stmt.executeQuery();
+            if (rset.next()) {
+            	legionId = rset.getInt("legion_id");
+            }
+            rset.close();
+            stmt.close();
+        }
+        catch (Exception e) {
+            log.fatal("Could not restore legionId data for player: " + playerId + " from DB: " + e.getMessage(), e);
+        }
+        finally {
+            DatabaseFactory.close(con);
+        }
+        return legionId;
+    }
+
     @Override
     public boolean store(Player player) {
         int playerId = player.getObjectId();
@@ -254,10 +278,16 @@ public class MySQL5InventoryDAO extends InventoryDAO {
      */
     @Override
     public boolean store(final Item item, int ownerId) {
+    	
         boolean result = false;
 
         if (item.getItemLocation() == StorageType.ACCOUNT_WAREHOUSE.getId()) {
             ownerId = getPlayerAccountId(ownerId);
+        }
+
+        if (item.getItemLocation() == StorageType.LEGION_WAREHOUSE.getId()) {
+        	if(getLegionId(ownerId) > 0)
+        		ownerId = getLegionId(ownerId);
         }
 
         switch (item.getPersistentState()) {

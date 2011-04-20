@@ -89,6 +89,18 @@ public class SM_CRAFT_UPDATE extends AionServerPacket {
                 writeH(buf, 0);
                 break;
             }
+            case 3: //crit
+            {
+                writeD(buf, success);
+                writeD(buf, failure);
+                writeD(buf, 0);
+                writeD(buf, 1200);        //timer??
+                writeD(buf, 1330048);
+                writeH(buf, 0x24); //0x24
+                writeD(buf, nameId);
+                writeH(buf, 0);
+                break;
+            }
             case 5: //sucess
             {
                 writeD(buf, success);

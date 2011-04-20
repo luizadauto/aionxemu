@@ -76,24 +76,14 @@ public class _1006Ascension extends QuestHandler {
     public boolean onKillEvent(QuestCookie env) {
         if (defaultQuestOnKillEvent(env, 211042, 51, 54))
         {
-        	if(env.getVisibleObject() instanceof Npc)
-        	{
-        		Npc npc = (Npc) env.getVisibleObject();
-        		npc.getController().onDelete();
-        	}
             return true;
         }
         if (defaultQuestOnKillEvent(env, 211042, 54, 55)) {
-        	if(env.getVisibleObject() instanceof Npc)
-        	{
-        		Npc npc = (Npc) env.getVisibleObject();
-        		npc.getController().onDelete();
-        	}
             Player player = env.getPlayer();
             QuestState qs = player.getQuestStateList().getQuestState(questId);
             qs.setQuestVar(4);
             updateQuestStatus(env);
-            Npc mob = (Npc) QuestService.addNewSpawn(310010000, player.getInstanceId(), 211043, (float) 226.7, (float) 251.5, (float) 206.5, (byte) 0, true);
+            Npc mob = (Npc) QuestService.addNewSpawn(310010000, player.getInstanceId(), 211043, (float) 223.35f, (float) 252.35f, (float) 205.75f, (byte) 0, true);
             // TODO: Tempt decrease P attack.
             mob.getGameStats().setStat(StatEnum.MAIN_HAND_POWER, mob.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_POWER) / 3);
             mob.getAggroList().addDamage(player, 1000);
@@ -211,6 +201,8 @@ public class _1006Ascension extends QuestHandler {
                     case 25:
                         if (var == 99) {
                             PacketSendUtility.sendPacket(player, new SM_EMOTION(player, EmotionType.START_FLYTELEPORT, 1001, 0));
+                            Skill skill = SkillEngine.getInstance().getSkill(player,1910,1,player);
+                            skill.useSkill();
                             qs.setQuestVar(50);
                             updateQuestStatus(env);
                             ThreadPoolManager.getInstance().schedule(new Runnable() {
@@ -364,8 +356,6 @@ public class _1006Ascension extends QuestHandler {
                     PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
                 } else {
                     PacketSendUtility.sendPacket(player, new SM_ASCENSION_MORPH(1));
-                    Skill skill = SkillEngine.getInstance().getSkill(player,1910,1,player);
-            		skill.useSkill();
                     return true;
                 }
             }

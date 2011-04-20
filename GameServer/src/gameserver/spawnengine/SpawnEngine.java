@@ -20,6 +20,7 @@ import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.controllers.*;
 import gameserver.controllers.effect.EffectController;
 import gameserver.controllers.instances.SteelRakeController;
+import gameserver.controllers.instances.HaramelController;
 import gameserver.dao.SpawnDAO;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.NpcData;
@@ -171,6 +172,12 @@ public class SpawnEngine {
                 npc.setKnownlist(new NpcKnownList(npc));
             } else if (objectId == 700548 || objectId == 730207) {
                 npc = new Npc(iDFactory.nextId(), new SteelRakeController(),
+                        spawn, template);
+                npc.setKnownlist(new StaticObjectKnownList(npc));
+            }
+            //Haramel exception
+            if (objectId == 730321) {
+                npc = new Npc(iDFactory.nextId(), new HaramelController(),
                         spawn, template);
                 npc.setKnownlist(new StaticObjectKnownList(npc));
             }

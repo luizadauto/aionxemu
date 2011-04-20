@@ -34,7 +34,9 @@ import gameserver.utils.PacketSendUtility;
 public class CraftingTask extends AbstractCraftTask {
     private RecipeTemplate recipeTemplate;
     private ItemTemplate itemTemplate;
-    private ItemTemplate criticalTemplate;
+    private int originalTemplate;
+    private int comboStep;
+    private int nextComboStep;
 
     /**
      * @param requestor
@@ -45,11 +47,13 @@ public class CraftingTask extends AbstractCraftTask {
 
     public CraftingTask(Player requestor, StaticObject responder,
                         RecipeTemplate recipeTemplate, ItemTemplate itemTemplate,
-                        ItemTemplate criticalTemplate, int skillLvlDiff) {
+                        int originalTemplate, int skillLvlDiff, int comboStep) {
         super(requestor, responder, 100, 100, skillLvlDiff);
         this.recipeTemplate = recipeTemplate;
         this.itemTemplate = itemTemplate;
-        this.criticalTemplate = criticalTemplate;
+        this.originalTemplate = originalTemplate;
+        this.comboStep = comboStep;
+        this.nextComboStep = comboStep+1;
     }
 
     /* (non-Javadoc)
@@ -69,10 +73,15 @@ public class CraftingTask extends AbstractCraftTask {
 
     @Override
     protected void onSuccessFinish() {
-        PacketSendUtility.sendPacket(requestor, new SM_CRAFT_UPDATE(recipeTemplate.getSkillid(), setCritical ? criticalTemplate : itemTemplate, currentSuccessValue, currentFailureValue, 5));
-        PacketSendUtility.broadcastPacket(requestor, new SM_CRAFT_ANIMATION(requestor.getObjectId(), responder.getObjectId(), 0, 2), true);
-        CraftService.finishCrafting(requestor, recipeTemplate, critical);
-        PacketSendUtility.sendPacket(requestor, SM_SYSTEM_MESSAGE.STR_CRAFT_SUCCESS_GETEXP);
+    	if (critical && recipeTemplate.getComboProduct(nextComboStep) != null && recipeTemplate.getSkillid() != 40009)
+    	{
+    		CraftService.startComboCrafting(requestor, originalTemplate, responder.getObjectId(), nextComboStep);
+    	} else {
+            PacketSendUtility.sendPacket(requestor, new SM_CRAFT_UPDATE(recipeTemplate.getSkillid(), itemTemplate, currentSuccessValue, currentFailureValue, 5));
+            PacketSendUtility.broadcastPacket(requestor, new SM_CRAFT_ANIMATION(requestor.getObjectId(), responder.getObjectId(), 0, 2), true);
+            CraftService.finishCrafting(requestor, recipeTemplate, comboStep);
+            PacketSendUtility.sendPacket(requestor, SM_SYSTEM_MESSAGE.STR_CRAFT_SUCCESS_GETEXP);
+    	}
     }
 
     /* (non-Javadoc)
@@ -112,5 +121,11 @@ public class CraftingTask extends AbstractCraftTask {
         PacketSendUtility.sendPacket(requestor, new SM_CRAFT_UPDATE(recipeTemplate.getSkillid(), itemTemplate, 0, 0, 1));
         PacketSendUtility.broadcastPacket(requestor, new SM_CRAFT_ANIMATION(requestor.getObjectId(), responder.getObjectId(), recipeTemplate.getSkillid(), 0), true);
         PacketSendUtility.broadcastPacket(requestor, new SM_CRAFT_ANIMATION(requestor.getObjectId(), responder.getObjectId(), recipeTemplate.getSkillid(), 1), true);
+    }
+
+    @Override
+    protected void onComboStart() {
+        PacketSendUtility.sendPacket(requestor, new SM_CRAFT_UPDATE(recipeTemplate.getSkillid(), itemTemplate, 75, 100, 3));
+        PacketSendUtility.broadcastPacket(requestor, new SM_CRAFT_ANIMATION(requestor.getObjectId(), responder.getObjectId(), recipeTemplate.getSkillid(), 5), true);
     }
 }

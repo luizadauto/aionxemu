@@ -62,15 +62,15 @@ public class Storage {
                 this.storageType = storageType.getId();
                 break;
             case REGULAR_WAREHOUSE:
-                storage = new ItemStorage(104);
+                storage = new ItemStorage(96);
                 this.storageType = storageType.getId();
                 break;
             case ACCOUNT_WAREHOUSE:
-                storage = new ItemStorage(17);
+                storage = new ItemStorage(16);
                 this.storageType = storageType.getId();
                 break;
             case LEGION_WAREHOUSE:
-                storage = new ItemStorage(25); // TODO: FIND OUT WHAT MAX IS
+                storage = new ItemStorage(56);
                 this.storageType = storageType.getId();
                 break;
             case PET_BAG_6:
