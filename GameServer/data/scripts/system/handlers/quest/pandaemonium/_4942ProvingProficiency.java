@@ -142,8 +142,8 @@ public class _4942ProvingProficiency extends QuestHandler {
                                 return sendQuestDialog(env, 1352);
                             // Get HACTION_SETPRO7 in the eddit-HyperLinks.xml
                             case 10006:
-                                if (player.getInventory().getItemCountByItemId(152201596) == 0) {
-                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201596, 1))))
+                                if (player.getInventory().getItemCountByItemId(152206598) == 0) {
+                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152206598, 1))))
                                         return true;
                                 }
                                 qs.setQuestVarById(0, var + 1);
@@ -163,8 +163,8 @@ public class _4942ProvingProficiency extends QuestHandler {
                                 return sendQuestDialog(env, 1693);
                             // Get HACTION_SETPRO7 in the eddit-HyperLinks.xml
                             case 10006:
-                                if (player.getInventory().getItemCountByItemId(152201639) == 0) {
-                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201639, 1))))
+                                if (player.getInventory().getItemCountByItemId(152206641) == 0) {
+                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152206641, 1))))
                                         return true;
                                 }
                                 qs.setQuestVarById(0, var + 1);
@@ -184,8 +184,8 @@ public class _4942ProvingProficiency extends QuestHandler {
                                 return sendQuestDialog(env, 2034);
                             // Get HACTION_SETPRO7 in the eddit-HyperLinks.xml
                             case 10006:
-                                if (player.getInventory().getItemCountByItemId(152201615) == 0) {
-                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201615, 1))))
+                                if (player.getInventory().getItemCountByItemId(152206617) == 0) {
+                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152206617, 1))))
                                         return true;
                                 }
                                 qs.setQuestVarById(0, var + 1);
@@ -205,8 +205,8 @@ public class _4942ProvingProficiency extends QuestHandler {
                                 return sendQuestDialog(env, 2375);
                             // Get HACTION_SETPRO7 in the eddit-HyperLinks.xml
                             case 10006:
-                                if (player.getInventory().getItemCountByItemId(152201632) == 0) {
-                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201632, 1))))
+                                if (player.getInventory().getItemCountByItemId(152206634) == 0) {
+                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152206634, 1))))
                                         return true;
                                 }
                                 qs.setQuestVarById(0, var + 1);
@@ -226,8 +226,8 @@ public class _4942ProvingProficiency extends QuestHandler {
                                 return sendQuestDialog(env, 2716);
                             // Get HACTION_SETPRO7 in the eddit-HyperLinks.xml
                             case 10006:
-                                if (player.getInventory().getItemCountByItemId(152201644) == 0) {
-                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201644, 1))))
+                                if (player.getInventory().getItemCountByItemId(152206646) == 0) {
+                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152206646, 1))))
                                         return true;
                                 }
                                 qs.setQuestVarById(0, var + 1);
@@ -247,8 +247,8 @@ public class _4942ProvingProficiency extends QuestHandler {
                                 return sendQuestDialog(env, 3057);
                             // Get HACTION_SETPRO7 in the eddit-HyperLinks.xml
                             case 10006:
-                                if (player.getInventory().getItemCountByItemId(152201643) == 0) {
-                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201643, 1))))
+                                if (player.getInventory().getItemCountByItemId(152206645) == 0) {
+                                    if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(152206645, 1))))
                                         return true;
                                 }
                                 qs.setQuestVarById(0, var + 1);
