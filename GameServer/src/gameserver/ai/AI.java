@@ -133,7 +133,7 @@ public abstract class AI<T extends Creature> implements Runnable {
 
     public void schedule() {
         if (!isScheduled()) {
-            aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 0, 500);
+            aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, 1000);
         }
     }
 
