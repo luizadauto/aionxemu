@@ -4100,7 +4100,7 @@
 		<object x="2507.48800" y="490.80020" z="165.01000" h="118"/>
 	</spawn>
 	<!-- Sentinel Clorint (Monster Normal lvl:49)-->
-    <spawn map="210060000" npcid="214563" pool="1" interval="395">
+    <spawn map="210060000" npcid="214563" pool="1" interval="1800">
         <object x="2698.6748" y="985.43634" z="97.5762" h="11"/>
     </spawn>
 	<!-- Sharp Tail Scolopen (Monster Normal lvl:47)-->
@@ -5813,7 +5813,7 @@
 	</spawn>
 	<!-- Wanderer Sirotata (Named Mob Normal lvl:49)-->
 	<spawn map="210060000" npcid="214568" pool="1" interval="1800">
-		<object x="1907.85050" y="207.08983" z="329.30707" h="88"/>
+		<<object x="1917.4626" y="205.43684" z="95.32428" h="47"/>
 		<object x="1629.66000" y="630.74000" z="95.94149" h="111"/>
 	</spawn>
 	<!-- Wasteland Abex (Monster Normal lvl:46)-->

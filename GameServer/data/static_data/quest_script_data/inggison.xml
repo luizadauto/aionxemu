@@ -32,7 +32,9 @@
 	<!-- 11002: Oppressed! All Right, Ignored -->
 	<monster_hunt start_npc_id="798939" id="11002">
 		<monster_infos var_id="0" npc_id="215780" max_kill="15"/>
+		<monster_infos var_id="0" npc_id="215781" max_kill="15"/>
 		<monster_infos var_id="1" npc_id="215496" max_kill="20"/>
+		<monster_infos var_id="1" npc_id="215497" max_kill="20"/>
 	</monster_hunt>
 	<!-- 11003: Maintaining the Illusion -->
 	<item_collecting id="11003" start_npc_id="798933" end_npc_id="798942"/>

@@ -29,8 +29,8 @@
 	<monster_hunt start_npc_id="799029" id="30005">
 		<monster_infos var_id="0" npc_id="215857" max_kill="25"/>
 		<monster_infos var_id="0" npc_id="215814" max_kill="25"/>
-		<monster_infos var_id="1" npc_id="215858" max_kill="25"/>
-		<monster_infos var_id="1" npc_id="215815" max_kill="25"/>
+		<monster_infos var_id="0" npc_id="215858" max_kill="25"/>
+		<monster_infos var_id="0" npc_id="215815" max_kill="25"/>
 	</monster_hunt>
 	<!-- [Group] Poison Coating -->
 	<item_collecting id="30010" start_npc_id="799031" action_item_id="700567"/>
@@ -50,8 +50,8 @@
 	<monster_hunt start_npc_id="799333" id="30105">
 		<monster_infos var_id="0" npc_id="215857" max_kill="25"/>
 		<monster_infos var_id="0" npc_id="215814" max_kill="25"/>
-		<monster_infos var_id="1" npc_id="215858" max_kill="25"/>
-		<monster_infos var_id="1" npc_id="215815" max_kill="25"/>
+		<monster_infos var_id="0" npc_id="215858" max_kill="25"/>
+		<monster_infos var_id="0" npc_id="215815" max_kill="25"/>
 	</monster_hunt>
 	<!-- [Group] Swimming In Poison -->
 	 <item_collecting id="30110" start_npc_id="799335" action_item_id="700567"/>

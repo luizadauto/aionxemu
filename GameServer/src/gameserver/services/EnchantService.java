@@ -73,21 +73,24 @@ public class EnchantService {
             case COMMON:
             case JUNK:
                 number = Rnd.get(1, 2);
-                level = Rnd.get(0, 5);
+                level = Rnd.get(-4, 5);
                 break;
             case RARE:
-                number = Rnd.get(1, 3);
-                level = Rnd.get(0, 10);
+                number = Rnd.get(1, 4);
+                level = Rnd.get(-4, 10);
                 break;
             case LEGEND:
             case MYTHIC:
-                number = Rnd.get(1, 3);
-                level = Rnd.get(0, 15);
+                number = Rnd.get(1, 6);
+                level = Rnd.get(-4, 20);
                 break;
             case EPIC:
+                number = Rnd.get(1, 8);
+                level = Rnd.get(-4, 40);
+                break;
             case UNIQUE:
-                number = Rnd.get(1, 3);
-                level = Rnd.get(0, 20);
+                number = Rnd.get(1, 8);
+                level = Rnd.get(-4, 40);
                 break;
         }
 
@@ -135,15 +138,15 @@ public class EnchantService {
                 qualityCap = 0;
                 break;
             case RARE:
-                qualityCap = 5;
+                qualityCap = 10;
                 break;
             case LEGEND:
             case MYTHIC:
-                qualityCap = 10;
+                qualityCap = 20;
                 break;
             case EPIC:
             case UNIQUE:
-                qualityCap = 15;
+                qualityCap = 25;
                 break;
         }
 

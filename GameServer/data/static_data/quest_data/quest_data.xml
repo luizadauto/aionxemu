@@ -14982,7 +14982,7 @@
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="29" nameId="2208347" name="[Expert] Weaponsmith's Final Exam" id="2973">
 		<collect_items>
-			<collect_item count="1" item_id="100000358"/>
+			<collect_item count="1" item_id="182207946"/>
 		</collect_items>
 		<rewards exp="116400"/>
 		<finished_quest_conds>
@@ -21260,7 +21260,7 @@
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="1" minlevel_permitted="29" nameId="2208535" name="[Top Expert] Weaponsmith's Skill" id="4946">
 		<collect_items>
-			<collect_item count="1" item_id="100000358"/>
+			<collect_item count="1" item_id="182207946"/>
 		</collect_items>
 		<rewards exp="116400"/>
 		<finished_quest_conds>
