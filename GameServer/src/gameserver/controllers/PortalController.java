@@ -16,13 +16,18 @@
  */
 package gameserver.controllers;
 
+import java.util.List;
+
 import gameserver.configs.administration.AdminConfig;
 import gameserver.configs.main.CustomConfig;
+import gameserver.controllers.movement.StartMovingListener;
 import gameserver.dataholders.DataManager;
 import gameserver.model.EmotionType;
+import gameserver.model.TaskId;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.group.PlayerGroup;
+import gameserver.model.templates.portal.EntryPoint;
 import gameserver.model.templates.portal.ExitPoint;
 import gameserver.model.templates.portal.PortalTemplate;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
@@ -65,6 +70,17 @@ public class PortalController extends NpcController {
                 defaultUseTime, 1));
         PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.START_QUESTLOOT, 0, getOwner().getObjectId()), true);
 
+		player.getController().cancelTask(TaskId.ITEM_USE);
+		player.getObserveController().attach(new StartMovingListener() {
+
+			@Override
+			public void moved() {
+				player.getController().cancelTask(TaskId.ITEM_USE);
+				PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), getOwner().getObjectId(), defaultUseTime, 0));
+				PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.END_QUESTLOOT, 0, getOwner().getObjectId()), true);
+			}
+		});
+		player.getController().addNewTask(TaskId.ITEM_USE,
         ThreadPoolManager.getInstance().schedule(new Runnable() {
             @Override
             public void run() {
@@ -81,6 +97,14 @@ public class PortalController extends NpcController {
             private void analyzePortation(final Player player) {
                 if (portalTemplate.getIdTitle() != 0 && player.getCommonData().getTitleId() != portalTemplate.getIdTitle())
                     return;
+
+                for (EntryPoint point : portalTemplate.getEntryPoint()) {
+                    if (point.getRace() != null && !point.getRace().equals(player.getCommonData().getRace()))
+                    {
+                        PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
+                        return;
+                    }
+                }
 
                 if (portalTemplate.getRace() != null && !portalTemplate.getRace().equals(player.getCommonData().getRace())) {
                     PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
@@ -142,7 +166,7 @@ public class PortalController extends NpcController {
                     port(player);
                 }
             }
-        }, defaultUseTime);
+        }, defaultUseTime));
 
     }
 

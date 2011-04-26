@@ -12,8 +12,11 @@
 		<exitpoint mapid="210020000" x="446.38937" y="428.9423" z="274.5"/>
 	</portal>
 	<!-- Indratu Fortress Entrance -->
+	<portal npcid="700360" instance="true" minlevel="41" maxlevel="55" group="true">
+		<entrypoint mapid="210040000" x="1875.37" y="2584.94" z="140.73" race="ELYOS"/>
+		<exitpoint mapid="310090000" x="562.4863" y="335.8061" z="1015.81885"/>
+	</portal>
 	<portal npcid="700565" instance="true" minlevel="41" maxlevel="55" group="true">
-		<entrypoint mapid="210040000" x="781.1078" y="1665.9824" z="104.672005" race="ELYOS"/>
 		<entrypoint mapid="220040000" x="1466.8792" y="1947.9192" z="588.06555" race="ASMODIANS"/>
 		<exitpoint mapid="310090000" x="562.4863" y="335.8061" z="1015.81885"/>
 	</portal>
@@ -45,9 +48,12 @@
 		<exitpoint mapid="300110000" x="418.16174" y="203.66518" z="429.66397"/>
 	</portal>
 	<!-- Kromede's Trial -->
-	<portal npcid="281906" minlevel="37" maxlevel="44" instance="true" group="false" usedelay="13200">
-		<entrypoint mapid="210040000" x="170.42387" y="1619.6165" z="120.853546" race="ELYOS"/>
-		<entrypoint mapid="220040000" x="1929.999" y="507.82068" z="412.25" race="ASMODIANS"/>
+	<portal npcid="205229" minlevel="37" maxlevel="44" instance="true" group="false" usedelay="13200">
+		<entrypoint mapid="210040000" x="133.26031" y="1566.3976" z="120.071075" race="ELYOS"/>
+		<exitpoint mapid="300230000" x="228.86" y="251.32818" z="191.239"/>
+	</portal>
+	<portal npcid="205234" minlevel="37" maxlevel="44" instance="true" group="false" usedelay="13200">
+		<entrypoint mapid="220040000" x="1942.1862" y="490.71967" z="412.125" race="ASMODIANS"/>
 		<exitpoint mapid="300230000" x="228.86" y="251.32818" z="191.239"/>
 	</portal>
 	<!-- Kromede's Trial Under -->
@@ -137,9 +143,13 @@
 		<exitpoint mapid="300030000" x="513" y="668" z="331"/>
 	</portal>
 	<!-- Fire Temple-->
-	<portal npcid="730047" instance="true" minlevel="30" group="true" maxlevel="55">
-		<entrypoint mapid="220020000" x="1592.178" y="977.2572" z="140.75" race="ASMODIANS"/>
+	<portal npcid="730069" instance="true" minlevel="30" group="true" maxlevel="55">
 		<entrypoint mapid="210020000" x="1343.28" y="350.96" z="348.67" race="ELYOS"/>
+		<exitpoint mapid="320100000" x="148.256" y="460.857" z="141.713"/>
+	</portal>
+	<!-- Fire Temple-->
+	<portal npcid="730047" instance="true" minlevel="30" group="true" maxlevel="55">
+		<entrypoint mapid="220020000" x="1591.4039" y="970.94464" z="141.00067" race="ASMODIANS"/>
 		<exitpoint mapid="320100000" x="148.256" y="460.857" z="141.713"/>
 	</portal>
 	<!-- Draupnir Cave Entrance -->
@@ -244,9 +254,13 @@
 		<exitpoint mapid="300100000" x="237" y="506" z="948"/>
 	</portal>
 <!-- Instance 2.0 -->
-	<!-- Haramel Entrance Elyos Asmodians -->
-	<portal npcid="700852" instance="true" minlevel="18" maxlevel="22" group="false">
+	<!-- Haramel Entrance Elyos -->
+	<portal npcid="730318" instance="true" minlevel="18" maxlevel="22" group="false">
     <entrypoint mapid="210030000" x="2539.3267" y="834.86957" z="103.967476" race="ELYOS"/>
+    <exitpoint mapid="300200000" x="175.59499" y="20.50977" z="144.2243"/>
+</portal>
+	<!-- Haramel Entrance Asmodians -->
+	<portal npcid="730319" instance="true" minlevel="18" maxlevel="22" group="false">
     <entrypoint mapid="220030000" x="2909.8335" y="1456.1504" z="252.59262"  race="ASMODIANS"/>
     <exitpoint mapid="300200000" x="175.59499" y="20.50977" z="144.2243"/>
 </portal>
@@ -255,7 +269,7 @@
     <entrypoint mapid="300200000" x="185.73808" y="20.143583" z="144.22354"/>
     <exitpoint mapid="210030000" x="2539.3267" y="834.86957" z="103.967476" race="ELYOS"/>
     <exitpoint mapid="220030000" x="2909.8335" y="1456.1504" z="252.59262"  race="ASMODIANS"/>
-</portal>  
+</portal>
 	<!-- QUEST PORTALS -->
 	<!-- Pernos [Ascension quest] Elyos -->
 	<portal npcid="790001" instance="true" race="ELYOS">

@@ -34,83 +34,93 @@ import gameserver.utils.PacketSendUtility;
  *
  */
 public class _28620KaligasCollection extends QuestHandler {
-    private final static int questId = 28620;
+	private final static int questId = 28620;
 
-    public _28620KaligasCollection() {
-        super(questId);
-    }
+	public _28620KaligasCollection() {
+		super(questId);
+	}
 
-    @Override
-    public void register() {
-        qe.setNpcQuestData(730328).addOnQuestStart(questId); //Lacchus
-        qe.setNpcQuestData(730328).addOnActionItemEvent(questId);
-        qe.setNpcQuestData(730328).addOnTalkEvent(questId);
-    }
+	@Override
+	public void register() {
+		qe.setNpcQuestData(730328).addOnQuestStart(questId); //Lacchus
+		qe.setNpcQuestData(730328).addOnActionItemEvent(questId);
+		qe.setNpcQuestData(730328).addOnTalkEvent(questId);
+	}
 
 	@Override
 	public boolean onActionItemEvent(QuestCookie env) {
-        	int targetId = 0;
-        	if (env.getVisibleObject() instanceof Npc)
-            targetId = ((Npc) env.getVisibleObject()).getNpcId();
-        	return (targetId == 730328);
+		if(env.getPlayer().getTribe().equals("PC_DARK"))
+		{
+			int targetId = 0;
+			if (env.getVisibleObject() instanceof Npc)
+				targetId = ((Npc) env.getVisibleObject()).getNpcId();
+			return (targetId == 730328);
+		} else {
+			return false;
+		}
 	}
 
-    @Override
-    public boolean onDialogEvent(QuestCookie env) {
-        final Player player = env.getPlayer();
-        int targetId = 0;
-        if (env.getVisibleObject() instanceof Npc)
-            targetId = ((Npc) env.getVisibleObject()).getNpcId();
-        QuestTemplate template = DataManager.QUEST_DATA.getQuestById(questId);
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
-        	if (targetId == 730328) 
+	@Override
+	public boolean onDialogEvent(QuestCookie env) {
+		if(env.getPlayer().getTribe().equals("PC_DARK"))
 		{
-			PlayerClass playerClass = player.getCommonData().getPlayerClass();
-			if (playerClass == PlayerClass.RANGER || playerClass == PlayerClass.ASSASSIN || playerClass == PlayerClass.MAGE || playerClass == PlayerClass.PRIEST || playerClass == PlayerClass.GLADIATOR || playerClass == PlayerClass.WARRIOR || playerClass == PlayerClass.SCOUT) 
+			final Player player = env.getPlayer();
+			int targetId = 0;
+			if (env.getVisibleObject() instanceof Npc)
+				targetId = ((Npc) env.getVisibleObject()).getNpcId();
+			QuestTemplate template = DataManager.QUEST_DATA.getQuestById(questId);
+			QuestState qs = player.getQuestStateList().getQuestState(questId);
+			if (targetId == 730328) 
 			{
-            		if (qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount()))) 
+				PlayerClass playerClass = player.getCommonData().getPlayerClass();
+				if (playerClass == PlayerClass.RANGER || playerClass == PlayerClass.ASSASSIN || playerClass == PlayerClass.MAGE || playerClass == PlayerClass.PRIEST || playerClass == PlayerClass.GLADIATOR || playerClass == PlayerClass.WARRIOR || playerClass == PlayerClass.SCOUT) 
 				{
-                			if (env.getDialogId() == -1)
-                    			return sendQuestDialog(env, 1011);
-                			else
-                    			return defaultQuestStartDialog(env);
-            		}  
-				else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) 
-				{
-                			if (env.getDialogId() == -1)
-                    			return sendQuestDialog(env, 2375);
-                			else if (env.getDialogId() == 33) 
+					if (qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount()))) 
 					{
-                    			if (player.getInventory().getItemCountByItemId(185000102) >= 1) 
-						{
-                        			player.getInventory().removeFromBagByItemId(185000102, 1);
-                        			qs.setStatus(QuestStatus.REWARD);
-                        			qs.setQuestVar(1);
-                        			qs.setCompliteCount(0);
-                        			updateQuestStatus(env);
-                        			return sendQuestDialog(env, 5);
-                    			} 
+						if (env.getDialogId() == -1)
+							return sendQuestDialog(env, 1011);
 						else
-                    				return sendQuestDialog(env, 2716);
-					}
-				}  
-				else if (qs != null && qs.getStatus() == QuestStatus.REWARD) 
-				{
-                			int var = qs.getQuestVarById(0);
-                			switch (env.getDialogId()) 
+							return defaultQuestStartDialog(env);
+					}  
+					else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) 
 					{
-                    			case -1:
-                        			if (var == 1)
-                            				return sendQuestDialog(env, 5);
-                    			case 17:
-                        			QuestService.questFinish(env, qs.getQuestVars().getQuestVars() - 1);
-                        			PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-                        			return true;
-                			}
-            		}
-            	}
-         		return false;
-       	}
-        return false;
-    }
+						if (env.getDialogId() == -1)
+							return sendQuestDialog(env, 2375);
+						else if (env.getDialogId() == 33) 
+						{
+							if (player.getInventory().getItemCountByItemId(185000102) >= 1) 
+							{
+								player.getInventory().removeFromBagByItemId(185000102, 1);
+								qs.setStatus(QuestStatus.REWARD);
+								qs.setQuestVar(1);
+								qs.setCompliteCount(0);
+								updateQuestStatus(env);
+								return sendQuestDialog(env, 5);
+							} 
+							else
+								return sendQuestDialog(env, 2716);
+						}
+					}  
+					else if (qs != null && qs.getStatus() == QuestStatus.REWARD) 
+					{
+						int var = qs.getQuestVarById(0);
+						switch (env.getDialogId()) 
+						{
+							case -1:
+								if (var == 1)
+									return sendQuestDialog(env, 5);
+							case 17:
+								QuestService.questFinish(env, qs.getQuestVars().getQuestVars() - 1);
+								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
+								return true;
+						}
+					}
+				}
+				return false;
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
 }

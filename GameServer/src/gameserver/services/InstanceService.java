@@ -27,6 +27,7 @@ import gameserver.model.group.PlayerGroup;
 import gameserver.model.templates.WorldMapTemplate;
 import gameserver.model.templates.portal.EntryPoint;
 import gameserver.model.templates.portal.PortalTemplate;
+import gameserver.model.templates.spawn.SpawnTemplate;
 import gameserver.spawnengine.SpawnEngine;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.world.Executor;
@@ -266,4 +267,9 @@ public class InstanceService {
 			}
 		}
 	}
+    
+    public static VisibleObject addNewSpawn(int worldId, int instanceId, int templateId, float x, float y, float z, byte heading, boolean noRespawn) {
+        SpawnTemplate spawn = SpawnEngine.getInstance().addNewSpawn(worldId, instanceId, templateId, x, y, z, heading, 0, 0, noRespawn);
+        return SpawnEngine.getInstance().spawnObject(spawn, instanceId);
+    }
 }

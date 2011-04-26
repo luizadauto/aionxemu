@@ -106,7 +106,7 @@ public class PlayerLifeStats extends CreatureLifeStats<Player> {
         int currentRegenHp = getOwner().getGameStats().getCurrentStat(StatEnum.REGEN_HP);
         if (getOwner().isInState(CreatureState.RESTING))
             currentRegenHp *= 8;
-        increaseHp(TYPE.NATURAL_HP, currentRegenHp);
+        increaseHp(TYPE.REGULAR, currentRegenHp);
     }
 
     @Override

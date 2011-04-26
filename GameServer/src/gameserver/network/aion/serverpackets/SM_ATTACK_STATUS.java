@@ -40,6 +40,7 @@ public class SM_ATTACK_STATUS extends AionServerPacket {
         REGULAR(5),
         DAMAGE(7),
         HP(7),
+        HEAL_MP(19),
         MP(21),
         NATURAL_MP(22),
         FP_RINGS(23),

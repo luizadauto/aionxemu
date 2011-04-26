@@ -305,8 +305,8 @@
 		<object x="830.52480" y="2508.74400" z="238.00000" h="47"/>
 	</spawn>
 	<!-- Fire Temple Entrance (Object Normal lvl:1)-->
-	<spawn map="210020000" npcid="730047" pool="1" interval="295">
-		<object x="1332.47000" y="351.78000" z="350.74000" h="120"/>
+	<spawn map="210020000" npcid="730069" pool="1" interval="295">
+		<object staticid="1108" x="1332.47000" y="351.78000" z="350.74000" h="120"/>
 	</spawn>
 	<!-- Fire Wall (Object Normal lvl:1)-->
 	<spawn map="210020000" npcid="700152" pool="1" interval="295">

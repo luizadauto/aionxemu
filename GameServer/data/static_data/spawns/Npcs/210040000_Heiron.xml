@@ -26,7 +26,7 @@
 <spawns>
 	<!-- Aetherogenetics Lab Entrance (Object Normal lvl:1)-->
 	<spawn map="210040000" npcid="730034" pool="1" interval="295">
-		<object x="235.95000" y="533.53000" z="158.75000" h="4"/>
+		<object staticid="919" x="235.95000" y="533.53000" z="158.75000" h="4"/>
 	</spawn>
 	<!-- Ageios (NPC Hero lvl:43)-->
 	<spawn map="210040000" npcid="204570" pool="1" interval="295">
@@ -297,10 +297,6 @@
 	<spawn map="210040000" npcid="204613" pool="1" interval="295">
 		<object x="1326.54270" y="1448.99990" z="112.13033" h="100"/>
 	</spawn>
-	<!-- Kromede's Trial -->
-	<spawn map="210040000" npcid="281906" pool="1" interval="295">
-		<object x="170.42387" y="1619.6165" z="120.853546" h="55"/>
-	</spawn>
 	<!-- Daruka (NPC Elite lvl:50)-->
 	<spawn map="210040000" npcid="204517" pool="1" interval="295">
 		<object x="2545.86800" y="357.37427" z="412.00000" h="82"/>
@@ -495,8 +491,12 @@
 		<object x="2524.1106" y="314.47507" z="415.91635" h="53"/>
 	</spawn>
 	<!-- Heiron Abyss Gate (Object Normal lvl:1)-->
+	<spawn map="210040000" npcid="730061" pool="1" interval="295">
+		<object staticid="206" x="2484.8438" y="351.7974" z="532.0" h="0"/>
+	</spawn>
+	<!-- Indratu Fortress Gate (Object Normal lvl:1)-->
 	<spawn map="210040000" npcid="700360" pool="1" interval="295">
-		<object x="2489.2446" y="351.6426" z="524.46075" h="118"/>
+		<object staticid="1292" x="1875.37" y="2584.94" z="140.73" h="10"/>
 	</spawn>
 	<!-- Henobe (NPC Normal lvl:50)-->
 	<spawn map="210040000" npcid="204521" pool="1" interval="295">
@@ -529,10 +529,6 @@
 	<!-- Illisos (NPC Elite lvl:50)-->
 	<spawn map="210040000" npcid="205284" pool="1" interval="295">
 		<object x="1661.1476" y="2688.7085" z="115.375" h="26"/>
-	</spawn>
-	<!-- Indratu Fortress Abyss Gate -->
-	<spawn map="210040000" npcid="700565" pool="1" interval="295">
-		<object x="1875.06" y="2585.26" z="140.745" h="9"/>
 	</spawn>
 	<!-- Iorene (NPC Normal lvl:50)-->
 	<spawn map="210040000" npcid="204581" pool="1" interval="295">

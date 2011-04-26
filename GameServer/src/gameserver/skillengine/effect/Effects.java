@@ -210,5 +210,13 @@ public class Effects {
 		return false;
 	}
 
+    public boolean isMpHeal() {
+        for (EffectTemplate template : getEffects()) {
+            if (template instanceof HealMpEffect)
+				return true;
+		}
+		return false;
+	}
+
 
 }

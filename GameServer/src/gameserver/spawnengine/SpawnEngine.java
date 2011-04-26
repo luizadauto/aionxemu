@@ -19,8 +19,10 @@ package gameserver.spawnengine;
 import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.controllers.*;
 import gameserver.controllers.effect.EffectController;
+import gameserver.controllers.instances.FireTempleController;
 import gameserver.controllers.instances.SteelRakeController;
 import gameserver.controllers.instances.HaramelController;
+import gameserver.controllers.instances.KromedesTrialController;
 import gameserver.dao.SpawnDAO;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.NpcData;
@@ -180,6 +182,17 @@ public class SpawnEngine {
                 npc = new Npc(iDFactory.nextId(), new HaramelController(),
                         spawn, template);
                 npc.setKnownlist(new StaticObjectKnownList(npc));
+            }
+            if (objectId == 216922 || objectId == 700852) {
+                npc = new Npc(iDFactory.nextId(), new HaramelController(),
+                        spawn, template);
+                npc.setKnownlist(new NpcKnownList(npc));
+            }
+            //Kromedes Trial exception
+            if (objectId == 205229 || objectId == 205234) {
+                npc = new Npc(iDFactory.nextId(), new KromedesTrialController(),
+                        spawn, template);
+                npc.setKnownlist(new NpcKnownList(npc));
             }
 
             npc.setNpcSkillList(DataManager.NPC_SKILL_DATA.getNpcSkillList(template.getTemplateId()));

@@ -35,7 +35,7 @@ public class HealMpEffect
 
     @Override
     public void applyEffect(Effect effect) {
-        effect.getEffected().getLifeStats().increaseMp(TYPE.NATURAL_MP, -effect.getReserved1());
+        effect.getEffected().getLifeStats().increaseMp(TYPE.HEAL_MP, -effect.getReserved1());
     }
 
     @Override

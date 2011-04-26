@@ -199,9 +199,15 @@ public class SM_NPC_INFO extends AionServerPacket {
 
         SpawnTemplate spawn = npc.getSpawn();
         if (spawn == null)
+        {
         	writeH(buf, 0);
+        }
         else
-        	writeH(buf, spawn.getStaticid());
+        {
+        	int mask = (Math.round(spawn.getStaticid() / 0xFF) < 0 ? 0 : Math.round(spawn.getStaticid() / 0xFF));
+        	byte[] statics = new byte[]{(byte) spawn.getStaticid(), (byte) mask};
+        	writeB(buf, statics);
+        }
 
         writeC(buf, 0);
         writeC(buf, 0); // all unknown

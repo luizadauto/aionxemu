@@ -340,6 +340,11 @@ public class Effect {
 		return effects != null && effects.isItemHeal();
 	}
 
+	public boolean isMpheal() {
+		Effects effects = skillTemplate.getEffects();
+		return effects != null && effects.isMpHeal();
+	}
+
 
     public boolean isToggle() {
         return skillTemplate.getActivationAttribute() == ActivationAttribute.TOGGLE;

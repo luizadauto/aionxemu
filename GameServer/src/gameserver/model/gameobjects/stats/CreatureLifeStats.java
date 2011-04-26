@@ -277,6 +277,13 @@ public abstract class CreatureLifeStats<T extends Creature> {
     }
 
     /**
+     * @return
+     */
+    public boolean isFullyRestoredMp() {
+        return getMaxMp() == currentMp;
+    }
+
+    /**
      * The purpose of this method is synchronize current HP and MP with updated MAXHP and MAXMP stats
      * This method should be called only on creature load to game or player level up
      */

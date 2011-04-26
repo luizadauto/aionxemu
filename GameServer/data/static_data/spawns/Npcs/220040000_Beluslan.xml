@@ -170,7 +170,7 @@
 	</spawn>
 	<!-- Bridget (NPC Elite lvl:50)-->
 	<spawn map="220040000" npcid="205234" pool="1" interval="295">
-		<object x="1932.2825" y="507.54926" z="412.25" h="90"/>
+		<object x="1942.1862" y="490.71967" z="412.125" h="53"/>
 	</spawn>
 	<!-- Brok (NPC Elite lvl:50)-->
 	<spawn map="220040000" npcid="204816" pool="1" interval="295">
@@ -256,7 +256,7 @@
 	</spawn>
 	<!-- Draupnir Cave Entrance (Object Normal lvl:1)-->
 	<spawn map="220040000" npcid="700370" pool="1" interval="295">
-		<object x="1605.27" y="2729.9" z="705.34" h="87"/>
+		<object staticid="311" x="1605.27" y="2729.9" z="705.34" h="0"/>
 	</spawn>
 	<!-- Drinking Water Bucket (Object Normal lvl:1)-->
 	<spawn map="220040000" npcid="700324" pool="12" interval="295">
@@ -1205,9 +1205,5 @@
 	<!-- Zhayorerk (NPC Normal lvl:50)-->
 	<spawn map="220040000" npcid="798117" pool="1" interval="295">
 		<object x="1267.8291" y="843.7727" z="262.9973" h="0"/>
-	</spawn>
-	<!-- Kromede's Trial -->
-	<spawn map="220040000" npcid="281906" pool="1" interval="295">
-		<object x="1929.999" y="507.82068" z="412.25" h="90"/>
 	</spawn>
 </spawns>

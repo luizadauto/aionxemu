@@ -175,7 +175,7 @@ public class SM_CASTSPELL_END extends AionServerPacket {
             writeC(buf, 0); // current carve signet count
 
             writeC(buf, 1); // unk always 1
-            writeC(buf, 0); // be 1 - when use Mana Treatment
+            writeC(buf, (effect.isMpheal() == true ? 1 : 0));
             writeD(buf, effect.getReserved1()); // damage
             writeC(buf, effect.getAttackStatus().getId());
             writeC(buf, effect.getShieldDefense());

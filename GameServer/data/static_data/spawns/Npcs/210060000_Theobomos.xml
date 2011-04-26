@@ -724,7 +724,7 @@
 	</spawn>
 	<!-- Theobomos Lepharist Research Center Entrance (Object Normal lvl:1)-->
 	<spawn map="210060000" npcid="730154" pool="1" interval="295">
-		<object x="2978.09000" y="193.51000" z="172.14000" h="45"/>
+		<object staticid="525" x="2978.09000" y="193.51000" z="172.14000" h="45"/>
 	</spawn>
 	<!-- Thesaly (NPC Normal lvl:40)-->
 	<spawn map="210060000" npcid="798141" pool="1" interval="295">

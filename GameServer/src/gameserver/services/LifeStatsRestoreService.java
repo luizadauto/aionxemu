@@ -115,8 +115,10 @@ public class LifeStatsRestoreService {
             if (lifeStats.isAlreadyDead() || lifeStats.isFullyRestoredHpMp()) {
                 lifeStats.cancelRestoreTask();
             } else {
-                lifeStats.restoreHp();
-                lifeStats.restoreMp();
+            	if(!lifeStats.isFullyRestoredHp())
+            		lifeStats.restoreHp();
+            	if(!lifeStats.isFullyRestoredMp())
+            		lifeStats.restoreMp();
             }
         }
     }
