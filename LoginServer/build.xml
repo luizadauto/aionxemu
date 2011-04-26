@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="LoginServer" default="dist" basedir=".">
 	<description>
-		This file is part of Aion X Emu <aionxemu.com>
+		This file is part of Aion X Emu aionxemu.com
 		
 		This is free software: you can redistribute it and/or modify
 		it under the terms of the GNU Lesser Public License as published by
@@ -14,7 +14,7 @@
 		GNU Lesser Public License for more details.
 		
 		ou should have received a copy of the GNU Lesser Public License
-		along with this software.  If not, see <http://www.gnu.org/licenses/>.
+		along with this software.  If not, see http://www.gnu.org/licenses/.
 	</description>
 	<property name="jre" location="${java.home}/lib"/>
 	<property name="src" location="src"/>
