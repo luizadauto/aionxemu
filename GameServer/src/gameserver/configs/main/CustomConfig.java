@@ -317,4 +317,10 @@ public class CustomConfig {
      */
     @Property(key = "gameserver.chat.talkdelay", defaultValue = "10")
     public static int TALK_DELAY;
+
+    /**
+     * Time Length of Duel Battles.
+     */
+    @Property(key = "gameserver.duel.length", defaultValue = "300")
+    public static int DUEL_LENGTH;
 }

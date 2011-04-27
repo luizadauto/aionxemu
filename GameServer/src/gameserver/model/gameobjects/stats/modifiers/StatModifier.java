@@ -16,6 +16,9 @@
  */
 package gameserver.model.gameobjects.stats.modifiers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.model.gameobjects.stats.StatModifierPriority;
 
@@ -39,9 +42,18 @@ public abstract class StatModifier implements Comparable<StatModifier> {
     protected static int MODIFIER_ID = 0;
 
     protected int id;
+    
+    protected List<StatEnum> statToModifies;
+    
+    
+    /**
+     * can duplicates on a statToModify.
+     */
+    protected boolean canDuplicate = true;
 
     public StatModifier() {
         nextId();
+        setStatToModifies(new ArrayList<StatEnum>());
     }
 
     protected void setStat(StatEnum stat) {
@@ -100,4 +112,24 @@ public abstract class StatModifier implements Comparable<StatModifier> {
     public abstract int apply(int baseValue, int currentValue);
 
     public abstract StatModifierPriority getPriority();
+
+	public boolean isCanDuplicate()
+	{
+		return canDuplicate;
+	}
+
+	public void setCanDuplicate(boolean canDuplicate)
+	{
+		this.canDuplicate = canDuplicate;
+	}
+
+	public List<StatEnum> getStatToModifies()
+	{
+		return statToModifies;
+	}
+
+	public void setStatToModifies(List<StatEnum> statToModifies)
+	{
+		this.statToModifies = statToModifies;
+	}
 }

@@ -36,6 +36,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +87,13 @@ public class MySQL5InventoryDAO extends InventoryDAO {
                 int fusionedItem = rset.getInt("fusionedItem");
                 int optionalSocket = rset.getInt("optionalSocket");
                 int optionalFusionSocket = rset.getInt("optionalFusionSocket");
-                Timestamp expireTime = rset.getTimestamp("expireTime");
+                Timestamp expireTime;
+                try {
+                    expireTime = rset.getTimestamp("expireTime");
+                }
+                catch (SQLException e) {
+                    expireTime = null;
+                }
                 String itemCreator = rset.getString("itemCreator");
                 Item item = new Item(itemUniqueId, itemId, itemCount, itemColor,
                     itemCreator, (isEquiped == 1), (isSoulBound == 1), slot,
@@ -139,7 +146,13 @@ public class MySQL5InventoryDAO extends InventoryDAO {
                 int fusionedItem = rset.getInt("fusionedItem");
                 int optionalSocket = rset.getInt("optionalSocket");
                 int optionalFusionSocket = rset.getInt("optionalFusionSocket");
-                Timestamp expireTime = rset.getTimestamp("expireTime");
+                Timestamp expireTime;
+                try {
+                    expireTime = rset.getTimestamp("expireTime");
+                }
+                catch (SQLException e) {
+                    expireTime = null;
+                }
                 String  itemCreator = rset.getString("itemCreator");
                 Item item = new Item(itemUniqueId, itemId, itemCount, itemColor,
                     itemCreator, true, (isSoulBound == 1), slot, storage, enchant,
@@ -189,7 +202,13 @@ public class MySQL5InventoryDAO extends InventoryDAO {
                 int fusionedItem = rset.getInt("fusionedItem");
                 int optionalSocket = rset.getInt("optionalSocket");
                 int optionalFusionSocket = rset.getInt("optionalFusionSocket");
-                Timestamp expireTime = rset.getTimestamp("expireTime");
+                Timestamp expireTime;
+                try {
+                    expireTime = rset.getTimestamp("expireTime");
+                }
+                catch (SQLException e) {
+                    expireTime = null;
+                }
                 String itemCreator = rset.getString("itemCreator");
                 Item item = new Item(itemUniqueId, itemId, itemCount, itemColor,
                     itemCreator, true, (isSoulBound == 1), slot, storage, enchant,
@@ -330,7 +349,10 @@ public class MySQL5InventoryDAO extends InventoryDAO {
             stmt.setInt(13, item.getFusionedItem());
             stmt.setInt(14, item.getOptionalSocket());
             stmt.setInt(15, item.getOptionalFusionSocket());
-            stmt.setTimestamp(16, item.getExpireTime());
+            if (item.getExpireTime() == null)
+                stmt.setNull(16, Types.TIMESTAMP);
+            else
+                stmt.setTimestamp(16, item.getExpireTime());
             stmt.execute();
             stmt.close();
         }
@@ -366,7 +388,10 @@ public class MySQL5InventoryDAO extends InventoryDAO {
             stmt.setInt(11, item.getFusionedItem());
             stmt.setInt(12, item.getOptionalSocket());
             stmt.setInt(13, item.getOptionalFusionSocket());
-            stmt.setTimestamp(14, item.getExpireTime());
+            if (item.getExpireTime() == null)
+                stmt.setNull(14, Types.TIMESTAMP);
+            else
+                stmt.setTimestamp(14, item.getExpireTime());
             stmt.setInt(15, item.getObjectId());
             stmt.execute();
             stmt.close();
@@ -460,6 +485,5 @@ public class MySQL5InventoryDAO extends InventoryDAO {
     @Override
     public boolean supports(String s, int i, int i1) {
         return MySQL5DAOUtils.supports(s, i, i1);
-	}
-
+    }
 }

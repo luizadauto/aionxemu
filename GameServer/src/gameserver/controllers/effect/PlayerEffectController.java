@@ -38,6 +38,7 @@ public class PlayerEffectController extends EffectController {
      * weapon mastery
      */
     private int weaponEffects;
+    private int subWeaponEffects;
 
     /**
      * armor mastery
@@ -123,17 +124,26 @@ public class PlayerEffectController extends EffectController {
     public void setWeaponMastery(int skillId) {
         weaponEffects = skillId;
     }
+    
+    public void setSubWeaponMastery(int skillId) {
+    	subWeaponEffects = skillId;
+    }
 
     public void unsetWeaponMastery() {
         weaponEffects = 0;
+        subWeaponEffects = 0;
     }
 
     public int getWeaponMastery() {
         return weaponEffects;
     }
+    
+    public int getSubWeaponMastery() {
+    	return subWeaponEffects;
+    }
 
     public boolean isWeaponMasterySet(int skillId) {
-        return weaponEffects == skillId;
+        return weaponEffects == skillId || subWeaponEffects == skillId;
     }
 
     /**

@@ -164,6 +164,22 @@ public class EffectController {
     }
 
     /**
+     * Removes the effect by skillids.
+     *
+     * @param skillids
+     */
+    public void removeEffects(List<Integer> skillIds) {
+        for (Effect effect : abnormalEffectMap.values()) {
+            for (int skillId : skillIds) {
+                if (effect.getSkillId() == skillId) {
+                    effect.endEffect();
+                    abnormalEffectMap.remove(effect.getStack());
+                }
+            }
+        }
+    }
+
+    /**
      * Removes the effect by SkillSetException Number.
      *
      * @param SkillSetException Number

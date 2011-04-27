@@ -59,6 +59,6 @@ public enum ReviveType {
             if (rt.typeId == id)
                 return rt;
         }
-        throw new IllegalArgumentException("Unsupported revive type: " + id);
-	}
+        return null;
+    }
 }

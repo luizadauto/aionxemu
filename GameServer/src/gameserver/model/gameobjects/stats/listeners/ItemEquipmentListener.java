@@ -164,6 +164,7 @@ public class ItemEquipmentListener {
             recalculateArmorMastery(owner);
 
         EnchantService.onItemEquip(owner, item);
+        owner.getController().updatePassiveStats();
     }
 
     /**
@@ -203,38 +204,34 @@ public class ItemEquipmentListener {
     /**
      * @param owner
      */
-    private static void recalculateWeaponMastery(Player owner) {
+    public static void recalculateWeaponMastery(Player owner) {
         //don't calculate for not initialized equipment
         if (owner.getEquipment() == null)
             return;
 
-        WeaponType weaponType = owner.getEquipment().getMainHandWeaponType();
-        int currentWeaponMasterySkill = owner.getEffectController().getWeaponMastery();
-        if (weaponType == null && currentWeaponMasterySkill != 0) {
-            owner.getEffectController().removePassiveEffect(currentWeaponMasterySkill);
-            return;
-        }
+        //remove old mastery skills
+        int currentMainWeaponMasterySkill = owner.getEffectController().getWeaponMastery();
+        int currentSubWeaponMasterySkill = owner.getEffectController().getSubWeaponMastery();
+        if (currentMainWeaponMasterySkill != 0)
+       		owner.getEffectController().removePassiveEffect(currentMainWeaponMasterySkill);
+        if (currentSubWeaponMasterySkill != 0)
+       		owner.getEffectController().removePassiveEffect(currentSubWeaponMasterySkill);
 
-        boolean weaponEquiped = owner.getEquipment().isWeaponEquipped(weaponType);
-        Integer skillId = owner.getSkillList().getWeaponMasterySkill(weaponType);
-        if (skillId == null)
-            return;
-        boolean masterySet = owner.getEffectController().isWeaponMasterySet(skillId);
-        //remove effect if no weapon is equiped
-
-        if (masterySet && !weaponEquiped) {
-            owner.getEffectController().removePassiveEffect(skillId);
-        }
-        //add effect if weapon is equiped
-        if (!masterySet && weaponEquiped) {
-            owner.getController().useSkill(skillId);
-        }
+        //use new mastery skills
+        WeaponType mainWeaponType = owner.getEquipment().getMainHandWeaponType();
+        WeaponType subWeaponType = owner.getEquipment().getOffHandWeaponType();
+        Integer mainSkillId = owner.getSkillList().getWeaponMasterySkill(mainWeaponType);
+        Integer subSkillId = owner.getSkillList().getWeaponMasterySkill(subWeaponType);
+        if (mainSkillId != null)
+            owner.getController().useSkill(mainSkillId);
+        if (subSkillId != null && mainSkillId != subSkillId)
+            owner.getController().useSkill(subSkillId);
     }
 
     /**
      * @param owner
      */
-    private static void recalculateArmorMastery(Player owner) {
+    public static void recalculateArmorMastery(Player owner) {
         //don't calculate for not initialized equipment
         if (owner.getEquipment() == null)
             return;

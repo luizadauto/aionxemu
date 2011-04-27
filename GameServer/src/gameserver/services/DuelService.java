@@ -16,6 +16,7 @@
  */
 package gameserver.services;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.model.DuelResult;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.Player;
@@ -25,6 +26,7 @@ import gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.skillengine.model.SkillTargetSlot;
 import gameserver.utils.PacketSendUtility;
+import gameserver.utils.ThreadPoolManager;
 import gameserver.world.World;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
@@ -149,12 +151,44 @@ public class DuelService {
      * @param requester the player to start duel with
      * @param responder the other player
      */
-    private void startDuel(Player requester, Player responder) {
+    private void startDuel(final Player requester, final Player responder) {
         PacketSendUtility.sendPacket(requester, SM_DUEL.SM_DUEL_STARTED(responder.getObjectId()));
         PacketSendUtility.sendPacket(responder, SM_DUEL.SM_DUEL_STARTED(requester.getObjectId()));
         createDuel(requester.getObjectId(), responder.getObjectId());
+        ThreadPoolManager.getInstance().schedule(new Runnable() {
+            @Override
+            public void run() {
+                drawDuel(requester, responder);
+            }
+        }, (CustomConfig.DUEL_LENGTH * 1000));
     }
 
+    /**
+     * This method will make the selected players draw the duel
+     *
+     */
+    public void drawDuel(Player player1, Player player2) {
+        if (!isDueling(player1.getObjectId()) || !isDueling(player2.getObjectId()))
+            return;
+
+        if (player1 == null || player2 == null)
+            return;
+
+        /**
+         * all debuffs are removed from both Players
+         * Stop casting or skill use
+         */
+        player1.getEffectController().removeAbnormalEffectsByTargetSlot(SkillTargetSlot.DEBUFF);
+        player1.getController().cancelCurrentSkill();
+        player2.getEffectController().removeAbnormalEffectsByTargetSlot(SkillTargetSlot.DEBUFF);
+        player2.getController().cancelCurrentSkill();
+
+        PacketSendUtility.sendPacket(player1, SM_DUEL.SM_DUEL_RESULT(DuelResult.DUEL_DRAW, player1.getName()));
+        PacketSendUtility.sendPacket(player2, SM_DUEL.SM_DUEL_RESULT(DuelResult.DUEL_DRAW, player2.getName()));
+
+        removeDuel(player1.getObjectId(), player2.getObjectId());
+    }
+    
     /**
      * This method will make the selected player lose the duel
      *

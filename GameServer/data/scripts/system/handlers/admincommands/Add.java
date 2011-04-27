@@ -86,7 +86,7 @@ public class Add extends AdminCommand {
             }
         }
 
-        long count = ItemService.addItem(receiver, itemId, itemCount);
+        long count = ItemService.addItem(receiver, itemId, itemCount, admin.getName());
 
         if (count == 0) {
             PacketSendUtility.sendMessage(admin, LanguageHandler.translate(CustomMessageId.COMMAND_ADD_ADMIN_SUCCESS, receiver.getName()));

@@ -531,6 +531,7 @@ public class PlayerController extends CreatureController<Player> {
 
         QuestEngine.getInstance().onLvlUp(new QuestCookie(null, player, 0, 0));
         updateNearbyQuests();
+        PacketSendUtility.sendPacket(player, new SM_QUEST_LIST(player));
 
         PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
 
@@ -542,6 +543,7 @@ public class PlayerController extends CreatureController<Player> {
         }
         // add new skills
         SkillLearnService.addNewSkills(player, false);
+        player.getController().updatePassiveStats();
 
         /**
          * Broadcast Update to all that may care.

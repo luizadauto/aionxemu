@@ -48,6 +48,7 @@ public class Admin extends AdminCommand
 		PacketSendUtility.sendMessage(admin, "| //revoke <characterName>");
 	    PacketSendUtility.sendMessage(admin, "| //add <itemID> <quantity>");
 	    PacketSendUtility.sendMessage(admin, "| //addskill <skillId> <skillLevel>");
+        PacketSendUtility.sendMessage(admin, "| //delskill <skillId>");
 	    PacketSendUtility.sendMessage(admin, "| //givemissingskills");
 	    PacketSendUtility.sendMessage(admin, "| //addtitle <title_id> <playerName>");
 	    PacketSendUtility.sendMessage(admin, "| //announce <message>");

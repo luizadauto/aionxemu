@@ -21,6 +21,7 @@ package gameserver.model;
  */
 public enum DuelResult {
     DUEL_WON(1300098, (byte) 2),
+    DUEL_DRAW(1300099, (byte) 1),
     DUEL_LOST(1300099, (byte) 0);
 
     private int msgId;

@@ -18,6 +18,7 @@ package gameserver.model.gameobjects.stats;
 
 import gameserver.model.SkillElement;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.stats.id.ItemStatEffectId;
 import gameserver.model.gameobjects.stats.id.StatEffectId;
@@ -114,8 +115,13 @@ public class CreatureGameStats<T extends Creature> {
      * @return
      */
     public int getCurrentStat(StatEnum stat) {
-        if (stats.containsKey(stat))
-            return stats.get(stat).getCurrent();
+        if (stats.containsKey(stat)) {
+            Stat statObject = stats.get(stat);
+            if (statObject == null)
+                return 0;
+            else
+                return statObject.getCurrent();
+        }
         else
             return 0;
     }
@@ -185,16 +191,26 @@ public class CreatureGameStats<T extends Creature> {
 
                     List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
                     for (ItemSlot slot : oSlots) {
-                        StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(slot);
-
-                        if ((slot == ItemSlot.SUB_HAND && statToModify == StatEnum.PARRY && !modifier.isBonus())
-                            || (slot == ItemSlot.SUB_HAND && statToModify == StatEnum.MAGICAL_ACCURACY && !modifier.isBonus()))
-                           continue;
-
-                        if (!orderedModifiers.containsKey(statToModify)) {
-                            orderedModifiers.put(statToModify, new StatModifiers());
+                        List<StatEnum> statToModifies = new ArrayList<StatEnum>();
+                        if(modifier.getStatToModifies().size() > 0){
+                            statToModifies = modifier.getStatToModifies();//for WeaponMastery
+                        }else{
+                        	statToModifies.add(modifier.getStat().getMainOrSubHandStat(slot));
                         }
-                        orderedModifiers.get(statToModify).add(modifier);
+                        
+                        for(StatEnum statToModify : statToModifies){
+	                        if ((slot == ItemSlot.SUB_HAND && statToModify == StatEnum.PARRY && !modifier.isBonus())
+	                            || (slot == ItemSlot.SUB_HAND && statToModify == StatEnum.MAGICAL_ACCURACY && !modifier.isBonus()))
+	                           continue;
+	
+	                        if (!orderedModifiers.containsKey(statToModify)) {
+	                            orderedModifiers.put(statToModify, new StatModifiers());
+	                        }
+	                    	if(!modifier.isCanDuplicate() && orderedModifiers.get(statToModify).getModifiers(modifier.getPriority()).contains(modifier)){
+	                    		continue;
+	                        }
+                            orderedModifiers.get(statToModify).add(modifier);
+                        }
                     }
                 }
             }

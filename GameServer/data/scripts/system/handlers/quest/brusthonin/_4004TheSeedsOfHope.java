@@ -58,8 +58,10 @@ public class _4004TheSeedsOfHope extends QuestHandler {
         if (env.getVisibleObject() instanceof Npc)
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
+        if (qs == null)
+            return false;
 
-        if (qs == null || qs.getStatus() == QuestStatus.NONE) {
+        if (qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 205128) //Randet
             {
                 if (env.getDialogId() == 25)
@@ -72,15 +74,13 @@ public class _4004TheSeedsOfHope extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             }
-        } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) {
-            if (targetId == 205128)
-                return defaultQuestEndDialog(env);
-        } else if (qs != null && qs.getStatus() == QuestStatus.START) {
+        }
+        else if (qs.getStatus() == QuestStatus.START) {
             int var = qs.getQuestVarById(0);
             switch (targetId) {
                 case 700340: //Earth Mound
                 {
-                    if (qs != null && env.getDialogId() == -1 && var >= 0 && var < 4) {
+                    if (env.getDialogId() == -1 && var >= 0 && var < 5) {
                         final int targetObjectId = env.getVisibleObject().getObjectId();
                         PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 1));
                         PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.NEUTRALMODE2, 0, targetObjectId), true);
@@ -95,32 +95,8 @@ public class _4004TheSeedsOfHope extends QuestHandler {
                                         targetObjectId), true);
                                 player.getInventory().removeFromBagByItemId(182209002, 1);
                                 qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
-                                updateQuestStatus(env);
-                                ((Npc) player.getTarget()).getController().onDie(null);
-                            }
-                        }, 3000);
-                    }
-                }
-            }
-
-            switch (targetId) {
-                case 700340: //Earth Mound
-                {
-                    if (qs != null && env.getDialogId() == -1 && var == 4) {
-                        final int targetObjectId = env.getVisibleObject().getObjectId();
-                        PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 1));
-                        PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.NEUTRALMODE2, 0, targetObjectId), true);
-                        ThreadPoolManager.getInstance().schedule(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (player.getTarget() == null || player.getTarget().getObjectId() != targetObjectId)
-                                    return;
-                                PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(),
-                                        targetObjectId, 3000, 0));
-                                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.START_LOOT, 0,
-                                        targetObjectId), true);
-                                player.getInventory().removeFromBagByItemId(182209002, 1);
-                                qs.setStatus(QuestStatus.REWARD);
+                                if (qs.getQuestVarById(0) == 5)
+                                    qs.setStatus(QuestStatus.REWARD);
                                 updateQuestStatus(env);
                                 ((Npc) player.getTarget()).getController().onDie(null);
                             }
@@ -129,7 +105,12 @@ public class _4004TheSeedsOfHope extends QuestHandler {
                 }
             }
         }
-
+        else if (qs.getStatus() == QuestStatus.REWARD) {
+            if (targetId == 205128) //Randet
+            {
+                return defaultQuestEndDialog(env);
+            }
+        }
         return false;
     }
 }

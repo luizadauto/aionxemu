@@ -36,6 +36,7 @@ import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author ATracer
@@ -118,6 +119,7 @@ public class SummonController extends CreatureController<Summon> {
      * Change to rest mode
      */
     public void restMode() {
+        getOwner().getController().cancelTask(TaskId.RESTORE);
         getOwner().setMode(SummonMode.REST);
         Player master = getOwner().getMaster();
         PacketSendUtility.sendPacket(master, SM_SYSTEM_MESSAGE.SUMMON_RESTMODE(getOwner().getNameId()));
@@ -139,7 +141,7 @@ public class SummonController extends CreatureController<Summon> {
         Player master = getOwner().getMaster();
         PacketSendUtility.sendPacket(master, SM_SYSTEM_MESSAGE.SUMMON_GUARDMODE(getOwner().getNameId()));
         PacketSendUtility.sendPacket(master, new SM_SUMMON_UPDATE(getOwner()));
-        checkCurrentHp();
+        getOwner().getController().cancelTask(TaskId.RESTORE);
     }
 
     /**
@@ -218,6 +220,12 @@ public class SummonController extends CreatureController<Summon> {
         super.onDie(lastAttacker);
         release(UnsummonType.UNSPECIFIED);
         Summon owner = getOwner();
+        Creature master = (Creature) owner.getMaster();
+        List<Integer> skillIds = new ArrayList<Integer>();
+        for (int skillid = 18262; skillid < 18279; ++skillid) {
+            skillIds.add(skillid);
+        }
+        master.getEffectController().removeEffects(skillIds);
         PacketSendUtility.broadcastPacket(owner, new SM_EMOTION(owner, EmotionType.DIE, 0, lastAttacker == null ? 0 : lastAttacker
                 .getObjectId()));
     }

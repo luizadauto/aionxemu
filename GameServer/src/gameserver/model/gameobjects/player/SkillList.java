@@ -18,8 +18,11 @@ package gameserver.model.gameobjects.player;
 
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.PersistentState;
+import gameserver.model.gameobjects.stats.listeners.ItemEquipmentListener;
+
 import gameserver.model.templates.item.ArmorType;
 import gameserver.model.templates.item.WeaponType;
+
 import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import gameserver.skillengine.effect.ArmorMasteryEffect;
 import gameserver.skillengine.effect.EffectTemplate;
@@ -123,6 +126,37 @@ public class SkillList {
         } else {
             skills.put(skillId, new SkillListEntry(skillId, false, skillLevel, PersistentState.NEW));
         }
+        if (msg)
+            sendMessage(player, skillId, true);
+
+        SkillTemplate skillTemplate = DataManager.SKILL_DATA.getSkillTemplate(skillId);
+
+        //do passive skills recalculations
+        if (skillTemplate.isPassive()) {
+            calculateUsedWeaponMasterySkills();
+            calculateUsedArmorMasterySkills();
+
+            ItemEquipmentListener.recalculateWeaponMastery(player);
+            ItemEquipmentListener.recalculateArmorMastery(player);
+            player.getController().updatePassiveStats();
+        }
+        return true;
+    }
+
+    /**
+     * Del Skill to the collection.
+     *
+     * @return <tt>true</tt> if Skill addition was successful, and it can be stored into database.
+     *         Otherwise <tt>false</tt>.
+     */
+    public synchronized boolean removeSkill(Player player, int skillId, boolean msg) {
+        SkillListEntry existingSkill = skills.get(skillId);
+        if (existingSkill == null)
+            return false;
+
+        removeSkill(skillId);
+        PacketSendUtility.sendPacket(player, new SM_SKILL_LIST(player));
+
         if (msg)
             sendMessage(player, skillId, true);
 

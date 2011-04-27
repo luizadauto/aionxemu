@@ -161,6 +161,8 @@ public class AccountController {
         // Try to create new account
         if (account == null && Config.ACCOUNT_AUTO_CREATION) {
             account = createAccount(name, password);
+            if (account == null)
+                return AionAuthResponse.NO_SUCH_ACCOUNT;
         }
 
         // If account not found and not created

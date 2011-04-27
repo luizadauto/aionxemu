@@ -102,7 +102,10 @@ public class MySQL5PlayerDAO extends PlayerDAO {
             stmt.setInt(8, player.getWorldId());
             stmt.setString(9, player.getGender().toString());
             stmt.setString(10, player.getCommonData().getPlayerClass().toString());
-            stmt.setTimestamp(11, player.getCommonData().getLastOnline());
+            if (player.getCommonData().getLastOnline() == null)
+                stmt.setNull(11, Types.TIMESTAMP);
+            else
+                stmt.setTimestamp(11, player.getCommonData().getLastOnline());
             stmt.setInt(12, player.getCubeSize());
             stmt.setInt(13, player.getCommonData().getAdvancedStigmaSlotSize());
             stmt.setInt(14, player.getWarehouseSize());
@@ -229,7 +232,12 @@ public class MySQL5PlayerDAO extends PlayerDAO {
                 cd.setRecoverableExp(resultSet.getLong("recoverexp"));
                 cd.setRace(Race.valueOf(resultSet.getString("race")));
                 cd.setGender(Gender.valueOf(resultSet.getString("gender")));
-                cd.setLastOnline(resultSet.getTimestamp("last_online"));
+                try {
+                    cd.setLastOnline(resultSet.getTimestamp("last_online"));
+                }
+                catch (SQLException e) {
+                    cd.setLastOnline(null);
+                }
                 cd.setNote(resultSet.getString("note"));
                 cd.setCubesize(resultSet.getInt("cube_size"));
                 cd.setAdvancedStigmaSlotSize(resultSet.getInt("advenced_stigma_slot_size"));
@@ -365,7 +373,12 @@ public class MySQL5PlayerDAO extends PlayerDAO {
                 catch (SQLException e) {
                     acData.setDeletionDate(null);
                 }
-                acData.setCreationDate(rset.getTimestamp("creation_date"));
+                try {
+                    acData.setCreationDate(rset.getTimestamp("creation_date"));
+                }
+                catch (SQLException e) {
+                    acData.setCreationDate(null);
+                }
             }
         });
     }
@@ -405,7 +418,10 @@ public class MySQL5PlayerDAO extends PlayerDAO {
         DB.insertUpdate("UPDATE players set last_online = ? where id = ?", new IUStH() {
             @Override
             public void handleInsertUpdate(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setTimestamp(1, lastOnline);
+                if (lastOnline == null)
+                    preparedStatement.setNull(1, Types.TIMESTAMP);
+                else
+                    preparedStatement.setTimestamp(1, lastOnline);
                 preparedStatement.setInt(2, objectId);
                 preparedStatement.execute();
             }

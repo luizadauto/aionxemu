@@ -21,10 +21,14 @@ import gameserver.controllers.ReviveType;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author ATracer, orz, avol, Simple
  */
 public class CM_REVIVE extends AionClientPacket {
+    private static Logger log = Logger.getLogger(CM_REVIVE.class);
+
     private int reviveId;
 
     /**
@@ -52,6 +56,10 @@ public class CM_REVIVE extends AionClientPacket {
         Player activePlayer = getConnection().getActivePlayer();
 
         ReviveType reviveType = ReviveType.getReviveTypeById(reviveId);
+        if (reviveType == null) {
+            log.warn("Unsupported revive type: " + reviveId);
+            return;
+        }
 
         switch (reviveType) {
             case BIND_REVIVE:

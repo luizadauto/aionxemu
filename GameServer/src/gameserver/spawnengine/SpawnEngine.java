@@ -233,8 +233,10 @@ public class SpawnEngine {
     public FortressGeneral spawnFortressGeneral(int fortressId, SiegeRace race, FortressGeneralTemplate template) {
         int mapId = DataManager.SIEGE_LOCATION_DATA.getSiegeLocations().get(fortressId).getLocationTemplate().getWorldId();
         int fgNpcId = template.getBaseInfo().getNpcId(race);
+        NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(fgNpcId);
         SpawnTemplate sTemplate = addNewSpawn(mapId, 1, fgNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
-        FortressGeneral gen = new FortressGeneral(IDFactory.getInstance().nextId(), new FortressGeneralController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(fgNpcId), fortressId);
+        FortressGeneral gen = new FortressGeneral(IDFactory.getInstance().nextId(), new FortressGeneralController(), sTemplate, npcTemplate, fortressId, race);
+        gen.setNpcSkillList(DataManager.NPC_SKILL_DATA.getNpcSkillList(npcTemplate.getTemplateId()));
         gen.setKnownlist(new NpcKnownList(gen));
         gen.setEffectController(new EffectController(gen));
         gen.setLifeStats(new NpcLifeStats(gen));

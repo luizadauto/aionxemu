@@ -146,6 +146,8 @@ public class _20020CrashoftheDredgion extends QuestHandler {
     public boolean onEnterZoneEvent(QuestCookie env, ZoneName zoneName) {
         Player player = env.getPlayer();
         QuestState qs = player.getQuestStateList().getQuestState(questId);
+        if (qs.getStatus() == QuestStatus.COMPLETE)
+            return false;
         if (zoneName != ZoneName.COWARDS_COVE_220070000)
             return false;
         if (qs == null)

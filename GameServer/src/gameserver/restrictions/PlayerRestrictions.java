@@ -235,11 +235,16 @@ public class PlayerRestrictions extends AbstractRestrictions {
         if (creature instanceof Monster)
             return true;
 
-        if (creature instanceof FortressGeneral ||
-            creature instanceof ArtifactProtector ||
+        if (creature instanceof ArtifactProtector ||
             creature instanceof FortressGate)
         {
             return true;
+        }
+
+        if (creature instanceof FortressGeneral) {
+            FortressGeneral fortressGeneral = (FortressGeneral) creature;
+            if (!fortressGeneral.isEnemyPlayer(player))
+                return false;
         }
 
         if (creature instanceof Npc) {

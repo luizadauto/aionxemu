@@ -22,9 +22,12 @@ import gameserver.configs.main.CustomConfig;
 import gameserver.controllers.FortressGeneralController;
 import gameserver.model.alliance.PlayerAllianceGroup;
 import gameserver.model.gameobjects.Npc;
+import gameserver.model.gameobjects.player.Player;
 import gameserver.model.group.PlayerGroup;
+import gameserver.model.siege.SiegeRace;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.spawn.SpawnTemplate;
+import gameserver.services.SiegeService;
 import javolution.util.FastList;
 
 public class FortressGeneral extends Npc {
@@ -36,12 +39,15 @@ public class FortressGeneral extends Npc {
      */
 
     private int linkedFortressId;
+    private SiegeRace siegeRace;
     private FastList<PlayerGroup> rewardGroups;
     private FastList<PlayerAllianceGroup> rewardAlliances;
 
-    public FortressGeneral(int objId, FortressGeneralController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId) {
+    public FortressGeneral(int objId, FortressGeneralController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId, SiegeRace siegeRace) {
         super(objId, controller, spawn, objectTemplate);
         this.linkedFortressId = fortressId;
+        this.siegeRace = siegeRace;
+
         this.rewardGroups = new FastList<PlayerGroup>();
         this.rewardAlliances = new FastList<PlayerAllianceGroup>();
     }
@@ -81,5 +87,11 @@ public class FortressGeneral extends Npc {
             this.ai = new MonsterAi();
 
         ai.setOwner(this);
-	}
+    }
+
+    @Override
+    public boolean isEnemyPlayer(Player player) {
+        SiegeRace siegeRace = SiegeService.getSiegeRaceFromRace(player.getCommonData().getRace());
+        return siegeRace != this.siegeRace;
+    }
 }

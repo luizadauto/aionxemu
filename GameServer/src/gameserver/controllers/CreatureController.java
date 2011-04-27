@@ -112,13 +112,11 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
     /**
      * Perform tasks when Creature was attacked //TODO may be pass only Skill object - but need to add properties in it
      */
-    public void onAttack(Creature creature, int skillId, TYPE type, int damage, boolean notifyAttackedObservers)
-	{
+    public void onAttack(Creature creature, int skillId, TYPE type, int damage, boolean notifyAttackedObservers) {
+        int oldDamage = damage;
+        if (damage > getOwner().getLifeStats().getCurrentHp())
+            damage = getOwner().getLifeStats().getCurrentHp() + 1;
 
-		int oldDamage = damage;
-		if (damage > getOwner().getLifeStats().getCurrentHp())
-			damage = getOwner().getLifeStats().getCurrentHp() + 1;
-			
         Skill skill = getOwner().getCastingSkill();
         if (skill != null && skill.getSkillTemplate().getCancelRate() > 0) {
             int cancelRate = skill.getSkillTemplate().getCancelRate();
@@ -130,16 +128,12 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
                 cancelCurrentSkill();
         }
 
-        if(notifyAttackedObservers){
- 		getOwner().getObserveController().notifyAttackedObservers(creature);
- 		getOwner().getAggroList().addDamage(creature, damage);}
-		
-		if (protector != null) {
-			checkForProtectState(creature,skillId,type,oldDamage);
-		}else {
-//			getOwner().getLifeStats().reduceHp(damage, creature);
-		getOwner().getObserveController().notifyAttackedObservers(creature);			
-        getOwner().getAggroList().addDamage(creature, damage);
+        if (protector != null && MathUtil.isInRange(protector,getOwner(),protectionRange)) {
+            checkForProtectState(creature,skillId,type,oldDamage);
+        }
+        else if (notifyAttackedObservers) {
+            getOwner().getObserveController().notifyAttackedObservers(creature);
+            getOwner().getAggroList().addDamage(creature, damage);
         }
     }
 
@@ -297,63 +291,58 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
                 .getZ(), owner.getHeading(), MovementType.MOVEMENT_STOP));
     }
 
-	/**
-	 * Check if Creature is under Protect state
-	 */
-	private void checkForProtectState(Creature creature, int skillId, TYPE type, int damage)
-	{
-		if (protector.getLifeStats().isAlreadyDead())
-		{
-			removeProtectState();
-			return;
-		}
-		int damageTaken = damage;
-		if (MathUtil.isInRange(protector,getOwner(),protectionRange))
-		{
-			int damageReflected = damage * ((int)(100/protectionValue));
-			switch(attacktype)
-			{
-				case EVERYHIT:
-					protector.getLifeStats().reduceHp(damageReflected,creature);
-					damageTaken = (damage - damageReflected);
-					break;
-				case PHYSICAL_SKILL:
-					// TODO
-					break;
-				case MAGICAL_SKILL:
-					// TODO
-					break;
-				case ALL_SKILL:
-					if (skillId != 0)
-					{
-						protector.getLifeStats().reduceHp(damageReflected,creature);
-						damageTaken = (damage - damageReflected);
-					}
-					break;
-			}
-		}
-		getOwner().getLifeStats().reduceHp(damageTaken, creature);
-	}
-	
-	/**
-	 * Set the Protect state of this Creature
-	 */
-	public void setProtectState(Creature creatureProtector, final int value, final int range, final AttackType type)
-	{
-		protector = creatureProtector;
-		protectionValue = value;
-		protectionRange = range;
-		attacktype = type;
-	}
-	
-	/**
-	 * Remove the Protect state from Creature
-	 */
-	public void removeProtectState()
-	{
-		protector = null;
-	}	
-  	
+    /**
+     * Check if Creature is under Protect state
+     */
+    private void checkForProtectState(Creature creature, int skillId, TYPE type, int damage) {
+        if (protector.getLifeStats().isAlreadyDead()) {
+            removeProtectState();
+            return;
+        }
+
+        int damageTaken = damage;
+        int damageReflected = damage * ((int)(100/protectionValue));
+
+        switch(attacktype) {
+            case EVERYHIT:
+                protector.getLifeStats().reduceHp(damageReflected,creature);
+                damageTaken = (damage - damageReflected);
+                break;
+            case PHYSICAL_SKILL:
+                // TODO
+                break;
+            case MAGICAL_SKILL:
+                // TODO
+                break;
+            case ALL_SKILL:
+                if (skillId != 0) {
+                    protector.getLifeStats().reduceHp(damageReflected,creature);
+                    damageTaken = (damage - damageReflected);
+                }
+                break;
+        }
+        getOwner().getLifeStats().reduceHp(damageTaken, creature);
+    }
+
+    /**
+     * Set the Protect state of this Creature
+     */
+    public void setProtectState(Creature creatureProtector, final int value, final int range, final AttackType type)
+    {
+        protector = creatureProtector;
+        protectionValue = value;
+        protectionRange = range;
+        attacktype = type;
+    }
+
+    /**
+     * Remove the Protect state from Creature
+     */
+    public void removeProtectState()
+    {
+        protector = null;
+    }
+
     /**
      * Handle Dialog_Select
      *

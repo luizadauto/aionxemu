@@ -16,7 +16,13 @@
  */
 package gameserver.skillengine.effect;
 
+import java.util.TreeSet;
+
+import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.stats.StatEnum;
+import gameserver.model.gameobjects.stats.modifiers.StatModifier;
+import gameserver.model.items.ItemSlot;
 import gameserver.model.templates.item.WeaponType;
 import gameserver.skillengine.model.Effect;
 
@@ -66,10 +72,41 @@ public class WeaponMasteryEffect extends BufEffect {
     @Override
     public void startEffect(Effect effect) {
         Player player = (Player) effect.getEffector();
-        player.getEffectController().removeEffect(player.getEffectController().getWeaponMastery());
-        super.startEffect(effect);
-        player.getEffectController().setWeaponMastery(effect.getSkillId());
+        boolean isSetMain = false;
+        boolean isSetSub = false;
+        
+        TreeSet<StatModifier> modifierTemplates = getModifiers(effect);
+        for(StatModifier modifier : modifierTemplates){
+            for(Item item : player.getEquipment().getEquippedItemsWithoutStigma()){
+                WeaponType targetWeaponType = item.getItemTemplate().getWeaponType();
+                if(targetWeaponType == null) continue;
+                if(targetWeaponType.equals(weaponType)){
+                    if(item.getEquipmentSlot() == ItemSlot.MAIN_HAND.getSlotIdMask()){
+                        switch(modifier.getStat()){
+                            case PHYSICAL_ATTACK:
+                                modifier.getStatToModifies().add(StatEnum.MAIN_HAND_POWER);
+                                isSetMain = true;
+                                break;
+                                default:
+                        }
+                    }
+                    if(item.getEquipmentSlot() == ItemSlot.SUB_HAND.getSlotIdMask()){
+                        switch(modifier.getStat()){
+                            case PHYSICAL_ATTACK:
+                                modifier.getStatToModifies().add(StatEnum.OFF_HAND_POWER);
+                                isSetSub = true;
+                                break;
+                                default:
+                        }
+                    }                    
+                }
+            }
+            modifier.setCanDuplicate(false);
+        }
+        super.startEffect(effect, modifierTemplates);
+        if(isSetMain)
+        	player.getEffectController().setWeaponMastery(effect.getSkillId());
+        if(isSetSub)
+        	player.getEffectController().setSubWeaponMastery(effect.getSkillId());
     }
-
-
 }

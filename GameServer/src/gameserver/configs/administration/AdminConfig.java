@@ -218,6 +218,9 @@ public class AdminConfig {
     @Property(key = "gameserver.administration.command.addskill", defaultValue = "3")
     public static int COMMAND_ADDSKILL;
 
+    @Property(key = "gameserver.administration.command.delskill", defaultValue = "3")
+    public static int COMMAND_DELSKILL;
+
     @Property(key = "gameserver.administration.command.system", defaultValue = "3")
     public static int COMMAND_SYSTEM;
 

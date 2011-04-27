@@ -92,10 +92,17 @@ public abstract class BufEffect extends EffectTemplate {
         if (change == null)
             return;
 
+    	TreeSet<StatModifier> modifiers = getModifiers(effect);
+        startEffect(effect, modifiers);
+    }
+    
+    public void startEffect(Effect effect, TreeSet<StatModifier> modifiers) {
+        if (change == null)
+            return;
+
         Creature effected = effect.getEffected();
         CreatureGameStats<? extends Creature> cgs = effected.getGameStats();
 
-        TreeSet<StatModifier> modifiers = getModifiers(effect);
         SkillEffectId skillEffectId = getSkillEffectId(effect);
 
         if (modifiers.size() > 0) {
