@@ -449,7 +449,7 @@
 	</portal>
 	<!-- Hidden Escape Exit -->
 	<portal npcid="730206" instance="false" minlevel="40" maxlevel="55" group="false">
-		<entrypoint mapid="300100000" x="732.96" y="508.04" z="941.48"/>
+		<entrypoint mapid="300100000" x="730.1908" y="507.25446" z="941.4781"/>
 		<exitpoint mapid="300100000" x="237" y="506" z="948"/>
 	</portal>
 	<!-- Captain's Cabin Teleport Device -->

@@ -423,10 +423,6 @@
 	<spawn map="310110000" npcid="280983" pool="1" interval="295">
 		<object x="602.1701" y="488.8053" z="196.02222" h="11"/>
 	</spawn>
-	<!-- Hidden Escape Exit (Object Normal lvl:1) -->
-	<spawn map="310110000" npcid="730206" pool="1" interval="295">
-		<object staticid="74" x="477.62" y="196.8" z="170.13184" h="106"/>
-	</spawn>
 	<!-- Kypros (NPC Normal lvl:50) -->
 	<spawn map="310110000" npcid="798226" pool="1" interval="295">
 		<object x="473.8976" y="634.0264" z="199.2172" h="90"/>

@@ -1218,4 +1218,8 @@
     <spawn interval="295" pool="1" npcid="730201" map="300100000">
         <object x="461.807" y="488.18127" z="877.7017" h="0"/>
     </spawn>
+	<!-- Hidden Escape Exit (Object Normal lvl:1) -->
+	<spawn map="300100000" npcid="730206" pool="1" interval="295">
+		<object staticid="74" x="730.1908" y="507.25446" z="941.4781" h="5"/>
+	</spawn>	
 </spawns>
