@@ -87,7 +87,7 @@
     </spawn>
     <!-- Rift Beluslan Slave-->
     <spawn map="220040000" npcid="700137" pool="1" handler="RIFT" anchor="BELUSLAN_AS">
-        <object x="126.507629704985" y="1061.38860630722" z="297.60693" h="0"/>
+        <object x="126.507629704985" y="1061.38860630722" z="299.07374" h="0"/>
     </spawn>
     <spawn map="220040000" npcid="700137" pool="1" handler="RIFT" anchor="BELUSLAN_BS">
         <object x="1067.50457782299" y="313.677517802645" z="348.88293" h="0"/>
