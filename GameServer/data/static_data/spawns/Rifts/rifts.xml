@@ -39,7 +39,7 @@
         <object x="2210.80350438048" y="2644.24280350438" z="268.96494" h="0"/>
     </spawn>
     <spawn map="210020000" npcid="700137" pool="1" handler="RIFT" anchor="ELTNEN_GM">
-        <object x="2180.76595744681" y="541.614518147685" z="434.10077" h="0"/>
+        <object x="2184.2385" y="551.98926" z="436.49164" h="0"/>
     </spawn>
     <!-- Rift Morheim Slave -->
     <spawn map="220020000" npcid="700137" pool="1" handler="RIFT" anchor="MORHEIM_AS">
@@ -131,7 +131,7 @@
     </spawn>
     <!-- Rift Eltnen Slave-->
     <spawn map="210020000" npcid="700137" pool="1" handler="RIFT" anchor="ELTNEN_AS">
-        <object x="718.938673341677" y="2779.41176470588" z="259.08435" h="0"/>
+        <object x="724.07196" y="2772.1794" z="259.08435" h="0"/>
     </spawn>
     <spawn map="210020000" npcid="700137" pool="1" handler="RIFT" anchor="ELTNEN_BS">
         <object x="383.519399249061" y="1277.53441802253" z="288.53" h="0"/>
