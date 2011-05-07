@@ -1451,4 +1451,12 @@
 	<spawn map="400010000" npcid="278152" pool="1" interval="295">
 		<object x="980.59515" y="2913.7305" z="1642.3359" h="8"/>
 	</spawn>
+	<!-- Momorinrinerk -->
+	<spawn map="400010000" npcid="279059" pool="1" interval="295">
+		<object x="1988.086" y="2114.038" z="2291.163" h="8"/>
+	</spawn>
+	<!-- Amarunerk -->
+	<spawn map="400010000" npcid="279058" pool="1" interval="295">
+		<object x="1980.228" y="2107.845" z="2291.163" h="8"/>
+	</spawn>	
 </spawns>
