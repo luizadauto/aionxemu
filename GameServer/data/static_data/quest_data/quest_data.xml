@@ -2043,8 +2043,11 @@
 		<collect_items>
 			<collect_item count="10" item_id="182201321"/>
 		</collect_items>
-		<rewards exp="333000">
-			<reward_item count="1" item_id="121000770"/>
+		<rewards exp="166500">
+			<selectable_reward_item count="1" item_id="125002504"/>
+			<selectable_reward_item count="1" item_id="125002505"/>
+			<selectable_reward_item count="1" item_id="125002506"/>
+			<selectable_reward_item count="1" item_id="125002507"/>
 		</rewards>
 		<quest_drop drop_each_member="false" chance="100" item_id="182201321" npc_id="211765"/>
 		<quest_drop drop_each_member="false" chance="100" item_id="182201321" npc_id="211766"/>
