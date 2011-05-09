@@ -119,6 +119,7 @@
 			<collect_item count="1" item_id="182200012"/>
 		</collect_items>
 		<rewards exp="48600" gold="16320">
+			<selectable_reward_item count="1" item_id="188051195"/>	
 			<selectable_reward_item count="1" item_id="111100772"/>
 			<selectable_reward_item count="1" item_id="111300777"/>
 			<selectable_reward_item count="1" item_id="111500760"/>
@@ -195,6 +196,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="14" nameId="2204039" name="Flying Reconnaissance" id="1019">
 		<rewards exp="155800" gold="27360">
+			<selectable_reward_item count="1" item_id="188051196"/>
 			<selectable_reward_item count="1" item_id="113100782"/>
 			<selectable_reward_item count="1" item_id="113300800"/>
 			<selectable_reward_item count="1" item_id="113500771"/>
@@ -259,6 +261,7 @@
 			<collect_item count="1" item_id="182201001"/>
 		</collect_items>
 		<rewards exp="300288" gold="48520">
+			<selectable_reward_item count="2" item_id="188051192"/>
 			<selectable_reward_item count="1" item_id="111100774"/>
 			<selectable_reward_item count="1" item_id="111300778"/>
 			<selectable_reward_item count="1" item_id="111500761"/>
@@ -283,6 +286,7 @@
 			<collect_item count="5" item_id="182201002"/>
 		</collect_items>
 		<rewards exp="467612" gold="63390">
+			<selectable_reward_item count="2" item_id="188051192"/>
 			<selectable_reward_item count="1" item_id="120000844"/>
 			<selectable_reward_item count="1" item_id="120000845"/>
 		</rewards>
@@ -393,6 +397,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="33" nameId="2204121" name="A Dangerous Artifact" id="1041">
 		<rewards title="11" exp="4490272" gold="199590">
+			<selectable_reward_item count="1" item_id="188051194"/>
 			<selectable_reward_item count="1" item_id="113100785"/>
 			<selectable_reward_item count="1" item_id="113300803"/>
 			<selectable_reward_item count="1" item_id="113500774"/>
@@ -489,6 +494,7 @@
 			<collect_item count="3" item_id="182201605"/>
 		</collect_items>
 		<rewards exp="4490272" gold="199590">
+			<selectable_reward_item count="1" item_id="188051194"/>
 			<selectable_reward_item count="1" item_id="100200619"/>
 			<selectable_reward_item count="1" item_id="100000660"/>
 			<selectable_reward_item count="1" item_id="100100513"/>
@@ -509,6 +515,7 @@
 			<collect_item count="50" item_id="182201608"/>
 		</collect_items>
 		<rewards title="23" exp="2961303" gold="170280">
+			<selectable_reward_item count="1" item_id="188050585"/>
 			<selectable_reward_item count="1" item_id="110100873"/>
 			<selectable_reward_item count="1" item_id="110300828"/>
 			<selectable_reward_item count="1" item_id="110500798"/>
@@ -564,6 +571,7 @@
 			<collect_item count="1" item_id="182201616"/>
 		</collect_items>
 		<rewards title="24" exp="8693982" gold="281100">
+			<selectable_reward_item count="2" item_id="188051194"/>
 			<selectable_reward_item count="1" item_id="112100739"/>
 			<selectable_reward_item count="1" item_id="112300736"/>
 			<selectable_reward_item count="1" item_id="112500724"/>
@@ -5101,7 +5109,9 @@
 		<rewards reward_abyss_point="100" gold="3340"/>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2209003" name="Governor's Directive" id="1701">
-		<rewards reward_abyss_point="300" exp="134337" gold="58760"/>
+		<rewards reward_abyss_point="300" exp="134337" gold="58760">
+			<reward_item count="2" item_id="188051192"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="25" nameId="2209005" name="Defeat 9th Rank Asmodian Soldiers" id="1702">
 		<rewards title="31" reward_abyss_point="100" exp="173800">
@@ -6682,7 +6692,9 @@
 	</quest>
 	<quest race_permitted="ELYOS" max_repeat_count="1" minlevel_permitted="99" nameId="2205839" name="Manduri's Diary Restoration Project" id="1919"/>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2205841" name="Testing Your Mettle" id="1920">
-		<rewards reward_abyss_point="250" exp="134337" gold="58760"/>
+		<rewards reward_abyss_point="250" exp="134337" gold="58760">
+			<reward_item count="2" item_id="188051192"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2205843" name="The Abyss Quiz" id="1921">
 		<rewards reward_abyss_point="250" exp="134337" gold="58760">
@@ -14287,6 +14299,7 @@
 	<quest race_permitted="ASMODIANS" use_class_reward="true" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="20" nameId="2208201" name="No Escaping Destiny" id="2900">
 		<rewards exp="100000" gold="30000">
 			<reward_item count="500" item_id="141000001"/>
+			<reward_item count="1" item_id="188051193"/>
 		</rewards>
 		<fighter_selectable_reward count="1" item_id="140000008"/>
 		<knight_selectable_reward count="1" item_id="140000027"/>
@@ -14745,7 +14758,9 @@
 		</quest_work_items>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2208291" name="Honing Your Skills" id="2945">
-		<rewards reward_abyss_point="250" exp="134337" gold="58760"/>
+		<rewards reward_abyss_point="250" exp="134337" gold="58760">
+			<reward_item count="2" item_id="188051192"/>
+		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2208293" name="Abyss General Knowledge" id="2946">
 		<rewards reward_abyss_point="250" exp="134337" gold="58760">
