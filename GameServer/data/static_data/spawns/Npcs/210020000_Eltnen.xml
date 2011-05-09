@@ -1020,7 +1020,7 @@
 	</spawn>
 	<!-- Telemachus (NPC Legendary lvl:45)-->
 	<spawn map="210020000" npcid="203901" pool="1" interval="295">
-		<object x="263.41736" y="2794.24070" z="272.61414" h="47"/>
+		<object x="263.41736" y="2794.24070" z="272.61414" h="107"/>
 	</spawn>
 	<!-- Tellarius (NPC Elite lvl:45)-->
 	<spawn map="210020000" npcid="203966" pool="1" interval="295">

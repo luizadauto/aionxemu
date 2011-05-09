@@ -134,7 +134,7 @@
 	</spawn>
 	<!-- Crios (NPC Normal lvl:30)-->
 	<spawn map="210060000" npcid="798150" pool="1" interval="295">
-		<object x="1415.33900" y="1564.21500" z="30.87500" h="90"/>
+		<object x="1415.07" y="1564.2421" z="30.875" h="1"/>
 	</spawn>
 	<!-- Dania (NPC Normal lvl:45)-->
 	<spawn map="210060000" npcid="798170" pool="1" interval="295">
