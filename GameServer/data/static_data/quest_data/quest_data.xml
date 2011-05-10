@@ -119,11 +119,11 @@
 			<collect_item count="1" item_id="182200012"/>
 		</collect_items>
 		<rewards exp="48600" gold="16320">
-			<selectable_reward_item count="1" item_id="188051195"/>	
 			<selectable_reward_item count="1" item_id="111100772"/>
 			<selectable_reward_item count="1" item_id="111300777"/>
 			<selectable_reward_item count="1" item_id="111500760"/>
 			<selectable_reward_item count="1" item_id="111600752"/>
+			<reward_item count="1" item_id="188051195"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182200011" npc_id="210174"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182200012" npc_id="210739"/>
@@ -196,7 +196,6 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="14" nameId="2204039" name="Flying Reconnaissance" id="1019">
 		<rewards exp="155800" gold="27360">
-			<selectable_reward_item count="1" item_id="188051196"/>
 			<selectable_reward_item count="1" item_id="113100782"/>
 			<selectable_reward_item count="1" item_id="113300800"/>
 			<selectable_reward_item count="1" item_id="113500771"/>
@@ -261,7 +260,6 @@
 			<collect_item count="1" item_id="182201001"/>
 		</collect_items>
 		<rewards exp="300288" gold="48520">
-			<selectable_reward_item count="2" item_id="188051192"/>
 			<selectable_reward_item count="1" item_id="111100774"/>
 			<selectable_reward_item count="1" item_id="111300778"/>
 			<selectable_reward_item count="1" item_id="111500761"/>
@@ -286,9 +284,9 @@
 			<collect_item count="5" item_id="182201002"/>
 		</collect_items>
 		<rewards exp="467612" gold="63390">
-			<selectable_reward_item count="2" item_id="188051192"/>
 			<selectable_reward_item count="1" item_id="120000844"/>
 			<selectable_reward_item count="1" item_id="120000845"/>
+			<reward_item count="2" item_id="188051192"/>
 		</rewards>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201002" npc_id="210804"/>
 		<quest_drop drop_each_member="true" chance="100" item_id="182201002" npc_id="210814"/>
@@ -397,7 +395,6 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="33" nameId="2204121" name="A Dangerous Artifact" id="1041">
 		<rewards title="11" exp="4490272" gold="199590">
-			<selectable_reward_item count="1" item_id="188051194"/>
 			<selectable_reward_item count="1" item_id="113100785"/>
 			<selectable_reward_item count="1" item_id="113300803"/>
 			<selectable_reward_item count="1" item_id="113500774"/>
@@ -494,7 +491,6 @@
 			<collect_item count="3" item_id="182201605"/>
 		</collect_items>
 		<rewards exp="4490272" gold="199590">
-			<selectable_reward_item count="1" item_id="188051194"/>
 			<selectable_reward_item count="1" item_id="100200619"/>
 			<selectable_reward_item count="1" item_id="100000660"/>
 			<selectable_reward_item count="1" item_id="100100513"/>
@@ -515,7 +511,6 @@
 			<collect_item count="50" item_id="182201608"/>
 		</collect_items>
 		<rewards title="23" exp="2961303" gold="170280">
-			<selectable_reward_item count="1" item_id="188050585"/>
 			<selectable_reward_item count="1" item_id="110100873"/>
 			<selectable_reward_item count="1" item_id="110300828"/>
 			<selectable_reward_item count="1" item_id="110500798"/>
@@ -571,7 +566,6 @@
 			<collect_item count="1" item_id="182201616"/>
 		</collect_items>
 		<rewards title="24" exp="8693982" gold="281100">
-			<selectable_reward_item count="2" item_id="188051194"/>
 			<selectable_reward_item count="1" item_id="112100739"/>
 			<selectable_reward_item count="1" item_id="112300736"/>
 			<selectable_reward_item count="1" item_id="112500724"/>
@@ -644,7 +638,7 @@
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204241" name="Speaking Balaur" id="1071">
 		<rewards title="30" reward_abyss_point="800" exp="874234" gold="94010">
-		        <reward_item count="1" item_id="188051193"/>
+			<reward_item count="1" item_id="188051193"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ELYOS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="25" nameId="2204243" name="Abyss Training" id="1072">
