@@ -289,7 +289,7 @@ public class GroupService {
         for (Player member : players) {
             long reward = 0;
             // Exp reward
-            if (highestLevel - member.getCommonData().getLevel() <= 10) {
+            if (highestLevel - member.getCommonData().getLevel() <= GroupConfig.GROUP_MAX_LEVEL_DIFFERENCE) {
                 long currentExp = member.getCommonData().getExp();
                 reward = (expReward * member.getLevel()) / partyLvlSum;
                 reward *= member.getRates().getGroupXpRate();

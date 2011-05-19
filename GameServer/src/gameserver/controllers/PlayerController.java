@@ -17,6 +17,7 @@
 package gameserver.controllers;
 
 import gameserver.configs.main.CustomConfig;
+import gameserver.configs.administration.AdminConfig;
 import gameserver.configs.main.GSConfig;
 import gameserver.configs.main.GeoDataConfig;
 import gameserver.controllers.SummonController.UnsummonType;
@@ -600,33 +601,33 @@ public class PlayerController extends CreatureController<Player> {
         addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
     }
 
-	public void onEnterZone(ZoneInstance zoneInstance)
- 	{
-		addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
- 		QuestEngine.getInstance().onEnterZone(new QuestCookie(null, this.getOwner(), 0, 0), zoneInstance.getTemplate().getName());
-		
-		Player player = getOwner();
-		ZoneInstance currentZone = player.getZoneInstance();
-		if(currentZone != null && GSConfig.FREEFLY == true) {
-			currentZone.isFlightAllowed();
-		}
-		if(currentZone != null && !currentZone.isFlightAllowed()) {
-			checkNoFly(player);
-		}
- 	}
-	
-	public void onLeaveZone(ZoneInstance zoneInstance)
- 	{
-		
- 	}
+    public void onEnterZone(ZoneInstance zoneInstance)
+    {
+        addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
+        QuestEngine.getInstance().onEnterZone(new QuestCookie(null, this.getOwner(), 0, 0), zoneInstance.getTemplate().getName());
+        
+        Player player = getOwner();
+        ZoneInstance currentZone = player.getZoneInstance();
+        if(currentZone != null && GSConfig.FREEFLY == true) {
+            currentZone.isFlightAllowed();
+        }
+        if(currentZone != null && !currentZone.isFlightAllowed() && player.getAccessLevel() < AdminConfig.GM_FLIGHT_FREE) {
+            checkNoFly(player);
+        }
+    }
 
-public void checkNoFly(final Player player)	
-	{
-		if(player.isInState(CreatureState.FLYING))
-			player.getFlyController().endFly();	
-	}
-	
-	
+    public void onLeaveZone(ZoneInstance zoneInstance)
+    {
+        
+    }
+
+    public void checkNoFly(final Player player)	
+    {
+        if(player.isInState(CreatureState.FLYING))
+            player.getFlyController().endFly();	
+    }
+
+
     /**
      * Zone update mask management
      *
@@ -709,8 +710,8 @@ public void checkNoFly(final Player player)
     }
 
     public void setCanAutoRevive(boolean canAutoRevive)
-	{
-		this.canAutoRevive = canAutoRevive;
-	}
+    {
+        this.canAutoRevive = canAutoRevive;
+    }
 
 }

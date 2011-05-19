@@ -44,11 +44,18 @@ public class SiegeConfig {
     /**
      * Siege Location Values
      */
-
     @Property(key = "gameserver.siege.influence.fortress", defaultValue = "10")
     public static int SIEGE_POINTS_FORTRESS;
 
     @Property(key = "gameserver.siege.influence.artifact", defaultValue = "1")
     public static int SIEGE_POINTS_ARTIFACT;
 
+    /**
+     * Reward when general is killed
+     */
+    @Property(key = "gameserver.siege.apreward.default", defaultValue = "9000")
+    public static int SIEGE_AP_REWARD_DEFAULT;
+
+    @Property(key = "gameserver.siege.apreward.divine", defaultValue = "40000")
+    public static int SIEGE_AP_REWARD_DIVINE;
 }

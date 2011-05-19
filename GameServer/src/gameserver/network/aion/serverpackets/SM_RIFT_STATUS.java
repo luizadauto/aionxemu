@@ -17,6 +17,7 @@
 
 package gameserver.network.aion.serverpackets;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
 
@@ -45,7 +46,7 @@ public class SM_RIFT_STATUS extends AionServerPacket {
         writeD(buf, usedEntries);
         writeD(buf, maxEntries);
         writeD(buf, 6793); //unk
-        writeD(buf, 25); // min level
+        writeD(buf, CustomConfig.RIFT_MIN_LEVEL); // min level
         writeD(buf, maxLevel);
     }
 }

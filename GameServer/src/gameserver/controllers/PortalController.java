@@ -70,17 +70,17 @@ public class PortalController extends NpcController {
                 defaultUseTime, 1));
         PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.START_QUESTLOOT, 0, getOwner().getObjectId()), true);
 
-		player.getController().cancelTask(TaskId.ITEM_USE);
-		player.getObserveController().attach(new StartMovingListener() {
+        player.getController().cancelTask(TaskId.ITEM_USE);
+        player.getObserveController().attach(new StartMovingListener() {
 
-			@Override
-			public void moved() {
-				player.getController().cancelTask(TaskId.ITEM_USE);
-				PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), getOwner().getObjectId(), defaultUseTime, 0));
-				PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.END_QUESTLOOT, 0, getOwner().getObjectId()), true);
-			}
-		});
-		player.getController().addNewTask(TaskId.ITEM_USE,
+            @Override
+            public void moved() {
+                player.getController().cancelTask(TaskId.ITEM_USE);
+                PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), getOwner().getObjectId(), defaultUseTime, 0));
+                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.END_QUESTLOOT, 0, getOwner().getObjectId()), true);
+            }
+        });
+        player.getController().addNewTask(TaskId.ITEM_USE,
         ThreadPoolManager.getInstance().schedule(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +95,7 @@ public class PortalController extends NpcController {
              * @param player
              */
             private void analyzePortation(final Player player) {
-                if (portalTemplate.getIdTitle() != 0 && player.getCommonData().getTitleId() != portalTemplate.getIdTitle())
+                if (portalTemplate.getIdTitle() != 0 && player.getCommonData().getTitleId() != portalTemplate.getIdTitle() && CustomConfig.PORTAL_REQUIREMENT_TITLE )
                     return;
 
                 for (EntryPoint point : portalTemplate.getEntryPoint()) {
@@ -106,24 +106,24 @@ public class PortalController extends NpcController {
                     }
                 }
 
-                if (portalTemplate.getRace() != null && !portalTemplate.getRace().equals(player.getCommonData().getRace())) {
+                if (portalTemplate.getRace() != null && !portalTemplate.getRace().equals(player.getCommonData().getRace()) && CustomConfig.PORTAL_REQUIREMENT_RACE) {
                     PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
                     return;
                 }
 
-                if ((portalTemplate.getMaxLevel() != 0 && player.getLevel() > portalTemplate.getMaxLevel())
-                        || player.getLevel() < portalTemplate.getMinLevel()) {
+                if ((portalTemplate.getMaxLevel() != 0 && player.getLevel() > portalTemplate.getMaxLevel() && CustomConfig.PORTAL_REQUIREMENT_LEVEL)
+                        || player.getLevel() < portalTemplate.getMinLevel() && CustomConfig.PORTAL_REQUIREMENT_LEVEL) {
                     PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_CANT_INSTANCE_ENTER_LEVEL);
                     return;
                 }
 
                 PlayerGroup group = player.getPlayerGroup();
                 if(player.getAccessLevel() < AdminConfig.INSTANCE_NO_GROUP) {
-                	if (portalTemplate.isGroup() && group == null) {
-                		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_ENTER_ONLY_PARTY_DON);
-                		return;
-                	}
-            	}
+                    if (portalTemplate.isGroup() && group == null) {
+                        PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_ENTER_ONLY_PARTY_DON);
+                        return;
+                    }
+                }
 
                 if (portalTemplate.isGroup()) {
                     int worldId = 0;
@@ -134,15 +134,15 @@ public class PortalController extends NpcController {
 
                     WorldMapInstance instance;
                     if(group != null) {
-                    	instance = InstanceService.getRegisteredInstance(worldId, group.getGroupId());
+                        instance = InstanceService.getRegisteredInstance(worldId, group.getGroupId());
                     }
                     else {
-                    	instance = InstanceService.getRegisteredInstance(worldId, player.getObjectId());
-                    	if(instance != null)
-                    		transfer(player, instance);
-                    	else
-                    		port(player);
-                    	return;
+                        instance = InstanceService.getRegisteredInstance(worldId, player.getObjectId());
+                        if(instance != null)
+                            transfer(player, instance);
+                        else
+                            port(player);
+                        return;
                     }
                     
                     // register if not yet created
@@ -231,5 +231,4 @@ public class PortalController extends NpcController {
             PacketSendUtility.sendMessage(player, "You cannot do that");
         }
     }
-
 }

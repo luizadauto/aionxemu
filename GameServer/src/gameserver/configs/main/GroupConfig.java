@@ -28,10 +28,18 @@ public class GroupConfig {
     @Property(key = "gameserver.playergroup.maxdistance", defaultValue = "100")
     public static int GROUP_MAX_DISTANCE;
 
+    @Property(key = "gameserver.playergroup.maxlevel.difference", defaultValue = "100")
+    public static int GROUP_MAX_LEVEL_DIFFERENCE;
+
+    @Property(key = "gameserver.playergroup.invite.other.race", defaultValue = "false")
+    public static boolean GROUP_INVITE_OTHER_RACE;
+
     /**
      * Alliance
      */
     @Property(key = "gameserver.playeralliance.removetime", defaultValue = "600")
     public static int ALLIANCE_REMOVE_TIME;
 
+    @Property(key = "gameserver.playeralliance.invite.other.race", defaultValue = "false")
+    public static boolean ALLIANCE_INVITE_OTHER_RACE;
 }

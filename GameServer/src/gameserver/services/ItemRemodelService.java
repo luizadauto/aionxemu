@@ -16,6 +16,7 @@
  */
 package gameserver.services;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.model.DescriptionId;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
@@ -47,7 +48,7 @@ public class ItemRemodelService {
         }
 
         // Check Player Level
-        if (player.getLevel() < 20) {
+        if (player.getLevel() < CustomConfig.ITEM_REMODEL_MINLEVEL) {
 
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_CHANGE_ITEM_SKIN_PC_LEVEL_LIMIT);
             return;

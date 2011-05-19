@@ -17,6 +17,7 @@
 
 package gameserver.services;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.model.gameobjects.Monster;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.group.PlayerGroup;
@@ -43,31 +44,35 @@ public class DarkPoetaInstanceService {
 
             SpawnTemplate spawn;
 
-            if (timeRemain > 7200000 && totalPoints > 20000) {
+            if (timeRemain > (CustomConfig.DARKPOETA_GRADE_S_TIME * 1000) && totalPoints > CustomConfig.DARKPOETA_GRADE_S_POINTS) {
                 for (Player member : group.getMembers()) {
                     PacketSendUtility.sendMessage(member, "Raid grade is <S>");
                 }
                 spawn = SpawnEngine.getInstance().addNewSpawn(300040000, group.getGroupLeader().getInstanceId(), 215280, 1176f, 1227f, 145f, (byte) 14, 0, 0, true);
                 SpawnEngine.getInstance().spawnObject(spawn, group.getGroupLeader().getInstanceId());
-            } else if (timeRemain > 5400000 && totalPoints > 17100) {
+            }
+            else if (timeRemain > (CustomConfig.DARKPOETA_GRADE_A_TIME * 1000) && totalPoints > CustomConfig.DARKPOETA_GRADE_A_POINTS) {
                 for (Player member : group.getMembers()) {
                     PacketSendUtility.sendMessage(member, "Raid grade is <A>");
                 }
                 spawn = SpawnEngine.getInstance().addNewSpawn(300040000, group.getGroupLeader().getInstanceId(), 215281, 1176f, 1227f, 145f, (byte) 14, 0, 0, true);
                 SpawnEngine.getInstance().spawnObject(spawn, group.getGroupLeader().getInstanceId());
-            } else if (timeRemain > 3600000 && totalPoints > 13100) {
+            }
+            else if (timeRemain > (CustomConfig.DARKPOETA_GRADE_B_TIME * 1000) && totalPoints > CustomConfig.DARKPOETA_GRADE_B_POINTS) {
                 for (Player member : group.getMembers()) {
                     PacketSendUtility.sendMessage(member, "Raid grade is <B>");
                 }
                 spawn = SpawnEngine.getInstance().addNewSpawn(300040000, group.getGroupLeader().getInstanceId(), 215282, 1176f, 1227f, 145f, (byte) 14, 0, 0, true);
                 SpawnEngine.getInstance().spawnObject(spawn, group.getGroupLeader().getInstanceId());
-            } else if (timeRemain > 1800000 && totalPoints > 11000) {
+            }
+            else if (timeRemain > (CustomConfig.DARKPOETA_GRADE_C_TIME * 1000) && totalPoints > CustomConfig.DARKPOETA_GRADE_C_POINTS) {
                 for (Player member : group.getMembers()) {
                     PacketSendUtility.sendMessage(member, "Raid grade is <C>");
                 }
                 spawn = SpawnEngine.getInstance().addNewSpawn(300040000, group.getGroupLeader().getInstanceId(), 215283, 1176f, 1227f, 145f, (byte) 14, 0, 0, true);
                 SpawnEngine.getInstance().spawnObject(spawn, group.getGroupLeader().getInstanceId());
-            } else {
+            }
+            else {
                 for (Player member : group.getMembers()) {
                     PacketSendUtility.sendMessage(member, "Raid grade is <D>. You failed.");
                 }
@@ -91,7 +96,6 @@ public class DarkPoetaInstanceService {
                         pointsReward = 300;
                 }
                 break;
-            
             default:
                 if (monster.getObjectTemplate().getRace() == null)
                     break;
@@ -115,7 +119,6 @@ public class DarkPoetaInstanceService {
                         pointsReward = 11;
                         break;
                 }
-        	   
         }
 
         //Drana
@@ -123,26 +126,26 @@ public class DarkPoetaInstanceService {
             pointsReward = 48;
         //Walls
         else if (monster.getObjectTemplate().getTemplateId() == 700518
-        	  || monster.getObjectTemplate().getTemplateId() == 700558)
-        	pointsReward = 156;
+              || monster.getObjectTemplate().getTemplateId() == 700558)
+            pointsReward = 156;
         //Named1
         else if (monster.getObjectTemplate().getTemplateId() == 214841
-          	  || monster.getObjectTemplate().getTemplateId() == 215431)
-        	pointsReward = 162;
+              || monster.getObjectTemplate().getTemplateId() == 215431)
+            pointsReward = 162;
         //Named2
         else if (monster.getObjectTemplate().getTemplateId() == 214842
-        	  || monster.getObjectTemplate().getTemplateId() == 215429
-        	  || monster.getObjectTemplate().getTemplateId() == 215430
+              || monster.getObjectTemplate().getTemplateId() == 215429
+              || monster.getObjectTemplate().getTemplateId() == 215430
               || monster.getObjectTemplate().getTemplateId() == 215432)
-          	pointsReward = 186;
+            pointsReward = 186;
         //Named3
         else if (monster.getObjectTemplate().getTemplateId() == 214871
-        	  || monster.getObjectTemplate().getTemplateId() == 215386
+              || monster.getObjectTemplate().getTemplateId() == 215386
               || monster.getObjectTemplate().getTemplateId() == 215428)
-          	pointsReward = 204;
+            pointsReward = 204;
         //Marabata
         else if (monster.getObjectTemplate().getTemplateId() == 214849
-          	  || monster.getObjectTemplate().getTemplateId() == 214850
+              || monster.getObjectTemplate().getTemplateId() == 214850
               || monster.getObjectTemplate().getTemplateId() == 214851)
             pointsReward = 318;
         //Generators
@@ -152,20 +155,22 @@ public class DarkPoetaInstanceService {
             pointsReward = 372;
         //Atmach
         else if (monster.getObjectTemplate().getTemplateId() == 214843)
-        	pointsReward = 456;
+            pointsReward = 456;
         //Boss
         else if (monster.getObjectTemplate().getTemplateId() == 214864
-        	  || monster.getObjectTemplate().getTemplateId() == 214880
-        	  || monster.getObjectTemplate().getTemplateId() == 214894
-        	  || monster.getObjectTemplate().getTemplateId() == 215387
-        	  || monster.getObjectTemplate().getTemplateId() == 215388
+              || monster.getObjectTemplate().getTemplateId() == 214880
+              || monster.getObjectTemplate().getTemplateId() == 214894
+              || monster.getObjectTemplate().getTemplateId() == 215387
+              || monster.getObjectTemplate().getTemplateId() == 215388
               || monster.getObjectTemplate().getTemplateId() == 215389)
-          	pointsReward = 786;
+            pointsReward = 786;
         else if (monster.getObjectTemplate().getTemplateId() == 214904)
-        	pointsReward = 954;
+            pointsReward = 954;
 
         if (leader.getAbyssRank().getRank().getId() >= 10)
             pointsReward = Math.round(pointsReward * 1.1f);
+
+        pointsReward = Math.round(pointsReward * CustomConfig.DARKPOETA_REWARD_POINT_RATE);
 
         return pointsReward;
 

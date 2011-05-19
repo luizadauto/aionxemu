@@ -19,8 +19,6 @@ package gameserver.configs.main;
 import com.aionemu.commons.configuration.Property;
 
 public class CustomConfig {
-
-
     /**
      * Enable or Disable Character Passkey
      */
@@ -160,11 +158,11 @@ public class CustomConfig {
 
     @Property(key = "gameserver.gmtag.level3", defaultValue = "<HEADGM>")
     public static String GM_LEVEL3;
-	
-	@Property(key = "gameserver.gmtag.level4", defaultValue = "<ADMIN>")
+
+    @Property(key = "gameserver.gmtag.level4", defaultValue = "<ADMIN>")
     public static String GM_LEVEL4;
-	
-	@Property(key = "gameserver.gmtag.level5", defaultValue = "<HEADADMIN>")
+
+    @Property(key = "gameserver.gmtag.level5", defaultValue = "<HEADADMIN>")
     public static String GM_LEVEL5;
 
     /**
@@ -262,10 +260,10 @@ public class CustomConfig {
      * Send to the prison (artmoney hack)
      */
     @Property(key = "gameserver.artmoney.hack", defaultValue = "true")
-    public static boolean		ARTMONEY_HACK;
+    public static boolean ARTMONEY_HACK;
 
     @Property(key = "gameserver.artmoney.hackbuy.time", defaultValue = "120")
-    public static int		ARTMONEY_HACKBUY_TIME;
+    public static int ARTMONEY_HACKBUY_TIME;
 
     /**
      * Player Search Level Restriction (Level 10)
@@ -299,6 +297,78 @@ public class CustomConfig {
      */
     @Property(key = "enable.html.welcome", defaultValue = "false")
     public static boolean ENABLE_HTML_WELCOME;
+
+    /**
+     * Minimum level for item remodelisation
+     */
+    @Property(key = "gameserver.itemremodel.minlevel", defaultValue = "20")
+    public static int ITEM_REMODEL_MINLEVEL;
+
+    /**
+     * Transport price multiplier
+     */
+    @Property(key = "gameserver.transport.price.multiplier", defaultValue = "0.8")
+    public static float TRANSPORT_COST_MULTIPLIER;
+
+    /**
+     * Soul healing price multiplier
+     */
+    @Property(key = "gameserver.soulhealing.price.multiplier", defaultValue = "1")
+    public static float SOULHEALING_PRICE_MULTIPLIER;
+
+    /**
+     * Minimum level rift
+     */
+    @Property(key = "gameserver.rift.minimum.level", defaultValue = "25")
+    public static int RIFT_MIN_LEVEL;
+
+    /**
+     * Remove title restriction for portals
+     */
+    @Property(key = "gameserver.portal.requirement.title", defaultValue = "false")
+    public static boolean PORTAL_REQUIREMENT_TITLE;
+
+    /**
+     * Remove race restriction for portals
+     */
+    @Property(key = "gameserver.portal.requirement.race", defaultValue = "false")
+    public static boolean PORTAL_REQUIREMENT_RACE;
+
+    /**
+     * Remove level restriction for portals
+     */
+    @Property(key = "gameserver.portal.requirement.level", defaultValue = "false")
+    public static boolean PORTAL_REQUIREMENT_LEVEL;
+
+    /**
+     * Dark Poeta configuration
+     */
+    @Property(key = "gameserver.darkpoeta.reward.point.rate", defaultValue = "1.0")
+    public static float DARKPOETA_REWARD_POINT_RATE;
+
+    @Property(key = "gameserver.darkpoeta.grade.S.time", defaultValue = "7200000")
+    public static int DARKPOETA_GRADE_S_TIME;
+
+    @Property(key = "gameserver.darkpoeta.grade.S.points", defaultValue = "20000")
+    public static int DARKPOETA_GRADE_S_POINTS;
+
+    @Property(key = "gameserver.darkpoeta.grade.A.time", defaultValue = "5400000")
+    public static int DARKPOETA_GRADE_A_TIME;
+
+    @Property(key = "gameserver.darkpoeta.grade.A.points", defaultValue = "17100")
+    public static int DARKPOETA_GRADE_A_POINTS;
+
+    @Property(key = "gameserver.darkpoeta.grade.B.time", defaultValue = "3600000")
+    public static int DARKPOETA_GRADE_B_TIME;
+
+    @Property(key = "gameserver.darkpoeta.grade.B.points", defaultValue = "13100")
+    public static int DARKPOETA_GRADE_B_POINTS;
+
+    @Property(key = "gameserver.darkpoeta.grade.C.time", defaultValue = "1800000")
+    public static int DARKPOETA_GRADE_C_TIME;
+
+    @Property(key = "gameserver.darkpoeta.grade.C.points", defaultValue = "11000")
+    public static int DARKPOETA_GRADE_C_POINTS;
 
     /**
      * Time when top ranking is updated

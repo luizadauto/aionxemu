@@ -16,6 +16,7 @@
  */
 package gameserver.restrictions;
 
+import gameserver.configs.main.GroupConfig;
 import gameserver.model.alliance.PlayerAlliance;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Monster;
@@ -135,7 +136,7 @@ public class PlayerRestrictions extends AbstractRestrictions {
         } else if (target == null) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.INVITED_PLAYER_OFFLINE());
             return false;
-        } else if (target.getCommonData().getRace() != player.getCommonData().getRace()) {
+        } else if (target.getCommonData().getRace() != player.getCommonData().getRace() && !GroupConfig.GROUP_INVITE_OTHER_RACE) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_PARTY_CANT_INVITE_OTHER_RACE());
             return false;
         } else if (target.sameObjectId(player.getObjectId())) {
@@ -169,7 +170,7 @@ public class PlayerRestrictions extends AbstractRestrictions {
             return false;
         }
 
-        if (target.getCommonData().getRace() != player.getCommonData().getRace()) {
+        if (target.getCommonData().getRace() != player.getCommonData().getRace() && !GroupConfig.ALLIANCE_INVITE_OTHER_RACE) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_PARTY_CANT_INVITE_OTHER_RACE());
             return false;
         }

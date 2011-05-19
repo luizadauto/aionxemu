@@ -16,6 +16,7 @@
  */
 package gameserver.controllers;
 
+import gameserver.configs.main.CustomConfig;
 import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.ai.AI;
 import gameserver.ai.events.Event;
@@ -303,7 +304,7 @@ public class NpcController extends CreatureController<Npc> {
                 final double factor = (expLost < 1000000 ?
                         0.25 - (0.00000015 * expLost)
                         : 0.1);
-                final int price = (int) (expLost * factor);
+                final int price = (int) (expLost * factor * CustomConfig.SOULHEALING_PRICE_MULTIPLIER);
 
                 RequestResponseHandler responseHandler = new RequestResponseHandler(npc) {
                     @Override

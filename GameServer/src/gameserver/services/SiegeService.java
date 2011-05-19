@@ -685,6 +685,11 @@ public class SiegeService {
             SiegeRewardTemplate rewardTemplate = locations.get(general.getFortressId()).getLocationTemplate().getSiegeRewards().get(0);
             for (Player pl : players) {
                 ItemService.addItem(pl, rewardTemplate.getItemId(), rewardTemplate.getItemCount());
+                if ( general.getFortressId() == 1011 ) {
+                    pl.getCommonData().addAp(SiegeConfig.SIEGE_AP_REWARD_DIVINE);
+                } else {
+                    pl.getCommonData().addAp(SiegeConfig.SIEGE_AP_REWARD_DEFAULT);
+                }
             }
 
             capture(general.getFortressId(), newRace, legionId);

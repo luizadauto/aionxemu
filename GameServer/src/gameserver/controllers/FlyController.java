@@ -16,6 +16,7 @@
  */
 package gameserver.controllers;
 
+import gameserver.configs.administration.AdminConfig;
 import gameserver.model.EmotionType;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.state.CreatureState;
@@ -90,7 +91,7 @@ public class FlyController {
         ZoneName currentFlightZoneName = null;
         if (ZoneService.getInstance().mapHasFightZones(player.getWorldId())) {
             currentFlightZoneName = ZoneService.getInstance().findFlightZoneInCurrentMap(player.getPosition());
-            if (currentFlightZoneName == null && !player.isGM()) {
+            if (currentFlightZoneName == null && player.getAccessLevel() < AdminConfig.GM_FLIGHT_FREE) {
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_FLYING_FORBIDDEN_HERE);
                 return false;
             }
@@ -98,7 +99,7 @@ public class FlyController {
             ZoneInstance currentZone = player.getZoneInstance();
             if (currentZone != null) {
                 boolean flightAllowed = currentZone.getTemplate().isFlightAllowed();
-                if (!flightAllowed && !player.isGM()) {
+                if (!flightAllowed && player.getAccessLevel() < AdminConfig.GM_FLIGHT_FREE) {
                     PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_FLYING_FORBIDDEN_HERE);
                     return false;
                 }

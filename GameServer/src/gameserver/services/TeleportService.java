@@ -16,6 +16,7 @@
  */
 package gameserver.services;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.PlayerInitialData.LocationData;
 import gameserver.model.EmotionType;
@@ -175,9 +176,7 @@ public class TeleportService
     {
         Storage inventory = player.getInventory();
 
-        // Possibly 20% cheaper flight costs due to 1.9 patch (?)
-        int basePrice = (int) (location.getPrice() * 0.8F);
-
+        int basePrice = (int) (location.getPrice() * CustomConfig.TRANSPORT_COST_MULTIPLIER);
         long transportationPrice = player.getPrices().getPriceForService(basePrice, player.getCommonData().getRace());
 
         if(!inventory.decreaseKinah(transportationPrice))
