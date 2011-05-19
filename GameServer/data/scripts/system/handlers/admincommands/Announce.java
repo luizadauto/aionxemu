@@ -52,7 +52,7 @@ public class Announce extends AdminCommand {
             return;
         }
 
-        if (params == null || params.length != 2) {
+        if (params == null || params.length < 2) {
             PacketSendUtility.sendMessage(admin, "Syntax: //announce <anonymous|name> \"<message>\"");
             return;
         }
@@ -78,7 +78,14 @@ public class Announce extends AdminCommand {
             return;
         }
 
-        message += params[1];
+        if (params.length > 1) {
+            for(int i = 1; i < params.length; ++i) {
+                message += params[i] + " ";
+            }
+        }
+        else {
+            message += params[1];
+        }
 
         final String _message = message;
 

@@ -34,6 +34,8 @@ import gameserver.model.templates.item.ItemTemplate;
 import gameserver.model.templates.item.WeaponType;
 import gameserver.model.templates.itemset.ItemSetTemplate;
 import gameserver.model.templates.itemset.PartBonus;
+import gameserver.skillengine.model.Effect;
+import gameserver.skillengine.model.SkillTemplate;
 import gameserver.services.EnchantService;
 import org.apache.log4j.Logger;
 
@@ -157,8 +159,7 @@ public class ItemEquipmentListener {
 
         addGodstoneEffect(owner, item);
 
-        if (item.getItemTemplate().isWeapon())
-            recalculateWeaponMastery(owner);
+        recalculateWeaponMastery(owner);
 
         if (item.getItemTemplate().isArmor())
             recalculateArmorMastery(owner);
@@ -213,19 +214,33 @@ public class ItemEquipmentListener {
         int currentMainWeaponMasterySkill = owner.getEffectController().getWeaponMastery();
         int currentSubWeaponMasterySkill = owner.getEffectController().getSubWeaponMastery();
         if (currentMainWeaponMasterySkill != 0)
-       		owner.getEffectController().removePassiveEffect(currentMainWeaponMasterySkill);
+            owner.getEffectController().removePassiveEffect(currentMainWeaponMasterySkill);
         if (currentSubWeaponMasterySkill != 0)
-       		owner.getEffectController().removePassiveEffect(currentSubWeaponMasterySkill);
+            owner.getEffectController().removePassiveEffect(currentSubWeaponMasterySkill);
 
-        //use new mastery skills
+        //apply new mastery skills
         WeaponType mainWeaponType = owner.getEquipment().getMainHandWeaponType();
         WeaponType subWeaponType = owner.getEquipment().getOffHandWeaponType();
         Integer mainSkillId = owner.getSkillList().getWeaponMasterySkill(mainWeaponType);
         Integer subSkillId = owner.getSkillList().getWeaponMasterySkill(subWeaponType);
-        if (mainSkillId != null)
-            owner.getController().useSkill(mainSkillId);
-        if (subSkillId != null && mainSkillId != subSkillId)
-            owner.getController().useSkill(subSkillId);
+
+        if (mainSkillId != null) {
+            SkillTemplate mainSkillTemplate = DataManager.SKILL_DATA.getSkillTemplate(mainSkillId);
+            if (mainSkillTemplate != null) {
+                Effect effect = new Effect(owner, owner, mainSkillTemplate, 1, mainSkillTemplate.getDuration());
+                effect.addAllEffectToSucess();
+                effect.applyEffect();
+            }
+        }
+
+        if (subSkillId != null && mainSkillId != subSkillId) {
+            SkillTemplate subSkillTemplate = DataManager.SKILL_DATA.getSkillTemplate(subSkillId);
+            if (subSkillTemplate != null) {
+                Effect effect = new Effect(owner, owner, subSkillTemplate, 1, subSkillTemplate.getDuration());
+                effect.addAllEffectToSucess();
+                effect.applyEffect();
+            }
+        }
     }
 
     /**
@@ -366,8 +381,7 @@ public class ItemEquipmentListener {
 
         removeGodstoneEffect(owner, item);
 
-        if (item.getItemTemplate().isWeapon())
-            recalculateWeaponMastery(owner);
+        recalculateWeaponMastery(owner);
 
         if (item.getItemTemplate().isArmor())
             recalculateArmorMastery(owner);

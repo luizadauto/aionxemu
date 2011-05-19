@@ -67,6 +67,7 @@ public enum StatEnum {
     PARRY(32, "parry"),
     POWER(0, "strength", true),
     SPEED(36, "speed", true),
+    WALK(35, "walk",true),
     HIT_COUNT(0, "hitcount", true),
 
     ATTACK_RANGE(0, "attackrange", true),
@@ -296,5 +297,5 @@ public enum StatEnum {
 
     public boolean isReplace() {
         return replace;
-	}
+    }
 }

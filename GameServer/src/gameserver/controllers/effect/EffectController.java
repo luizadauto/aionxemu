@@ -305,7 +305,9 @@ public class EffectController {
                 EffectId.DISEASE,
                 EffectId.SILENCE,
                 EffectId.CURSE,
-                EffectId.BLOCKADE
+                EffectId.BLOCKADE,
+                EffectId.SNARE,
+                EffectId.SLOW
         };
         for (Effect effect : abnormalEffectMap.values()) {
             if (value == 0)

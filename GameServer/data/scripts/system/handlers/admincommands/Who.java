@@ -20,6 +20,7 @@ package admincommands;
 import java.util.Iterator;
 
 import gameserver.configs.administration.AdminConfig;
+import gameserver.model.Race;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.chathandlers.AdminCommand;
@@ -36,38 +37,72 @@ import gameserver.world.World;
 public class Who extends AdminCommand
 {
 
-   private World   world;
+    private World   world;
 
-   /**
+    /**
     * Constructor.
     */
 
-   public Who()
-   {
+    public Who()
+    {
       super("who");
-   }
+    }
 
-   /**
+    /**
     * {@inheritDoc}
     */
 
-   @Override
-   public void executeCommand(Player admin, String[] params)
-   {
-      if(admin.getAccessLevel() < AdminConfig.COMMAND_WHO)
-      {
-         PacketSendUtility.sendMessage(admin, "You dont have enough rights to execute this command");
-         return;
-      }
-      
-      String sPlayerNames = "";
-      int szPlayersCount = 0;
-     for(Player player : World.getInstance().getPlayers())
-      {
-         sPlayerNames += player.getName()+" ; "; // or other name delimiter:)
-         szPlayersCount++;
-      }
-      PacketSendUtility.sendMessage(admin, "Now  "+String.valueOf( szPlayersCount )+" are online !");
-      PacketSendUtility.sendMessage(admin, "Names of players : "+sPlayerNames);   
-   }
+    @Override
+    public void executeCommand(Player admin, String[] params)
+    {
+        if(admin.getAccessLevel() < AdminConfig.COMMAND_WHO)
+        {
+            PacketSendUtility.sendMessage(admin, "You dont have enough rights to execute this command");
+            return;
+        }
+
+        if (params.length == 0 || params.length > 1) {
+            PacketSendUtility.sendMessage(admin, "syntax //who <asmo | elyos | all>");
+            return;
+        }
+
+        String sPlayerNames = "";
+        String sAsmoPlayerNames = "";
+        String sElyosPlayerNames = "";
+        int szAsmoCount = 0;
+        int szElyosCount = 0;
+        int szPlayersCount = 0;
+
+        for(Player player : World.getInstance().getPlayers())
+        {
+            if(player.getCommonData().getRace() == Race.ASMODIANS)
+            {
+                sAsmoPlayerNames += player.getName()+" ; "; // or other name delimiter:)
+                szAsmoCount++;
+            }
+            else
+            {
+                sElyosPlayerNames += player.getName()+" ; "; // or other name delimiter:)
+                szElyosCount++;
+            }
+        }
+
+        if(params[0].toLowerCase().equals("asmo"))
+        {
+            sPlayerNames = sAsmoPlayerNames;
+            szPlayersCount = szAsmoCount;
+        }
+        else if(params[0].toLowerCase().equals("elyos"))
+        {
+            sPlayerNames = sElyosPlayerNames;
+            szPlayersCount = szElyosCount;
+        }
+        else if(params[0].toLowerCase().equals("all"))
+        {
+            sPlayerNames = sElyosPlayerNames + sAsmoPlayerNames;
+            szPlayersCount = szElyosCount + szAsmoCount;
+        }
+        PacketSendUtility.sendMessage(admin, "Now  "+String.valueOf( szPlayersCount )+" are online !\n");
+        PacketSendUtility.sendMessage(admin, "Names of players : "+sPlayerNames);   
+    }
 }

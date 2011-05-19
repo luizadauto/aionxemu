@@ -19,9 +19,11 @@ package gameserver.ai.events.handler;
 import gameserver.ai.AI;
 import gameserver.ai.events.Event;
 import gameserver.model.gameobjects.Npc;
+import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.templates.spawn.SpawnGroup;
 import gameserver.model.templates.spawn.SpawnTemplate;
 import gameserver.model.templates.spawn.SpawnTime;
+import gameserver.services.RespawnService;
 import gameserver.utils.gametime.DayTime;
 import gameserver.utils.gametime.GameTimeManager;
 
@@ -47,12 +49,13 @@ public class DayTimeChangeEventHandler implements EventHandler {
         int instanceId = owner.getInstanceId();
 
         DayTime dayTime = GameTimeManager.getGameTime().getDayTime();
-        if (spawnTime.isAllowedDuring(dayTime) && spawn.isResting(instanceId)) {
-            owner.getController().scheduleRespawn();
-            spawn.setResting(false, instanceId);
-        } else if (!spawnTime.isAllowedDuring(dayTime) && !spawn.isResting(instanceId)) {
+        if (spawnTime.isAllowedDuring(dayTime)) {
+            RespawnService.addDayTimeSpawn((VisibleObject) owner);
+            RespawnService.RespawnDelayedDayTimeSpawns(dayTime);
+        }
+        else {
             owner.getController().onDespawn(true);
-            spawn.setResting(true, instanceId);
+            owner.getController().scheduleRespawn();
         }
     }
 }

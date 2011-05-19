@@ -22,7 +22,9 @@ import gameserver.controllers.movement.ActionObserver;
 import gameserver.controllers.movement.AttackCalcObserver;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.stats.listeners.ItemEquipmentListener;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.model.templates.item.WeaponType;
 import gameserver.network.aion.serverpackets.SM_SKILL_ACTIVATION;
 import gameserver.skillengine.effect.*;
 import gameserver.utils.PacketSendUtility;
@@ -589,6 +591,9 @@ public class Effect {
                 endEffect();
             }
         }), duration);
+
+        if (effected instanceof Player)
+            reapplyWeaponStats();
     }
 
     /**
@@ -627,6 +632,9 @@ public class Effect {
         effected.getEffectController().clearEffect(this);
         this.isStopped = true;
         this.addedToController = false;
+
+        if (effected instanceof Player)
+            reapplyWeaponStats();
     }
 
     /**
@@ -811,5 +819,21 @@ public class Effect {
                 return ((SkillLauncherEffect) et).getLaunchSkillId();
         }
         return 0;
+    }
+
+    /**
+     * Reapply weapon stats, dual-wielding only
+     */
+    public void reapplyWeaponStats() {
+        Player player = (Player) effected;
+        WeaponType mainWeaponType = player.getEquipment().getMainHandWeaponType();
+        WeaponType subWeaponType = player.getEquipment().getOffHandWeaponType();
+        if (mainWeaponType != null && subWeaponType != null) {
+            Integer mainSkillId = player.getSkillList().getWeaponMasterySkill(mainWeaponType);
+            Integer subSkillId = player.getSkillList().getWeaponMasterySkill(subWeaponType);
+            // check to avoid stackoverflow error
+            if (getSkillId() != mainSkillId && getSkillId() != subSkillId)
+                ItemEquipmentListener.recalculateWeaponMastery(player);
+        }
     }
 }

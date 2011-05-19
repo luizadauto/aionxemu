@@ -77,13 +77,17 @@ public class Announcements extends AdminCommand {
             }
 
             String message = "";
+            if (params.length > 5) {
+                // Add with space
+                for (int i = 4; i < params.length - 1; i++)
+                    message += params[i] + " ";
 
-            // Add with space
-            for (int i = 4; i < params.length - 1; i++)
-                message += params[i] + " ";
-
-            // Add the last without the end space
-            message += params[params.length - 1];
+                // Add the last without the end space
+                message += params[params.length - 1];
+            }
+            else {
+                message = params[4];
+            }
 
             // Create the announce
             Announcement announce = new Announcement(message, params[1], params[2], delay);

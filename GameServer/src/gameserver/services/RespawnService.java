@@ -18,6 +18,8 @@ package gameserver.services;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.VisibleObject;
+import gameserver.model.templates.spawn.SpawnGroup;
+import gameserver.model.templates.spawn.SpawnTemplate;
 import gameserver.model.templates.spawn.SpawnTime;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.utils.gametime.DayTime;
@@ -25,11 +27,14 @@ import gameserver.utils.gametime.GameTimeManager;
 import gameserver.world.World;
 
 import java.util.concurrent.Future;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author ATracer
  */
 public class RespawnService {
+    static List<VisibleObject> dayTimeSpawns = new CopyOnWriteArrayList<VisibleObject>();
 
     /**
      * @param npc
@@ -52,7 +57,6 @@ public class RespawnService {
      * @param visibleObject
      */
     public static Future<?> scheduleRespawnTask(final VisibleObject visibleObject) {
-        final World world = World.getInstance();
         final int interval = visibleObject.getSpawn().getSpawnGroup().getInterval();
 
         return ThreadPoolManager.getInstance().schedule(new Runnable() {
@@ -61,25 +65,75 @@ public class RespawnService {
                 SpawnTime spawnTime = visibleObject.getSpawn().getSpawnGroup().getSpawnTime();
                 if (spawnTime != null) {
                     DayTime dayTime = GameTimeManager.getGameTime().getDayTime();
-                    if (!spawnTime.isAllowedDuring(dayTime))
+                    if (!spawnTime.isAllowedDuring(dayTime)) {
+                        addDayTimeSpawn(visibleObject);
                         return;
+                    }
                 }
-
-                int instanceId = visibleObject.getInstanceId();
-                int worldId = visibleObject.getSpawn().getWorldId();
-                boolean instanceExists = InstanceService.isInstanceExist(worldId, instanceId);
-
-                if (visibleObject.getSpawn().isNoRespawn(instanceId) || !instanceExists) {
-                    visibleObject.getController().delete();
-                } else {
-                    visibleObject.getSpawn().getSpawnGroup().exchangeSpawn(visibleObject);
-                    world.setPosition(visibleObject, worldId, visibleObject.getSpawn().getX(), visibleObject.getSpawn().getY(), visibleObject.getSpawn().getZ(), visibleObject.getSpawn().getHeading());
-                    //call onRespawn before actual spawning
-                    visibleObject.getController().onRespawn();
-                    world.spawn(visibleObject);
-                }
+                scheduleRespawnTaskOk(visibleObject);
             }
 
         }, interval * 1000);
+    }
+
+    public static void addDayTimeSpawn(VisibleObject visibleObject) {
+        synchronized (dayTimeSpawns) {
+            if (!dayTimeSpawns.contains(visibleObject))
+                dayTimeSpawns.add(visibleObject);
+        }    
+    }
+
+    public static boolean scheduleRespawnTaskOk(VisibleObject visibleObject) {
+        int instanceId = visibleObject.getInstanceId();
+        int worldId = visibleObject.getSpawn().getWorldId();
+        boolean instanceExists = InstanceService.isInstanceExist(worldId, instanceId);
+
+        if (visibleObject.getSpawn().isNoRespawn(instanceId) || !instanceExists) {
+            visibleObject.getController().delete();
+            return false;
+        } else {
+            World world = World.getInstance();
+            visibleObject.getSpawn().getSpawnGroup().exchangeSpawn(visibleObject);
+            world.setPosition(visibleObject, worldId, visibleObject.getSpawn().getX(), visibleObject.getSpawn().getY(), visibleObject.getSpawn().getZ(), visibleObject.getSpawn().getHeading());
+            //call onRespawn before actual spawning
+            visibleObject.getController().onRespawn();
+            world.spawn(visibleObject);
+            return true;
+        }    
+    }
+
+    public static void RespawnDelayedDayTimeSpawns(DayTime dayTime) {
+        synchronized (dayTimeSpawns) {
+            for (VisibleObject visibleObject : dayTimeSpawns)
+            {
+                SpawnTemplate spawnTemplate = visibleObject.getSpawn();
+                if (spawnTemplate == null) {
+                    dayTimeSpawns.remove(visibleObject);
+                    continue;
+                }
+
+                int instanceId = visibleObject.getInstanceId();
+                if (spawnTemplate.isSpawned(instanceId)) {
+                    dayTimeSpawns.remove(visibleObject);
+                    continue;
+                }
+
+                SpawnGroup spawnGroup = spawnTemplate.getSpawnGroup();
+                if (spawnGroup == null) {
+                    dayTimeSpawns.remove(visibleObject);
+                    continue;
+                }
+
+                SpawnTime spawnTime = spawnGroup.getSpawnTime();
+                if (spawnTime == null) {
+                    dayTimeSpawns.remove(visibleObject);
+                    continue;
+                }
+
+                if (spawnTime.isAllowedDuring(dayTime)) {
+                    scheduleRespawnTaskOk(visibleObject);
+                }
+            }
+        }
     }
 }

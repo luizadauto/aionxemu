@@ -27,7 +27,7 @@ import gameserver.world.World;
  *
  */
 public class GMList extends AdminCommand {
-	public GMList() {
+    public GMList() {
         super("gmlist");
     }
 
@@ -37,22 +37,23 @@ public class GMList extends AdminCommand {
             PacketSendUtility.sendMessage(admin, "You dont have enough rights to execute this command");
             return;
         }
-        
+
         //Message[s] before start of list
-        PacketSendUtility.sendMessage(admin, "Online GMs:");
-        PacketSendUtility.sendMessage(admin, "--------------------");
-        
+        String msg = "Online GMs:\n";
+        msg += "--------------------\n";
+
         //Iterate through all players online
         for(Player player : World.getInstance().getPlayers())
         {
-          if (player.isGM())//If player is GM, list them
-          {
-          PacketSendUtility.sendMessage(admin, player.getName());
-          }
+            if (player.isGM())//If player is GM, list them
+            {
+                msg += player.getName() + "\n";
+            }
         }
-        
+
+        msg += "--------------------\n";
+
         //Mesage[s] after end of list
-        PacketSendUtility.sendMessage(admin, "--------------------");
-        
-      }
+        PacketSendUtility.sendMessage(admin, msg);
+    }
 }

@@ -433,6 +433,9 @@ public class QuestEngine {
     }
 
     public TIntArrayList getQuestEnterZone(ZoneName zoneName) {
+        if (zoneName == null)
+            return new TIntArrayList();
+
         if (questEnterZone.containsKey(zoneName)) {
             return questEnterZone.get(zoneName);
         }

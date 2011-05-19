@@ -53,7 +53,7 @@ public class NpcGameStats extends CreatureGameStats<Npc> {
         initStat(StatEnum.MAIN_HAND_ACCURACY, Math.round(nst.getAccuracy() * 2.3f + owner.getLevel() * 10));
         initStat(StatEnum.MAIN_HAND_CRITICAL, Math.round(nst.getCrit()));
         initStat(StatEnum.SPEED, Math.round(nst.getRunSpeedFight() * 1000));
-
+        initStat(StatEnum.WALK, Math.round(nst.getWalkSpeed() * 1000));
         initStat(StatEnum.MAGICAL_ACCURACY, 1500);
         initStat(StatEnum.BOOST_MAGICAL_SKILL, 1000);
 

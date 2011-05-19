@@ -27,7 +27,7 @@ import gameserver.utils.chathandlers.AdminCommand;
 /**
  * Admin notice command
  *
- * @author Jenose
+ * @author Jenose, ZeroSignal
  *         Updated By Darkwolf
  */
 
@@ -48,17 +48,22 @@ public class Notice extends AdminCommand {
             return;
         }
 
-        String message = "";
-
-        try {
-            for (int i = 0; i < params.length; i++) {
-                message += " " + params[i];
+        String msg;
+        if (params.length > 1) {
+            msg = "";
+            try {
+                for (int i = 0; i < params.length; i++) {
+                    msg += " " + params[i];
+                }                    
+            }
+            catch (NumberFormatException e) {
+                PacketSendUtility.sendMessage(admin, "parameters should be text and numbers");
+                return;
             }
         }
-        catch (NumberFormatException e) {
-            PacketSendUtility.sendMessage(admin, "parameters should be text and numbers");
-            return;
-        }
-        PacketSendUtility.broadcastPacket(admin, new SM_MESSAGE(0, null, "Information : " + message, ChatType.SYSTEM_NOTICE), true);
+        else
+            msg = params[0];
+
+        PacketSendUtility.broadcastPacket(admin, new SM_MESSAGE(0, null, "Information : " + msg, ChatType.SYSTEM_NOTICE), true);
     }
 }

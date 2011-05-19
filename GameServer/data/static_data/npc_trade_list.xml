@@ -2229,7 +2229,7 @@
 		<tradelist id="5016"/>
 		<tradelist id="5036"/>
 	</tradelist_template>
-	<tradelist_template npc_id="799063" count="3" category="0">
+	<tradelist_template category="0" sell_price_rate="200" npc_id="799063" name="Chenshurunerk" count="3">
 		<tradelist id="828"/>
 		<tradelist id="829"/>
 		<tradelist id="830"/>

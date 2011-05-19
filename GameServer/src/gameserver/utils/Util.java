@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 /**
- * @author -Nemesiss-
+ * @author -Nemesiss-, ZeroSignal
  */
 public class Util {
     /**
@@ -128,5 +128,27 @@ public class Util {
         String matchArray[] = new String[matchList.size()];
         matchArray = matchList.toArray(matchArray);
         return matchArray; 
+    }
+
+    public static String[] splitStringFixedLen(String data, int interval) {
+        List<String> dataPiece = new ArrayList<String>();
+
+        int addedOffset;
+        for (int offset = 0; offset < data.length(); offset += addedOffset) {
+            String subData = data.substring(offset, Math.min(data.length(), (offset + interval)));
+            addedOffset = subData.lastIndexOf('\n');
+            if (addedOffset >= 0) {
+                subData = subData.substring(0, addedOffset);
+                ++addedOffset;
+            }
+            else {
+                addedOffset = interval;
+            }
+            dataPiece.add(subData);
+        }
+
+        String[] result = new String[dataPiece.size()];
+        dataPiece.toArray(result);
+        return result;
     }
 }

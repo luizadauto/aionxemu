@@ -54,8 +54,6 @@ public class SpawnTemplate {
     private BitSet spawnState = new BitSet();
     @XmlTransient
     private BitSet noRespawn = new BitSet();
-    @XmlTransient
-    private BitSet restingState = new BitSet();
 
     private int spawnId = 0;
 
@@ -144,20 +142,6 @@ public class SpawnTemplate {
      */
     public void setSpawnGroup(SpawnGroup spawnGroup) {
         this.spawnGroup = spawnGroup;
-    }
-
-    /**
-     * @return the isResting
-     */
-    public boolean isResting(int instance) {
-        return restingState.get(instance);
-    }
-
-    /**
-     * @param isResting the isResting to set
-     */
-    public void setResting(boolean isResting, int instance) {
-        restingState.set(instance, isResting);
     }
 
     /**

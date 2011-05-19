@@ -19,73 +19,79 @@ package quest.inggison;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
-import gameserver.model.templates.quest.QuestItems;
-import gameserver.model.gameobjects.Item;
-import gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import gameserver.questEngine.handlers.QuestHandler;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
-import gameserver.services.ItemService;
-import gameserver.services.QuestService;
-import gameserver.utils.PacketSendUtility;
 
 /**
- * @author Fennek
+ * @author Fennek, PZIKO333
  * 
  */
 
-public class _30201SuppliesParty	extends QuestHandler
+public class _30201SuppliesParty extends QuestHandler
 {
 	private final static int questId = 30201;
-	
+
 	public _30201SuppliesParty()
 	{
 		super (questId);
 	}
-	
+
 	@Override
 	public void register()
 	{
-		qe.setNpcQuestData(798926).addOnQuestStart(questId); //Outremus start
-		qe.setNpcQuestData(798926).addOnTalkEvent(questId); // Outremus
+		qe.setNpcQuestData(798926).addOnQuestStart(questId);
+		qe.setNpcQuestData(798926).addOnTalkEvent(questId);
 	}
-	
+
 	@Override
 	public boolean onDialogEvent(final QuestCookie env)
 	{
-		//Instanceof
 		final Player player = env.getPlayer();
 		int targetId = 0;
 		if (env.getVisibleObject() instanceof Npc)
-            targetId = ((Npc) env.getVisibleObject()).getNpcId();
+			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
-		
-		// ------------------------------------------------------------
-        // NPC Quest :
-		// Outremus start
+
 		if (qs == null || qs.getStatus() == QuestStatus.NONE)
 		{
-			if (targetId == 798926) //Outremus start
+			if (targetId == 798926)
 			{
-				switch (env.getDialogId())
-				{
-				case 25:
+				if (env.getDialogId() == 25)
 					return sendQuestDialog(env, 1011);
-				case 1008:
-					return sendQuestDialog(env, 2375);
-				case 33:
-					if (player.getInventory().getItemCountByItemId(182209601) < 1)
-					{
-						return sendQuestDialog(env, 2716);
-					}
-					player.getInventory().removeFromBagByItemId(182209601, 1);
-					qs.setStatus(QuestStatus.REWARD);
-					updateQuestStatus(env);
-					return sendQuestDialog(env, 5);
-				}
+				else
+					return defaultQuestStartDialog(env);
 			}
 			return false;
+		} else if (targetId == 798926) {
+			if (qs != null || qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0)
+			{
+				if (env.getDialogId() == 25)
+					return sendQuestDialog(env, 2375);
+				else if (env.getDialogId() == 1007)
+					return sendQuestDialog(env, 2375);
+				else if (env.getDialogId() == 33)
+				{
+					if(player.getInventory().getItemCountByItemId(182209601) == 0)
+					{
+						return sendQuestDialog(env, 2716);
+					} else {
+						qs.setStatus(QuestStatus.REWARD);
+						return sendQuestDialog(env, 5);						
+					}
+				}
+				else if (env.getDialogId() == 17)
+				{
+					player.getInventory().removeFromBagByItemId(182209601, 1);
+					updateQuestStatus(env);
+					return defaultQuestEndDialog(env);
+				}
+			}
+			if (qs != null || qs.getStatus() == QuestStatus.REWARD )
+			{
+				return defaultQuestEndDialog(env);
+			}
 		}
 		return false;
 	}

@@ -21,7 +21,7 @@
 <spawns>
 	<!-- Agehia (NPC Normal lvl:50)-->
 	<spawn map="120020000" npcid="798800" pool="1" interval="105">
-		<object x="1516.1189" y="1399.5325" z="271.8872" h="69"/>
+		<object x="1516.1189" y="1399.5325" z="271.8872" h="7"/>
 	</spawn>
 	<!-- Angulof (NPC Normal lvl:50)-->
 	<spawn map="120020000" npcid="798700" pool="1" interval="105">

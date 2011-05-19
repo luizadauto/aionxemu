@@ -43,7 +43,9 @@ public class PlayerRestrictions extends AbstractRestrictions {
         if (skill == null)
             return false;
 
-        if (((Creature) target).getLifeStats().isAlreadyDead() && !skill.getSkillTemplate().hasResurrectEffect() && !skill.checkNonTargetAOE()) {
+        Creature creature = (Creature) target;
+
+        if (creature.getLifeStats().isAlreadyDead() && !skill.getSkillTemplate().hasResurrectEffect() && !skill.checkNonTargetAOE()) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.INVALID_TARGET());
             return false;
         }
@@ -59,6 +61,12 @@ public class PlayerRestrictions extends AbstractRestrictions {
         if (player.isInState(CreatureState.PRIVATE_SHOP)) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_CANNOT_USE_ITEM_WHILE_PRIVATE_STORE);
             return false;
+        }
+
+        if (creature instanceof FortressGeneral) {
+            FortressGeneral fortressGeneral = (FortressGeneral) creature;
+            if (!fortressGeneral.isEnemyPlayer(player))
+                return false;
         }
 
         return true;
@@ -243,7 +251,9 @@ public class PlayerRestrictions extends AbstractRestrictions {
 
         if (creature instanceof FortressGeneral) {
             FortressGeneral fortressGeneral = (FortressGeneral) creature;
-            if (!fortressGeneral.isEnemyPlayer(player))
+            if (fortressGeneral.isEnemyPlayer(player))
+                return true;
+            else
                 return false;
         }
 

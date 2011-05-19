@@ -22,12 +22,12 @@ import com.aionemu.commons.configuration.Property;
  * @author ATracer
  */
 public class AdminConfig {
-	
-	@Property(key = "gameserver.administration.command.enemy", defaultValue = "3")
-	public static int COMMAND_ENEMY;
-	
-	@Property(key = "gameserver.administration.command.who", defaultValue = "3")
-	public static int COMMAND_WHO;
+
+    @Property(key = "gameserver.administration.command.enemy", defaultValue = "3")
+    public static int COMMAND_ENEMY;
+
+    @Property(key = "gameserver.administration.command.who", defaultValue = "3")
+    public static int COMMAND_WHO;
 
     @Property(key = "administration.command.passkeyreset", defaultValue = "3")
     public static int COMMAND_PASSKEY_RESET;
@@ -145,8 +145,8 @@ public class AdminConfig {
 
     @Property(key = "gameserver.administration.command.prison", defaultValue = "3")
     public static int COMMAND_PRISON;
-	
-	@Property(key = "gameserver.administration.command.admin", defaultValue = "1")
+
+    @Property(key = "gameserver.administration.command.admin", defaultValue = "1")
     public static int COMMAND_ADMIN;
 
     @Property(key = "gameserver.administration.command.promote", defaultValue = "3")
@@ -241,7 +241,7 @@ public class AdminConfig {
 
     @Property(key = "gameserver.administration.command.powerup", defaultValue = "3")
     public static int COMMAND_POWERUP;
-	
+
     @Property(key = "gameserver.administration.command.godstone", defaultValue = "3")
     public static int COMMAND_GODSTONE;
 
@@ -292,20 +292,22 @@ public class AdminConfig {
 
     @Property(key = "gameserver.administration.command.html", defaultValue = "3")
     public static int COMMAND_HTML;
-    
+
     @Property(key = "gameserver.administration.command.gmlist", defaultValue = "0")
-	public static int COMMAND_GMLIST;
-	
+    public static int COMMAND_GMLIST;
+
     @Property(key = "gameserver.administration.command.appearance", defaultValue = "3")
     public static int COMMAND_APPEARANCE;    
-	
+
     @Property(key = "gameserver.administration.command.see", defaultValue = "3")
     public static int COMMAND_SEE;
-    
+
     @Property(key = "gameserver.administration.instancenogroup", defaultValue = "3")
     public static int INSTANCE_NO_GROUP;
-    
+
     @Property(key = "gameserver.administration.command.survey", defaultValue = "3")
     public static int COMMAND_SURVEY;
 
+    @Property(key = "gameserver.administration.command.addeffect", defaultValue = "3")
+    public static int COMMAND_ADDEFFECT;
 }

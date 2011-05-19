@@ -6890,5 +6890,9 @@
 	<!-- Veille's Aetheric Concentrator B ( Monster Veteran Level:55 ) -->
 	<spawn map="210050000" npcid="296908" pool="1" interval="295">
 		<object h="0" x="1113.8162" y="1491.432" z="404.52542" staticid="1213"/>
-	</spawn>	
+	</spawn>
+	<!-- Chenshurunerk -->
+	<spawn interval="60" map="210050000" npcid="799063" pool="1">
+		<object x="2271.02" y="2342.11" z="58.8207" h="73"/>
+	</spawn>
 </spawns>

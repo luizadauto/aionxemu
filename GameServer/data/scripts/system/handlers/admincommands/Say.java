@@ -56,12 +56,17 @@ public class Say extends AdminCommand {
             return;
         }
 
-        StringBuilder sbMessage = new StringBuilder();
+        String sMessage;
+        if (params.length > 1) {
+            StringBuilder sbMessage = new StringBuilder();
 
-        for (String p : params)
-            sbMessage.append(p + " ");
+            for (String p : params)
+                sbMessage.append(p + " ");
 
-        String sMessage = sbMessage.toString().trim();
+            sMessage = sbMessage.toString().trim();
+        }
+        else
+            sMessage = params[0];
 
         if (target instanceof Player) {
             PacketSendUtility.broadcastPacket(((Player) target), new SM_MESSAGE(((Player) target), sMessage, ChatType.NORMAL), true);

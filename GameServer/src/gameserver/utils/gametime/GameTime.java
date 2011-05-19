@@ -17,6 +17,7 @@
 package gameserver.utils.gametime;
 
 import gameserver.services.GameTimeService;
+import gameserver.services.RespawnService;
 
 import java.security.InvalidParameterException;
 
@@ -59,10 +60,11 @@ public class GameTime {
      * Increases game time by a minute
      */
     protected void increase() {
-        gameTime++;
         if (getMinute() == 0) {
             analyzeDayTime();
+            RespawnService.RespawnDelayedDayTimeSpawns(this.dayTime);
         }
+        ++gameTime;
     }
 
     /**
@@ -80,7 +82,7 @@ public class GameTime {
         else
             newDateTime = DayTime.MORNING;
 
-        if (newDateTime != this.dayTime) {
+        if (newDateTime != this.dayTime || gameTime == 0) {
             this.dayTime = newDateTime;
             this.onDayTimeChange();
         }

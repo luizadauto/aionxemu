@@ -323,4 +323,10 @@ public class CustomConfig {
      */
     @Property(key = "gameserver.duel.length", defaultValue = "300")
     public static int DUEL_LENGTH;
+
+    /**
+     * Size of Text Messages per packet.
+     */
+    @Property(key = "gameserver.message.length", defaultValue = "512")
+    public static int MESSAGE_LENGTH;
 }

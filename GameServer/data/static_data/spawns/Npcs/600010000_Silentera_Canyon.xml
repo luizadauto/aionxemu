@@ -217,4 +217,8 @@
 	<spawn map="600010000" npcid="799087" pool="1" interval="295">
 		<object x="531" y="335" h="110" z="299.625"/>
 	</spawn>
+	<!-- Pradaaknerk -->
+	<spawn map="600010000" npcid="799510" pool="1" interval="60">
+		<object x="930.601" y="1397.41" z="340.25" h="51"/>
+	</spawn> 
 </spawns>

@@ -16,6 +16,7 @@
  */
 package gameserver.utils;
 
+import gameserver.configs.main.CustomConfig;
 import com.aionemu.commons.objects.filter.ObjectFilter;
 import gameserver.model.ChatType;
 import gameserver.model.gameobjects.VisibleObject;
@@ -24,6 +25,7 @@ import gameserver.model.legion.Legion;
 import gameserver.network.aion.AionServerPacket;
 import gameserver.network.aion.AionServerPacketSeq;
 import gameserver.network.aion.serverpackets.SM_MESSAGE;
+import gameserver.utils.Util;
 import gameserver.world.Executor;
 
 /**
@@ -41,7 +43,10 @@ public class PacketSendUtility {
      * @param msg
      */
     public static void sendMessage(Player player, String msg) {
-        sendPacket(player, new SM_MESSAGE(0, null, msg, ChatType.ANNOUNCEMENTS));
+        String[] msgPiece = Util.splitStringFixedLen(msg, CustomConfig.MESSAGE_LENGTH);
+        for (int i = 0; i < msgPiece.length; ++i) {
+            sendPacket(player, new SM_MESSAGE(0, null, msgPiece[i], ChatType.ANNOUNCEMENTS));
+        }
     }
 
     /**
@@ -51,7 +56,10 @@ public class PacketSendUtility {
      * @param msg
      */
     public static void sendSysMessage(Player player, String msg) {
-        sendPacket(player, new SM_MESSAGE(0, null, msg, ChatType.SYSTEM_NOTICE));
+        String[] msgPiece = Util.splitStringFixedLen(msg, CustomConfig.MESSAGE_LENGTH);
+        for (int i = 0; i < msgPiece.length; ++i) {
+            sendPacket(player, new SM_MESSAGE(0, null, msgPiece[i], ChatType.SYSTEM_NOTICE));
+        }
     }
 
     /**
