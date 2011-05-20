@@ -4379,6 +4379,10 @@
         <object x="1389.821" y="2902.658" z="270.83746" h="79"/>
         <object x="1304.058" y="2830.727" z="259.51917" h="100"/>
     </spawn>
+    <!-- Numutata (Monster Normal lvl:39)-->
+    <spawn map="220020000" npcid="217136" pool="1" interval="260">
+        <object x="2106.9697" y="722.9941" z="244.50148" h="72"/>
+    </spawn>
     <!-- Nunu Brave (Monster Normal lvl:38)-->
     <spawn map="220020000" npcid="211581" pool="17" interval="260">
         <object x="2349.811" y="413.9443" z="227.7229" h="13"/>
