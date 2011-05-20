@@ -24,5 +24,6 @@ public enum ChannelType
 	PUBLIC,
 	TRADE,
 	GROUP,
-	JOB;
+	JOB,
+	USER;
 }

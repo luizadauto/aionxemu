@@ -39,6 +39,7 @@ public class SM_SHOW_BRAND extends AionServerPacket {
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
 
         writeH(buf, 0x01); //unk
+		writeD(buf, 0x01); //unk
         writeD(buf, brandId);
         writeD(buf, targetObjectId);
 

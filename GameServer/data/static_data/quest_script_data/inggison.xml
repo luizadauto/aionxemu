@@ -486,6 +486,12 @@
 	<report_to start_npc_id="798903" end_npc_id="799032" id="30031"/>
 	<!-- 30032: Noble Siel's Supreme Mace -->
 	<item_collecting start_npc_id="799032" id="30032"/>
+	<!-- 30201 Supplyparty -->
+	<item_collecting id="30201" start_npc_id="798926" />
+	<!-- 30204  Pilomenes' Advice -->
+	<report_to start_npc_id="798926" end_npc_id="798941" id="30204"/>
+	<!-- 30205 A Monument Rubbed -->
+	<item_collecting id="30205" start_npc_id="798941"/>
 	<!-- 38502: Sake Of Beauty -->
 	<item_collecting id="38502" start_npc_id="799085"/>
 	<!-- 38503: High Flying Shugo -->

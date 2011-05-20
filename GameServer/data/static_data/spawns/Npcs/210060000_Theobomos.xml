@@ -330,8 +330,8 @@
 	<spawn map="210060000" npcid="798146" pool="1" interval="295">
 		<object x="1360.40000" y="1480.00000" z="32.42500" h="88"/>
 	</spawn>
-	<!-- Hidden Escape Exit (Object Normal lvl:1)-->
-	<spawn map="210060000" npcid="730206" pool="1" interval="295">
+	<!-- Theobomos Lab Entrance (Object Normal lvl:1)-->
+	<spawn map="210060000" npcid="730154" pool="1" interval="295">
 		<object staticid="525" x="2978.7993" y="192.61938" z="172.54498" h="32"/>
 	</spawn>
 	<!-- Huge Obstacle (Object Normal lvl:1)-->
@@ -721,10 +721,6 @@
 	<!-- Themis (NPC Elite lvl:50)-->
 	<spawn map="210060000" npcid="798222" pool="1" interval="295">
 		<object x="2073.67100" y="1878.91300" z="40.12500" h="59"/>
-	</spawn>
-	<!-- Theobomos Lepharist Research Center Entrance (Object Normal lvl:1)-->
-	<spawn map="210060000" npcid="730154" pool="1" interval="295">
-		<object staticid="525" x="2978.09000" y="193.51000" z="172.14000" h="45"/>
 	</spawn>
 	<!-- Thesaly (NPC Normal lvl:40)-->
 	<spawn map="210060000" npcid="798141" pool="1" interval="295">

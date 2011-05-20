@@ -18,12 +18,14 @@
 package gameserver.network.aion.clientpackets;
 
 
+import gameserver.configs.main.GSConfig;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.serverpackets.SM_PLAYER_INFO;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.questEngine.QuestEngine;
 import gameserver.questEngine.model.QuestCookie;
+import gameserver.services.ChatService;
 import gameserver.services.WeatherService;
 import gameserver.spawnengine.RiftSpawnManager;
 import gameserver.world.World;
@@ -59,6 +61,12 @@ public class CM_LEVEL_READY extends AionClientPacket {
     @Override
     protected void runImpl() {
         Player activePlayer = getConnection().getActivePlayer();
+        
+        /**
+         * Start initializing chat connection(/1, /2, /3, /4 channels)
+         */
+        if (!GSConfig.DISABLE_CHAT_SERVER)
+            ChatService.onPlayerLogin(activePlayer);
 
         sendPacket(new SM_PLAYER_INFO(activePlayer, false));
         activePlayer.getController().startProtectionActiveTask();

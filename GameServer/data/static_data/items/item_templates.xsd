@@ -390,7 +390,6 @@
             <xs:enumeration value="CASH_DEBRIE_HEAD"/>
             <xs:enumeration value="CASH_DEBRIE_SHOES"/>
 			<xs:enumeration value="CASH_DEVA_BODY"/>
-			<xs:enumeration value="CASH_DEVA_BODY"/>
 			<xs:enumeration value="CASH_DEVA_HEAD"/>
             <xs:enumeration value="CASH_DEVIL_HEAD"/>
             <xs:enumeration value="CASH_DYE_BLACK"/>
@@ -426,7 +425,6 @@
             <xs:enumeration value="CASH_MACE"/>
             <xs:enumeration value="CASH_MANDURI_HEAD"/>
             <xs:enumeration value="CASH_MINX_HEAD"/>
-			<xs:enumeration value="CASH_MISSA_BODY"/>
 			<xs:enumeration value="CASH_MISSA_BODY"/>
 			<xs:enumeration value="CASH_MISSA_HEAD"/>
             <xs:enumeration value="CASH_MUTA_HEAD"/>

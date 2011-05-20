@@ -44,6 +44,9 @@ public class ChatService {
      * @param player
      */
     public static void onPlayerLogin(final Player player) {
+    	if(player.isConnectedChat())
+    		return;
+    	
         ThreadPoolManager.getInstance().schedule(new Runnable() {
 
             @Override
@@ -88,6 +91,7 @@ public class ChatService {
         if (player != null) {
             players.put(playerId, player);
             PacketSendUtility.sendPacket(player, new SM_CHAT_INIT(token));
+            player.setConnectedChat(true);
         }
     }
 

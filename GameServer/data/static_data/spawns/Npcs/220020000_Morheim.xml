@@ -1114,15 +1114,15 @@
 	</spawn>
 	<!-- Sky Temple Teleporter - Fire Room -->
 	<spawn map="220020000" npcid="730045" pool="1" interval="295">
-		<object x="1686.95" y="1141.74" z="200.35" h="98"/>
+		<object staticid="649" x="1683.27" y="1153.9752" z="200.35" h="24"/>
 	</spawn>
 	<!-- Sky Temple Teleporter - Wind Room -->
 	<spawn map="220020000" npcid="730043" pool="1" interval="295">
-		<object x="1684.85" y="1158.97" z="200.35" h="24"/>
+		<object staticid="646" x="1686.95" y="1141.74" z="200.35" h="98"/>
 	</spawn>
 	<!-- Sky Temple Teleporter - Water Room -->
 	<spawn map="220020000" npcid="730041" pool="1" interval="295">
-		<object x="1670.90" y="1146.98" z="200.44" h="61"/>
+		<object staticid="648" x="1670.90" y="1146.98" z="200.44" h="61"/>
 	</spawn>
 	<!-- Teleporter Fire Temple -->
 	<spawn map="220020000" npcid="730047" pool="1" interval="295">

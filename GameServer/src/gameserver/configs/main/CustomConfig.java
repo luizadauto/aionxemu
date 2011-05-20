@@ -289,7 +289,7 @@ public class CustomConfig {
     /**
      * Enable Surveys
      */
-    @Property(key = "gameserver.enable.surveys", defaultValue = "false")
+    @Property(key = "gameserver.enable.surveys", defaultValue = "true")
     public static boolean ENABLE_SURVEYS;
 
     /**

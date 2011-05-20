@@ -33,7 +33,6 @@ import com.aionengine.chatserver.service.ChatService;
  */
 public class CM_CHANNEL_REQUEST extends AbstractClientPacket
 {
-	@SuppressWarnings("unused")
 	private static final Logger	log	= Logger.getLogger(CM_CHANNEL_REQUEST.class);
 
 	private int					channelIndex;
@@ -63,30 +62,32 @@ public class CM_CHANNEL_REQUEST extends AbstractClientPacket
 	@Override
 	protected void runImpl()
 	{
-//		try
-//		{
-//			log.info("Channel requested " + new String(channelIdentifier, "UTF-16le"));
-//		}
-//		catch (UnsupportedEncodingException e)
-//		{
-//			e.printStackTrace();
-//		}
+		/* try
+		{
+			log.info("CM_CHANNEL_REQUEST: " + channelIndex + " and channel: " + new String(channelIdentifier, "UTF-16le"));
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		} */
+		
 		ChatClient chatClient = clientChannelHandler.getChatClient();
 		Channel channel = ChatService.getInstance().registerPlayerWithChannel(chatClient, channelIndex, channelIdentifier);
 		if (channel != null)
 		{
-			clientChannelHandler.sendPacket(new SM_CHANNEL_RESPONSE(chatClient, channel));
+			//log.info("Sending SM_CHANNEL_RESPONSE with channel " + channel.getChannelId() + " index " + channelIndex);
+			clientChannelHandler.sendPacket(new SM_CHANNEL_RESPONSE(channel, channelIndex));
 		}
-		else {
+		else
+		{
 			try
 			{
-				log.info("No channel with index " + channelIndex + " with channel identifier " + new String(channelIdentifier, "UTF-16le") + " for client " + chatClient.getClientId());
-				//log.info("Channel requested " + new String(channelIdentifier, "UTF-16le"));
+				log.error("CM_CHANNEL_REQUEST NULL!: " + channelIndex + " and channel: " + new String(channelIdentifier, "UTF-16le"));
 			}
-			catch (UnsupportedEncodingException e)
+			catch(UnsupportedEncodingException e)
 			{
 				e.printStackTrace();
-			}			
+			}
 		}
 	}
 

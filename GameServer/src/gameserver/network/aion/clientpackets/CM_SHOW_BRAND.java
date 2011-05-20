@@ -43,6 +43,8 @@ public class CM_SHOW_BRAND extends AionClientPacket {
      */
     @Override
     protected void readImpl() {
+    	@SuppressWarnings("unused")
+		int unk1 = readD(); //unknown always 1
         brandId = readD();
         targetObjectId = readD();
     }

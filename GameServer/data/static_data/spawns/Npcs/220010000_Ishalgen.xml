@@ -360,10 +360,6 @@
 		<object x="525.52936" y="2450.7332" z="282.0" h="0"/>
 	</spawn>
 	<!-- Rae (NPC Normal lvl:5)-->
-	<spawn map="220010000" npcid="203553" pool="1" interval="295">
-		<object x="923.5117" y="2290.9832" z="266.59406" h="111"/>
-	</spawn>
-	<!-- Rae (NPC Normal lvl:5)-->
 	<spawn map="220010000" npcid="203554" pool="1" interval="295">
 		<object x="648.3247" y="920.85565" z="310.8089" h="43"/>
 	</spawn>

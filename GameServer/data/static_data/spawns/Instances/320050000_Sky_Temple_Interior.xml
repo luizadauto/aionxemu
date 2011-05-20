@@ -315,14 +315,14 @@
     </spawn>
     <!-- Water Room Exit -->
     <spawn map="320050000" npcid="730042" pool="1" interval="295">
-        <object x="377.89444" y="72.59516" z="226.6414" h="9"/>
+        <object staticid="15" x="377.89444" y="72.59516" z="226.6414" h="9"/>
     </spawn>
     <!-- Wind Room Exit -->
     <spawn map="320050000" npcid="730044" pool="1" interval="295">
-        <object x="461.76865" y="438.30002" z="375.05515" h="73"/>
+        <object staticid="16" x="461.76865" y="438.30002" z="375.05515" h="73"/>
     </spawn>
     <!-- Fire Room Exit -->
     <spawn map="320050000" npcid="730046" pool="1" interval="295">
-        <object x="231.35619" y="304.58322" z="550.5545" h="77"/>
+        <object staticid="17" x="231.35619" y="304.58322" z="550.5545" h="77"/>
     </spawn>
 </spawns>

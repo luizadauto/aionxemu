@@ -133,6 +133,7 @@ public class Player extends Creature {
     private int zephyrObjectId = 0;
     private ToyPet toyPet;
     private boolean edit_mode = false;
+    private boolean connectedChat = false;
 
     private Map<Integer, ItemCooldown> itemCoolDowns;
 
@@ -1564,5 +1565,21 @@ public class Player extends Creature {
         if (questState == null)
             return false;
         return (questState.getStatus() == QuestStatus.START);
+    }
+
+        /**
+     * @param connectedChat the connectedChat to set
+     */
+    public void setConnectedChat(boolean connectedChat)
+    {
+        this.connectedChat = connectedChat;
+    }
+
+    /**
+     * @return the connectedChat
+     */
+    public boolean isConnectedChat()
+    {
+        return connectedChat;
     }
 }

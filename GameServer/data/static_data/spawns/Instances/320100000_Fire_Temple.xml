@@ -5,6 +5,10 @@
 
  -->
 <spawns>
+	<!-- Fire Temple Exit Door -->
+	<spawn map="320100000" npcid="730048" pool="1" interval="295">
+		<object staticid="647" x="149.01385" y="466.66568" z="141.31714" h="0"/>
+	</spawn>
 	<!-- Vengeful Obscura -->
 	<spawn map="320100000" npcid="212795" pool="5" interval="300">
 		<object x="270.5976" y="257.77185" z="122.71352" h="5"/>

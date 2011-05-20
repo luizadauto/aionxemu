@@ -18,7 +18,6 @@ package com.aionengine.chatserver.network.aion.serverpackets;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
-import com.aionengine.chatserver.model.ChatClient;
 import com.aionengine.chatserver.model.channel.Channel;
 import com.aionengine.chatserver.network.aion.AbstractServerPacket;
 import com.aionengine.chatserver.network.netty.handler.ClientChannelHandler;
@@ -32,13 +31,13 @@ public class SM_CHANNEL_RESPONSE extends AbstractServerPacket
 {
 	
 	private Channel channel;
-	private ChatClient chatClient;
+	private int channelIndex;
 	
-	public SM_CHANNEL_RESPONSE(ChatClient chatClient, Channel channel)
+	public SM_CHANNEL_RESPONSE(Channel channel, int channelIndex)
 	{
 		super(0x11);
-		this.chatClient = chatClient;
 		this.channel = channel;
+		this.channelIndex = channelIndex;
 	}
 
 	@Override
@@ -46,7 +45,7 @@ public class SM_CHANNEL_RESPONSE extends AbstractServerPacket
 	{
 		writeC(buf, getOpCode());
 		writeC(buf, 0x40);
-		writeH(buf, chatClient.nextIndex());
+		writeH(buf, channelIndex);
 		writeH(buf, 0x00);
 		writeD(buf, channel.getChannelId());
 //		writeC(buf, 0x19);

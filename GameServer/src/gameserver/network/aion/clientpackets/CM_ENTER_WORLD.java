@@ -299,12 +299,12 @@ public class CM_ENTER_WORLD extends AionClientPacket {
                         } else if (player.getAccessLevel() == 2) {
                             playerName += CustomConfig.GM_LEVEL2.trim();
                         } else if (player.getAccessLevel() == 3) {
-                            playerName += CustomConfig.GM_LEVEL3.trim();                      
+                            playerName += CustomConfig.GM_LEVEL3.trim();
                         } else if (player.getAccessLevel() == 4) {
-                            playerName += CustomConfig.GM_LEVEL4.trim();			
+                            playerName += CustomConfig.GM_LEVEL4.trim();
                         } else if (player.getAccessLevel() == 5) {
                             playerName += CustomConfig.GM_LEVEL5.trim();
-                        }						
+                        }
                     }
 
                     playerName += player.getName();
@@ -358,11 +358,6 @@ public class CM_ENTER_WORLD extends AionClientPacket {
              * Notify player if have broker settled items
              */
             BrokerService.getInstance().onPlayerLogin(player);
-            /**
-             * Start initializing chat connection(/1, /2, /3, /4 channels)
-             */
-            if (!GSConfig.DISABLE_CHAT_SERVER)
-                ChatService.onPlayerLogin(player);
 
             /**
              * Send petition data if player has one

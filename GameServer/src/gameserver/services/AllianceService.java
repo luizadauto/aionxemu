@@ -272,7 +272,7 @@ public class AllianceService {
 
     private void broadcastAllianceMemberInfo(PlayerAlliance alliance, PlayerAllianceMember memberToUpdate, PlayerAllianceEvent event, String... params) {
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
-            if (!allianceMember.isOnline() || allianceMember.getPlayer() == null || allianceMember.equals(memberToUpdate))
+            if (allianceMember.getPlayer() == null)
                 continue;
 
             Player member = allianceMember.getPlayer();
@@ -310,7 +310,9 @@ public class AllianceService {
     public void broadcastAllianceInfo(PlayerAlliance alliance, PlayerAllianceEvent event, String... params) {
         SM_ALLIANCE_INFO packet = new SM_ALLIANCE_INFO(alliance);
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
-            if (!allianceMember.isOnline()) continue;
+            if (allianceMember.getPlayer() == null)
+            	continue;
+            
             Player member = allianceMember.getPlayer();
             PacketSendUtility.sendPacket(member, packet);
             switch (event) {
@@ -334,9 +336,6 @@ public class AllianceService {
     private void sendOtherMemberInfo(PlayerAlliance alliance, Player memberToSend) {
 
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
-            if (!allianceMember.isOnline())
-                continue;
-
             if (memberToSend.getObjectId() == allianceMember.getObjectId())
                 continue;
 
@@ -388,18 +387,16 @@ public class AllianceService {
      * @param event
      * @param params
      */
-    private void removeMemberFromAlliance(PlayerAlliance alliance, int memberObjectId, PlayerAllianceEvent event, String... params) {
-        // Player
+    public void removeMemberFromAlliance(PlayerAlliance alliance, int memberObjectId, PlayerAllianceEvent event, String... params) {
+    	// Player
         PlayerAllianceMember allianceMember = alliance.getPlayer(memberObjectId);
 
         // TODO: Why is this null sometimes (found when banning from alliance)
         if (allianceMember == null)
             return;
 
-        if (allianceMember.isOnline()) {
-            allianceMember.getPlayer().setPlayerAlliance(null);
-            PacketSendUtility.sendPacket(allianceMember.getPlayer(), new SM_LEAVE_GROUP_MEMBER());
-        }
+        allianceMember.getPlayer().setPlayerAlliance(null);
+        PacketSendUtility.sendPacket(allianceMember.getPlayer(), new SM_LEAVE_GROUP_MEMBER());
 
         // Alliance
         broadcastAllianceMemberInfo(alliance, allianceMember, event, params);

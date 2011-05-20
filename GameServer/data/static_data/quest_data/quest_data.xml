@@ -35749,7 +35749,7 @@
 			<reward_item count="1" item_id="188050559"/>
 		</rewards>
 	</quest>
-	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="255" minlevel_permitted="30" nameId="2256067" name="[Daily] This Ain't a Scene…" id="45033">
+	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="255" minlevel_permitted="30" nameId="2256067" name="[Daily] This Ain't a Scene..." id="45033">
 		<collect_items>
 			<collect_item count="2" item_id="152000553"/>
 			<collect_item count="1" item_id="152000204"/>
@@ -35837,7 +35837,7 @@
 			<reward_item count="1" item_id="188050560"/>
 		</rewards>
 	</quest>
-	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="255" minlevel_permitted="47" nameId="2256089" name="[Daily] Yuck…I Smell Kurin" id="45044">
+	<quest race_permitted="ASMODIANS" cannot_share="true" max_repeat_count="255" minlevel_permitted="47" nameId="2256089" name="[Daily] Yuck...I Smell Kurin" id="45044">
 		<rewards exp="1341800">
 			<reward_item count="3" item_id="186000103"/>
 			<reward_item count="1" item_id="188050560"/>

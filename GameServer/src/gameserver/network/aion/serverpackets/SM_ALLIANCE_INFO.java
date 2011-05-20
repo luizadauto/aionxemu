@@ -18,6 +18,7 @@
 package gameserver.network.aion.serverpackets;
 
 import gameserver.model.alliance.PlayerAlliance;
+import gameserver.model.alliance.PlayerAllianceMember;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
 
@@ -57,6 +58,8 @@ public class SM_ALLIANCE_INFO extends AionServerPacket {
         writeD(buf, 0); //this.over_over_ethernal); - 0 normal 2 roll 3 bid
         writeC(buf, 0); //unk
 
+        writeD(buf, 0); //unk
+        
         writeD(buf, 0); // allianceGroupNumber 1
         writeD(buf, 1000); // allianceId 1
         writeD(buf, 1); // allianceGroupNumber 2
@@ -66,7 +69,11 @@ public class SM_ALLIANCE_INFO extends AionServerPacket {
         writeD(buf, 3); // allianceGroupNumber 4
         writeD(buf, 1003); // allianceId 1
 
+        //writeD(buf, 0); //unk
+        //writeH(buf, 0); //unk
+        
         writeD(buf, 0); //unk
-        writeH(buf, 0); //unk
+        writeD(buf, 0); //unk
+        writeC(buf, 0); //unk
     }
 }
