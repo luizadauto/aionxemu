@@ -27,6 +27,8 @@ public enum EventHandlers {
     MOST_HATED_CHANGED_EH(new TiredAttackingEventHandler()),
     SEEPLAYER_EH(new SeePlayerEventHandler()),
     NOTSEEPLAYER_EH(new NotSeePlayerEventHandler()),
+    SEECREATURE_EH(new SeeCreatureEventHandler()),
+    NOTSEECREATURE_EH(new NotSeeCreatureEventHandler()),
     RESPAWNED_EH(new RespawnedEventHandler()),
     BACKHOME_EH(new BackHomeEventHandler()),
     TALK_EH(new TalkEventHandler()),

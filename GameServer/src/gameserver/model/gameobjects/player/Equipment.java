@@ -856,19 +856,29 @@ public class Equipment {
                 PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), item
                         .getObjectId(), item.getItemId(), 5000, 4), true);
 
-                if(player.isInState(CreatureState.CHAIR) || player.isInState(CreatureState.FLYING)
-                	 || player.isInState(CreatureState.RESTING) || player.isInState(CreatureState.WEAPON_EQUIPPED)
-                	 || player.isInState(CreatureState.GLIDING))
-                {
-                	PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SOUL_BOUND_INVALID_STANCE(player.getState()));
-                	return;
+                int sysMsgId = 0;
+                if (player.isInState(CreatureState.CHAIR))
+                    sysMsgId = SM_SYSTEM_MESSAGE.STR_MSG_ACT_STATE_SITTING_ON_CHAIR.getCode();
+                else if (player.isInState(CreatureState.FLYING))
+                    sysMsgId = SM_SYSTEM_MESSAGE.STR_MSG_ACT_STATE_FREE_FLYING.getCode();
+                else if (player.isInState(CreatureState.RESTING))
+                    sysMsgId = SM_SYSTEM_MESSAGE.STR_MSG_ACT_STATE_SITTING.getCode();
+                else if (player.isInState(CreatureState.WEAPON_EQUIPPED))
+                    sysMsgId = SM_SYSTEM_MESSAGE.STR_MSG_ASF_COMBAT.getCode();
+                else if (player.isInState(CreatureState.GLIDING))
+                    sysMsgId = SM_SYSTEM_MESSAGE.STR_MSG_ASF_GLIDE.getCode();
+
+                if (sysMsgId != 0) {
+                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SOUL_BOUND_INVALID_STANCE(sysMsgId));
+                    return;
                 }
                 player.getController().cancelTask(TaskId.ITEM_USE);
 
                 player.getObserveController().attach(new StartMovingListener() {
-
                     @Override
                     public void moved() {
+                    	if (item.isEquipped())
+                    	    return;
                     	player.getController().cancelTask(TaskId.ITEM_USE);
                     	PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.SOUL_BOUND_ITEM_CANCELED(new DescriptionId(Integer.parseInt(item.getName()))));
                     	PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), item

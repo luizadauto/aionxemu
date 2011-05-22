@@ -41,7 +41,8 @@ public class SurveyMod extends AdminCommand {
     @Override
     public void executeCommand(Player user, String[] params) {
         if (user.getAccessLevel() < AdminConfig.COMMAND_SURVEY) {
-            PacketSendUtility.sendMessage(user, "You dont have enough rights to execute this command!");
+            PacketSendUtility.sendMessage(user,
+                LanguageHandler.translate(CustomMessageId.COMMAND_NOT_ENOUGH_RIGHTS));
             return;
         }
 

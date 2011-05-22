@@ -31,6 +31,7 @@ import gameserver.network.aion.serverpackets.SM_MOVE;
 import gameserver.network.aion.serverpackets.SM_SKILL_CANCEL;
 import gameserver.skillengine.SkillEngine;
 import gameserver.skillengine.model.AttackType;
+import gameserver.skillengine.model.Effect;
 import gameserver.skillengine.model.HealType;
 import gameserver.skillengine.model.Skill;
 import gameserver.utils.PacketSendUtility;
@@ -55,6 +56,7 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 	private int protectionValue = 0;
 	private int protectionRange = 0;
 	private Creature protector = null;
+	private Effect protectEffect = null;
 	private AttackType attacktype;
 	
     /**
@@ -128,11 +130,25 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
                 cancelCurrentSkill();
         }
 
-        if (protector != null && MathUtil.isInRange(protector,getOwner(),protectionRange)) {
-            checkForProtectState(creature,skillId,type,oldDamage);
+        if (protector != null && protectEffect != null) {
+            if (getOwner() instanceof Player) {
+                if (protector.getLifeStats().isAlreadyDead()) {
+                    removeProtectState(true);
+                }
+                else if (MathUtil.isInRange(protector,getOwner(),protectionRange)) {
+                    ((Player) getOwner()).setProtect(true);
+                    checkForProtectState(creature, skillId, type, oldDamage);
+                    return;
+                }
+                else {
+                    ((Player) getOwner()).setProtect(false);
+                }
+            }
         }
-        else if (notifyAttackedObservers) {
-            getOwner().getObserveController().notifyAttackedObservers(creature);
+
+        if (notifyAttackedObservers) {
+            //getOwner().getLifeStats().reduceHp(damage, creature);
+            getOwner().getObserveController().notifyAttackedObservers(creature);			
             getOwner().getAggroList().addDamage(creature, damage);
         }
     }
@@ -295,11 +311,6 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
      * Check if Creature is under Protect state
      */
     private void checkForProtectState(Creature creature, int skillId, TYPE type, int damage) {
-        if (protector.getLifeStats().isAlreadyDead()) {
-            removeProtectState();
-            return;
-        }
-
         int damageTaken = damage;
         int damageReflected = damage * ((int)(100/protectionValue));
 
@@ -323,26 +334,30 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
         }
         getOwner().getLifeStats().reduceHp(damageTaken, creature);
     }
-
+	
     /**
      * Set the Protect state of this Creature
      */
-    public void setProtectState(Creature creatureProtector, final int value, final int range, final AttackType type)
-    {
-        protector = creatureProtector;
-        protectionValue = value;
-        protectionRange = range;
-        attacktype = type;
+    public void setProtectState(Creature creatureProtector, final Effect protectEffect, final int value, final int range, final AttackType type) {
+        this.protector = creatureProtector;
+        this.protectEffect = protectEffect;
+        this.protectionValue = value;
+        this.protectionRange = range;
+        this.attacktype = type;
     }
 
     /**
      * Remove the Protect state from Creature
      */
-    public void removeProtectState()
-    {
-        protector = null;
-    }
-
+    public void removeProtectState(boolean endEffect) {
+        //end protect effect if a protector dies
+        if (endEffect) {
+            protectEffect.endEffect();
+            return;
+        }
+        setProtectState(null,null,0,0,null);
+    }	
+  	
     /**
      * Handle Dialog_Select
      *

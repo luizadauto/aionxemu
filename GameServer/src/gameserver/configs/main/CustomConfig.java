@@ -399,4 +399,118 @@ public class CustomConfig {
      */
     @Property(key = "gameserver.message.length", defaultValue = "512")
     public static int MESSAGE_LENGTH;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.scoring_enable", defaultValue = "true")
+    public static boolean SCORING_DROP_ENABLE;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.npc.normal", defaultValue = "65")
+    public static int DROP_POINTS_NPC_NORMAL;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.npc.elite", defaultValue = "175")
+    public static int DROP_POINTS_NPC_ELITE;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.npc.hero", defaultValue = "350")
+    public static int DROP_POINTS_NPC_HERO;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.npc.champion", defaultValue = "600")
+    public static int DROP_POINTS_NPC_CHAMPION;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.mythic", defaultValue = "1")
+    public static int DROP_LIMIT_ITEM_MYTHIC;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.epic", defaultValue = "1")
+    public static int DROP_LIMIT_ITEM_EPIC;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.unique", defaultValue = "1")
+    public static int DROP_LIMIT_ITEM_UNIQUE;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.legend", defaultValue = "1")
+    public static int DROP_LIMIT_ITEM_LEGEND;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.rare", defaultValue = "2")
+    public static int DROP_LIMIT_ITEM_RARE;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.common", defaultValue = "3")
+    public static int DROP_LIMIT_ITEM_COMMON;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.limit.junk", defaultValue = "5")
+    public static int DROP_LIMIT_ITEM_JUNK;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.mythic", defaultValue = "400")
+    public static int DROP_POINTS_ITEM_MYTHIC;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.epic", defaultValue = "200")
+    public static int DROP_POINTS_ITEM_EPIC;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.unique", defaultValue = "100")
+    public static int DROP_POINTS_ITEM_UNIQUE;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.legend", defaultValue = "50")
+    public static int DROP_POINTS_ITEM_LEGEND;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.rare", defaultValue = "25")
+    public static int DROP_POINTS_ITEM_RARE;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.common", defaultValue = "10")
+    public static int DROP_POINTS_ITEM_COMMON;
+
+    /**
+     *
+     */
+    @Property(key = "gameserver.drops.item.points.junk", defaultValue = "1")
+    public static int DROP_POINTS_ITEM_JUNK;
 }

@@ -74,7 +74,11 @@ public class ServantAi extends NpcAi {
             Creature servantOwner = owner.getCreator();
 
             VisibleObject servantOwnerTarget = servantOwner.getTarget();
-            if (servantOwnerTarget instanceof Creature) {
+            if (owner.isHealingServant()) {
+                ai.addDesire(new ServantSkillUseDesire(owner, (Creature) owner, AIState.ACTIVE
+                        .getPriority()));
+            }
+            else if (servantOwnerTarget instanceof Creature) {
                 ai.addDesire(new ServantSkillUseDesire(owner, (Creature) servantOwnerTarget, AIState.ACTIVE
                         .getPriority()));
             }
@@ -111,7 +115,7 @@ public class ServantAi extends NpcAi {
             if (target == null || target.getLifeStats().isAlreadyDead())
                 return true;
 
-            if (!owner.getActingCreature().isEnemy(target))
+            if (!owner.getActingCreature().isEnemy(target) && !owner.isHealingServant())
                 return false;
 
             if (owner.getSkillId() == 0)

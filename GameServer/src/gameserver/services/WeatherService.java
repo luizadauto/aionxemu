@@ -173,7 +173,9 @@ public class WeatherService {
      */
     private int getWeatherTypeByRegion(WorldMap worldMap) {
         WeatherKey key = getKeyFromMapByWorldMap(worldMap);
-        return worldWeathers.get(key).intValue();
+        if (worldWeathers.containsKey(key))
+            return worldWeathers.get(key).intValue();
+        return 0;
     }
 
     /**

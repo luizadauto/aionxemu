@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum FirstTargetAttribute {
     NONE,
     TARGETORME,
+    TARGETNOTME,
     ME,
     MYPET,
     TARGET,

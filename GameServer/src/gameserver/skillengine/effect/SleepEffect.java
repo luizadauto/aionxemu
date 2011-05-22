@@ -37,9 +37,9 @@ public class SleepEffect extends EffectTemplate {
         effect.addToEffectedController();
     }
 
-    @Override
+     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.SLEEP_RESISTANCE))
+        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.SLEEP_RESISTANCE))
             effect.addSucessEffect(this);
     }
 

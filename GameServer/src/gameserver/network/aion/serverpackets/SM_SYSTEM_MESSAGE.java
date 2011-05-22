@@ -306,8 +306,8 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     /**
      * Soul-binding of items not possible while %0.
      */
-    public static SM_SYSTEM_MESSAGE STR_SOUL_BOUND_INVALID_STANCE(int state) {
-        return new SM_SYSTEM_MESSAGE(1300489, state);
+    public static SM_SYSTEM_MESSAGE STR_SOUL_BOUND_INVALID_STANCE(int systemMessageId) {
+        return new SM_SYSTEM_MESSAGE(1300489, new DescriptionId(systemMessageId * 2 + 1));
     }
 
     /*
@@ -1460,6 +1460,13 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     public SM_SYSTEM_MESSAGE(SystemMessageId sm, Object... params) {
         this.code = sm.getId();
         this.params = params;
+    }
+
+    /**
+     * Return system message id
+     */
+    public int getCode() {
+        return code;
     }
 
     /**

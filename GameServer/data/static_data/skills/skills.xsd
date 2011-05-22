@@ -1107,6 +1107,7 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="NONE"/>
 			<xs:enumeration value="TARGETORME"/>
+			<xs:enumeration value="TARGETNOTME"/>
 			<xs:enumeration value="ME"/>
 			<xs:enumeration value="MYPET"/>
 			<xs:enumeration value="TARGET"/>
@@ -1132,6 +1133,7 @@
 			<xs:enumeration value="MYPARTY"/>
 			<xs:enumeration value="ALL"/>
 			<xs:enumeration value="FRIEND"/>
+			<xs:enumeration value="ALLY"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="skillId">

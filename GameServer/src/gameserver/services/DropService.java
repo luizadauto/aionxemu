@@ -34,6 +34,7 @@ import gameserver.model.gameobjects.player.RequestResponseHandler;
 import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.templates.item.ItemQuality;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.model.templates.stats.NpcRank;
 import gameserver.network.aion.serverpackets.*;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
@@ -43,6 +44,7 @@ import gameserver.world.World;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
 
+import java.lang.Object;
 import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
@@ -92,6 +94,92 @@ public class DropService {
         registerDrop(npc, player, lvl, players);
     }
 
+    private int getDropPoints(Npc npc)
+    {
+        int value;
+        NpcRank quality = npc.getObjectTemplate().getRank();
+        switch (quality) {
+            case NORMAL:
+                value = CustomConfig.DROP_POINTS_NPC_NORMAL;
+                break;
+            case ELITE:
+                value = CustomConfig.DROP_POINTS_NPC_ELITE;
+                break;
+            case HERO:
+                value = CustomConfig.DROP_POINTS_NPC_HERO;
+                break;
+            case LEGENDARY:
+                value = CustomConfig.DROP_POINTS_NPC_CHAMPION;
+                break;
+            default:
+                value = 10;
+        }
+        return value;
+    }
+
+    private int getDropItemPointsByQuality(ItemQuality quality)
+    {
+        int value;
+        switch (quality) {
+            case MYTHIC:
+                value = CustomConfig.DROP_POINTS_ITEM_MYTHIC;
+                break;
+            case EPIC:
+                value = CustomConfig.DROP_POINTS_ITEM_EPIC;
+                break;
+            case UNIQUE:
+                value = CustomConfig.DROP_POINTS_ITEM_UNIQUE;
+                break;
+            case LEGEND:
+                value = CustomConfig.DROP_POINTS_ITEM_LEGEND;
+                break;
+            case RARE:
+                value = CustomConfig.DROP_POINTS_ITEM_RARE;
+                break;
+            case COMMON:
+                value = CustomConfig.DROP_POINTS_ITEM_COMMON;
+                break;
+            case JUNK:
+                value = CustomConfig.DROP_POINTS_ITEM_JUNK;
+                break;
+            default:
+                value = 1;
+        }
+        return value;
+    }
+
+    private int getDropLimitByQuality(ItemQuality quality)
+    {
+        int value;
+        switch (quality) {
+            case MYTHIC:
+                value = CustomConfig.DROP_LIMIT_ITEM_MYTHIC;
+                break;
+            case EPIC:
+                value = CustomConfig.DROP_LIMIT_ITEM_EPIC;
+                break;
+            case UNIQUE:
+                value = CustomConfig.DROP_LIMIT_ITEM_UNIQUE;
+                break;
+            case LEGEND:
+                value = CustomConfig.DROP_LIMIT_ITEM_LEGEND;
+                break;
+            case RARE:
+                value = CustomConfig.DROP_LIMIT_ITEM_RARE;
+                break;
+            case COMMON:
+                value = CustomConfig.DROP_LIMIT_ITEM_COMMON;
+                break;
+            case JUNK:
+                value = CustomConfig.DROP_LIMIT_ITEM_JUNK;
+                break;
+            default:
+                value = 1;
+        }
+        return value;
+    }
+
+
     /**
      * After NPC dies - it can register arbitrary drop
      *
@@ -135,6 +223,51 @@ public class DropService {
             }
         }
 
+
+        if (CustomConfig.SCORING_DROP_ENABLE) {
+            DropItem                        DropItemType;
+            int                             dropPoints                  = getDropPoints(npc);
+            Set<DropItem>                   finalDroppedItems           = new HashSet<DropItem>();
+            Map<ItemQuality, Set<DropItem>> dropByQuality               = new FastMap<ItemQuality, Set<DropItem>>();
+
+            ItemQuality[] qq = ItemQuality.values();
+            for ( int a = 0 ; a < qq.length ; a++)
+                dropByQuality.put(qq[a], new HashSet<DropItem>());
+
+            for (DropItem drop : droppedItems) {
+                ItemTemplate                tpl                         = ItemService.getItemTemplate(drop.getDropTemplate().getItemId());
+                ItemQuality                 quality                     = tpl.getItemQuality();
+
+                dropByQuality.get(quality).add(drop);
+
+            }
+
+            ItemQuality[]    itemQualities   = {ItemQuality.MYTHIC, ItemQuality.EPIC, ItemQuality.UNIQUE, ItemQuality.LEGEND, ItemQuality.RARE, ItemQuality.COMMON, ItemQuality.JUNK};
+
+            for ( int i = 0 ; i < itemQualities.length ; i++ ) {
+                List<DropItem> items      = new ArrayList<DropItem>();
+                if (!dropByQuality.containsKey(itemQualities[i])) {
+                    continue;
+                }
+                items.addAll(dropByQuality.get(itemQualities[i]));
+                int itemLimit       = getDropLimitByQuality(        itemQualities[i]);
+                int itemPoints      = getDropItemPointsByQuality(   itemQualities[i]);
+                int itemCount       = items.size();
+
+                while ((itemLimit > 0) && (dropPoints >= itemPoints) && (itemCount > 0)) {
+
+                    int tmpKey  = Rnd.get(0, items.size() - 1);
+
+                    finalDroppedItems.add(items.get(tmpKey));
+
+                    dropPoints  = dropPoints - itemPoints;
+
+                    itemLimit--;
+                    itemCount--;
+                }
+            }
+            droppedItems = finalDroppedItems;
+        }
         QuestService.getQuestDrop(droppedItems, npc, player);
 
         // Now set correct indexes
@@ -753,14 +886,14 @@ public class DropService {
                     PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_PAY_ACCOUNT_OTHER(player.getName(), highestValue));
                     member.getInventory().increaseKinah(distributeKinah);
                     PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_PAY_DISTRIBUTE(highestValue, dropNpc.getGroupSize() - 1, distributeKinah));
-				}
-			}
-		}
-	}
-	
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final DropService instance = new DropService();
-	}
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("synthetic-access")
+    private static class SingletonHolder
+    {
+        protected static final DropService instance = new DropService();
+    }
 }

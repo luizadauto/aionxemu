@@ -39,12 +39,11 @@ public class RootEffect extends EffectTemplate {
         effect.addToEffectedController();
     }
 
-    @Override
+   @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.ROOT_RESISTANCE))
+        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.ROOT_RESISTANCE))
             effect.addSucessEffect(this);
     }
-
     @Override
     public void startEffect(final Effect effect) {
         final Creature effected = effect.getEffected();

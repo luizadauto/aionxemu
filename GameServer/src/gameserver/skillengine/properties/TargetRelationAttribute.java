@@ -32,5 +32,6 @@ public enum TargetRelationAttribute {
     ENEMY,
     MYPARTY,
     ALL,
-    FRIEND
+    FRIEND,
+    ALLY
 }

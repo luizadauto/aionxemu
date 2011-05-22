@@ -164,8 +164,12 @@ public class World extends ObjectContainer {
      * @param heading
      */
     public void setPosition(VisibleObject object, int mapId, int instance, float x, float y, float z, byte heading) {
+        if (object == null)
+            return;
+
         if (object.isSpawned())
             despawn(object);
+
         object.getPosition().setXYZH(x, y, z, heading);
         object.getPosition().setMapId(mapId);
         object.getPosition().setMapRegion(getWorldMap(mapId).getWorldMapInstanceById(instance).getRegion(object));

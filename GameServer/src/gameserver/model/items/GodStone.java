@@ -20,6 +20,7 @@ import com.aionemu.commons.utils.Rnd;
 import gameserver.controllers.movement.ActionObserver;
 import gameserver.controllers.movement.ActionObserver.ObserverType;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.templates.item.GodstoneInfo;
@@ -31,54 +32,84 @@ import gameserver.skillengine.model.Skill;
 import gameserver.utils.PacketSendUtility;
 import org.apache.log4j.Logger;
 
+import java.util.Collection;
+
 /**
- * @author ATracer
+ * @author ATracer, ggadv2
  */
 public class GodStone extends ItemStone {
     private static final Logger log = Logger.getLogger(GodStone.class);
 
     private final GodstoneInfo godstoneInfo;
     private ActionObserver actionListener;
-    private final int probability;
-    private final int probabilityLeft;
 
     public GodStone(int itemObjId, int itemId, PersistentState persistentState) {
         super(itemObjId, itemId, 0, ItemStoneType.GODSTONE, persistentState);
         ItemTemplate itemTemplate = ItemService.getItemTemplate(itemId);
         godstoneInfo = itemTemplate.getGodstoneInfo();
 
-        if (godstoneInfo != null) {
-            probability = godstoneInfo.getProbability();
-            probabilityLeft = godstoneInfo.getProbabilityleft();
-        } else {
-            probability = 0;
-            probabilityLeft = 0;
+        if (godstoneInfo == null)
             log.warn("CHECKPOINT: Godstone info missing for item : " + itemId);
-        }
-
     }
 
     /**
      * @param player
      */
-    public void onEquip(final Player player) {
-        if (godstoneInfo == null)
+    public void onEquip(final Player player, final Item item) {
+        if (godstoneInfo == null || item == null)
             return;
 
         actionListener = new ActionObserver(ObserverType.ATTACK) {
             @Override
             public void attack(Creature creature) {
-                int rand = Rnd.get(probability - probabilityLeft, probability);
-                if (rand > Rnd.get(0, 1000)) {
-                    Skill skill = SkillEngine.getInstance().getSkill(player, godstoneInfo.getSkillid(),
-                            godstoneInfo.getSkilllvl(), player.getTarget());
-                    PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1301062, "Godstone"));
-                    skill.useSkill();
+                if (godstoneInfo != item.getGodStone().getGodstoneInfo()) {
+                    onUnEquip(player);
+                    return;
                 }
+
+                // Check probability for this godstone, also check if the godstone effect actually comes from main or sub weapon
+                int probability = 0;
+                if (item.getEquipmentSlot() == ItemSlot.MAIN_HAND.getSlotIdMask())
+                    probability = godstoneInfo.getProbability();
+                else if (item.getEquipmentSlot() == ItemSlot.SUB_HAND.getSlotIdMask())
+                    probability = godstoneInfo.getProbabilityleft();
+                else {
+                    onUnEquip(player);
+                    return;
+                }
+
+                Skill skill = SkillEngine.getInstance().getSkill(player, godstoneInfo.getSkillid(), godstoneInfo.getSkilllvl(), player.getTarget());
+
+                attachGodstoneEffect(player, probability, skill);
+                player.getObserveController().notifyGodstoneObservers((Creature) player);
             }
         };
 
         player.getObserveController().addObserver(actionListener);
+    }
+
+    /**
+     * Attach effect
+     */
+    public void attachGodstoneEffect(final Player player, final int probability, final Skill skill) {
+        player.getObserveController().attach(
+            new ActionObserver(ObserverType.GODSTONE) {
+                @Override
+                public void onGodstone(Creature creature) {
+                    if (Rnd.get(0, probability) > Rnd.get(0, 1000)) {
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1301062, "Godstone"));
+                        skill.useSkill();
+                    }
+                }
+            }
+        );
+    }
+
+    /**
+     * Return godstoneInfo
+     */
+    public GodstoneInfo getGodstoneInfo() {
+        return godstoneInfo;
     }
 
     /**
@@ -87,6 +118,5 @@ public class GodStone extends ItemStone {
     public void onUnEquip(Player player) {
         if (actionListener != null)
             player.getObserveController().removeObserver(actionListener);
-
-	}
+    }
 }

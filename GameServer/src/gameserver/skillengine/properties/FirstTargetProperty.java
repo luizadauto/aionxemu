@@ -20,9 +20,11 @@ package gameserver.skillengine.properties;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Summon;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.GroupService;
 import gameserver.skillengine.model.Skill;
 import gameserver.utils.MathUtil;
+import gameserver.utils.PacketSendUtility;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -60,6 +62,14 @@ public class FirstTargetProperty
             case TARGETORME:
                 if (skill.getFirstTarget() == null)
                     skill.setFirstTarget(skill.getEffector());
+                break;
+            case TARGETNOTME:
+                if (skill.getFirstTarget() == null)
+                    return false;
+                else if (skill.getEffector() instanceof Player && skill.getFirstTarget() == skill.getEffector()) {
+                    PacketSendUtility.sendPacket((Player) skill.getEffector(), SM_SYSTEM_MESSAGE.INVALID_TARGET());
+                    return false;
+                }
                 break;
             case TARGET:
                 if (skill.getFirstTarget() == null)

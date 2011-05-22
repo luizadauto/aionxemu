@@ -428,18 +428,16 @@ public class ItemEquipmentListener {
      */
     private static void addGodstoneEffect(Player player, Item item) {
         if (item.getGodStone() != null) {
-            item.getGodStone().onEquip(player);
+            item.getGodStone().onEquip(player, item);
         }
     }
 
     /**
      * @param item
      */
-    private static void removeGodstoneEffect(Player player, Item item)
-	{
-		if(item.getGodStone() != null)
-		{
-			item.getGodStone().onUnEquip(player);
-		}
-	}
+    private static void removeGodstoneEffect(Player player, Item item) {
+		    if(item.getGodStone() != null) {
+			      item.getGodStone().onUnEquip(player);
+		    }
+	  }
 }

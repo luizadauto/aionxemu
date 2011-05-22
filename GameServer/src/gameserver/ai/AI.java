@@ -138,14 +138,16 @@ public abstract class AI<T extends Creature> implements Runnable {
     }
 
     public void stop() {
-        if (aiTask != null && !aiTask.isCancelled()) {
+        if (isScheduled()) {
             aiTask.cancel(true);
             aiTask = null;
         }
     }
 
     public boolean isScheduled() {
-        return aiTask != null && !aiTask.isCancelled();
+        if (aiTask == null)
+            return false;
+        return !aiTask.isCancelled();
     }
 
     public void clearDesires() {

@@ -228,7 +228,7 @@ public class Equip extends AdminCommand
 				PacketSendUtility.sendMessage(player, "Admin " + admin.getName() + " socketed [Item: " + godstone
 					+ "]  to you equipped MainHandWeapon [Item: " + targetItem.getItemId() + "]");
 			}
-			targetItem.getGodStone().onEquip(player);
+			targetItem.getGodStone().onEquip(player, targetItem);
 		}
 		else if(targetItem.getGodStone() != null)
 		{
@@ -252,7 +252,7 @@ public class Equip extends AdminCommand
 				PacketSendUtility.sendMessage(admin, "Occurs an error.");
 				return;
 			}
-			targetItem.getGodStone().onEquip(player);
+			targetItem.getGodStone().onEquip(player, targetItem);
 			if(player == admin)
 				PacketSendUtility.sendMessage(player, "Your godstone on your MainHandWeapon will now activate around "
 					+ godstone + " percent of the time.");

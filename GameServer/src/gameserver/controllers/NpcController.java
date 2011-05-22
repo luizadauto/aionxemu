@@ -55,6 +55,7 @@ import gameserver.utils.PacketSendUtility;
 import gameserver.world.Executor;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
+import gameserver.ai.desires.impl.*;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -85,6 +86,9 @@ public class NpcController extends CreatureController<Npc> {
             // with some state etc.
             if (owner.getMoveController().isWalking())
                 PacketSendUtility.sendPacket((Player) object, new SM_EMOTION(owner, EmotionType.WALK));
+            else if (owner.getMoveController().isWalking() && owner.canSee((Player) object))
+                owner.getAi().clearDesires();
+                owner.getAi().addDesire(new AggressionDesire(owner, 100));
         } else if (object instanceof Summon) {
             owner.getAi().handleEvent(Event.SEE_PLAYER);
         }

@@ -364,7 +364,10 @@ public class Skill {
             //tolerance
             distance += 1.5;
 
-            if ((float) MathUtil.getDistance(effector, firstTarget) > distance) {
+            boolean firstTargetIsInSameMapInstance = true;
+            if (effector.getInstanceId() != firstTarget.getInstanceId())
+                firstTargetIsInSameMapInstance = false;
+            if (((float) MathUtil.getDistance(effector, firstTarget) > distance || (!firstTargetIsInSameMapInstance))) {
                 ((Player) effector).getController().cancelCurrentSkill();
                 PacketSendUtility.sendPacket((Player) effector, SM_SYSTEM_MESSAGE.STR_ATTACK_TOO_FAR_FROM_TARGET());
                 return;

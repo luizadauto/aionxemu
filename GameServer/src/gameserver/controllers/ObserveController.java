@@ -46,6 +46,7 @@ public class ObserveController {
     protected Queue<ActionObserver> deathObservers = new ConcurrentLinkedQueue<ActionObserver>();
     protected Queue<ActionObserver> jumpObservers = new ConcurrentLinkedQueue<ActionObserver>();
     protected Queue<ActionObserver> dotObservers = new ConcurrentLinkedQueue<ActionObserver>();
+    protected Queue<ActionObserver> godstoneObservers = new ConcurrentLinkedQueue<ActionObserver>();
 
     protected List<ActionObserver> observers = new ArrayList<ActionObserver>();
     
@@ -61,7 +62,6 @@ public class ObserveController {
                 attackObservers.add(observer);
                 break;
             case ATTACKED:
-                
                 attackedObservers.add(observer);
                 break;
             case MOVE:
@@ -78,8 +78,14 @@ public class ObserveController {
                 break;
             case JUMP:
                 jumpObservers.add(observer);
+                break;
             case DOT:
                 dotObservers.add(observer);
+                break;
+            case GODSTONE:
+                //check godstone exploit
+                if (godstoneObservers.size() < 2)
+                    godstoneObservers.add(observer);
                 break;
         }
     }
@@ -340,6 +346,21 @@ public class ObserveController {
             for(ActionObserver observer : observers)
             {
                 observer.onDot(creature);
+            }
+        }
+    }
+
+    /**
+     * notify that player using godstone
+     */
+    public void notifyGodstoneObservers(Creature creature) {
+        while (!godstoneObservers.isEmpty()) {
+            ActionObserver observer = godstoneObservers.poll();
+            observer.onGodstone(creature);
+        }
+        synchronized (observers) {
+            for (ActionObserver observer : observers) {
+                observer.onGodstone(creature);
             }
         }
     }

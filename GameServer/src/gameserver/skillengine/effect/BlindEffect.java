@@ -42,11 +42,12 @@ public class BlindEffect extends EffectTemplate {
         effect.addToEffectedController();
     }
 
-    @Override
+   @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.BLIND_RESISTANCE))
+        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.BLIND_RESISTANCE))
             effect.addSucessEffect(this);
     }
+
 
     @Override
     public void startEffect(Effect effect) {

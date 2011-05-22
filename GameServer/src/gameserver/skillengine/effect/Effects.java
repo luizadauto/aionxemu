@@ -218,5 +218,13 @@ public class Effects {
 		return false;
 	}
 
+    public boolean isTransform() {
+        for (EffectTemplate template : getEffects()) {
+            if (template instanceof TransformEffect)
+				return true;
+		}
+		return false;
+	}
+
 
 }

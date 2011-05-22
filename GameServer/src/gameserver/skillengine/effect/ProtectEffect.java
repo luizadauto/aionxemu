@@ -21,6 +21,7 @@ import gameserver.skillengine.model.AttackType;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.skillengine.model.Effect;
+import gameserver.utils.MathUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -29,14 +30,14 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author Sippolo
+ * @author Sippolo, ggadv2
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProtectEffect")
 public class ProtectEffect extends BufEffect {
 
-	@XmlAttribute
-	protected boolean	percent;
+    @XmlAttribute
+    protected boolean	percent;
     @XmlAttribute
     protected int value;
     @XmlAttribute
@@ -48,28 +49,30 @@ public class ProtectEffect extends BufEffect {
     public void startEffect(final Effect effect) {
         super.startEffect(effect);
 
-          Creature effector = effect.getEffector();
-          Creature effected = effect.getEffected();
-          // value is always in percentage
-          if (effected instanceof Player){
-        	  ((Player) effected).setProtect(true);
-          }
-          effected.getController().setProtectState(effector,value,range,attacktype);
+        Creature effector = effect.getEffector();
+        Creature effected = effect.getEffected();
+        effected.getController().setProtectState(effector, effect, value, range, attacktype);
+
+        // should be nothing else but player
+        if (effected instanceof Player) {
+            if (MathUtil.isInRange(effector, effected, range))
+                ((Player) effected).setProtect(true);
+        }
     }
 
     @Override
     public void endEffect(Effect effect) {
         super.endEffect(effect);
-          Creature effected = effect.getEffected();
-          effected.getController().removeProtectState();
-          if (effected instanceof Player){
-        	  ((Player) effected).setProtect(false);
-          }
+        Creature effected = effect.getEffected();
+        effected.getController().removeProtectState(false);
+
+        // should be nothing else but player
+        if (effected instanceof Player)
+            ((Player) effected).setProtect(false);
     }
 
     @Override
-    public void calculate(Effect effect) 
-	{
+    public void calculate(Effect effect) {
         super.calculate(effect);
     }
 }

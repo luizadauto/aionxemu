@@ -31,6 +31,8 @@ import gameserver.world.World;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
 
+import java.util.concurrent.ScheduledFuture;
+
 /**
  * @author Simple
  * @author Sphinx :)
@@ -39,6 +41,7 @@ public class DuelService {
     private static Logger log = Logger.getLogger(DuelService.class);
 
     private FastMap<Integer, Integer> duels;
+    private FastMap<Integer, ScheduledFuture<?>> tasks;
 
     public static final DuelService getInstance() {
         return SingletonHolder.instance;
@@ -50,6 +53,7 @@ public class DuelService {
      */
     private DuelService() {
         this.duels = new FastMap<Integer, Integer>();
+        this.tasks = new FastMap<Integer, ScheduledFuture<?>>();
         log.info("DuelService started.");
     }
 
@@ -155,12 +159,17 @@ public class DuelService {
         PacketSendUtility.sendPacket(requester, SM_DUEL.SM_DUEL_STARTED(responder.getObjectId()));
         PacketSendUtility.sendPacket(responder, SM_DUEL.SM_DUEL_STARTED(requester.getObjectId()));
         createDuel(requester.getObjectId(), responder.getObjectId());
-        ThreadPoolManager.getInstance().schedule(new Runnable() {
+
+        /**
+         * draw task
+         */
+        ScheduledFuture<?> task = ThreadPoolManager.getInstance().schedule(new Runnable() {
             @Override
             public void run() {
                 drawDuel(requester, responder);
             }
         }, (CustomConfig.DUEL_LENGTH * 1000));
+        tasks.put(requester.getObjectId(), task);
     }
 
     /**
@@ -187,6 +196,7 @@ public class DuelService {
         PacketSendUtility.sendPacket(player2, SM_DUEL.SM_DUEL_RESULT(DuelResult.DUEL_DRAW, player2.getName()));
 
         removeDuel(player1.getObjectId(), player2.getObjectId());
+        tasks.remove(player1.getObjectId());
     }
     
     /**
@@ -223,6 +233,18 @@ public class DuelService {
         }
 
         removeDuel(player.getObjectId(), opponnentId);
+
+        /**
+         * stop draw task
+         */
+        if (tasks.containsKey(player.getObjectId())) {
+            tasks.get(player.getObjectId()).cancel(true);
+            tasks.remove(player.getObjectId());
+        }
+        else if (tasks.containsKey(opponnentId)) {
+            tasks.get(opponnentId).cancel(true);
+            tasks.remove(opponnentId);
+        }
     }
 
     public void loseArenaDuel(Player player) {

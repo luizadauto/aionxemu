@@ -105,6 +105,9 @@ public class RentalService {
 			player.getEquipment().unEquipItem(itemObjectId, item.getEquipmentSlot());
 		}
 		
+		if(storage == null)
+		    return false;
+		
 		storage.removeFromBag(item, true);
 		if (storage.getStorageType() == StorageType.CUBE.getId())
             PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(item.getObjectId()));

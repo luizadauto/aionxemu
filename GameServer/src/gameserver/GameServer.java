@@ -49,6 +49,7 @@ import gameserver.utils.chathandlers.ChatHandlers;
 import gameserver.utils.gametime.GameTimeManager;
 import gameserver.utils.i18n.LanguageHandler;
 import gameserver.utils.idfactory.IDFactory;
+import gameserver.utils.scheduler.Scheduler;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 
@@ -173,6 +174,8 @@ public class GameServer {
 
         gs.startServers();
         GameTimeManager.startClock();
+        
+        Scheduler scheduler = Scheduler.getInstance();
 
         if (TaskManagerConfig.DEADLOCK_DETECTOR_ENABLED) {
             log.info("Starting deadlock detector");

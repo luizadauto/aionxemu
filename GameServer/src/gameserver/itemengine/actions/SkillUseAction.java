@@ -19,6 +19,7 @@ package gameserver.itemengine.actions;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
+import gameserver.skillengine.effect.Effects;
 import gameserver.skillengine.SkillEngine;
 import gameserver.skillengine.model.Skill;
 import gameserver.utils.PacketSendUtility;
@@ -58,6 +59,12 @@ public class SkillUseAction extends AbstractItemAction {
         Skill skill = SkillEngine.getInstance().getSkill(player, skillid, level, player.getTarget());
         if (skill == null)
             return false;
+
+        Effects effects = skill.getSkillTemplate().getEffects();
+        if (effects != null) {
+            if (player.getFlyState() != 0 && effects.isTransform())
+                return false;
+        }
 
         return skill.canUseSkill();
     }

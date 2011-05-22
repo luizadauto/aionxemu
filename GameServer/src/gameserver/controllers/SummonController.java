@@ -73,6 +73,7 @@ public class SummonController extends CreatureController<Summon> {
 
         final Player master = owner.getMaster();
         final int summonObjId = owner.getObjectId();
+        removeSpiritSubstitution((Creature) master);
 
         switch (unsummonType) {
             case COMMAND:
@@ -220,12 +221,7 @@ public class SummonController extends CreatureController<Summon> {
         super.onDie(lastAttacker);
         release(UnsummonType.UNSPECIFIED);
         Summon owner = getOwner();
-        Creature master = (Creature) owner.getMaster();
-        List<Integer> skillIds = new ArrayList<Integer>();
-        for (int skillid = 18262; skillid < 18279; ++skillid) {
-            skillIds.add(skillid);
-        }
-        master.getEffectController().removeEffects(skillIds);
+        removeSpiritSubstitution((Creature) owner.getMaster());
         PacketSendUtility.broadcastPacket(owner, new SM_EMOTION(owner, EmotionType.DIE, 0, lastAttacker == null ? 0 : lastAttacker
                 .getObjectId()));
     }
@@ -237,6 +233,14 @@ public class SummonController extends CreatureController<Summon> {
         if (skill != null) {
             skill.useSkill();
         }
+    }
+
+    public void removeSpiritSubstitution(Creature master) {
+        List<Integer> skillIds = new ArrayList<Integer>();
+        for (int skillid = 18262; skillid < 18279; ++skillid) {
+            skillIds.add(skillid);
+        }
+        master.getEffectController().removeEffects(skillIds);    
     }
 
     public static enum UnsummonType {

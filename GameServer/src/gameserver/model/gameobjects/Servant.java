@@ -42,6 +42,10 @@ public class Servant extends Npc {
      * Hp used on skill usage
      */
     private int hpRatio;
+    /**
+     * This servant is healing servant
+     */
+    private boolean isHealingServant;
 
     /**
      * @param objId
@@ -65,6 +69,11 @@ public class Servant extends Npc {
      */
     public void setSkillId(int skillId) {
         this.skillId = skillId;
+
+        if (skillId == 18886 || skillId == 18887)
+            this.isHealingServant = true;
+        else
+            this.isHealingServant = false;
     }
 
     /**
@@ -108,6 +117,13 @@ public class Servant extends Npc {
      */
     public void setHpRatio(int hpRatio) {
         this.hpRatio = hpRatio;
+    }
+
+    /**
+     * @return isHealingServant
+     */
+    public boolean isHealingServant() {
+        return isHealingServant;
     }
 
     @Override

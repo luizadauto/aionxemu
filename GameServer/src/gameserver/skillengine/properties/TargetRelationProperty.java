@@ -19,6 +19,7 @@ package gameserver.skillengine.properties;
 import com.aionemu.commons.utils.Rnd;
 import gameserver.model.alliance.PlayerAllianceGroup;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Servant;
 import gameserver.model.gameobjects.Summon;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.skillengine.model.Skill;
@@ -109,7 +110,44 @@ public class TargetRelationProperty extends Property {
                     effectedList.remove(nextEffected);
                 }
                 break;
+            case ALLY:
+                //remove enemies and effector from the list
+                for (Iterator<Creature> iter = effectedList.iterator(); iter.hasNext();) {
+                    Creature nextEffected = iter.next();
+
+                    if (!effector.isEnemy(nextEffected) && nextEffected != effector)
+                        continue;
+
+                    iter.remove();
+                }
+
+                if (effectedList.isEmpty())
+                    break;
+
+                //remove from effected list if not an ally
+                for (int i = 0; i < skill.getMaxEffected(); i++) {
+                    Creature nextEffected = effectedList.get(i);
+                    if (nextEffected instanceof Player) {
+                        if (((Player) effector).isInAlliance()) {
+                            PlayerAllianceGroup pag = ((Player) effector).getPlayerAlliance().getPlayerAllianceGroupForMember(effector.getObjectId());
+                            if (pag != null && pag.isInSamePlayerAllianceGroup(effector.getObjectId(), nextEffected.getObjectId()))
+                                continue;
+                        } else if (((Player) effector).isInGroup()) {
+                            if (((Player) effector).getPlayerGroup() != null && ((Player) nextEffected).getPlayerGroup() != null) {
+                                if (((Player) effector).getPlayerGroup().getGroupId() == ((Player) nextEffected).getPlayerGroup().getGroupId())
+                                    continue;
+                            }
+                        }
+                    }
+                    effectedList.remove(nextEffected);
+                }
+                break;
             case MYPARTY:
+                Player master = null;
+                if (effector instanceof Servant) {
+                    effector = skill.getEffector().getMaster();
+                    master = (Player) effector;
+                }
                 for (Iterator<Creature> iter = effectedList.iterator(); iter.hasNext();) {
                     Creature nextEffected = iter.next();
 
@@ -130,6 +168,9 @@ public class TargetRelationProperty extends Property {
                                 if (((Player) effector).getPlayerGroup().getGroupId() == player.getPlayerGroup().getGroupId())
                                     continue;
                             }
+                        } else if (master != null) {
+                            if (player == master)
+                                continue;
                         }
                     }
 

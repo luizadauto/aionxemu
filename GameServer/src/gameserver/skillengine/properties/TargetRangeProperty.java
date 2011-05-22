@@ -19,6 +19,7 @@ package gameserver.skillengine.properties;
 import gameserver.model.alliance.PlayerAllianceMember;
 import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Servant;
 import gameserver.model.gameobjects.Trap;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.skillengine.model.Skill;
@@ -129,6 +130,31 @@ public class TargetRangeProperty
                             if (member != null && MathUtil.isIn3dRange(effector, member, distance + 4))
                                 effectedList.add(member);
                         }
+                    }
+                }
+                else if (skill.getEffector() instanceof Servant) {
+                    skill.setMaxEffected(6);
+                    Creature servant = skill.getEffector();
+                    Player effector = (Player) servant.getMaster();
+                    if (effector.isInAlliance()) {
+                        effectedList.clear();
+                        for (PlayerAllianceMember allianceMember : effector.getPlayerAlliance().getMembersForGroup(effector.getObjectId())) {
+                            if (!allianceMember.isOnline()) continue;
+                            Player member = allianceMember.getPlayer();
+                            if (MathUtil.isIn3dRange(servant, member, distance + 4))
+                                effectedList.add(member);
+                        }
+                    } else if (effector.isInGroup()) {
+                        effectedList.clear();
+                        for (Player member : effector.getPlayerGroup().getMembers()) {
+                            //TODO: here value +4 till better move controller developed
+                            if (member != null && MathUtil.isIn3dRange(servant, member, distance + 4))
+                                effectedList.add(member);
+                        }
+                    } else {
+                        effectedList.clear();
+                        if (MathUtil.isIn3dRange(servant, effector, distance + 4))
+                            effectedList.add(effector);
                     }
                 }
                 break;

@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import java.util.concurrent.Future;
+
 /**
  * @author ATracer
  */
@@ -56,12 +58,6 @@ public class SummonServantEffect extends SummonEffect {
         int instanceId = effector.getInstanceId();
 
         final Creature target = (Creature) effector.getTarget();
-
-        if (target == null) {
-            //hack!!!
-            Logger.getLogger(SummonServantEffect.class).warn("Servant trying to attack null target!!");
-            return;
-        }
 
         // Energy servant (no skill)
         if (skillId == 0) {
@@ -90,6 +86,19 @@ public class SummonServantEffect extends SummonEffect {
                     Logger.getLogger(SummonServantEffect.class).error("Cannot sleep after servant spawn", e);
                 }
             }
+        }
+        // Healing servant
+        else if (skillId == 18886 || skillId == 18887) {
+            final SpawnTemplate spawn = spawnEngine.addNewSpawn(worldId, instanceId, npcId, x, y, z, heading, 0, 0, true, true);
+            final Servant servant = spawnEngine.spawnServant(spawn, instanceId, effector, skillId, hpRatio);
+            ThreadPoolManager.getInstance().schedule(new Runnable() {
+                @Override
+                public void run() {
+                    servant.getController().cancelAllTasks();
+                    DataManager.SPAWNS_DATA.removeSpawn(spawn);
+                    servant.getController().onDelete();
+                }
+            }, 70000); //1 min 10 secs
         }
         // Skill-enabled servant
         else {

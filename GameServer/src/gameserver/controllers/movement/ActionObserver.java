@@ -35,7 +35,8 @@ public class ActionObserver {
         STATECHANGE,
         DEATH,
         JUMP,
-        DOT
+        DOT,
+        GODSTONE
     }
 
     private ObserverType observerType;
@@ -97,6 +98,11 @@ public class ActionObserver {
     ;
 
     public void onDot(Creature creature) {
+    }
+
+    ;
+
+    public void onGodstone(Creature creature) {
     }
 
     ;
