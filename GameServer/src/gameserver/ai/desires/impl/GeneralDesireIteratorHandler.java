@@ -39,9 +39,11 @@ public class GeneralDesireIteratorHandler implements DesireIteratorHandler {
     @Override
     public void next(Desire desire, Iterator<Desire> iterator) {
         boolean isOk = desire.handleDesire(ai);
-        if (!isOk) {
-            desire.onClear();
-            iterator.remove();
+        synchronized (iterator) {
+            if (!isOk) {
+                desire.onClear();
+                iterator.remove();
+            }
         }
     }
 }

@@ -291,6 +291,9 @@ public class AllianceService {
                     PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_FORCE_HE_BECOME_OFFLINE_TIMEOUT(memberToUpdate.getName()));
                     break;
                 case BANNED:
+                    if (params.length == 0)
+                        return;
+
                     if (member.equals(memberToUpdate.getPlayer()))
                         PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_FORCE_BAN_ME(params[0]));
                     else

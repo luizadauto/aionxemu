@@ -142,20 +142,22 @@ public class DesireQueue {
             return;
         }
 
-        Iterator<Desire> iterator = queue.iterator();
-        outer:
-        while (iterator.hasNext()) {
-            Desire desire = iterator.next();
+        synchronized (queue) {
+            Iterator<Desire> iterator = queue.iterator();
+            outer:
+            while (iterator.hasNext()) {
+                Desire desire = iterator.next();
 
-            if (filters != null && filters.length > 0) {
-                for (DesireIteratorFilter filter : filters) {
-                    if (!filter.isOk(desire)) {
-                        continue outer;
+                if (filters != null && filters.length > 0) {
+                    for (DesireIteratorFilter filter : filters) {
+                        if (!filter.isOk(desire)) {
+                            continue outer;
+                        }
                     }
                 }
-            }
 
-            handler.next(desire, iterator);
+                handler.next(desire, iterator);
+            }
         }
     }
 

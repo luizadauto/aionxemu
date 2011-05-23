@@ -28,7 +28,6 @@ import gameserver.skillengine.model.Skill;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -48,7 +47,7 @@ public class ObserveController {
     protected Queue<ActionObserver> dotObservers = new ConcurrentLinkedQueue<ActionObserver>();
     protected Queue<ActionObserver> godstoneObservers = new ConcurrentLinkedQueue<ActionObserver>();
 
-    protected List<ActionObserver> observers = new ArrayList<ActionObserver>();
+    protected Queue<ActionObserver> observers = new ConcurrentLinkedQueue<ActionObserver>();
     
     protected ActionObserver[] equipObservers = new ActionObserver[0];
     protected AttackCalcObserver[] attackCalcObservers = new AttackCalcObserver[0];
@@ -159,8 +158,8 @@ public class ObserveController {
             observer.stateChanged(state, isSet);
         }
         synchronized (observers) {
-            for (int i=0; i<observers.size(); i++){
-                observers.get(i).stateChanged(state, isSet);
+            for (ActionObserver observer : observers) {
+                observer.stateChanged(state, isSet);
             }
         }
     }

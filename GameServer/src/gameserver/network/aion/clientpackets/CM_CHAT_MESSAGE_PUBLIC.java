@@ -102,7 +102,7 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket {
         if (RestrictionsManager.canChat(player)) {
             switch (this.type) {
                 case GROUP:
-                    if (player.getPlayerGroup() == null && player.getPlayerAlliance() == null)
+                    if (player.getPlayerGroup() == null)
                         return;
 
                     if (GSConfig.LOG_CHAT)
