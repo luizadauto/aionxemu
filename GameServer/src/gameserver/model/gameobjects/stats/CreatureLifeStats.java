@@ -42,7 +42,7 @@ public abstract class CreatureLifeStats<T extends Creature> {
     private ReentrantLock hpLock = new ReentrantLock();
     private ReentrantLock mpLock = new ReentrantLock();
 
-    protected Future<?> lifeRestoreTask;
+    protected Future<?> lifeRestoreTask = null;
 
     public CreatureLifeStats(Creature owner, int currentHp, int currentMp) {
         super();

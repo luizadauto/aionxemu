@@ -18,7 +18,7 @@ package gameserver.ai.desires;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * This class represents desire queue, it's thread-safe. Desires can be added and removed. If desire is added - previous
@@ -32,7 +32,7 @@ public class DesireQueue {
     /**
      * Prioritized Queue of desires, lazy initialization.
      */
-    protected PriorityQueue<Desire> queue;
+    protected PriorityBlockingQueue<Desire> queue;
 
     /**
      * Retuns first element of this queue not removing it. Returns null if there is no elements.
@@ -75,7 +75,7 @@ public class DesireQueue {
     public synchronized void addDesire(Desire desire) {
         // Lazy initialization of desire queue
         if (queue == null) {
-            queue = new PriorityQueue<Desire>();
+            queue = new PriorityBlockingQueue<Desire>();
         }
 
         // Iterate over the list to find similiar desires

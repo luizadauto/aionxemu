@@ -93,9 +93,11 @@ public class ObserveController {
      * notify that creature moved
      */
     protected void notifyMoveObservers() {
-        while (!moveObservers.isEmpty()) {
-            ActionObserver observer = moveObservers.poll();
-            observer.moved();
+        synchronized (moveObservers) {
+            while (!moveObservers.isEmpty()) {
+                ActionObserver observer = moveObservers.poll();
+                observer.moved();
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {
@@ -108,9 +110,11 @@ public class ObserveController {
      * notify that creature attacking
      */
     public void notifyAttackObservers(Creature creature) {
-        while (!attackObservers.isEmpty()) {
-            ActionObserver observer = attackObservers.poll();
-            observer.attack(creature);
+        synchronized (attackObservers) {
+            while (!attackObservers.isEmpty()) {
+                ActionObserver observer = attackObservers.poll();
+                observer.attack(creature);
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {
@@ -123,9 +127,11 @@ public class ObserveController {
      * notify that creature attacked
      */
     protected void notifyAttackedObservers(Creature creature) {
-        while (!attackedObservers.isEmpty()) {
-            ActionObserver observer = attackedObservers.poll();
-            observer.attacked(creature);
+        synchronized (attackedObservers) {
+            while (!attackedObservers.isEmpty()) {
+                ActionObserver observer = attackedObservers.poll();
+                observer.attacked(creature);
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {
@@ -138,9 +144,11 @@ public class ObserveController {
      * notify that creature used a skill
      */
     public void notifySkilluseObservers(Skill skill) {
-        while (!skilluseObservers.isEmpty()) {
-            ActionObserver observer = skilluseObservers.poll();
-            observer.skilluse(skill);
+        synchronized (skilluseObservers) {
+            while (!skilluseObservers.isEmpty()) {
+                ActionObserver observer = skilluseObservers.poll();
+                observer.skilluse(skill);
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {
@@ -153,9 +161,11 @@ public class ObserveController {
      * notify that creature changed state
      */
     public void notifyStateChangeObservers(CreatureState state, boolean isSet) {
-        while (!stateChangeObservers.isEmpty()) {
-            ActionObserver observer = stateChangeObservers.poll();
-            observer.stateChanged(state, isSet);
+        synchronized (stateChangeObservers) {
+            while (!stateChangeObservers.isEmpty()) {
+                ActionObserver observer = stateChangeObservers.poll();
+                observer.stateChanged(state, isSet);
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {
@@ -220,13 +230,15 @@ public class ObserveController {
      */
     public void removeObserver(ActionObserver observer) {
         synchronized (observers) {
-            observers.remove(observer);
+            if (observers.contains(observer))
+                observers.remove(observer);
         }
     }
 
     public void removeDeathObserver(ActionObserver observer) {
-        if (deathObservers.contains(observer)) {
-            deathObservers.remove(observer);
+        synchronized (deathObservers) {
+            if (deathObservers.contains(observer))
+                deathObservers.remove(observer);
         }
     }
 
@@ -312,9 +324,11 @@ public class ObserveController {
     }
 
     public void notifyDeath(Creature creature) {
-        while (!deathObservers.isEmpty()) {
-            ActionObserver observer = deathObservers.poll();
-            observer.died(creature);
+        synchronized (deathObservers) {
+            while (!deathObservers.isEmpty()) {
+                ActionObserver observer = deathObservers.poll();
+                observer.died(creature);
+            }
         }
     }
 
@@ -322,9 +336,11 @@ public class ObserveController {
      * notify that player jumped
      */
     public void notifyJumpObservers() {
-        while (!jumpObservers.isEmpty()) {
-            ActionObserver observer = jumpObservers.poll();
-            observer.jump();
+        synchronized (jumpObservers) {
+            while (!jumpObservers.isEmpty()) {
+                ActionObserver observer = jumpObservers.poll();
+                observer.jump();
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {
@@ -337,9 +353,11 @@ public class ObserveController {
      * notify that player received damage over time
      */
     public void notifyDotObservers(Creature creature) {
-        while (!dotObservers.isEmpty()) {
-            ActionObserver observer = dotObservers.poll();
-            observer.onDot(creature);
+        synchronized (dotObservers) {
+            while (!dotObservers.isEmpty()) {
+                ActionObserver observer = dotObservers.poll();
+                observer.onDot(creature);
+            }
         }
         synchronized (observers) {
             for(ActionObserver observer : observers)
@@ -353,9 +371,11 @@ public class ObserveController {
      * notify that player using godstone
      */
     public void notifyGodstoneObservers(Creature creature) {
-        while (!godstoneObservers.isEmpty()) {
-            ActionObserver observer = godstoneObservers.poll();
-            observer.onGodstone(creature);
+        synchronized (godstoneObservers) {
+            while (!godstoneObservers.isEmpty()) {
+                ActionObserver observer = godstoneObservers.poll();
+                observer.onGodstone(creature);
+            }
         }
         synchronized (observers) {
             for (ActionObserver observer : observers) {

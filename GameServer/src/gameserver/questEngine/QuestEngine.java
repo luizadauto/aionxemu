@@ -434,12 +434,12 @@ public class QuestEngine {
 
     public TIntArrayList getQuestEnterZone(ZoneName zoneName) {
         if (zoneName == null)
-            return new TIntArrayList();
+            return null;
 
         if (questEnterZone.containsKey(zoneName)) {
             return questEnterZone.get(zoneName);
         }
-        return new TIntArrayList();
+        return null;
     }
 
     public TIntArrayList getQuestSkillIds(int skillId) {

@@ -112,13 +112,16 @@ public class LifeStatsRestoreService {
 
         @Override
         public void run() {
+            if (lifeStats == null)
+                return;
+
             if (lifeStats.isAlreadyDead() || lifeStats.isFullyRestoredHpMp()) {
                 lifeStats.cancelRestoreTask();
             } else {
-            	if(!lifeStats.isFullyRestoredHp())
-            		lifeStats.restoreHp();
-            	if(!lifeStats.isFullyRestoredMp())
-            		lifeStats.restoreMp();
+                if(!lifeStats.isFullyRestoredHp())
+                    lifeStats.restoreHp();
+                if(!lifeStats.isFullyRestoredMp())
+                    lifeStats.restoreMp();
             }
         }
     }

@@ -421,6 +421,12 @@ public class CustomConfig {
     /**
      *
      */
+    @Property(key = "gameserver.drops.npc.junk", defaultValue = "225")
+    public static int DROP_POINTS_NPC_JUNK;
+
+	/**
+     *
+     */
     @Property(key = "gameserver.drops.npc.hero", defaultValue = "350")
     public static int DROP_POINTS_NPC_HERO;
 

@@ -38,6 +38,8 @@ public class ConsoleFilter extends Filter {
     @Override
     public int decide(LoggingEvent loggingEvent) {
         Object message = loggingEvent.getMessage();
+        if (message == null)
+            return DENY;
 
         if (((String) message).startsWith("[MESSAGE]")
                 || ((String) message).startsWith("[ADMIN COMMAND]")

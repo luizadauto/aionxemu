@@ -105,6 +105,9 @@ public class DropService {
             case ELITE:
                 value = CustomConfig.DROP_POINTS_NPC_ELITE;
                 break;
+            case JUNK:
+                value = CustomConfig.DROP_POINTS_NPC_JUNK;
+                break;
             case HERO:
                 value = CustomConfig.DROP_POINTS_NPC_HERO;
                 break;
