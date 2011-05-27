@@ -304,10 +304,10 @@ public class GoTo extends AdminCommand {
             TeleportService.teleportTo(admin, 300100000, 237, 505, 949, 0);
             PacketSendUtility.sendMessage(admin, "Teleported to Steel Rake.");
         } else if (params[0].toLowerCase().equals("inggison")) {
-            TeleportService.teleportTo(admin, 210050000, 1333, 273, 589, 110);
+            TeleportService.teleportTo(admin, 210050000, 1333, 273, 589, 0);
             PacketSendUtility.sendMessage(admin, "Teleported to Inggison.");
         } else if (params[0].toLowerCase().equals("gelkmaros")) {
-            TeleportService.teleportTo(admin, 220070000, 795, 1684, 362, 0);
+            TeleportService.teleportTo(admin, 220070000, 1888, 2863, 556, 0);
             PacketSendUtility.sendMessage(admin, "Teleported to Gelkmaros.");
         } else if (params[0].toLowerCase().equals("kaisinel")) {
             TeleportService.teleportTo(admin, 110020000, 2155, 1567, 1205, 0);
