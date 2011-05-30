@@ -26,13 +26,14 @@ import gameserver.model.templates.spawn.SpawnTemplate;
  */
 public class InstancePortal extends Npc {
     private int fortressId;
-
     private int spawnStaticId;
+    private SiegeRace race;
 
-    public InstancePortal(int objId, PortalController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId, int staticId) {
+    public InstancePortal(int objId, PortalController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId, int staticId, SiegeRace race) {
         super(objId, controller, spawn, objectTemplate);
         this.fortressId = fortressId;
         this.spawnStaticId = staticId;
+        this.race = race;
     }
 
     public int getFortressId() {
@@ -41,6 +42,10 @@ public class InstancePortal extends Npc {
 
     public int getStaticId() {
         return spawnStaticId;
+    }
+    
+    public SiegeRace getRace() {
+    	return race;
     }
 
 }

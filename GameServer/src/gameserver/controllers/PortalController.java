@@ -27,6 +27,7 @@ import gameserver.model.TaskId;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.group.PlayerGroup;
+import gameserver.model.siege.InstancePortal;
 import gameserver.model.templates.portal.EntryPoint;
 import gameserver.model.templates.portal.ExitPoint;
 import gameserver.model.templates.portal.PortalTemplate;
@@ -64,6 +65,11 @@ public class PortalController extends NpcController {
 
         if (!CustomConfig.ENABLE_INSTANCES)
             return;
+
+        if (getOwner() instanceof InstancePortal) {
+            if (((InstancePortal) getOwner()).getRace().getRaceId() != player.getCommonData().getRace().getRaceId())
+                return;
+        }
 
         final int defaultUseTime = 3000;
         PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), getOwner().getObjectId(),
@@ -144,7 +150,7 @@ public class PortalController extends NpcController {
                             port(player);
                         return;
                     }
-                    
+
                     // register if not yet created
                     if (instance == null && group != null) {
                         instance = registerGroup(group);

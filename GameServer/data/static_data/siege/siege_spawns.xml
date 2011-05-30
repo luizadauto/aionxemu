@@ -331,6 +331,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277047" npcid_da="277046" npcid_li="277045" x="2556.4885" y="2848.8594" z="1487.5" h="0"/>
 			<artifact_effect skillid="12071" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700531" npcid_li="700531" x="2541.48" y="2856" z="1490.21" h="0" static_id="1213" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -588,6 +592,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277062" npcid_da="277061" npcid_li="277060" x="1821.94" y="2313.83" z="2930.6" h="71"/>
 			<artifact_effect skillid="12077" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700536" npcid_li="700536" x="1815.0714" y="2321.572" z="2931.347" h="0" static_id="1217" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -922,6 +930,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277044" npcid_da="277043" npcid_li="277042" x="2777.8374" y="2658.3555" z="1485.0039" h="93"/>
 			<artifact_effect skillid="12070" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700454" npcid_li="700454" x="2784.99" y="2664.03" z="1485.9668" h="0" static_id="1216" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -1262,14 +1274,19 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277050" npcid_da="277049" npcid_li="277048" x="1334.7935" y="1236.0947" z="1495.6266" h="100"/>
 			<artifact_effect skillid="12072" range="WORLD"/>
 		</artifact>
-		<!--<aetheric_field>
-		<generator>
-			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
-		</generator>
-		<aetheric_shield>
-			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
-		</aetheric_shield>
-	</aetheric_field>-->
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700452" npcid_li="700452" x="1344.0844" y="1243.928" z="1496.489" h="0" static_id="34" />
+		</instance_portal>
+		<!-- Aetheric Field
+		<aetheric_field>
+			<generator>
+				<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
+			</generator>
+			<aetheric_shield>
+				<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
+			</aetheric_shield>
+		</aetheric_field>-->
 	</siege_spawn>
 	<siege_spawn location_id="1251">
 		<!--Forteresse d'Asteria-->
@@ -1490,6 +1507,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277065" npcid_da="277064" npcid_li="257492" x="708.0636" y="2915.918" z="2876.2573" h="6"/>
 			<artifact_effect skillid="12074" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700460" npcid_li="700460" x="704.9808" y="2922.2163" z="2880.9604" h="0" static_id="71" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -1866,6 +1887,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277041" npcid_da="277040" npcid_li="277039" x="2192.691" y="1926.8291" z="2301.6294" h="33"/>
 			<artifact_effect skillid="12078" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="282014" npcid_li="282014" x="2203.187" y="1928.1812" z="2303.0444" h="0" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -2137,6 +2162,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277056" npcid_da="277055" npcid_li="277054" x="2008.227" y="1261.6769" z="2944.5237" h="4"/>
 			<artifact_effect skillid="12075" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700458" npcid_li="700458" x="2011.3734" y="1251.6195" z="2945.3445" h="0" static_id="1218" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -2400,6 +2429,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277059" npcid_da="277058" npcid_li="277057" x="2523.9421" y="2060.7366" z="3030.917" h="36"/>
 			<artifact_effect skillid="12076" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700535" npcid_li="700535" x="2532.26" y="2064.39" z="3034.0" h="0" static_id="32" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>
@@ -2764,6 +2797,10 @@ Forteresses et Artefacts Abyssaux-->
 			<baseinfo npcid_dr="277053" npcid_da="277052" npcid_li="277051" x="2706.702" y="747.93427" z="2853.4187" h="36"/>
 			<artifact_effect skillid="12073" range="WORLD"/>
 		</artifact>
+		<!-- Fortress Instance -->
+		<instance_portal>
+			<baseinfo npcid_dr="0" npcid_da="700479" npcid_li="700479" x="2712.5066" y="757.6218" z="2854.295" h="0" static_id="1210" />
+		</instance_portal>
 		<!--<aetheric_field>
 		<generator>
 			<baseinfo npcid_dr="0" npcid_da="0" npcid_li="0" x="0" y="0" z="0" h="0"/>

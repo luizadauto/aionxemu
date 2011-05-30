@@ -2,6 +2,14 @@
 <?xml-stylesheet type="text/css" href="../../../licenses/Aion-Engine.css" title="License Aion-Engine" alternate="no"?>
 <?xml-stylesheet type="text/css" href="../../../authors/Magenik.css"?>
 <spawns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../spawns.xsd">
+	<!--Daonce's Corpse Q20023-->
+	<spawn map="220070000" npcid="700810" pool="1" interval="295">
+		<object staticid="234" x="2563.4924" y="1795.6605" h="0" z="310.7645"/>
+	</spawn>
+	<!-- Destroyed Gargoyle Q20023-->
+	<spawn map="220070000" npcid="730243" pool="1" interval="295">
+		<object staticid="231" x="2576.7285" y="1769.6206" h="0" z="316.79373"/>
+	</spawn>
 	<!-- Taloc's Hollow-->
 	<spawn map="220070000" npcid="799325" pool="1" interval="295">
 		<object x="981.11395" y="2565.7437" z="241.7037" h="114"/>
@@ -431,12 +439,15 @@
 		<object h="10" x="1790.9388" y="2728.3386" z="529.18866"/>
 		<object h="10" x="1792.8151" y="2725.2817" z="529.18866"/>
 	</spawn>
+	<!-- Nunglark Drana Growing Device Q20022-->
+	<spawn map="220070000" npcid="700701" pool="1" interval="295">
+		<object h="0" staticid="506" x="285.08453" y="1534.7336" z="356.95532"/>
+	</spawn>
 	<!-- Marayas Drana Growing Device ( Q20022 ) -->
-	<spawn map="220070000" npcid="700702" pool="10" interval="295">
+	<spawn map="220070000" npcid="700702" pool="9" interval="295">
 		<object h="0" staticid="503" x="1546.6941" y="1760.5148" z="374.93945"/>
 		<object h="0" staticid="1177" x="1466.2251" y="2178.7407" z="372.77356"/>
 		<object h="0" staticid="486" x="2040.6167" y="1590.0586" z="355.1481"/>
-		<object h="0" staticid="506" x="285.08453" y="1534.7336" z="356.95532"/>
 		<object h="0" staticid="521" x="2260.5586" y="1895.4022" z="379.61984"/>
 		<object h="0" staticid="654" x="714.49023" y="1365.6576" z="279.70209"/>
 		<object h="0" staticid="556" x="2245.2295" y="1816.6783" z="377.8338"/>

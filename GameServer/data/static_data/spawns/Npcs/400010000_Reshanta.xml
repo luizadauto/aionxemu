@@ -14,7 +14,7 @@
 
 	You should have received a copy of the GNU Lesser Public License
 	along with this software.  If not, see <http://www.gnu.org/licenses/>.
-	
+
 	Reshanta
 	@author Atomix initial client import
 	@author Magenik Fix With 1.9 content
@@ -160,10 +160,6 @@
 	<!-- Barono (NPC Elite lvl:50)-->
 	<spawn map="400010000" npcid="278549" pool="1" interval="295">
 		<object x="2905.1697" y="1015.36115" z="1527.9968" h="58"/>
-	</spawn>
-	<!-- Beautiful Landscape Painting - ELYOS (Object Normal lvl:1)-->
-	<spawn map="400010000" npcid="700460" pool="1" interval="295">
-		<object x="704.9808" y="2922.2163" z="2880.9604" h="0" staticid="71"/>
 	</spawn>
 	<!-- Belita (NPC Elite lvl:53)-->
 	<spawn map="400010000" npcid="278550" pool="1" interval="295">
@@ -545,10 +541,6 @@
 	<spawn map="400010000" npcid="278050" pool="1" interval="295">
 		<object x="1053.6141" y="2835.131" z="1635.9048" h="0"/>
 	</spawn>
-	<!-- Hidden Stone Door (Object Normal lvl:1)-->
-	<spawn map="400010000" npcid="700452" pool="1" interval="295">
-		<object staticid="34" x="1344.0844" y="1243.928" z="1496.489" h="0"/>
-	</spawn>
 	<!-- Hikelen (NPC Elite lvl:48)-->
 	<spawn map="400010000" npcid="278584" pool="1" interval="295">
 		<object x="1636.875" y="3037.0" z="1668.6312" h="0"/>
@@ -886,10 +878,6 @@
 	<spawn map="400010000" npcid="730077" pool="1" interval="295">
 		<object x="1059.5856" y="2859.2322" z="1636.4055" h="0" staticid="271"/>
 	</spawn>
-	<!-- Mossy Gate (Object Normal lvl:1)-->
-	<spawn map="400010000" npcid="700458" pool="1" interval="295">
-		<object x="2011.3734" y="1251.6195" z="2945.3445" h="0" staticid="1218"/>
-	</spawn>
 	<!-- Muirica (NPC Elite lvl:40)-->
 	<spawn map="400010000" npcid="278107" pool="1" interval="295">
 		<object x="577.7223" y="2598.1777" z="2888.7764" h="0"/>
@@ -983,14 +971,6 @@
 	<!-- Ockham (NPC Elite lvl:53 Subtext: Special Administration Officer)-->
 	<spawn map="400010000" npcid="279054" pool="1" interval="295">
 		<object x="963.9701" y="2824.0989" z="1639.015" h="31"/>
-	</spawn>
-	<!-- Old Stone Statue (Object Normal lvl:1)-->
-	<spawn map="400010000" npcid="700479" pool="1" interval="295">
-		<object x="2712.5066" y="757.6218" z="2854.295" h="0" staticid="1210"/>
-	</spawn>
-	<!-- Old Stone Door Object normal lvl:1) -->
-	<spawn interval="295" map="400010000" npcid="700535" pool="1">
-		<object h="0" staticid="32" x="2532.26" y="2064.39" z="3034.0"/>
 	</spawn>
 	<!-- Ozur (NPC Normal lvl:45 Subtext: Combat Administration Officer)-->
 	<spawn map="400010000" npcid="278023" pool="1" interval="295">
@@ -1148,10 +1128,6 @@
 	<spawn map="400010000" npcid="278515" pool="1" interval="295">
 		<object x="1642.4518" y="3042.3977" z="1668.9725" h="0"/>
 	</spawn>
-	<!-- Shining Magic Ward (Object Normal lvl:1)-->
-	<spawn map="400010000" npcid="700454" pool="1" interval="295">
-		<object staticid="1216" x="2784.99" y="2664.03" z="1485.9668" h="0"/>
-	</spawn>
 	<!-- Shoulder Core Q2783A(Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700309" pool="2" interval="295">
 		<object staticid="1019" x="2552.7" y="1563.43" z="2976.12" h="0"/>
@@ -1212,10 +1188,6 @@
 	<!-- Steinkel (NPC Normal lvl:45 Subtext: Weapon Distributor)-->
 	<spawn map="400010000" npcid="278132" pool="1" interval="295">
 		<object x="898.4749" y="2956.2773" z="1641.652" h="16"/>
-	</spawn>
-	<!-- Stone Gate (Object Normal lvl:1)-->
-	<spawn map="400010000" npcid="700531" pool="1" interval="295">
-		<object x="2541.48" y="2856" z="1490.21" h="0" staticid="1213"/>
 	</spawn>
 	<!-- Stone Plate from Ruins of Roah (Object Normal lvl:1)-->
 	<spawn map="400010000" npcid="700303" pool="3" interval="295">
@@ -1426,11 +1398,8 @@
 		<object x="3233.729" y="1077.1211" z="2677.814" h="0" staticid="1026"/>
 		<object x="3088.2869" y="1238.31" z="2634.161" h="0" staticid="1031"/>
 	</spawn>
-	<spawn map="400010000" npcid="700536" pool="1" interval="295">
-		<object x="1815.0714" y="2321.572" z="2931.347" h="0" staticid="1217"/>
-	</spawn>
 	<!-- Black Cloud Traders Guidebook (Book) -->
-	<spawn map="400010000" npcid="730130" pool="1" interval="295">	
+	<spawn map="400010000" npcid="730130" pool="1" interval="295">
 		<object staticid="270" x="3384.9695" y="2426.4709" z="2767.7966" h="0"/>
 	</spawn>
 	<!-- Flame Meteor -->
@@ -1438,10 +1407,6 @@
 		<object x="-2.9624345E-5" y="4.8502414E-5" z="-1.4372003E-4" h="0" staticid="241"/>
 		<object x="-2.9624345E-5" y="4.8502414E-5" z="-1.4372003E-4" h="0" staticid="341"/>
 		<object x="-2.9624345E-5" y="4.8502414E-5" z="-1.4372003E-4" h="0" staticid="336"/>
-	</spawn>
-	<!-- Abyssal Splinter -->
-	<spawn map="400010000" npcid="282014" pool="1" interval="295">	
-		<object x="2203.18700" y="1928.18119" z="2303.04434" h="0"/>
 	</spawn>
 	<!-- Laum (Abyssal Splinter Elyos) -->
 	<spawn map="400010000" npcid="278652" pool="1" interval="295">

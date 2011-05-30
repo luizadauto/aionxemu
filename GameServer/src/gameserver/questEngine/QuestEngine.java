@@ -250,6 +250,9 @@ public class QuestEngine {
 
     public boolean onEnterZone(QuestCookie env, ZoneName zoneName) {
         TIntArrayList lists = getQuestEnterZone(zoneName);
+        if (lists == null)
+            return false;
+
         for (int index = 0; index < lists.size(); index++) {
             int questId = lists.get(index);
             QuestHandler questHandler = getQuestHandlerByQuestId(questId);

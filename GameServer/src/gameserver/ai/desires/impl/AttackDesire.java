@@ -103,10 +103,12 @@ public final class AttackDesire extends AbstractDesire {
             }
         }
         int attackRange = owner.getGameStats().getCurrentStat(StatEnum.ATTACK_RANGE);
-        if (distance * 1000 <= attackRange) {
+        long lastAttackDiff = System.currentTimeMillis() - owner.getLastAttack();
+        if (distance * 1000 <= attackRange && lastAttackDiff > 1000) {
             owner.getController().attackTarget(target);
+            owner.setLastAttack(System.currentTimeMillis());
             attackNotPossibleCounter = 0;
-        } else {
+        } else if (lastAttackDiff > 1000) {
             attackNotPossibleCounter++;
         }
 
@@ -159,5 +161,5 @@ public final class AttackDesire extends AbstractDesire {
     public void onClear() {
         owner.unsetState(CreatureState.WEAPON_EQUIPPED);
 	}
-	
+
 }

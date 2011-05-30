@@ -16,6 +16,7 @@
  */
 package gameserver.services;
 
+import gameserver.controllers.PlayerController;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.FlightZoneData;
 import gameserver.dataholders.ZoneData;
@@ -83,13 +84,18 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player> {
         ZONE_UPDATE {
             @Override
             public void zoneTask(Player player) {
-                player.getController().updateZoneImpl();
-                player.getController().checkWaterLevel();
+                PlayerController playerController = player.getController();
+                if (playerController == null)
+                    return;
+                playerController.updateZoneImpl();
+                playerController.checkWaterLevel();
             }
         },
         ZONE_REFRESH {
             @Override
             public void zoneTask(Player player) {
+                if (player.getController() == null)
+                    return;
                 player.getController().refreshZoneImpl();
             }
         };
@@ -109,6 +115,8 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player> {
         protected final void tryUpdateZone(final Player player, byte mask) {
             if ((mask & mask()) == mask()) {
                 zoneTask(player);
+                if (player.getController() == null)
+                    return;
                 player.getController().removeZoneUpdateMask(this);
             }
         }

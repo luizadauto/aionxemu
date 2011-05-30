@@ -249,7 +249,8 @@ public class SpawnEngine {
         int mapId = DataManager.SIEGE_LOCATION_DATA.getSiegeLocations().get(fortressId).getLocationTemplate().getWorldId();
         int ipNpcId = template.getBaseInfo().getNpcId(race);
         SpawnTemplate sTemplate = addNewSpawn(mapId, 1, ipNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
-        InstancePortal portal = new InstancePortal(IDFactory.getInstance().nextId(), new PortalController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(ipNpcId), fortressId, template.getBaseInfo().getStaticId());
+        sTemplate.setStaticid(template.getBaseInfo().getStaticId());
+		InstancePortal portal = new InstancePortal(IDFactory.getInstance().nextId(), new PortalController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(ipNpcId), fortressId, template.getBaseInfo().getStaticId(), race);
         portal.setKnownlist(new NpcKnownList(portal));
         portal.setEffectController(new EffectController(portal));
         portal.setLifeStats(new NpcLifeStats(portal));

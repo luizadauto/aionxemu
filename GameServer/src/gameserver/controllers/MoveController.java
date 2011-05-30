@@ -218,9 +218,16 @@ public class MoveController {
         if (distanceToTarget > this.distance) {
             isStopped = false;
 
-            x2 = (float) (((targetX - ownerX) / distanceToTarget) * speed * 0.5);
-            y2 = (float) (((targetY - ownerY) / distanceToTarget) * speed * 0.5);
-            z2 = (float) (((targetZ - ownerZ) / distanceToTarget) * speed * 0.5);
+            if(distanceToTarget > (speed * 0.5)) {
+            	x2 = (float) (((targetX - ownerX) / distanceToTarget) * speed * 0.5);
+            	y2 = (float) (((targetY - ownerY) / distanceToTarget) * speed * 0.5);
+            	z2 = (float) (((targetZ - ownerZ) / distanceToTarget) * speed * 0.5);
+            }
+            else {
+            	x2 = (float) (targetX - ownerX);
+            	y2 = (float) (targetY - ownerY);
+            	z2 = (float) (targetZ - ownerZ);
+            }
 
             h2 = (byte) (Math.toDegrees(Math.atan2(y2, x2)) / 3);
 
@@ -237,8 +244,10 @@ public class MoveController {
             if (!isStopped) {
                 isStopped = true;
                 owner.getController().stopMoving();
-                if (owner instanceof FortressGeneral && owner.getTarget() instanceof Creature) {
-                    owner.getController().attackTarget((Creature) owner.getTarget());
+                long lastAttackDiff = System.currentTimeMillis() - owner.getLastAttack();
+                if(lastAttackDiff > 1500) {
+                	owner.getController().attackTarget((Creature) owner.getTarget());
+                	owner.setLastAttack(System.currentTimeMillis());
                 }
             }
         }
