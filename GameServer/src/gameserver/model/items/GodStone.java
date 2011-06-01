@@ -19,6 +19,7 @@ package gameserver.model.items;
 import com.aionemu.commons.utils.Rnd;
 import gameserver.controllers.movement.ActionObserver;
 import gameserver.controllers.movement.ActionObserver.ObserverType;
+import gameserver.model.DescriptionId;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
@@ -97,7 +98,7 @@ public class GodStone extends ItemStone {
                 @Override
                 public void onGodstone(Creature creature) {
                     if (Rnd.get(0, probability) > Rnd.get(0, 1000)) {
-                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1301062, "Godstone"));
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1301062, new DescriptionId(skill.getSkillTemplate().getNameId())));
                         skill.useSkill();
                     }
                 }

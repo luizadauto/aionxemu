@@ -259,21 +259,12 @@ public class TeleportService
     public static boolean teleportTo(final Player player, final int worldId, final int instanceId, final float x,
         final float y, final float z, final byte heading, final int delay)
     {
-        boolean arena = ArenaService.getInstance().isInArena(player);
         boolean dead = player.getLifeStats().isAlreadyDead();
-        if(!arena)
-        {
-            if(dead || !player.isSpawned())
-                return false;
-        }
+        if(dead || !player.isSpawned())
+            return false;
 
         if(DuelService.getInstance().isDueling(player.getObjectId()))
-        {
-            if(arena)
-                DuelService.getInstance().loseArenaDuel(player);
-            else
-                DuelService.getInstance().loseDuel(player);
-        }
+            DuelService.getInstance().loseDuel(player);
 
         if(player.getToyPet() != null)
             ToyPetService.getInstance().dismissPet(player, player.getToyPet().getPetId());
@@ -281,8 +272,6 @@ public class TeleportService
         if(delay == 0)
         {
             changePosition(player, worldId, instanceId, x, y, z, heading);
-            if(arena && dead)
-                player.getReviveController().skillRevive();
             return true;
         }
 

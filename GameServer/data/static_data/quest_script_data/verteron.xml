@@ -192,8 +192,7 @@
 		<monster_infos var_id="1" max_kill="8" npc_id="210711" />
 	</monster_hunt>
 	<!-- 1197: Krall Book handled by script -->
-	<!-- The Writing on the Wall -->
-	<report_to id="1198" start_npc_id="203339" end_npc_id="203098" item_id="182200559" />
+	<!-- 1198: The Writing on the Wall handled by script -->
 	<!-- Eninte's Request -->
 	<report_to id="1199" start_npc_id="203161" end_npc_id="203893" item_id="182200560" />
 	<!-- Eninte -->
@@ -239,4 +238,8 @@
 	<!-- 1218: Numonerk's Demand Note handled by script -->
 	<!-- Lepharist Treasure Box -->
 	<item_collecting id="1219" start_npc_id="203172" action_item_id="700283" />
+	<!-- Brainwashed Tursin Krall -->
+	<monster_hunt id="1221" start_npc_id="203097">
+		<monster_infos var_id="0" max_kill="3" npc_id="216913" />
+	</monster_hunt>
 </quest_scripts>

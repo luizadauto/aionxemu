@@ -290,6 +290,20 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     }
 
     /**
+     * %0 has been kicked out of the arena.
+     */
+    public static SM_SYSTEM_MESSAGE STR_PvPZONE_OUT_MESSAGE(String player) {
+        return new SM_SYSTEM_MESSAGE(1301031, player);
+    }
+
+    /**
+     * %0 has defeated %1
+     */
+    public static SM_SYSTEM_MESSAGE STR_KILLMSG(String name1, String name2) {
+        return new SM_SYSTEM_MESSAGE(1300739, name1, name2);
+    }
+
+    /**
      * You have successfully soul-bound %0.
      */
     public static SM_SYSTEM_MESSAGE SOUL_BOUND_ITEM_SUCCEED(DescriptionId itemDescId) {

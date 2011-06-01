@@ -129,7 +129,22 @@ public class CM_EMOTION extends AionClientPacket {
                 player.unsetState(CreatureState.RESTING);
                 break;
             case CHAIR_SIT:
-                player.unsetState(CreatureState.ACTIVE);
+                // cannot sit while in combat mode, unset current state first
+                if (player.isInState(CreatureState.WEAPON_EQUIPPED)) {
+                    player.unsetState(CreatureState.WEAPON_EQUIPPED);
+                    PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.NEUTRALMODE2, 0, player.getObjectId()), true);
+
+                    // pause for animation
+                    try {
+                        Thread.sleep(1000);
+                    }
+                    catch (InterruptedException e) {
+                        return;
+                    }
+                }
+                else
+                    player.unsetState(CreatureState.ACTIVE);
+
                 player.setState(CreatureState.CHAIR);
                 break;
             case CHAIR_UP:

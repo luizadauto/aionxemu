@@ -15581,8 +15581,8 @@
 			<collect_item count="1" item_id="182208008"/>
 		</collect_items>
 		<rewards exp="188400" gold="63360">
-			<reward_item count="1" item_id="120001133"/>
-			<reward_item count="1" item_id="120001134"/>
+			<selectable_reward_item count="1" item_id="120001133"/>
+			<selectable_reward_item count="1" item_id="120001134"/>
 		</rewards>
 		<quest_drop drop_each_member="false" chance="30" item_id="182208008" npc_id="213838"/>
 		<quest_drop drop_each_member="false" chance="30" item_id="182208008" npc_id="213839"/>

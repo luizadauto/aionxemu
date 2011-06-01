@@ -96,12 +96,6 @@ public class PlayerController extends CreatureController<Player> {
                 PacketSendUtility.sendPacket(getOwner(), new SM_PET(3, player.getToyPet()));
             }
             getOwner().getEffectController().sendEffectIconsTo((Player) object);
-            if (ArenaService.getInstance().isInArena(getOwner())) {
-                if (ArenaService.getInstance().isInArena((Player) object)) {
-                    if (!ArenaService.getInstance().isInSameGroup(getOwner(), (Player) object))
-                        DuelService.getInstance().createDuel(getOwner().getObjectId(), object.getObjectId());
-                }
-            }
         } else if (object instanceof Kisk) {
             Kisk kisk = ((Kisk) object);
             PacketSendUtility.sendPacket(getOwner(), new SM_NPC_INFO(getOwner(), kisk));
@@ -211,6 +205,10 @@ public class PlayerController extends CreatureController<Player> {
                 }
             }
         }
+
+        //remove arena status if not in arena zone
+        if (ArenaService.getInstance().isInArena(getOwner()) && !ArenaService.getInstance().isInArenaZone(getOwner()))
+            ArenaService.getInstance().unregister(getOwner());
     }
 
     /**
@@ -227,14 +225,13 @@ public class PlayerController extends CreatureController<Player> {
             master = lastAttacker.getMaster();
 
         if (master instanceof Player) {
-            if (isDueling((Player) master)) {
-                if (ArenaService.getInstance().isInArena(player)) {
-                    ArenaService.getInstance().onDie(player, lastAttacker);
-                    return;
-                } else {
-                    DuelService.getInstance().onDie(player);
-                    return;
-                }
+            if (ArenaService.getInstance().isInArena(player)) {
+                ArenaService.getInstance().onDie(player, lastAttacker);
+                return;
+            }
+            else if (isDueling((Player) master)) {
+                DuelService.getInstance().onDie(player);
+                return;
             }
         }
 

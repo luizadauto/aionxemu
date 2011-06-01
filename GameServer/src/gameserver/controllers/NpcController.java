@@ -343,12 +343,17 @@ public class NpcController extends CreatureController<Npc> {
                 break;
             case 30:
                 switch (npc.getNpcId()) {
+                    // Triniel Arena (Enter)
                     case 204089:
                         TeleportService.teleportTo(player, 120010000, 1, 984f, 1543f, 222.1f, 0);
+                        ArenaService.getInstance().registerPlayerForTriniel(player);
                         break;
+                    // Coliseum (Enter)
                     case 203764:
                         TeleportService.teleportTo(player, 110010000, 1, 1462.5f, 1326.1f, 564.1f, 0);
+                        ArenaService.getInstance().registerPlayerForColiseum(player);
                         break;
+                    // Eracus Temple (Enter)
                     case 203981:
                         TeleportService.teleportTo(player, 210020000, 1, 439.3f, 422.2f, 274.3f, 0);
                         break;
@@ -356,12 +361,17 @@ public class NpcController extends CreatureController<Npc> {
                 break;
             case 31:
                 switch (npc.getNpcId()) {
+                    // Triniel Arena (Leave)
                     case 204087:
                         TeleportService.teleportTo(player, 120010000, 1, 1005.1f, 1528.9f, 222.1f, 0);
+                        ArenaService.getInstance().unregister(player);
                         break;
+                    // Coliseum (Leave)
                     case 203875:
                         TeleportService.teleportTo(player, 110010000, 1, 1470.3f, 1343.5f, 563.7f, 21);
+                        ArenaService.getInstance().unregister(player);
                         break;
+                    // Eracus Temple (Leave)
                     case 203982:
                         TeleportService.teleportTo(player, 210020000, 1, 446.2f, 431.1f, 274.5f, 0);
                         break;

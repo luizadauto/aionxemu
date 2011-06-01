@@ -247,34 +247,6 @@ public class DuelService {
         }
     }
 
-    public void loseArenaDuel(Player player) {
-        if (!isDueling(player.getObjectId()))
-            return;
-
-        /**
-         * all debuffs are removed from loser
-         * Stop casting or skill use
-         */
-        player.getEffectController().removeAbnormalEffectsByTargetSlot(SkillTargetSlot.DEBUFF);
-        player.getController().cancelCurrentSkill();
-
-        int opponnentId = duels.get(player.getObjectId());
-        Player opponent = World.getInstance().findPlayer(opponnentId);
-
-        if (opponent != null) {
-            /**
-             * all debuffs are removed from winner, but buffs will remain
-             * Stop casting or skill use
-             */
-            opponent.getEffectController().removeAbnormalEffectsByTargetSlot(SkillTargetSlot.DEBUFF);
-            opponent.getController().cancelCurrentSkill();
-        } else {
-            log.warn("CHECKPOINT : duel opponent is already out of world");
-        }
-
-        removeDuel(player.getObjectId(), opponnentId);
-    }
-
     /**
      * @param player
      * @param lastAttacker

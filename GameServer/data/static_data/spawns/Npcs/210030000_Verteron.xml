@@ -474,11 +474,6 @@
 	<spawn map="210030000" npcid="790000" pool="1" interval="295">
 		<object x="1655.8699" y="1520.2257" z="118.91135" h="90"/>
 	</spawn>
-	<!-- Map Of Eyvindr (Object Normal lvl:1)-->
-	<spawn map="210030000" npcid="700139" pool="2" interval="5">
-		<object staticid="486" x="1155.7095" y="1856.869" z="105.54306" h="49"/>
-		<object staticid="485" x="2125.9268" y="690.8397" z="100.43777" h="73"/>
-	</spawn>
 	<!-- Meliodas (NPC Normal lvl:20)-->
 	<spawn map="210030000" npcid="203156" pool="1" interval="295">
 		<object x="1720.2235" y="2755.0159" z="270.875" h="3"/>
@@ -756,8 +751,9 @@
 		<object x="1738.9" y="2538.0" z="155.97403" h="44"/>
 	</spawn>
 	<!-- Suspicious Document (Object Normal lvl:1)-->
-	<spawn map="210030000" npcid="700009" pool="1" interval="295">
-		<object x="1154.9812" y="1857.5603" z="105.54306" h="37"/>
+	<spawn map="210030000" npcid="700009" pool="2" interval="295">
+		<object staticid="486" x="1155.7095" y="1856.869" z="105.54306" h="49"/>
+		<object staticid="485" x="2125.9268" y="690.8397" z="100.43777" h="73"/>
 	</spawn>
 	<!-- Tamed Griffon (NPC Elite lvl:25)-->
 	<spawn map="210030000" npcid="203365" pool="1" interval="295">

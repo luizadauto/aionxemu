@@ -17,13 +17,13 @@
 	along with this software.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-	<!-- 20020: Crash of the Dredgion -->
-	<!-- 20021: TODO: The Aether Must Flow -->
-	<!-- 20022: TODO: Spreading Asmodae's Reach -->
-	<!-- 20023: TODO: Kumbanda's Whereabouts -->
-	<!-- 20024: TODO: Battles at Vorgaltem -->
-	<!-- 20025: TODO: Quest for Siel's Relics -->
-	<!-- 20026: TODO: Way to Inggison -->
+	<!-- 20020: Crash of the Dredgion handled by script -->
+	<!-- 20021: The Aether Must Flow handled by script -->
+	<!-- 20022: Spreading Asmodae's Reach handled by script -->
+	<!-- 20023: Kumbanda's Whereabouts handled by script -->
+	<!-- 20024: Battles at Vorgaltem handled by script -->
+	<!-- 20025: Quest for Siel's Relics handled by script -->
+	<!-- 20026: Way to Inggison -->
 	<!-- 20027: TODO: ???? -->
 	<!-- 20028: TODO: ???? -->
 	<!-- 20029: TODO: ???? -->
@@ -136,7 +136,7 @@
 	<!-- 21046: TODO: [Mithril Coin Reward] Level 51 Scout Class -->
 	<!-- 21047: TODO: [Mithril Coin Reward] Level 51 Priest Class -->
 	<!-- 21048: TODO: Bonorunerk's Offer -->
-	<!-- 21050: TODO: Gelkmaros Coin Fountain -->
+	<!-- 21050: Gelkmaros Coin Fountain handled by script -->
 	<!-- 21056: TODO: [Spy/Alliance] Fundin's Orders -->
 	<!-- 21057: TODO: [Spy/Alliance] Fundin's Old Grudge -->
 	<!-- 21058: TODO: [Spy/Alliance] Kirhua's Special Order -->
@@ -158,7 +158,7 @@
 	<!-- 21071: Missing Bard handled by script -->
 	<!-- Where's Svasuth? -->
 	<item_collecting id="21072" start_npc_id="799407" action_item_id="700931" />
-	<!-- 21073: TODO: Listen to My Song, Strigiks -->
+	<!-- 21073: Listen to My Song, Strigiks handled by script -->
 	<!-- Fated Love -->
 	<monster_hunt start_npc_id="799409" id="21074">
 		<monster_infos var_id="0" npc_id="215891" max_kill="10"/>
@@ -262,7 +262,7 @@
 	<!-- 21132: TODO: To Stand Against the Elyos -->
 	<!-- 21133: TODO: To Stand Against the Elyos -->
 	<!-- 21134: TODO: To Stand Against the Elyos -->
-	<!-- 21135: TODO: Vellun's Request -->
+	<!-- 21135: Vellun's Request handled by script -->
 	<!-- 21136: TODO: In Search of a Witness -->
 	<!-- 21137: TODO: Berokin's Image Marble -->
 	<!-- 21138: TODO: Odd Strigik -->
@@ -484,6 +484,8 @@
 	<report_to id="30131" start_npc_id="799202" end_npc_id="799336"/>
 	<!-- 30132: Releasing the Mace's Potential -->
 	<item_collecting id="30132" start_npc_id="799336"/>
+	<!-- 30302: Mysterious Motives handled by script -->
+	<!-- 30303: [Group] The Fall of Isbariya handled by script -->
 	<!-- Swap Meet -->
 	<item_collecting id="48502" start_npc_id="799424"/>
 	<!-- Flip A Coin -->

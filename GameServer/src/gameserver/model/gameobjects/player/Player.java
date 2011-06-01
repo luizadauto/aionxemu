@@ -47,6 +47,7 @@ import gameserver.network.aion.AionConnection;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
+import gameserver.services.ArenaService;
 import gameserver.services.BrokerService;
 import gameserver.services.ExchangeService;
 import gameserver.services.PlayerService;
@@ -1046,7 +1047,7 @@ public class Player extends Creature {
      */
     @Override
     public boolean isEnemyPlayer(Player player) {
-        return (getAdminEnmity() > 1 || player.getAdminEnmity() > 1) && player.getName() != getName() ?
+        return (ArenaService.getInstance().isEnemyPlayer(this, player) || getAdminEnmity() > 1 || player.getAdminEnmity() > 1) && player.getName() != getName() ?
             true : player.getCommonData().getRace() != getCommonData().getRace() || getController().isDueling(player);
     }
 
@@ -1068,7 +1069,7 @@ public class Player extends Creature {
      * @return
      */
     public boolean isFriend(Player player) {
-        return player.getCommonData().getRace() == getCommonData().getRace() && !getController().isDueling(player);
+        return player.getCommonData().getRace() == getCommonData().getRace() && !getController().isDueling(player) && !ArenaService.getInstance().isEnemyPlayer(this, player);
     }
 
     @Override
