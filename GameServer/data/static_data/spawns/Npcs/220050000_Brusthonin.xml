@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<?xml-stylesheet type="text/css" href="../../../licenses/Aion-Engine.css" title="License Aion-Engine" alternate="no"?>
+<?xml-stylesheet type="text/css" href="../../../licenses/Aion-X.css" title="License Aion X Emu" alternate="no"?>
 <?xml-stylesheet type="text/css" href="../../../authors/Magenik.css"?>
 <spawns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../spawns.xsd">
 	<spawn map="220050000" npcid="203359" pool="1" interval="295">
