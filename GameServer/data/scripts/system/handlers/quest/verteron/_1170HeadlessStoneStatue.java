@@ -25,6 +25,7 @@ import gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
 import gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
 import gameserver.network.aion.serverpackets.SM_QUEST_ACCEPTED;
+import gameserver.network.aion.serverpackets.SM_USE_OBJECT;
 import gameserver.questEngine.handlers.QuestHandler;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
@@ -76,15 +77,16 @@ public class _1170HeadlessStoneStatue extends QuestHandler {
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 700033 && env.getDialogId() == -1) {
                 final int targetObjectId = env.getVisibleObject().getObjectId();
-                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.SIT, 0,
-                        targetObjectId), true);
+                PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 1));
+                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.START_QUESTLOOT, 0, targetObjectId), true);
                 ThreadPoolManager.getInstance().schedule(new Runnable() {
                     @Override
                     public void run() {
                         if (!player.isTargeting(targetObjectId))
                             return;
                         if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182200504, 1)))) {
-                            ((Npc) player.getTarget()).getController().onDespawn(true);
+                            PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 0));
+                            PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.END_QUESTLOOT, 0, targetObjectId), true);
                             qs.setStatus(QuestStatus.REWARD);
                             updateQuestStatus(env);
                         }
@@ -98,7 +100,6 @@ public class _1170HeadlessStoneStatue extends QuestHandler {
                 else if (env.getDialogId() == 10000) {
                     if (player.getInventory().getItemCountByItemId(182200504) >= 1) {
                         player.getInventory().removeFromBagByItemId(182200504, 1);
-                        ((Npc) player.getTarget()).getController().onDespawn(true);
                         PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 16));
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject()
                                 .getObjectId(), 0));

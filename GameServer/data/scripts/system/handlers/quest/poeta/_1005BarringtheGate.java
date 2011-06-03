@@ -107,7 +107,18 @@ public class _1005BarringtheGate extends QuestHandler {
                 case 700080:
                     return defaultQuestUseNpc(env, 8, 9, EmotionType.NEUTRALMODE2, EmotionType.START_LOOT, false);
             }
-
+        } else if (qs.getStatus() == QuestStatus.REWARD) {
+            switch (env.getTargetId()) {
+                case 203067:
+                    switch (env.getDialogId()) {
+                        case 25:
+                            if (var == 9)
+                                return sendQuestDialog(env, 2716);
+                        case 1009:
+                            defaultQuestMovie(env, 171);
+                    }
+                    break;
+            }
         }
         return defaultQuestRewardDialog(env, 203067, 2716);
     }
@@ -136,6 +147,7 @@ public class _1005BarringtheGate extends QuestHandler {
                 break;
             case 8:
                 defaultQuestMovie(env, 21);
+                qs.setQuestVar(9);
                 qs.setStatus(QuestStatus.REWARD);
                 break;
         }

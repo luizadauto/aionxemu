@@ -108,7 +108,7 @@ public class AionPacketHandlerFactory
 		addPacket(new CM_SHOW_FRIENDLIST(0x5C), State.IN_GAME);// 2.1
 		addPacket(new CM_DUEL_REQUEST(0x60), State.IN_GAME);// 2.1
 		addPacket(new CM_FRIEND_ADD(0x5D), State.IN_GAME);//  2.1
-		addPacket(new CM_FRIEND_DEL(0x63), State.IN_GAME);//  2.1
+		addPacket(new CM_FRIEND_DEL(0x62), State.IN_GAME);//  2.1
 		addPacket(new CM_ABYSS_RANKING_LEGIONS(0x64), State.IN_GAME);// 2.1
 		addPacket(new CM_PRIVATE_STORE(0x65), State.IN_GAME);// 2.1
 		addPacket(new CM_DELETE_ITEM(0x66), State.IN_GAME);// 2.1

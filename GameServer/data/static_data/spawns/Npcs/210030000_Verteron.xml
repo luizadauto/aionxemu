@@ -117,7 +117,7 @@
 	</spawn>
 	<!-- Considerate Lagos (NPC Normal lvl:15)-->
 	<spawn map="210030000" npcid="203153" pool="1" interval="295">
-		<object x="1278.6371" y="2538.9685" z="206.12732" h="47"/>
+		<object x="1313.804321" y="2514.972900" z="213.34549" h="45"/>
 	</spawn>
 	<!-- Contaminated Swamp Plant (Object Normal lvl:1)-->
 	<spawn map="210030000" npcid="700113" pool="32" interval="295">
@@ -295,11 +295,11 @@
 	</spawn>
 	<!-- Head of Stone Statue (Object Normal lvl:1)-->
 	<spawn map="210030000" npcid="700033" pool="1" interval="295">
-		<object x="1011.9" y="2614.18" z="157.46" h="109"/>
+		<object staticid="507" x="1012.3311" y="2613.9485" z="157.55269" h="0"/>
 	</spawn>
 	<!-- Headless Stone Statue (Object Normal lvl:30)-->
 	<spawn map="210030000" npcid="730000" pool="1" interval="295">
-		<object x="1021.47" y="2581.03" z="171.9725" h="32"/>
+		<object staticid="508" x="1021.5061" y="2581.1782" z="171.98967" h="0"/>
 	</spawn>
 	<!-- Hianu (NPC Normal lvl:20)-->
 	<spawn map="210030000" npcid="203150" pool="1" interval="295">
