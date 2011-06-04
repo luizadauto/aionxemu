@@ -173,6 +173,16 @@
 		<entrypoint mapid="220040000" x="589.1326" y="2534.8586" z="288.48273"/>
 		<exitpoint mapid="220040000" x="571" y="2504" z="289"/>
 	</portal>
+	<!-- Geranaia -->
+	<portal npcid="700177" instance="true" minlevel="40" maxlevel="55" group="true">
+	<entrypoint mapid="210020000" x="2511.48" y="791.962" z="412.805" race="ELYOS"/>
+	<exitpoint mapid="310040000" x="274.884" y="167.971" z="204.347"/>
+	</portal>
+	<!-- Geranaia Exit-->
+	<portal npcid="700141" instance="false" minlevel="40" maxlevel="55" group="false">
+	<entrypoint mapid="310040000" x="276.24802" y="161.69484" z="202.62405" race="ELYOS"/>
+	<exitpoint mapid="210020000" x="2511.48" y="791.962" z="412.805"/>
+	</portal>
 	<!-- Artifact of Circulation / DarkPoeta -->
 	<portal npcid="730185" instance="true" minlevel="50" maxlevel="55" group="true" race="ASMODIANS">
 		<entrypoint mapid="220040000" x="2420.12" y="2061.31" z="579.7" race="ASMODIANS"/>
