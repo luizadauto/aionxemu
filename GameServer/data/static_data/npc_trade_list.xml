@@ -1300,6 +1300,114 @@
 	<tradelist_template npc_id="205290" count="1" sell_price_rate="7200" category="0">
 		<tradelist id="5050"/>
 	</tradelist_template>
+	<tradelist_template npc_id="260233" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="78"/>
+		<tradelist id="551"/>
+	</tradelist_template>
+	<tradelist_template npc_id="260234" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="108"/>
+		<tradelist id="552"/>
+	</tradelist_template>
+	<tradelist_template npc_id="263264" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="77"/>
+		<tradelist id="464"/>
+	</tradelist_template>
+	<tradelist_template npc_id="263265" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="107"/>
+		<tradelist id="465"/>
+	</tradelist_template>
+	<tradelist_template npc_id="263566" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="76"/>
+		<tradelist id="464"/>
+	</tradelist_template>
+	<tradelist_template npc_id="263567" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="106"/>
+		<tradelist id="465"/>
+	</tradelist_template>
+	<tradelist_template npc_id="264766" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="70"/>
+		<tradelist id="464"/>
+	</tradelist_template>
+	<tradelist_template npc_id="264767" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="100"/>
+		<tradelist id="465"/>
+	</tradelist_template>
+	<tradelist_template npc_id="266551" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="71"/>
+		<tradelist id="466"/>
+	</tradelist_template>
+	<tradelist_template npc_id="268049" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="73"/>
+		<tradelist id="466"/>
+	</tradelist_template>
+	<tradelist_template npc_id="268050" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="103"/>
+		<tradelist id="467"/>
+	</tradelist_template>
+	<tradelist_template npc_id="266552" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="101"/>
+		<tradelist id="467"/>
+	</tradelist_template>
+	<tradelist_template npc_id="269249" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="75"/>
+		<tradelist id="466"/>
+	</tradelist_template>
+	<tradelist_template npc_id="269250" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="105"/>
+		<tradelist id="467"/>
+	</tradelist_template>
+	<tradelist_template npc_id="270149" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="74"/>
+		<tradelist id="466"/>
+	</tradelist_template>
+	<tradelist_template npc_id="270150" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="104"/>
+		<tradelist id="467"/>
+	</tradelist_template>
+	<tradelist_template npc_id="271051" count="4" category="0">
+		<tradelist id="232"/>
+		<tradelist id="239"/>
+		<tradelist id="72"/>
+		<tradelist id="466"/>
+	</tradelist_template>
+	<tradelist_template npc_id="271052" count="4" category="0">
+		<tradelist id="370"/>
+		<tradelist id="118"/>
+		<tradelist id="102"/>
+		<tradelist id="467"/>
+	</tradelist_template>
 	<tradelist_template npc_id="278007" count="2" category="0">
         <tradelist id="371"/>
         <tradelist id="118"/>
@@ -1335,6 +1443,9 @@
 		<tradelist id="1003"/>
 		<tradelist id="1005"/>
 	</tradelist_template>
+	<tradelist_template npc_id="278054" count="1" category="0">
+		<tradelist id="374"/>
+	</tradelist_template>
 	<tradelist_template npc_id="278132" count="2" category="1">
 		<tradelist id="375"/>
 		<tradelist id="376"/>
@@ -1364,6 +1475,21 @@
 		<tradelist id="995"/>
 		<tradelist id="997"/>
 		<tradelist id="999"/>
+	</tradelist_template>
+	<tradelist_template npc_id="278148" count="4" category="0">
+		<tradelist id="661"/>
+		<tradelist id="662"/>
+		<tradelist id="663"/>
+		<tradelist id="664"/>
+	</tradelist_template>
+	<tradelist_template npc_id="278149" count="4" category="0">
+		<tradelist id="665"/>
+		<tradelist id="666"/>
+		<tradelist id="667"/>
+		<tradelist id="668"/>
+	</tradelist_template>
+	<tradelist_template npc_id="278150" count="1" category="0">
+		<tradelist id="660"/>
 	</tradelist_template>
 	<tradelist_template npc_id="278507" count="2" category="0">
 		<tradelist id="235"/>
@@ -1401,6 +1527,9 @@
 		<tradelist id="959"/>
 		<tradelist id="961"/>
 	</tradelist_template>
+	<tradelist_template npc_id="278554" count="1" category="0">
+		<tradelist id="236"/>
+	</tradelist_template>
 	<tradelist_template npc_id="278634" count="2" category="1">
 		<tradelist id="199"/>
 		<tradelist id="200"/>
@@ -1430,6 +1559,21 @@
 		<tradelist id="951"/>
 		<tradelist id="953"/>
 		<tradelist id="955"/>
+	</tradelist_template>
+	<tradelist_template npc_id="278648" count="4" category="0">
+		<tradelist id="652"/>
+		<tradelist id="653"/>
+		<tradelist id="654"/>
+		<tradelist id="655"/>
+	</tradelist_template>
+	<tradelist_template npc_id="278649" count="4" category="0">
+		<tradelist id="656"/>
+		<tradelist id="657"/>
+		<tradelist id="658"/>
+		<tradelist id="659"/>
+	</tradelist_template>
+	<tradelist_template npc_id="278650" count="1" category="0">
+		<tradelist id="651"/>
 	</tradelist_template>
 	<tradelist_template npc_id="279020" count="4" category="0">
         <tradelist id="835"/>
