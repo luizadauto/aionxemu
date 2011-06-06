@@ -66,6 +66,7 @@
 			<xs:element name="statswitch" type="StatswitchEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="dot" type="DamageOverTimeEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="hot" type="HealOverTimeEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="healcastoronatk" type="HealCastorOnAttackedEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="transform" type="TransformEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="hide" type="HideEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="search" type="SearchEffect" minOccurs="0" maxOccurs="1"/>
@@ -400,6 +401,15 @@
 			<xs:extension base="AbstractHealEffect">
 				<xs:attribute name="type" type="HealType" use="required"/>
 				<xs:attribute name="checktime" type="xs:int" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+		<xs:complexType name="HealCastorOnAttackedEffect">
+		<xs:complexContent>
+			<xs:extension base="Effect">
+				<xs:attribute name="type" type="HealType" use="required"/>
+				<xs:attribute name="value" type="xs:int" use="required"/>
+				<xs:attribute name="delta" type="xs:int" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
