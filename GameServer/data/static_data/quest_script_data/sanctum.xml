@@ -45,8 +45,8 @@
 	<item_collecting start_npc_id="203864" id="1911"/>
 	<!-- 1912: Familiar Food -->
 	<item_collecting start_npc_id="203864" id="1912"/>
-	<!-- 1917: TODO: A Lingering Mystery -->
-	<!-- 1918: TODO: An Ax For Namus -->
+	<!-- 1917: A Lingering Mystery handled by script -->
+	<!-- 1918: An Ax For Namus handled by script -->
 	<!-- 1920: Testing Your Mettle handled by script -->
 	<!-- 1921: The Abyss Quiz handled by script -->
 	<!-- 1922: Deliver on Your Promises handled by script -->
@@ -57,7 +57,7 @@
 	<item_collecting start_npc_id="203767" id="1930"/>
 	<!-- 1931: Rules Of Alchemy And Life -->
 	<item_collecting start_npc_id="203837" id="1931" action_item_id="700230"/>
-	<!-- 1932: TODO: A Matter Of Reputation -->
+	<!-- 1932: A Matter Of Reputation -->
 	<!-- 1933: A Disturbing Report -->
 	<item_collecting start_npc_id="203833" id="1933"/>
 	<!-- 1934: [Group] RM-78c -->
@@ -66,12 +66,12 @@
 	<!-- 1936: What Nerison Saw -->
 	<report_to start_npc_id="203833" end_npc_id="204573" id="1936"/>
 	<!-- 1937: A Lepharist Monstrosity handled by script -->
-	<!-- 1938: TODO: Black Cloud Fakery -->
+	<!-- 1938: Black Cloud Fakery handled by script -->
 	<!-- 1939: Going Out Of Business -->
 	<monster_hunt start_npc_id="203703" id="1939">
 		<monster_infos var_id="0" npc_id="700265" max_kill="3"/>
 	</monster_hunt>
-	<!-- 1940: TODO: Wings of Mastery -->
+	<!-- 1940: Wings of Mastery -->
 	<!-- 1941: [Expert] Weaponsmithing Expert -->
 	<report_to start_npc_id="203788" end_npc_id="203700" id="1941" item_id="182206009"/>
 	<!-- 1942: [Expert] Armorsmithing Expert -->
@@ -86,7 +86,7 @@
 	<report_to start_npc_id="203793" end_npc_id="203700" id="1946" item_id="182206014"/>
 	<!-- 1947: A Lucky Day -->
 	<report_to start_npc_id="203795" end_npc_id="798012" id="1947"/>
-	<!-- 1948: TODO: Where's Vindachinerk? -->
+	<!-- 1948: Where's Vindachinerk? -->
 	<!-- 1949: A Gift For Vindachinerk -->
 	<item_collecting start_npc_id="279006" end_npc_id="279016" id="1949"/>
 	<!-- 1950: A Letter to Medea -->
@@ -105,7 +105,7 @@
 	<report_to start_npc_id="203793" end_npc_id="278511" item_id="182206029" id="1956"/>
 	<!-- 1963: Delivery for the Outer Port handled by script -->
 	<!-- 1964: A Souvenir For Noris handled by script -->
-	<!-- 1965: TODO: A Sword Gone Astray -->
+	<!-- 1965: A Sword Gone Astray handled by script -->
 	<!-- 1966: A Helmet Gone Astray handled by script -->
 	<!-- 1967: A Staff Gone Astray handled by script -->
 	<!-- 1968: Combat Rations handled by script -->
@@ -139,11 +139,10 @@
 	<item_collecting id="1983" start_npc_id="203793" />
 	<!-- 1986: A Costume on Consignment -->
 	<report_to start_npc_id="798009" end_npc_id="203810" id="1986"/>
-	<!-- 1987: A Bigger Warehouse -->
-	<report_to start_npc_id="203700" end_npc_id="203749" id="1987"/>
+	<!-- 1987: A Bigger Warehouse handled by script-->
 	<!-- 1988: A Meeting with a Sage handled by script -->
 	<!-- 1989: A Sages Teachings handled by script -->
-	<!-- 3201:TODO: [Group] Snow Blessing -->
+	<!-- 3201: Snow Blessing handled by script -->
 	<!-- 3202: [Group] A Promise To A Customer -->
 	<item_collecting start_npc_id="203852" id="3202" action_item_id="700523"/>
 	<!-- 3203: The Manduri Imperative -->
@@ -154,7 +153,8 @@
 	<item_collecting start_npc_id="798321" id="3206"/>
 	<!-- 3207: The Pirate's Log -->
 	<item_collecting start_npc_id="798320" id="3207" action_item_id="700524"/>
-	<!-- 3209: TODO: [Group] Steel Rake Spy -->
+	<!-- 3208 The Puzz ling Blueprint handled by script -->
+	<report_to id="3209" start_npc_id="798322" end_npc_id="798331" item_id="182209089"/>
 	<!-- 3210: TODO: [Group] Rescue Haorunerk! -->
 	<!-- 3212: TODO: [Group] The Missing Cube Craftsman -->
 	<!-- 3213: Revenge Of Himusus -->
@@ -255,16 +255,16 @@
 	<report_to start_npc_id="203793" id="3958" end_npc_id="203700"/>
 	<!-- 3960: Goodwill Of Kuruminerk -->
 	<report_to start_npc_id="798322" end_npc_id="203711" id="3960"/>
-	<!-- 3961: TODO: [Growth] Flora's First Charm -->
-	<!-- 3962: TODO: [Growth] Flora's Second Charm -->
-	<!-- 3963: TODO: [Growth] Flora's Third Charm -->
-	<!-- 3964: TODO: [Growth] Flora's Fourth Charm -->
+	<!-- 3961: [Growth] Flora's First Charm handled by script -->
+	<!-- 3962: [Growth] Flora's Second Charm handled by script -->
+	<!-- 3963: [Growth] Flora's Third Charm handled by script-->
+	<!-- 3964: [Growth] Flora's Fourth Charm handled by script-->
 	<!-- 3965: To the Galleria of Grandeur handled by script -->
 	<!-- 3966: Salute A New Uniform handled by script -->
 	<!-- 3967: Andus Dye Box handled by script -->
 	<!-- 3968: Palentines Request handled by script -->
 	<!-- 3969: Sexiest Man Alive handled by script -->
-	<!-- 3970: TODO: Kinah-Digging Daughter -->
+	<!-- 3970: Kinah-Digging Daughter handled by script -->
 	<!-- 3971: What Did You Buy Me? -->
 	<report_to id="3971" start_npc_id="798386" end_npc_id="203893" item_id="182206135"/>
 	<!-- 3972: The Go-Between -->
@@ -399,24 +399,36 @@
 	<!-- 9550: TODO: [Event] Solorius Donations -->
 	<!-- 9558: TODO: [Event] Thirst for Invention! -->
 	<!-- 9560: TODO: [Event] Daeva's Day Fete -->
-	<!-- 19000: TODO: [Expert] Essencetapper's Test -->
-	<!-- 19001: TODO: [Expert] Essencetapping Expert -->
-	<!-- 19002: TODO: [Expert] Aethertapper's Test -->
-	<!-- 19003: TODO: [Expert] Aethertapping Expert -->
+	<!-- 19000: Essencetapper's Test handled by script-->
+	<!-- 19001: Essencetapping Expert -->
+	<report_to id="19001" start_npc_id="203780" end_npc_id="798600" item_id="182206127"/>
+	<!-- 19002:  Aethertapper's Test handled by script -->
+	<!-- 19003:  Aethertapping Expert -->
+	<report_to id="19003" start_npc_id="203782" end_npc_id="798600" item_id="182206128"/>
 	<!-- 19004: Perikles's Insight handled by script -->
-	<!-- 19008: TODO: [Master] Weaponsmith's Potential -->
-	<!-- 19009: TODO: [Master] Weaponsmithing Master -->
-	<!-- 19014: TODO: [Master] Armorsmith's Potential -->
-	<!-- 19015: TODO: [Master] Armorsmithing Master -->
-	<!-- 19020: TODO: [Master] Tailor's Potential -->
-	<!-- 19021: TODO: [Master] Tailoring Master -->
-	<!-- 19026: TODO: [Master] Handicrafter's Potential -->
-	<!-- 19027: TODO: [Master] Handicrafting Master -->
-	<!-- 19032: TODO: [Master] Alchemist's Potential -->
-	<!-- 19033: TODO: [Master] Alchemy Master -->
-	<!-- 19038: TODO: [Master] Cook's Potential -->
-	<!-- 19039: TODO: [Master] Cooking Master -->
-	<!-- 19040: TODO: Leah's Loneliness -->
+	<!-- 19008: [Master] Weaponsmith's Potential handled by script -->
+	<!-- [Master] Weaponsmithing Master -->
+	<report_to id="19009" start_npc_id="203788" end_npc_id="798600" item_id="182206129"/>
+	<!-- 19014: [Master] Armorsmith's Potential handled by script -->
+	<!-- [Master] Armorsmithing Master -->
+	<report_to id="19015" start_npc_id="203790" end_npc_id="798600" item_id="182206130"/>
+	<!-- 19020: [Master] Tailor's Potential  handled by script -->
+	<!-- [Master] Tailoring Master -->
+	<report_to id="19021" start_npc_id="203793" end_npc_id="798600" item_id="182206131"/>
+	<!-- 19026: [Master] Handicrafter's Potential  handled by script -->
+	<!-- [Master] Handicrafting Master -->
+	<report_to id="19027" start_npc_id="203792" end_npc_id="798600" item_id="182206132"/>
+	<!-- 19032: [Master] Alchemist's Potential  handled by script -->
+	<!-- [Master] Alchemy Master -->
+	<report_to id="19033" start_npc_id="203786" end_npc_id="798600" item_id="182206133"/>
+	<!-- 19038: [Master] Cook's Potential  handled by script -->
+	<!-- [Master] Cooking Master -->
+	<report_to id="19039" start_npc_id="203784" end_npc_id="798600" item_id="182206134"/>
+	<!-- 19040: TODO: Leah's Loneliness  -->
+	<!-- The Delivery -->
+	<report_to id="19041" start_npc_id="203711" end_npc_id="798322"/>
+	<!-- The Shugo and the Shulack -->
+	<item_collecting id="19042" start_npc_id="798322"/>
 	<!-- 19043: [Daily] The Sanctum Shulackwalk --> 
 	<item_collecting id="19043" start_npc_id="798444" /> 
 </quest_scripts>
