@@ -34,6 +34,7 @@ import java.util.Set;
  * @author Ares/Kaipo (1.9-2.0-2.1)
  * @author Magenik (1.9-2.0-2.1)
  * @author poolsharky27 (1.9-2.0-2.1)
+ * @author oni
  *
  */
 public class ServerPacketsOpcodes {
@@ -148,6 +149,7 @@ public class ServerPacketsOpcodes {
         addPacketOpcode(SM_LEGION_EDIT.class,0x9D, idSet);// 2.1
         addPacketOpcode(SM_MAIL_SERVICE.class,0x9E, idSet);// 2.1
         addPacketOpcode(SM_WINDSTREAM.class,0xA0, idSet);// 2.1
+		addPacketOpcode(SM_FIND_GROUP.class, 0xC5, idSet);// 2.1
         addPacketOpcode(SM_SUMMON_USESKILL.class,0xA1, idSet);// 2.1
         addPacketOpcode(SM_PRIVATE_STORE.class,0xA5, idSet); // 2.1
         addPacketOpcode(SM_FRIEND_LIST.class,0xA3, idSet);// 2.1

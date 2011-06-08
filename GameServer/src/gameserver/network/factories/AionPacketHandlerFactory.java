@@ -31,6 +31,7 @@ import gameserver.network.aion.clientpackets.*;
  * @author Ares/Kaipo (1.9-2.0-2.1)
  * @author Magenik (1.9-2.0-2.1)
  * @author poolsharky27 (1.9-2.0-2.1)
+ * @author oni
  *
  */
 public class AionPacketHandlerFactory
@@ -170,6 +171,7 @@ public class AionPacketHandlerFactory
 		//addPacket(new CM_CHARSELECT_TIMER(0xBF), State.IN_GAME);// 2.1 (not implemented yet)
 		addPacket(new CM_CHARACTER_PASSKEY(0xC3), State.AUTHED);// 2.1
 		addPacket(new CM_QUIT(0xF1), State.AUTHED, State.IN_GAME);//  2,1
+		addPacket(new CM_FIND_GROUP(0xBF), State.IN_GAME);// 2.1
 		addPacket(new CM_VERSION_CHECK(0xF2), State.CONNECTED);// 2.1
 		addPacket(new CM_CUSTOM_SETTINGS(0xFE), State.IN_GAME);//  2.1
 		addPacket(new CM_MAY_QUIT(0xF6), State.AUTHED, State.IN_GAME);// 2.1
