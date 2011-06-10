@@ -67,7 +67,7 @@ public class PlayerAllianceGroup {
     }
 
     public boolean isInSamePlayerAllianceGroup(int memberObjectId, int member2ObjectId) {
-        return (groupMembers.containsValue(memberObjectId) && groupMembers.containsValue(member2ObjectId));
+        return (groupMembers.containsKey(memberObjectId) && groupMembers.containsKey(member2ObjectId));
 	}
 
 }

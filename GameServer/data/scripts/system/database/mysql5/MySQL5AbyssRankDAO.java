@@ -46,7 +46,7 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
     public static final String INSERT_QUERY = "INSERT INTO abyss_rank (player_id, daily_ap, weekly_ap, ap, rank, top_ranking, daily_kill, weekly_kill, all_kill, max_rank, last_kill, last_ap, last_update) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_QUERY = "UPDATE abyss_rank SET  daily_ap = ?, weekly_ap = ?, ap = ?, rank = ?, top_ranking = ?, daily_kill = ?, weekly_kill = ?, all_kill = ?, max_rank = ?, last_kill = ?, last_ap = ?, last_update = ? WHERE player_id = ?";
     public static final String UPDATE_PLAYER_RANK = "UPDATE abyss_rank SET  top_ranking = ?, rank = ?, old_ranking = ? WHERE player_id = ?";
-    public static final String SELECT_PLAYERS_RANKING = "SELECT abyss_rank.ap,abyss_rank.top_ranking,abyss_rank.old_ranking,abyss_rank.rank, players.name, players.id, players.player_class, players.exp FROM abyss_rank,players WHERE players.race = ? AND abyss_rank.player_id = players.id AND abyss_rank.top_ranking > 0 ORDER BY abyss_rank.top_ranking ASC LIMIT 0,50";
+    public static final String SELECT_PLAYERS_RANKING = "SELECT abyss_rank.ap,abyss_rank.top_ranking,abyss_rank.old_ranking,abyss_rank.rank, players.name, players.id, players.player_class, players.exp FROM abyss_rank,players WHERE players.race = ? AND abyss_rank.player_id = players.id AND abyss_rank.ap > 0 ORDER BY abyss_rank.ap DESC LIMIT 0,50";
     public static final String SELECT_LEGIONS_RANKING = "SELECT legions.id, legions.name, legions.rank, legions.oldrank, legions.contribution_points, legions.level as lvl FROM legions,legion_members,players WHERE players.race = ? AND legion_members.rank = 'BRIGADE_GENERAL' AND legion_members.player_id = players.id AND legion_members.legion_id = legions.id ORDER BY legions.contribution_points DESC LIMIT 0,50";
     public static final String SELECT_LEGION = "SELECT legions.name FROM legions,legion_members WHERE legion_members.player_id = ? AND legion_members.legion_id = legions.id";
     public static final String UPDATE_LEGION_RANK = "UPDATE legions SET rank = ?, oldrank = ? WHERE id = ?";
@@ -212,6 +212,7 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
             stmt.setInt(3, oldRanking);
             stmt.setInt(4, objectId);
             stmt.execute();
+            stmt.close();
 
             return true;
         }
@@ -255,8 +256,8 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
                         newTopRanking = 0;
                     //updatetoprankings
                     updatePlayerRank(player_id, newTopRanking, finalrank.getId(), top_ranking);
-                } else//top_ranking == newTopRanking
-                {
+                } else {
+                    //top_ranking == newTopRanking
                     AbyssRankEnum finalrank = AbyssRankEnum.getRankForPosition(newTopRanking, ap);
 
                     updatePlayerRank(player_id, top_ranking, finalrank.getId(), top_ranking);
@@ -289,8 +290,8 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
                         newTopRanking = 0;
                     //updatetoprankings
                     updatePlayerRank(player_id, newTopRanking, finalrank.getId(), top_ranking);
-                } else//top_ranking == newTopRanking
-                {
+                } else {
+                    //top_ranking == newTopRanking
                     AbyssRankEnum finalrank = AbyssRankEnum.getRankForPosition(newTopRanking, ap);
 
                     updatePlayerRank(player_id, top_ranking, finalrank.getId(), top_ranking);
@@ -318,6 +319,7 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
             stmt.setInt(2, oldrank);
             stmt.setInt(3, legionId);
             stmt.execute();
+            stmt.close();
 
             return true;
         }
@@ -390,9 +392,11 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
 
             ResultSet resultSet = stmt.executeQuery();
 
+            int rank = 1;
+
             while (resultSet.next()) {
                 int ap = resultSet.getInt("abyss_rank.ap");
-                int top_ranking = resultSet.getInt("abyss_rank.top_ranking");
+                int	top_ranking	= rank;
                 int old_ranking = resultSet.getInt("abyss_rank.old_ranking");
                 int abyssRank = resultSet.getInt("abyss_rank.rank");
                 String playerName = resultSet.getString("players.name");
@@ -418,6 +422,8 @@ public class MySQL5AbyssRankDAO extends AbyssRankDAO {
                 //AbyssRankingResult(String playerName, int playerId, int ap, int abyssRank, int topRanking, int oldRanking, PlayerClass playerClass, int playerLevel, String legionName)
                 AbyssRankingResult rsl = new AbyssRankingResult(playerName, playerId, ap, abyssRank, top_ranking, old_ranking, playerClass, playerLevel, legionName);
                 results.add(rsl);
+
+                rank++;
             }
             resultSet.close();
             stmt.close();
