@@ -16,6 +16,7 @@
  */
 package gameserver.skillengine.effect;
 
+import gameserver.controllers.MoveController;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Servant;
@@ -74,17 +75,16 @@ public class SummonServantEffect extends SummonEffect {
                     }
                 }, 15000);
                 servant.setTarget(target);
-                servant.getMoveController().setNewDirection(target.getX(), target.getY(), target.getZ());
-                servant.getMoveController().setFollowTarget(true);
-                servant.getMoveController().schedule();
+
+                MoveController moveController = servant.getMoveController();
+                if (moveController == null)
+                    return;
+                moveController.setNewDirection(target.getX(), target.getY(), target.getZ());
+                moveController.setFollowTarget(true);
+                moveController.schedule();
+
                 servant.getController().attackTarget(target);
                 target.getAggroList().addHate(effector, 25);
-                try {
-                    Thread.sleep(750);
-                }
-                catch (Exception e) {
-                    Logger.getLogger(SummonServantEffect.class).error("Cannot sleep after servant spawn", e);
-                }
             }
         }
         // Healing servant

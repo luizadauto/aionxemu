@@ -215,6 +215,8 @@ public abstract class CreatureLifeStats<T extends Creature> {
             int newMp = this.currentMp + value;
             if (newMp > getMaxMp()) {
                 newMp = getMaxMp();
+            } else if(newMp < 0) {
+            	newMp = 0;
             }
             if (currentMp != newMp) {
                 this.currentMp = newMp;

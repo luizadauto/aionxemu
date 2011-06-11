@@ -70,9 +70,9 @@ public class NpcController extends CreatureController<Npc> {
 
     @Override
     public void notSee(VisibleObject object, boolean isOutOfRange) {
-		super.notSee(object, isOutOfRange);
-		if(object instanceof Player || object instanceof Summon)
-			getOwner().getAi().handleEvent(Event.NOT_SEE_PLAYER);	
+        super.notSee(object, isOutOfRange);
+        if(object instanceof Player || object instanceof Summon)
+            getOwner().getAi().handleEvent(Event.NOT_SEE_PLAYER);	
     }
 
     @Override
@@ -243,8 +243,8 @@ public class NpcController extends CreatureController<Npc> {
         switch (dialogId) {
             case 2:
                 PacketSendUtility.sendPacket(player, new SM_TRADELIST(npc,
-                        TradeService.getTradeListData().getTradeListTemplate(npc.getNpcId()),
-                        player.getPrices().getVendorBuyModifier()));
+                    TradeService.getTradeListData().getTradeListTemplate(npc.getNpcId()),
+                    player.getPrices().getVendorBuyModifier(), player));
                 break;
             case 3:
                 PacketSendUtility.sendPacket(player, new SM_SELL_ITEM(targetObjectId, player.getPrices().getVendorSellModifier(player.getCommonData().getRace())));

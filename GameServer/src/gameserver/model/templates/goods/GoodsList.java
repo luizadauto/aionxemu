@@ -57,6 +57,10 @@ public class GoodsList {
         return id;
     }
 
+    public List<GoodsList.Item> getItemList()
+    {
+       return item;
+    }
 
     /**
      * @return the itemIdList
@@ -84,6 +88,11 @@ public class GoodsList {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
     public static class Item {
+        @XmlAttribute(name="buylimit", required=false)
+        protected int buylimit;
+        
+        @XmlAttribute(name="selllimit", required=false)
+        protected int selllimit;
 
         @XmlAttribute
         protected int id;
@@ -91,10 +100,22 @@ public class GoodsList {
         /**
          * Gets the value of the id property.
          */
-		public int getId() {
-			return id;
-		}
+        public int getId() {
+            return id;
+        }
 
-	}
+        public int getSellLimit() {
+            return selllimit;
+        }
 
+        public int getBuyLimit() {
+            return buylimit;
+        }
+
+        public boolean isLimited() {
+            if (getBuyLimit() > 0 || getSellLimit() > 0)
+                return true;
+            return false;
+        }
+    }
 }

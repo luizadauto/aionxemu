@@ -46,7 +46,6 @@ public class GoodsListData {
         for (GoodsList it : list) {
             goodsListData.put(it.getId(), it);
         }
-        list = null;
     }
 
     public GoodsList getGoodsListById(int id) {

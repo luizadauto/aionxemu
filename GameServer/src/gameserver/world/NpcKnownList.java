@@ -18,6 +18,7 @@
 package gameserver.world;
 
 import gameserver.model.gameobjects.VisibleObject;
+import gameserver.world.MapRegion;
 
 public class NpcKnownList extends KnownList {
     /**
@@ -31,7 +32,11 @@ public class NpcKnownList extends KnownList {
      * Do KnownList update.
      */
     public void doUpdate() {
-        if (owner.getActiveRegion().isMapRegionActive())
+        MapRegion mapRegion = owner.getActiveRegion();
+        if (mapRegion == null)
+            return;
+
+        if (mapRegion.isMapRegionActive())
             super.doUpdate();
         else
             clear();

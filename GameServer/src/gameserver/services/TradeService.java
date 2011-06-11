@@ -16,10 +16,13 @@
  */
 package gameserver.services;
 
+import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.GoodsListData;
 import gameserver.dataholders.TradeListData;
+import gameserver.dao.NpcStocksDAO;
+import gameserver.model.NpcStocks;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.AbyssRank;
@@ -35,6 +38,7 @@ import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
 import gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
 import gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import gameserver.utils.PacketSendUtility;
+import gameserver.utils.scheduler.Scheduler;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 
@@ -49,12 +53,26 @@ public class TradeService {
 
     private static final TradeListData tradeListData = DataManager.TRADE_LIST_DATA;
     private static final GoodsListData goodsListData = DataManager.GOODSLIST_DATA;
-
+    
+    private final NpcStocks npcStocks;
+    
+    public TradeService()
+    {
+        npcStocks = DAOManager.getDAO(NpcStocksDAO.class).getStocks();
+        Scheduler.getInstance().schedule(new Runnable() {
+            @Override
+            public void run() {
+                restockNpc();
+            }
+        }, "0 10-24/2");
+    }
+    
     /**
      * @param player
      * @param tradeList
      * @return true or false
      */
+
     public static boolean performBuyFromShop(Player player, TradeList tradeList) {
 
         if (!validateBuyItems(tradeList, player)) {
@@ -77,10 +95,37 @@ public class TradeService {
             return false; // TODO message
 
         long tradeListPrice = tradeList.getRequiredKinah();
+        
+        Npc npc = (Npc) World.getInstance().findAionObject(tradeList.getSellerObjId());
+        TradeListTemplate tradeListTemplate = tradeListData.getTradeListTemplate(npc.getObjectTemplate()
+                .getTemplateId());
+
+        List<Integer> stockLimitedItems = new ArrayList<Integer>();
+        for (TradeTab tradeTab : tradeListTemplate.getTradeTablist()) {
+            GoodsList goodsList = goodsListData.getGoodsListById(tradeTab.getId());
+            if (goodsList != null && goodsList.getItemList() != null) {
+                for (GoodsList.Item tmpItem : goodsList.getItemList()) {
+                    if (tmpItem.isLimited())
+                        stockLimitedItems.add(tmpItem.getId());
+                }
+            }
+        }
+
 
         List<Item> addedItems = new ArrayList<Item>();
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
             long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+            /*
+            */
+            int itemTemplateId = tradeItem.getItemTemplate().getTemplateId();
+            if (stockLimitedItems.contains(itemTemplateId)) {
+                int npcId = tradeList.getSellerObjId();
+                int playerId = player.getCommonData().getPlayerObjId();
+                TradeService.getInstance().increaseItemSoldToPlayer(npcId, playerId, itemTemplateId, (int)tradeItem.getCount());
+                TradeService.getInstance().decreaseItemStock(npcId, itemTemplateId, (int)tradeItem.getCount());
+            }
+
+            
             if (count != 0) {
                 log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
                         .getObjectId(), tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount(), count));
@@ -94,6 +139,36 @@ public class TradeService {
         // TODO message
         return true;
     }
+    
+   
+    public int getCountItemSoldToPlayer(int npcId, int playerId, int itemTemplateId) {
+        int soldCount = npcStocks.getCountSoldToPlayer(playerId, npcId, itemTemplateId);
+        return soldCount;
+    }
+
+    //  restock only npc concerned (ether / flux) and with different schedules.
+    public void restockNpc() {
+        DAOManager.getDAO(NpcStocksDAO.class).restockNpcs();
+        npcStocks.restockNpcs();
+    }
+
+    public int getItemStock(int npcId, int itemTemplateId, int limit) {
+        int soldCount = npcStocks.getItemCountSold(npcId, itemTemplateId);
+        return limit - soldCount;
+    }
+
+    public void decreaseItemStock(int npcId, int itemTemplateId, int count) {
+        npcStocks.increaseSoldCount(npcId, itemTemplateId, count);
+    }
+
+    public void increaseItemSoldToPlayer(int npcId, int playerId, int itemTemplateId, int count) {
+        npcStocks.increaseSoldCountToPlayer(playerId, npcId, itemTemplateId, count);
+    }
+
+    public List<Map<String, Integer>> getNpcStocks() {
+        return npcStocks.getAll();
+    }
+
 
     /**
      * Probably later merge with regular buy
@@ -155,47 +230,47 @@ public class TradeService {
     }
 
     /**
-	 * @param player
-	 * @param tradeList
-	 */
-	public static boolean performBuyFromSpecialShop(Player player, TradeList tradeList)
-	{
-		if (!validateBuyItems(tradeList, player)) {
+     * @param player
+     * @param tradeList
+     */
+    public static boolean performBuyFromSpecialShop(Player player, TradeList tradeList)
+    {
+        if (!validateBuyItems(tradeList, player)) {
             PacketSendUtility.sendMessage(player, "Some items are not allowed to be selled from this npc");
             if (CustomConfig.ARTMONEY_HACK)
             PunishmentService.setIsInPrison(player, true, CustomConfig.ARTMONEY_HACKBUY_TIME);
             return false;
         }
 
-		if (!tradeList.calculateSpecialBuyListPrice(player))
-			return false;
+        if (!tradeList.calculateSpecialBuyListPrice(player))
+            return false;
 
-		Storage inventory = player.getInventory();
+        Storage inventory = player.getInventory();
         int freeSlots = inventory.getLimit() - inventory.getAllItems().size() + 1;
 
         if (freeSlots < tradeList.size())
-        	return false;
+            return false;
 
         List<Item> addedItems = new ArrayList<Item>();
 
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
-        	long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
-        	if (count != 0) {
-        		log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
+            long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+            if (count != 0) {
+                log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
                     .getObjectId(), tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount(), count));
-        		return false;
-        	}
+                return false;
+            }
         }
 
         Map<Integer, Integer> requiredItems = tradeList.getRequiredItems();
         for (Integer itemId : requiredItems.keySet()) {
-        	player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
+            player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
         }
 
         PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(addedItems));
 
-		return true;
-	}
+        return true;
+    }
 
     /**
      * @param tradeList
@@ -299,4 +374,15 @@ public class TradeService {
     public static TradeListData getTradeListData() {
         return tradeListData;
     }
+    
+    @SuppressWarnings("synthetic-access")
+    private static class SingletonHolder {
+        protected static final TradeService instance = new TradeService();
+    }
+   
+    public static final TradeService getInstance() {
+    	return SingletonHolder.instance;
+    }
+
+    
 }

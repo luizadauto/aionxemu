@@ -398,8 +398,12 @@ public class AllianceService {
         if (allianceMember == null)
             return;
 
-        allianceMember.getPlayer().setPlayerAlliance(null);
-        PacketSendUtility.sendPacket(allianceMember.getPlayer(), new SM_LEAVE_GROUP_MEMBER());
+        Player allianceMemberPlayer = allianceMember.getPlayer();
+        if (allianceMemberPlayer != null)
+        {
+            allianceMemberPlayer.setPlayerAlliance(null);
+            PacketSendUtility.sendPacket(allianceMemberPlayer, new SM_LEAVE_GROUP_MEMBER());
+        }
 
         // Alliance
         broadcastAllianceMemberInfo(alliance, allianceMember, event, params);

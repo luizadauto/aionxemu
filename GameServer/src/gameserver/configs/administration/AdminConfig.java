@@ -313,4 +313,10 @@ public class AdminConfig {
 
     @Property(key = "gameserver.administration.command.addeffect", defaultValue = "3")
     public static int COMMAND_ADDEFFECT;
+
+    @Property(key = "gameserver.administration.command.startevent", defaultValue = "1")
+    public static int COMMAND_STARTEVENT;
+
+    @Property(key = "gameserver.administration.command.goevent", defaultValue = "0")
+    public static int COMMAND_GOEVENT;
 }

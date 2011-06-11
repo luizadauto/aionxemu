@@ -94,6 +94,7 @@ public class Player extends Creature {
     private BlockList blockList;
     private ResponseRequester requester;
     private boolean lookingForGroup = false;
+    private boolean lookingForEvent = false;
     private Storage inventory;
     private Storage[] petBag = new Storage[4];
     private Storage regularWarehouse;
@@ -772,6 +773,15 @@ public class Player extends Creature {
     }
 
     /**
+     * This method will return true if target player is in same group
+     *
+     * @return true or false
+     */
+    public boolean isInGroup(Player target) {
+        return target.getPlayerGroup() != null && playerGroup == target.getPlayerGroup();
+    }
+
+    /**
      * Access level of this player
      *
      * @return byte
@@ -1025,6 +1035,24 @@ public class Player extends Creature {
     }
 
     /**
+     * Is this player looking for a event
+     * 
+     * @return
+     */
+    public boolean isLookingForEvent() {
+        return lookingForEvent;
+    }
+
+    /**
+     * Sets whether or not this player is looking for event
+     * 
+     * @param lookingForEvent
+     */
+    public void setLookingForEvent(boolean lookingForEvent) {
+        this.lookingForEvent = lookingForEvent;
+    }
+
+    /**
      * Npc enemies:<br>
      * - monsters<br>
      * - aggressive npcs<br>
@@ -1069,7 +1097,7 @@ public class Player extends Creature {
      * @return
      */
     public boolean isFriend(Player player) {
-        return player.getCommonData().getRace() == getCommonData().getRace() && !getController().isDueling(player) && !ArenaService.getInstance().isEnemyPlayer(this, player);
+        return player.getAdminNeutral() > 1 || (player.getCommonData().getRace() == getCommonData().getRace() && !getController().isDueling(player) && !ArenaService.getInstance().isEnemyPlayer(this, player));
     }
 
     @Override
@@ -1315,6 +1343,15 @@ public class Player extends Creature {
      */
     public boolean isInAlliance() {
         return (this.playerAlliance != null);
+    }
+
+    /**
+     * This method will return true if target player is in same alliance
+     *
+     * @return true or false
+     */
+    public boolean isInAlliance(Player target) {
+        return target.getPlayerAlliance() != null && playerAlliance == target.getPlayerAlliance();
     }
 
     /**

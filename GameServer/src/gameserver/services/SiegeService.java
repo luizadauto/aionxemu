@@ -38,6 +38,8 @@ import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.world.Executor;
 import gameserver.world.World;
+import gameserver.utils.scheduler.Scheduler;
+import gameserver.utils.ThreadPoolManager;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
@@ -628,12 +630,12 @@ public class SiegeService {
         }, 5000);
     }
 
-    public void onFortressCaptured(FortressGeneral general, Creature lastAttacker, FastList<PlayerGroup> rewardGroups, FastList<PlayerAllianceGroup> rewardAlliances) {
+    public void onFortressCaptured(final FortressGeneral general, Creature lastAttacker, FastList<PlayerGroup> rewardGroups, FastList<PlayerAllianceGroup> rewardAlliances) {
         // Taken by players = ASMODIANS OR ELYOS
         if (lastAttacker instanceof Player || lastAttacker instanceof Summon || lastAttacker instanceof Trap) {
             Player la = null;
             ArrayList<Player> players = new ArrayList<Player>();
-            SiegeRace newRace = null;
+            final SiegeRace newRace;
             int legionId = 0;
 
             if (lastAttacker instanceof Player) {
@@ -696,26 +698,24 @@ public class SiegeService {
 
             clearFortress(general.getFortressId());
 
-            try {
-                Thread.sleep(3500);
-            }
-            catch (Exception e) {
-                log.error("Cannot spawn sleep", e);
-            }
-
-            spawnLocation(general.getFortressId(), newRace, "PEACE");
+            ThreadPoolManager.getInstance().schedule(new Runnable() {
+                @Override 
+                public void run() {
+                    spawnLocation(general.getFortressId(), newRace, "PEACE");
+                }
+            }, 3500);
         }
         // Taken by Balaur
         else {
             capture(general.getFortressId(), SiegeRace.BALAUR);
             clearFortress(general.getFortressId());
-            try {
-                Thread.sleep(3500);
-            }
-            catch (Exception e) {
-                log.error("Cannot spawn sleep", e);
-            }
-            spawnLocation(general.getFortressId(), SiegeRace.BALAUR, "PEACE");
+
+            ThreadPoolManager.getInstance().schedule(new Runnable() {
+                @Override 
+                public void run() {
+                    spawnLocation(general.getFortressId(), SiegeRace.BALAUR, "PEACE");
+                }
+            }, 3500);
         }
     }
 

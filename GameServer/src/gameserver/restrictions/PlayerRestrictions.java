@@ -70,6 +70,22 @@ public class PlayerRestrictions extends AbstractRestrictions {
                 return false;
         }
 
+        if (creature instanceof Player) {
+            Player targetPlayer = (Player) creature;
+
+            if (targetPlayer.getAdminNeutral() > 1)
+                return false;
+
+            // Check if the target Player is on the opposing faction but in
+            // same Group or Alliance and if so and it's an AoE then do not affect.
+            if (((GroupConfig.GROUP_INVITE_OTHER_RACE && player.isInGroup(targetPlayer)) ||
+                (GroupConfig.ALLIANCE_INVITE_OTHER_RACE && player.isInAlliance(targetPlayer))) &&
+                skill.isAreaEnemySkill())
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -263,6 +279,16 @@ public class PlayerRestrictions extends AbstractRestrictions {
             if (!npc.isAggressiveTo(player))
                 return false;
         }
+
+        if (creature instanceof Player) {
+            Player targetPlayer = (Player) creature;
+            if ((GroupConfig.GROUP_INVITE_OTHER_RACE && player.isInGroup(targetPlayer)) ||
+                (GroupConfig.ALLIANCE_INVITE_OTHER_RACE && player.isInAlliance(targetPlayer)))
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 

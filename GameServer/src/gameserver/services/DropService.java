@@ -238,11 +238,13 @@ public class DropService {
                 dropByQuality.put(qq[a], new HashSet<DropItem>());
 
             for (DropItem drop : droppedItems) {
-                ItemTemplate                tpl                         = ItemService.getItemTemplate(drop.getDropTemplate().getItemId());
-                ItemQuality                 quality                     = tpl.getItemQuality();
-
+                ItemTemplate tpl = ItemService.getItemTemplate(drop.getDropTemplate().getItemId());
+                if (tpl == null)
+                    continue;
+                ItemQuality quality = tpl.getItemQuality();
+                if (quality == null)
+                    continue;
                 dropByQuality.get(quality).add(drop);
-
             }
 
             ItemQuality[]    itemQualities   = {ItemQuality.MYTHIC, ItemQuality.EPIC, ItemQuality.UNIQUE, ItemQuality.LEGEND, ItemQuality.RARE, ItemQuality.COMMON, ItemQuality.JUNK};

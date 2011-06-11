@@ -34,7 +34,14 @@ public class SiegeLocationTemplate {
     protected SiegeType type;
     @XmlAttribute(name = "world")
     protected int world;
+    
+    @XmlAttribute(name = "vulnerable_time")
+    protected String vulnerableTime;
 
+    
+    @XmlAttribute(name = "vulnerability_duration")
+    protected int vulnerabilityDuration;
+    
     @XmlElement(name = "siege_reward")
     protected List<SiegeRewardTemplate> siegeRewards;
 
@@ -61,6 +68,14 @@ public class SiegeLocationTemplate {
 
     public List<SiegeRewardTemplate> getSiegeRewards() {
         return this.siegeRewards;
+    }
+    
+    public int getVulnerabilityDuration() {
+        return vulnerabilityDuration;
+    }
+    
+    public String getVulnerabilityTime() {
+        return vulnerableTime;
     }
 
 }

@@ -124,7 +124,7 @@ public class MailService {
 
         Storage senderInventory = sender.getInventory();
 
-        if (attachedItemObjId != 0) {
+        if (attachedItemObjId != 0 && attachedItemCount > 0) {
             Item senderItem = senderInventory.getItemByObjId(attachedItemObjId);
             if (senderItem == null)
                 return;

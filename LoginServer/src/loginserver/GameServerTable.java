@@ -26,6 +26,7 @@ import loginserver.network.gameserver.GsConnection;
 import loginserver.network.gameserver.serverpackets.SM_REQUEST_KICK_ACCOUNT;
 import org.apache.log4j.Logger;
 
+import java.net.InetAddress;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -97,7 +98,7 @@ public class GameServerTable {
         /**
          * Check if password and ip are ok.
          */
-        if (!gsi.getPassword().equals(password) || !NetworkUtils.checkIPMatching(gsi.getIp(), gsConnection.getIP())) {
+        if (!gsi.getPassword().equals(password) || (!NetworkUtils.checkIPMatching(gsi.getIp(), gsConnection.getIP()) && !checkIPMatching(gsi.getIp(), gsConnection.getIP()))) {
             log.info(gsConnection + " wrong ip or password!");
             return GsAuthResponse.NOT_AUTHED;
         }
@@ -111,6 +112,43 @@ public class GameServerTable {
 
         gsConnection.setGameServerInfo(gsi);
         return GsAuthResponse.AUTHED;
+    }
+
+    /**
+     * Check whether or not the given ips are matched
+     */
+    public static boolean checkIPMatching(String pattern, String address) {
+        if (pattern.equals("*.*.*.*") || pattern.equals("*"))
+            return true;
+
+        InetAddress ia = null;
+        String addressToCheck = null;
+        try {
+            ia = InetAddress.getByName(pattern);
+            addressToCheck = ia.getHostAddress();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (addressToCheck == null)
+            return false;
+
+        String[] mask = addressToCheck.split("\\.");
+        String[] ip_address = address.split("\\.");
+        for (int i = 0; i < mask.length; i++) {
+            if (mask[i].equals("*") || mask[i].equals(ip_address[i]))
+                continue;
+            else if (mask[i].contains("-")) {
+                byte min = Byte.parseByte(mask[i].split("-")[0]);
+                byte max = Byte.parseByte(mask[i].split("-")[1]);
+                byte ip = Byte.parseByte(ip_address[i]);
+                if (ip < min || ip > max)
+                    return false;
+            } else
+                return false;
+        }
+        return true;
     }
 
     /**

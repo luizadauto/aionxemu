@@ -89,7 +89,7 @@ public class FlyController {
     public boolean startFly() {
         // Check Flight
         ZoneName currentFlightZoneName = null;
-        if (ZoneService.getInstance().mapHasFightZones(player.getWorldId())) {
+        if (ZoneService.getInstance().mapHasFlightZones(player.getWorldId())) {
             currentFlightZoneName = ZoneService.getInstance().findFlightZoneInCurrentMap(player.getPosition());
             if (currentFlightZoneName == null && player.getAccessLevel() < AdminConfig.GM_FLIGHT_FREE) {
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_FLYING_FORBIDDEN_HERE);

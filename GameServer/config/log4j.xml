@@ -82,6 +82,18 @@
         </layout>
         <filter class="com.aionemu.commons.log4j.filters.GmAuditFilter"/>
     </appender>
+    <appender name="PACKET" class="com.aionemu.commons.log4j.appenders.TruncateToZipFileAppender">
+        <param name="file" value="log/packet.log"/>
+        <param name="append" value="false"/>
+        <param name="backupDir" value="log/backup"/>
+        <param name="encoding" value="UTF-8"/>
+        <!-- Windows systems doesn't support : char in file names -->
+        <param name="backupDateFormat" value="yyyy-MM-dd HH-mm-ss"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-dd-MM HH:mm:ss}] %m%n"/>
+        </layout>
+        <filter class="com.aionemu.commons.log4j.filters.PacketFilter"/>
+    </appender>
     
     <!-- Audit -->
     <appender name="AUDIT" class="com.aionemu.commons.log4j.appenders.TruncateToZipFileAppender">

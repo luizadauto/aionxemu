@@ -69,14 +69,6 @@ public class ChatServer {
             catch (Exception e) {
                 log.info("Cant connect to ChatServer: " + e.getMessage());
             }
-            try {
-                /**
-                 * 10s sleep
-                 */
-                Thread.sleep(10 * 1000);
-            }
-            catch (Exception e) {
-            }
         }
     }
 

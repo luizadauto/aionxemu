@@ -692,6 +692,14 @@ public class Skill {
     }
 
     /**
+     * @return boolean if its an Area of Effect Enemy skill.
+     */
+    public boolean isAreaEnemySkill() {
+        return (targetRangeAttribute == TargetRangeAttribute.AREA &&
+            targetRelationAttribute == TargetRelationAttribute.ENEMY);
+    }
+
+    /**
      * @param firstTargetRangeCheck the firstTargetRangeCheck to set
      */
     public void setFirstTargetRangeCheck(boolean firstTargetRangeCheck) {

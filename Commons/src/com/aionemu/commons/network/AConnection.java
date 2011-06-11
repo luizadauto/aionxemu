@@ -25,6 +25,9 @@ import java.nio.ByteOrder;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
+import java.net.Socket;
+import java.net.InetAddress;
+
 /**
  * Class that represent Connection with server socket. Connection is created by <code>ConnectionFactory</code> and
  * attached to <code>SelectionKey</code> key. Selection key is registered to one of Dispatchers <code>Selector</code> to
@@ -73,7 +76,7 @@ public abstract class AConnection {
     /**
      * Caching ip address to make sure that {@link #getIP()} method works even after disconnection
      */
-    private final String ip;
+    private String ip = null;
 
     /**
      * Used only for PacketProcessor synchronization purpose
@@ -99,9 +102,17 @@ public abstract class AConnection {
         dispatcher.register(socketChannel, SelectionKey.OP_READ, this);
 
         if (socketChannel == null)
-            this.ip = "";
-        else
-            this.ip = socketChannel.socket().getInetAddress().getHostAddress();
+            return;
+
+        Socket socket = socketChannel.socket();
+        if (socket == null)
+            return;
+
+        InetAddress inetAddress = socket.getInetAddress();
+        if (inetAddress == null)
+            return;
+
+        this.ip = inetAddress.getHostAddress();
     }
 
     /**

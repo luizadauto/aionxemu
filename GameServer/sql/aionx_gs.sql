@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `players` (
   `deletion_date` timestamp NULL default NULL,
   `last_online` timestamp NULL default NULL on update CURRENT_TIMESTAMP,
   `cube_size` tinyint(1) NOT NULL default '0',
-  `advenced_stigma_slot_size` TINYINT(1) NOT NULL DEFAULT '0',
+  `advanced_stigma_slot_size` TINYINT(1) NOT NULL DEFAULT '0',
   `warehouse_size` tinyint(1) NOT NULL default '0',
   `mailboxLetters` tinyint(4) NOT NULL default '0',
   `bind_point` INT NOT NULL default '0',
@@ -485,6 +485,20 @@ CREATE TABLE IF NOT EXISTS `npc_shouts` (
   `message_id` int(11) NOT NULL,
   `_interval` int(11) NOT NULL,
   PRIMARY KEY  (`npc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `npc_stocks`
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `npc_stocks` (
+`playerId` int(11) NOT NULL DEFAULT '0',
+`npcId` int(11) NOT NULL DEFAULT '0',
+`itemTplId` int(11) NOT NULL DEFAULT '0',
+`count` int(11) NOT NULL DEFAULT '0',
+`lastSaleDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+KEY `playerId` (`playerId`),
+KEY `npcId` (`npcId`),
+KEY `itemTplId` (`itemTplId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

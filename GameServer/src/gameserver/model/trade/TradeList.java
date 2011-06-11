@@ -135,27 +135,26 @@ public class TradeList {
      * @return true or false
      */
     public boolean calculateSpecialBuyListPrice(Player player) {
-    	this.requiredItems.clear();
+        this.requiredItems.clear();
 
-    	for (TradeItem tradeItem : tradeItems) {
-    		int itemId = tradeItem.getItemTemplate().getExtraCurrencyItem();
-    		Integer alreadyAddedCount = requiredItems.get(itemId);
+        for (TradeItem tradeItem : tradeItems) {
+            int itemId = tradeItem.getItemTemplate().getExtraCurrencyItem();
+            Integer alreadyAddedCount = requiredItems.get(itemId);
 
-    		if (alreadyAddedCount == null)
-    			requiredItems.put(itemId, tradeItem.getItemTemplate().getExtraCurrencyItemCount());
-    		else
-    			requiredItems.put(itemId, alreadyAddedCount + tradeItem.getItemTemplate().getExtraCurrencyItemCount());
-    	}
+            if (alreadyAddedCount == null)
+                requiredItems.put(itemId, tradeItem.getItemTemplate().getExtraCurrencyItemCount() * (int)tradeItem.getCount());
+            else
+                requiredItems.put(itemId, alreadyAddedCount + tradeItem.getItemTemplate().getExtraCurrencyItemCount() * (int)tradeItem.getCount());
+        }
 
-    	for (Integer itemId : requiredItems.keySet()) {
-    		long count = player.getInventory().getItemCountByItemId(itemId);
-    		if (count < requiredItems.get(itemId))
-    			return false;
-    	}
+        for (Integer itemId : requiredItems.keySet()) {
+            long count = player.getInventory().getItemCountByItemId(itemId);
+            if (count < requiredItems.get(itemId))
+                return false;
+        }
 
-    	return true;
+        return true;
     }
-
 
     /**
      * @return the tradeItems

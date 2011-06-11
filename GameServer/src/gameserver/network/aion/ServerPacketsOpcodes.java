@@ -190,7 +190,7 @@ public class ServerPacketsOpcodes {
         addPacketOpcode(SM_LEGION_EMBLEM_SEND.class,0xBF, idSet);// Testing
         addPacketOpcode(SM_ABYSS_ARTIFACT_INFO2.class,0xD9, idSet);// 2.1
         addPacketOpcode(SM_ABYSS_ARTIFACT_INFO3.class, 0xDB, idSet);// 2.1
-        addPacketOpcode(SM_BLOCK_RESPONSE.class,0xDD, idSet);// 1.9?
+        addPacketOpcode(SM_BLOCK_RESPONSE.class,0xDC, idSet);// 2.1
         addPacketOpcode(SM_FRIEND_RESPONSE.class,0xDE, idSet);// 2.1
         addPacketOpcode(SM_BLOCK_LIST.class,0xDF, idSet);// 2.1
         addPacketOpcode(SM_FRIEND_NOTIFY.class,0xE0, idSet);// 2.1

@@ -27,6 +27,8 @@
         <xs:attribute name="type" type="SiegeType" use="required"/>
         <xs:attribute name="world" type="xs:int" use="required"/>
         <xs:attribute name="influence_value" type="xs:int" default="1"/>
+        <xs:attribute name="vulnerable_time" type="xs:string" default="0 20 *"/>
+        <xs:attribute name="vulnerability_duration" type="xs:int" default="7200"/>
     </xs:complexType>
 
     <xs:simpleType name="SiegeType">

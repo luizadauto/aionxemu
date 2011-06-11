@@ -98,14 +98,6 @@ public class LoginServer {
             catch (Exception e) {
                 log.info("Cant connect to LoginServer: " + e.getMessage());
             }
-            try {
-                /**
-                 * 10s sleep
-                 */
-                Thread.sleep(10 * 1000);
-            }
-            catch (Exception e) {
-            }
         }
     }
 

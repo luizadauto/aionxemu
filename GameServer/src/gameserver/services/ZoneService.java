@@ -277,7 +277,7 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player> {
      * @param worldId
      * @return
      */
-    public boolean mapHasFightZones(int worldId) {
+    public boolean mapHasFlightZones(int worldId) {
         return (null != flightZoneByMapIdMap.get(worldId));
     }
 

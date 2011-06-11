@@ -26,7 +26,15 @@ public enum CustomMessageId {
     SERVER_REVISION("Server Revision: %-6s"),
     WELCOME_BASIC("Welcome to %s server.\nCopyright 2011 www.aionxemu.com."),
     ANNOUNCE_GM_CONNECTION("%s just entered into Atreia."),
+    COMMAND_DISABLED("This command is disabled"),
     COMMAND_NOT_ENOUGH_RIGHTS("You dont have enough rights to execute this command"),
+    COMMAND_ADMIN_NO_PARAMETERS("No parameters detected.\nPlease use //%s"),
+    COMMAND_ADMIN_INCORRECT_PARAMETERS("Incorrect parameters detected.\nPlease use //%s"),
+    COMMAND_ADMIN_SUBCOMMAND_NOT_EXIST("Sub Command does not exist.\nPlease use //%s"),
+    COMMAND_ADMIN_ERROR_REQUEST("Error with your request.\nPlease use //%s"),
+    COMMAND_PARAM_REQUIRED_INT("%s Parameter needs to be an integer"),
+    COMMAND_PARAM_INCORRECT_VALUE("Incorrect %s value.\nPlease use //%s"),
+
     PLAYER_NOT_ONLINE("The player %s is not online"),
     INTEGER_PARAMETER_REQUIRED("Parameter needs to be an integer"),
     INTEGER_PARAMETERS_ONLY("Parameters need to be only integers"),
@@ -84,7 +92,6 @@ public enum CustomMessageId {
     COMMAND_ADDEFFECT_SYNTAX("Syntax: //addeffect <skillid> <duration>\nThis command adds specified effect to the target for a specified duration (in seconds). Leaving duration null will use the default skill duration."),
     COMMAND_ADDEFFECT_SUCCESS("Effect %s added to player %s for %d second(s)."),
 
-    COMMAND_DISABLED("This command is disabled"),
     COMMAND_ADD_SYNTAX("Syntax: //add <player name> <item id> <quantity>"),
     COMMAND_ADD_ADMIN_SUCCESS("Item(s) successfully added to player %s"),
     COMMAND_ADD_PLAYER_SUCCESS("Admin %s gave you %d item(s)"),
@@ -112,6 +119,23 @@ public enum CustomMessageId {
     COMMAND_SEND_SYNTAX("Syntax: //send <filename>"),
     COMMAND_SEND_MAPPING_NOT_FOUND("Mapping %s not found"),
     COMMAND_SEND_NO_PACKET("No packet to send"),
+
+    // COMMAND SIEGE
+    COMMAND_SIEGE_RACE_RESTRICTION("Race must be: Elyos, Asmos, or Balaur.\nPlease use //siege help capture"),
+    COMMAND_SIEGE_HELP_LIST("[Help: Siege List Command]\n" +
+        "  The siege list command outputs each siege location." +
+        "  Format is: - (fortress|artifact) <location id> (faction owner) [legion id]\n"),
+    COMMAND_SIEGE_HELP_GENERAL("[Help: Siege Command]\n" +
+        "  Use //siege help <capture|set> for more details on the command.\n" +
+        "  Notice: This command uses smart matching. You may abbreviate most commands.\n" +
+        "  For example: (//siege cap 1011 ely) will match to (//siege capture 1011 elyos)\n"),
+    COMMAND_SIEGE_HELP_TIMER("Timer not implemented."),
+    COMMAND_SIEGE_HELP_SET("Syntax: //siege set <location id> <current state> [next state]\n" +
+        "Current State Values: 0 - Invulnerable, 2 - Vulnerable\n" +
+        "Next State Values: 0 - Invulnerable, 1 - Vulnerable"),
+    COMMAND_SIEGE_HELP_CAPTURE("Syntax: //siege capture <location id> <race> [legion id]\n" +
+            "Race may be: Elyos, Asmos, Balaur. (Not case sensitive.)"),
+
     COMMAND_SURVEY_ADD_SUCCESS("The Survey has been successfully added."),
     COMMAND_SURVEY_ADD_FAILURE("There was an error adding the Survey, please check the syntax with //survey add"),
     COMMAND_SURVEY_DEL_SUCCESS("The Survey has been successfully deleted."),
@@ -168,11 +192,12 @@ public enum CustomMessageId {
     COMMAND_XP_ENABLED("Your experience gain has been enabled"),
     COMMAND_XP_ALREADY_ENABLED("Your experience gain is already enabled"),
     ERROR_ITEM_COMPRESSED("An error occurred while attempting to open the item, please report it to the administrator"),
+    ERROR_COMPRESS_MIN_LEVEL("You must be Level %d in order to Extract the Item."),
     ERROR_INVALID_EXCHANGE("There was an error trying to perform the Trade"),
     ERROR_ITEM_TEMPATE_MISSING("ITEM TEMPLATE NOT FOUND: PlayerId %d, ItemObjectId %d, ItemId %d"),
     ERROR_TRADEITEM_TEMPATE_MISSING("ITEM TEMPLATE NOT FOUND: PlayerId %d, ItemObjectId %d"),
+    ERROR_LOCATION_NOT_EXIST("Location does not exist: %s"),
     PLAYER_INVENTORY_FULL("Your Inventory is Full. Free some space and try again.");
-    
 
     private String fallbackMessage;
 

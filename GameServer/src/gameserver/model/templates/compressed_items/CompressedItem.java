@@ -57,6 +57,9 @@ public class CompressedItem extends AbstractItemAction {
     protected int id;
     @XmlAttribute(required = false)
     protected int maxproduction;
+    @XmlAttribute(required = false)
+    protected int level;
+    
 
     public List<Production> getProduction() { 
         return this.production; 
@@ -86,7 +89,8 @@ public class CompressedItem extends AbstractItemAction {
     }
 
     @Override 
-    public boolean canAct(Player player, Item parentItem, Item targetItem) { 
+    public boolean canAct(Player player, Item parentItem, Item targetItem) 
+    {
         if (production == null) 
             return false; 
         if (parentItem.getItemTemplate().getTemplateId() != id) { 
@@ -97,6 +101,12 @@ public class CompressedItem extends AbstractItemAction {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DECOMPRESS_INVENTORY_IS_FULL); 
             return false; 
         } 
+        if(player.getLevel() < level)
+        {
+            String message = LanguageHandler.translate(CustomMessageId.ERROR_COMPRESS_MIN_LEVEL, level);
+            PacketSendUtility.sendPacket(player, new SM_MESSAGE(0, null,message ,ChatType.ANNOUNCEMENTS));
+            return false;
+        }
         return true; 
     } 
 
