@@ -20,11 +20,28 @@ import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.PlayerStatsData;
 import gameserver.model.EmotionType;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.state.CreatureState;
+import gameserver.model.gameobjects.stats.id.ItemStatEffectId;
+import gameserver.model.gameobjects.stats.id.StatEffectId;
+import gameserver.model.gameobjects.stats.modifiers.AddModifier;
 import gameserver.model.gameobjects.stats.modifiers.CheckWeapon;
+import gameserver.model.gameobjects.stats.modifiers.MeanModifier;
+import gameserver.model.gameobjects.stats.modifiers.SetModifier;
+import gameserver.model.gameobjects.stats.modifiers.SimpleModifier;
+import gameserver.model.gameobjects.stats.modifiers.StatModifier;
+import gameserver.model.items.ItemSlot;
 import gameserver.model.templates.stats.PlayerStatsTemplate;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
 import gameserver.network.aion.serverpackets.SM_STATS_INFO;
 import gameserver.utils.PacketSendUtility;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.Map.Entry;
 
 /**
  * @author xavier
@@ -54,22 +71,257 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
     }
 
 
-    public void recomputeStats() {
-        super.recomputeStats();
-        CheckWeapon.getInstance().WeaponCheck(owner);
-        int newRunSpeed = getCurrentStat(StatEnum.SPEED);
-        int newFlySpeed = getCurrentStat(StatEnum.FLY_SPEED);
-        int newAttackSpeed = getCurrentStat(StatEnum.ATTACK_SPEED);
 
-        if (newRunSpeed != currentRunSpeed || currentFlySpeed != newFlySpeed || newAttackSpeed != currentAttackSpeed) {
-            PacketSendUtility.broadcastPacket(owner, new SM_EMOTION(owner, EmotionType.START_EMOTE2, 0, 0), true);
+    @Override
+    public void recomputeStats()
+    {
+        try
+        {
+            // make sure we are doing it once
+            if (!recomputing.compareAndSet(false, true))
+                return;
+
+            //recompute stats
+            resetStats();
+            Map<StatEnum, StatModifiers> orderedModifiers = new HashMap<StatEnum, StatModifiers>();
+            
+            //to filter out attack speed bonus modfier
+            List<StatModifier> aspeedBonuses = new ArrayList<StatModifier>();
+            boolean    attackSpeedApplied = false;
+            
+            //power
+            float power = this.getCurrentStat(StatEnum.POWER) * 0.01f;
+            
+            //magical attack
+            boolean magicalAttack = owner.getAttackType().isMagic();
+                
+            synchronized (statsModifiers)
+            {
+                //sort StatEffectIds according to StatEffectType order
+                List<StatEffectId> statEffectIds = new ArrayList<StatEffectId>(statsModifiers.keySet());
+                Collections.sort(statEffectIds);
+
+                for (StatEffectId eid : statEffectIds)
+                {
+                    TreeSet<StatModifier> modifiers = statsModifiers.get(eid);
+                    int slots = 0;
+                    
+                    if(modifiers == null)
+                        continue;
+                                    
+                    for(StatModifier modifier : modifiers)
+                    {
+                        if(eid instanceof ItemStatEffectId)
+                        {
+                            slots = ((ItemStatEffectId) eid).getSlot();
+                        }
+                        
+                        if (slots == 0)
+                            slots = ItemSlot.NONE.getSlotIdMask();
+                        if(modifier.getStat().isMainOrSubHandStat(magicalAttack))
+                        {
+                            if(slots != ItemSlot.MAIN_HAND.getSlotIdMask() && slots != ItemSlot.SUB_HAND.getSlotIdMask())
+                            {
+                                if(((Player) owner).getEquipment().getOffHandWeaponType() != null)
+                                    slots = ItemSlot.MAIN_OR_SUB.getSlotIdMask();
+                                else
+                                {
+                                    slots = ItemSlot.MAIN_HAND.getSlotIdMask();
+                                    setStat(StatEnum.OFF_HAND_ACCURACY, 0, false);
+                                }
+                            }
+                            else if(slots == ItemSlot.MAIN_HAND.getSlotIdMask())
+                                setStat(StatEnum.MAIN_HAND_PHYSICAL_ATTACK, 0);
+                            
+                            if(slots == ItemSlot.MAIN_HAND.getSlotIdMask() || slots == ItemSlot.SUB_HAND.getSlotIdMask())
+                            {
+                                if (modifier.isBonus())
+                                    slots = ItemSlot.MAIN_OR_SUB.getSlotIdMask();
+                            }
+                        }
+                        
+                        List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
+                        for(ItemSlot slot : oSlots)
+                        {
+                            StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(slot, magicalAttack);
+                            
+                            //filter out sub hand modifiers
+                            if (owner.getEquipment().isDualWieldEquipped())
+                            {
+                                if (slot == ItemSlot.SUB_HAND)
+                                {
+                                    //StatEnum.PARRY(base stat) for sub_hand is not applied
+                                    if (statToModify == StatEnum.PARRY && !modifier.isBonus())
+                                        continue;
+                                    //StatEnum.MAGICAL_ACCURACY(base stat) for sub_hand is not applied
+                                    if (statToModify == StatEnum.MAGICAL_ACCURACY && !modifier.isBonus())
+                                        continue;
+                                }
+                                
+                                //proper calculation of attack speed for dual-wield
+                                if (slot == ItemSlot.SUB_HAND || slot == ItemSlot.MAIN_HAND)
+                                {
+                                    if (statToModify == StatEnum.ATTACK_SPEED && modifier.isBonus())
+                                    {
+                                        aspeedBonuses.add(modifier);
+                                        continue;
+                                    }
+                                    else if (statToModify == StatEnum.ATTACK_SPEED && !modifier.isBonus() && slot == ItemSlot.SUB_HAND)
+                                    {
+                                        if (attackSpeedApplied)
+                                            modifier = AddModifier.newInstance(modifier.getStat(),Math.round((float)((SimpleModifier)modifier).getValue()*0.25f), false);
+                                        else
+                                        {    
+                                            attackSpeedApplied = true;
+                                            modifier = SetModifier.newInstance(modifier.getStat(),Math.round((float)((SimpleModifier)modifier).getValue()*0.25f), false);
+                                        }
+                                    }
+                                    else if (statToModify == StatEnum.ATTACK_SPEED && !modifier.isBonus() && slot == ItemSlot.MAIN_HAND)
+                                    {
+                                        if (attackSpeedApplied)
+                                            modifier = AddModifier.newInstance(modifier.getStat(),((SimpleModifier)modifier).getValue(), false);
+                                        else
+                                        {    
+                                            attackSpeedApplied = true;
+                                            modifier = SetModifier.newInstance(modifier.getStat(),((SimpleModifier)modifier).getValue(), false);
+                                        }
+                                    }
+                                }
+                            }
+                            // base main_hand_power is adjusted by power
+                            if (statToModify == StatEnum.MAIN_HAND_PHYSICAL_ATTACK && !modifier.isBonus())
+                            {
+                                if (modifier instanceof AddModifier)
+                                    modifier = AddModifier.newInstance(modifier.getStat(),Math.round(((SimpleModifier)modifier).getValue() * power), false);
+                                else if (modifier instanceof MeanModifier)
+                                {
+                                    modifier = SetModifier.newInstance(modifier.getStat(),Math.round(modifier.apply(0, 0) * power), false);
+                                }
+                                else
+                                    Logger.getLogger(this.getClass()).warn("Different modifer for Mainhandpower base stat: "+modifier.toString());
+                            }
+                            
+                            if(!orderedModifiers.containsKey(statToModify))
+                            {
+                                orderedModifiers.put(statToModify, new StatModifiers());
+                            }
+                            orderedModifiers.get(statToModify).add(modifier);
+                        }
+                    }
+                }
+            }
+            
+            //only higher bonus from dual wielded weapons is applied
+            StatModifier aspeedBonus = null;
+            for (StatModifier mod : aspeedBonuses)
+            {
+                if (aspeedBonus == null)
+                    aspeedBonus = mod;
+                else if (((SimpleModifier)aspeedBonus).getValue() > ((SimpleModifier)mod).getValue())
+                    aspeedBonus = mod;
+            }
+            if (aspeedBonus != null)
+                orderedModifiers.get(StatEnum.ATTACK_SPEED).add(aspeedBonus);
+            
+            aspeedBonuses.clear();
+            
+            for(Entry<StatEnum, StatModifiers> entry : orderedModifiers.entrySet())
+            {
+                applyModifiers(entry.getKey(), entry.getValue());
+            }
+            orderedModifiers.clear();
+            
+            //apply limits
+            applyLimits();
+            
+            int newRunSpeed = getCurrentStat(StatEnum.SPEED);
+            int newFlySpeed = getCurrentStat(StatEnum.FLY_SPEED);
+            int newAttackSpeed = getCurrentStat(StatEnum.ATTACK_SPEED);
+
+            if(newRunSpeed != currentRunSpeed || currentFlySpeed != newFlySpeed || newAttackSpeed != currentAttackSpeed)
+            {
+                PacketSendUtility.broadcastPacket(owner, new SM_EMOTION(owner, EmotionType.START_EMOTE2, 0, 0), true);
+                
+                //if speed drops under 6000, players glide stops
+                if (newFlySpeed < 6000 && owner.isInState(CreatureState.GLIDING))
+                {
+                    owner.getFlyController().endFly();
+                }
+            }    
+                    
+            PacketSendUtility.sendPacket(owner, new SM_STATS_INFO(owner));
+                    
+            this.currentRunSpeed = newRunSpeed;
+            this.currentFlySpeed = newFlySpeed;
+            this.currentAttackSpeed = newAttackSpeed;
+            
+            //clear stats of offhand, if offhand == null
+            if (owner.getEquipment().getOffHandWeaponType() == null)
+            {
+                this.setStat(StatEnum.OFF_HAND_CRITICAL, 0);
+                this.setStat(StatEnum.OFF_HAND_CRITICAL, 0, true);
+                this.setStat(StatEnum.OFF_HAND_PHYSICAL_ATTACK, 0);
+                this.setStat(StatEnum.OFF_HAND_PHYSICAL_ATTACK, 0, true);
+                this.setStat(StatEnum.OFF_HAND_ACCURACY, 0);
+                this.setStat(StatEnum.OFF_HAND_ACCURACY, 0, true);
+            }        
+            
+            //compute stats for summons, not used yet
+            //computeSummonStats();
         }
+        finally
+        {
+            recomputing.set(false);
+        }
+    }
 
-        PacketSendUtility.sendPacket(owner, new SM_STATS_INFO(owner));
+    @Override
+    protected void applyLimits()
+    {
+        super.applyLimits();
+        
+        /* 
+         * defined max limits for player; min limits in CreatureGameStats
+         * default min limit = 0, default max limit = unlimited
+         */
+        int MAX_SPEED = 12000;
+        int MAX_FLY_SPEED = 16000;
+        int MAX_BOOST_MAGICAL_SKILL = 2600;
 
-        this.currentRunSpeed = newRunSpeed;
-        this.currentFlySpeed = newFlySpeed;
-        this.currentAttackSpeed = newAttackSpeed;
+        
+        int bonus = 0;
+        
+        //speed limit
+        if (getCurrentStat(StatEnum.SPEED) > MAX_SPEED)
+        {
+            bonus = MAX_SPEED - this.getBaseStat(StatEnum.SPEED);
+            this.setStat(StatEnum.SPEED, bonus, true);
+            bonus = 0;
+        }
+        
+        //fly speed limit
+        if (getCurrentStat(StatEnum.FLY_SPEED) > MAX_FLY_SPEED)
+        {
+            bonus = MAX_FLY_SPEED - this.getBaseStat(StatEnum.FLY_SPEED);
+            this.setStat(StatEnum.FLY_SPEED, bonus, true);
+            bonus = 0;
+        }
+        
+        // 50% attack speed cap
+        if (-getStatBonus(StatEnum.ATTACK_SPEED) > (getBaseStat(StatEnum.ATTACK_SPEED)/2f))
+        {
+            bonus = Math.round(-getBaseStat(StatEnum.ATTACK_SPEED)/2f);
+            setStat(StatEnum.ATTACK_SPEED, bonus, true);
+            bonus = 0;
+        }
+        
+        //magic boost cap
+        if (getCurrentStat(StatEnum.BOOST_MAGICAL_SKILL) > MAX_BOOST_MAGICAL_SKILL)
+        {
+            bonus = MAX_BOOST_MAGICAL_SKILL - this.getBaseStat(StatEnum.BOOST_MAGICAL_SKILL);
+            this.setStat(StatEnum.BOOST_MAGICAL_SKILL, bonus, true);
+            bonus = 0;
+        }
     }
 
     /**

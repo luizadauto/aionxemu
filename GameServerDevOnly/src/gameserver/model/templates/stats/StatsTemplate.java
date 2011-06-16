@@ -67,6 +67,72 @@ public abstract class StatsTemplate {
 
     /* ======================================= */
 
+    /**
+     * @param evasion the evasion to set
+     */
+    public void setEvasion(int evasion)
+    {
+        this.evasion = evasion;
+    }
+
+    /**
+     * @param block the block to set
+     */
+    public void setBlock(int block)
+    {
+        this.block = block;
+    }
+
+    /**
+     * @param parry the parry to set
+     */
+    public void setParry(int parry)
+    {
+        this.parry = parry;
+    }
+
+    /**
+     * @param mainHandAttack the mainHandAttack to set
+     */
+    public void setMainHandAttack(int mainHandAttack)
+    {
+        this.mainHandAttack = mainHandAttack;
+    }
+
+    /**
+     * @param mainHandAccuracy the mainHandAccuracy to set
+     */
+    public void setMainHandAccuracy(int mainHandAccuracy)
+    {
+        this.mainHandAccuracy = mainHandAccuracy;
+    }
+
+    /**
+     * @param mainHandCritRate the mainHandCritRate to set
+     */
+    public void setMainHandCritRate(int mainHandCritRate)
+    {
+        this.mainHandCritRate = mainHandCritRate;
+    }
+
+    /**
+     * @param magicAccuracy the magicAccuracy to set
+     */
+    public void setMagicAccuracy(int magicAccuracy)
+    {
+        this.magicAccuracy = magicAccuracy;
+    }
+    
+    public void setRunSpeed(int runSpeed)
+    {
+        this.runSpeed = runSpeed;
+    }
+    
+    public void setFlySpeed(int flySpeed)
+    {
+        this.flySpeed = flySpeed;
+    }
+
     public int getMaxHp() {
         return maxHp;
     }

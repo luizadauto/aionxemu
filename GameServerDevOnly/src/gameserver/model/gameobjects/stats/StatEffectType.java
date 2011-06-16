@@ -20,12 +20,12 @@ package gameserver.model.gameobjects.stats;
  * @author xavier
  */
 public enum StatEffectType {
-    SKILL_EFFECT(1),
-    ITEM_EFFECT(2),
-    TITLE_EFFECT(3),
-    STONE_EFFECT(4),
-    ENCHANT_EFFECT(6),
-    ITEM_SET_EFFECT(5);
+    ITEM_EFFECT(1),
+    ENCHANT_EFFECT(2),
+    STONE_EFFECT(3),
+    ITEM_SET_EFFECT(4),
+    TITLE_EFFECT(5),
+    SKILL_EFFECT(6);
 
     private int value;
 

@@ -20,17 +20,22 @@ import gameserver.dataholders.DataManager;
 import gameserver.itemengine.actions.AbstractItemAction;
 import gameserver.itemengine.actions.ItemActions;
 import gameserver.itemengine.actions.QuestStartAction;
+import gameserver.model.Gender;
 import gameserver.model.PlayerClass;
 import gameserver.model.gameobjects.stats.modifiers.StatModifier;
+import gameserver.model.items.ItemBonus;
 import gameserver.model.items.ItemId;
 import gameserver.model.items.ItemMask;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.itemset.ItemSetTemplate;
 import gameserver.model.templates.stats.ModifiersTemplate;
+
 import org.apache.commons.lang.StringUtils;
 
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
 import java.util.TreeSet;
 
 /**
@@ -64,7 +69,7 @@ public class ItemTemplate extends VisibleObjectTemplate {
     @XmlAttribute(name = "usedelay")
     private int useDelay;
 
-    @XmlAttribute(name = "equipment_type")
+    @XmlAttribute(name = "equip_type")
     private EquipType equipmentType = EquipType.NONE;
 
     @XmlAttribute(name = "cash_item")
@@ -73,14 +78,8 @@ public class ItemTemplate extends VisibleObjectTemplate {
     @XmlAttribute(name = "dmg_decal")
     private int dmgDecal;
 
-    @XmlAttribute(name = "weapon_boost")
+    @XmlAttribute(name = "weap_boost")
     private int weaponBoost;
-
-    @XmlAttribute(name = "extra_currency_item")
-    private int extraCurrencyItem;
-
-    @XmlAttribute(name = "extra_currency_item_count")
-    private int extraCurrencyItemCount;
 
     @XmlAttribute(name = "price")
     private int price;
@@ -94,10 +93,22 @@ public class ItemTemplate extends VisibleObjectTemplate {
     @XmlAttribute(name = "aic")
     private int abyssItemCount;
 
-    @XmlAttribute(name = "max_stack_count")
+    @XmlAttribute(name = "ei")
+    private int                    extraItem;
+
+    @XmlAttribute(name = "eic")
+    private int                    extraItemCount;
+    
+    @XmlAttribute(name = "ci")
+    private int                    couponItem;
+
+    @XmlAttribute(name = "cic")
+    private int                    couponItemCount;
+
+    @XmlAttribute(name = "stack")
     private int maxStackCount = 1;
 
-    @XmlAttribute(name = "level")
+    @XmlAttribute(name = "lvl")
     private int level;
 
     @XmlAttribute(name = "quality")
@@ -106,28 +117,28 @@ public class ItemTemplate extends VisibleObjectTemplate {
     @XmlAttribute(name = "item_type")
     private ItemType itemType;
 
-    @XmlAttribute(name = "item_category")
+    @XmlAttribute(name = "cat")
     private ItemCategory itemCategory;
 
-    @XmlAttribute(name = "weapon_type")
+    @XmlAttribute(name = "weap_type")
     private WeaponType weaponType;
 
     @XmlAttribute(name = "armor_type")
     private ArmorType armorType;
 
-    @XmlAttribute(name = "attack_type")
-    private String attackType;                // TODO enum
+    @XmlAttribute(name = "atk_type")
+    private EAttackType                attackType = EAttackType.PHYSICAL;
 
-    @XmlAttribute(name = "attack_gap")
+    @XmlAttribute(name = "atk_gap")
     private float attackGap;                    // TODO enum
 
     @XmlAttribute(name = "desc")
     private String description;                // TODO string or int
 
     @XmlAttribute(name = "gender")
-    private String genderPermitted;            // enum
+    private Gender                genderPermitted        = Gender.ALL;
 
-    @XmlAttribute(name = "option_slot_bonus")
+    @XmlAttribute(name = "opt_slot_bonus")
     private int optionSlotBonus;
 
     @XmlAttribute(name = "bonus_apply")
@@ -141,10 +152,10 @@ public class ItemTemplate extends VisibleObjectTemplate {
 
     private int itemId;
 
-    @XmlAttribute(name = "return_world")
+    @XmlAttribute(name = "rtn_world")
     private int returnWorldId;
 
-    @XmlAttribute(name = "return_alias")
+    @XmlAttribute(name = "rtn_alias")
     private String returnAlias;
 
     @XmlElement(name = "godstone")
@@ -162,17 +173,26 @@ public class ItemTemplate extends VisibleObjectTemplate {
     @XmlTransient
     private int[] restricts;
 
+    @XmlAttribute(name = "restrict_max")
+    private String                restrictMax;
+
+    @XmlTransient
+    private int[]                restrictsMax;
+
     @XmlAttribute(name = "quest", required = false)
     private int itemQuestId;
 
-    @XmlAttribute(name = "expire_mins", required = false)
-    private int expireMins;
+    @XmlAttribute(name = "expr_mins", required = false)
+    private long expireMins;
 
-    @XmlAttribute(name = "cash_minute", required = false)
+    @XmlAttribute(name = "cash_mins", required = false)
     private int cashAvailableMinute;
 
     @XmlAttribute(name = "exchange_mins", required = false)
     private int temporaryExchangeMins;
+
+    @XmlAttribute(name = "world_drop", required = false)
+    private boolean                isWorldDrop;
 
     /**
      * @return the mask
@@ -189,13 +209,38 @@ public class ItemTemplate extends VisibleObjectTemplate {
      * @param playerClass
      * @return
      */
-    public boolean isClassSpecific(PlayerClass playerClass) {
+    public boolean checkClassRestrict(PlayerClass playerClass) {
         boolean related = restricts[playerClass.ordinal()] > 0;
         if (!related && !playerClass.isStartingClass()) {
             related = restricts[PlayerClass.getStartingClassFor(playerClass).ordinal()] > 0;
         }
         return related;
     }
+
+    /**
+     * 
+     * @param playerClass
+     * @param level
+     * @return
+     */
+    public LevelRestrict getRestrict(PlayerClass playerClass, int level)
+    {
+        int restrict_from = restricts[playerClass.ordinal()];
+        int restrict_to = restrictsMax[playerClass.ordinal()];
+        if (restrict_to != 0)
+        {
+            if (restrict_from <= level && restrict_to >= level)
+                return new LevelRestrict(LevelRestrictType.NONE);
+            else if (restrict_from > level)
+                return new LevelRestrict(LevelRestrictType.LOW, restrict_from);
+            else
+                return new LevelRestrict(LevelRestrictType.HIGH, restrict_to);
+        }
+        else if (restrict_from > level)
+            return new LevelRestrict(LevelRestrictType.LOW, restrict_from);
+        return new LevelRestrict(LevelRestrictType.NONE);
+    }
+
 
     /**
      * @param playerClass
@@ -245,20 +290,6 @@ public class ItemTemplate extends VisibleObjectTemplate {
     }
 
     /**
-     * @return the extraCurrencyItem
-     */
-    public int getExtraCurrencyItem() {
-    	return extraCurrencyItem;
-    }
-
-    /**
-     * @return the extraCurrencyItemCount
-     */
-    public int getExtraCurrencyItemCount() {
-    	return extraCurrencyItemCount;
-    }
-
-    /**
      * @return the price
      */
     public int getPrice() {
@@ -284,6 +315,20 @@ public class ItemTemplate extends VisibleObjectTemplate {
      */
     public int getAbyssItemCount() {
         return abyssItemCount;
+    }
+
+    /**
+     * @return the extraCurrencyItem
+     */
+    public int getExtraCurrencyItem() {
+    	return extraCurrencyItem;
+    }
+
+    /**
+     * @return the extraCurrencyItemCount
+     */
+    public int getExtraCurrencyItemCount() {
+    	return extraCurrencyItemCount;
     }
 
     /**
@@ -366,7 +411,7 @@ public class ItemTemplate extends VisibleObjectTemplate {
     /**
      * @return the attackType
      */
-    public String getAttackType() {
+    public EAttackType getAttackType() {
         return attackType;
     }
 
@@ -380,7 +425,7 @@ public class ItemTemplate extends VisibleObjectTemplate {
     /**
      * @return the genderPermitted
      */
-    public String getGenderPermitted() {
+    public Gender getGenderPermitted() {
         return genderPermitted;
     }
 
@@ -437,9 +482,56 @@ public class ItemTemplate extends VisibleObjectTemplate {
     /**
      * @return true or false
      */
-    public boolean isArmor() {
+    public boolean isArmor()
+    {
+        return isArmor(false);
+    }
+    public boolean isArmor(boolean onlySet)
+    {
+        if (onlySet)
+        {
+            /*
+             * CL_
+             * RB_
+             * LT_
+             * CH_
+             * PL_
+             * 
+             * TORSO
+             * PANTS
+             * SHOULDER
+             * SHOES
+             * GLOVE
+             * 
+             * SHIELD
+             */
+            if (equipmentType == EquipType.ARMOR)
+            {
+                if (itemCategory == ItemCategory.SHIELD)
+                    return true;
+                String[] prefixes = {"CL_","RB_","LT_","CH_","PL_"};
+                String[] types = {"TORSO","PANTS","SHOULDER","SHOES","GLOVE"};
+                boolean isPresent = false;
+                for (String prefix : prefixes)
+                {
+                    for(String type : types)
+                    {
+                        if(itemCategory.toString().equals(prefix+type))
+                        {
+                            isPresent = true;
+                            break;
+                        }
+                    }
+                }
+                if (!isPresent)
+                    return false;
+            }
+            else
+                return false;
+        }
         return equipmentType == EquipType.ARMOR;
     }
+
 
     public boolean isKinah() {
         return itemId == ItemId.KINAH.value();
@@ -449,18 +541,45 @@ public class ItemTemplate extends VisibleObjectTemplate {
         return itemId > 140000000 && itemId < 140001000;
     }
 
-    void afterUnmarshal(Unmarshaller u, Object parent) {
+    void afterUnmarshal (Unmarshaller u, Object parent)
+    {
         setItemId(Integer.parseInt(id));
-        String[] parts = restrict.split(",");
+
         restricts = new int[12];
-        for (int i = 0; i < parts.length; i++) {
-            restricts[i] = Integer.parseInt(parts[i]);
+        if (restrict == null)
+        {
+            for(int i = 0; i < 12; i++)
+            {
+                restricts[i] = level;
+            }
         }
-        if (itemQuestId != 0 && actions != null) {
-            for (AbstractItemAction action : actions.getItemActions()) {
-                if (action instanceof QuestStartAction) {
-                    QuestStartAction qa = (QuestStartAction) action;
-                    if (qa.getQuestId() == 0)
+        else
+        {
+            String[] parts = restrict.split(",");
+            for(int i = 0; i < parts.length; i++)
+            {
+                restricts[i] = Integer.parseInt(parts[i]);
+            }
+        }
+
+        restrictsMax = new int[12];
+        if (restrictMax != null)
+        {
+            String[] parts = restrictMax.split(",");
+            for(int i = 0; i < parts.length; i++)
+            {
+                restrictsMax[i] = Integer.parseInt(parts[i]);
+            }
+        }
+
+        if(itemQuestId != 0 && actions != null)
+        {
+            for (AbstractItemAction action : actions.getItemActions())
+            {
+                if (action instanceof QuestStartAction)
+                {
+                    QuestStartAction qa = (QuestStartAction)action;
+                    if(qa.getQuestId() == 0)
                         qa.setQuestId(itemQuestId);
                     break;
                 }
@@ -664,7 +783,7 @@ public class ItemTemplate extends VisibleObjectTemplate {
     /**
      * @return the expireMins
      */
-    public int getExpireMinutes() {
+    public long getExpireMinutes() {
         return expireMins;
     }
 
@@ -682,4 +801,13 @@ public class ItemTemplate extends VisibleObjectTemplate {
     {
         return temporaryExchangeMins;
     }
+
+    /**
+     * @return the temporaryExchangeMins
+     */
+    public boolean getIsWorldDrop()
+    {
+        return isWorldDrop;
+    }
+
 }

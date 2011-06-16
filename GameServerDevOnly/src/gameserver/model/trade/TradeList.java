@@ -16,9 +16,14 @@
  */
 package gameserver.model.trade;
 
+import gameserver.dataholders.DataManager;
+import gameserver.dataholders.TradeListData;
+import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.templates.TradeListTemplate;
 import gameserver.model.templates.item.ItemTemplate;
 import gameserver.services.ItemService;
+import gameserver.world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +40,13 @@ public class TradeList {
 
     private long requiredKinah;
 
+    private int                            currencyId;
+
     private int requiredAp;
 
     private Map<Integer, Integer> requiredItems = new HashMap<Integer, Integer>();
+
+    private static final TradeListData    tradeListData    = DataManager.TRADE_LIST_DATA;
 
     /**
      * @param itemId
@@ -89,11 +98,23 @@ public class TradeList {
      */
     public boolean calculateBuyListPrice(Player player) {
         long availableKinah = player.getInventory().getKinahItem().getItemCount();
+        long priceCheck = 0;
+        long priceWithRates = 0;
         requiredKinah = 0;
 
+        // Addding buy & sell rate
+        Npc npc = (Npc) World.getInstance().findAionObject(this.getSellerObjId());
+        TradeListTemplate tradeListTemplate = tradeListData.getTradeListTemplate(npc.getObjectTemplate()
+            .getTemplateId());
 
-        for (TradeItem tradeItem : tradeItems) {
-            requiredKinah += player.getPrices().getKinahForBuy(tradeItem.getItemTemplate().getPrice(), player.getCommonData().getRace()) * tradeItem.getCount();
+        for(TradeItem tradeItem : tradeItems)
+        {
+            priceWithRates = Math.round((tradeItem.getItemTemplate().getPrice() + (tradeItem.getItemTemplate().getPrice() * tradeListTemplate.getBuyRate()))
+                * tradeListTemplate.getSellRate());
+            priceCheck = player.getPrices().getKinahForBuy(priceWithRates, player.getCommonData().getRace());
+            if(priceCheck <= 0) // Avoid giving out free items by tax reduction (ie arrows)
+                priceCheck = 1;
+            requiredKinah += priceCheck * tradeItem.getCount();
         }
 
         return availableKinah >= requiredKinah;
@@ -119,7 +140,7 @@ public class TradeList {
                 requiredItems.put(itemId, alreadyAddedCount + tradeItem.getItemTemplate().getAbyssItemCount());
         }
 
-        if (ap < requiredAp)
+        if (ap < requiredAp || requiredAp < 0)
             return false;
 
         for (Integer itemId : requiredItems.keySet()) {
@@ -134,22 +155,30 @@ public class TradeList {
     /**
      * @return true or false
      */
-    public boolean calculateSpecialBuyListPrice(Player player) {
+    public boolean calculateExtraCurrencyBuyListPrice(Player player)
+    {
         this.requiredItems.clear();
+        this.currencyId = 0;
 
-        for (TradeItem tradeItem : tradeItems) {
-            int itemId = tradeItem.getItemTemplate().getExtraCurrencyItem();
-            Integer alreadyAddedCount = requiredItems.get(itemId);
+        for(TradeItem tradeItem : tradeItems)
+        {
+            if(currencyId == 0)
+                currencyId = tradeItem.getItemTemplate().getExtraCurrencyItem();
+            else if(tradeItem.getItemTemplate().getExtraCurrencyItem() != currencyId)
+                continue; // currency mismatch
 
-            if (alreadyAddedCount == null)
-                requiredItems.put(itemId, tradeItem.getItemTemplate().getExtraCurrencyItemCount() * (int)tradeItem.getCount());
+            Integer alreadyAddedCount = requiredItems.get(currencyId);
+            if(alreadyAddedCount == null)
+                requiredItems.put(currencyId, (int)(tradeItem.getItemTemplate().getExtraCurrencyItemCount() * tradeItem.getCount()));
             else
-                requiredItems.put(itemId, alreadyAddedCount + tradeItem.getItemTemplate().getExtraCurrencyItemCount() * (int)tradeItem.getCount());
+                requiredItems.put(currencyId, alreadyAddedCount
+                    + (int)(tradeItem.getItemTemplate().getExtraCurrencyItemCount() * tradeItem.getCount()));
         }
 
-        for (Integer itemId : requiredItems.keySet()) {
+        for(Integer itemId : requiredItems.keySet())
+        {
             long count = player.getInventory().getItemCountByItemId(itemId);
-            if (count < requiredItems.get(itemId))
+            if(count < requiredItems.get(itemId))
                 return false;
         }
 
@@ -193,6 +222,14 @@ public class TradeList {
      */
     public long getRequiredKinah() {
         return requiredKinah;
+    }
+
+    /**
+     * @return the currencyId
+     */
+    public int getCurrencyId()
+    {
+        return currencyId;
     }
 
     /**

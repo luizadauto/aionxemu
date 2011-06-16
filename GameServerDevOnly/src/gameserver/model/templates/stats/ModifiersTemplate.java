@@ -16,9 +16,19 @@
  */
 package gameserver.model.templates.stats;
 
-import gameserver.model.gameobjects.stats.modifiers.*;
+import gameserver.model.gameobjects.stats.modifiers.AddModifier;
+import gameserver.model.gameobjects.stats.modifiers.MeanModifier;
+import gameserver.model.gameobjects.stats.modifiers.RateModifier;
+import gameserver.model.gameobjects.stats.modifiers.SetModifier;
+import gameserver.model.gameobjects.stats.modifiers.StatModifier;
+import gameserver.model.gameobjects.stats.modifiers.SubModifier;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.TreeSet;
 
 /**

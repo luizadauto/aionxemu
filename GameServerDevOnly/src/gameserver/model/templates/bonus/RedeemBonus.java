@@ -64,7 +64,8 @@ public class RedeemBonus extends SimpleCheckItemBonus {
         if (checkItem == ItemId.ANGELS_EYE.value() || checkItem == ItemId.DEMONS_EYE.value()) {
             int magic = bonusLevel % 10;
             int kinahCount = (int) (1000 * Math.pow(5, magic - 1));
-            player.getInventory().decreaseKinah(kinahCount);
+            if(!player.getInventory().decreaseKinah(kinahCount))
+                return false;
 
             double rndCoin = 0;
             // Give 1 broken coin or 1-6 Platinum Coins;

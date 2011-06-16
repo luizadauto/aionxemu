@@ -26,17 +26,19 @@ import javolution.util.FastList;
 /**
  * @author Sarynth
  */
-public class Artifact extends Npc {
-
+public class Artifact extends Npc
+{
+    private int spawnStaticId;
     private int artifactId;
     private ArtifactProtector protector;
 
     private FastList<Integer> relatedSpawnedObjectsIds;
     private ArtifactTemplate template;
 
-    public Artifact(int objId, ArtifactController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int artifactId) {
+    public Artifact(int objId, ArtifactController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int artifactId, int staticId) {
         super(objId, controller, spawn, objectTemplate);
         this.artifactId = artifactId;
+        this.spawnStaticId = staticId;
         this.relatedSpawnedObjectsIds = new FastList<Integer>();
     }
 
@@ -49,7 +51,13 @@ public class Artifact extends Npc {
         return artifactId;
     }
 
-    public ArtifactProtector getProtector() {
+    public int getStaticId()
+    {
+        return spawnStaticId;
+    }
+    
+    public ArtifactProtector getProtector()
+    {
         return protector;
     }
 
@@ -76,4 +84,8 @@ public class Artifact extends Npc {
         this.template = template;
     }
 
+    public ArtifactController getController()
+    {
+        return (ArtifactController)super.getController();
+    }
 }

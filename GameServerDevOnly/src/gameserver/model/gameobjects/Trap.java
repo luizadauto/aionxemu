@@ -18,6 +18,7 @@ package gameserver.model.gameobjects;
 
 import gameserver.ai.npcai.TrapAi;
 import gameserver.controllers.NpcController;
+import gameserver.controllers.NpcWithCreatorController;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.spawn.SpawnTemplate;
@@ -26,15 +27,6 @@ import gameserver.model.templates.spawn.SpawnTemplate;
  * @author ATracer
  */
 public class Trap extends Npc {
-
-    /**
-     * Skill that will be used upon execution
-     */
-    private int skillId;
-    /**
-     * Creator of this trap.
-     */
-    private Creature creator;
 
     /**
      * @param objId
@@ -46,32 +38,14 @@ public class Trap extends Npc {
         super(objId, controller, spawnTemplate, objectTemplate);
     }
 
-    /**
-     * @return the skillId
-     */
-    public int getSkillId() {
-        return skillId;
+    @Override
+    public NpcWithCreatorController getController()
+    {
+        return (NpcWithCreatorController) super.getController();
     }
-
-    /**
-     * @param skillId the skillId to set
-     */
-    public void setSkillId(int skillId) {
-        this.skillId = skillId;
-    }
-
-    /**
-     * @return the creator
-     */
-    public Creature getCreator() {
-        return creator;
-    }
-
-    /**
-     * @param creator the creator to set
-     */
-    public void setCreator(Creature creator) {
-        this.creator = creator;
+    public Trap getOwner()
+    {
+        return (Trap)this;
     }
 
     @Override
@@ -83,16 +57,6 @@ public class Trap extends Npc {
     public void initializeAi() {
         this.ai = new TrapAi();
         ai.setOwner(this);
-    }
-
-    @Override
-    protected boolean isEnemyNpc(Npc visibleObject) {
-        return this.creator.isEnemyNpc(visibleObject);
-    }
-
-    @Override
-    protected boolean isEnemyPlayer(Player visibleObject) {
-        return this.creator.isEnemyPlayer(visibleObject);
     }
 
     /**
@@ -111,5 +75,5 @@ public class Trap extends Npc {
     @Override
     public Creature getMaster() {
         return this.creator;
-	}
+    }
 }

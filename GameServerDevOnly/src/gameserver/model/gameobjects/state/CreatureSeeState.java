@@ -22,7 +22,8 @@ package gameserver.model.gameobjects.state;
 public enum CreatureSeeState {
     NORMAL(0), // Normal
     SEARCH1(1), // See-Through: Hide I
-    SEARCH2(2); // See-Through: Hide II
+    SEARCH2(2), // See-Through: Hide II
+    SEARCH20(20); //See-Through: GM hide
 
     private int id;
 

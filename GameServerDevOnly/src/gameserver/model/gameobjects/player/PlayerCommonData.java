@@ -27,10 +27,17 @@ import gameserver.model.Race;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.model.templates.VisibleObjectTemplate;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_ABYSS_RANK;
+import gameserver.network.aion.serverpackets.SM_ABYSS_RANK_UPDATE;
+import gameserver.network.aion.serverpackets.SM_DP_INFO;
+import gameserver.network.aion.serverpackets.SM_LEGION_EDIT;
+import gameserver.network.aion.serverpackets.SM_STATS_INFO;
+import gameserver.network.aion.serverpackets.SM_STATUPDATE_DP;
+import gameserver.network.aion.serverpackets.SM_STATUPDATE_EXP;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.services.HTMLService;
 import gameserver.skill.model.Effect;
 import gameserver.skill.model.SkillTemplate;
-import gameserver.services.HTMLService;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.stats.XPLossEnum;
 import gameserver.world.World;
@@ -61,6 +68,7 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     private int level = 0;
     private long exp = 0;
     private long expRecoverable = 0;
+    private long repletionstate;
     private Gender gender;
     private Timestamp lastOnline;
     private boolean online;
@@ -166,7 +174,8 @@ public class PlayerCommonData extends VisibleObjectTemplate {
         if (this.level == DataManager.PLAYER_EXPERIENCE_TABLE.getMaxLevel()) {
             return 0;
         }
-        return DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(this.level + 1) - DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(this.level);
+        return DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(this.level + 1) -
+            DataManager.PLAYER_EXPERIENCE_TABLE.getStartExpForLevel(this.level);
     }
 
     /**
@@ -197,7 +206,8 @@ public class PlayerCommonData extends VisibleObjectTemplate {
         }
         if (this.getPlayer() != null)
             PacketSendUtility.sendPacket(this.getPlayer(),
-                    new SM_STATUPDATE_EXP(this.getExpShown(), this.getExpRecoverable(), this.getExpNeed()));
+                    new SM_STATUPDATE_EXP(this.getExpShown(),
+                        this.getExpRecoverable(), this.getExpNeed()));
     }
 
     public void setRecoverableExp(long expRecoverable) {
@@ -220,7 +230,54 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     public void addExp(long value) {
         addExp(value, (VisibleObject)null);
     }
-    
+
+    /**
+     * @param value      The gained exp.
+     * @param fromObject The object that gave the exp.
+     */
+    public void addExp(long value, VisibleObject fromObject) {
+        Player player = getPlayer();
+        if (player == null) {
+            log.warn("CHECKPOINT : getPlayer in PCD return null for addExp " + isOnline() + " " + getPosition());
+            return;
+        }
+
+        /**
+         * Energy of Repose
+         */
+        long repletionBonus = 0;
+        if(this.getRepletionState() > 0)
+        {
+            repletionBonus = (value / 100) * (getPlayer().getCommonData().getLevel() < 45 ? 40 : 30);
+            long finalState = this.getRepletionState() - repletionBonus;
+            this.setRepletionState(finalState);
+        }
+        value += repletionBonus;
+
+        if (CustomConfig.PLAYER_EXPERIENCE_CONTROL && player.isNoExperienceGain()) {
+            value = 0;
+        }
+
+        this.setExp(this.exp + value);
+
+        if (fromObject == null || fromObject.getObjectTemplate() == null) {
+            if(repletionBonus == 0)
+                PacketSendUtility.sendPacket(player,
+                    SM_SYSTEM_MESSAGE.EXP(Long.toString(value)));
+            else
+                PacketSendUtility.sendPacket(player,
+                    SM_SYSTEM_MESSAGE.EXP(value, (int) repletionBonus, true));
+        }
+        else {
+            if(repletionBonus == 0)
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(
+                    value, fromObject.getObjectTemplate().getNameId()));
+            else
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(
+                    value, fromObject.getObjectTemplate().getNameId(), (int) repletionBonus));
+        }
+    }
+
     public void addExp(long value, RewardType rewardType)
     {
         Player player = getPlayer();
@@ -235,30 +292,6 @@ public class PlayerCommonData extends VisibleObjectTemplate {
 
         this.setExp(this.exp + reward);
         PacketSendUtility.sendPacket(player,SM_SYSTEM_MESSAGE.EXP(Long.toString(reward)));
-    }
-
-    /**
-     * @param value      The gained exp.
-     * @param fromObject The object that gave the exp.
-     */
-    public void addExp(long value, VisibleObject fromObject) {
-        Player player = getPlayer();
-        if (player == null) {
-            log.warn("CHECKPOINT : getPlayer in PCD return null for addExp " + isOnline() + " " + getPosition());
-            return;
-        }
-
-        if (CustomConfig.PLAYER_EXPERIENCE_CONTROL && player.isNoExperienceGain()) {
-            value = 0;
-        }
-
-        this.setExp(this.exp + value);
-
-        if (fromObject == null || fromObject.getObjectTemplate() == null)
-            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(Long.toString(value)));
-        else
-            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(value, fromObject
-                    .getObjectTemplate().getNameId()));
     }
 
     /**
@@ -291,11 +324,15 @@ public class PlayerCommonData extends VisibleObjectTemplate {
 
         if (level != this.level) {
             if (GSConfig.FACTIONS_RATIO_LIMITED && player != null) {
-                if (level > this.level && level >= GSConfig.FACTIONS_RATIO_LEVEL && player.getPlayerAccount().getNumberOf(getRace()) == 1) {
+                if (level > this.level && level >= GSConfig.FACTIONS_RATIO_LEVEL &&
+                    player.getPlayerAccount().getNumberOf(getRace()) == 1)
+                {
                     GameServer.updateRatio(getRace(), 1);
                 }
 
-                if (level < this.level && this.level >= GSConfig.FACTIONS_RATIO_LEVEL && player.getPlayerAccount().getNumberOf(getRace()) == 1) {
+                if (level < this.level && this.level >= GSConfig.FACTIONS_RATIO_LEVEL &&
+                    player.getPlayerAccount().getNumberOf(getRace()) == 1)
+                {
                     GameServer.updateRatio(getRace(), -1);
                 }
             }
@@ -636,4 +673,26 @@ public class PlayerCommonData extends VisibleObjectTemplate {
     {
         return mailboxLetters;
     }
+
+    /**
+     * @param repletionState
+     *            the repletionState to set
+     */
+    public void setRepletionState(long repletionAmount)
+    {
+        if(this.getLevel() >= 20)
+            this.repletionstate = repletionAmount;
+    }
+
+    /**
+     * @return the repletionState
+     */
+    public long getRepletionState()
+    {
+        if(this.getLevel() >= 20)
+            return repletionstate;
+        else
+            return 0;
+    }
+
 }

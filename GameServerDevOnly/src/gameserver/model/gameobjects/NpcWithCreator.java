@@ -41,9 +41,9 @@ public class NpcWithCreator extends Npc
      */
     
     protected Creature creator;
-    
+
     protected int skillId;
-    
+
     /**
      * @param objId
      * @param controller
@@ -72,7 +72,7 @@ public class NpcWithCreator extends Npc
     {
         return this.creator;
     }
-    
+
     /**
      * @return the creator
      */
@@ -88,7 +88,7 @@ public class NpcWithCreator extends Npc
     {
         this.creator = creator;
     }
-    
+
     /**
      * @return the skillId
      */
@@ -104,7 +104,7 @@ public class NpcWithCreator extends Npc
     {
         this.skillId = skillId;
     }
-    
+
     @Override
     public boolean isEnemy(VisibleObject visibleObject)
     {
@@ -126,12 +126,10 @@ public class NpcWithCreator extends Npc
     {
         return this.creator.isEnemyPlayer(visibleObject);
     }
-    
+
     @Override
     protected boolean isEnemySummon(Summon summon)
     {
         return this.creator.isEnemySummon(summon);
     }
-
-
 }

@@ -141,6 +141,10 @@ public class ItemEquipmentListener {
     public static void onItemEquipment(Item item, Player owner) {
         ItemTemplate itemTemplate = item.getItemTemplate();
 
+        //set attackType of weapon
+        if(item.getItemTemplate().isWeapon() && item.getItemTemplate().getAttackType().isMagic())
+            owner.setAttackType(item.getItemTemplate().getAttackType());
+
         if (item.hasFusionedItem()) {
             ItemTemplate fusionTemplate = DataManager.ITEM_DATA.getItemTemplate(item.getFusionedItem());
             onItemEquipment(fusionTemplate, itemTemplate, item.getEquipmentSlot(), owner.getGameStats());
@@ -159,10 +163,15 @@ public class ItemEquipmentListener {
 
         addGodstoneEffect(owner, item);
 
-        recalculateWeaponMastery(owner);
+        if(item.getItemTemplate().isWeapon()) {
+            recalculateWeaponMastery(owner);
+            recalculateDualMastery(owner);
+        }
 
-        if (item.getItemTemplate().isArmor())
+        if (item.getItemTemplate().isArmor(true)) {
             recalculateArmorMastery(owner);
+            recalculateShieldMastery(owner);
+        }
 
         EnchantService.onItemEquip(owner, item);
         owner.getController().updatePassiveStats();
@@ -267,6 +276,68 @@ public class ItemEquipmentListener {
                 owner.getController().useSkill(skillId);
             }
         }
+    }
+
+    /**
+     * @param owner
+     */
+    private static void recalculateDualMastery(Player owner)
+    {
+        //don't calculate for not initialized equipment
+        if(owner.getEquipment() == null)
+            return;
+        
+        int currentDualMasterySkill =  owner.getEffectController().getDualMastery();
+        if (owner.getEquipment().isDualWieldEquipped() && currentDualMasterySkill != 0)
+        {
+            owner.getEffectController().removePassiveEffect(currentDualMasterySkill);
+            return;
+        }
+        
+        boolean weaponsEquiped = (owner.getEquipment().getOffHandWeapon() != null && owner.getEquipment().getMainHandWeapon() != null);
+        Integer skillId = owner.getSkillList().getDualMasterySkill();
+        if(skillId == null)
+            return;
+        boolean masterySet = owner.getEffectController().isDualMasterySet(skillId);
+        //remove effect if no weapon is equiped
+            
+        if(masterySet && !weaponsEquiped)
+        {
+            owner.getEffectController().removePassiveEffect(skillId);
+        }
+        //add effect if weapon is equiped
+        if(!masterySet && weaponsEquiped)
+        {
+            owner.getController().useSkill(skillId);
+        }
+    }
+
+    /**
+     * @param owner
+     */
+    private static void recalculateShieldMastery(Player owner)
+    {
+        //don't calculate for not initialized equipment
+        if(owner.getEquipment() == null)
+            return;
+        
+        boolean shieldEquiped = owner.getEquipment().isShieldEquipped();
+        Integer skillId = owner.getSkillList().getShieldMasterySkill();
+        if(skillId == null)
+            return;
+        boolean masterySet = owner.getEffectController().isShieldMasterySet(skillId);
+        //remove effect if no armor is equiped
+            
+        if(masterySet && !shieldEquiped)
+        {
+            owner.getEffectController().removePassiveEffect(skillId);
+        }
+        //add effect if armor is equiped
+        if(!masterySet && shieldEquiped)
+        {
+            owner.getController().useSkill(skillId);
+        }
+
     }
 
     /**
@@ -381,13 +452,21 @@ public class ItemEquipmentListener {
 
         removeGodstoneEffect(owner, item);
 
-        recalculateWeaponMastery(owner);
+        if(item.getItemTemplate().isWeapon())
+        {
+            recalculateWeaponMastery(owner);
+            recalculateDualMastery(owner);            
+            //unset attackType of weapon
+            if (owner.getAttackType().isMagic())
+                owner.unsetAttackType();
+        }
 
-        if (item.getItemTemplate().isArmor())
+        if (item.getItemTemplate().isArmor()) {
             recalculateArmorMastery(owner);
+            recalculateShieldMastery(owner);
+        }
 
         EnchantService.onItemUnequip(owner, item);
-
     }
 
     /**

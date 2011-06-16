@@ -18,11 +18,16 @@
 package gameserver.model.templates.bonus;
 
 import com.aionemu.commons.utils.Rnd;
+import gameserver.model.Race;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.Storage;
+import gameserver.model.items.ItemId;
 import gameserver.model.templates.quest.QuestItems;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.ItemService;
+import gameserver.utils.PacketSendUtility;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,23 +47,58 @@ public class MedalBonus extends SimpleCheckItemBonus {
     /* (non-Javadoc)
       * @see com.aionemu.gameserver.itemengine.bonus.AbstractInventoryBonus#apply(com.aionemu.gameserver.model.gameobjects.player.Player)
       */
+    @Override
+    public boolean canApply(Player player, int itemId, int questId)
+    {
+        if(!super.canApply(player, itemId, questId))
+            return false;
+
+        Storage storage = player.getInventory();
+        if(storage.getItemCountByItemId(checkItem) < count)
+            return false;
+        else if(storage.isFull())
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_FULL_INVENTORY);
+            return false;
+        }
+        
+        return true;
+    }
 
     @Override
-    public boolean apply(Player player, Item item) {
-        List<Integer> itemIds =
-                DataManager.ITEM_DATA.getBonusItems(type, bonusLevel, bonusLevel + 1);
-        if (itemIds.size() == 0)
-            return true;
+    public boolean apply(Player player, Item item)
+    {
+        int questId = player.getQuestCookie().getQuestId();
+        int itemId;
+        int count = 1;
+        if (Rnd.get(1000) / 10f < 41.8)
+        {
+            if (Rnd.get(1000) / 10f < 48.4)
+            {
+                count = 2;
+                itemId = checkItem == ItemId.SILVER_MEDAL.value() ? ItemId.SILVER_MEDAL.value()
+                                                                  : ItemId.GOLDEN_MEDAL.value();
+            }
+            else
+                itemId = checkItem == ItemId.SILVER_MEDAL.value() ? ItemId.GOLDEN_MEDAL.value()
+                                                                  : ItemId.PLATINUM_MEDAL.value();
+        }
+        else if ((questId == 1717 || questId == 2717) && Rnd.get(100) < 4)
+        {
+            if (player.getCommonData().getRace() == Race.ASMODIANS)
+                itemId = 182205668; // Rusted Spear
+            else
+                itemId = 182202156; // Quartz of Virtue
+        }
+        else
+            itemId = ItemId.RUSTED_MEDAL.value();
 
-        // TODO: check when medals should be given
-        int itemId = itemIds.get(Rnd.get(itemIds.size()));
-        return ItemService.addItems(player, Collections.singletonList(new QuestItems(itemId, 1)));
+        return ItemService.addItems(player, Collections.singletonList(new QuestItems(itemId, count)));
     }
 
     /* (non-Javadoc)
       * @see gameserver.model.templates.bonus.AbstractInventoryBonus#getType()
       */
-
     @Override
     public InventoryBonusType getType() {
         return type;

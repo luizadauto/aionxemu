@@ -80,12 +80,9 @@ public class PrivateStore {
      * @param itemSlot return tradeItem
      */
     public TradePSItem getTradeItemBySlot(int itemSlot) {
-        try {
+        if(items.containsKey(itemSlot))
             return items.get(itemSlot);
-        }
-        catch (Exception e) {
-            return null;
-        }
+        return null;
     }
 
     /**

@@ -39,7 +39,9 @@ public class SiegeLocation
     private int legionId = 0;
 
     private boolean isVulnerable = false;
+    private boolean isShieldActive = false;
     private boolean isCanTeleport = false;
+
     private int nextState = 1;
 
     private long lastArtifactActivation;
@@ -133,6 +135,25 @@ public class SiegeLocation
     public void setVulnerable(boolean value)
     {
         this.isVulnerable = value;
+        if (getSiegeType() == SiegeType.FORTRESS)
+            this.isShieldActive = value;
+    }
+
+    /**
+     * @return the isShieldActive
+     */
+    public boolean isShieldActive()
+    {
+        return isShieldActive;
+    }
+
+    /**
+     * @param new shield value
+     */
+    public void setShieldActive(boolean value)
+    {
+        if (getSiegeType() == SiegeType.FORTRESS)
+            this.isShieldActive = value;
     }
 
     /**

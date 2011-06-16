@@ -23,23 +23,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * @author xitanium
+ * @author Sylar
  */
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AethericField")
-public class AethericFieldTemplate {
-    @XmlElement(name = "generator")
-    protected AethericFieldGeneratorTemplate generator;
-    @XmlElement(name = "aetheric_shield")
-    protected AethericFieldShieldTemplate shield;
+public class AethericFieldTemplate
+{
+    @XmlElement(name = "baseinfo")
+    protected SiegeSingleSpawnBaseInfo baseInfo;
 
-    public AethericFieldGeneratorTemplate getGeneratorTemplate() {
-        return generator;
+    public SiegeSingleSpawnBaseInfo getBaseInfo()
+    {
+        return baseInfo;
     }
-
-    public AethericFieldShieldTemplate getShieldTemplate() {
-        return shield;
-    }
-
+    
 }

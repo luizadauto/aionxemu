@@ -16,15 +16,15 @@
  */
 package gameserver.model.templates.pet;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import gameserver.model.templates.stats.PetStatsTemplate;
 
 /**
  * @author IlBuono
@@ -36,14 +36,21 @@ public class PetTemplate
 {
     @XmlAttribute(name = "id", required = true)
     private int id;
+
     @XmlAttribute(name = "name", required = true)
     private String name;
+
     @XmlAttribute(name = "nameid", required = true)
     private int nameId;
+
+    @XmlAttribute(name = "eggid", required = false)
+    private int            eggId;
+    
+    @XmlElement(name = "petstats", required = true)
+    private PetStatsTemplate statsTemplate;
+    
     @XmlElement(name = "petfunction")
-    private List<PetFunction> petFunctions;
-    @XmlElement(name = "petstats")
-    private PetStatsTemplate petStats;
+    private List<PetFunctionTemplate> functionTemplates;
 
     public int getPetId()
     {
@@ -60,9 +67,21 @@ public class PetTemplate
         return nameId;
     }
 
-    public List<PetFunction> getPetFunction()
+    public int getEggId()
     {
-        return petFunctions;
+        return eggId;
+    }
+
+    public PetStatsTemplate getStatsTemplate()
+    {
+        return statsTemplate;
+    }
+
+    public List<PetFunctionTemplate> getFunctionTemplates()
+    {
+        if (functionTemplates == null)
+            return new ArrayList<PetFunctionTemplate>();
+        return functionTemplates;
     }
 
     public PetFunction getWarehouseFunction()
@@ -80,6 +99,21 @@ public class PetTemplate
 
     public PetStatsTemplate getPetStats()
     {
-        return petStats;
+        return statsTemplate;
+    }
+
+    public int getFoodFlavourId()
+    {
+        for (PetFunctionTemplate t : getFunctionTemplates())
+        {
+            if ("food".equals(t.getType()))
+                return t.getId();
+        }
+        return 0;
+    }
+    
+    void afterUnmarshal (Unmarshaller u, Object parent)
+    {
+        
     }
 }

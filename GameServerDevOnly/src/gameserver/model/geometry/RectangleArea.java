@@ -19,7 +19,8 @@ package gameserver.model.geometry;
 
 import gameserver.utils.MathUtil;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 /**
  * Rectangle area, most wide spread in the game

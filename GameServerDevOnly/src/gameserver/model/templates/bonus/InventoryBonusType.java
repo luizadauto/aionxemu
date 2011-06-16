@@ -28,7 +28,9 @@ public enum InventoryBonusType {
     FOOD,            // %Quest_L_food
     FORTRESS,        // %Quest_L_fortress; sends promotion mails with medals?
     GOODS,            // %Quest_L_Goods
+    GODSTONE,
     ISLAND,            // %Quest_L_3_island; siege related?
+    LUNAR,            // %Quest_A_BranchLunarEvent
     MAGICAL,        // %Quest_L_magical
     MANASTONE,        // %Quest_L_matter_option
     MASTER_RECIPE,    // %Quest_ta_l_master_recipe
@@ -40,4 +42,7 @@ public enum InventoryBonusType {
     RECIPE,            // %Quest_L_Recipe
     REDEEM,            // %Quest_L_Rnd_Redeem and %Quest_L_redeem
     TASK,            // %Quest_L_task; craft related
+    WORLD_DROP_A,    // Asmodian drops
+    WORLD_DROP_B,    // Both race drops
+    WORLD_DROP_E    // Elyos drops
 }

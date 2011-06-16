@@ -46,13 +46,24 @@ public class SkillEffectId extends StatEffectId {
     }
 
     @Override
-    public int compareTo(StatEffectId o) {
-        int result = super.compareTo(o);
-        if (result == 0) {
-            if (o instanceof SkillEffectId) {
-                result = effectId - ((SkillEffectId) o).effectId;
-                if (result == 0)
-                    result = effectOrder - ((SkillEffectId) o).effectOrder;
+    public int compareTo(StatEffectId o)
+    {
+        int result = 0;
+        if (o==null)
+        {
+            result = id;
+        }
+        else
+        {
+            result = type.getValue() - o.type.getValue();
+            if (result==0)
+            {
+                if (o instanceof SkillEffectId)
+                {
+                    result = effectId - ((SkillEffectId)o).effectId;
+                    if(result == 0)
+                        result = effectOrder - ((SkillEffectId)o).effectOrder;
+                }
             }
         }
         return result;

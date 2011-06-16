@@ -17,29 +17,35 @@
 package gameserver.model;
 
 /**
- * @author zdead
+ * @author zdead, Sylar, Rolandas
  */
-public class NpcShout {
-    private int npcTemplateId;
+public class NpcShout
+{
     private int shoutMessageId;
-    private int interval;
-
-    public NpcShout(int npcId, int msgId, int itvl) {
-        this.npcTemplateId = npcId;
+    private ShoutEventType event;
+    private String param;
+        
+    public NpcShout(int msgId, ShoutEventType event, String param)
+    {
         this.shoutMessageId = msgId;
-        this.interval = itvl;
+        this.event = event;
+        this.param = param;
     }
-
-    public int getNpcTemplateId() {
-        return npcTemplateId;
-    }
-
-    public int getMessageId() {
+    
+    public int getMessageId()
+    {
         return shoutMessageId;
     }
-
-    public int getInterval() {
-        return interval;
+    
+    public ShoutEventType getEventType()
+    {
+        return event;
     }
-
+    
+    public String getParam()
+    {
+        return param;
+    }
+    
 }
+

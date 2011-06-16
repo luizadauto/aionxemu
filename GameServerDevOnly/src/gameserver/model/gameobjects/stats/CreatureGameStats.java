@@ -21,14 +21,21 @@ import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.stats.id.ItemStatEffectId;
+import gameserver.model.gameobjects.stats.id.SkillEffectId;
 import gameserver.model.gameobjects.stats.id.StatEffectId;
 import gameserver.model.gameobjects.stats.modifiers.StatModifier;
 import gameserver.model.items.ItemSlot;
 import gameserver.utils.ThreadPoolManager;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author xavier
@@ -45,12 +52,17 @@ public class CreatureGameStats<T extends Creature> {
     private int attackCounter = 0;
     protected T owner = null;
 
+    protected Map<StatEnum, Integer>                         summonStats;
+
+    protected AtomicBoolean recomputing = new AtomicBoolean();
+
     /**
      * @param owner
      */
     protected CreatureGameStats(T owner) {
         this.owner = owner;
         this.stats = Collections.synchronizedMap(new HashMap<StatEnum, Stat>());
+        this.summonStats = new HashMap<StatEnum,Integer>();        
         this.statsModifiers = Collections.synchronizedMap(new HashMap<StatEffectId, TreeSet<StatModifier>>());
     }
 
@@ -141,7 +153,7 @@ public class CreatureGameStats<T extends Creature> {
      * @param id
      * @param modifiers
      */
-    public void addModifiers(StatEffectId id, TreeSet<StatModifier> modifiers) {
+    public synchronized void addModifiers(StatEffectId id, TreeSet<StatModifier> modifiers) {
         if (modifiers == null || statsModifiers.containsKey(id))
             return;
 
@@ -152,7 +164,7 @@ public class CreatureGameStats<T extends Creature> {
     /**
      * @return True if the StatEffectId is already added
      */
-    public boolean effectAlreadyAdded(StatEffectId id) {
+    public synchronized boolean effectAlreadyAdded(StatEffectId id) {
         return statsModifiers.containsKey(id);
     }
 
@@ -160,6 +172,10 @@ public class CreatureGameStats<T extends Creature> {
      * Recomputation of all stats
      */
     public void recomputeStats() {
+        // make sure we are not doing it twice
+        if (!recomputing.compareAndSet(false, true))
+            return;
+
         resetStats();
         Map<StatEnum, StatModifiers> orderedModifiers = new HashMap<StatEnum, StatModifiers>();
 
@@ -229,10 +245,68 @@ public class CreatureGameStats<T extends Creature> {
         orderedModifiers.clear();
     }
 
+   
+    protected void applyLimits()
+    {
+        int MIN_SPEED = 600;
+        int MIN_FLY_SPEED = 600;
+        int MIN_ATTACK_SPEED = 600;
+        int MIN_RESISTANCE = -90;
+        int MIN_BOOST_MAGICAL_SKILL = 0;
+        
+        StatEnum[] resistances = {StatEnum.FIRE_RESISTANCE,StatEnum.EARTH_RESISTANCE,StatEnum.WIND_RESISTANCE,StatEnum.WATER_RESISTANCE};
+        
+        int bonus = 0;
+
+        //speed limit
+        if (getCurrentStat(StatEnum.SPEED) < MIN_SPEED)
+        {
+            bonus = this.getBaseStat(StatEnum.SPEED) - MIN_SPEED;
+            this.setStat(StatEnum.SPEED, -bonus, true);
+            bonus = 0;
+        }
+        
+        
+        //fly speed limit
+        if (getCurrentStat(StatEnum.FLY_SPEED) < MIN_FLY_SPEED)
+        {
+            bonus = this.getBaseStat(StatEnum.FLY_SPEED) - MIN_FLY_SPEED;
+            this.setStat(StatEnum.FLY_SPEED, -bonus, true);
+            bonus = 0;
+        }
+        
+        //attack speed min limit
+        if (getCurrentStat(StatEnum.ATTACK_SPEED) < MIN_ATTACK_SPEED)
+        {
+            bonus = this.getBaseStat(StatEnum.ATTACK_SPEED) - MIN_ATTACK_SPEED;
+            this.setStat(StatEnum.ATTACK_SPEED, -bonus, true);
+            bonus = 0;
+        }
+        
+        //magic boost limit
+        if (getCurrentStat(StatEnum.BOOST_MAGICAL_SKILL) < MIN_BOOST_MAGICAL_SKILL)
+        {
+            bonus = this.getBaseStat(StatEnum.BOOST_MAGICAL_SKILL) - MIN_BOOST_MAGICAL_SKILL;
+            this.setStat(StatEnum.BOOST_MAGICAL_SKILL, -bonus, true);
+            bonus = 0;
+        }
+        
+        //fire, earth, wind, water resistance limit
+        for (StatEnum stat : resistances)
+        {
+            if (getCurrentStat(stat) < MIN_RESISTANCE)
+            {
+                bonus = this.getBaseStat(stat) - MIN_RESISTANCE;
+                this.setStat(stat, -bonus, true);
+                bonus = 0;
+            }
+        }
+    }
+
     /**
      * @param id
      */
-    public void endEffect(StatEffectId id) {
+    public synchronized void endEffect(StatEffectId id) {
         statsModifiers.remove(id);
         recomputeStats();
     }
@@ -324,6 +398,125 @@ public class CreatureGameStats<T extends Creature> {
         }
     }
 
+    /**
+     * 
+     * @param stat
+     * @param modifiers
+     */
+    //TODO move to playergamestats
+    protected void computeSummonStats()
+    {
+        //reset summonStats
+        summonStats.clear();
+        
+        Map<StatEnum, StatModifiers> orderedModifiers = new HashMap<StatEnum, StatModifiers>();
+        synchronized (statsModifiers)
+        {
+            //sort StatEffectIds according to StatEffectType order
+            List<StatEffectId> statEffectIds = new ArrayList<StatEffectId>(statsModifiers.keySet());
+            Collections.sort(statEffectIds);
+            
+            //order modifiers
+            for (StatEffectId eid : statEffectIds)
+            {
+                TreeSet<StatModifier> modifiers = statsModifiers.get(eid);
+                int slots = 0;
+
+                if(modifiers == null)
+                    continue;
+                if(eid instanceof SkillEffectId)
+                    continue;
+                for(StatModifier modifier : modifiers)
+                {
+                    if(eid instanceof ItemStatEffectId)
+                    {
+                        slots = ((ItemStatEffectId) eid).getSlot();
+                    }
+                    
+                    if (slots == 0)
+                        slots = ItemSlot.NONE.getSlotIdMask();
+                    if(modifier.getStat().isMainOrSubHandStat(false) && owner instanceof Player)
+                    {
+                        if(slots != ItemSlot.MAIN_HAND.getSlotIdMask() && slots != ItemSlot.SUB_HAND.getSlotIdMask())
+                        {
+                            if(((Player) owner).getEquipment().getOffHandWeaponType() != null)
+                                slots = ItemSlot.MAIN_OR_SUB.getSlotIdMask();
+                            else
+                            {
+                                slots = ItemSlot.MAIN_HAND.getSlotIdMask();
+                            }
+                        }
+                        
+                        if(slots == ItemSlot.MAIN_HAND.getSlotIdMask() || slots == ItemSlot.SUB_HAND.getSlotIdMask())
+                        {
+                            if (modifier.isBonus())
+                                slots = ItemSlot.MAIN_OR_SUB.getSlotIdMask();
+                        }
+                    }
+
+                    List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
+                    for(ItemSlot slot : oSlots)
+                    {
+                        StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(slot, false);
+                        //StatEnum.PARRY for sub_hand is not applied 
+                        if (slot == ItemSlot.SUB_HAND && statToModify == StatEnum.PARRY)
+                        {
+                            if (!modifier.isBonus())
+                                continue;
+                        }
+                        if(!orderedModifiers.containsKey(statToModify))
+                        {
+                            orderedModifiers.put(statToModify, new StatModifiers());
+                        }
+                        orderedModifiers.get(statToModify).add(modifier);
+                    }
+                }
+            }
+            
+            //apply modifiers to summonStats
+            for(Entry<StatEnum, StatModifiers> entry : orderedModifiers.entrySet())
+            {
+                StatEnum stat = entry.getKey();
+                StatModifiers modifiers = entry.getValue();
+                if(modifiers == null)
+                    return;
+
+                int newValue;
+                
+                for(StatModifierPriority priority : StatModifierPriority.values())
+                {
+                    for (StatModifier modifier : modifiers.getModifiers(priority))
+                    {
+                        if(modifier.isBonus())
+                        {
+                            if (summonStats.containsKey(stat))
+                            {
+                                newValue = modifier.apply(0, summonStats.get(stat));
+                                summonStats.remove(stat);
+                            }
+                            else
+                                newValue = modifier.apply(0, 0);
+                            
+                            summonStats.put(stat, newValue);
+                        }
+                    }
+                }
+            }
+        }
+        orderedModifiers.clear();
+
+        //apply limits
+        applyLimits();
+
+    }
+    
+    public int getSummonStat(StatEnum stat)
+    {
+        if (summonStats.containsKey(stat))
+            return summonStats.get(stat);
+        else
+            return 0;
+    }
 
     /**
      * @param stat

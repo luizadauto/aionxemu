@@ -95,6 +95,15 @@ public class Kisk extends Npc {
         return player.getCommonData().getRace() != this.ownerRace;
     }
 
+    @Override
+    protected boolean isEnemySummon(Summon summon)
+    {
+        if (summon.getMaster() != null)
+            return summon.getMaster().getCommonData().getRace() != this.ownerRace;
+        else
+            return false;
+    }
+
     /**
      * @return NpcObjectType.NORMAL
      */

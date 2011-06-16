@@ -1,19 +1,3 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
- *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This software is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
- */
 package gameserver.model.templates.item;
 
 import javax.xml.bind.annotation.XmlEnum;
@@ -21,13 +5,16 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author LokiReborn
+ *
  */
 @XmlType(name = "item_category")
 @XmlEnum
-public enum ItemCategory {
+public enum ItemCategory
+{
     AC_HEAD,
     ACCESSORY,
     ADHESIVE,
+    ARENA_REWARD,
     ARROW,
     ARTIFACTSTONE,
     AXE,
@@ -102,6 +89,8 @@ public enum ItemCategory {
     CASH_CARD_TITLE,
     CASH_CHERUBIM_HEAD,
     CASH_CHESTNUTS_HEAD,
+    CASH_CHILDREN_BODY,
+    CASH_CHILDREN_HEAD,
     CASH_COIN,
     CASH_COUPON_CUSTOMIZE,
     CASH_COUPON_HAIR_EXCHANGE_M,
@@ -114,6 +103,9 @@ public enum ItemCategory {
     CASH_DEBRIE_GLOVE,
     CASH_DEBRIE_HEAD,
     CASH_DEBRIE_SHOES,
+    CASH_DEVA_BODY,
+    CASH_DEVA_HEAD,
+    CASH_DEVA_SHOES,
     CASH_DEVIL_HEAD,
     CASH_DYE_BLACK,
     CASH_DYE_DEEP_BLUE,
@@ -122,10 +114,12 @@ public enum ItemCategory {
     CASH_DYE_YELLOW,
     CASH_DYE_OLIVE_GREEN,
     CASH_DYE_ORANGE,
+    CASH_DYE_PACK,
     CASH_DYE_PINK,
     CASH_DYE_RED,
     CASH_DYE_ROMANTIC_PURPLE,
     CASH_DYE_WHITE,
+    CASH_EARRING,
     CASH_EUROPEAN_DRESS_BODY,
     CASH_FEED,
     CASH_FETHLOT_HEAD,
@@ -142,12 +136,15 @@ public enum ItemCategory {
     CASH_H2SWORD,
     CASH_HEAD,
     CASH_HIIV_HEAD,
+    CASH_KOREANDRESS_BODY,
     CASH_KOREANDRESS_BODY_M,
     CASH_KOREANDRESS_BODY_W,
     CASH_LINEAGE2_BODY,
     CASH_MACE,
     CASH_MANDURI_HEAD,
     CASH_MINX_HEAD,
+    CASH_MISSA_BODY,
+    CASH_MISSA_HEAD,
     CASH_MUTA_HEAD,
     CASH_NAMBAWI_HEAD,
     CASH_ORB,
@@ -158,25 +155,32 @@ public enum ItemCategory {
     CASH_PORGUSS_GLOVE,
     CASH_PORGUSS_HEAD,
     CASH_PORGUSS_SHOES,
+    CASH_PUMPKIN_HEAD,
     CASH_RUSSIAN_DRESS_BODY,
     CASH_SANTA_BODY_M,
     CASH_SANTA_BODY_W,
     CASH_SANTA_HEAD,
+    CASH_SCHOOLLOOK_BODY,
     CASH_SHEEP_HEAD,
     CASH_SHIELD,
+    CASH_SHIRT_BODY,
     CASH_SOCKS,
     CASH_SPAKY_HEAD,
     CASH_SPRIGG_HEAD,
     CASH_STAFF,
+    CASH_SUB,
     CASH_SWIMSUIT,
     CASH_SWORD,
     CASH_VALENTINEDAY_BODY,
     CASH_VALENTINEDAY_HEAD,
     CASH_VALENTINEDAY_SHOES,
+    CASH_VICTORYDAY_HEAD,
     CASH_VIKING_HEAD,
     CASH_WEDDINGDRESS_BODY,
     CASH_WHITEDAY_BODY,
     CASH_WHITEDAY_HEAD,
+    CASH_WIZARD_BODY,
+    CASH_WIZARD_HEAD,
     CASH_WGCOS,
     CASH_ZAIF_HEAD,
     CASH_ZERO,
@@ -269,8 +273,14 @@ public enum ItemCategory {
     HEART_HEAD,
     HELM,
     HERB,
+    HIGHDRESSGT_DA,
+    HIGHDRESSGT_LI,
     HIGHDRESSL,
     HIGHDRESSLO,
+    HIGHDRESSMD__DA,
+    HIGHDRESSMD__LI,
+    HIGHDRESSMD_DA,
+    HIGHDRESSMD_LI,
     HIGHDRESSS,
     HILT,
     HOE,

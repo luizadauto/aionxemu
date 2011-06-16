@@ -88,7 +88,17 @@ import gameserver.world.zone.ZoneInstance;
 import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ScheduledFuture;
+
 import java.util.concurrent.ScheduledFuture;
 
 import gnu.trove.TIntObjectHashMap;
@@ -674,6 +684,12 @@ public class Player extends Creature {
 
         Storage accountWhStorage = getStorage(StorageType.ACCOUNT_WAREHOUSE.getId());
         allItems.addAll(accountWhStorage.getStorageItems());
+
+        for(int petBagId = 32; petBagId < 36; ++petBagId)
+        {
+            Storage petBag = getStorage(petBagId);
+            allItems.addAll(petBag.getAllItems());
+        }
 
         Equipment equipment = getEquipment();
         allItems.addAll(equipment.getEquippedItems());

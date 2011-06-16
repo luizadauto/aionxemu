@@ -157,6 +157,11 @@ public abstract class VisibleObject extends AionObject {
         return position;
     }
 
+    public void setPosition(WorldPosition wp)
+    {
+        position = wp;
+    }
+
     /**
      * Check if object is spawned.
      *

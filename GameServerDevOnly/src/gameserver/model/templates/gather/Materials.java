@@ -18,6 +18,7 @@ package gameserver.model.templates.gather;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,10 @@ import java.util.List;
  * @author ATracer
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Materials", propOrder = {
-        "material"
-})
-public class Materials {
+@XmlType(name = "Materials")
+public class Materials
+{
+    @XmlElement(name = "material")
 
     protected List<Material> material;
 

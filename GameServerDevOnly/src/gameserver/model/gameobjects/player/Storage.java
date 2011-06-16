@@ -53,42 +53,14 @@ public class Storage {
     private PersistentState persistentState = PersistentState.UPDATED;
 
     /**
-     * Will be enhanced during development.
+     *  Will be enhanced during development.
      */
-    public Storage(StorageType storageType) {
-        switch (storageType) {
-            case CUBE:
-                storage = new ItemStorage(109);
-                this.storageType = storageType.getId();
-                break;
-            case REGULAR_WAREHOUSE:
-                storage = new ItemStorage(96);
-                this.storageType = storageType.getId();
-                break;
-            case ACCOUNT_WAREHOUSE:
-                storage = new ItemStorage(16);
-                this.storageType = storageType.getId();
-                break;
-            case LEGION_WAREHOUSE:
-                storage = new ItemStorage(56);
-                this.storageType = storageType.getId();
-                break;
-            case PET_BAG_6:
-                storage = new ItemStorage(6);
-                this.storageType = storageType.getId();
-                break;
-            case PET_BAG_12:
-            	storage = new ItemStorage(12);
-            	this.storageType = storageType.getId();
-            	break;
-            case PET_BAG_18:
-            	storage = new ItemStorage(18);
-            	this.storageType = storageType.getId();
-            	break;
-            case PET_BAG_24:
-            	storage = new ItemStorage(24);
-            	this.storageType = storageType.getId();
-                break;
+    public Storage(StorageType storageType)
+    {
+        if (storageType != StorageType.BROKER && storageType != StorageType.MAILBOX)
+        {
+            storage = new ItemStorage(storageType.getLimit());
+            this.storageType = storageType.getId();
         }
     }
 
@@ -202,6 +174,8 @@ public class Storage {
         Item resultItem = storage.putToNextAvailableSlot(item);
         if (resultItem != null) {
             resultItem.setItemLocation(storageType);
+            if(storageType != StorageType.LEGION_WAREHOUSE.getId())
+                resultItem.setOwnerId(owner.getObjectId());
         }
         setPersistentState(PersistentState.UPDATE_REQUIRED);
         return resultItem;
@@ -213,13 +187,14 @@ public class Storage {
      *
      * @param item
      */
-    public void removeFromBag(Item item, boolean persist) {
+    public boolean removeFromBag(Item item, boolean persist) {
         boolean operationResult = storage.removeItemFromStorage(item);
         if (operationResult && persist) {
             item.setPersistentState(PersistentState.DELETED);
             deletedItems.add(item);
             setPersistentState(PersistentState.UPDATE_REQUIRED);
         }
+        return operationResult;
     }
 
 
@@ -463,7 +438,18 @@ public class Storage {
 		item.increaseItemCount(count);
 		setPersistentState(PersistentState.UPDATE_REQUIRED);
 	}
-	
+
+    /**
+     * For outter services use only(TempObjService for ex). For items DB delete procedure.
+     * @param item
+     */
+    public void useStorageTrashUtilizer(Item item)
+    {
+        item.setPersistentState(PersistentState.DELETED);
+        deletedItems.add(item);
+        setPersistentState(PersistentState.UPDATE_REQUIRED);
+    }
+
 	/**
      * Size of underlying storage
      *

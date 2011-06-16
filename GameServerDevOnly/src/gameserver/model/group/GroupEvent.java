@@ -23,9 +23,9 @@ public enum GroupEvent {
 
     LEAVE(0),
     MOVEMENT(1),
-    ENTER(13),
-    UPDATE(13),
-    CHANGELEADER(13); //i dont know the id
+    ENTER(5),
+    UPDATE(5),
+    CHANGELEADER(3);
 
     private int id;
 

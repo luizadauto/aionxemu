@@ -45,6 +45,14 @@ public abstract class AionObject {
     }
 
     /**
+     * @param objectId
+     */
+    public void setObjectId(Integer objectId)
+    {
+        this.objectId = objectId;
+    }
+
+    /**
      * Returns name of the object.<br>
      * Unique for players, common for NPCs, items, etc
      *

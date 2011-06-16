@@ -18,6 +18,7 @@ package gameserver.model.items;
 
 import gameserver.model.gameobjects.Item;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.services.TemporaryObjectsService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -155,7 +156,7 @@ public class ItemStorage {
                 return item.getEquipmentSlot();
             }
         }
-
+        log.warn("ItemStorage.getSlotIdByItemId("+itemId+") Item could not Found.");
         return -1;
     }
 
@@ -203,8 +204,12 @@ public class ItemStorage {
      * @return Item
      */
     public Item putToNextAvailableSlot(Item item) {
-        if (!isFull() && storageItems.add(item))
+        if (!isFull() && storageItems.add(item)) {
+            if(item.getTempItemSettedTime() > 0)
+                TemporaryObjectsService.getInstance().addObject(item);
+
             return item;
+        }
         else
             return null;
     }
@@ -217,6 +222,9 @@ public class ItemStorage {
      * @return true or false
      */
     public boolean removeItemFromStorage(Item item) {
+        if(item.getTempItemSettedTime() > 0)
+            TemporaryObjectsService.getInstance().removeObject(item);
+
         return storageItems.remove(item);
     }
 

@@ -22,9 +22,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * @author ATracer
@@ -35,6 +35,8 @@ public class RecipeTemplate {
 
     protected List<Component> component;
     protected List<ComboProduct> comboproduct;
+    @XmlAttribute
+    protected int maxcount = 0;
     @XmlAttribute
     protected int tasktype;
     @XmlAttribute
@@ -93,6 +95,26 @@ public class RecipeTemplate {
     	} else {
         	return comboproduct.get(comboStep).getItemid();
         }
+    }
+
+    public List<ComboProduct> getComboProduct()
+    {
+        if(comboproduct == null)
+            comboproduct = new ArrayList<ComboProduct>();
+        return comboproduct;
+    }
+
+    /**
+     * Gets the value of the maxcount property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getMaxProductionCount()
+    {
+        return maxcount;
     }
 
     /**

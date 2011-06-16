@@ -22,6 +22,7 @@ import gameserver.controllers.MoveController;
 import gameserver.controllers.ObserveController;
 import gameserver.controllers.attack.AggroList;
 import gameserver.controllers.effect.EffectController;
+import gameserver.model.TaskId;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.state.CreatureSeeState;
 import gameserver.model.gameobjects.state.CreatureState;
@@ -29,16 +30,20 @@ import gameserver.model.gameobjects.state.CreatureVisualState;
 import gameserver.model.gameobjects.stats.CreatureGameStats;
 import gameserver.model.gameobjects.stats.CreatureLifeStats;
 import gameserver.model.templates.VisibleObjectTemplate;
+import gameserver.model.templates.item.EAttackType;
 import gameserver.model.templates.spawn.SpawnTemplate;
 import gameserver.skill.effect.EffectId;
 import gameserver.skill.model.Skill;
 import gameserver.task.tasks.PacketBroadcaster;
 import gameserver.task.tasks.PacketBroadcaster.BroadcastMode;
+import gameserver.utils.ThreadPoolManager;
 import gameserver.world.WorldPosition;
+
 import javolution.util.FastMap;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * This class is representing movable objects, its base class for all in game objects that may move
@@ -55,16 +60,18 @@ public abstract class Creature extends VisibleObject {
     private CreatureGameStats<? extends Creature> gameStats;
 
     private EffectController effectController;
-    private MoveController moveController;
+    private MoveController moveController = null;
 
     private int state = CreatureState.ACTIVE.getId();
     private int visualState = CreatureVisualState.VISIBLE.getId();
     private int seeState = CreatureSeeState.NORMAL.getId();
+    private boolean isInCombat = false;
 
     private Skill castingSkill;
     private Map<Integer, Long> skillCoolDowns;
     private int transformedModelId;
     private ObserveController observeController;
+    protected EAttackType attackType = EAttackType.PHYSICAL;
 
     private AggroList aggroList;
 	
@@ -95,7 +102,7 @@ public abstract class Creature extends VisibleObject {
      *
      * @return CreatureController.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public CreatureController getController() {
         return (CreatureController) super.getController();
@@ -198,6 +205,53 @@ public abstract class Creature extends VisibleObject {
     }
 
     /**
+     * Set or unset Creature in combat state
+     *  
+     * @param isInCombat
+     */
+    private void setInCombat(boolean isInCombat)
+    {
+        if(isInCombat)
+        {
+            this.getController().cancelTask(TaskId.CREATURE_COMBAT);
+            this.isInCombat = isInCombat;
+        }
+        else
+            this.isInCombat = false;
+    }
+
+     /**
+     * Is the creature in combat state
+     * 
+     * @return isInCombat
+     */
+    public boolean isInCombat()
+    {
+        return isInCombat;
+    }
+    
+    /**
+     * Sets combat state to true for time in seconds
+     * @param creature
+     * @param time
+     */
+    @SuppressWarnings({ "unchecked" })
+    public void setCombatState(int time)
+    {
+        setInCombat(true);
+        Future<?> task = ThreadPoolManager.getInstance().schedule(new Runnable(){
+            @Override
+            public void run()
+            {
+                if(isInCombat())
+                    setInCombat(false);
+            }
+        }, time * 1000);
+
+        this.getController().addTask(TaskId.CREATURE_COMBAT, task);
+    }
+
+    /**
      * All abnormal effects are checked that disable movements
      *
      * @return
@@ -226,8 +280,10 @@ public abstract class Creature extends VisibleObject {
      * @param state the state to set
      */
     public void setState(CreatureState state) {
+        int oldState = this.state;
         this.state |= state.getId();
-        observeController.notifyStateChangeObservers(state, true);
+        if (oldState != this.state)
+            observeController.notifyStateChangeObservers(state, true);
     }
 
     /**
@@ -238,8 +294,10 @@ public abstract class Creature extends VisibleObject {
     }
 
     public void unsetState(CreatureState state) {
+        int oldState = this.state;
         this.state &= ~state.getId();
-        observeController.notifyStateChangeObservers(state, false);
+        if (oldState != this.state)
+            observeController.notifyStateChangeObservers(state, false);
     }
 
     public boolean isInState(CreatureState state) {
@@ -322,8 +380,16 @@ public abstract class Creature extends VisibleObject {
     /**
      * @return the moveController
      */
-    public MoveController getMoveController() {
+    public MoveController getMoveController()
+    {
+        if(moveController == null)
+            moveController = new MoveController(this);
         return moveController;
+    }
+
+    public void setMoveController(MoveController mc)
+    {
+        moveController = mc;
     }
 
     /**
@@ -368,6 +434,11 @@ public abstract class Creature extends VisibleObject {
         return observeController;
     }
 
+    public void setObserveController(ObserveController oc)
+    {
+        observeController = oc;
+    }
+    
     /**
      * @param visibleObject
      * @return
@@ -518,112 +589,133 @@ public abstract class Creature extends VisibleObject {
     }
 
     /**
-     * @param skillId
+     * 
+     * @param delayId
      * @return
      */
-    public boolean isSkillDisabled(int skillId) {
-        if (skillCoolDowns == null)
+    public boolean isSkillDisabled(int delayId)
+    {
+        if(skillCoolDowns == null)
             return false;
-
-        Long coolDown = skillCoolDowns.get(skillId);
-        if (coolDown == null)
+        
+        Long coolDown = skillCoolDowns.get(delayId);
+        if(coolDown == null)
             return false;
-
-
-        if (coolDown < System.currentTimeMillis()) {
-            skillCoolDowns.remove(skillId);
+        
+        
+        if (coolDown < System.currentTimeMillis())
+        {
+            skillCoolDowns.remove(delayId);
             return false;
         }
-
+        
         return true;
     }
-
+    
     /**
-     * @param skillId
+     * 
+     * @param delayId
      * @return
      */
-    public long getSkillCoolDown(int skillId) {
-        if (skillCoolDowns == null || !skillCoolDowns.containsKey(skillId))
+    public long getSkillCoolDown(int delayId)
+    {
+        if(skillCoolDowns == null || !skillCoolDowns.containsKey(delayId))
             return 0;
-
-        return skillCoolDowns.get(skillId);
+        
+        return skillCoolDowns.get(delayId);
     }
 
     /**
-     * @param skillId
+     * @param delayId
      * @param time
      */
-    public void setSkillCoolDown(int skillId, long time) {
+    public void setSkillCoolDown(int delayId, long time) {
         if (skillCoolDowns == null)
             skillCoolDowns = new FastMap<Integer, Long>().shared();
 
-        skillCoolDowns.put(skillId, time);
+        skillCoolDowns.put(delayId, time);
     }
 
     /**
      * @return the skillCoolDowns
-	 */
-	public Map<Integer, Long> getSkillCoolDowns()
-	{
-		return skillCoolDowns;
-	}
-	
-	/**
-     * @param skillId
      */
-	public void removeSkillCoolDown(int skillId)
-	{
-		if(skillCoolDowns == null)
-			return;
-		skillCoolDowns.remove(skillId);
-	}
+    public Map<Integer, Long> getSkillCoolDowns()
+    {
+        return skillCoolDowns;
+    }
 
-	/**
-	 * @return isAdminNeutral value
-	 */
-	public int getAdminNeutral()
-	{
-		return isAdminNeutral;
-	}
- 	
- 	/**
-	 * @param newValue
-	 */
-	public void setAdminNeutral(int newValue)
-	{
-		isAdminNeutral = newValue;
-	}
+    /**
+     * @param delayId
+     */
+    public void removeSkillCoolDown(int delayId)
+    {
+        if(skillCoolDowns == null)
+            return;
+        skillCoolDowns.remove(delayId);
+    }
+
+    /**
+     * @return isAdminNeutral value
+     */
+    public int getAdminNeutral()
+    {
+        return isAdminNeutral;
+    }
+
+    /**
+     * @param newValue
+     */
+    public void setAdminNeutral(int newValue)
+    {
+        isAdminNeutral = newValue;
+    }
 
 
-	/**
-	 * @return isAdminEnmity value
-	 */
-	public int getAdminEnmity()
-	{
-		return isAdminEnmity;
-	}
- 	
- 	/**
-	 * @param newValue
-	 */
-	public void setAdminEnmity(int newValue)
-	{
-		isAdminEnmity = newValue;
-	}
+    /**
+     * @return isAdminEnmity value
+     */
+    public int getAdminEnmity()
+    {
+        return isAdminEnmity;
+    }
 
-	/**
-	 * @param lastAttack the lastAttack to set
-	 */
-	public void setLastAttack(long lastAttack)
-	{
-		this.lastAttack = lastAttack;
-	}
+    /**
+     * @param newValue
+     */
+    public void setAdminEnmity(int newValue)
+    {
+        isAdminEnmity = newValue;
+    }
 
-	/**
-	 * @return the lastAttack
-	 */
-	public long getLastAttack()
-	{
-		return lastAttack;
-	}
+    /**
+     * @param lastAttack the lastAttack to set
+     */
+    public void setLastAttack(long lastAttack)
+    {
+        this.lastAttack = lastAttack;
+    }
+
+    /**
+     * @return the lastAttack
+     */
+    public long getLastAttack()
+    {
+        return lastAttack;
+    }
+
+    //attack type
+    public EAttackType getAttackType() 
+    {
+        return attackType;
+    }
+    public void setAttackType(EAttackType attackType) 
+    {
+        this.attackType = attackType;
+    }
+
+    public void unsetAttackType() 
+    {
+        this.attackType = EAttackType.PHYSICAL;
+    }
+
 }

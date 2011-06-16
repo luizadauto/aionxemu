@@ -64,7 +64,7 @@ public class WorkOrderBonus extends SimpleCheckItemBonus {
 
         // recipes to skill level + 50, but not exceeding max limit
         startLvl = ((skillId & 0xF) << 10) | Math.max(0, skillPoints / 100 * 100 - 50);
-        endLvl = skillPoints + 50;
+        endLvl = skillPoints + 10;
         endLvl = ((skillId & 0xF) << 10) | Math.min(skillPoints + 100, endLvl);
         List<Integer> recipeIds = DataManager.ITEM_DATA.getBonusItems(InventoryBonusType.RECIPE,
                 startLvl, endLvl);
@@ -95,5 +95,4 @@ public class WorkOrderBonus extends SimpleCheckItemBonus {
     public InventoryBonusType getType() {
         return type;
     }
-
 }

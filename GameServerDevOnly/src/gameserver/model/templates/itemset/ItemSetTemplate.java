@@ -17,7 +17,9 @@
 package gameserver.model.templates.itemset;
 
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
 import java.util.List;
 
 /**

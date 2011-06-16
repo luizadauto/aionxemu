@@ -62,7 +62,10 @@ public class RecipeList {
     }
 
     public void autoLearnRecipe(Player player, int skillId, int skillLvl) {
-        for (RecipeTemplate recipe : DataManager.RECIPE_DATA.getRecipeIdFor(player.getCommonData().getRace(), skillId, skillLvl)) {
+        for (RecipeTemplate recipe :
+            DataManager.RECIPE_DATA.getRecipeIdFor(
+                player.getCommonData().getRace(), skillId, skillLvl))
+        {
             player.getRecipeList().addRecipe(player, recipe);
         }
     }

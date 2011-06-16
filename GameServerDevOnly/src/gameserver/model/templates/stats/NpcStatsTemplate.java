@@ -88,4 +88,44 @@ public class NpcStatsTemplate extends StatsTemplate {
         return maxXp;
     }
 
+    /**
+     * @param pdef the pdef to set
+     */
+    public void setPdef(int pdef)
+    {
+        this.pdef = pdef;
+    }
+
+    /**
+     * @param mdef the mdef to set
+     */
+    public void setMdef(int mdef)
+    {
+        this.mdef = mdef;
+    }
+
+    /**
+     * @param crit the crit to set
+     */
+    public void setCrit(int crit)
+    {
+        this.crit = crit;
+    }
+
+    /**
+     * @param accuracy the accuracy to set
+     */
+    public void setAccuracy(int accuracy)
+    {
+        this.accuracy = accuracy;
+    }
+
+    /**
+     * @param power the power to set
+     */
+    public void setPower(int power)
+    {
+        this.power = power;
+    }
+ 
 }

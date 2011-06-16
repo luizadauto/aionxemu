@@ -19,7 +19,7 @@ package gameserver.model.geometry;
 
 import gameserver.utils.MathUtil;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * This class implements cylinder area

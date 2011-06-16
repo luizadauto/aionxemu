@@ -29,6 +29,7 @@ import gameserver.model.templates.item.ItemTemplate;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.ItemService;
 import gameserver.skill.SkillEngine;
+import gameserver.skill.model.Effect;
 import gameserver.skill.model.Skill;
 import gameserver.utils.PacketSendUtility;
 import org.apache.log4j.Logger;
@@ -43,14 +44,26 @@ public class GodStone extends ItemStone {
 
     private final GodstoneInfo godstoneInfo;
     private ActionObserver actionListener;
+    private final int            probability;
+    private final int            probabilityLeft;
+    private ItemTemplate        itemTemplate;
 
     public GodStone(int itemObjId, int itemId, PersistentState persistentState) {
         super(itemObjId, itemId, 0, ItemStoneType.GODSTONE, persistentState);
-        ItemTemplate itemTemplate = ItemService.getItemTemplate(itemId);
+        itemTemplate = ItemService.getItemTemplate(itemId);
         godstoneInfo = itemTemplate.getGodstoneInfo();
 
-        if (godstoneInfo == null)
+        if(godstoneInfo != null)
+        {
+            probability = godstoneInfo.getProbability();
+            probabilityLeft = godstoneInfo.getProbabilityleft();
+        }
+        else
+        {
+            probability = 0;
+            probabilityLeft = 0;
             log.warn("CHECKPOINT: Godstone info missing for item : " + itemId);
+        }
     }
 
     /**

@@ -16,7 +16,11 @@
  */
 package gameserver.model.templates.tribe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author ATracer
@@ -25,6 +29,7 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "Tribe")
 public class Tribe {
     public static final String GUARD_DARK = "GUARD_DARK";
+    public static final String GUARD_DRAGON = "GUARD_DRAGON";
     public static final String GUARD_LIGHT = "GUARD";
 
     @XmlElement(name = "aggro")

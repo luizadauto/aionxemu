@@ -23,6 +23,7 @@ import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_GROUP_INFO;
 import gameserver.network.aion.serverpackets.SM_GROUP_MEMBER_INFO;
+import gameserver.network.aion.serverpackets.SM_INSTANCE_COOLDOWN;
 import gameserver.network.aion.serverpackets.SM_LEAVE_GROUP_MEMBER;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.utils.MathUtil;
@@ -46,7 +47,9 @@ public class PlayerGroup extends AionObject {
 
 
     private int instancePoints = 0;
+    private int                instanceKills        = 0;
     private long instanceStartTime = 0;
+    private boolean                instanceDisplaycounter    = true;
 
     /**
      * Instantiates new player group with unique groupId
@@ -226,8 +229,11 @@ public class PlayerGroup extends AionObject {
             case ENTER: {
                 eventToSubjective(subjective, GroupEvent.ENTER);
                 for (Player member : this.getMembers()) {
-                    if (!subjective.equals(member))
+                    if (!subjective.equals(member)) {
                         PacketSendUtility.sendPacket(member, new SM_GROUP_MEMBER_INFO(this, subjective, groupEvent));
+                        PacketSendUtility.sendPacket(member, new SM_INSTANCE_COOLDOWN(subjective));
+                    }
+                    PacketSendUtility.sendPacket(subjective, new SM_INSTANCE_COOLDOWN(member));
                 }
             }
             break;
@@ -267,6 +273,26 @@ public class PlayerGroup extends AionObject {
 
     public long getInstanceStartTime() {
         return instanceStartTime;
+    }
+
+    public void setInstanceKills(int kills)
+    {
+        instanceKills = kills;
+    }
+
+    public int getInstanceKills()
+    {
+        return instanceKills;
+    }
+
+    public void setInstanceDisplaycounter(boolean display)
+    {
+        instanceDisplaycounter = display;
+    }
+
+    public boolean getInstanceDisplaycounter()
+    {
+        return instanceDisplaycounter;
     }
 
     @Override

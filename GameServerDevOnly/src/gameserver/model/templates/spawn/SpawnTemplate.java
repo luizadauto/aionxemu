@@ -16,7 +16,12 @@
  */
 package gameserver.model.templates.spawn;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.BitSet;
 
 /**
@@ -54,6 +59,8 @@ public class SpawnTemplate {
     private BitSet spawnState = new BitSet();
     @XmlTransient
     private BitSet noRespawn = new BitSet();
+    @XmlTransient
+    private BitSet restingState = new BitSet();
 
     private int spawnId = 0;
 
@@ -143,6 +150,21 @@ public class SpawnTemplate {
     public void setSpawnGroup(SpawnGroup spawnGroup) {
         this.spawnGroup = spawnGroup;
     }
+
+    /**
+     * @return the isResting
+     */
+    public boolean isResting(int instance)
+    {
+        return restingState.get(instance);
+    }
+
+    /**
+     * @param isResting the isResting to set
+     */
+    public void setResting(boolean isResting, int instance)
+    {
+        restingState.set(instance, isResting);
 
     /**
      * @return the isSpawned

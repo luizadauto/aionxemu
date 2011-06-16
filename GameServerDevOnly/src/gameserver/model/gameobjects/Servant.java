@@ -19,21 +19,14 @@ package gameserver.model.gameobjects;
 import gameserver.ai.npcai.ServantAi;
 import gameserver.controllers.NpcController;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.controllers.NpcWithCreatorController;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.spawn.SpawnTemplate;
 
 /**
  * @author ATracer
  */
-public class Servant extends Npc {
-    /**
-     * Skill that will be used upon execution
-     */
-    private int skillId;
-    /**
-     * Creator of this trap.
-     */
-    private Creature creator;
+public class Servant extends NpcWithCreator {
     /**
      * Target of this servant
      */
@@ -58,13 +51,6 @@ public class Servant extends Npc {
     }
 
     /**
-     * @return the skillId
-     */
-    public int getSkillId() {
-        return skillId;
-    }
-
-    /**
      * @param skillId the skillId to set
      */
     public void setSkillId(int skillId) {
@@ -76,18 +62,14 @@ public class Servant extends Npc {
             this.isHealingServant = false;
     }
 
-    /**
-     * @return the creator
-     */
-    public Creature getCreator() {
-        return creator;
+    @Override
+    public NpcWithCreatorController getController()
+    {
+        return (NpcWithCreatorController) super.getController();
     }
-
-    /**
-     * @param creator the creator to set
-     */
-    public void setCreator(Creature creator) {
-        this.creator = creator;
+    public Servant getOwner()
+    {
+        return (Servant)this;
     }
 
     /**
@@ -132,21 +114,6 @@ public class Servant extends Npc {
         ai.setOwner(this);
     }
 
-    @Override
-    protected boolean isEnemyNpc(Npc visibleObject) {
-        return this.creator.isEnemyNpc(visibleObject);
-    }
-
-    @Override
-    protected boolean isEnemyPlayer(Player visibleObject) {
-        return this.creator.isEnemyPlayer(visibleObject);
-    }
-
-    @Override
-    protected boolean isEnemySummon(Summon summon) {
-        return this.creator.isEnemySummon(summon);
-    }
-
     /**
      * @return NpcObjectType.TRAP
      */
@@ -159,14 +126,4 @@ public class Servant extends Npc {
     public Creature getActingCreature() {
         return this.creator;
     }
-
-    @Override
-    public Creature getMaster() {
-        return this.creator;
-    }
-
-    public void setName()
-	{
-		
-	}
 }

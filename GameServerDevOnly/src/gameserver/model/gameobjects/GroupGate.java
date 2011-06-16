@@ -14,81 +14,48 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * This file is part of the requirements for the Illusion Gate Skill.
- * Code References from ATracer's Trap.java of Aion-Unique
- */
 package gameserver.model.gameobjects;
 
+import gameserver.controllers.GroupGateController;
 import gameserver.controllers.NpcController;
-import gameserver.model.gameobjects.player.Player;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.spawn.SpawnTemplate;
 
 /**
  * @author LokiReborn
+ *
  */
-public class GroupGate extends Npc {
-
+public class GroupGate extends NpcWithCreator
+{
     /**
-     * Creator of this GroupGate.
-     */
-    private Creature creator;
-
-    /**
+     * 
      * @param objId
      * @param controller
      * @param spawnTemplate
      * @param objectTemplate
      */
-    public GroupGate(int objId, NpcController controller, SpawnTemplate spawnTemplate, VisibleObjectTemplate objectTemplate) {
+    public GroupGate(int objId, NpcController controller, SpawnTemplate spawnTemplate, VisibleObjectTemplate objectTemplate)
+    {
         super(objId, controller, spawnTemplate, objectTemplate);
     }
 
-    /**
-     * @return the creator
-     */
-    public Creature getCreator() {
-        return creator;
-    }
-
-    /**
-     * @param creator the creator to set
-     */
-    public void setCreator(Creature creator) {
-        this.creator = creator;
-    }
-
     @Override
-    public byte getLevel() {
+    public GroupGateController getController()
+    {
+        return (GroupGateController) super.getController();
+    }
+    @Override
+    public byte getLevel()
+    {
         return (1);
     }
-
-    @Override
-    protected boolean isEnemyNpc(Npc visibleObject) {
-        return this.creator.isEnemyNpc(visibleObject);
-    }
-
-    @Override
-    protected boolean isEnemyPlayer(Player visibleObject) {
-        return this.creator.isEnemyPlayer(visibleObject);
-    }
-
+    
     /**
      * @return NpcObjectType.GROUPGATE
      */
     @Override
-    public NpcObjectType getNpcObjectType() {
+    public NpcObjectType getNpcObjectType()
+    {
         return NpcObjectType.GROUPGATE;
     }
-
-    @Override
-    public Creature getActingCreature() {
-        return this.creator;
-    }
-
-    @Override
-    public Creature getMaster() {
-        return this.creator;
-	}
 }

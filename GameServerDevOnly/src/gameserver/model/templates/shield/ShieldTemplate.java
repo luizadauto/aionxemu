@@ -54,6 +54,9 @@ public class ShieldTemplate {
     @XmlAttribute(name = "map")
     protected int map;
 
+    @XmlAttribute(name = "fortress_id")
+    protected int fortress_id = 0;
+
     public String getName() {
         return name;
     }
@@ -84,5 +87,10 @@ public class ShieldTemplate {
 
     public int getMap() {
         return map;
+    }
+
+    public int getFortressId()
+    {
+        return fortress_id;
     }
 }

@@ -173,6 +173,14 @@ public enum StatEnum {
     BOOST_CRAFTING_XP_RATE(0, "boost_crafting_xp_rate"),
     BOOST_GATHERING_XP_RATE(0, "boost_gathering_xp_rate");
 
+    /*
+     * custom
+     */    
+    MAIN_MAX_DAMAGES(0, "mainmaxdamages"),
+    MAIN_MIN_DAMAGES(0, "mainmindamages"),
+    OFF_MAX_DAMAGES(0, "offmaxdamages"),
+    OFF_MIN_DAMAGES(0, "offmindamages");
+
     private String name;
     private boolean replace;
     private int sign;
@@ -237,12 +245,14 @@ public enum StatEnum {
         throw new IllegalArgumentException("Cannot find StatEnum for stone mask: " + mask);
     }
 
-    public StatEnum getMainOrSubHandStat(ItemSlot slot) {
+    public StatEnum getMainOrSubHandStat(ItemSlot slot, boolean magicalAttack) {
         if (slot == null)
             return this;
         switch (this) {
             case PHYSICAL_ATTACK:
             case POWER:
+                if (magicalAttack)
+                    return MAGICAL_ATTACK;
                 switch (slot) {
                     case SUB_HAND:
                         return OFF_HAND_POWER;
@@ -277,19 +287,37 @@ public enum StatEnum {
                     default:
                         return MAIN_HAND_ATTACK_SPEED;
                 }
+            case MIN_DAMAGES:
+                switch(slot)
+                {
+                    case SUB_HAND:
+                        return OFF_MIN_DAMAGES;
+                    case MAIN_HAND:
+                        return MAIN_MIN_DAMAGES;
+                }
+            case MAX_DAMAGES:
+                switch(slot)
+                {
+                    case SUB_HAND:
+                        return OFF_MAX_DAMAGES;
+                    case MAIN_HAND:
+                        return MAIN_MAX_DAMAGES;
             default:
                 return this;
         }
     }
 
-    public boolean isMainOrSubHandStat() {
+    public boolean isMainOrSubHandStat(boolean magicalAttack) {
         switch (this) {
             case PHYSICAL_ATTACK:
             case POWER:
+                if (magicalAttack)
+                    return false;
+                return true;
+                break;
             case PHYSICAL_ACCURACY:
             case PHYSICAL_CRITICAL:
                 return true;
-
             default:
                 return false;
         }

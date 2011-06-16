@@ -19,10 +19,20 @@ package gameserver.model.templates;
 import gameserver.model.Gender;
 import gameserver.model.PlayerClass;
 import gameserver.model.Race;
-import gameserver.model.templates.quest.*;
+import gameserver.model.templates.quest.CollectItems;
+import gameserver.model.templates.quest.QuestDrop;
+import gameserver.model.templates.quest.QuestItems;
+import gameserver.model.templates.quest.QuestWorkItems;
+import gameserver.model.templates.quest.Rewards;
 import gameserver.quest.model.QuestStartConditions;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlList;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +40,7 @@ import java.util.List;
  * @author MrPoke
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Quest", propOrder = {"collectItems", "rewards", "questDrop", "finishedQuestConds",
+@XmlType(name = "Quest", propOrder = {"collectItems", "rewards", "extRewards", "questDrop", "finishedQuestConds",
         "unfinishedQuestConds", "acquiredQuestConds", "noacquiredQuestConds", "classPermitted",
         "genderPermitted", "questWorkItems", "fighterSelectableReward", "knightSelectableReward", "rangerSelectableReward",
         "assassinSelectableReward", "wizardSelectableReward", "elementalistSelectableReward", "priestSelectableReward",
@@ -40,6 +50,8 @@ public class QuestTemplate {
     @XmlElement(name = "collect_items")
     protected CollectItems collectItems;
     protected List<Rewards> rewards;
+    @XmlElement(name = "extrewards")
+    protected List<Rewards>        extRewards;
     @XmlElement(name = "quest_drop")
     protected List<QuestDrop> questDrop;
 
@@ -83,8 +95,12 @@ public class QuestTemplate {
     protected Integer nameId;
     @XmlAttribute(name = "minlevel_permitted")
     protected Integer minlevelPermitted;
+    @XmlAttribute(name = "maxlevel_permitted")
+    protected Integer            maxlevelPermitted = 0;
     @XmlAttribute(name = "max_repeat_count")
-    protected Integer maxRepeatCount;
+    protected Integer            maxRepeatCount;
+    @XmlAttribute(name = "repeat_day")
+    protected Integer            repeatDay = 0;
     @XmlAttribute(name = "cannot_share")
     protected Boolean cannotShare;
     @XmlAttribute(name = "cannot_giveup")
@@ -475,6 +491,11 @@ public class QuestTemplate {
         return minlevelPermitted == 99 ? 1 : minlevelPermitted;
     }
 
+    public Integer getMaxlevelPermitted()
+    {
+        return maxlevelPermitted;
+    }
+
     /**
      * Gets the value of the maxRepeatCount property.
      *
@@ -482,6 +503,24 @@ public class QuestTemplate {
      */
     public Integer getMaxRepeatCount() {
         return maxRepeatCount;
+    }
+
+    public Integer getRepeatDay()
+    {
+        return repeatDay;
+    }
+    
+    public boolean isWeeklyActive()
+    {
+        if (repeatDay == 0)
+            return true;
+        Calendar now = Calendar.getInstance();
+        int dayValue = now.get(Calendar.DAY_OF_WEEK);
+        if (dayValue == 1)
+            dayValue = 7;
+        else
+            dayValue--;
+        return dayValue == repeatDay;
     }
 
     /**

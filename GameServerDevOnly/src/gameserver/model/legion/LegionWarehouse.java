@@ -16,6 +16,10 @@
  */
 package gameserver.model.legion;
 
+import com.aionemu.commons.database.dao.DAOManager;
+import gameserver.dao.InventoryDAO;
+import gameserver.model.gameobjects.Item;
+import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.gameobjects.player.StorageType;
 
@@ -24,6 +28,7 @@ import gameserver.model.gameobjects.player.StorageType;
  */
 public class LegionWarehouse extends Storage {
     private Legion legion;
+    private int    user = 0;
 
     public LegionWarehouse(Legion legion) {
         super(StorageType.LEGION_WAREHOUSE);
@@ -45,5 +50,39 @@ public class LegionWarehouse extends Storage {
         this.legion = legion;
     }
 
+    /**
+     *  Used to put item into storage cube at first avaialble slot (no check for existing item)
+     *  During unequip/equip process persistImmediately should be false
+     *  
+     * @param item
+     * @param persistImmediately
+     * @return Item
+     */
+    @Override
+    public Item putToBag(Item item)
+    {
+        Item resultItem = storage.putToNextAvailableSlot(item);
+        if(resultItem != null)
+        {
+            resultItem.setItemLocation(storageType);
+            DAOManager.getDAO(InventoryDAO.class).store(resultItem, resultItem.getOwnerId());
+        }
+        setPersistentState(PersistentState.UPDATE_REQUIRED);
+        return resultItem;
+    }
 
+    public void setUser(int user)
+    {
+        this.user = user;
+    }
+
+    public int getUser()
+    {
+        return user;
+    }
+
+    public boolean isInUse()
+    {
+        return user != 0;
+    }
 }

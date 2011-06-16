@@ -47,6 +47,7 @@ public class BonusTemplate {
             @XmlElement(name = "recipe", type = RecipeBonus.class),
             @XmlElement(name = "redeem", type = RedeemBonus.class),
             @XmlElement(name = "task", type = WorkOrderBonus.class),
+            @XmlElement(name = "lunar", type = LunarEventBonus.class),
             @XmlElement(name = "wrap", type = WrappedBonus.class)
     })
     protected List<AbstractInventoryBonus> itemBonuses;

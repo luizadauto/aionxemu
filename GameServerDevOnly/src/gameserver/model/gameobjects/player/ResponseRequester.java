@@ -16,8 +16,12 @@
  */
 package gameserver.model.gameobjects.player;
 
+import gameserver.network.aion.AionServerPacket;
+import gameserver.utils.PacketSendUtility;
+
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -28,6 +32,7 @@ import java.util.HashMap;
 public class ResponseRequester {
     private Player player;
     private HashMap<Integer, RequestResponseHandler> map = new HashMap<Integer, RequestResponseHandler>();
+    private ArrayList<ResponseRequesterEntry> waitingList = new ArrayList<ResponseRequesterEntry>();
     private static Logger log = Logger.getLogger(ResponseRequester.class);
 
     public ResponseRequester(Player player) {
@@ -49,6 +54,52 @@ public class ResponseRequester {
     }
 
     /**
+     * Adds this handler to the messageId, puts the messageID on a waitinglist if there is already a message of this
+     * type send to the player.
+     * 
+     * @param messageId
+     *            The Id of the message.
+     * @param handler
+     *            The handler for the response.
+     * @param packet
+     *            The message to send to the player.
+     * @return
+     */
+    public synchronized boolean sendRequest(int messageId, RequestResponseHandler handler, AionServerPacket packet)
+    {
+        if(map.containsKey(messageId))
+        {
+            waitingList.add(new ResponseRequesterEntry(messageId, handler, packet));
+            return true;
+        }
+
+        map.put(messageId, handler);
+        PacketSendUtility.sendPacket(player, packet);
+        return true;
+    }
+
+    /**
+     * Send the next request of the same type.
+     * 
+     * @return True if a new request is send, else false.
+     */
+    private boolean sendWaitingRequest(int messageId)
+    {
+        for(ResponseRequesterEntry rre : waitingList)
+        {
+            if(rre.getMessageId() == messageId)
+            {
+                map.put(messageId, rre.getHandler());
+                PacketSendUtility.sendPacket(player, rre.getPacket());
+                waitingList.remove(rre);
+                return true;
+            }
+        }
+        map.remove(messageId);
+        return false;
+    }
+
+    /**
      * Responds to the given message ID with the given response
      * Returns success
      *
@@ -62,6 +113,7 @@ public class ResponseRequester {
             map.remove(messageId);
             log.debug("RequestResponseHandler triggered for response code " + messageId + " from " + player.getName());
             handler.handle(player, response);
+            sendWaitingRequest(messageId);
             return true;
         }
         return false;
@@ -70,11 +122,18 @@ public class ResponseRequester {
     /**
      * Automatically responds 0 to all requests, passing the given player as the responder
      */
-    public synchronized void denyAll() {
-        for (RequestResponseHandler handler : map.values()) {
+    public synchronized void denyAll()
+    {
+        for (RequestResponseHandler handler : map.values())
+        {
             handler.handle(player, 0);
-		}
+        }
+        for(ResponseRequesterEntry rre : waitingList)
+        {
+            rre.getHandler().handle(player, 0);
+        }
 
-		map.clear();
-	}
+        map.clear();
+        waitingList.clear();
+    }
 }

@@ -31,8 +31,9 @@ public enum EmotionType
 	CHAIR_UP(5),
 	START_FLYTELEPORT(6),
 	LAND_FLYTELEPORT(7),
-	START_WINDSTREAM(8), // 2.0
-	BOOST_WINDSTREAM(11), // 2.0
+    WINDSTREAM(8),
+    WINDSTREAM_END(9),
+    WINDSTREAM_BOOST(11),
 	FLY(13),
 	LAND(14),
 	DIE(18),
@@ -56,7 +57,9 @@ public enum EmotionType
 	END_LOOT(41),
 	START_QUESTLOOT(42),
 	END_QUESTLOOT(43);
-	
+    PET_FEEDING(50),
+    PET_FEEDING2(51);
+
 	private int id;
 	
 	private EmotionType(int id)

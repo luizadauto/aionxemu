@@ -17,7 +17,7 @@
 
 package gameserver.model.geometry;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * Basic interface for all areas in AionEmu.<br>

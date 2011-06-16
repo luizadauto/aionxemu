@@ -75,11 +75,17 @@ public class Item extends AionObject {
 
     private int enchantLevel;
 
-    private String itemCreator;
-
     private int fusionedItemId = 0;
 
-    private Timestamp expireTime = null;
+    private String crafterName;
+
+    private int ownerId;
+
+    private long itemCreationTime;
+
+    private long tempItemTime;
+    
+    private int tempTradeTime;
 
     /**
      * @param objId
@@ -92,21 +98,24 @@ public class Item extends AionObject {
      *                      for newly created items and loadedFromDb
      */
     public Item(int objId, int itemId, ItemTemplate itemTemplate, long itemCount,
-        String itemCreator, boolean isEquipped, int equipmentSlot)
+        boolean isEquipped, int equipmentSlot, String crafterName, int ownerId,
+        long tempItemTime, int tempTradeTime)
     {
         super(objId);
 
         this.itemId = itemId;
         this.itemTemplate = itemTemplate;
         this.itemCount = itemCount;
-        this.itemCreator = itemCreator;
         this.isEquipped = isEquipped;
         this.equipmentSlot = equipmentSlot;
 
-        if(itemTemplate.getExpireMinutes() > 0)
-        	this.expireTime = new Timestamp(System.currentTimeMillis() + itemTemplate.getExpireMinutes() * 60 * 1000);
-
         this.persistentState = PersistentState.NEW;
+
+        this.crafterName = crafterName;
+        this.ownerId = ownerId;
+        this.itemCreationTime = System.currentTimeMillis();
+        this.tempItemTime = tempItemTime;
+        this.tempTradeTime = tempTradeTime;
     }
 
     /**
@@ -128,9 +137,10 @@ public class Item extends AionObject {
      * This constructor should be called only from DAO while loading from DB.
      */
     public Item(int objId, int itemId, long itemCount, int itemColor,
-        String itemCreator, boolean isEquipped, boolean isSoulBound,
-        int equipmentSlot, int itemLocation, int enchant, int itemSkin,
-        int fusionedItem, int optionalSocket, int optionalFusionSocket, Timestamp expireTime)
+        boolean isEquipped, boolean isSoulBound,int equipmentSlot,
+        int itemLocation, int enchant, int itemSkin, int fusionedItem,
+        int optionalSocket, int optionalFusionSocket, String crafterName,
+        int ownerId, long itemCreationTime, long tempItemTime, int tempTradeTime)
     {
         super(objId);
 
@@ -138,7 +148,6 @@ public class Item extends AionObject {
         this.itemId = itemId;
         this.itemCount = itemCount;
         this.itemColor = itemColor;
-        this.itemCreator = itemCreator;
         this.isEquipped = isEquipped;
         this.isSoulBound = isSoulBound;
         this.equipmentSlot = equipmentSlot;
@@ -148,7 +157,11 @@ public class Item extends AionObject {
         this.itemSkinTemplate = DataManager.ITEM_DATA.getItemTemplate(itemSkin);
         this.optionalSocket = optionalSocket;
         this.optionalFusionSocket = optionalFusionSocket;
-        this.expireTime = expireTime;
+        this.crafterName = crafterName;
+        this.ownerId = ownerId;
+        this.itemCreationTime = itemCreationTime;
+        this.tempItemTime = tempItemTime;
+        this.tempTradeTime = tempTradeTime;
     }
 
     @Override
@@ -556,7 +569,7 @@ public class Item extends AionObject {
 
     public int getSockets(boolean isFusionItem) {
         int numSockets;
-        if (itemTemplate.isWeapon() || itemTemplate.isArmor()) {
+        if (itemTemplate.isWeapon() || itemTemplate.isArmor(true)) {
             if (isFusionItem) {
                 ItemTemplate fusedTemp = DataManager.ITEM_DATA.getItemTemplate(getFusionedItem());
                 numSockets = basicSocket(fusedTemp.getItemQuality());
@@ -590,9 +603,87 @@ public class Item extends AionObject {
                 if (this.getItemTemplate().isStorableinLegionWarehouse())
                     return true;
             break;
+            case 32:
+            case 33:
+            case 34:
+            case 35:
+                return true;
         }
         
         return false;
+    }
+
+    public String getCrafterName()
+    {
+        return crafterName;
+    }
+    
+    public void setOwnerId(int ownerId)
+    {
+        this.ownerId = ownerId;
+    }
+    
+    public int getOwnerId()
+    {
+        return ownerId;
+    }
+    
+    public long getItemCreationTime()
+    {
+        return itemCreationTime;
+    }
+    
+    public void setTempItemTime(long timeInSec)
+    {
+        this.tempItemTime = timeInSec;
+        setPersistentState(PersistentState.UPDATE_REQUIRED);
+    }
+    
+    /**
+     * Used by InventoryDAO when saving
+     * @return
+     */
+    public long getTempItemSettedTime()
+    {
+        return tempItemTime;
+    }
+    
+    public long getTempItemExpireTime()
+    {
+        return itemCreationTime + (tempItemTime * 1000L);
+    }
+    
+    public long getTempItemTimeLeft()
+    {
+        long timeLeft = (itemCreationTime + (tempItemTime * 1000L)) - System.currentTimeMillis();
+        if(timeLeft < 0)
+            timeLeft = 0;
+        
+        return timeLeft /1000L ;
+    }
+    
+    public void setTempTradeTime(int timeInSec)
+    {
+        this.tempTradeTime = timeInSec;
+        setPersistentState(PersistentState.UPDATE_REQUIRED);
+    }
+    
+    /**
+     * Used by InventoryDAO when saving
+     * @return
+     */
+    public int getTempTradeSettedTime()
+    {
+        return tempTradeTime;
+    }
+    
+    public int getTempTradeTimeLeft()
+    {
+        long timeLeft = (itemCreationTime + (tempTradeTime * 1000)) - System.currentTimeMillis();
+        if(timeLeft < 0)
+            timeLeft = 0;
+        
+        return (int)(timeLeft /1000L);
     }
 
     /**
@@ -653,38 +744,4 @@ public class Item extends AionObject {
             slots = 6;
         return slots;
     }
-
-    /**
-     * @param return itemCreator
-     */
-    public String getItemCreator()
-    {
-        return itemCreator;
-    }
-
-    /**
-     * @param itemCreator the itemCreator to set
-     */
-    public void setItemCreator(String itemCreator)
-    {
-        this.itemCreator = itemCreator;
-        setPersistentState(PersistentState.UPDATE_REQUIRED);
-    }
-
-	/**
-	 * @param expireTime the expireTime to set
-	 */
-	public void setExpireTime(Timestamp expireTime)
-	{
-		this.expireTime = expireTime;
-		setPersistentState(PersistentState.UPDATE_REQUIRED);
-	}
-
-	/**
-	 * @return the expireTime
-	 */
-	public Timestamp getExpireTime()
-	{
-		return expireTime;
-	}
 }

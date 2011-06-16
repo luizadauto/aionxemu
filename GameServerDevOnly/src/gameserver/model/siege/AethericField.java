@@ -14,82 +14,30 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package gameserver.model.siege;
 
-import gameserver.controllers.AethericFieldController.AethericFieldGeneratorController;
-import gameserver.controllers.AethericFieldController.AethericFieldShieldController;
+import gameserver.controllers.NpcController;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.spawn.SpawnTemplate;
 
 /**
- * @author zdead
+ * @author Sylar
+ *
  */
-public class AethericField {
-
-    public class AethericFieldGenerator extends Npc {
-        private AethericField fieldRef;
-
-        public AethericFieldGenerator(int objId, AethericFieldGeneratorController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, AethericField fieldRef) {
-            super(objId, controller, spawn, objectTemplate);
-            this.fieldRef = fieldRef;
-        }
-
-        public AethericField getReferentField() {
-            return this.fieldRef;
-        }
-    }
-
-    public class AethericFieldShield extends Npc {
-        private AethericField fieldRef;
-        private boolean active;
-
-        public AethericFieldShield(int objId, AethericFieldShieldController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, AethericField fieldRef) {
-            super(objId, controller, spawn, objectTemplate);
-            this.fieldRef = fieldRef;
-            this.active = true;
-        }
-
-        public AethericField getReferentField() {
-            return this.fieldRef;
-        }
-
-        public void disable() {
-            this.active = false;
-        }
-
-        public boolean isActive() {
-            return active;
-        }
-    }
-
+public class AethericField extends Npc
+{
     private int fortressId;
-
-    private AethericFieldGenerator generator;
-    private AethericFieldShield shield;
-
-    public AethericField(int fortressId) {
-        this.fortressId = fortressId;
-    }
-
-    public int getFortressId() {
+    
+    public AethericField(int objId, NpcController controller, SpawnTemplate spawnTemplate, VisibleObjectTemplate objectTemplate, int fortressId)
+     {
+        super(objId,controller,spawnTemplate,objectTemplate);
+         this.fortressId = fortressId;
+     }
+    
+    public int getFortressId()
+    {
         return fortressId;
     }
-
-    public void setGenerator(AethericFieldGenerator gen) {
-        this.generator = gen;
-    }
-
-    public void setShield(AethericFieldShield shield) {
-        this.shield = shield;
-    }
-
-    public AethericFieldGenerator getGenerator() {
-        return generator;
-    }
-
-    public AethericFieldShield getShield() {
-        return shield;
-    }
-
 }

@@ -22,7 +22,10 @@ package gameserver.model.gameobjects;
 public enum NpcObjectType {
     NORMAL(1),
     SUMMON(2),
+    HOMING(16),
     TRAP(32),
+    SKILLAREANPC(64),
+    TOTEM(128),
     GROUPGATE(256),
     SERVANT(1024),
     PET(2048);

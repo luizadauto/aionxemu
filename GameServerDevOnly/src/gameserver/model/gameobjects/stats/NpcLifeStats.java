@@ -33,12 +33,14 @@ public class NpcLifeStats extends CreatureLifeStats<Npc> {
     }
 
     @Override
-    protected void onIncreaseHp(TYPE type, int value) {
-        sendAttackStatusPacketUpdate(type, value);
+    protected void onIncreaseHp(TYPE type, int value, int skillId, int logId)
+    {
+        sendAttackStatusPacketUpdate(type, value, skillId, logId);
     }
 
     @Override
-    protected void onIncreaseMp(TYPE type, int value) {
+    protected void onIncreaseMp(TYPE type, int value, int skillId, int logId)
+    {
         // nothing todo
     }
 

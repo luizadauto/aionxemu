@@ -20,6 +20,7 @@ import gameserver.model.gameobjects.Creature;
 import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS;
 import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import gameserver.services.LifeStatsRestoreService;
+import gameserver.skill.effect.EffectId;
 import gameserver.utils.PacketSendUtility;
 import org.apache.log4j.Logger;
 
@@ -36,6 +37,7 @@ public abstract class CreatureLifeStats<T extends Creature> {
     protected int currentMp;
 
     protected boolean alreadyDead = false;
+    protected boolean calledOnDie = false;
 
     protected Creature owner;
 
@@ -129,7 +131,9 @@ public abstract class CreatureLifeStats<T extends Creature> {
 
         onReduceHp();
 
-        if (alreadyDead && callOnDie) {
+        if(alreadyDead && callOnDie && !calledOnDie)
+        {
+            calledOnDie = true;
             getOwner().getController().onDie(attacker);
         }
 
@@ -162,12 +166,22 @@ public abstract class CreatureLifeStats<T extends Creature> {
     }
 
 
-    protected void sendAttackStatusPacketUpdate(TYPE type, int value) {
+    protected void sendAttackStatusPacketUpdate(TYPE type, int value, int skillId, int logId) {
         if (owner == null) {
             return;
         }
 
-        PacketSendUtility.broadcastPacketAndReceive(owner, new SM_ATTACK_STATUS(owner, 0));
+        PacketSendUtility.broadcastPacket(owner, new SM_ATTACK_STATUS(owner, type, value, skillId, logId));
+    }
+
+    /**
+     *  This method is called whenever caller wants to restore creatures's HP
+     * @param value
+     * @return currentHp
+     */
+    public int increaseHp(TYPE type, int value)
+    {
+        return this.increaseHp(type, value, 0, 170);
     }
 
     /**
@@ -176,8 +190,12 @@ public abstract class CreatureLifeStats<T extends Creature> {
      * @param value
      * @return currentHp
      */
-    public int increaseHp(TYPE type, int value) {
+    public int increaseHp(TYPE type, int value, int skillId, int logId) {
+        if(this.getOwner().getEffectController().isAbnormalSet(EffectId.DISEASE))
+            return currentHp;
+
         hpLock.lock();
+        
         try {
             if (isAlreadyDead()) {
                 return 0;
@@ -194,7 +212,7 @@ public abstract class CreatureLifeStats<T extends Creature> {
             hpLock.unlock();
         }
 
-        onIncreaseHp(type, value);
+        onIncreaseHp(type, value, skillId, logId);
 
         return currentHp;
     }
@@ -205,7 +223,11 @@ public abstract class CreatureLifeStats<T extends Creature> {
      * @param value
      * @return currentMp
      */
-    public int increaseMp(TYPE type, int value) {
+    public int increaseMp(TYPE type, int value)
+    {
+        return this.increaseMp(type, value, 0, 170);
+    }
+    public int increaseMp(TYPE type, int value, int skillId, int logId) {
         mpLock.lock();
 
         try {
@@ -226,7 +248,7 @@ public abstract class CreatureLifeStats<T extends Creature> {
             mpLock.unlock();
         }
 
-        onIncreaseMp(type, value);
+        onIncreaseMp(type, value, skillId, logId);
 
         return currentMp;
     }
@@ -329,11 +351,11 @@ public abstract class CreatureLifeStats<T extends Creature> {
         return 100 * currentMp / getMaxMp();
     }
 
-    protected abstract void onIncreaseMp(TYPE type, int value);
+    protected abstract void onIncreaseMp(TYPE type, int value, int skillId, int logId);
 
     protected abstract void onReduceMp();
 
-    protected abstract void onIncreaseHp(TYPE type, int value);
+    protected abstract void onIncreaseHp(TYPE type, int value, int skillId, int logId);
 
     protected abstract void onReduceHp();
 
@@ -341,7 +363,7 @@ public abstract class CreatureLifeStats<T extends Creature> {
      * @param value
      * @return
      */
-    public int increaseFp(int value) {
+    public int increaseFp(TYPE type, int value) {
         return 0;
     }
 
@@ -371,8 +393,10 @@ public abstract class CreatureLifeStats<T extends Creature> {
             int maxHp = getMaxHp();
             this.currentHp = (int) ((long) maxHp * hpPercent / 100);
 
-            if (this.currentHp > 0)
+            if (this.currentHp > 0) {
                 this.alreadyDead = false;
+                this.calledOnDie = false;
+            }
         }
         finally {
             hpLock.unlock();
@@ -389,9 +413,10 @@ public abstract class CreatureLifeStats<T extends Creature> {
         try {
             this.currentHp = hp;
 
-            if (this.currentHp > 0)
+            if (this.currentHp > 0) {
                 this.alreadyDead = false;
-
+                this.calledOnDie = false;
+            }
             if (this.currentHp < getMaxHp())
                 callOnReduceHp = true;
         }

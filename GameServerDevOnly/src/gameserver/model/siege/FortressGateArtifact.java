@@ -25,13 +25,21 @@ import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 /**
  * @author Sarynth
  */
-public class FortressGateArtifact extends Npc {
-
+public class FortressGateArtifact extends Npc
+{
+    private int fortressId;
     private FortressGate relatedGate;
     private int healRatio;
 
-    public FortressGateArtifact(int objId, FortressGateArtifactController controller, SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int healRatio) {
+    private int spawnStaticId;
+
+    public FortressGateArtifact(int objId, FortressGateArtifactController controller,
+        SpawnTemplate spawn, VisibleObjectTemplate objectTemplate, int fortressId,
+        int staticId, int healRatio)
+    {
         super(objId, controller, spawn, objectTemplate);
+        this.fortressId = fortressId;
+        this.spawnStaticId = staticId;
         this.healRatio = healRatio;
     }
 
@@ -48,4 +56,13 @@ public class FortressGateArtifact extends Npc {
         relatedGate.getLifeStats().increaseHp(TYPE.NATURAL_HP, hpToAdd);
     }
 
+    public int getFortressId()
+    {
+        return fortressId;
+    }
+    
+    public int getStaticId()
+    {
+        return spawnStaticId;
+    }
 }

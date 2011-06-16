@@ -31,5 +31,7 @@ public enum TaskId {
     PLAYER_UPDATE,
     INVENTORY_UPDATE,
     GAG,
-    ITEM_USE
+    ITEM_USE,
+    CREATURE_COMBAT,
+    SKILL_RESURRECT
 }

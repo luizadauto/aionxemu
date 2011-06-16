@@ -148,7 +148,7 @@ public enum ChatType {
     }
 
     private ChatType(int intValue, boolean sysMsg) {
-        if (GSConfig.SERVER_VERSION.startsWith("2.0"))
+        if (GSConfig.SERVER_VERSION.startsWith("2."))
             if (intValue == 0x08)
                 intValue = 0x0A;
             else if (intValue == 0x21)

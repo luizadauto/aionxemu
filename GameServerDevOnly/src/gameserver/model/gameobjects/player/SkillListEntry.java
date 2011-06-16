@@ -86,23 +86,19 @@ public class SkillListEntry {
         switch (skillId) {
             case 30002:
             case 30003:
-            	return skillLvl / 100;
+                return skillLvl / 100;
             case 40001:
             case 40002:
             case 40003:
             case 40004:
             case 40007:
             case 40008:
-            	if(skillLvl<400)
-            	{
-            		return skillLvl / 100;
-            	} else if(skillLvl<450){
-            		return 4;
-            	} else if(skillLvl<500){
-            		return 5;
-            	} else {
-            		return 6;
-            	}
+                if(skillLvl < 450)
+                    return skillLvl / 100;
+                if(skillLvl < 500)
+                    return 5;
+                else if(skillLvl < 550)
+                    return 6;
         }
         return 0;
     }
@@ -125,9 +121,13 @@ public class SkillListEntry {
      * @param xp
      */
     public boolean addSkillXp(int xp) {
-        this.currentXp += xp;
-        if (currentXp > (0.15 * (skillLvl + 30) * (skillLvl + 30))) {
-            currentXp = 0;
+        if(currentXp == 0 && skillLvl != 1)
+            currentXp = (int)(17.99*(skillLvl-1)*(skillLvl-1)+341.1*(skillLvl-1)-235.8);
+        else
+            currentXp += xp;
+        int nextLevelXp = (int)(17.99*skillLvl*skillLvl+341.1*skillLvl-235.8);
+        if(currentXp >= nextLevelXp)
+        {
             setSkillLvl(skillLvl + 1);
             return true;
         }

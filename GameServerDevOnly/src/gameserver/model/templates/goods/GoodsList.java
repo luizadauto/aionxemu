@@ -31,21 +31,26 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GoodsList")
 public class GoodsList {
-
-    protected List<GoodsList.Item> item;
     @XmlAttribute
     protected int id;
-
+    protected boolean limited = false;
+    protected List<GoodsList.Item> item;
     protected List<Integer> itemIdList;
+    protected List<GoodsList.Item> itemsList;
 
     void afterUnmarshal(Unmarshaller u, Object parent) {
         itemIdList = new ArrayList<Integer>();
+        itemsList = new ArrayList<GoodsList.Item>();
 
         if (item == null)
             return;
 
         for (Item it : item) {
             itemIdList.add(it.getId());
+            if(it.getBuylimit() > 0)
+                this.limited = true;
+
+            itemsList.add(it);
         }
         item = null;
     }
@@ -57,11 +62,6 @@ public class GoodsList {
         return id;
     }
 
-    public List<GoodsList.Item> getItemList()
-    {
-       return item;
-    }
-
     /**
      * @return the itemIdList
      */
@@ -69,6 +69,15 @@ public class GoodsList {
         return itemIdList;
     }
 
+    public List<GoodsList.Item> getItemsList()
+    {
+        return itemsList;
+    }
+
+    public boolean isLimited()
+    {
+        return limited;
+    }
 
     /**
      * <p>Java class for anonymous complex type.
@@ -88,14 +97,14 @@ public class GoodsList {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
     public static class Item {
-        @XmlAttribute(name="buylimit", required=false)
-        protected int buylimit;
-        
-        @XmlAttribute(name="selllimit", required=false)
-        protected int selllimit;
-
         @XmlAttribute
         protected int id;
+
+        @XmlAttribute(name="buylimit", required=false)
+        protected int buylimit;
+
+        @XmlAttribute(name="selllimit", required=false)
+        protected int selllimit;
 
         /**
          * Gets the value of the id property.
@@ -104,12 +113,12 @@ public class GoodsList {
             return id;
         }
 
-        public int getSellLimit() {
-            return selllimit;
-        }
-
         public int getBuyLimit() {
             return buylimit;
+        }
+
+        public int getSellLimit() {
+            return selllimit;
         }
 
         public boolean isLimited() {

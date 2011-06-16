@@ -34,6 +34,18 @@ public class Influence {
     private float asmos = 0;
     private float balaur = 0;
 
+    private float elyosGelkmaros = 0; 
+    private float asmosGelkmaros = 0; 
+    private float balaurGelkmaros = 0; 
+
+    private float elyosInggison = 0; 
+    private float asmosInggison = 0; 
+    private float balaurInggison = 0; 
+
+    private float elyosAbyss = 0; 
+    private float asmosAbyss = 0; 
+    private float balaurAbyss = 0; 
+
     private Influence() {
         calculateInfluence();
     }
@@ -59,6 +71,12 @@ public class Influence {
         int asmos = 0;
         int elyos = 0;
         int balaur = 0;
+        elyosGelkmaros = 0; 
+        asmosGelkmaros = 0; 
+        balaurGelkmaros = 0; 
+        elyosInggison = 0; 
+        asmosInggison = 0; 
+        balaurInggison = 0;
 
         for (SiegeLocation sLoc : SiegeService.getInstance().getSiegeLocations().values()) {
             int bonus = 0;
@@ -85,11 +103,83 @@ public class Influence {
                     elyos += bonus;
                     break;
             }
+            calculateAbyssInfluence(sLoc);
+            calculateBalaureaInfluence(sLoc);
         }
 
         this.balaur = (float) balaur / total;
         this.elyos = (float) elyos / total;
         this.asmos = (float) asmos / total;
+
+        this.balaurAbyss /= 9;
+        this.elyosAbyss /= 9;
+        this.asmosAbyss /= 9;
+    }
+
+    private void calculateBalaureaInfluence(SiegeLocation sLoc)
+    {
+        if (sLoc.getLocationId() == 3011 || sLoc.getLocationId() == 3021)
+        {
+            switch(sLoc.getRace())
+            {
+                case BALAUR:
+                    balaurGelkmaros += 0.5f;
+                    break;
+                case ASMODIANS:
+                    asmosGelkmaros += 0.5f;
+                    break;
+                case ELYOS:
+                    elyosGelkmaros += 0.5f;
+                    break;
+            }
+        }
+        
+        if (sLoc.getLocationId() == 2011 || sLoc.getLocationId() == 2021)
+        {
+            switch(sLoc.getRace())
+            {
+                case BALAUR:
+                    balaurInggison += 0.5f;
+                    break;
+                case ASMODIANS:
+                    asmosInggison += 0.5f;
+                    break;
+                case ELYOS:
+                    elyosInggison += 0.5f;
+                    break;
+            }
+        }
+    }
+    
+    private void calculateAbyssInfluence(SiegeLocation sLoc)
+    {
+        switch(sLoc.getLocationId())
+        {
+            case 1221:
+            case 1231:
+            case 1241:
+            case 1132:
+            case 1251:
+            case 1131:
+            case 1141:
+            case 1011:
+            case 1211:
+                switch(sLoc.getRace())
+                {
+                    case BALAUR:
+                        balaurAbyss += 1.0f;
+                        break;
+                    case ASMODIANS:
+                        asmosAbyss += 1.0f;
+                        break;
+                    case ELYOS:
+                        elyosAbyss += 1.0f;
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -133,5 +223,76 @@ public class Influence {
     private static class SingletonHolder {
         protected static final Influence instance = new Influence();
     }
+    
+    /**
+     * @return the elyosGelkmaros
+     */
+    public float getElyosGelkmaros()
+    {
+        return elyosGelkmaros;
+    }
 
+    /**
+     * @return the asmosGelkmaros
+     */
+    public float getAsmosGelkmaros()
+    {
+        return asmosGelkmaros;
+    }
+
+    /**
+     * @return the balaurGelkmaros
+     */
+    public float getBalaurGelkmaros()
+    {
+        return balaurGelkmaros;
+    }
+
+    /**
+     * @return the elyosInggison
+     */
+    public float getElyosInggison()
+    {
+        return elyosInggison;
+    }
+
+    /**
+     * @return the asmosInggison
+     */
+    public float getAsmosInggison()
+    {
+        return asmosInggison;
+    }
+
+    /**
+     * @return the balaurInggison
+     */
+    public float getBalaurInggison()
+    {
+        return balaurInggison;
+    }
+    
+    /**
+     * @return the elyosAbyss
+     */
+    public float getElyosAbyss()
+    {
+        return elyosAbyss;
+    }
+
+    /**
+     * @return the asmosAbyss
+     */
+    public float getAsmosAbyss()
+    {
+        return asmosAbyss;
+    }
+
+    /**
+     * @return the balaurAbyss
+     */
+    public float getBalaurAbyss()
+    {
+        return balaurAbyss;
+    }
 }

@@ -37,314 +37,373 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author ATracer, sphinx
+ *
  */
-public class PlayerLifeStats extends CreatureLifeStats<Player> {
+public class PlayerLifeStats extends CreatureLifeStats<Player>
+{
     protected int currentFp;
     private final ReentrantLock fpLock = new ReentrantLock();
-
+    
     private Future<?> flyRestoreTask;
     private Future<?> flyReduceTask;
-
-    public PlayerLifeStats(Player owner, int currentHp, int currentMp, int currentFp) {
-        super(owner, currentHp, currentMp);
+    
+    public PlayerLifeStats(Player owner, int currentHp, int currentMp, int currentFp)
+    {
+        super(owner,currentHp,currentMp);
         this.currentFp = currentFp;
     }
 
-    public PlayerLifeStats(Player owner) {
+    public PlayerLifeStats(Player owner)
+    {
         super(owner, owner.getGameStats().getCurrentStat(StatEnum.MAXHP), owner.getGameStats().getCurrentStat(
-                StatEnum.MAXMP));
+            StatEnum.MAXMP));
         this.currentFp = owner.getGameStats().getCurrentStat(StatEnum.FLY_TIME);
     }
-
+    
     @Override
-    protected void onReduceHp() {
+    protected void onReduceHp()
+    {
         sendHpPacketUpdate();
         triggerRestoreTask();
-        sendGroupPacketUpdate();
+        sendGroupPacketUpdate();    
     }
 
     @Override
-    protected void onReduceMp() {
-        sendMpPacketUpdate();
+    protected void onReduceMp()
+    {
+        sendMpPacketUpdate();        
         triggerRestoreTask();
         sendGroupPacketUpdate();
     }
-
+    
     @Override
-    protected void onIncreaseMp(TYPE type, int value) {
+    protected void onIncreaseMp(TYPE type, int value, int skillId, int logId)
+    {
         sendMpPacketUpdate();
-        sendAttackStatusPacketUpdate(type, value);
+        sendAttackStatusPacketUpdate(type, value, skillId, logId);
         sendGroupPacketUpdate();
-    }
-
+    }    
+    
     @Override
-    protected void onIncreaseHp(TYPE type, int value) {
-        if (this.isFullyRestoredHp()) {
+    protected void onIncreaseHp(TYPE type, int value, int skillId, int logId)
+    {
+        if (this.isFullyRestoredHp())
+        {
             // FIXME: Temp Fix: Reset aggro list when hp is full.
             this.owner.getAggroList().clear();
         }
         sendHpPacketUpdate();
-        sendAttackStatusPacketUpdate(type, value);
+        sendAttackStatusPacketUpdate(type, value, skillId, logId);
         sendGroupPacketUpdate();
     }
-
-    private void sendGroupPacketUpdate() {
+    
+    private void sendGroupPacketUpdate()
+    {
         Player owner = getOwner();
-        if (owner.isInGroup())
+        if(owner.isInGroup())
             owner.getPlayerGroup().updateGroupUIToEvent(owner, GroupEvent.MOVEMENT);
-        if (owner.isInAlliance())
+        if(owner.isInAlliance())
             AllianceService.getInstance().updateAllianceUIToEvent(owner, PlayerAllianceEvent.MOVEMENT);
     }
 
     @Override
-    public Player getOwner() {
+    public Player getOwner()
+    {
         return (Player) super.getOwner();
     }
 
     @Override
-    public void restoreHp() {
+    public void restoreHp()
+    {
         int currentRegenHp = getOwner().getGameStats().getCurrentStat(StatEnum.REGEN_HP);
-        if (getOwner().isInState(CreatureState.RESTING))
+        if(getOwner().isInState(CreatureState.RESTING))
             currentRegenHp *= 8;
-        increaseHp(TYPE.REGULAR, currentRegenHp);
+        increaseHp(TYPE.NATURAL_HP, currentRegenHp);
     }
 
     @Override
-    public void restoreMp() {
+    public void restoreMp()
+    {
         int currentRegenMp = getOwner().getGameStats().getCurrentStat(StatEnum.REGEN_MP);
-        if (getOwner().isInState(CreatureState.RESTING))
+        if(getOwner().isInState(CreatureState.RESTING))
             currentRegenMp *= 8;
         increaseMp(TYPE.NATURAL_MP, currentRegenMp);
-    }
+    }    
 
     @Override
-    public void synchronizeWithMaxStats() {
-        if (isAlreadyDead())
+    public void synchronizeWithMaxStats()
+    {
+        if(isAlreadyDead())
             return;
-
+        
         super.synchronizeWithMaxStats();
         int maxFp = getMaxFp();
-        if (currentFp != maxFp)
+        if(currentFp != maxFp)
             currentFp = maxFp;
     }
-
+    
     @Override
-    public void updateCurrentStats() {
+    public void updateCurrentStats()
+    {
         super.updateCurrentStats();
-
-        if (getMaxFp() < currentFp)
+        
+        if(getMaxFp() < currentFp)
             currentFp = getMaxFp();
 
-        if (!owner.isInState(CreatureState.FLYING))
+        if(!owner.isInState(CreatureState.FLYING))
             triggerFpRestore();
     }
-
-    public void sendHpPacketUpdate() {
+    
+    public void sendHpPacketUpdate()
+    {
         owner.addPacketBroadcastMask(BroadcastMode.UPDATE_PLAYER_HP_STAT);
     }
-
-    public void sendHpPacketUpdateImpl() {
-        if (owner == null)
+    
+    public void sendHpPacketUpdateImpl()
+    {
+        if(owner == null)
             return;
 
         PacketSendUtility.sendPacket((Player) owner, new SM_STATUPDATE_HP(currentHp, getMaxHp()));
     }
-
-    public void sendMpPacketUpdate() {
+    
+    public void sendMpPacketUpdate()
+    {
         owner.addPacketBroadcastMask(BroadcastMode.UPDATE_PLAYER_MP_STAT);
     }
-
-    public void sendMpPacketUpdateImpl() {
-        if (owner == null)
+    
+    public void sendMpPacketUpdateImpl()
+    {
+        if(owner == null)
             return;
 
         PacketSendUtility.sendPacket((Player) owner, new SM_STATUPDATE_MP(currentMp, getMaxMp()));
     }
-
+    
     /**
+     * 
      * @return the currentFp
      */
     @Override
-    public int getCurrentFp() {
+    public int getCurrentFp()
+    {
         return this.currentFp;
     }
-
+    
     /**
+     * 
      * @return maxFp of creature according to stats
      */
-    public int getMaxFp() {
+    public int getMaxFp()
+    {
         return owner.getGameStats().getCurrentStat(StatEnum.FLY_TIME);
     }
-
-    /**
+    
+    /**     
      * @return FP percentage 0 - 100
      */
-    public int getFpPercentage() {
+    public int getFpPercentage()
+    {
         return 100 * currentFp / getMaxFp();
     }
-
+    
     /**
      * This method is called whenever caller wants to restore creatures's FP
-     *
      * @param value
      * @return
      */
     @Override
-    public int increaseFp(int value) {
-
+    public int increaseFp(TYPE type, int value)
+    {
+        return this.increaseFp(type, value, 0, 170);
+    }
+    public int increaseFp(TYPE type, int value, int skillId, int logId)
+    {
+        
         fpLock.lock();
 
-        try {
-            if (isAlreadyDead()) {
+        try
+        {
+            if(isAlreadyDead())
+            {
                 return 0;
             }
             int newFp = this.currentFp + value;
-            if (newFp > getMaxFp()) {
+            if(newFp > getMaxFp())
+            {
                 newFp = getMaxFp();
             }
-            if (currentFp != newFp) {
+            if(currentFp != newFp)
+            {
                 this.currentFp = newFp;
             }
         }
-        finally {
+        finally
+        {
             fpLock.unlock();
         }
-
-        onIncreaseFp();
+        
+        onIncreaseFp(type, value, skillId, logId);
 
         return currentFp;
 
     }
-
+    
     /**
      * This method is called whenever caller wants to reduce creatures's MP
-     *
+     * 
      * @param value
      * @return
      */
-    public int reduceFp(int value) {
+    public int reduceFp(int value)
+    {
         fpLock.lock();
-        try {
+        try
+        {
             int newFp = this.currentFp - value;
 
-            if (newFp < 0)
+            if(newFp < 0)
                 newFp = 0;
 
-            this.currentFp = newFp;
+            this.currentFp = newFp;    
         }
-        finally {
+        finally
+        {
             fpLock.unlock();
         }
-
+        
         onReduceFp();
 
         return currentFp;
     }
-
-    public int setCurrentFp(int value) {
+    
+    public int setCurrentFp(int value)
+    {
         fpLock.lock();
-        try {
+        try
+        {
             int newFp = value;
 
-            if (newFp < 0)
+            if(newFp < 0)
                 newFp = 0;
 
-            this.currentFp = newFp;
+            this.currentFp = newFp;    
         }
-        finally {
+        finally
+        {
             fpLock.unlock();
         }
-
+        
         onReduceFp();
 
         return currentFp;
     }
 
-    protected void onIncreaseFp() {
+    protected void onIncreaseFp(TYPE type, int value, int skillId, int logId)
+    {
         owner.addPacketBroadcastMask(BroadcastMode.UPDATE_PLAYER_FLY_TIME);
+        sendAttackStatusPacketUpdate(type, value, skillId, logId);
     }
-
-    protected void onReduceFp() {
+    
+    protected void onReduceFp()
+    {
         owner.addPacketBroadcastMask(BroadcastMode.UPDATE_PLAYER_FLY_TIME);
-    }
-
-    public void sendFpPacketUpdateImpl() {
-        if (owner == null)
+        if (owner.isInState(CreatureState.FLYING))
+            ((Player)owner).getFlyController().checkFlightZone();
+    }    
+    
+    public void sendFpPacketUpdateImpl()
+    {
+        if(owner == null)
             return;
-
+        
         PacketSendUtility.sendPacket((Player) owner, new SM_FLY_TIME(currentFp, getMaxFp()));
     }
-
+    
     /**
      * this method should be used only on FlyTimeRestoreService
      */
-    public void restoreFp() {
+    public void restoreFp()
+    {
         //how much fly time restoring per 2 second.
-        increaseFp(1);
+        increaseFp(TYPE.NATURAL_FP, 1);
     }
-
-    public void specialrestoreFp() {
-        if (owner.getGameStats().getCurrentStat(StatEnum.REGEN_FP) != 0)
-            increaseFp(owner.getGameStats().getCurrentStat(StatEnum.REGEN_FP) / 6);
+    
+    public void specialrestoreFp()
+    {
+            increaseFp(TYPE.NATURAL_FP, owner.getGameStats().getCurrentStat(StatEnum.REGEN_FP)/6);
     }
-
-    public void triggerFpRestore() {
+    
+    public void triggerFpRestore()
+    {
         cancelFpReduce();
-
-        if (flyRestoreTask == null && !alreadyDead && !isFlyTimeFullyRestored()) {
+        
+        if(flyRestoreTask == null && !alreadyDead && !isFlyTimeFullyRestored())
+        {
             this.flyRestoreTask = LifeStatsRestoreService.getInstance().scheduleFpRestoreTask(this);
         }
     }
-
-    public void cancelFpRestore() {
-        if (flyRestoreTask != null && !flyRestoreTask.isCancelled()) {
+    
+    public void cancelFpRestore()
+    {
+        if(flyRestoreTask != null && !flyRestoreTask.isCancelled())
+        {
             flyRestoreTask.cancel(false);
             this.flyRestoreTask = null;
         }
     }
-
-    public void triggerFpReduce(ZoneName currentFlightZoneName) {
+    
+    public void triggerFpReduce(ZoneName currentFlightZoneName)
+    {
         cancelFpRestore();
         cancelFpReduce();
-
-        if (flyReduceTask == null && !alreadyDead &&
-                getOwner().getAccessLevel() < AdminConfig.GM_FLIGHT_UNLIMITED) {
+        
+        if(flyReduceTask == null && !alreadyDead &&
+            getOwner().getAccessLevel() < AdminConfig.GM_FLIGHT_UNLIMITED)
+        {
             this.flyReduceTask = LifeStatsRestoreService.getInstance().scheduleFpReduceTask(this, currentFlightZoneName);
         }
     }
-
-    public void cancelFpReduce() {
-        if (flyReduceTask != null && !flyReduceTask.isCancelled()) {
+    
+    public void cancelFpReduce()
+    {
+        if(flyReduceTask != null && !flyReduceTask.isCancelled())
+        {
             flyReduceTask.cancel(false);
             this.flyReduceTask = null;
         }
     }
-
-    public boolean isFlyTimeFullyRestored() {
+    
+    public boolean isFlyTimeFullyRestored()
+    {
         return getMaxFp() == currentFp;
     }
 
     @Override
-    public void cancelAllTasks() {
+    public void cancelAllTasks()
+    {
         super.cancelAllTasks();
         cancelFpReduce();
         cancelFpRestore();
     }
-
+    
     @Override
-    public void triggerRestoreOnRevive() {
+    public void triggerRestoreOnRevive()
+    {
         super.triggerRestoreOnRevive();
         triggerFpRestore();
     }
-
+    
     @Override
-    protected void sendAttackStatusPacketUpdate(TYPE type, int value) {
-        if (owner == null) {
+    protected void sendAttackStatusPacketUpdate(TYPE type, int value, int skillId, int logId)
+    {
+        if(owner == null)
+        {
             return;
         }
-
-        PacketSendUtility.sendPacket((Player) owner, new SM_ATTACK_STATUS((Player) owner, type, 0, value));
-        PacketSendUtility.broadcastPacket(owner, new SM_ATTACK_STATUS(owner, 0));
+        PacketSendUtility.broadcastPacket((Player)owner, new SM_ATTACK_STATUS(owner, type, value, skillId, logId), true);    
     }
 
 }
+
+

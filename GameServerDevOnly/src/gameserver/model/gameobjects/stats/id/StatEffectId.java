@@ -68,4 +68,9 @@ public class StatEffectId implements Comparable<StatEffectId> {
         final String str = "id:" + id + ",type:" + type;
         return str;
     }
+
+    public StatEffectType getType()
+    {
+        return type;
+    }
 }

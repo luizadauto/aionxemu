@@ -23,7 +23,13 @@ import gameserver.spawn.SpawnHandlerType;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +55,7 @@ public class SpawnGroup {
     @XmlAttribute(name = "interval")
     private int interval;
     @XmlAttribute(name = "pool")
-    private int pool;
+    private int pool = 0;
     @XmlAttribute(name = "npcid")
     private int npcid;
     @XmlAttribute(name = "map")
@@ -137,6 +143,8 @@ public class SpawnGroup {
      * @return the pool
      */
     public int getPool() {
+        if(pool == 0)
+            pool = size();
         return pool;
     }
 
@@ -195,6 +203,12 @@ public class SpawnGroup {
         return null;
     }
 
+    public void clearLastSpawnedTemplate()
+    {
+        if(!lastSpawnedTemplate.isEmpty())
+            lastSpawnedTemplate.clear();
+    }
+
     public int size() {
         return getObjects().size();
     }
@@ -235,6 +249,7 @@ public class SpawnGroup {
 
         int instanceId = visibleObject.getInstanceId();
         SpawnTemplate nextSpawn = getNextAvailableTemplate(instanceId);
+        clearLastSpawnedTemplate();
         if (nextSpawn != null)
             visibleObject.setSpawn(nextSpawn);
     }

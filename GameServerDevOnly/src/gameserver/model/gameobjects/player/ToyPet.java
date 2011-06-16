@@ -16,6 +16,19 @@
  */
 package gameserver.model.gameobjects.player;
 
+import gameserver.dataholders.DataManager;
+import gameserver.model.templates.item.ItemTemplate;
+import gameserver.model.templates.pet.FoodType;
+import gameserver.model.templates.pet.PetFlavour;
+import gameserver.model.templates.pet.PetRewardDescription;
+import gameserver.model.templates.pet.PetRewards;
+import gameserver.utils.InterruptableTask;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
+
+
 /**
  * @author xitanium
  */
@@ -25,6 +38,13 @@ public class ToyPet {
     private int decoration;
     private String name;
     private int petId;
+    private int feedCount;
+    private int loveCount;
+    private int exp;
+    private PetFeedState feedState = PetFeedState.HUNGRY;
+    private long cdStarted = 0;
+    
+    private Timestamp birthDay;
 
     private float x1 = 0;
     private float y1 = 0;
@@ -35,6 +55,11 @@ public class ToyPet {
     private float x2 = 0;
     private float y2 = 0;
     private float z2 = 0;
+
+    private boolean isFeeding = false;
+    private InterruptableTask feedingTask;
+    
+    private PetFlavour flavour;
 
     public ToyPet() {
 
@@ -60,6 +85,23 @@ public class ToyPet {
      */
     public void setDatabaseIndex(int databaseIndex) {
         this.databaseIndex = databaseIndex;
+    }
+
+    /**
+     * For feed counts 10, 20, 40, 50, 100, 200
+     */
+    static final byte[] progressBytes = new byte[] { (byte)128, 64, 32, 8, 8, 8 };
+    
+    public static short getFeedStep(int itemLevel, int maxCount)
+    {
+        int index = (int)(Math.log10(maxCount / 10) / Math.log10(2));
+        byte smallest = progressBytes[index];
+        
+        int[] levelSteps = new int[6];
+        for (int i = 0; i < 6; i++)
+            levelSteps[i] = smallest + smallest * i * 2;
+        
+        return (short)levelSteps[itemLevel / 10 - 1];
     }
 
     /**
@@ -201,4 +243,236 @@ public class ToyPet {
     public void setZ2(float z2) {
         this.z2 = z2;
     }
+
+    /**
+     * @return the isFeeding
+     */
+    public boolean isFeeding()
+    {
+        return isFeeding;
+    }
+
+    /**
+     * @param isFeeding the isFeeding to set
+     */
+    public void setFeeding(boolean isFeeding)
+    {
+        this.isFeeding = isFeeding;
+    }
+
+    /**
+     * @return the feedingTask
+     */
+    public InterruptableTask getFeedingTask()
+    {
+        return feedingTask;
+    }
+
+    /**
+     * @param feedingTask the feedingTask to set
+     */
+    public void setFeedingTask(InterruptableTask feedingTask)
+    {
+        this.feedingTask = feedingTask;
+    }
+
+    /**
+     * @param feedCount the feedCount to set
+     */
+    public void setFeedCount(int feedCount)
+    {
+        this.feedCount = feedCount;
+    }
+
+    /**
+     * @return the feedCount
+     */
+    public int getFeedCount()
+    {
+        return feedCount;
+    }
+
+    /**
+     * @param loveCount the loveCount to set
+     */
+    public void setLoveCount(int loveCount)
+    {
+        this.loveCount = loveCount;
+    }
+
+    /**
+     * @return the loveCount
+     */
+    public int getLoveCount()
+    {
+        return loveCount;
+    }
+
+    /**
+     * @param birthDay the birthDay to set
+     */
+    public void setBirthDay(Timestamp birthDay)
+    {
+        this.birthDay = birthDay;
+    }
+
+    /**
+     * @return the birthDay
+     */
+    public Timestamp getBirthDay()
+    {
+        return birthDay;
+    }
+
+    /**
+     * @param exp the exp to set
+     */
+    public void setExp(int exp)
+    {
+        this.exp = exp;
+    }
+
+    /**
+     * @return the exp
+     */
+    public int getExp()
+    {
+        return exp;
+    }
+    
+    public void addExp(int steps)
+    {
+        exp += steps;
+        while (exp > 255)
+        {
+            exp -= 256;
+            loveCount++;
+        }
+        if (exp == 0 && feedState != PetFeedState.FULL)
+        {
+            feedState = PetFeedState.valueOf(feedState.ordinal() + 1);
+        }
+    }
+
+    /**
+     * @param feedState the feedState to set
+     */
+    public void setFeedState(PetFeedState feedState)
+    {
+        this.feedState = feedState;
+    }
+
+    /**
+     * @return the feedState
+     */
+    public PetFeedState getFeedState()
+    {
+        if (getFullRemainingTime() > 0)
+            return PetFeedState.FULL;
+        return feedState;
+    }
+
+    /**
+     * @return the remaining time in seconds until the feed cool down ends
+     */
+    public int getFullRemainingTime()
+    {
+        if (feedState == PetFeedState.FULL && !isFeeding)
+        {
+            long stop = getCdStarted() + 600000;
+            long remains = stop - Calendar.getInstance().getTimeInMillis();
+            if (remains <= 0)
+            {
+                setFeedState(PetFeedState.HUNGRY);
+                setCdStarted(0);
+                return 0;
+            }
+            else
+            {
+                return (int) (remains / 1000);
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * @param cdStarted the cdStarted to set
+     */
+    public void setCdStarted(long cdStarted)
+    {
+        this.cdStarted = cdStarted;
+    }
+
+    /**
+     * @return the cdStarted
+     */
+    public long getCdStarted()
+    {
+        return cdStarted;
+    }
+
+    /**
+     * @param flavour the flavour to set
+     */
+    public void setFlavour(PetFlavour flavour)
+    {
+        this.flavour = flavour;
+    }
+
+    /**
+     * @return the flavour
+     */
+    public PetFlavour getFlavour()
+    {
+        return flavour;
+    }
+
+    public int getRewardId(ItemTemplate feedItemTemplate)
+    {
+        PetFlavour f = getFlavour();
+
+        List<FoodType> foodTypes = DataManager.PET_FEED_DATA.getFoodGroups().getFoodTypes(feedItemTemplate.getTemplateId());
+        List<PetRewards> rewards = null;
+        FoodType foodGroup = FoodType.NOT_FOOD;
+        
+        for (FoodType foodType : foodTypes)
+        {
+            rewards = f.getRewards(foodType);
+            if (rewards.size() != 0 && rewards.get(0).getResults().size() != 0)
+            {
+                foodGroup = foodType;
+                break;
+            }
+            rewards = null;
+        }
+        
+        if (rewards == null)
+            return 0;
+        
+        // multiple rewards are not handled, maybe they have to be level dependant (???)
+        PetRewards pr = rewards.get(0);
+        PetRewardDescription random = pr.getRandomReward();
+        if (random != null)
+            return random.getItem();
+        
+        List<? extends PetRewardDescription> results = pr.getResults();
+        for (int index = results.size() - 1; index >= 0; index--)
+        {
+            PetRewardDescription prd = results.get(index);
+            if (prd.getPrice() == -1 || prd.getChance() != 0)
+                continue; // price -1 not handled yet
+            
+            if (foodGroup == FoodType.HEALTHY_1)
+            {
+                int matchedIndex = feedItemTemplate.getLevel() / 10 - 1;
+                if (matchedIndex >= index)
+                    return prd.getItem();
+            }
+            else if (prd.getPrice() <= this.getLoveCount())
+                return prd.getItem();
+        }
+        
+        return 0;
+    }
+
 }

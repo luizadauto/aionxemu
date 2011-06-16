@@ -68,6 +68,8 @@ public enum ItemSlot {
     ADV_STIGMA4(1 << 29),
     ADV_STIGMA5(1 << 30);
 
+    ADV_STIGMAS(ADV_STIGMA1.slotIdMask | ADV_STIGMA2.slotIdMask | ADV_STIGMA3.slotIdMask | ADV_STIGMA4.slotIdMask | ADV_STIGMA5.slotIdMask, true);
+
     private int slotIdMask;
     private boolean combo;
 

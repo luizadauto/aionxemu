@@ -17,15 +17,17 @@
 package gameserver.model;
 
 /**
- * @author xavier
+ * @author xavier, blakawk
  */
 public enum SkillElement {
     NONE(0),
     FIRE(1),
     WATER(2),
     WIND(3),
-    EARTH(4);
-
+    EARTH(4),
+    LIGHT(5),
+    DARK(6);
+ 
     private int element;
 
     private SkillElement(int id) {

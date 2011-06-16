@@ -35,6 +35,10 @@ public enum Gender {
      * Females
      */
     FEMALE(1);
+    /**
+     * Males & Females
+     */
+    ALL(2);
 
     /**
      * id of gender

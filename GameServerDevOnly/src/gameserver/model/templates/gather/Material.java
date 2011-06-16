@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Material")
 public class Material {
-
     @XmlAttribute
     protected String name;
     @XmlAttribute

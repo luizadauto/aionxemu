@@ -92,6 +92,12 @@ public class Summon extends Creature {
     }
 
     @Override
+    public Creature getActingCreature()
+    {
+        return this.master;
+    }
+
+    @Override
     public String getName() {
         return objectTemplate.getName();
     }

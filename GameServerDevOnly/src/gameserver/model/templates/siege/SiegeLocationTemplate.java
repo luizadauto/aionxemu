@@ -45,6 +45,20 @@ public class SiegeLocationTemplate {
     @XmlElement(name = "siege_reward")
     protected List<SiegeRewardTemplate> siegeRewards;
 
+    @XmlElement(name = "defense_reward")
+    protected DefenseReward defenseReward;
+    
+    @XmlAttribute(name = "artifact_cooldown")
+    protected int artifactCooldown;
+    
+    /**
+     * @return the artifactCooldown
+     */
+    public int getArtifactCooldown()
+    {
+        return artifactCooldown;
+    }
+
     /**
      * @return the location id
      */
@@ -69,7 +83,12 @@ public class SiegeLocationTemplate {
     public List<SiegeRewardTemplate> getSiegeRewards() {
         return this.siegeRewards;
     }
-    
+
+    public DefenseReward getDefenseReward()
+    {
+        return this.defenseReward;
+    }
+
     public int getVulnerabilityDuration() {
         return vulnerabilityDuration;
     }

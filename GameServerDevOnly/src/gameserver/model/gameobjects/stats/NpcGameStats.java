@@ -27,12 +27,14 @@ import gameserver.network.aion.serverpackets.SM_EMOTION;
 import gameserver.utils.PacketSendUtility;
 
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 /**
  * @author xavier
  */
 public class NpcGameStats extends CreatureGameStats<Npc> {
-    int currentRunSpeed = 0;
+    AtomicInteger currentRunSpeed = new AtomicInteger();
 
     public NpcGameStats(Npc owner) {
         super(owner);
@@ -98,10 +100,11 @@ public class NpcGameStats extends CreatureGameStats<Npc> {
 
         int newRunSpeed = getCurrentStat(StatEnum.SPEED);
 
-        if (newRunSpeed != currentRunSpeed) {
+        if (!currentRunSpeed.compareAndSet(newRunSpeed, newRunSpeed))
+        {
+            currentRunSpeed.set(newRunSpeed);
             owner.getMoveController().setSpeed(newRunSpeed / 1000f);
             PacketSendUtility.broadcastPacket(owner, new SM_EMOTION(owner, EmotionType.START_EMOTE2, 0, 0));
         }
-        currentRunSpeed = newRunSpeed;
-	}
+    }
 }

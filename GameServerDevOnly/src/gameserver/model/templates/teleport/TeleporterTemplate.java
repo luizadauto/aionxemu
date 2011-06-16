@@ -14,9 +14,17 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package gameserver.model.templates.teleport;
 
-import javax.xml.bind.annotation.*;
+import gameserver.model.Race;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * @author orz
@@ -35,6 +43,9 @@ public class TeleporterTemplate {
 
     @XmlAttribute(name = "type", required = true)
     private TeleportType type;
+
+    @XmlAttribute(name = "race")
+    private Race race;
 
     @XmlElement(name = "locations")
     private TeleLocIdData teleLocIdData;
@@ -65,6 +76,14 @@ public class TeleporterTemplate {
      */
     public TeleportType getType() {
         return type;
+    }
+
+    /**
+     * @return the race
+     */
+    public Race getRace()
+    {
+        return race;
     }
 
     /**

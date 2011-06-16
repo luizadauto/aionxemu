@@ -904,104 +904,144 @@ public class PlayerAppearance implements Cloneable {
      *
      * @param legLength leg length
      */
-	public void setLegLength(int legLength)
-	{
-		this.legLength = legLength;
-	}
+    public void setLegLength(int legLength)
+    {
+        this.legLength = legLength;
+    }
 
-	/**
+    /**
      * Returns foot size
      *
      * @return foot size
      */
-	public int getFootSize()
-	{
-		return footSize;
-	}
+    public int getFootSize()
+    {
+        return footSize;
+    }
 
-	/**
+    /**
      * Sets foot size
      *
      * @param footSize foot size
      */
-	public void setFootSize(int footSize)
-	{
-		this.footSize = footSize;
-	}
+    public void setFootSize(int footSize)
+    {
+        this.footSize = footSize;
+    }
 
-	/**
+    /**
      * Retunrs facial rate
      *
      * @return facial rate
      */
-	public int getFacialRate()
-	{
-		return facialRate;
-	}
+    public int getFacialRate()
+    {
+        return facialRate;
+    }
 
-	/**
+    /**
      * Sets facial rate
      *
      * @param facialRate facial rate
      */
-	public void setFacialRate(int facialRate)
-	{
-		this.facialRate = facialRate;
-	}
+    public void setFacialRate(int facialRate)
+    {
+        this.facialRate = facialRate;
+    }
 
-	/**
+    /**
      * Returns sexy voice
      *
      * @return sexy voice
      */
-	public int getVoice()
-	{
-		return voice;
-	}
+    public int getVoice()
+    {
+        return voice;
+    }
 
-	/**
+    /**
      * Sets sexy voice
      *
      * @param voice sexy voice
      */
-	public void setVoice(int voice)
-	{
-		this.voice = voice;
-	}
+    public void setVoice(int voice)
+    {
+        this.voice = voice;
+    }
 
-	/**
+    /**
      * Returns height
      *
      * @return height
      */
-	public float getHeight()
-	{
-		return height;
-	}
+    public float getHeight()
+    {
+        return height;
+    }
 
-	/**
+    /**
      * Sets height
      *
      * @param height height
      */
-	public void setHeight(float height)
-	{
-		this.height = height;
-	}
-	
-	public Object clone()
-	{
-		Object newObject = null;
-		
-		try
-		{
-			newObject = super.clone();
-		}
-		catch(CloneNotSupportedException e)
-		{
-			e.printStackTrace();
-		}
-		
-		return newObject;
-	}
+    public void setHeight(float height)
+    {
+        this.height = height;
+    }
+
+    public Object clone()
+    {
+        Object newObject = null;
+        
+        try
+        {
+            newObject = super.clone();
+        }
+        catch(CloneNotSupportedException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return newObject;
+    }
+
+    
+    static String[] detailFunctions = 
+    { 
+        "FaceShape", "Forehead", "EyeHeight", "EyeSpace", "EyeWidth", "EyeSize", "EyeShape",
+        "EyeAngle", "BrowHeight", "BrowAngle", "BrowShape", "Nose", "NoseBridge", "NoseWidth",
+        "NoseTip", "Cheek", "LipHeight", "MouthSize", "LipSize", "Smile", "LipShape",
+        "JawHeigh", "ChinJut", "EarShape", "HeadSize", "Neck", "NeckLength", "ShoulderSize",
+        "Torso", "Chest", "Waist", "Hips", "ArmThickness", "HandSize", "LegThicnkess",
+        "FootSize", "FacialRate", null, "ArmLength", "LegLength", "Shoulders", null, null
+    };
+    
+    public static void loadDetails(PlayerAppearance appearance, String presetDetails)
+    {
+        if (presetDetails.length() % 2 != 0)
+            return;
+        
+        char[] chars = presetDetails.toCharArray();
+        Class<PlayerAppearance> c = PlayerAppearance.class;
+        Class<?>[] parTypes = { Integer.TYPE };
+        
+        for (int i = 0; i < chars.length; i += 2)
+        {
+            if (detailFunctions.length - 1 < i / 2)
+                break;
+            if (detailFunctions[i / 2] == null)
+                continue;
+            String strValue = String.copyValueOf(chars, i, 2);
+            int value = Integer.parseInt(strValue, 16);
+            try
+            {
+                Method m = c.getMethod("set" + detailFunctions[i / 2], parTypes);
+                m.invoke(appearance, value);
+            }
+            catch(Throwable e)
+            {
+                continue;
+            }
+        }
+    }
 }

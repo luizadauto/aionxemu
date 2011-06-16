@@ -27,9 +27,9 @@ package gameserver.model.gameobjects.player;
  */
 public enum StorageType {
     CUBE(0, 109),
-    REGULAR_WAREHOUSE(1, 96),
-    ACCOUNT_WAREHOUSE(2, 16),
-    LEGION_WAREHOUSE(3, 56),
+    REGULAR_WAREHOUSE(1, 104),
+    ACCOUNT_WAREHOUSE(2, 17),
+    LEGION_WAREHOUSE(3, 25),
     PET_BAG_6(32, 6),
     PET_BAG_12(33, 12),
     PET_BAG_18(34, 18),
