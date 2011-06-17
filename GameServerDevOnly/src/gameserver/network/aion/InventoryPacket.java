@@ -24,7 +24,6 @@ import gameserver.model.items.ItemSlot;
 import gameserver.model.items.ItemStone;
 import gameserver.model.items.ManaStone;
 import gameserver.model.templates.item.ItemTemplate;
-import gameserver.services.RentalService;
 
 import java.nio.ByteBuffer;
 import java.util.Set;
@@ -72,16 +71,16 @@ public abstract class InventoryPacket extends AionServerPacket {
     protected void writeGeneralItemInfo(ByteBuffer buf, Item item) {
         short byteCount = 26;
 
-        byteCount += item.getItemCreator().length() * 2;
+        byteCount += item.getCrafterName().length() * 2;
         
         writeH(buf, byteCount); //length of details 26 + crafter string
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
-        writeS(buf, item.getItemCreator());
+        writeS(buf, item.getCrafterName());
         writeC(buf, 0);
-        writeQ(buf, RentalService.getInstance().getRentalTimeLeft(item));	//no display in mail and pStore
-        writeD(buf, 0);
+        writeQ(buf, item.getTempItemTimeLeft());    //no display in mail and pStore
+        writeD(buf, item.getTempTradeTimeLeft());
     }
 
     protected void writeStigmaInfo(ByteBuffer buf, Item item) {
@@ -261,11 +260,10 @@ public abstract class InventoryPacket extends AionServerPacket {
 
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
-        writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
-
+        writeS(buf, item.getCrafterName());
         writeC(buf, 0);
-        writeQ(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
-        writeD(buf, 0);
+        writeQ(buf, item.getTempItemTimeLeft());// //no display in mail and pStore
+        writeD(buf, item.getTempTradeTimeLeft());
 
         int placeHolder, size;
         size = (buf.position() - sizeLoc);
@@ -359,7 +357,7 @@ public abstract class InventoryPacket extends AionServerPacket {
         int itemSlotId = item.getEquipmentSlot();
 
         short byteCount = 83;        
-        byteCount += item.getItemCreator().length() * 2;
+        byteCount += item.getCrafterName().length() * 2;
         writeH(buf, byteCount); //83 + crafter string
 
         writeC(buf, 0x06);
@@ -384,9 +382,9 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());
-        writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
+        writeS(buf, item.getCrafterName());// Crafter
         writeC(buf, 0);
-        writeQ(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
-        writeD(buf, 0);
+        writeQ(buf, item.getTempItemTimeLeft()); //no display in mail and pStore
+        writeD(buf, item.getTempTradeTimeLeft());
     }
 }

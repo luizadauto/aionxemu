@@ -17,40 +17,49 @@
 
 package gameserver.network.aion.serverpackets;
 
+import gameserver.configs.main.GSConfig;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
+import gameserver.quest.model.QuestCookie;
 import gameserver.services.QuestService;
 
 import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * @author MrPoke,KaiPo
+ * @author MrPoke
  */
-
-public class SM_NEARBY_QUESTS extends AionServerPacket {
+public class SM_NEARBY_QUESTS extends AionServerPacket
+{
     private Integer[] questIds;
     private int size;
-
-    public SM_NEARBY_QUESTS(List<Integer> questIds) {
+    
+    public SM_NEARBY_QUESTS(List<Integer> questIds)
+    {
         this.questIds = questIds.toArray(new Integer[questIds.size()]);
         this.size = questIds.size();
     }
 
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
-        if (questIds == null || con.getActivePlayer() == null)
+     protected void writeImpl(AionConnection con, ByteBuffer buf)
+     {
+        if(questIds == null || con.getActivePlayer() == null)
             return;
-        int playerLevel = con.getActivePlayer().getLevel();
-		writeC(buf, 0x00); // 2.1
-		writeH(buf, (-1*size) & 0xFFFF); // 2.1
-        for (int id : questIds) {
+         if(GSConfig.SERVER_VERSION.startsWith("2.1"))
+        {
+            writeC(buf, 0x00);
+            writeH(buf, (-1*size) & 0xFFFF);
+        }
+        else
+            writeD(buf, size);
+          for(int id : questIds)
+          {
             writeH(buf, id);
-            if (QuestService.checkLevelRequirement(id, playerLevel))
+            if (QuestService.canStart(new QuestCookie(null, con.getActivePlayer(), id, 0)))
                 writeH(buf, 0);
             else
                 writeH(buf, 2);
-        }
-    }
+          }
+     }
 }

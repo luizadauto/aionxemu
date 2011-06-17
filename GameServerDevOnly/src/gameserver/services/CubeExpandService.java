@@ -17,6 +17,7 @@
 package gameserver.services;
 
 import gameserver.dataholders.DataManager;
+import gameserver.model.Race;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
@@ -25,7 +26,10 @@ import gameserver.model.templates.CubeExpandTemplate;
 import gameserver.network.aion.serverpackets.SM_CUBE_UPDATE;
 import gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.quest.model.QuestState;
+import gameserver.quest.model.QuestStatus;
 import gameserver.utils.PacketSendUtility;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -67,7 +71,8 @@ public class CubeExpandService {
                         return;
                     }
                     expand(responder);
-                    player.getInventory().decreaseKinah(price);
+                    if(player.getInventory().decreaseKinah(price))
+                        expand(responder);
                 }
 
                 @Override
@@ -97,6 +102,33 @@ public class CubeExpandService {
         PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300431, "9")); // 9 Slots added
         player.setCubesize(player.getCubeSize() + 1);
         PacketSendUtility.sendPacket(player, new SM_CUBE_UPDATE(player, 0));
+    }
+
+    private static int cubeLevel(Player player)
+    {
+        int cubeLevel = player.getCubeSize();
+        if(player.getCommonData().getRace() == Race.ASMODIANS)
+        {
+            QuestState qs = player.getQuestStateList().getQuestState(2937);
+            if(qs != null && qs.getStatus() == QuestStatus.COMPLETE)
+                cubeLevel -= 1;
+            qs = player.getQuestStateList().getQuestState(2833);
+            if(qs != null && qs.getStatus() == QuestStatus.COMPLETE)
+                cubeLevel -= 1;
+        }
+        if(player.getCommonData().getRace() == Race.ELYOS)
+        {
+            QuestState qs = player.getQuestStateList().getQuestState(1947);
+            if(qs != null && qs.getStatus() == QuestStatus.COMPLETE)
+                cubeLevel -= 1;
+            qs = player.getQuestStateList().getQuestState(1797);
+            if(qs != null && qs.getStatus() == QuestStatus.COMPLETE)
+                cubeLevel -= 1;
+            qs = player.getQuestStateList().getQuestState(1800);
+            if(qs != null && qs.getStatus() == QuestStatus.COMPLETE)
+                cubeLevel -= 1;
+        }
+        return cubeLevel;
     }
 
     /**

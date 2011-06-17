@@ -48,19 +48,11 @@ public class SM_VIEW_PLAYER_DETAILS extends InventoryPacket {
         for (Item item : items) {
             writeGeneralInfo(buf, item);
             if (item.getItemTemplate().isArmor())
-                writeArmorInfo(buf, item, false, false, true);
+                writeArmorInfo(buf, item);
             else if (item.getItemTemplate().isWeapon())
-                writeWeaponInfo(buf, item, false, false, false, true);
+                writeWeaponInfo(buf, item);
             else
-                writeGeneralItemInfo(buf, item, false, true);
+                writeGeneralItemInfo(buf, item);
         }
     }
-
-   protected void writeGeneralInfo(ByteBuffer buf, Item item) {
-        writeD(buf, 0);
-        writeD(buf, item.getItemTemplate().getTemplateId()); // itemId
-        writeH(buf, 36); //
-        writeD(buf, item.getItemTemplate().getNameId()); // itemNameId
-        writeH(buf, 0);
-   }
 }

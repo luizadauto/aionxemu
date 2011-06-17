@@ -21,59 +21,58 @@ import java.nio.ByteBuffer;
 import gameserver.ai.state.AIState;
 import gameserver.model.EmotionType;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Summon;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.gameobjects.stats.StatEnum;
-import gameserver.model.gameobjects.Summon;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
+
 
 /**
  * Emotion packet
  * 
- * @author SoulKeeper, Ares/Kaipo, Vyaslav, Magenik
+ * @author SoulKeeper
  */
 public class SM_EMOTION extends AionServerPacket
 {
     /**
      * Object id of emotion sender
      */
-    private int					senderObjectId;
+    private int                    senderObjectId;
 
     /**
      * Some unknown variable
      */
-    private EmotionType					emotionType;
+    private EmotionType                    emotionType;
 
     /**
      * ID of emotion
      */
-    private int					emotion;
+    private int                    emotion;
 
     /**
      * Object id of emotion target
      */
-    private int					targetObjectId;
+    private int                    targetObjectId;
 
     /**
      * Temporary Speed..
      */
-    private float				speed;
-    private float				walk;
-    private int					state;
+    private float                speed = 6.0f;
 
-    private int 				baseAttackSpeed;
-    private int 				currentAttackSpeed;
+    private int                    state;
+
+    private int                 baseAttackSpeed;
+    private int                 currentAttackSpeed;
 
     /**
      * Coordinates of player
      */
-    private float				x;
-    private float				y;
-    private float				z;
-    private byte				heading;
-
-    boolean isInWS;
+    private float                x;
+    private float                y;
+    private float                z;
+    private byte                heading;
 
     /**
      * This constructor should be used when emotion and targetid is 0
@@ -100,7 +99,6 @@ public class SM_EMOTION extends AionServerPacket
      */
     public SM_EMOTION(Creature creature, EmotionType emotionType, int emotion, int targetObjectId)
     {
-        isInWS=false;
         this.senderObjectId = creature.getObjectId();
         this.emotionType = emotionType;
         this.emotion = emotion;
@@ -108,26 +106,11 @@ public class SM_EMOTION extends AionServerPacket
         this.state = creature.getState();
         this.baseAttackSpeed = creature.getGameStats().getBaseStat(StatEnum.ATTACK_SPEED);
         this.currentAttackSpeed = creature.getGameStats().getCurrentStat(StatEnum.ATTACK_SPEED);
-        this.speed = creature.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
-        this.walk = creature.getGameStats().getCurrentStat(StatEnum.WALK) / 1000f;
 
         if (creature.isInState(CreatureState.FLYING))
-            this.speed = creature.getGameStats().getCurrentStat(StatEnum.FLY_SPEED) / 1000f;
-        else if (!creature.isInState(CreatureState.WEAPON_EQUIPPED))
-            if (creature instanceof Player)
-                if (creature.isInState(CreatureState.WALKING) )
-                    this.speed = (speed * 25f) / 100f;
-                else
-                    this.speed = creature.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
-            else if (creature instanceof Summon)
-                this.speed = creature.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
-            else
-                if (creature.getAi().getAiState().equals(AIState.MOVINGTOHOME))
-                    this.speed = (speed * 50f) / 100f;
-                else
-                    this.speed = walk;
+            this.speed = ((float) creature.getGameStats().getCurrentStat(StatEnum.FLY_SPEED)) / 1000f;
         else
-            this.speed = creature.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
+            this.speed = ((float) creature.getGameStats().getCurrentStat(StatEnum.SPEED)) / 1000f;
     }
 
     /**
@@ -137,17 +120,16 @@ public class SM_EMOTION extends AionServerPacket
      */
     public SM_EMOTION(int doorId)
     {
-        this.isInWS=false;
         this.senderObjectId = doorId;
         this.emotionType = EmotionType.SWITCH_DOOR;
     }
+    
     /**
      * New
      *
      */
     public SM_EMOTION(Player player, EmotionType emotionType, int emotion, float x, float y, float z, byte heading, int targetObjectId)
     {
-        this.isInWS=false;
         this.senderObjectId = player.getObjectId();
         this.emotionType = emotionType;
         this.emotion = emotion;
@@ -156,24 +138,17 @@ public class SM_EMOTION extends AionServerPacket
         this.z = z;
         this.heading = heading;
         this.targetObjectId = targetObjectId;
-        this.speed = player.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
 
         if (player.isInState(CreatureState.FLYING))
-            this.speed = player.getGameStats().getCurrentStat(StatEnum.FLY_SPEED) / 1000f;
-        else if (player.isInState(CreatureState.WALKING)  && !player.isInState(CreatureState.WEAPON_EQUIPPED))
-            this.speed = (speed * 25f) / 100f;
+            this.speed = ((float) player.getGameStats().getCurrentStat(StatEnum.FLY_SPEED)) / 1000f;
+        else if (player.isInState(CreatureState.WALKING) && !player.isInState(CreatureState.WEAPON_EQUIPPED))
+            this.speed = (((float) player.getGameStats().getCurrentStat(StatEnum.SPEED)) / 1000f) * 0.25f;
         else
-            this.speed = player.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f;
+            this.speed = ((float) player.getGameStats().getCurrentStat(StatEnum.SPEED)) / 1000f;
 
         this.state = player.getState();
         this.baseAttackSpeed = player.getGameStats().getBaseStat(StatEnum.ATTACK_SPEED);
         this.currentAttackSpeed = player.getGameStats().getCurrentStat(StatEnum.ATTACK_SPEED);
-    }
-
-    public SM_EMOTION(Creature creature, EmotionType emotionType, int emotion, int targetObjectId, boolean isInWS)
-    {
-        this(creature, emotionType, emotion, targetObjectId);
-        isInWS=true;
     }
 
     /**
@@ -192,10 +167,6 @@ public class SM_EMOTION extends AionServerPacket
                 writeF(buf, speed);
                 break;
             case JUMP:
-                if (isInWS){
-                    state=1;
-                    speed=6.24f;
-                }
                 // jump
                 writeH(buf, state);
                 writeF(buf, speed);
@@ -227,7 +198,7 @@ public class SM_EMOTION extends AionServerPacket
                 writeF(buf, y);
                 writeF(buf, z);
                 writeC(buf, heading);
-                break;				
+                break;                
             case START_FLYTELEPORT:
                 // fly teleport (start)
                 writeH(buf, state);
@@ -239,20 +210,23 @@ public class SM_EMOTION extends AionServerPacket
                 writeH(buf, state);
                 writeF(buf, speed);
                 break;
-            case START_WINDSTREAM:
-                speed=6.24f;//7.3199997f;
-                state=2;
-                // windstream (start)
-                writeH(buf, state);
+            case WINDSTREAM:
+                // entering windstream
+                speed = 7.32f;//From packets send seems to be a fixed value rather then variable, maybe changed later.
+                writeH(buf, 2);
                 writeF(buf, speed);
                 writeD(buf, emotion); // teleport Id
                 writeD(buf, targetObjectId); // distance
                 break;
-            case BOOST_WINDSTREAM:
-                speed=12;
-                state=2;
-                // using Boost inside windstream
-                writeH(buf, state);
+            case WINDSTREAM_BOOST:
+                speed = 7.32f;//Odd that the value doesn't change with boost...
+                writeH(buf, 2);
+                writeF(buf, speed);
+                break;
+            case WINDSTREAM_END:
+                speed = 7.32f;
+                writeC(buf, 1);
+                writeC(buf, 2);                
                 writeF(buf, speed);
                 break;
             case FLY:
@@ -275,7 +249,7 @@ public class SM_EMOTION extends AionServerPacket
                 // resurrect
                 writeH(buf, state);
                 writeF(buf, speed);
-                break;						
+                break;                        
             case EMOTE:
                 // emote
                 writeH(buf, state);
@@ -283,7 +257,7 @@ public class SM_EMOTION extends AionServerPacket
                 writeD(buf, targetObjectId);
                 writeH(buf, emotion);
                 writeC(buf, 1);
-                break;				
+                break;
             case ATTACKMODE:
                 // toggle attack mode
                 writeH(buf, state);
@@ -293,7 +267,7 @@ public class SM_EMOTION extends AionServerPacket
                 // toggle normal mode
                 writeH(buf, state);
                 writeF(buf, speed);
-                break;		
+                break;        
             case WALK:
                 // toggle walk
                 writeH(buf, state);
@@ -308,14 +282,14 @@ public class SM_EMOTION extends AionServerPacket
                 // toggle doors
                 writeH(buf, 9);
                 writeD(buf, 0);
-                break;				
+                break;                
             case START_EMOTE:
                 // emote startloop
                 writeH(buf, state);
                 writeF(buf, speed);
                 writeH(buf, baseAttackSpeed);
                 writeH(buf, currentAttackSpeed);
-                break;								
+                break;                                
             case OPEN_PRIVATESHOP:
                 // private shop open
                 writeH(buf, state);
@@ -332,7 +306,7 @@ public class SM_EMOTION extends AionServerPacket
                 writeF(buf, speed);
                 writeH(buf, baseAttackSpeed);
                 writeH(buf, currentAttackSpeed);
-                break;				
+                break;                
             case POWERSHARD_ON:
                 // powershard on
                 writeH(buf, state);
@@ -377,6 +351,18 @@ public class SM_EMOTION extends AionServerPacket
                 writeF(buf, speed);
                 writeD(buf, targetObjectId);
                 break;
+            case PET_FEEDING:
+                // feeding start (pet)
+                 writeC(buf, 1);
+                writeC(buf, 0);
+                writeD(buf, targetObjectId);
+                break;
+            case PET_FEEDING2:
+                // feeding end (pet)
+                writeC(buf, 1);
+                writeC(buf, 0);
+                writeD(buf, targetObjectId);
+                break;
             default:
                 writeH(buf, state);
                 writeF(buf, speed);
@@ -387,3 +373,4 @@ public class SM_EMOTION extends AionServerPacket
         }
     }
 }
+

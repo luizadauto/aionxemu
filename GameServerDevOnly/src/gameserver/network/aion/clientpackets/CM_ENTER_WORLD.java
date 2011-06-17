@@ -25,28 +25,83 @@ import gameserver.configs.main.CustomConfig;
 import gameserver.configs.main.GSConfig;
 import gameserver.configs.main.RateConfig;
 import gameserver.dao.PlayerPasskeyDAO;
+import gameserver.dataholders.DataManager;
 import gameserver.model.ChatType;
 import gameserver.model.EmotionType;
 import gameserver.model.account.Account;
-import gameserver.model.account.CharacterPasskey.ConnectType;
 import gameserver.model.account.PlayerAccountData;
+import gameserver.model.account.CharacterPasskey.ConnectType;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.gameobjects.state.CreatureVisualState;
 import gameserver.model.gameobjects.stats.StatEnum;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
+import gameserver.model.siege.Artifact;
+import gameserver.model.templates.GuildTemplate;
+import gameserver.model.templates.QuestTemplate;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.AionConnection;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_ABYSS_RANK;
+import gameserver.network.aion.serverpackets.SM_CHANNEL_INFO;
+import gameserver.network.aion.serverpackets.SM_CHARACTER_SELECT;
+import gameserver.network.aion.serverpackets.SM_CUBE_UPDATE;
+import gameserver.network.aion.serverpackets.SM_EMOTION;
+import gameserver.network.aion.serverpackets.SM_EMOTION_LIST;
+import gameserver.network.aion.serverpackets.SM_ENTER_WORLD_CHECK;
+import gameserver.network.aion.serverpackets.SM_GAME_TIME;
+import gameserver.network.aion.serverpackets.SM_INFLUENCE_RATIO;
+import gameserver.network.aion.serverpackets.SM_INSTANCE_COOLDOWN;
+import gameserver.network.aion.serverpackets.SM_INVENTORY_INFO;
+import gameserver.network.aion.serverpackets.SM_ITEM_COOLDOWN;
+import gameserver.network.aion.serverpackets.SM_MACRO_LIST;
+import gameserver.network.aion.serverpackets.SM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_PLAYER_SPAWN;
+import gameserver.network.aion.serverpackets.SM_PLAYER_STATE;
+import gameserver.network.aion.serverpackets.SM_PRICES;
+import gameserver.network.aion.serverpackets.SM_QUEST_ACCEPTED;
+import gameserver.network.aion.serverpackets.SM_QUEST_LIST;
+import gameserver.network.aion.serverpackets.SM_RECIPE_LIST;
+import gameserver.network.aion.serverpackets.SM_SIEGE_LOCATION_INFO;
+import gameserver.network.aion.serverpackets.SM_SKILL_COOLDOWN;
+import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
+import gameserver.network.aion.serverpackets.SM_STARTED_QUEST_LIST;
+import gameserver.network.aion.serverpackets.SM_STATS_INFO;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_TITLE_LIST;
+import gameserver.network.aion.serverpackets.SM_UI_SETTINGS;
 import gameserver.network.aion.serverpacketseq.SEQ_SM_WINDSTREAM_ANNOUNCE;
-import gameserver.services.*;
+import gameserver.quest.QuestEngine;
+import gameserver.quest.model.QuestCookie;
+import gameserver.quest.model.QuestState;
+import gameserver.quest.model.QuestStatus;
+import gameserver.services.AllianceService;
+import gameserver.services.ArenaService;
+import gameserver.services.BrokerService;
+import gameserver.services.ChatService;
+import gameserver.services.ClassChangeService;
+import gameserver.services.GroupService;
+import gameserver.services.GuildService;
+import gameserver.services.HTMLService;
+import gameserver.services.KiskService;
+import gameserver.services.LegionService;
+import gameserver.services.MailService;
+import gameserver.services.PetitionService;
+import gameserver.services.PlayerService;
+import gameserver.services.PunishmentService;
+import gameserver.services.SiegeService;
+import gameserver.services.StigmaService;
+import gameserver.services.TeleportService;
+import gameserver.services.ToyPetService;
+import gameserver.skill.SkillEngine;
 import gameserver.skill.effect.EffectId;
+import gameserver.skill.model.CreatureWithDistance;
+import gameserver.skill.model.Skill;
 import gameserver.utils.AEVersions;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.i18n.CustomMessageId;
 import gameserver.utils.i18n.LanguageHandler;
 import gameserver.utils.rates.Rates;
-import gameserver.world.Executor;
 import gameserver.world.World;
 
 import java.util.List;
@@ -129,8 +184,18 @@ public class CM_ENTER_WORLD extends AionClientPacket {
     protected void runImpl() {
         AionConnection client = getConnection();
 
+        Player player = World.getInstance().findPlayer(objectId);
+        if (player != null)
+        {
+            if (player.getClientConnection() != null)
+                player.getClientConnection().close(new SM_SYSTEM_MESSAGE(1310052), true);
+            else
+                PlayerService.playerLoggedOut(player);
+            return;
+        }
+
         // passkey check
-        if (CustomConfig.PASSKEY_ENABLE && !client.getAccount().getCharacterPasskey().isPass()) {
+        if (GSConfig.PASSKEY_ENABLE && !client.getAccount().getCharacterPasskey().isPass()) {
             client.getAccount().getCharacterPasskey().setConnectType(ConnectType.ENTER);
             client.getAccount().getCharacterPasskey().setObjectId(objectId);
             boolean isExistPasskey = DAOManager.getDAO(PlayerPasskeyDAO.class).existCheckPlayerPasskey(client.getAccount().getId());
@@ -154,11 +219,13 @@ public class CM_ENTER_WORLD extends AionClientPacket {
 
         Player player = PlayerService.getPlayer(objectId, account);
 
+        int lastOnlineTime = player.getLastOnline();
+
         if (player != null && client.setActivePlayer(player)) {
             player.setClientConnection(client);
             /*
-                * Store player into World.
-                */
+             * Store player into World.
+             */
             Player player2 = World.getInstance().findPlayer(player.getObjectId());
             if (player2 != null)
                 World.getInstance().removeObject(player2);
@@ -176,7 +243,8 @@ public class CM_ENTER_WORLD extends AionClientPacket {
                 client.sendPacket(new SM_ITEM_COOLDOWN(player.getItemCoolDowns()));
 
             client.sendPacket(new SM_QUEST_LIST(player));
-            client.sendPacket(new SM_STARTED_QUEST_LIST(player)); // 2.1 new packet :)
+            if(GSConfig.SERVER_VERSION.startsWith("2."))
+                client.sendPacket(new SM_STARTED_QUEST_LIST(player));
             client.sendPacket(new SM_RECIPE_LIST(player.getRecipeList().getRecipeList()));
 
             /*
@@ -218,6 +286,27 @@ public class CM_ENTER_WORLD extends AionClientPacket {
 
             client.sendPacket(new SM_INVENTORY_INFO());
 
+            /**
+             * Energy of Repose must be calculated before sending SM_STATS_INFO
+             */
+            long secondsOffline = (System.currentTimeMillis() / 1000) - lastOnlineTime;
+            if(secondsOffline > 14400)
+            {
+                int hours = Math.round(secondsOffline / 3600);
+                long maxRespose = ((player.getLevel() * 1000) * 2) * player.getLevel();
+                if(hours > 20)
+                    hours = 20;
+                hours *= 5; // we get 100% of max value after 20hours of offline.
+                int currentResposePercent = Math.round((player.getCommonData().getRepletionState() / maxRespose) * 100);
+                if (currentResposePercent + hours >= 100){
+                    player.getCommonData().setRepletionState(maxRespose);
+                }
+                else{
+                    currentResposePercent += hours;
+                    player.getCommonData().setRepletionState((maxRespose * currentResposePercent) / 100);
+                }
+            }
+
             client.sendPacket(new SM_STATS_INFO(player));
 
             client.sendPacket(new SM_CUBE_UPDATE(player, 6, player.getCommonData().getAdvancedStigmaSlotSize()));
@@ -230,15 +319,17 @@ public class CM_ENTER_WORLD extends AionClientPacket {
                 AllianceService.getInstance().onLogin(player);
 
             client.sendPacket(new SM_PLAYER_ID(player));
+            client.sendPacket(new SM_INSTANCE_COOLDOWN(player));
 
             client.sendPacket(new SM_MACRO_LIST(player));
             client.sendPacket(new SM_GAME_TIME());
+            QuestEngine.getInstance().onLvlUp(new QuestCookie(null, player, 0, 0));
             player.getController().updateNearbyQuests();
 
             client.sendPacket(new SM_TITLE_INFO(player));
             client.sendPacket(new SM_CHANNEL_INFO(player.getPosition()));
             client.sendPacket(new SM_PLAYER_SPAWN(player));
-            client.sendPacket(new SM_EMOTION_LIST());
+            client.sendPacket(new SM_EMOTION_LIST(player));
             client.sendPacket(new SM_INFLUENCE_RATIO());
             client.sendPacket(new SM_SIEGE_LOCATION_INFO());
             // TODO: Send Rift Announce Here
@@ -324,7 +415,7 @@ public class CM_ENTER_WORLD extends AionClientPacket {
             if (player.isGM()) {
                 if (CustomConfig.INVIS_GM_CONNECTION) {
                     player.getEffectController().setAbnormal(EffectId.INVISIBLE_RELATED.getEffectId());
-                    player.setVisualState(CreatureVisualState.HIDE3);
+                    player.setVisualState(CreatureVisualState.HIDE20);
                     PacketSendUtility.broadcastPacket(player, new SM_PLAYER_STATE(player), true);
                     PacketSendUtility.sendMessage(player, "! YOU LOGGED IN INVISIBLE MODE !");
                 }
@@ -360,6 +451,12 @@ public class CM_ENTER_WORLD extends AionClientPacket {
             BrokerService.getInstance().onPlayerLogin(player);
 
             /**
+             * Start initializing chat connection(/1, /2, /3, /4 channels)
+             */
+            if(!GSConfig.DISABLE_CHAT_SERVER)
+                ChatService.onPlayerLogin(player);
+
+            /**
              * Send petition data if player has one
              */
             PetitionService.getInstance().onPlayerLogin(player);
@@ -380,13 +477,53 @@ public class CM_ENTER_WORLD extends AionClientPacket {
             if (CustomConfig.ENABLE_SURVEYS)
                 HTMLService.checkSurveys(player);
 
-        } else {
+            if(player.getGuild().getGuildId() != 0)
+            {
+                int currentQuest = player.getGuild().getCurrentQuest();
+                if(currentQuest == 0)
+                {
+                    GuildTemplate guildTemplate = DataManager.GUILDS_DATA.getGuildTemplateByGuildId(player.getGuild().getGuildId());
+                    GuildService.getInstance().sendDailyQuest(player, guildTemplate);
+                }
+                else
+                {
+                    QuestState qs = player.getQuestStateList().getQuestState(currentQuest);
+                    QuestTemplate template = DataManager.QUEST_DATA.getQuestById(currentQuest);
+                    if(qs == null || qs.getStatus() == QuestStatus.NONE || qs.canRepeat(template.getMaxRepeatCount()))
+                        PacketSendUtility.sendPacket(player, new SM_QUEST_ACCEPTED(6, currentQuest));
+                }
+            }
+            if(ArenaService.getInstance().isInArena(player))
+                player.setInArena(true);
+                
+            /**
+             * Artifact effects
+             */
+            for(Artifact art : World.getInstance().getArtifacts())
+            {
+                if(art.getController().lastArtifactActivation > 0 && art.getTemplate().getEffectTemplate().getRange().equals("WORLD") && art.getController().getRemainingCooldownSecs() > 0)
+                {
+                    if(art.getObjectTemplate().getRace() == player.getCommonData().getRace() && player.getEffectController().hasAbnormalEffect(art.getTemplate().getEffectTemplate().getSkillId()))
+                    {
+                        Skill skill = SkillEngine.getInstance().getSkill(art, art.getTemplate().getEffectTemplate().getSkillId(), 1, player);
+                        skill.setFirstTargetRangeCheck(false);
+                        skill.getEffectedList().clear();
+                        skill.getEffectedList().add(new CreatureWithDistance(player, 0));
+                        skill.endCast();
+                    }
+                }
+            }
+            
+            player.getController().onEnterWorld();
+        }
+        else
+        {
             // TODO this is an client error - inform client.
         }
     }
 
     @SuppressWarnings("unused")
-	private static String[] getWelcomeMessage() {
+    private static String[] getWelcomeMessage() {
         return new String[]{
                 "Welcome to " + GSConfig.SERVER_NAME + ", powered by Aion X EMU rev " + AEVersions.getGameRevision(gs),
                 "This software is under LGPLv3. See our website for more info: http://www.aionxemu.com"

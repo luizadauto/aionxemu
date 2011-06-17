@@ -20,6 +20,7 @@ package gameserver.network.aion.clientpackets;
 import gameserver.model.gameobjects.player.DeniedStatus;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.network.aion.serverpackets.SM_VIEW_PLAYER_DETAILS;
 import gameserver.world.World;
@@ -57,10 +58,16 @@ public class CM_VIEW_PLAYER_DETAILS extends AionClientPacket {
             return;
         }
 
-        if (player.getPlayerSettings().isInDeniedStatus(DeniedStatus.VEIW_DETAIL)) {
-            sendPacket(SM_SYSTEM_MESSAGE.STR_MSG_REJECTED_WATCH(player.getName()));
-            return;
+        AionConnection client = getConnection();
+
+        if(client.getAccount().getAccessLevel() == 0)
+        {
+            if(player.getPlayerSettings().isInDeniedStatus(DeniedStatus.VEIW_DETAIL))
+            {
+                sendPacket(SM_SYSTEM_MESSAGE.STR_MSG_REJECTED_WATCH(player.getName()));
+                return;
+            }
         }
-        sendPacket(new SM_VIEW_PLAYER_DETAILS(targetObjectId, player.getEquipment().getEquippedItemsWithoutStigma()));
+        sendPacket(new SM_VIEW_PLAYER_DETAILS(targetObjectId, player.getEquipment().getEquippedItems()));
     }
 }

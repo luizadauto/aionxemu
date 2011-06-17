@@ -100,8 +100,20 @@ public class SM_SIEGE_LOCATION_INFO extends AionServerPacket
 			// Next State (0 - invulnerable, 1 - vulnerable)
 			writeC(buf, sLoc.getNextState());
 
-			writeD(buf, 0); // unk
-			writeD(buf, 0); // unk 1.9 only
+            writeH(buf, 0); // unk
+            writeH(buf, 1);
+            switch(sLoc.getLocationId())
+            {
+                case 2111:
+                    writeD(buf, sLoc.isVulnerable() ? 2*60*60 : 0);// mastarius & veille timer
+                    break;
+                case 3111:
+                    writeD(buf, sLoc.isVulnerable() ? 2*60*60 : 0); // mastarius & veille timer
+                    break;
+                default:
+                    writeD(buf, 0); // mastarius & veille timer
+                    break;
+            }
 		}
 	}
 }

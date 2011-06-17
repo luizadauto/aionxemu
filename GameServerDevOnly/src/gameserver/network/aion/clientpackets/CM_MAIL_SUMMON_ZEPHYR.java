@@ -94,8 +94,9 @@ public class CM_MAIL_SUMMON_ZEPHYR extends AionClientPacket {
                 player.setZephyrObjectId(zc.getObjectId());
                 player.setLastZephyrInvokationSeconds(System.currentTimeMillis() / 1000);
                 zc.setTarget(player);
-                zc.getMoveController().setFollowTarget(true);
-                zc.getMoveController().schedule();
+                zc.getMoveController().followTarget(4);
+                if(!zc.getMoveController().isScheduled())
+                    zc.getMoveController().schedule();
 
                 // Despawn Zephyr after 5 minutes if not already despawned
                 ThreadPoolManager.getInstance().schedule(new Runnable() {
@@ -107,6 +108,7 @@ public class CM_MAIL_SUMMON_ZEPHYR extends AionClientPacket {
                         if (obj != null && obj instanceof Creature) {
                             Creature zephyr = (Creature) obj;
                             DataManager.SPAWNS_DATA.removeSpawn(zephyr.getSpawn());
+                            zephyr.getMoveController().stop();
                             zephyr.getController().delete();
                         }
                         player.setZephyrObjectId(0);

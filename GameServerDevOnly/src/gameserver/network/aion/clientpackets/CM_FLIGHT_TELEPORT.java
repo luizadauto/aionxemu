@@ -19,6 +19,8 @@ package gameserver.network.aion.clientpackets;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_WINDSTREAM;
+import gameserver.utils.PacketSendUtility;
 import gameserver.world.World;
 
 /**
@@ -56,10 +58,20 @@ public class CM_FLIGHT_TELEPORT extends AionClientPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void runImpl() {
+    protected void runImpl()
+    {
         Player player = getConnection().getActivePlayer();
+        if (player == null)
+            return;
 
-        if (player != null && player.isInState(CreatureState.FLIGHT_TELEPORT)) {
+        if(player.getEnterWindstream() > 0)
+        {
+            PacketSendUtility.sendPacket(player, new SM_WINDSTREAM(player.getEnterWindstream(),1));
+            player.setEnterWindstream(0);
+        }
+
+        if(player.isInState(CreatureState.FLIGHT_TELEPORT))
+        {
             player.setFlightDistance(distance);
             World.getInstance().updatePosition(player, x, y, z, (byte) 0);
         }

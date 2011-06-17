@@ -20,7 +20,13 @@ package gameserver.network.factories;
 import gameserver.network.loginserver.LoginServerConnection.State;
 import gameserver.network.loginserver.LsClientPacket;
 import gameserver.network.loginserver.LsPacketHandler;
-import gameserver.network.loginserver.clientpackets.*;
+import gameserver.network.loginserver.clientpackets.CM_ACCOUNT_RECONNECT_KEY;
+import gameserver.network.loginserver.clientpackets.CM_ACOUNT_AUTH_RESPONSE;
+import gameserver.network.loginserver.clientpackets.CM_BAN_RESPONSE;
+import gameserver.network.loginserver.clientpackets.CM_GS_AUTH_RESPONSE;
+import gameserver.network.loginserver.clientpackets.CM_LS_CONTROL_RESPONSE;
+import gameserver.network.loginserver.clientpackets.CM_LS_REQUEST_CHARACTER_COUNT;
+import gameserver.network.loginserver.clientpackets.CM_REQUEST_KICK_ACCOUNT;
 
 /**
  * @author Luno

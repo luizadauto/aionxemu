@@ -104,43 +104,47 @@ public class SM_MAIL_SERVICE extends MailServicePacket {
 
     /**
      * used when deleting letter
-     *
      * @param letterId
      */
-    public SM_MAIL_SERVICE(int letterId) {
+    public SM_MAIL_SERVICE(Player player, int letterId)
+    {
         this.serviceId = 6;
+        this.player = player;
         this.letterId = letterId;
     }
-
+    
     @Override
-    public void writeImpl(AionConnection con, ByteBuffer buf) {
-        switch (serviceId) {
+    public void writeImpl (AionConnection con, ByteBuffer buf)
+    {
+        switch(serviceId)
+        {
             case 0:
                 writeMailboxState(buf, mailCount, unreadCount, hasExpress);
                 break;
-
+                
             case 1:
                 writeMailMessage(buf, mailMessage);
                 break;
-
+                
             case 2:
-                if (letters.size() > 0)
+                if(letters.size() > 0)
                     writeLettersList(buf, letters, player);
                 else
                     writeEmptyLettersList(buf, player);
-                break;
-
+                break;    
+                
             case 3:
-                writeLetterRead(buf, letter, time);
+                writeLetterRead(buf, player, letter, time);
                 break;
-
+                
             case 5:
                 writeLetterState(buf, letterId, attachmentType);
                 break;
-
+                
             case 6:
-				writeLetterDelete(buf, letterId);
-				break;
-		}
-	}
+                writeLetterDelete(buf, player, letterId);
+                break;
+        }
+    }
+
 }

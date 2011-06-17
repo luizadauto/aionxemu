@@ -19,24 +19,32 @@ package gameserver.network.aion.clientpackets;
 import gameserver.model.EmotionType;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
-import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
+import gameserver.network.aion.serverpackets.SM_STATS_INFO;
 import gameserver.network.aion.serverpackets.SM_WINDSTREAM;
 import gameserver.utils.PacketSendUtility;
 
-public class CM_WINDSTREAM extends AionClientPacket {
+import org.apache.log4j.Logger;
+
+/**
+ * Packet concerning windstreams.
+ * 
+ * @author Dns, LokiReborn
+ * 
+ */
+public class CM_WINDSTREAM extends AionClientPacket
+{
     int teleportId;
     int distance;
-    int validatePos;
-    int unk;
+    int state;
+
+    private static final Logger    log    = Logger.getLogger(CM_WINDSTREAM.class);
 
     /**
-     * Constructs new instance of <tt>CM_WINDSTREAM </tt> packet
-     *
      * @param opcode
-     * @author Vyaslav, Ares/Kaipo
      */
-    public CM_WINDSTREAM(int opcode) {
+    public CM_WINDSTREAM(int opcode)
+    {
         super(opcode);
     }
 
@@ -44,33 +52,47 @@ public class CM_WINDSTREAM extends AionClientPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void readImpl() {
-        teleportId = readD();
-        distance = readD();
-        validatePos = readH();
-        unk = readH();
-
+    protected void readImpl()
+    {
+        teleportId = readD(); //typical teleport id (ex : 94001 for talloc hallow in inggison)
+        distance = readD();     // 600 for talloc.
+        state = readD(); // 0 or 1.
     }
-
+    
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void runImpl() {
-        AionConnection client = getConnection();
-        Player player = client.getActivePlayer();
-        EmotionType emotionType;
-
-        if (player != null) {
-            if (validatePos == SM_WINDSTREAM.C_VALIDATED) {
-                emotionType = EmotionType.START_WINDSTREAM;
-                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.JUMP, teleportId, distance, true)/**/);
-                PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, emotionType, teleportId, distance), /**/true);
-            } else if (validatePos == SM_WINDSTREAM.C_START_BOOST) {
-                emotionType = EmotionType.BOOST_WINDSTREAM;
-                client.sendPacket(new SM_EMOTION(player, emotionType, teleportId, distance));
-            }
-            client.sendPacket(new SM_WINDSTREAM(validatePos));
+    protected void runImpl()
+    {
+        Player player = getConnection().getActivePlayer();
+        if(player == null)
+            return;
+        
+        switch(state)
+        {
+        case 0:
+        case 4:
+        case 8:
+            //TODO:    Find in which cases second variable is 0 & 1
+            //        Jego's example packets had server refuse with 0 and client kept retrying.
+            PacketSendUtility.sendPacket(player, new SM_WINDSTREAM(state,1));
+            break;
+        case 1:
+            PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.WINDSTREAM, teleportId, distance), true);
+            player.setEnterWindstream(1);
+            break;
+        case 2:
+            PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.WINDSTREAM_END, 0, 0), true);            
+            PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
+            PacketSendUtility.sendPacket(player, new SM_WINDSTREAM(state,1));
+            break;
+        case 7:
+            PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.WINDSTREAM_BOOST, 0, 0), true);
+            player.setEnterWindstream(7);            
+            break;
+        default:
+            log.error("Unknown Windstream state #" + state + " was found!" );
         }
     }
 }

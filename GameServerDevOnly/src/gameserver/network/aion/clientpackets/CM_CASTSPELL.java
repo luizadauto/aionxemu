@@ -103,12 +103,14 @@ public class CM_CASTSPELL extends AionClientPacket {
             if (template == null || template.isPassive())
                 return;
 
+            if(player.isCasting() && spellid == 0 && level == 0)
+                player.getController().cancelCurrentSkill();
+
             if (!player.getSkillList().isSkillPresent(spellid))
                 return;
 
-            //Custom Skill Cancellation Helper (Implemented by Untamed/TimeBomb)
-            Skill castingSkill = player.getCastingSkill();
-            if (castingSkill != null) {
+            //Custom Skill Cancellation Helper.
+            if (!player.getController().checkSkillPacket(spellid, time, targetObjectId)) {
                 int skillId = castingSkill.getSkillTemplate().getSkillId();
                 castingSkill.cancelCast();
                 player.removeSkillCoolDown(skillId);

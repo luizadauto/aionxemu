@@ -24,6 +24,7 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.serverpackets.SM_QUEST_ACCEPTED;
 import gameserver.quest.QuestEngine;
+import gameserver.services.GuildService;
 
 public class CM_DELETE_QUEST extends AionClientPacket {
 
@@ -45,11 +46,12 @@ public class CM_DELETE_QUEST extends AionClientPacket {
         Player player = getConnection().getActivePlayer();
         if (questsData.getQuestById(questId).isTimer()) {
             player.getController().cancelTask(TaskId.QUEST_TIMER);
-            sendPacket(new SM_QUEST_ACCEPTED(questId, 0));
+            sendPacket(new SM_QUEST_ACCEPTED(4, questId, 0));
         }
         if (!QuestEngine.getInstance().deleteQuest(player, questId))
             return;
         sendPacket(new SM_QUEST_ACCEPTED(questId));
+        GuildService.getInstance().deleteDaily(player, questId);
         player.getController().updateNearbyQuests();
     }
 }

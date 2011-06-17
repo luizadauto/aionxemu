@@ -17,10 +17,12 @@
 
 package gameserver.network.aion.clientpackets;
 
+import gameserver.model.TaskId;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Equipment;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.network.aion.serverpackets.SM_UPDATE_PLAYER_APPEARANCE;
 import gameserver.restrictions.RestrictionsManager;
 import gameserver.skill.model.Effect;
@@ -48,6 +50,9 @@ public class CM_EQUIP_ITEM extends AionClientPacket {
     @Override
     protected void runImpl() {
         final Player activePlayer = getConnection().getActivePlayer();
+        if(activePlayer == null)
+            return;
+
         Equipment equipment = activePlayer.getEquipment();
         Item resultItem = null;
 
@@ -62,6 +67,11 @@ public class CM_EQUIP_ITEM extends AionClientPacket {
                 resultItem = equipment.unEquipItem(itemUniqueId, slotRead);
                 break;
             case 2:
+                if (activePlayer.getController().hasTask(TaskId.ITEM_USE) && !activePlayer.getController().getTask(TaskId.ITEM_USE).isDone())
+                {
+                    PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.CANT_EQUIP_ITEM_IN_ACTION());
+                    return;
+                }
                 equipment.switchHands();
                 break;
         }

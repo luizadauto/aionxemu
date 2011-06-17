@@ -18,7 +18,7 @@
 package gameserver.network.aion.clientpackets;
 
 import com.aionemu.commons.database.dao.DAOManager;
-import gameserver.configs.main.CustomConfig;
+import gameserver.configs.main.GSConfig;
 import gameserver.dao.PlayerPasskeyDAO;
 import gameserver.model.account.CharacterPasskey;
 import gameserver.model.account.CharacterPasskey.ConnectType;
@@ -119,7 +119,7 @@ public class CM_CHARACTER_PASSKEY extends AionClientPacket {
      * @param wrongCount
      */
     private void checkBlock(int accountId, int wrongCount) {
-        if (wrongCount >= CustomConfig.PASSKEY_WRONG_MAXCOUNT) {
+        if (wrongCount >= GSConfig.PASSKEY_WRONG_MAXCOUNT) {
             // TODO : Change the account to be blocked
             LoginServer.getInstance().sendBanPacket((byte) 2, accountId, "", 60 * 8, 0);
         }

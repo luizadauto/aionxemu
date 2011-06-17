@@ -19,9 +19,13 @@ package gameserver.services;
 import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.commons.utils.Rnd;
 import gameserver.configs.main.CustomConfig;
+import gameserver.configs.main.DropConfig;
 import gameserver.dao.DropListDAO;
+import gameserver.dataholders.DataManager;
 import gameserver.model.DescriptionId;
 import gameserver.model.EmotionType;
+import gameserver.model.NpcType;
+import gameserver.model.alliance.PlayerAllianceMember;
 import gameserver.model.drop.DropItem;
 import gameserver.model.drop.DropList;
 import gameserver.model.drop.DropTemplate;
@@ -30,22 +34,45 @@ import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.DropNpc;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.QuestStateList;
 import gameserver.model.gameobjects.player.RequestResponseHandler;
 import gameserver.model.gameobjects.state.CreatureState;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
+import gameserver.model.templates.drops.NpcDrop;
+import gameserver.model.templates.item.ItemCategory;
 import gameserver.model.templates.item.ItemQuality;
 import gameserver.model.templates.item.ItemTemplate;
-import gameserver.model.templates.stats.NpcRank;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_EMOTION;
+import gameserver.network.aion.serverpackets.SM_GROUP_LOOT;
+import gameserver.network.aion.serverpackets.SM_LOOT_ITEMLIST;
+import gameserver.network.aion.serverpackets.SM_LOOT_STATUS;
+import gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.quest.QuestEngine;
+import gameserver.quest.model.QuestState;
+import gameserver.quest.model.QuestStatus;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.utils.stats.DropRewardEnum;
-import gameserver.world.Executor;
 import gameserver.world.World;
+
+import gnu.trove.TIntArrayList;
+import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TIntObjectProcedure;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
 
 import java.lang.Object;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.ReentrantLock;
+
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -72,7 +99,58 @@ public class DropService {
     }
 
     private DropService() {
-        dropList = DAOManager.getDAO(DropListDAO.class).load();
+        dropList = new DropList();
+        for(NpcDrop drop : DataManager.DROPLIST_DATA.getDrops())
+        {
+            for(org.openaion.gameserver.model.templates.drops.DropItem di : drop.getDropItems())
+            {
+                DropTemplate t = new DropTemplate(drop.getNpcId(), di.getItemId(), di.getMin(), di.getMax(), di.getChance());
+                dropList.addDropTemplate(drop.getNpcId(), t);
+            }
+        }
+
+        DropList sqlList = DAOManager.getDAO(DropListDAO.class).load();
+        TIntObjectHashMap<Set<DropTemplate>> sqlTemplates = sqlList.getAll();
+        sqlTemplates.forEachEntry(new TIntObjectProcedure<Set<DropTemplate>>(){
+            @Override
+            public boolean execute(int arg0, Set<DropTemplate> arg1)
+            {
+                if(dropList.getDropsFor(arg0) != null)
+                {
+                    Set<DropTemplate> xmlDrops = dropList.getDropsFor(arg0);
+                    for(DropTemplate sqlDrop : arg1)
+                    {
+                        boolean xmlExists = false;
+                        for(DropTemplate xmlDrop : xmlDrops)
+                        {
+                            if(xmlDrop.getItemId() == sqlDrop.getItemId())
+                            {
+                                xmlExists = true;
+                                break;
+                            }
+                        }
+                        if(!xmlExists)
+                            dropList.addDropTemplate(arg0, sqlDrop);
+                        else
+                        {
+                            if(CustomConfig.GAMESERVER_DROPLIST_MASTER_SOURCE.equals("sql"))
+                            {
+                                dropList.removeDrop(arg0, sqlDrop.getItemId());
+                                dropList.addDropTemplate(arg0, sqlDrop);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for(DropTemplate t : arg1)
+                    {
+                        dropList.addDropTemplate(arg0, t);
+                    }
+                }
+                return true;
+            }
+        });
         log.info(dropList.getSize() + " npc drops loaded");
     }
 
@@ -197,81 +275,156 @@ public class DropService {
 
         Set<DropItem> droppedItems = new HashSet<DropItem>();
         Set<DropTemplate> templates = dropList.getDropsFor(npcTemplateId);
+        Set<DropTemplate> worldDrops = npc.getWorldDrops(player);
+        if (worldDrops != null)
+        {
+            if (templates == null)
+                templates = worldDrops;
+            else
+                templates.addAll(worldDrops);
+        }
 
         int normalDropPercentage = 100;
         int craftItemDropPercentage = 100;
-        if (!CustomConfig.DISABLE_DROP_REDUCTION) {
+        if(!DropConfig.DISABLE_DROP_REDUCTION && npc.getObjectTemplate().getNpcType() != NpcType.CHEST)
             normalDropPercentage = DropRewardEnum.dropRewardFrom(npc.getLevel() - lvl);
             // craft items will keep dropping if the player is killing low level mobs:
             craftItemDropPercentage = 100 - ((100 - normalDropPercentage) / 2);
         }
 
-        float normalDropRate = player.getRates().getDropRate() * normalDropPercentage / 100F;
-        float craftItemDropRate = player.getRates().getDropRate() * craftItemDropPercentage / 100F;
+        if(templates != null)
+        {
+            int OrangeDrops    = 0;
+            int    GoldDrops = 0;
+            int    BlueDrops = 0;
+            int Hearts = 0;
+            
+            float playerDropRate = player.getRates().getDropRate();
+            float normalDropRate = playerDropRate * normalDropPercentage / 100F;
+            float craftItemDropRate = playerDropRate * craftItemDropPercentage / 100F;
+            Map<ItemCategory, Double> categoryChances = new HashMap<ItemCategory, Double>();
 
-        if (templates != null) {
-            for (DropTemplate dropTemplate : templates) {
+            QuestStateList questStates = player.getQuestStateList();
+            for(DropTemplate dropTemplate : templates)
+            {
                 DropItem dropItem = new DropItem(dropTemplate);
-                if (dropTemplate.getItemId() >= 152000000 && dropTemplate.getItemId() < 153000000)
-                    dropItem.calculateCount(craftItemDropRate);
+                if (!DropConfig.DISABLE_DROP_REDUCTION && npc.getObjectTemplate().getNpcType() != NpcType.CHEST) 
+                {
+                    TIntArrayList questIds = QuestEngine.getInstance().getQuestsForCollectItem(dropTemplate.getItemId());
+                    normalDropRate = playerDropRate * normalDropPercentage / 100F;
+                    craftItemDropRate = playerDropRate * craftItemDropPercentage / 100F;
+                    
+                    for (int index = 0; index < questIds.size(); index++)
+                    {
+                        int questId = questIds.get(index);
+                        QuestState qs = questStates.getQuestState(questId);
+                        int maxRepeat = DataManager.QUEST_DATA.getQuestById(questId).getMaxRepeatCount();
+                        if (qs == null || qs.getStatus() != QuestStatus.COMPLETE || qs.canRepeat(maxRepeat))
+                        {
+                            // set drop rates to usual if quest is not complete
+                            craftItemDropRate = normalDropRate = playerDropRate;
+                            break;
+                        }
+                    }
+                }
+                
+                float calculatedRate = 0;
+                ItemTemplate dropListItems = ItemService.getItemTemplate(dropTemplate.getItemId());
+                if (dropListItems == null)
+                    continue;
+                
+                ItemCategory category = dropListItems.getItemCategory();
+                if (DropConfig.ITEMCATEGORY_RESTRICTION_ENABLED)
+                {
+                    if (categoryChances.containsKey(category))
+                        calculatedRate = (float)(-categoryChances.get(category)) / 100F;
+                }
+                
+                if(dropTemplate.getItemId() >= 152000000 && dropTemplate.getItemId() < 153000000)
+                {
+                    calculatedRate += craftItemDropRate;
+                    dropItem.calculateCount(player, npc.getNpcId(), calculatedRate);
+                }
+                else if (category == ItemCategory.HEART)
+                {
+                    calculatedRate += normalDropRate * 10F;
+                    dropItem.calculateCount(player, npc.getNpcId(), calculatedRate);                    
+                }
                 else
-                    dropItem.calculateCount(normalDropRate);
+                {
+                    calculatedRate += normalDropRate;
+                    dropItem.calculateCount(player, npc.getNpcId(), calculatedRate);
+                }
 
-                if (dropItem.getCount() > 0) {
-                    if (dropTemplate.getItemId() == 182400001) {
+                if(dropItem.getCount() > 0)
+                {
+                    if (DropConfig.ITEMCATEGORY_RESTRICTION_ENABLED)
+                    {
+                        double newChance = dropItem.getLootChance();
+                        if (categoryChances.containsKey(category))
+                        {
+                            newChance += categoryChances.get(category);
+                            if (newChance > calculatedRate * 100)
+                                continue;
+                        }
+                        categoryChances.put(dropListItems.getItemCategory(), newChance);
+                    }
+                    
+                    if (dropTemplate.getItemId() == 182400001)
+                    {
                         dropItem.setCount(dropItem.getCount() * player.getRates().getKinahRate());
                     }
-                    droppedItems.add(dropItem);
+                    
+                    if (category == ItemCategory.HEART)
+                    {
+                        // Creatures have only 1 heart ;)
+                        if (Hearts > 0)
+                            continue;
+                        Hearts++;
+                    }
+                    
+                    if(DropConfig.DROPQUANTITY_RESTRICTION_ENABLED)
+                    {
+                        if(dropListItems.getItemQuality() == ItemQuality.LEGEND)
+                        {
+                            if(BlueDrops >= DropConfig.DROPQUANTITY_RESTRICTION_BLUE)
+                                continue;
+                            else
+                            {
+                                BlueDrops++;
+                                droppedItems.add(dropItem);
+                            }
+                        }
+                        else if(dropListItems.getItemQuality() == ItemQuality.UNIQUE)
+                        {
+                            if(GoldDrops >= DropConfig.DROPQUANTITY_RESTRICTION_GOLD)
+                                continue;
+                            else
+                            {
+                                GoldDrops++;
+                                droppedItems.add(dropItem);
+                            }
+                        }
+                        else if(dropListItems.getItemQuality() == ItemQuality.EPIC)
+                        {
+                            if(OrangeDrops >= DropConfig.DROPQUANTITY_RESTRICTION_ORANGE)
+                                continue;
+                            else
+                            {
+                                OrangeDrops++;
+                                droppedItems.add(dropItem);
+                            }
+                        }
+                        else
+                            droppedItems.add(dropItem);
+                    }
+                    else
+                        droppedItems.add(dropItem);
                 }
             }
-        }
-
-
-        if (CustomConfig.SCORING_DROP_ENABLE) {
-            DropItem                        DropItemType;
-            int                             dropPoints                  = getDropPoints(npc);
-            Set<DropItem>                   finalDroppedItems           = new HashSet<DropItem>();
-            Map<ItemQuality, Set<DropItem>> dropByQuality               = new FastMap<ItemQuality, Set<DropItem>>();
-
-            ItemQuality[] qq = ItemQuality.values();
-            for ( int a = 0 ; a < qq.length ; a++)
-                dropByQuality.put(qq[a], new HashSet<DropItem>());
-
-            for (DropItem drop : droppedItems) {
-                ItemTemplate tpl = ItemService.getItemTemplate(drop.getDropTemplate().getItemId());
-                if (tpl == null)
-                    continue;
-                ItemQuality quality = tpl.getItemQuality();
-                if (quality == null)
-                    continue;
-                dropByQuality.get(quality).add(drop);
-            }
-
-            ItemQuality[]    itemQualities   = {ItemQuality.MYTHIC, ItemQuality.EPIC, ItemQuality.UNIQUE, ItemQuality.LEGEND, ItemQuality.RARE, ItemQuality.COMMON, ItemQuality.JUNK};
-
-            for ( int i = 0 ; i < itemQualities.length ; i++ ) {
-                List<DropItem> items      = new ArrayList<DropItem>();
-                if (!dropByQuality.containsKey(itemQualities[i])) {
-                    continue;
-                }
-                items.addAll(dropByQuality.get(itemQualities[i]));
-                int itemLimit       = getDropLimitByQuality(        itemQualities[i]);
-                int itemPoints      = getDropItemPointsByQuality(   itemQualities[i]);
-                int itemCount       = items.size();
-
-                while ((itemLimit > 0) && (dropPoints >= itemPoints) && (itemCount > 0)) {
-
-                    int tmpKey  = Rnd.get(0, items.size() - 1);
-
-                    finalDroppedItems.add(items.get(tmpKey));
-
-                    dropPoints  = dropPoints - itemPoints;
-
-                    itemLimit--;
-                    itemCount--;
-                }
-            }
-            droppedItems = finalDroppedItems;
+            
+            templates.clear();
+            templates = null;
         }
         QuestService.getQuestDrop(droppedItems, npc, player);
 
@@ -285,19 +438,25 @@ public class DropService {
         // TODO: Player should not be null
         if (player != null) {
             List<Player> dropPlayers = new ArrayList<Player>();
-            if (player.isInAlliance()) {
-                // Register drop to all alliance members.
-                List<Integer> dropMembers = new ArrayList<Integer>();
-                for (Player member : players) {
-                    dropMembers.add(member.getObjectId());
-                    dropPlayers.add(member);
-                }
-                dropRegistrationMap.put(npcUniqueId, new DropNpc(dropMembers, npcUniqueId));
+            if (player.isInAlliance())
+            {
+                dropRegistrationMap.put(npcUniqueId, new DropNpc(AllianceService.getInstance().getMembersToRegistrateByRules(player,
+                    player.getPlayerAlliance(), npc), npcUniqueId));
                 // Fetch players in range
                 DropNpc dropNpc = dropRegistrationMap.get(npcUniqueId);
                 dropNpc.setInRangePlayers(players);
                 dropNpc.setGroupSize(dropNpc.getInRangePlayers().size());
-            } else if (player.isInGroup()) {
+
+                for(PlayerAllianceMember member : player.getPlayerAlliance().getMembers())
+                {
+                    Player allianceMember = member.getPlayer();
+
+                    if(allianceMember != null)
+                        if(dropNpc.containsKey(allianceMember.getObjectId()))
+                            dropPlayers.add(allianceMember);
+                }
+            }
+            else if (player.isInGroup()) {
                 dropRegistrationMap.put(npcUniqueId, new DropNpc(GroupService.getInstance().getMembersToRegistrateByRules(player,
                         player.getPlayerGroup(), npc), npcUniqueId));
                 //Fetch players in range
@@ -305,8 +464,10 @@ public class DropService {
                 dropNpc.setInRangePlayers(players);
                 dropNpc.setGroupSize(dropNpc.getInRangePlayers().size());
                 for (Player member : player.getPlayerGroup().getMembers()) {
-                    if (dropNpc.containsKey(member.getObjectId()))
-                        dropPlayers.add(member);
+                    if(member != null && member.isOnline()) {
+                        if (dropNpc.containsKey(member.getObjectId()))
+                            dropPlayers.add(member);
+                    }
                 }
             } else {
                 List<Integer> singlePlayer = new ArrayList<Integer>();
@@ -379,7 +540,7 @@ public class DropService {
      * @param close
      */
     public void requestDropList(Player player, int npcId, boolean close) {
-        if (!dropRegistrationMap.containsKey(npcId))
+        if (player == null || !dropRegistrationMap.containsKey(npcId))
             return;
 
         DropNpc dropNpc = dropRegistrationMap.get(npcId);
@@ -457,9 +618,9 @@ public class DropService {
                     // do nothing
                 }
             };
-            player.getResponseRequester().putRequest(SM_QUESTION_WINDOW.STR_CONFIRM_LOOT, rrh);
-            PacketSendUtility.sendPacket(player, new SM_QUESTION_WINDOW(SM_QUESTION_WINDOW.STR_CONFIRM_LOOT, 0,
-                    new DescriptionId(itemTemplate.getNameId())));
+            SM_QUESTION_WINDOW question = new SM_QUESTION_WINDOW(SM_QUESTION_WINDOW.STR_CONFIRM_LOOT, 0,
+                new DescriptionId(itemTemplate.getNameId()));
+            player.getResponseRequester().sendRequest(SM_QUESTION_WINDOW.STR_CONFIRM_LOOT, rrh, question);
         } else
             continueRequestDropItem(player, dropItems, dropNpc, requestedItem);
     }
@@ -520,7 +681,7 @@ public class DropService {
                     if (player.isInGroup())
                         requestedItem.setDistributionType(player.getPlayerGroup().getLootGroupRules().getQualityRule(quality));
                     else // TODO alliances don't have loot rules yet.
-                        requestedItem.setDistributionType(0);
+                        requestedItem.setDistributionType(player.getPlayerAlliance().getLootAllianceRules().getQualityRule(quality));
 
                     if (requestedItem.getDistributionType() > 1) {
                         int groupAllianceId = 0;
@@ -541,6 +702,7 @@ public class DropService {
                     || requestedItem.isFreeForAll()
                     || (requestedItem.isItemWonNotCollected() && player == requestedItem.getWinningPlayer())) {
                 currentDropItemCount = ItemService.addItem(player, itemId, currentDropItemCount);
+                requestedItem.setWinningPlayer(null);
             }
 
             if (currentDropItemCount == 0) {
@@ -663,11 +825,14 @@ public class DropService {
         requestedItem.setSpecialDropTimeout(future);
 
         // Send the packet to all members
-        for (Player member : dropNpc.getInRangePlayers()) {
-            if (member.isOnline()) {
+        SM_GROUP_LOOT sgl = new SM_GROUP_LOOT(groupAllianceId, itemId, requestedItem.getIndex(), dropNpc.getNpcId(),
+            requestedItem.getDistributionType());
+        for(Player member : dropNpc.getInRangePlayers())
+        {
+            if(member.isOnline())
+            {
                 requestedItem.addSpecialPlayer(member);
-                PacketSendUtility.sendPacket(member, new SM_GROUP_LOOT(groupAllianceId, itemId,
-                        requestedItem.getIndex(), dropNpc.getNpcId(), requestedItem.getDistributionType()));
+                PacketSendUtility.sendPacket(member, sgl);
             }
         }
     }
@@ -711,7 +876,7 @@ public class DropService {
 
     /**
      * Called from CM_GROUP_LOOT to handle rolls
-     *
+     * 
      * @param player
      * @param groupAllianceId
      * @param roll
@@ -719,28 +884,49 @@ public class DropService {
      * @param itemIndex
      * @param npcId
      */
-    public void handleRoll(Player player, int groupAllianceId, int roll, int itemId, int itemIndex, int npcId) {
-        if (dropRegistrationMap.get(npcId) == null)
+    public void handleRoll(Player player, int groupAllianceId, int roll, int itemId, int itemIndex, int npcId,
+        int distibutionType)
+    {
+        if(dropRegistrationMap.get(npcId) == null)
             return;
 
-        switch (roll) {
+        switch(roll)
+        {
             case 0:
+                SM_GROUP_LOOT sglGiveUp = new SM_GROUP_LOOT(groupAllianceId, itemId, itemIndex, npcId, distibutionType,
+                    player.getObjectId(), 0);
+                PacketSendUtility.sendPacket(player, sglGiveUp);
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DICE_GIVEUP_ME());
-                if (player.isInGroup() || player.isInAlliance()) {
-                    for (Player member : dropRegistrationMap.get(npcId).getInRangePlayers()) {
-                        if (!player.equals(member))
-                            PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_DICE_GIVEUP_OTHER(player.getName()));
+                if(player.isInGroup() || player.isInAlliance())
+                {
+                    SM_SYSTEM_MESSAGE giveup = SM_SYSTEM_MESSAGE.STR_MSG_DICE_GIVEUP_OTHER(player.getName());
+                    for(Player member : dropRegistrationMap.get(npcId).getInRangePlayers())
+                    {
+                        if(!player.equals(member))
+                        {
+                            PacketSendUtility.sendPacket(member, sglGiveUp);
+                            PacketSendUtility.sendPacket(member, giveup);
+                        }
                     }
                 }
                 handleSpecialLoot(player, groupAllianceId, 0, itemId, itemIndex, npcId);
                 break;
             case 1:
                 int luck = Rnd.get(1, 100);
+                SM_GROUP_LOOT sglRoll = new SM_GROUP_LOOT(groupAllianceId, itemId, itemIndex, npcId, distibutionType,
+                    player.getObjectId(), luck);
+                PacketSendUtility.sendPacket(player, sglRoll);
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DICE_RESULT_ME(luck));
-                if (player.isInGroup() || player.isInAlliance()) {
-                    for (Player member : dropRegistrationMap.get(npcId).getInRangePlayers()) {
-                        if (!player.equals(member))
-                            PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_DICE_RESULT_OTHER(player.getName(), luck));
+                if(player.isInGroup() || player.isInAlliance())
+                {
+                    SM_SYSTEM_MESSAGE sysMsgRoll = SM_SYSTEM_MESSAGE.STR_MSG_DICE_RESULT_OTHER(player.getName(), luck);
+                    for(Player member : dropRegistrationMap.get(npcId).getInRangePlayers())
+                    {
+                        if(!player.equals(member))
+                        {
+                            PacketSendUtility.sendPacket(member, sglRoll);
+                            PacketSendUtility.sendPacket(member, sysMsgRoll);
+                        }
                     }
                 }
                 handleSpecialLoot(player, groupAllianceId, luck, itemId, itemIndex, npcId);
@@ -828,7 +1014,7 @@ public class DropService {
 
             switch (requestedItem.getDistributionType()) {
                 case 2:
-                    winningRollActions(player, itemId, npcId);
+                    winningRollActions(groupAllianceId, player, itemId, npcId, requestedItem);
                     break;
                 case 3:
                     winningBidActions(player, itemId, npcId, requestedItem.getHighestValue());
@@ -859,35 +1045,49 @@ public class DropService {
         sendBidRollPackets(groupAllianceId);
     }
 
-    /**
+    /** 
      * @param Displays messages when item gained via ROLLED
-     */
-    private void winningRollActions(Player player, int itemId, int npcId) {
+     */    
+    private void winningRollActions(int groupAllianceId, Player player, int itemId, int npcId, DropItem requestedItem)
+    {
         DescriptionId itemNameId = new DescriptionId(ItemService.getItemTemplate(itemId).getNameId());
+        SM_GROUP_LOOT sglWinner = new SM_GROUP_LOOT(groupAllianceId, itemId, requestedItem.getIndex(), npcId,
+            requestedItem.getDistributionType(), player.getObjectId());
+        PacketSendUtility.sendPacket(player, sglWinner);
         PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_LOOT_GET_ITEM_ME(itemNameId));
-
-        if (player.isInGroup() || player.isInAlliance()) {
-            for (Player member : dropRegistrationMap.get(npcId).getInRangePlayers()) {
-                if (!player.equals(member))
-                    PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_LOOT_GET_ITEM_OTHER(player.getName(),
-                            itemNameId));
+        
+        if(player.isInGroup() || player.isInAlliance())
+        {
+            SM_SYSTEM_MESSAGE msgWinner = SM_SYSTEM_MESSAGE.STR_MSG_LOOT_GET_ITEM_OTHER(player.getName(), itemNameId);
+            for(Player member : dropRegistrationMap.get(npcId).getInRangePlayers())
+            {
+                if(!player.equals(member))
+                {
+                    PacketSendUtility.sendPacket(member, sglWinner);
+                    PacketSendUtility.sendPacket(member, msgWinner);
+                }
             }
         }
     }
 
     /**
      * @param Displays messages/removes and shares kinah when item gained via BID
-     */
-    private void winningBidActions(Player player, int itemId, int npcId, long highestValue) {
+     */    
+    private void winningBidActions(Player player, int itemId, int npcId, long highestValue)
+    {
         DropNpc dropNpc = dropRegistrationMap.get(npcId);
+        
+        if((player.isInGroup() || player.isInAlliance()) && dropNpc.getGroupSize() > 1)
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_PAY_ACCOUNT_ME(highestValue));
+            if(!player.getInventory().decreaseKinah(highestValue))
+                return;
 
-        PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_PAY_ACCOUNT_ME(highestValue));
-        player.getInventory().decreaseKinah(highestValue);
-
-        if (player.isInGroup() || player.isInAlliance()) {
             long distributeKinah = highestValue / (dropNpc.getGroupSize() - 1);
-            for (Player member : dropNpc.getInRangePlayers()) {
-                if (!player.equals(member)) {
+            for(Player member : dropNpc.getInRangePlayers())
+            {
+                if(!player.equals(member))
+                {
                     PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_PAY_ACCOUNT_OTHER(player.getName(), highestValue));
                     member.getInventory().increaseKinah(distributeKinah);
                     PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_MSG_PAY_DISTRIBUTE(highestValue, dropNpc.getGroupSize() - 1, distributeKinah));

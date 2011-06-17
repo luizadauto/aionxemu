@@ -99,7 +99,7 @@ public class CM_MANASTONE extends AionClientPacket {
 
                 if (manastone.getItemTemplate().getItemCategory() != actionCategory)
                     return;
-                if (manastone != null && targetItem != null && action.canAct(player, manastone, targetItem)) {
+                if (manastone != null && targetItem != null && action.canAct(player, manastone, targetItem, targetFusedSlot)) {
                     int msID = Math.round(manastone.getItemTemplate().getTemplateId()/1000000);
                     int tID = Math.round(targetItem.getItemTemplate().getTemplateId()/1000000);
                     if((msID != 167 && msID != 166) || tID >= 120)
@@ -116,7 +116,8 @@ public class CM_MANASTONE extends AionClientPacket {
                     return;
                 }
                 if (npc != null) {
-                    player.getInventory().decreaseKinah(price);
+                    if(!player.getInventory().decreaseKinah(price))
+                        return;
                     if (targetFusedSlot == 1)
                         ItemService.removeManastone(player, targetItemUniqueId, slotNum);
                     else

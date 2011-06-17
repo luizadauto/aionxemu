@@ -1,7 +1,7 @@
 package gameserver.network.aion.clientpackets;
 
 import gameserver.model.gameobjects.player.Player;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.serverpackets.SM_FIND_GROUP;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;

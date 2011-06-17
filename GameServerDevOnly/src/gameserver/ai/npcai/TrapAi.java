@@ -31,7 +31,7 @@ import gameserver.skill.SkillEngine;
 import gameserver.skill.model.Skill;
 import gameserver.utils.MathUtil;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 /**
  * @author ATracer

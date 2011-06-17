@@ -19,6 +19,7 @@ package gameserver.network.aion.clientpackets;
 
 import gameserver.configs.main.CustomConfig;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.serverpackets.SM_PONG;
 import org.apache.log4j.Logger;
 
@@ -69,7 +70,9 @@ public class CM_PING extends AionClientPacket {
                 if (CustomConfig.KICK_SPEEDHACK) {
                     if (!firstPing) {
                         log.info("[AUDIT] possible client timer cheat kicking player: " + pingInterval + " by " + name + ", ip=" + ip);
-                        getConnection().getActivePlayer().getClientConnection().close(true);
+                        AionConnection connection = getConnection().getActivePlayer().getClientConnection();
+                        if (connection != null)
+                            connection.close(true);
                         return;
                     }
                     firstPing = false;

@@ -21,6 +21,7 @@ import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.network.aion.serverpackets.SM_TARGET_SELECTED;
 import gameserver.network.aion.serverpackets.SM_TARGET_UPDATE;
 import gameserver.utils.PacketSendUtility;
@@ -34,19 +35,20 @@ import gameserver.world.World;
  *
  * @author SoulKeeper, Sweetkr
  */
-public class CM_TARGET_SELECT extends AionClientPacket {
+public class CM_TARGET_SELECT extends AionClientPacket
+{
     /**
      * Target object id that client wants to select or 0 if wants to unselect
      */
-    private int targetObjectId;
-    private int type;
+    private int    targetObjectId;
+    private int    type;
 
     /**
      * Constructs new client packet instance.
-     *
      * @param opcode
      */
-    public CM_TARGET_SELECT(int opcode) {
+    public CM_TARGET_SELECT(int opcode)
+    {
         super(opcode);
     }
 
@@ -56,7 +58,8 @@ public class CM_TARGET_SELECT extends AionClientPacket {
      * c - selection type;
      */
     @Override
-    protected void readImpl() {
+    protected void readImpl()
+    {
         targetObjectId = readD();
         type = readC();
     }
@@ -65,24 +68,41 @@ public class CM_TARGET_SELECT extends AionClientPacket {
      * Do logging
      */
     @Override
-    protected void runImpl() {
+    protected void runImpl()
+    {
         Player player = getConnection().getActivePlayer();
-        if (player == null)
+        if(player == null)
             return;
 
         AionObject obj = World.getInstance().findAionObject(targetObjectId);
-        if (obj != null && obj instanceof VisibleObject) {
-            if (type == 1) {
-                if (((VisibleObject) obj).getTarget() == null)
+        if(obj != null && obj instanceof VisibleObject)
+        {
+            //select targets target
+            if(type == 1)
+            {
+                if(((VisibleObject) obj).getTarget() == null)
+                {
+                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_ASSISTKEY_NO_USER);
                     return;
-                player.setTarget(((VisibleObject) obj).getTarget());
-            } else {
+                }
+                if (player.canSee(((VisibleObject)obj).getTarget()))
+                    player.setTarget(((VisibleObject) obj).getTarget());
+                else
+                {
+                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_ASSISTKEY_INCORRECT_TARGET);
+                    return;
+                }
+            }
+            else
+            {
                 player.setTarget(((VisibleObject) obj));
             }
-        } else {
+        }
+        else
+        {
             player.setTarget(null);
         }
         sendPacket(new SM_TARGET_SELECTED(player));
         PacketSendUtility.broadcastPacket(player, new SM_TARGET_UPDATE(player));
-	}
+    }
 }

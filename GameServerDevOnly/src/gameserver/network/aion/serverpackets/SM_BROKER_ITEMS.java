@@ -125,7 +125,7 @@ public class SM_BROKER_ITEMS extends AionServerPacket {
                     writeD(buf, 0x00); //unk
                     writeD(buf, 0x00); //unk
                     writeC(buf, 0x00); //unk
-                    writeS(buf, ""); //creator
+                    writeS(buf, item.getItem().getCrafterName()); //creator
                 }
                 break;
 
@@ -199,7 +199,7 @@ public class SM_BROKER_ITEMS extends AionServerPacket {
         writeD(buf, 0);
         writeD(buf, 0);
         writeS(buf, item.getSeller());
-        writeS(buf, item.getItem().getItemCreator()); //creator
+        writeS(buf, item.getItem().getCrafterName()); //creator
     }
 
     private void writeItemStones(ByteBuffer buf, Item item) {
@@ -254,6 +254,6 @@ public class SM_BROKER_ITEMS extends AionServerPacket {
         writeD(buf, 0);
         writeH(buf, 0);
         writeS(buf, item.getSeller());
-        writeS(buf, item.getItem().getItemCreator()); //creator
+        writeS(buf, item.getItem().getCrafterName()); //creator
     }
 }

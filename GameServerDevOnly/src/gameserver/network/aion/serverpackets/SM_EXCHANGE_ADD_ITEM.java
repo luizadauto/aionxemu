@@ -39,7 +39,8 @@ public class SM_EXCHANGE_ADD_ITEM extends InventoryPacket {
     }
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
 
         writeC(buf, action); // 0 -self 1-other
 
@@ -47,14 +48,27 @@ public class SM_EXCHANGE_ADD_ITEM extends InventoryPacket {
 
         ItemTemplate itemTemplate = item.getItemTemplate();
 
-        if (itemTemplate.getTemplateId() == ItemId.KINAH.value()) {
-            writeKinah(buf, item, true);
-        } else if (itemTemplate.isWeapon()) {
-            writeWeaponInfo(buf, item, true);
-        } else if (itemTemplate.isArmor()) {
-            writeArmorInfo(buf, item, true, false, false);
-        } else {
-            writeGeneralItemInfo(buf, item, false, false);
+        if(itemTemplate.getTemplateId() == ItemId.KINAH.value())
+        {
+            writeKinah(buf, item);
+            writeC(buf, 0);
+        }
+        else if (itemTemplate.isWeapon())
+        {
+            writeWeaponInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+            writeC(buf, 0);
+        }
+        else if (itemTemplate.isArmor())
+        {
+            writeArmorInfo(buf,item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+            writeC(buf, 0);
+        }
+        else
+        {                
+            writeGeneralItemInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
             writeC(buf, 0);
         }
     }

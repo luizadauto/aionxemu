@@ -14,31 +14,115 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package gameserver.quest.model;
+
+import gameserver.model.gameobjects.player.QuestStateList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Rolandas
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "QuestStartConditions", propOrder = {
-        "condition"
-})
-public class QuestStartConditions {
+@XmlType(name = "QuestStartConditions")
+public class QuestStartConditions
+{
     @XmlElement(name = "condition")
-    protected List<QuestStartCondition> condition;
+    protected List<QuestStartCondition> conditions;
 
-    public List<QuestStartCondition> getCondition() {
-        if (condition == null) {
-            condition = new ArrayList<QuestStartCondition>();
+    public List<QuestStartCondition> getConditions() {
+        if (conditions == null) {
+            conditions = new ArrayList<QuestStartCondition>();
         }
-        return this.condition;
+        return this.conditions;
     }
+
+    public static class Finished implements IQuestConditionChecker
+    {
+        @Override
+        public boolean checkFailure(QuestState questState, QuestStep questStep)
+        {
+            return questState == null || questState.getStatus() != QuestStatus.COMPLETE ||
+                   questStep.rewardNo != 0 && questStep.rewardNo != questState.getQuestVarById(0);
+        }
+    }
+
+    public static class Unfinished implements IQuestConditionChecker
+    {
+        @Override
+        public boolean checkFailure(QuestState questState, QuestStep questStep)
+        {
+            return questState != null && questState.getStatus() == QuestStatus.COMPLETE;
+        }
+    }
+
+    public static class Acquired implements IQuestConditionChecker
+    {
+        @Override
+        public boolean checkFailure(QuestState questState, QuestStep questStep)
+        {
+            return questState == null || questState.getStatus() == QuestStatus.NONE ||
+                   questState.getStatus() == QuestStatus.LOCKED;
+        }
+    }
+
+    public static class NoAcquired implements IQuestConditionChecker
+    {
+        @Override
+        public boolean checkFailure(QuestState questState, QuestStep questStep)
+        {
+            return questState != null && (questState.getStatus() == QuestStatus.START ||
+                questState.getStatus() == QuestStatus.REWARD);
+        }
+    }
+
+    public boolean Check(QuestStateList questStateList, IQuestConditionChecker delegate)
+    {
+        if (this.conditions.size() == 0)
+            return true;
+        
+        boolean matchedAny = false;
+        for(QuestStartCondition conditions : this.conditions)
+        {
+            boolean matchedAll = true;
+            for (QuestStep step : conditions.getQuests())
+            {
+                QuestState qs = questStateList.getQuestState(step.getQuestId());
+                matchedAll &= !delegate.checkFailure(qs, step);
+            }
+            if (matchedAll) 
+            {
+                matchedAny = true;
+                break;
+            }
+        }
+        return matchedAny;
+    }
+    
+    public List<Integer> Verify(QuestStateList questStateList, IQuestConditionChecker delegate)
+    {
+        List<Integer> failedQuests = new ArrayList<Integer>();
+        if (this.conditions.size() == 0)
+            return failedQuests;
+        
+        for(QuestStartCondition conditions : this.conditions)
+        {
+            for (QuestStep step : conditions.getQuests())
+            {
+                QuestState qs = questStateList.getQuestState(step.getQuestId());
+                boolean matched = !delegate.checkFailure(qs, step);
+                if (!matched)
+                    failedQuests.add(step.getQuestId());
+            }
+        }
+        return failedQuests;        
+    }
+
 }

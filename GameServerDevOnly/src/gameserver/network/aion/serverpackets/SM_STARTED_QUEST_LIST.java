@@ -50,21 +50,19 @@ public class SM_STARTED_QUEST_LIST extends AionServerPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
-			
-		writeH(buf, 0x01); // 2.1 
-		writeH(buf, (-1*startedQuestList.size()) & 0xFFFF);
-        // writeC(buf, startedQuestList.size());
-        for (QuestState qs : startedQuestList) // quest list size ( max is 25 )
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
+        writeH(buf, 0x01);
+        writeH(buf, (-1*startedQuestList.size()) & 0xFFFF);
+        for (QuestState qs : startedQuestList) // quest list size ( retail max is 30 )
         {
             writeH(buf, qs.getQuestId());
             writeH(buf, 0);
-			writeC(buf, qs.getStatus().value());
+            writeC(buf, qs.getStatus().value());
             writeD(buf, qs.getQuestVars().getQuestVars());
             writeC(buf, 0);
 
         }
-        		
     }
 
 }

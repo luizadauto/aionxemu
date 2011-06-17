@@ -38,12 +38,18 @@ import gameserver.task.AbstractFIFOPeriodicTaskManager;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.world.World;
+
 import javolution.util.FastMap;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author kosyachok
@@ -334,7 +340,7 @@ public class BrokerService {
             return;
         }
 
-        if (buyingItem == null || buyingItem.isSold() || buyingItem.isSettled()) {
+        if (buyingItem.isSold() || buyingItem.isSettled()) {
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300647, new DescriptionId(buyingItem.getItem().getNameID())));
             return; // TODO: Message "this item has already been bought, refresh page please."
         }
@@ -485,7 +491,9 @@ public class BrokerService {
         }
 
         if (itemCount < itemToRegister.getItemCount() && itemCount > 0) {
-            Item newItem = ItemService.newItem(itemToRegister.getItemTemplate().getTemplateId(), itemCount);
+            Item newItem = ItemService.newItem(itemToRegister.getItemTemplate().getTemplateId(),
+                itemCount, itemToRegister.getCrafterName(), playerId, itemToRegister.getTempItemTimeLeft(),
+                itemToRegister.getTempTradeTimeLeft());
             player.getInventory().decreaseItemCount(itemToRegister, itemCount);
             PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(itemToRegister));
             itemToRegister = newItem;
@@ -557,7 +565,7 @@ public class BrokerService {
 
         synchronized (brokerItem) {
             Item item = player.getInventory().putToBag(brokerItem.getItem());
-            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(Collections.singletonList(item)));
+            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(item, true));
             PacketSendUtility.sendPacket(player, new SM_BROKER_ITEMS(brokerItemId, 4));
             brokerItem.setPersistentState(PersistentState.DELETED);
             saveManager.add(new BrokerOpSaveTask(brokerItem));

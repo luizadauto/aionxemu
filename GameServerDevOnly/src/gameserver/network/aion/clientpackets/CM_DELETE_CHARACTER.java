@@ -18,7 +18,7 @@
 package gameserver.network.aion.clientpackets;
 
 import com.aionemu.commons.database.dao.DAOManager;
-import gameserver.configs.main.CustomConfig;
+import gameserver.configs.main.GSConfig;
 import gameserver.dao.PlayerPasskeyDAO;
 import gameserver.model.account.CharacterPasskey.ConnectType;
 import gameserver.model.account.PlayerAccountData;
@@ -72,7 +72,7 @@ public class CM_DELETE_CHARACTER extends AionClientPacket {
         PlayerAccountData playerAccData = client.getAccount().getPlayerAccountData(chaOid);
         if (playerAccData != null && !playerAccData.isLegionMember()) {
             // passkey check
-            if (CustomConfig.PASSKEY_ENABLE && !client.getAccount().getCharacterPasskey().isPass()) {
+            if (GSConfig.PASSKEY_ENABLE && !client.getAccount().getCharacterPasskey().isPass()) {
                 client.getAccount().getCharacterPasskey().setConnectType(ConnectType.DELETE);
                 client.getAccount().getCharacterPasskey().setObjectId(chaOid);
                 boolean isExistPasskey = DAOManager.getDAO(PlayerPasskeyDAO.class).existCheckPlayerPasskey(client.getAccount().getId());

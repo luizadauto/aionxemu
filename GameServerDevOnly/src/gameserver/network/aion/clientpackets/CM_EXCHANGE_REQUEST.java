@@ -63,6 +63,9 @@ public class CM_EXCHANGE_REQUEST extends AionClientPacket {
                 }
                 sendPacket(SM_SYSTEM_MESSAGE.REQUEST_TRADE(targetPlayer.getName()));
 
+                ExchangeService.getInstance().cancelExchange(activePlayer);
+                ExchangeService.getInstance().cancelExchange(targetPlayer);
+
                 RequestResponseHandler responseHandler = new RequestResponseHandler(activePlayer) {
                     @Override
                     public void acceptRequest(Creature requester, Player responder) {

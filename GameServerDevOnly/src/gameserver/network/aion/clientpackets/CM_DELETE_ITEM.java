@@ -121,7 +121,7 @@ public class CM_DELETE_ITEM extends AionClientPacket {
                 }
             }
         }
-        player.getInventory().removeFromBag(resultItem, true);
-        sendPacket(new SM_DELETE_ITEM(objId));
+        if(player.getInventory().removeFromBag(resultItem, true))
+            sendPacket(new SM_DELETE_ITEM(objId));
     }
 }

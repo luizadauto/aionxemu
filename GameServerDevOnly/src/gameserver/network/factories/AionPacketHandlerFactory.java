@@ -180,7 +180,6 @@ public class AionPacketHandlerFactory
         addPacket(new CM_CHARACTER_PASSKEY(0xC3), State.AUTHED);// 2.1
         addPacket(new CM_QUIT(0xF1), State.AUTHED, State.IN_GAME);//  2,1
         addPacket(new CM_VERSION_CHECK(0xF2), State.CONNECTED);// 2.1
-        addPacket(new CM_CHARACTER_EDIT(0xF5), State.AUTHED);//  2.1 testing
         addPacket(new CM_CHARACTER_EDIT(0xF5), State.AUTHED);// 2.1
         addPacket(new CM_MAY_QUIT(0xF6), State.AUTHED, State.IN_GAME);// 2.1
         addPacket(new CM_REVIVE(0xF7), State.IN_GAME);//  2.1

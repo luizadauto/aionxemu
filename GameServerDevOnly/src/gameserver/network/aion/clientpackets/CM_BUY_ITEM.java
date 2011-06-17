@@ -17,6 +17,7 @@
 
 package gameserver.network.aion.clientpackets;
 
+import gameserver.configs.main.GSConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.Npc;
@@ -26,11 +27,17 @@ import gameserver.model.templates.TradeListTemplate;
 import gameserver.model.templates.item.ItemTemplate;
 import gameserver.model.trade.TradeItem;
 import gameserver.model.trade.TradeList;
+import gameserver.model.trade.TradeListType;
+import gameserver.model.trade.TradeRepurchaseList;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.quest.QuestEngine;
 import gameserver.quest.model.QuestCookie;
 import gameserver.services.PrivateStoreService;
+import gameserver.services.PurchaseLimitService;
+import gameserver.services.RepurchaseService;
 import gameserver.services.TradeService;
+import gameserver.utils.PacketSendUtility;
 import gameserver.utils.i18n.CustomMessageId;
 import gameserver.utils.i18n.LanguageHandler;
 import gameserver.world.World;
@@ -51,13 +58,16 @@ public class CM_BUY_ITEM extends AionClientPacket {
     private int itemSlot = 0;
     private int count;
 
-    public int unk2;
+    @SuppressWarnings("unused")
+    private int                    unk2;
+    private Player                player;
+    private TradeList tradeList;
+    private TradeRepurchaseList    repurchaseList;
 
     public CM_BUY_ITEM(int opcode) {
         super(opcode);
     }
 
-    private TradeList tradeList;
 
     /**
      * {@inheritDoc}
@@ -65,10 +75,22 @@ public class CM_BUY_ITEM extends AionClientPacket {
     @Override
     protected void readImpl() {
         sellerObjId = readD();
+        if(sellerObjId == 0)
+            return;
+
         unk1 = readH();
         amount = readH(); // total no of items
+        player = getConnection().getActivePlayer();
+        if (player == null)
+            return;
 
         tradeList = new TradeList();
+        tradeList.setSellerObjId(sellerObjId);
+
+        if(GSConfig.ENABLE_REPURCHASE) {
+            repurchaseList = new TradeRepurchaseList();
+        }
+
         tradeList.setSellerObjId(sellerObjId);
 
         for (int i = 0; i < amount; i++) {
@@ -94,6 +116,11 @@ public class CM_BUY_ITEM extends AionClientPacket {
             else if (unk1 == 0) {
                 tradeList.addSellItem(itemSlot, count);
             }
+            else if(unk1 == 2)
+            {
+                if(GSConfig.ENABLE_REPURCHASE)
+                    repurchaseList.addBuyItemRepurchase(itemId, player);
+            }
         }
     }
 
@@ -102,42 +129,69 @@ public class CM_BUY_ITEM extends AionClientPacket {
      */
     @Override
     protected void runImpl() {
-        Player player = getConnection().getActivePlayer();
+        if (player == null)
+            return;
+
         AionObject obj = World.getInstance().findAionObject(sellerObjId);
-		TradeListTemplate tlist = null;
-		Npc npc = null;
+        TradeListTemplate tlist = null;
+        Npc npc = null;
+        Player targetPlayer = null;
 
-        switch (unk1) {
-            case 0:
-                Player targetPlayer = (Player) obj;
-                tradeList = PrivateStoreService.sellStoreItem(targetPlayer, player, tradeList);
-                break;
+        try {
+            player.setTrading(true);
+            switch (unk1) {
+                case 0:
+                    Player targetPlayer = (Player) obj;
+                    targetPlayer.setTrading(true);
+                    tradeList = PrivateStoreService.sellStoreItem(targetPlayer, player, tradeList);
+                    break;
 
-            case 1:
-                TradeService.performSellToShop(player, tradeList);
-                break;
+                case 1:
+                    TradeService.performSellToShop(player, tradeList);
+                    break;
+                case 2:
+                    if(GSConfig.ENABLE_REPURCHASE)
+                        RepurchaseService.performBuyFromRepurchase(player, repurchaseList);
+                    break;
 
-            case 13:
-                TradeService.performBuyFromShop(player, tradeList);
-                break;
+                case 13:
+                    if(PurchaseLimitService.getInstance().addCache(obj, player, tradeList))
+                    {
+                        Npc npc = (Npc) World.getInstance().findAionObject(sellerObjId);
+                        TradeListTemplate tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
+                        if(tlist.getType() == TradeListType.KINAH)
+                            TradeService.performBuyFromShop(player, tradeList);
+                        else
+                            log.info("[CHEAT]Player: "+player.getName()+" abusing CM_BUY_ITEM!");
+                    }
+                    else
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400353));
+                    break;
 
-            case 14:
-                npc = (Npc) World.getInstance().findAionObject(sellerObjId);
-                tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
-                if (tlist.getCategory() == 1)
-                    TradeService.performBuyFromAbyssShop(player, tradeList);
-                break;
+                case 14:
+                    npc = (Npc) World.getInstance().findAionObject(sellerObjId);
+                    TradeListTemplate tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
+                    if(tlist.getType() == TradeListType.ABYSS)
+                        TradeService.performBuyFromAbyssShop(player, tradeList);
+                    break;
 
-            case 15:
-            	npc = (Npc) World.getInstance().findAionObject(sellerObjId);
-            	tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
-            	if (tlist.getCategory() == 3)
-            		TradeService.performBuyFromSpecialShop(player, tradeList);
-            	break;
+                case 15:
+                    npc = (Npc) World.getInstance().findAionObject(sellerObjId);
+                    TradeListTemplate elist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
+                    if(elist.getType() == TradeListType.EXTRA)
+                        TradeService.performBuyWithExtraCurrency(player, tradeList);
+                    break;
 
-            default:
-                log.info(String.format("Unhandle shop action unk1: %d", unk1));
-                break;
+                default:
+                    log.info(String.format("Unhandle shop action unk1: %d", unk1));
+                    break;
+            }
+        }
+        finally
+        {
+            if(targetPlayer != null)
+                targetPlayer.setTrading(false);
+            player.setTrading(false);
         }
 
         if (tradeList == null)

@@ -14,38 +14,42 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-package gameserver.services;
 
-import com.aionemu.commons.database.dao.DAOManager;
-import com.aionemu.commons.utils.Rnd;
-import gameserver.dao.InstanceTimeDAO;
-import gameserver.dataholders.DataManager;
-import gameserver.model.gameobjects.AionObject;
-import gameserver.model.gameobjects.VisibleObject;
-import gameserver.model.gameobjects.player.Player;
-import gameserver.model.group.PlayerGroup;
-import gameserver.model.templates.WorldMapTemplate;
-import gameserver.model.templates.portal.EntryPoint;
-import gameserver.model.templates.portal.PortalTemplate;
-import gameserver.model.templates.spawn.SpawnTemplate;
-import gameserver.spawnengine.SpawnEngine;
-import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
-import gameserver.world.World;
-import gameserver.world.WorldMap;
-import gameserver.world.WorldMapInstance;
-import org.apache.log4j.Logger;
+package gameserver.services.instance;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import com.aionemu.commons.utils.Rnd;
+import gameserver.dataholders.DataManager;
+import gameserver.model.gameobjects.AionObject;
+import gameserver.model.gameobjects.VisibleObject;
+import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
+import gameserver.model.group.PlayerGroup;
+import gameserver.model.instances.Dredgion;
+import gameserver.model.templates.WorldMapTemplate;
+import gameserver.model.templates.portal.EntryPoint;
+import gameserver.model.templates.portal.PortalTemplate;
+import gameserver.model.templates.spawn.SpawnTemplate;
+import gameserver.spawn.SpawnEngine;
+import gameserver.utils.ThreadPoolManager;
+import gameserver.world.World;
+import gameserver.world.WorldMap;
+import gameserver.world.WorldMapInstance;
+
+
 /**
  * @author ATracer
  * @author Arkshadow
+ * 
  */
-public class InstanceService {
+public class InstanceService
+{
     private static Logger log = Logger.getLogger(InstanceService.class);
 
     /**
@@ -53,10 +57,11 @@ public class InstanceService {
      * @param destroyTime
      * @return
      */
-    public synchronized static WorldMapInstance getNextAvailableInstance(int worldId) {
+    public synchronized static WorldMapInstance getNextAvailableInstance(int worldId)
+    {
         WorldMap map = World.getInstance().getWorldMap(worldId);
 
-        if (!map.isInstanceType())
+        if(!map.isInstanceType())
             throw new UnsupportedOperationException("Invalid call for next available instance  of " + worldId);
 
         int nextInstanceId = map.getNextInstanceId();
@@ -67,16 +72,17 @@ public class InstanceService {
         startInstanceChecker(worldMapInstance);
         map.addInstance(nextInstanceId, worldMapInstance);
         SpawnEngine.getInstance().spawnInstance(worldId, worldMapInstance.getInstanceId());
-
+        
         return worldMapInstance;
     }
 
     /**
      * Instance will be destroyed All players moved to bind location All objects - deleted
      */
-    private static void destroyInstance(WorldMapInstance instance) {
+    private static void destroyInstance(WorldMapInstance instance)
+    {
         instance.getEmptyInstanceTask().cancel(false);
-
+        
         final int worldId = instance.getMapId();
         int instanceId = instance.getInstanceId();
 
@@ -85,148 +91,208 @@ public class InstanceService {
 
         log.info("Destroying instance:" + worldId + " " + instanceId);
 
-        instance.doOnAllObjects(new Executor<AionObject>() {
+        instance.doOnAllObjects(new Executor<AionObject>(){
             @Override
-            public boolean run(AionObject obj) {
-                if (obj instanceof Player) {
+            public boolean run(AionObject obj)
+            {
+                if(obj instanceof Player)
+                {			
                     Player player = (Player) obj;
-                    PortalTemplate portal = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
-                    moveToEntryPoint((Player) obj, portal, true);
-                } else if (obj instanceof VisibleObject) {
-                    ((VisibleObject) obj).getController().delete();
+                    if(DredgionInstanceService.isDredgion(worldId))
+                        TeleportService.moveToBindLocation(player, true);
+                    else
+                    {
+                        PortalTemplate portal = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
+                        moveToEntryPoint((Player) obj, portal, true);
+                    }
+                }
+                else if (obj instanceof VisibleObject)
+                {
+                    ((VisibleObject)obj).getController().delete();
                 }
                 return true;
             }
         }, true);
     }
 
+
+    public static VisibleObject addNewSpawn(int worldId, int instanceId, int templateId, float x, float y, float z, byte heading, boolean noRespawn)
+    {
+        SpawnTemplate spawn = SpawnEngine.getInstance().addNewSpawn(worldId, instanceId, templateId, x, y, z, heading, 0, 0, noRespawn);
+        return SpawnEngine.getInstance().spawnObject(spawn, instanceId);
+    }
+
+
     /**
+     * 
      * @param instance
      * @param player
      */
-    public static void registerPlayerWithInstance(WorldMapInstance instance, Player player) {
+    public static void registerPlayerWithInstance(WorldMapInstance instance, Player player)
+    {
         instance.register(player.getObjectId());
     }
 
     /**
+     * 
      * @param instance
      * @param group
      */
-    public static void registerGroupWithInstance(WorldMapInstance instance, PlayerGroup group) {
+    public static void registerGroupWithInstance(WorldMapInstance instance, PlayerGroup group)
+    {
         group.setInstanceStartTimeNow();
         group.setGroupInstancePoints(0);
         instance.registerGroup(group);
     }
 
     /**
+     * 
      * @param worldId
      * @param objectId
      * @return instance or null
      */
-    public static WorldMapInstance getRegisteredInstance(int worldId, int objectId) {
-        for (WorldMapInstance instance : World.getInstance().getWorldMap(worldId).getInstances()) {
-            if (instance.isRegistered(objectId))
+    public static WorldMapInstance getRegisteredInstance(int worldId, int objectId)
+    {
+        for (WorldMapInstance instance : World.getInstance().getWorldMap(worldId).getInstances())
+        {
+            if(instance.isRegistered(objectId))
                 return instance;
         }
         return null;
     }
 
-    public static Map<Integer, Integer> getTimeInfo(Player player) {
+    public static Map<Integer, Integer> getTimeInfo(Player player)
+    {
         Map<Integer, Integer> result = new HashMap<Integer, Integer>();
-        Map<Integer, Long> infos = DAOManager.getDAO(InstanceTimeDAO.class).getTimes(player);
-        long actualTimestamp;
+        long currentTime = Calendar.getInstance().getTimeInMillis();;
         int remainingTime;
-
-        for (int i : infos.keySet()) {
-            actualTimestamp = Calendar.getInstance().getTimeInMillis();
-            remainingTime = (int) ((infos.get(i) - actualTimestamp) / 1000);
-            if (remainingTime < 0)
-                remainingTime = 0;
-            log.debug("instance " + i + " time " + remainingTime + " player " + player.getName());
-            result.put(i, remainingTime);
+        
+        if(!player.getInstanceCDs().isEmpty())
+        {
+            for(int i : player.getInstanceCDs().keys())
+            {
+                remainingTime = (int) ((player.getInstanceCD(i).getCDEndTime().getTime() - currentTime) / 1000);
+                if(remainingTime < 0)
+                    remainingTime = 0;
+                result.put(i, remainingTime);
+            }
         }
-
+        
         return result;
     }
 
-    public static boolean onRegisterRequest(Player player, int instanceId, int cd) {
-        if (!DAOManager.getDAO(InstanceTimeDAO.class).exists(player, instanceId)) {
-            DAOManager.getDAO(InstanceTimeDAO.class).createEntry(instanceId, player);
+    public static boolean canEnterInstance(Player player, int instanceMapId, int instanceId)
+    {
+        if(player.getInstanceCD(instanceMapId) == null)
+            return true;
+        else
+        {
+            Timestamp endTime = player.getInstanceCD(instanceMapId).getCDEndTime();
+            if(endTime.getTime() - System.currentTimeMillis() > 0)
+            {
+                if(player.getInstanceCD(instanceMapId).getInstanceId() == instanceId && player.getPlayerGroup().getGroupId() == player.getInstanceCD(instanceMapId).getGroupId())
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                player.removeInstanceCD(instanceMapId);
+                return true;
+            }
         }
-        Map<Integer, Integer> infos = getTimeInfo(player);
-        if (infos.get(instanceId) != 0) {
-            return false;
-        }
-        DAOManager.getDAO(InstanceTimeDAO.class).updateEntry(instanceId, player, cd);
-        return true;
     }
 
     /**
      * @param player
      */
-    public static void onPlayerLogin(Player player) {
+    public static void onPlayerLogin(Player player)
+    {
         int worldId = player.getWorldId();
-
+        
         WorldMapTemplate worldTemplate = DataManager.WORLD_MAPS_DATA.getTemplate(worldId);
-        if (worldTemplate.isInstance()) {
-            PortalTemplate portalTemplate = null;
+        if(worldTemplate.isInstance())
+        {
+            if(DredgionInstanceService.isDredgion(worldId))
+            {
+                TeleportService.moveToBindLocation(player, true);
+                return;
+            }
 
+            PortalTemplate portalTemplate = null;
+            
             try {
                 portalTemplate = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e)
+            {
                 log.error("No portal template found for " + worldId);
                 return;
             }
-
-            if (portalTemplate == null) {
+            
+            if (portalTemplate == null)
+            {
                 log.error("No portal template found for " + worldId);
                 return;
             }
-
+            
             int lookupId = player.getObjectId();
-            if (portalTemplate.isGroup() && player.getPlayerGroup() != null) {
-                lookupId = player.getPlayerGroup().getGroupId();
+            if(portalTemplate.isGroup() && player.getPlayerGroup() != null)
+            {
+                int instanceMapId = DataManager.WORLD_MAPS_DATA.getTemplate(worldId).getInstanceMapId();
+
+                if(player.getInstanceCD(instanceMapId) == null)
+                    return;
+                lookupId = player.getInstanceCD(instanceMapId).getGroupId();
             }
 
             WorldMapInstance registeredInstance = getRegisteredInstance(worldId, lookupId);
-            if (registeredInstance != null) {
+            if(registeredInstance != null)
+            {
                 World.getInstance().setPosition(player, worldId, registeredInstance.getInstanceId(), player.getX(), player.getY(),
-                        player.getZ(), player.getHeading());
+                    player.getZ(), player.getHeading());
                 return;
             }
-
+            
             moveToEntryPoint(player, portalTemplate, false);
         }
     }
 
     /**
+     * 
      * @param player
      * @param portalTemplates
      */
-    private static void moveToEntryPoint(Player player, PortalTemplate portalTemplate, boolean useTeleport) {
+    public static void moveToEntryPoint(Player player, PortalTemplate portalTemplate, boolean useTeleport)
+    {
         EntryPoint entryPoint = null;
         List<EntryPoint> entryPoints = portalTemplate.getEntryPoint();
 
-        for (EntryPoint point : entryPoints) {
-            if (point.getRace() == null || point.getRace().equals(player.getCommonData().getRace())) {
+        for(EntryPoint point : entryPoints)
+        {
+            if(point.getRace() == null || point.getRace().equals(player.getCommonData().getRace()))
+            {
                 entryPoint = point;
                 break;
             }
         }
-
-        if (entryPoint == null) {
+        
+        if(entryPoint == null)
+        {
             log.warn("Entry point not found for " + player.getCommonData().getRace() + " " + player.getWorldId());
             return;
         }
-
-        if (useTeleport) {
-            TeleportService.teleportTo(player, entryPoint.getMapId(), 1, entryPoint.getX(), entryPoint.getY(),
-                    entryPoint.getZ(), 0);
-        } else {
-            World.getInstance().setPosition(player, entryPoint.getMapId(), 1, entryPoint.getX(), entryPoint.getY(),
-                    entryPoint.getZ(), player.getHeading());
+        
+        if(useTeleport)
+        {
+            TeleportService.teleportTo(player, entryPoint.getMapId(), 1,  entryPoint.getX(), entryPoint.getY(),
+                entryPoint.getZ(), 0);
         }
-
+        else
+        {
+            World.getInstance().setPosition(player, entryPoint.getMapId(), 1, entryPoint.getX(), entryPoint.getY(),
+                entryPoint.getZ(), player.getHeading());
+        }	
+        
     }
 
     /**
@@ -234,42 +300,81 @@ public class InstanceService {
      * @param instanceId
      * @return
      */
-    public static boolean isInstanceExist(int worldId, int instanceId) {
+    public static boolean isInstanceExist(int worldId, int instanceId)
+    {
         return World.getInstance().getWorldMap(worldId).getWorldMapInstanceById(instanceId) != null;
     }
 
     /**
+     * 
      * @param worldMapInstance
      */
-    private static void startInstanceChecker(WorldMapInstance worldMapInstance) {
+    protected static void startInstanceChecker(WorldMapInstance worldMapInstance)
+    {
         int delay = 60000 + Rnd.get(-10, 10);
         worldMapInstance.setEmptyInstanceTask(ThreadPoolManager.getInstance().scheduleAtFixedRate(
-                new EmptyInstanceCheckerTask(worldMapInstance), delay, delay));
+            new EmptyInstanceCheckerTask(worldMapInstance), delay, delay));
     }
 
-    private static class EmptyInstanceCheckerTask implements Runnable {
+    private static class EmptyInstanceCheckerTask implements Runnable
+    {
         private WorldMapInstance worldMapInstance;
 
-        private EmptyInstanceCheckerTask(WorldMapInstance worldMapInstance) {
+        private EmptyInstanceCheckerTask(WorldMapInstance worldMapInstance)
+        {
             this.worldMapInstance = worldMapInstance;
         }
 
         @Override
-        public void run() {
-            PlayerGroup registeredGroup = worldMapInstance.getRegisteredGroup();
-            if (registeredGroup == null) {
-                if (worldMapInstance.getPlayersCount() == 0) {
+        public void run()
+        {
+            PortalTemplate portalTemplate = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldMapInstance.getMapId(), null);
+
+            if(portalTemplate != null && portalTemplate.isGroup())
+            {
+                PlayerGroup registeredGroup = worldMapInstance.getRegisteredGroup();
+
+                if(registeredGroup == null)
+                {
+                    if(worldMapInstance.getPlayersCount() == 0)
+                    {
+                        destroyInstance(worldMapInstance);
+                        return;
+                    }
+                }
+                else if(registeredGroup.size() == 0)
+                {
                     destroyInstance(worldMapInstance);
                     return;
                 }
-            } else if (registeredGroup.size() == 0) {
-                destroyInstance(worldMapInstance);
-			}
-		}
-	}
-    
-    public static VisibleObject addNewSpawn(int worldId, int instanceId, int templateId, float x, float y, float z, byte heading, boolean noRespawn) {
-        SpawnTemplate spawn = SpawnEngine.getInstance().addNewSpawn(worldId, instanceId, templateId, x, y, z, heading, 0, 0, noRespawn);
-        return SpawnEngine.getInstance().spawnObject(spawn, instanceId);
+            }
+            else
+            {
+                if(worldMapInstance.getPlayersCount() == 0)
+                {
+                    destroyInstance(worldMapInstance);
+                    return;
+                }
+            }
+            
+            if(worldMapInstance instanceof Dredgion)
+            {				
+                Dredgion dred = (Dredgion)worldMapInstance;
+                
+                PlayerGroup secondGroup = dred.getSecondGroup();
+                if(secondGroup == null)
+                {
+                    if(dred.getPlayersCount() == 0)
+                    {
+                        destroyInstance(dred);
+                        return;
+                    }
+                }
+                else if(secondGroup.size() == 0)
+                {
+                    destroyInstance(dred);
+                }
+            }
+        }
     }
 }

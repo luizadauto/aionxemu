@@ -16,6 +16,8 @@
  */
 package gameserver.services;
 
+import com.aionemu.commons.utils.Rnd;
+import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.model.DescriptionId;
 import gameserver.model.gameobjects.AionObject;
@@ -23,13 +25,15 @@ import gameserver.model.gameobjects.StaticObject;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.RewardType;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.model.templates.recipe.ComboProduct;
 import gameserver.model.templates.recipe.Component;
 import gameserver.model.templates.recipe.RecipeTemplate;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.skill.model.SkillTemplate;
 import gameserver.skill.task.CraftingTask;
+import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
 import gameserver.world.World;
-import org.apache.log4j.Logger;
 
 /**
  * @author MrPoke, sphinx, PZIKO333
@@ -38,37 +42,89 @@ public class CraftService {
     private static final Logger log = Logger.getLogger(CraftService.class);
 
     /**
+     * 
      * @param player
      * @param recipetemplate
-     * @param critical
      */
-    public static void finishCrafting(Player player, RecipeTemplate recipetemplate, int comboStep) {
-        int productItemId = 0;
-
-        if(recipetemplate.getComboProduct(comboStep) != null)
+    public static ItemTemplate finishCrafting(Player player, RecipeTemplate recipetemplate, int itemId)
+    {
+        boolean critical = false;
+        boolean getReward = false;
+        int critItemId = 0;
+        
+        if(recipetemplate.getComboProduct().size() == 0)
+            getReward = true;
+        else
+            critical = Rnd.get(100) <= CustomConfig.CRITICAL_CRAFTING_SUCCESS;
+        
+        if(critical)
         {
-        	productItemId = recipetemplate.getComboProduct(comboStep);
-        } else {
-        	productItemId = recipetemplate.getProductid();
+            boolean getNext = false;
+            
+            for(ComboProduct comboProduct: recipetemplate.getComboProduct())
+            {
+                if(itemId == recipetemplate.getProductid() && critItemId == 0)
+                {
+                    critItemId = comboProduct.getItemid();
+                    break;
+                }
+                else if(itemId == comboProduct.getItemid())
+                    getNext = true;
+                else if(getNext)
+                {
+                    critItemId = comboProduct.getItemid();
+                    break;
+                }
+            }
+            
+            if(critItemId == 0)
+                getReward = true;
         }
-
-
-        if (recipetemplate.getSkillid() == 40009)
-
+        else
+            getReward = true;
+        
+        if(critical && !getReward)
+            return ItemService.getItemTemplate(critItemId);
+        else
         {
-            ItemService.addItem(player, productItemId, recipetemplate.getQuantity());
-            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_COMBINE_SUCCESS(new DescriptionId(ItemService.getItemTemplate(productItemId).getNameId())));
-        } else if ((productItemId != 0) && (recipetemplate.getSkillid() != 40009)) {
-            int xpReward = (int) ((0.008 * (recipetemplate.getSkillpoint() + 100) * (recipetemplate.getSkillpoint() + 100) + 60));
-            ItemService.addItem(player, productItemId, recipetemplate.getQuantity(), player.getName());
-            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_COMBINE_SUCCESS(new DescriptionId(ItemService.getItemTemplate(productItemId).getNameId())));
-
-            if (player.getSkillList().addSkillXp(player, recipetemplate.getSkillid(), (int)RewardType.CRAFTING.calcReward(player, xpReward)))
-                player.getCommonData().addExp(xpReward, RewardType.CRAFTING);
-            else
-                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_DONT_GET_PRODUCTION_EXP(new DescriptionId(recipetemplate.getSkillid())));
+            int productItemId = itemId;
+            int skillId = recipetemplate.getSkillid();
+            
+            if(recipetemplate.getMaxProductionCount() == 1)
+                player.getRecipeList().deleteRecipe(player, recipetemplate.getId());
+            
+            if(skillId == 40009)
+            {
+                ItemService.addItem(player, productItemId, recipetemplate.getQuantity(), player.getName(), 0, 0);
+                PacketSendUtility.sendPacket(player,SM_SYSTEM_MESSAGE.STR_COMBINE_SUCCESS(new DescriptionId(ItemService.getItemTemplate(productItemId).getNameId())));
+            }
+            else if(productItemId != 0 && skillId != 40009)
+            {
+                int skillPoint = recipetemplate.getSkillpoint();
+                SkillTemplate skillTemplate = DataManager.SKILL_DATA.getSkillTemplate(skillId);
+                
+                ItemService.addItem(player, productItemId, recipetemplate.getQuantity(), player.getName(), 0, 0);
+                
+                if(skillPoint + 40 > player.getSkillList().getSkillLevel(skillId))
+                {
+                    int xpReward = (int)((0.0144*skillPoint*skillPoint+3.5*skillPoint+270)*player.getRates().getCraftingLvlRate());
+                    if(player.getXpBoost() > 0)
+                        xpReward = xpReward * ((player.getXpBoost() / 100) + 1);
+    
+                    if(player.getSkillList().addSkillXp(player, skillId, xpReward))
+                    {
+                        player.getCommonData().addExp((int)(xpReward*player.getRates().getCraftingXPRate()/player.getRates().getCraftingLvlRate()));
+                        PacketSendUtility.sendPacket(player ,SM_SYSTEM_MESSAGE.STR_CRAFT_SUCCESS_GETEXP);
+                    }
+                    else
+                        PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_DONT_GET_PRODUCTION_EXP(new DescriptionId(skillTemplate.getNameId())));
+                }
+                else
+                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_DONT_GET_PRODUCTION_EXP(new DescriptionId(skillTemplate.getNameId())));
+            }
+            player.setCraftingTask(null);
+            return null;
         }
-        player.setCraftingTask(null);
     }
 
     /**
@@ -97,70 +153,84 @@ public class CraftService {
     }
 
     /**
+     * 
      * @param player
-     * @param targetTemplateId
      * @param recipeId
      * @param targetObjId
      */
-    public static void startCrafting(Player player, int targetTemplateId, int recipeId, int targetObjId) {
+    public static void startCrafting(Player player, int recipeId, int targetObjId)
         if (player.getCraftingTask() != null && player.getCraftingTask().isInProgress())
             return;
 
         RecipeTemplate recipeTemplate = DataManager.RECIPE_DATA.getRecipeTemplateById(recipeId);
 
-        if (recipeTemplate != null) {
-            // check for pre-usage crafting -----------------------------------------------------
-            int skillId = recipeTemplate.getSkillid();
-            AionObject target = World.getInstance().findAionObject(targetObjId);
+        if(recipeTemplate == null)
+        {
+            log.warn(String.format("recipeTemplate with id %d not found", recipeId));
+            return;
+        }
 
-            //morphing dont need static object/npc to use
-            if ((skillId != 40009) && (target == null || !(target instanceof StaticObject))) {
-                log.info("[AUDIT] Player " + player.getName() + " tried to craft incorrect target.");
+        // check for pre-usage crafting -----------------------------------------------------
+        int skillId = recipeTemplate.getSkillid();
+        AionObject target = World.getInstance().findAionObject(targetObjId);
+
+        //morphing dont need static object/npc to use
+        if ((skillId != 40009) && (target == null || !(target instanceof StaticObject))) {
+            log.info("[AUDIT] Player " + player.getName() + " tried to craft incorrect target.");
+            return;
+        }
+        //check distance to avoid sending of fake packets
+        if((skillId != 40009) && !MathUtil.isIn3dRange(player, (StaticObject)target, 10))
+        {
+            log.info("[AUDIT] Player " + player.getName() + " sending fake packet CM_CRAFT.");
+            return;
+        }
+        if (recipeTemplate.getDp() != null && (player.getCommonData().getDp() < recipeTemplate.getDp())) {
+            log.info("[AUDIT] Player " + player.getName() + " modded her/his client.");
+            return;
+        }
+
+        if (player.getInventory().isFull()) {
+            if (player.getInventory().getItemCountByItemId(recipeTemplate.getProductid()) == 0) {
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.COMBINE_INVENTORY_IS_FULL);
                 return;
             }
+        }
 
-            if (recipeTemplate.getDp() != null && (player.getCommonData().getDp() < recipeTemplate.getDp())) {
+        for (Component component : recipeTemplate.getComponent()) {
+            if (player.getInventory().getItemCountByItemId(component.getItemid()) < component.getQuantity()) {
                 log.info("[AUDIT] Player " + player.getName() + " modded her/his client.");
                 return;
             }
-            if (player.getInventory().isFull()) {
-                if (player.getInventory().getItemCountByItemId(recipeTemplate.getProductid()) == 0) {
-                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.COMBINE_INVENTORY_IS_FULL);
-                    return;
-                }
-            }
-
-            for (Component component : recipeTemplate.getComponent()) {
-                if (player.getInventory().getItemCountByItemId(component.getItemid()) < component.getQuantity()) {
-                    log.info("[AUDIT] Player " + player.getName() + " modded her/his client.");
-                    return;
-                }
-            }
-            // ---------------------------------------------------------------------------------
-
-            //craft item template --------------------------------------------------------------
-            ItemTemplate itemTemplate = ItemService.getItemTemplate(recipeTemplate.getProductid());
-            if (itemTemplate == null)
-                return;
-
-            if (recipeTemplate.getDp() != null)
-                player.getCommonData().addDp(-recipeTemplate.getDp());
-
-            for (Component component : recipeTemplate.getComponent()) {
-                player.getInventory().removeFromBagByItemId(component.getItemid(), component.getQuantity());
-            }
-            // ----------------------------------------------------------------------------------
-
-            // start crafting
-            int skillLvlDiff = player.getSkillList().getSkillLevel(skillId) - recipeTemplate.getSkillpoint();
-            int morph = 99999;
-
-            if (skillId == 40009) {
-                player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, morph, -1));
-            } else {
-                player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, skillLvlDiff, -1));
-            }
-            player.getCraftingTask().start();
         }
+        // ---------------------------------------------------------------------------------
+
+        //craft item template --------------------------------------------------------------
+        ItemTemplate itemTemplate = ItemService.getItemTemplate(recipeTemplate.getProductid());
+        if(itemTemplate == null)
+        {
+            log.warn(String.format("itemTemplate with id %d not found", recipeTemplate.getProductid()));
+            return;
+        }
+
+        if (recipeTemplate.getDp() != null)
+            player.getCommonData().addDp(-recipeTemplate.getDp());
+
+        for (Component component : recipeTemplate.getComponent()) {
+            if(!player.getInventory().removeFromBagByItemId(component.getItemid(), component.getQuantity()))
+                return;
+        }
+        // ----------------------------------------------------------------------------------
+
+        // start crafting
+        int skillLvlDiff = player.getSkillList().getSkillLevel(skillId) - recipeTemplate.getSkillpoint();
+        int morph = 99999;
+
+        if (skillId == 40009) {
+            player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, morph, -1));
+        } else {
+            player.setCraftingTask(new CraftingTask(player, (StaticObject) target, recipeTemplate, itemTemplate, recipeId, skillLvlDiff, -1));
+        }
+        player.getCraftingTask().start();
     }
 }

@@ -26,7 +26,7 @@ import gameserver.network.aion.serverpackets.SM_QUESTIONNAIRE;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.idfactory.IDFactory;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 

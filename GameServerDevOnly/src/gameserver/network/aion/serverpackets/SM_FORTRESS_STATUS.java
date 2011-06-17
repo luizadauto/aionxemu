@@ -76,7 +76,7 @@ public class SM_FORTRESS_STATUS extends AionServerPacket {
 
         for (SiegeLocation loc : validLocations) {
             writeD(buf, loc.getLocationId());
-            writeC(buf, 0); //unk
+            writeC(buf, 1); //unk
         }
     }
 }

@@ -31,7 +31,7 @@ import gameserver.network.aion.serverpackets.SM_ATTACK;
 import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 import java.util.Collections;
 

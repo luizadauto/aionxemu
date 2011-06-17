@@ -26,6 +26,8 @@ import gameserver.services.ItemService;
 import gameserver.utils.MathUtil;
 import gameserver.world.World;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author ATracer
  */
@@ -47,24 +49,36 @@ public class CM_GODSTONE_SOCKET extends AionClientPacket {
     }
 
     @Override
-    protected void runImpl() {
+    protected void runImpl()
+    {
         Player activePlayer = getConnection().getActivePlayer();
-
+        
         Npc npc = (Npc) World.getInstance().findAionObject(npcId);
-        if (npc == null)
+        if(npc == null)
             return;
-
-        if (!MathUtil.isInRange(activePlayer, npc, 15))
+        
+        if(!MathUtil.isInRange(activePlayer, npc, 10))
             return;
+        
+        Item stone = activePlayer.getInventory().getItemByObjId(stoneId);
+        Item weapon = activePlayer.getInventory().getItemByObjId(weaponId);
 
-        Item itemStone = activePlayer.getInventory().getItemByObjId(stoneId);
-        if (itemStone == null)
+        if (stone == null || weapon == null)
+        {
             return;
-
-        ItemTemplate temp = itemStone.getItemTemplate();
-        if (temp.getItemCategory() != ItemCategory.HOLYSTONE)
+        }
+        boolean isWeapon = weapon.getItemTemplate().isWeapon();
+        if(stone.getItemTemplate().getItemCategory() != ItemCategory.HOLYSTONE)
+        {
+            Logger.getLogger(this.getClass()).info("[AUDIT]Player: "+activePlayer.getName()+" is trying to socket non godstone => Hacking!");
             return;
-
+        }
+        if (!isWeapon)
+        {
+            Logger.getLogger(this.getClass()).info("[AUDIT]Player: "+activePlayer.getName()+" is trying to socket godstone to non weapon => Hacking!");
+            return;
+        }
+        
         ItemService.socketGodstone(activePlayer, weaponId, stoneId);
     }
 }

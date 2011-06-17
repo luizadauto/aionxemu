@@ -89,7 +89,7 @@ public class CM_CLOSE_DIALOG extends AionClientPacket {
 
                 // Refresh Mails client display
                 Collection<Letter> lts = player.getMailbox().getLetters();
-                int mailCount = 0;
+                int mailCount = player.getMailbox().size();
                 int unreadMailCount = 0;
                 boolean hasExpress = false;
 
@@ -108,9 +108,19 @@ public class CM_CLOSE_DIALOG extends AionClientPacket {
             }
 
             if (npc.hasWalkRoutes() && !npc.getMoveController().canWalk())//resumes npc behavior
+            {
+                // Hack to resume heading after talking
+                World.getInstance().updatePosition(npc, npc.getX(), npc.getY(), npc.getZ(), (byte)(npc.getHeading()+ 1), true);
                 npc.getMoveController().setCanWalk(true);
+                npc.getAi().setAiState(AIState.ACTIVE);
+            }
             else
-                npc.getAi().setAiState(AIState.THINKING);
+            {
+                AI<?> ai = npc.getAi();
+                ai.setAiState(AIState.ACTIVE);
+                if (!ai.isScheduled())
+                    ai.schedule();
+            }
 
             //TODO: need check it on retail
             if (npc.getTarget() == player)

@@ -25,7 +25,7 @@ import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.serverpackets.SM_PLAYER_SEARCH;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.utils.Util;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 
 import java.util.ArrayList;
@@ -95,8 +95,10 @@ public class CM_PLAYER_SEARCH extends AionClientPacket {
                 if (!player.isSpawned())
                     return true;
                 else if (CustomConfig.SEARCH_LIST_ALL && (activePlayer.getAccessLevel() >= AdminConfig.SEARCH_LIST_ALL)) {
-                    matches.add(player);
-                    return true;
+                    if(player.getFriendList().getStatus() != Status.OFFLINE) {
+                        matches.add(player);
+                        return true;
+                    }
                 } else if (player.getFriendList().getStatus() == Status.OFFLINE)
                     return true;
                 else if (lfgOnly == 1 && !player.isLookingForGroup())
@@ -117,6 +119,7 @@ public class CM_PLAYER_SEARCH extends AionClientPacket {
                 // This player matches criteria
                 {
                     matches.add(player);
+                    return true;
                 }
                 return true;
             }

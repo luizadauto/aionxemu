@@ -17,6 +17,7 @@
 
 package gameserver.network.aion.serverpackets;
 
+import gameserver.configs.main.GSConfig;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
@@ -31,17 +32,21 @@ import java.util.TreeMap;
 
 /**
  * @author MrPoke
+ * 
  */
-public class SM_QUEST_LIST extends AionServerPacket {
+public class SM_QUEST_LIST extends AionServerPacket
+{
 
-    private SortedMap<Integer, QuestState> completeQuestList = new TreeMap<Integer, QuestState>();
-    private List<QuestState> startedQuestList = new ArrayList<QuestState>();
+    private SortedMap<Integer, QuestState>    completeQuestList    = new TreeMap<Integer, QuestState>();
+    private List<QuestState>                startedQuestList    = new ArrayList<QuestState>();
 
-    public SM_QUEST_LIST(Player player) {
-        for (QuestState qs : player.getQuestStateList().getAllQuestState()) {
-            if (qs.getStatus() == QuestStatus.COMPLETE)
+    public SM_QUEST_LIST(Player player)
+    {
+        for(QuestState qs : player.getQuestStateList().getAllQuestState())
+        {
+            if(qs.getStatus() == QuestStatus.COMPLETE)
                 completeQuestList.put(qs.getQuestId(), qs);
-            else if (qs.getStatus() != QuestStatus.NONE)
+            else if(qs.getStatus() != QuestStatus.NONE)
                 startedQuestList.add(qs);
         }
     }
@@ -50,27 +55,40 @@ public class SM_QUEST_LIST extends AionServerPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
-	
-		writeH(buf, 0x01); // 2.1 
-        writeH(buf, (-1*completeQuestList.size()) & 0xFFFF);
-        for (QuestState qs : completeQuestList.values()) {
-            writeH(buf, qs.getQuestId());
-            writeH(buf, 0x00);
-            writeC(buf, qs.getCompliteCount());
-        }
-/*        writeC(buf, startedQuestList.size());
-        for (QuestState qs : startedQuestList) // quest list size ( max is 25 )
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
+        if(GSConfig.SERVER_VERSION.startsWith("2.1"))
         {
-            writeH(buf, qs.getQuestId());
-            writeH(buf, 0);
+            writeH(buf, 0x01);
+            writeH(buf, (-1*completeQuestList.size()) & 0xFFFF);
+            for(QuestState qs : completeQuestList.values())
+            {
+                writeH(buf, qs.getQuestId());
+                writeH(buf, 0x00);
+                writeC(buf, qs.getCompleteCount());
+            }
         }
-        for (QuestState qs : startedQuestList) {
-            writeC(buf, qs.getStatus().value());
-            writeD(buf, qs.getQuestVars().getQuestVars());
-            writeC(buf, 0);
+        else
+        {
+            writeH(buf, completeQuestList.size());
+            for(QuestState qs : completeQuestList.values())
+            {
+                writeH(buf, qs.getQuestId());
+                writeH(buf, 0x00);
+                writeC(buf, qs.getCompleteCount());
+            }
+            writeC(buf, startedQuestList.size());
+            for(QuestState qs : startedQuestList) // quest list size ( retail max is 30 )
+            {
+                writeH(buf, qs.getQuestId());
+                writeH(buf, 0);
+            }
+            for(QuestState qs : startedQuestList)
+            {
+                writeC(buf, qs.getStatus().value());
+                writeD(buf, qs.getQuestVars().getQuestVars());
+                writeC(buf, 0);
+            }
         }
-		*/
     }
-
 }

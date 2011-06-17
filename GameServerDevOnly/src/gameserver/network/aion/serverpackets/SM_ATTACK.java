@@ -95,16 +95,15 @@ public class SM_ATTACK extends AionServerPacket {
             writeC(buf, attack.getShieldType());
 
             switch (attack.getShieldType()) {
-                case 1: // reflect shield
-                    writeD(buf, 0x00);
-                    writeD(buf, 0x00);
-                    writeD(buf, 0x00);
-                    writeD(buf, 0); // reflect damage
-                    writeD(buf, 0); // skill id
+                case 0:
+                case 2:
                     break;
-                case 2: // normal shield
                 default:
-                    break;
+                    writeD(buf, 0x00);
+                    writeD(buf, 0x00);
+                    writeD(buf, 0x00);
+                    writeD(buf, attack.getReflectedDamage()); // reflect damage
+                    writeD(buf, attack.getSkillId()); // skill id
             }
         }
         writeC(buf, 0);

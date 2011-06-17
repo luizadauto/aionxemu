@@ -38,9 +38,17 @@ public class SM_PET_MOVE extends AionServerPacket {
 
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
-        writeD(buf, pet.getDatabaseIndex());
-        writeC(buf, actionId);
-        switch (actionId) {
+        writeD(buf, pet.getUid());
+        if (actionId != 0)
+            writeC(buf, actionId);
+        switch(actionId)
+        {
+            case 0:
+                writeC(buf, 0);
+                writeF(buf, pet.getX1());
+                writeF(buf, pet.getY1());
+                writeF(buf, pet.getZ1());
+                writeC(buf, pet.getH());
             case 12:
                 // move
                 writeF(buf, pet.getX1());

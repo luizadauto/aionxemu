@@ -49,6 +49,12 @@ public class CM_PET_MOVE extends AionClientPacket {
     protected void readImpl() {
         actionId = readC();
         switch (actionId) {
+            case 0:
+                x1 = readF();
+                y1 = readF();
+                z1 = readF();
+                h = readC();
+                break;
             case 12:
                 x1 = readF();
                 y1 = readF();
@@ -69,22 +75,32 @@ public class CM_PET_MOVE extends AionClientPacket {
     @Override
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
-        switch (actionId) {
+        if(player == null)
+            return;
+        ToyPet pet = player.getToyPet();
+        if (pet == null)
+            return;
+        
+        switch(actionId)
+        {
+            case 0:
+                pet.setX1(x1);
+                pet.setY1(y1);
+                pet.setZ1(z1);
+                pet.setX2(x1);
+                pet.setY2(y1);
+                pet.setZ2(z1);
+                pet.setH(h);
             case 12:
-                if (player.getToyPet() != null) {
-                    ToyPet pet = player.getToyPet();
-                    pet.setX1(x1);
-                    pet.setY1(y1);
-                    pet.setZ1(z1);
-                    pet.setX2(x2);
-                    pet.setY2(y2);
-                    pet.setZ2(z2);
-                    pet.setH(h);
-                    PacketSendUtility.broadcastPacket(player, new SM_PET_MOVE(12, player.getToyPet()), true);
-                }
-                break;
-            default:
+                pet.setX1(x1);
+                pet.setY1(y1);
+                pet.setZ1(z1);
+                pet.setX2(x2);
+                pet.setY2(y2);
+                pet.setZ2(z2);
+                pet.setH(h);
                 break;
         }
+        PacketSendUtility.broadcastPacket(player, new SM_PET_MOVE(12, pet), true);
     }
 }

@@ -26,7 +26,7 @@ import gameserver.network.aion.AionServerPacket;
 import gameserver.network.aion.AionServerPacketSeq;
 import gameserver.network.aion.serverpackets.SM_MESSAGE;
 import gameserver.utils.Util;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 /**
  * This class contains static methods, which are utility methods, all of them are interacting only with objects passed

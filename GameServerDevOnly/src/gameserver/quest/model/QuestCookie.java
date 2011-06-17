@@ -44,9 +44,11 @@ public class QuestCookie {
         super();
         this.visibleObject = visibleObject;
         this.player = player;
-        this.player.setQuestCookie(this);
         this.questId = questId;
         this.dialogId = dialogId;
+
+        if (player.getQuestCookie() == null)
+            this.player.setQuestCookie(this);
 
         if (visibleObject == null) {
             this.targetId = 0;

@@ -28,7 +28,7 @@ import gameserver.services.PeriodicSaveService;
 import gameserver.services.PlayerService;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.utils.gametime.GameTimeManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 

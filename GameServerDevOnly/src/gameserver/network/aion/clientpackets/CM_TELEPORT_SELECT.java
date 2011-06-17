@@ -24,6 +24,7 @@ import gameserver.model.templates.teleport.TelelocationTemplate;
 import gameserver.model.templates.teleport.TeleporterTemplate;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.services.TeleportService;
+import gameserver.utils.MathUtil;
 import gameserver.world.World;
 
 /**
@@ -69,6 +70,12 @@ public class CM_TELEPORT_SELECT extends AionClientPacket {
 
         if (activePlayer == null || activePlayer.getLifeStats().isAlreadyDead())
             return;
+
+        if(!MathUtil.isIn3dRange(npc, activePlayer, 10))
+        {
+            Logger.getLogger(this.getClass()).info("[AUDIT]Player "+activePlayer.getName()+" sending fake CM_TELEPORT_SELECT!");
+            return;
+        }
 
         teleport = DataManager.TELEPORTER_DATA.getTeleporterTemplate(npc.getNpcId());
 

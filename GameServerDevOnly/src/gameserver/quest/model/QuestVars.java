@@ -18,15 +18,19 @@ package gameserver.quest.model;
 
 /**
  * @author MrPoke
+ * 
  */
 
-public class QuestVars {
-    private Integer[] questVars = new Integer[6];
+public class QuestVars
+{
+    private Integer[]    questVars    = new Integer[6];
 
-    public QuestVars() {
+    public QuestVars()
+    {
     }
 
-    public QuestVars(int var) {
+    public QuestVars(int var)
+    {
         setVar(var);
     }
 
@@ -34,9 +38,10 @@ public class QuestVars {
      * @param id
      * @return Quest var by id.
      */
-    public int getVarById(int id) {
-        if (id == 5)
-            return (questVars[id] & 0x02);
+    public int getVarById(int id)
+    {
+        if(id == 5)
+            return (questVars[id] & 0x03);
         return questVars[id];
     }
 
@@ -44,18 +49,24 @@ public class QuestVars {
      * @param id
      * @param var
      */
-    public void setVarById(int id, int var) {
-        questVars[id] = var;
+    public void setVarById(int id, int var)
+    {
+        if(id == 5)
+            questVars[id] = (var & 0x03);
+        else
+            questVars[id] = (var & 0x3F);
     }
 
     /**
      * @return integer
      */
-    public int getQuestVars() {
+    public int getQuestVars()
+    {
         int var = 0;
         var |= questVars[5];
-        for (int i = 4; i >= 0; i--) {
-            if (i == 4)
+        for(int i = 5; i >= 0; i--)
+        {
+            if(i == 5)
                 var <<= 0x02;
             else
                 var <<= 0x06;
@@ -63,12 +74,15 @@ public class QuestVars {
         }
         return var;
     }
-
-    public void setVar(int var) {
-        for (int i = 0; i < 6; i++) {
-            if (i == 5)
-                questVars[i] = (var & 0x02);
-            else {
+    
+    public void setVar(int var)
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            if(i == 5)
+                questVars[i] = (var & 0x03);
+            else
+            {
                 questVars[i] = (var & 0x3F);
                 var >>= 0x06;
             }

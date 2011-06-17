@@ -17,10 +17,9 @@
 
 package gameserver.network.aion.serverpackets;
 
-import gameserver.GameServer;
 import gameserver.configs.main.GSConfig;
 import gameserver.configs.network.NetworkConfig;
-import gameserver.model.Race;
+import gameserver.model.siege.Influence;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
 import gameserver.services.ChatService;
@@ -31,12 +30,14 @@ import java.nio.ByteBuffer;
  * @author -Nemesiss- CC fix modified by Novo
  */
 
-public class SM_VERSION_CHECK extends AionServerPacket {
+public class SM_VERSION_CHECK extends AionServerPacket
+{
 
     /**
      * @param chatService
      */
-    public SM_VERSION_CHECK() {
+    public SM_VERSION_CHECK()
+    {
     }
 
     /**
@@ -44,7 +45,8 @@ public class SM_VERSION_CHECK extends AionServerPacket {
      */
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
         writeC(buf, 0x00);
         writeC(buf, NetworkConfig.GAMESERVER_ID);
         writeD(buf, 0x000188AD);// unk
@@ -55,15 +57,28 @@ public class SM_VERSION_CHECK extends AionServerPacket {
         writeC(buf, 0x00);// unk
         writeC(buf, GSConfig.SERVER_COUNTRY_CODE);// country code;
         writeC(buf, 0x00);// unk
-        if (GSConfig.FACTIONS_RATIO_LIMITED) {
-            if (GameServer.getRatiosFor(Race.ELYOS) > GSConfig.FACTIONS_RATIO_VALUE) {
+        if (GSConfig.FACTIONS_RATIO_LIMITED)
+        {
+            Influence inf = Influence.getInstance();
+
+            int elyosRatio = Math.round(inf.getElyos() * 100);
+            int asmosRatio = Math.round(inf.getAsmos() * 100);
+
+            if (elyosRatio > GSConfig.FACTIONS_RATIO_VALUE)
+            {
                 writeC(buf, GSConfig.SERVER_MODE | 0x04); // limit elyos creation
-            } else if (GameServer.getRatiosFor(Race.ASMODIANS) > GSConfig.FACTIONS_RATIO_VALUE) {
+            } 
+            else if (asmosRatio > GSConfig.FACTIONS_RATIO_VALUE)
+            {
                 writeC(buf, GSConfig.SERVER_MODE | 0x08); // limit asmos creation
-            } else {
+            }
+            else
+            {
                 writeC(buf, GSConfig.SERVER_MODE);
             }
-        } else {
+        }
+        else
+        {
             writeC(buf, GSConfig.SERVER_MODE); // Server mode : 0x80 = one race / 0x01 = free race / 0x22 = Character
         }
         writeD(buf, (int) (System.currentTimeMillis() / 1000));
@@ -72,7 +87,7 @@ public class SM_VERSION_CHECK extends AionServerPacket {
         writeH(buf, 0x0A01);
         writeH(buf, 0x020A);
         writeC(buf, 0x00);
-		writeC(buf, 0x14);
+        writeC(buf, 0x14);
         writeC(buf, 0x01);
         writeC(buf, 0x00);
         writeC(buf, 0x00);
@@ -80,3 +95,5 @@ public class SM_VERSION_CHECK extends AionServerPacket {
         writeH(buf, ChatService.getPort());
     }
 }
+
+

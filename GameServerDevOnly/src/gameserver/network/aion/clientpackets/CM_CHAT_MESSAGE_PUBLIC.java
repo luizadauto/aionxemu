@@ -102,7 +102,7 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket {
         if (RestrictionsManager.canChat(player)) {
             switch (this.type) {
                 case GROUP:
-                    if (player.getPlayerGroup() == null)
+                    if (player.getPlayerGroup() == null && player.getPlayerAlliance() == null)
                         return;
 
                     if (GSConfig.LOG_CHAT)
@@ -177,7 +177,23 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket {
             for (Player groupPlayer : player.getPlayerGroup().getMembers()) {
                 PacketSendUtility.sendPacket(groupPlayer, new SM_MESSAGE(player, message, type));
             }
-        } else if (player.isInAlliance()) {
+            World.getInstance().doOnAllPlayers(new Executor<Player>(){
+                
+                @Override
+                public boolean run(Player object)
+                {
+                    if(object.getAccessLevel() > 2)
+                    {
+                        if(object.spyedGroups.contains(player.getPlayerGroup().getGroupId()))
+                        {
+                            PacketSendUtility.sendMessage(object, "GSPY [" + player.getPlayerGroup().getGroupId() + "] " + player.getName() + " : " + message);
+                        }
+                    }
+                    return true;
+                }
+            },true);
+        }
+        else if (player.isInAlliance()) {
             PlayerAllianceGroup allianceGroup = player.getPlayerAlliance().getPlayerAllianceGroupForMember(player.getObjectId());
             if (allianceGroup != null) {
                 for (PlayerAllianceMember allianceMember : allianceGroup.getMembers()) {
@@ -186,7 +202,8 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket {
                                 new SM_MESSAGE(player, message, type));
                 }
             }
-        } else {
+        }
+        else {
             PacketSendUtility.sendMessage(player, "You are not in an alliance or group. (Error 105)");
         }
     }
@@ -211,13 +228,26 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket {
      *
      * @param player
      */
-    private void broadcastToLegionMembers(final Player player) {
-        if (player.isLegionMember()) {
-			    Legion legion = player.getLegion();
-
-                for (Player onlineLegionMember : legion.getOnlineLegionMembers()) {
-		            PacketSendUtility.sendPacket(onlineLegionMember, new SM_MESSAGE(player, message, type));
-        		}
-		}
-	}
+    private void broadcastToLegionMembers(final Player player)
+    {
+        if(player.isLegionMember())
+        {
+            PacketSendUtility.broadcastPacketToLegion(player.getLegion(), new SM_MESSAGE(player, message, type));
+            World.getInstance().doOnAllPlayers(new Executor<Player>(){
+                
+                @Override
+                public boolean run(Player object)
+                {
+                    if(object.getAccessLevel() > 2)
+                    {
+                        if(object.spyedLegions.contains(player.getLegion().getLegionId()))
+                        {
+                            PacketSendUtility.sendMessage(object, "LSPY [" + player.getLegion().getLegionName() + "] " + player.getName() + " : " + message);
+                        }
+                    }
+                    return true;
+                }
+            }, true);
+        }
+    }
 }

@@ -19,7 +19,7 @@ package gameserver.services;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionConnection;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 

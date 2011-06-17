@@ -17,16 +17,27 @@
 package gameserver.services;
 
 import gameserver.configs.main.GroupConfig;
+import gameserver.model.Race;
 import gameserver.model.alliance.PlayerAlliance;
 import gameserver.model.alliance.PlayerAllianceEvent;
 import gameserver.model.alliance.PlayerAllianceMember;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Monster;
+import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.RequestResponseHandler;
 import gameserver.model.gameobjects.player.RewardType;
+import gameserver.model.group.LootGroupRules;
+import gameserver.model.group.LootRuleType;
 import gameserver.model.group.PlayerGroup;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_ALLIANCE_INFO;
+import gameserver.network.aion.serverpackets.SM_ALLIANCE_MEMBER_INFO;
+import gameserver.network.aion.serverpackets.SM_INSTANCE_COOLDOWN;
+import gameserver.network.aion.serverpackets.SM_LEAVE_GROUP_MEMBER;
+import gameserver.network.aion.serverpackets.SM_PLAYER_INFO;
+import gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
+import gameserver.network.aion.serverpackets.SM_SHOW_BRAND;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.quest.QuestEngine;
 import gameserver.quest.model.QuestCookie;
 import gameserver.restrictions.RestrictionsManager;
@@ -178,36 +189,55 @@ public class AllianceService {
                     alliance = new PlayerAlliance(IDFactory.getInstance().nextId(), inviter.getObjectId());
 
                     // Collect Inviter Group
-                    if (inviter.isInGroup()) {
+                    if (inviter.isInGroup())
+                    {
                         PlayerGroup group = inviter.getPlayerGroup();
-                        playersToAdd.addAll(group.getMembers());
-                        Iterator<Player> pIter = group.getMembers().iterator();
-                        while (pIter.hasNext()) {
-                            GroupService.getInstance().removePlayerFromGroup(pIter.next());
+
+                        for(Player pl : group.getMembers())
+                        {
+                            if(!pl.isInAlliance() && pl.isOnline())
+                            {
+                                GroupService.getInstance().removePlayerFromGroup(pl);
+                                playersToAdd.add(pl);
+                            }
                         }
-                    } else {
-                        playersToAdd.add(inviter);
                     }
-                } else if (alliance.size() == 24) {
-                    PacketSendUtility.sendMessage(invited, "That alliance is already full.");
-                    PacketSendUtility.sendMessage(inviter, "Your alliance is already full.");
+                    else
+                    {
+                        if(!inviter.isInAlliance() && inviter.isOnline())
+                            playersToAdd.add(inviter);
+                    }
+                }
+                else if (invited.isInGroup() && (invited.getPlayerGroup().size() + alliance.size()) > 24)
+                {
+                    PacketSendUtility.sendPacket(invited, SM_SYSTEM_MESSAGE.STR_FORCE_INVITE_FAILED_NOT_ENOUGH_SLOT());
+                    PacketSendUtility.sendPacket(inviter, SM_SYSTEM_MESSAGE.STR_FORCE_INVITE_FAILED_NOT_ENOUGH_SLOT());
                     return;
-                } else if (invited.isInGroup() && invited.getPlayerGroup().size() + alliance.size() > 24) {
-                    PacketSendUtility.sendMessage(invited, "That alliance is now too full for your group to join.");
-                    PacketSendUtility.sendMessage(inviter, "Your alliance is now too full for that group to join.");
+                }
+                else if (alliance.size() == 24)
+                {
+                    PacketSendUtility.sendPacket(invited, SM_SYSTEM_MESSAGE.STR_PARTY_ALLIANCE_CANT_ADD_NEW_MEMBER());
+                    PacketSendUtility.sendPacket(inviter, SM_SYSTEM_MESSAGE.STR_PARTY_ALLIANCE_CANT_ADD_NEW_MEMBER());
                     return;
                 }
 
                 // Collect Invited Group
-                if (invited.isInGroup()) {
+                if (invited.isInGroup())
+                {
                     PlayerGroup group = invited.getPlayerGroup();
-                    playersToAdd.addAll(group.getMembers());
-                    Iterator<Player> pIter = group.getMembers().iterator();
-                    while (pIter.hasNext()) {
-                        GroupService.getInstance().removePlayerFromGroup(pIter.next());
+
+                    for(Player pl : group.getMembers())
+                    {
+                        if(!pl.isInAlliance() && pl.isOnline())
+                        {
+                            playersToAdd.add(pl);
+                        }
                     }
-                } else {
-                    playersToAdd.add(invited);
+                }
+                else
+                {
+                    if(!invited.isInAlliance() && invited.isOnline())
+                        playersToAdd.add(invited);
                 }
 
                 // Finally, send packets and add players.
@@ -272,13 +302,14 @@ public class AllianceService {
 
     private void broadcastAllianceMemberInfo(PlayerAlliance alliance, PlayerAllianceMember memberToUpdate, PlayerAllianceEvent event, String... params) {
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
-            if (allianceMember.getPlayer() == null)
+            if (!allianceMember.isOnline() || allianceMember.getPlayer() == null)
                 continue;
 
             Player member = allianceMember.getPlayer();
 
             PacketSendUtility.sendPacket(member, new SM_ALLIANCE_MEMBER_INFO(memberToUpdate, event));
-            PacketSendUtility.sendPacket(member, new SM_PLAYER_ID(memberToUpdate));
+            PacketSendUtility.sendPacket(member, new SM_INSTANCE_COOLDOWN(memberToUpdate.getPlayer()));
+
             switch (event) {
                 case ENTER:
                     if (!member.equals(memberToUpdate.getPlayer()))
@@ -313,7 +344,7 @@ public class AllianceService {
     public void broadcastAllianceInfo(PlayerAlliance alliance, PlayerAllianceEvent event, String... params) {
         SM_ALLIANCE_INFO packet = new SM_ALLIANCE_INFO(alliance);
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
-            if (allianceMember.getPlayer() == null)
+            if (allianceMember.getPlayer() == null || !allianceMember.isOnline())
             	continue;
             
             Player member = allianceMember.getPlayer();
@@ -339,11 +370,11 @@ public class AllianceService {
     private void sendOtherMemberInfo(PlayerAlliance alliance, Player memberToSend) {
 
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
-            if (memberToSend.getObjectId() == allianceMember.getObjectId())
+            if (!allianceMember.isOnline() || memberToSend.getObjectId() == allianceMember.getObjectId())
                 continue;
 
             PacketSendUtility.sendPacket(memberToSend, new SM_ALLIANCE_MEMBER_INFO(allianceMember, PlayerAllianceEvent.UPDATE));
-            PacketSendUtility.sendPacket(memberToSend, new SM_PLAYER_ID(allianceMember));
+            PacketSendUtility.sendPacket(memberToSend, new SM_INSTANCE_COOLDOWN(allianceMember.getPlayer()));
         }
     }
 
@@ -356,7 +387,9 @@ public class AllianceService {
         PlayerAlliance alliance = actingMember.getPlayerAlliance();
 
         if (alliance == null) {
-            PacketSendUtility.sendMessage(actingMember, "Your alliance is null...");
+            PacketSendUtility.sendMessage(actingMember, "Your alliance does not exist or can not be found");
+            PacketSendUtility.sendPacket(actingMember, new SM_LEAVE_GROUP_MEMBER());
+            return;
         }
 
         switch (status) {
@@ -399,7 +432,7 @@ public class AllianceService {
             return;
 
         Player allianceMemberPlayer = allianceMember.getPlayer();
-        if (allianceMemberPlayer != null)
+        if (allianceMember.isOnline() && allianceMemberPlayer != null)
         {
             allianceMemberPlayer.setPlayerAlliance(null);
             PacketSendUtility.sendPacket(allianceMemberPlayer, new SM_LEAVE_GROUP_MEMBER());
@@ -409,6 +442,8 @@ public class AllianceService {
         broadcastAllianceMemberInfo(alliance, allianceMember, event, params);
         alliance.removeMember(memberObjectId);
         removeAllianceMemberFromCache(memberObjectId);
+
+        broadcastAllianceMemberInfo(alliance, memberObjectId, PlayerAllianceEvent.BANNED);
 
         // Check Disband
         if (alliance.size() == 1) {
@@ -503,10 +538,10 @@ public class AllianceService {
      * @param brandId
      * @param targetObjectId
      */
-    public void showBrand(PlayerAlliance alliance, int brandId, int targetObjectId) {
+    public void showBrand(PlayerAlliance alliance, int modeId, int brandId, int targetObjectId) {
         for (PlayerAllianceMember allianceMember : alliance.getMembers()) {
             if (!allianceMember.isOnline()) continue;
-            PacketSendUtility.sendPacket(allianceMember.getPlayer(), new SM_SHOW_BRAND(brandId, targetObjectId));
+            PacketSendUtility.sendPacket(allianceMember.getPlayer(), new SM_SHOW_BRAND(modeId, brandId, targetObjectId));
         }
     }
 
@@ -545,7 +580,11 @@ public class AllianceService {
         WorldType worldType = owner.getWorldType();
 
         //WorldType worldType = sp.getWorld().getWorldMap(player.getWorldId()).getWorldType();
-        if (worldType == WorldType.ABYSS) {
+        if(worldType == WorldType.ABYSS || 
+            (worldType == WorldType.BALAUREA &&
+            (owner.getObjectTemplate().getRace() == Race.DRAKAN ||
+            owner.getObjectTemplate().getRace() == Race.LIZARDMAN)))
+        {    
             // Split Evenly
             apRewardPerMember = Math.round(StatFunctions.calculateGroupAPReward(highestLevel, owner) / players.size());
         }
@@ -564,21 +603,26 @@ public class AllianceService {
         expReward *= mod;
 
         for (Player member : players) {
-            // Exp reward
-            long reward = (expReward * member.getLevel()) / partyLvlSum;
-            member.getCommonData().addExp(reward, RewardType.GROUP_HUNTING);
+            if((highestLevel - member.getLevel()) < 10) {
+                // Exp reward
+                long reward = (expReward * member.getLevel()) / partyLvlSum;
+                member.getCommonData().addExp(reward, RewardType.GROUP_HUNTING);
 
-            PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.EXP(Long.toString(reward)));
+                if(owner == null || owner.getObjectTemplate() == null)
+                    PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.EXP(Long.toString(reward)));
+                else
+                    PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.EXP(reward, owner.getObjectTemplate().getNameId()));
 
-            // DP reward
-            int currentDp = member.getCommonData().getDp();
-            int dpReward = StatFunctions.calculateGroupDPReward(member, owner);
-            member.getCommonData().setDp(dpReward + currentDp);
+                // DP reward
+                int currentDp = member.getCommonData().getDp();
+                int dpReward = StatFunctions.calculateGroupDPReward(member, owner);
+                member.getCommonData().setDp(dpReward + currentDp);
 
-            // AP reward
-            if (apRewardPerMember > 0)
-                member.getCommonData().addAp(Math.round(apRewardPerMember * member.getRates().getApNpcRate()));
+                // AP reward
+                if (apRewardPerMember > 0)
+                    member.getCommonData().addAp(Math.round(apRewardPerMember * member.getRates().getApNpcRate()));
 
+            }
             QuestEngine.getInstance().onKill(new QuestCookie(owner, member, 0, 0));
         }
 
@@ -589,6 +633,59 @@ public class AllianceService {
         if (leader == null) return;
 
         DropService.getInstance().registerDrop(owner, leader, highestLevel, players);
+    }
+
+
+    /**
+     * This method will get all group members
+     *
+     * @param group
+     * @param except
+     * @return list of group members
+     */
+    public List<Integer> getAllianceMembers(final PlayerAlliance alliance, boolean except)
+    {
+        List<Integer> luckyMembers = new ArrayList<Integer>();
+
+        for(PlayerAllianceMember allianceMember : alliance.getMembers())
+        {
+            int memberObjId = allianceMember.getObjectId();
+            if(except)
+            {
+                if(alliance.getCaptain().getObjectId() != memberObjId)
+                    luckyMembers.add(memberObjId);
+            }
+            else
+                luckyMembers.add(memberObjId);
+        }
+        return luckyMembers;
+    }
+    /**
+     * @return FastMap<Integer, Boolean>
+     */
+    public List<Integer> getMembersToRegistrateByRules(Player player, PlayerAlliance alliance, Npc npc)
+    {
+        LootGroupRules lootRules = alliance.getLootAllianceRules();
+        LootRuleType lootRule = lootRules.getLootRule();
+        List<Integer> luckyMembers = new ArrayList<Integer>();
+
+        switch(lootRule)
+        {
+            case ROUNDROBIN:
+                int roundRobinMember = alliance.getRoundRobinMember(npc);
+                if(roundRobinMember != 0)
+                {
+                    luckyMembers.add(roundRobinMember);
+                    break;
+                } // if no member is found then the loot is FREEFORALL.
+            case FREEFORALL:
+                luckyMembers = getAllianceMembers(alliance, false);
+                break;
+            case LEADER:
+                luckyMembers.add(alliance.getCaptain().getObjectId());
+                break;
+        }
+        return luckyMembers;
     }
 
     @SuppressWarnings("synthetic-access")

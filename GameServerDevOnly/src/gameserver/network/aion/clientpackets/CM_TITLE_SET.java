@@ -62,7 +62,7 @@ public class CM_TITLE_SET extends AionClientPacket {
         if (titleId != -1) {
             //check title exploit
             for (Title title : player.getTitleList().getTitles()) {
-                if (title.getTemplate().getTitleId() == titleId) {
+                if (title.getTitleId() == titleId) {
                     isValidTitle = true;
                     break;
                 }

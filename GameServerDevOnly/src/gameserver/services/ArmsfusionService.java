@@ -20,6 +20,7 @@ import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.dao.InventoryDAO;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Npc;
+import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.items.ManaStone;
@@ -27,6 +28,7 @@ import gameserver.model.templates.item.ItemQuality;
 import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
+import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
 import org.apache.log4j.Logger;
 
@@ -57,6 +59,43 @@ public class ArmsfusionService {
         if (firstItem == null || secondItem == null || !(player.getTarget() instanceof Npc))
             return;
 
+        if (!MathUtil.isIn3dRange(player.getTarget(), player, 10))
+            return;
+        /*
+         * Both have to be 2h weapons
+         */
+        if (!firstItem.getItemTemplate().isWeapon() || !secondItem.getItemTemplate().isWeapon())
+        {
+            Logger.getLogger(ArmsfusionService.class).info("[AUDIT]Player: "+player.getName()+" trying to fusion non-weapon. Hacking!");
+            return;
+        }
+        if (firstItem.getItemTemplate().getWeaponType() == null || secondItem.getItemTemplate().getWeaponType() == null)
+            return;
+        else
+        {
+            switch(firstItem.getItemTemplate().getWeaponType())
+            {
+                case DAGGER_1H:
+                case MACE_1H:
+                case SWORD_1H:
+                case TOOLHOE_1H:
+                    Logger.getLogger(ArmsfusionService.class).info("[AUDIT]Player: "+player.getName()+" trying to fusion 1h weapon. Hacking!");
+                    return;
+            }
+            switch(secondItem.getItemTemplate().getWeaponType())
+            {
+                case DAGGER_1H:
+                case MACE_1H:
+                case SWORD_1H:
+                case TOOLHOE_1H:
+                    Logger.getLogger(ArmsfusionService.class).info("[AUDIT]Player: "+player.getName()+" trying to fusion 1h weapon. Hacking!");
+                    return;
+            }
+        }
+
+        //check if both items are fusionable
+        if (!firstItem.getItemTemplate().isCanFuse() || !secondItem.getItemTemplate().isCanFuse())
+            return;
 
         double rarity = rarityRate(firstItem.getItemTemplate().getItemQuality());
         double priceRate = player.getPrices().getGlobalPrices(player.getCommonData().getRace()) * .01;
@@ -88,6 +127,12 @@ public class ArmsfusionService {
             return;
         }
 
+        if(!player.getInventory().decreaseKinah(price))
+            return;
+
+        if(!player.getInventory().removeFromBagByObjectId(secondItemUniqueId, 1))
+            return;
+
         firstItem.setFusionedItem(secondItem.getItemTemplate().getTemplateId());
 
         ItemService.removeAllFusionStone(player, firstItem);
@@ -102,16 +147,14 @@ public class ArmsfusionService {
         for (ManaStone stone : manastones)
             ItemService.addFusionStone(firstItem, stone.getItemId());
 
+        if (firstItem.getPersistentState() != PersistentState.NEW && firstItem.getPersistentState() != PersistentState.UPDATE_REQUIRED)
+            firstItem.setPersistentState(PersistentState.UPDATE_REQUIRED);
 
         DAOManager.getDAO(InventoryDAO.class).store(firstItem, player.getObjectId());
-
-        player.getInventory().removeFromBagByObjectId(secondItemUniqueId, 1);
 
         PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(secondItemUniqueId));
 
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(firstItem));
-
-        player.getInventory().decreaseKinah(price);
 
         PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_COMPOUND_SUCCESS(firstItem.getNameID(), secondItem.getNameID()));
 

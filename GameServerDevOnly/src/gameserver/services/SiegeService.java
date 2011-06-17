@@ -36,7 +36,7 @@ import gameserver.network.aion.serverpackets.*;
 import gameserver.spawn.SpawnEngine;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import gameserver.utils.scheduler.Scheduler;
 import gameserver.utils.ThreadPoolManager;

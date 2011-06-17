@@ -24,7 +24,7 @@ import gameserver.ai.state.AIState;
 import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Npc;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 /**
  * @author ATracer

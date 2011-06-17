@@ -39,6 +39,7 @@ public class SM_ABYSS_RANK_UPDATE extends AionServerPacket {
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
         writeD(buf, player.getObjectId());
+        writeC(buf, 0);
         writeD(buf, rankId);
     }
 }

@@ -22,13 +22,19 @@ import gameserver.dataholders.DataManager;
 import gameserver.dataholders.QuestScriptsData;
 import gameserver.dataholders.QuestsData;
 import gameserver.model.TaskId;
+import gameserver.model.flyring.FlyRing;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.templates.QuestTemplate;
 import gameserver.model.templates.bonus.AbstractInventoryBonus;
 import gameserver.model.templates.bonus.InventoryBonusType;
-import gameserver.model.templates.quest.*;
+import gameserver.model.templates.quest.CollectItem;
+import gameserver.model.templates.quest.CollectItems;
+import gameserver.model.templates.quest.NpcQuestData;
+import gameserver.model.templates.quest.QuestDrop;
+import gameserver.model.templates.quest.QuestItems;
+import gameserver.model.templates.quest.QuestWorkItems;
 import gameserver.quest.handlers.QuestHandler;
 import gameserver.quest.handlers.QuestHandlerLoader;
 import gameserver.quest.handlers.models.QuestScriptData;
@@ -37,6 +43,7 @@ import gameserver.quest.model.QuestState;
 import gameserver.quest.model.QuestStatus;
 import gameserver.services.QuestService;
 import gameserver.world.zone.ZoneName;
+
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntObjectHashMap;
 import javolution.util.FastMap;
@@ -45,6 +52,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * @author MrPoke
@@ -78,7 +86,8 @@ public class QuestEngine {
     private List<Integer> questOnQuestTimerEnd = new ArrayList<Integer>();
     private TIntArrayList questOnQuestAbort = new TIntArrayList();
     private FastMap<InventoryBonusType, TIntArrayList> questBonusTypes = new FastMap<InventoryBonusType, TIntArrayList>();
-
+    private TIntObjectHashMap<TIntArrayList>            collectItems = new TIntObjectHashMap<TIntArrayList>();
+    private TIntArrayList                                           questOnFlyThroughRing= new TIntArrayList();
 
     private final NpcQuestData emptyNpcQuestData = new NpcQuestData();
 
@@ -87,34 +96,71 @@ public class QuestEngine {
     }
 
     // Constructor
-
-    private QuestEngine() {
+    private QuestEngine()
+    {
         log.info("Initializing QuestEngine");
     }
 
-    public void load() {
-        for (QuestTemplate data : questData.getQuestsData()) {
-            for (QuestDrop drop : data.getQuestDrop()) {
+    public FastMap<Integer, QuestHandler> TEMP_HANDLERS = new FastMap<Integer, QuestHandler>();
+
+    public void load(boolean reload)
+    {
+        ScriptManager tempScriptManager = new ScriptManager();
+        tempScriptManager.setGlobalClassListener(new QuestHandlerLoader());
+
+        try
+        {
+            tempScriptManager.load(QUEST_DESCRIPTOR_FILE);
+        }
+        catch (Exception e)
+        {
+            throw new GameServerError("Can't initialize quest handlers.", e);
+        }
+
+        if(reload)
+        {
+            scriptManager.shutdown();
+            clear();
+            scriptManager = null;
+            questHandlers.clear();
+        }
+
+        scriptManager = tempScriptManager;
+
+        for (QuestTemplate data : questData.getQuestsData())
+        {
+            for (QuestDrop drop : data.getQuestDrop())
+            {
                 drop.setQuestId(data.getId());
                 setQuestDrop(drop.getNpcId()).add(drop);
             }
+            if (data.getCollectItems() != null)
+            {
+                for (CollectItem ci : data.getCollectItems().getCollectItem())
+                {
+                    setQuestsForCollectItem(ci.getItemId()).add(data.getId());
+                }
+            }
         }
 
-        scriptManager = new ScriptManager();
-        scriptManager.setGlobalClassListener(new QuestHandlerLoader());
-
-        try {
-            scriptManager.load(QUEST_DESCRIPTOR_FILE);
-        }
-        catch (Exception e) {
-            throw new GameServerError("Can't initialize quest handlers.", e);
-        }
-        for (QuestScriptData data : questScriptsData.getData()) {
+        for (QuestScriptData data : questScriptsData.getData())
+        {
             data.register(this);
         }
 
-        log.info("Loaded " + questHandlers.size() + " quest handler.");
+        for(Entry<Integer, QuestHandler> questHEntry : TEMP_HANDLERS.entrySet())
+        {
+            questHEntry.getValue().register();
+            if (questHandlers.containsKey(questHEntry.getValue().getQuestId()))
+                log.warn("Duplicate quest: "+questHEntry.getValue().getQuestId());
+            questHandlers.put(questHEntry.getValue().getQuestId(), questHEntry.getValue());
+        }
+
+        TEMP_HANDLERS.clear();
+
+        log.info((reload ? "Reloaded " : "Loaded ") + questHandlers.size() + " quest handlers.");
     }
+
 
     public void shutdown() {
         scriptManager.shutdown();
@@ -181,6 +227,21 @@ public class QuestEngine {
         return false;
     }
 
+    public HandlerResult onFlyThroughRing(QuestCookie env, FlyRing ring)
+    {
+        for (int index=0 ; index<questOnFlyThroughRing.size(); index++)
+        {
+            QuestHandler questHandler = getQuestHandlerByQuestId(questOnFlyThroughRing.get(index));
+            if(questHandler != null)
+            {
+                HandlerResult result = questHandler.onFlyThroughRingEvent(env, ring);
+                if (result != HandlerResult.UNKNOWN)
+                    return result;
+            }
+        }
+        return HandlerResult.UNKNOWN;
+    }
+
     public boolean onActionItem(QuestCookie env) {
         Npc npc = (Npc) env.getVisibleObject();
 
@@ -224,16 +285,20 @@ public class QuestEngine {
         }
     }
 
-    public boolean onItemUseEvent(QuestCookie env, Item item) {
+    public HandlerResult onItemUseEvent(QuestCookie env, Item item)
+    {
         TIntArrayList lists = getQuestItemIds(item.getItemTemplate().getTemplateId());
-        for (int index = 0; index < lists.size(); index++) {
+        for (int index=0; index<lists.size(); index++)
+        {
             QuestHandler questHandler = getQuestHandlerByQuestId(lists.get(index));
-            if (questHandler != null) {
-                if (questHandler.onItemUseEvent(env, item))
-                    return true;
+            if (questHandler != null)
+            {
+                HandlerResult result = questHandler.onItemUseEvent(env, item);
+                if (result != HandlerResult.UNKNOWN)
+                    return result;
             }
         }
-        return false;
+        return HandlerResult.UNKNOWN;
     }
 
     public boolean onItemSellBuyEvent(QuestCookie env, int itemId) {
@@ -341,8 +406,10 @@ public class QuestEngine {
             for (QuestItems qi : qwi.getQuestWorkItem()) {
                 if (qi != null) {
                     count = player.getInventory().getItemCountByItemId(qi.getItemId());
-                    if (count > 0)
-                        player.getInventory().removeFromBagByItemId(qi.getItemId(), count);
+                    if (count > 0) {
+                       if(!player.getInventory().removeFromBagByItemId(qi.getItemId(), count))
+                            return false;
+                    }
                 }
             }
         }
@@ -385,6 +452,24 @@ public class QuestEngine {
             questItemIds.put(itemId, new TIntArrayList());
         }
         return questItemIds.get(itemId);
+    }
+
+    public TIntArrayList getQuestsForCollectItem(int itemId)
+    {
+        if(collectItems.containsKey(itemId))
+        {
+            return collectItems.get(itemId);
+        }
+        return new TIntArrayList();
+    }
+
+    public TIntArrayList setQuestsForCollectItem(int itemId)
+    {
+        if(!collectItems.containsKey(itemId))
+        {
+            collectItems.put(itemId, new TIntArrayList());
+        }
+        return collectItems.get(itemId);
     }
 
     public TIntArrayList getQuestSellBuyItemIds(int itemId) {
@@ -432,6 +517,18 @@ public class QuestEngine {
 
     public void addOnKillPlayer(int questId) {
         if (!questOnKillPlayer.contains(questId))
+            questOnKillPlayer.add(questId);
+    }
+
+    public void addOnFlyThroughRing(int questId)
+    {
+        if(!questOnFlyThroughRing.contains(questId))
+            questOnFlyThroughRing.add(questId);
+    }
+
+    public void addOnKillPlayer(int questId)
+    {
+        if(!questOnKillPlayer.contains(questId))
             questOnKillPlayer.add(questId);
     }
 
@@ -537,6 +634,8 @@ public class QuestEngine {
         questBonusTypes.clear();
         questHandlers.clear();
         questOnSkillUse.clear();
+        questOnFlyThroughRing.clear();
+        collectItems.clear();
     }
 
     public void addQuestHandler(QuestHandler questHandler) {

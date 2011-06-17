@@ -34,6 +34,8 @@ public class ReportToData extends QuestScriptData {
     protected int startNpcId;
     @XmlAttribute(name = "end_npc_id", required = true)
     protected int endNpc;
+    @XmlAttribute(name = "add_end_npc_id")
+    protected int    addEndNpc;
     @XmlAttribute(name = "item_id")
     protected int itemId;
     @XmlAttribute(name = "readable_item_id")
@@ -41,7 +43,7 @@ public class ReportToData extends QuestScriptData {
 
     @Override
     public void register(QuestEngine questEngine) {
-        ReportTo template = new ReportTo(id, startNpcId, endNpc, itemId, readableItemId);
+        ReportTo template = new ReportTo(id, startNpcId, endNpc, addEndNpc, itemId, readableItemId);
         questEngine.addQuestHandler(template);
     }
 }

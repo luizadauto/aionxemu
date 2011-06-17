@@ -31,7 +31,8 @@ import gameserver.utils.ThreadPoolManager;
 import gameserver.world.zone.ZoneName;
 import gameserver.world.World;
 
-import java.util.*;
+import gameserver.utils.PacketSendUtility;
+import gameserver.utils.ThreadPoolManager;
 
 /**
  * @author HellBoy, ggadv2
@@ -56,6 +57,7 @@ public class ArenaService {
     }
 
     public void onDie(final Player defeated, Creature lastAttacker) {
+        player.getEffectController().removeAllEffects();
         defeated.getController().cancelCurrentSkill();
 
         Summon summon = defeated.getSummon();

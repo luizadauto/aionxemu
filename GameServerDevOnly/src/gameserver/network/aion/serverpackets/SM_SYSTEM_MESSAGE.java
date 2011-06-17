@@ -87,6 +87,9 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
      */
     public static SM_SYSTEM_MESSAGE REVIVE = new SM_SYSTEM_MESSAGE(1300738);
 
+    public static final SM_SYSTEM_MESSAGE    STR_SKILL_OBSTACLE    = new SM_SYSTEM_MESSAGE(1300030);
+    public static final SM_SYSTEM_MESSAGE    STR_ATTACK_OBSTACLE_EXIST    = new SM_SYSTEM_MESSAGE(1300033);
+
     /**
      *
      */
@@ -99,6 +102,22 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
      */
     public static SM_SYSTEM_MESSAGE EXP(long exp, int objectNameId) {
         return new SM_SYSTEM_MESSAGE(1370000, new DescriptionId(objectNameId * 2 + 1), exp);
+    }
+
+    /**
+     * You have gained %num1 EXP (Energy of Repose %num2)
+     */
+    public static SM_SYSTEM_MESSAGE EXP(long exp, int repletionBonus, boolean dummy)
+    {
+        return new SM_SYSTEM_MESSAGE(1400345, exp, repletionBonus);
+    }
+    
+    /**
+     * You have gained %num1 EXP from %0 (Energy of Repose %num2)
+     */
+    public static SM_SYSTEM_MESSAGE EXP(long exp, int objectNameId, int repletionBonus)
+    {
+        return new SM_SYSTEM_MESSAGE(1400342, new DescriptionId(objectNameId * 2 + 1), exp, repletionBonus);
     }
 
     public static SM_SYSTEM_MESSAGE STR_MSG_COMBAT_FRIENDLY_DEATH_TO_B(String nameA, String nameB) {
@@ -197,16 +216,16 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     }
 
     /**
-     * You have crafted successfully.
-     */
-    public static SM_SYSTEM_MESSAGE STR_CRAFT_SUCCESS_GETEXP = new SM_SYSTEM_MESSAGE(1330059);
-
-    /**
      * You have failed to craft %0.
      */
     public static SM_SYSTEM_MESSAGE STR_COMBINE_FAIL(DescriptionId nameId) {
         return new SM_SYSTEM_MESSAGE(1330050, nameId);
     }
+
+    /**
+     * You have crafted successfully.
+     */
+    public static SM_SYSTEM_MESSAGE STR_CRAFT_SUCCESS_GETEXP = new SM_SYSTEM_MESSAGE(1330059);
 
     /**
      * %0 has blocked you.
@@ -318,6 +337,13 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     }
 
     /**
+     * You cannot equip or remove items while in action
+     */
+    public static SM_SYSTEM_MESSAGE CANT_EQUIP_ITEM_IN_ACTION() {
+        return new SM_SYSTEM_MESSAGE(1300920);
+    }
+
+    /**
      * Soul-binding of items not possible while %0.
      */
     public static SM_SYSTEM_MESSAGE STR_SOUL_BOUND_INVALID_STANCE(int systemMessageId) {
@@ -335,40 +361,47 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     public static SM_SYSTEM_MESSAGE STR_MSG_DICE_RESULT_ME(int dice) {
         return new SM_SYSTEM_MESSAGE(1390162, dice);
     }
-
-    public static SM_SYSTEM_MESSAGE STR_MSG_DICE_RESULT_OTHER(String player, int dice) {
-        return new SM_SYSTEM_MESSAGE(1390163, player, dice);
+    public static SM_SYSTEM_MESSAGE STR_MSG_DICE_RESULT_OTHER(String player, int dice) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390163, player, dice);    
+    }    
+    public static SM_SYSTEM_MESSAGE STR_MSG_DICE_GIVEUP_ME() 
+    {
+        return new SM_SYSTEM_MESSAGE(1390164);    
+    }    
+    public static SM_SYSTEM_MESSAGE STR_MSG_DICE_GIVEUP_OTHER(String player) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390165, player);    
+    }    
+    public static SM_SYSTEM_MESSAGE STR_MSG_LOOT_GET_ITEM_ME(DescriptionId itemDesc) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390180, itemDesc);    
+    }
+    /**
+     * %0 is now the owner of %1.
+     */
+    public static SM_SYSTEM_MESSAGE STR_MSG_LOOT_GET_ITEM_OTHER(String player, DescriptionId itemDesc) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390181, player, itemDesc);    
     }
 
-    public static SM_SYSTEM_MESSAGE STR_MSG_DICE_GIVEUP_ME() {
-        return new SM_SYSTEM_MESSAGE(1390164);
+    public static SM_SYSTEM_MESSAGE STR_MSG_PAY_ACCOUNT_ME(long kinah) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390185, kinah);    
     }
 
-    public static SM_SYSTEM_MESSAGE STR_MSG_DICE_GIVEUP_OTHER(String player) {
-        return new SM_SYSTEM_MESSAGE(1390165, player);
+    public static SM_SYSTEM_MESSAGE STR_MSG_PAY_ACCOUNT_OTHER(String player, long kinah) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390186, player, kinah);    
     }
 
-    public static SM_SYSTEM_MESSAGE STR_MSG_LOOT_GET_ITEM_ME(DescriptionId itemDesc) {
-        return new SM_SYSTEM_MESSAGE(1390180, itemDesc);
+    public static SM_SYSTEM_MESSAGE STR_MSG_PAY_DISTRIBUTE(long kinah, int count, long Kinah) 
+    {
+        return new SM_SYSTEM_MESSAGE(1390187, kinah, count, Kinah);    
     }
 
-    public static SM_SYSTEM_MESSAGE STR_MSG_LOOT_GET_ITEM_OTHER(String player, DescriptionId itemDesc) {
-        return new SM_SYSTEM_MESSAGE(1390181, player, itemDesc);
-    }
-
-    public static SM_SYSTEM_MESSAGE STR_MSG_PAY_ACCOUNT_ME(long kinah) {
-        return new SM_SYSTEM_MESSAGE(1390185, kinah);
-    }
-
-    public static SM_SYSTEM_MESSAGE STR_MSG_PAY_ACCOUNT_OTHER(String player, long kinah) {
-        return new SM_SYSTEM_MESSAGE(1390186, player, kinah);
-    }
-
-    public static SM_SYSTEM_MESSAGE STR_MSG_PAY_DISTRIBUTE(long kinah, int count, long Kinah) {
-        return new SM_SYSTEM_MESSAGE(1390187, kinah, count, Kinah);
-    }
-
-    public static SM_SYSTEM_MESSAGE REQUEST_GROUP_INVITE(String player) {
+    public static SM_SYSTEM_MESSAGE REQUEST_GROUP_INVITE(String player)
+    {
         return new SM_SYSTEM_MESSAGE(1300173, player);
     }
 
@@ -896,6 +929,12 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
         return new SM_SYSTEM_MESSAGE(1300253);
     }
 
+    public static SM_SYSTEM_MESSAGE STR_GUILD_INVITE_CAN_NOT_INVITE_OTHER_RACE()
+    {
+        // You cannot invite members of other race.
+        return new SM_SYSTEM_MESSAGE(1300311);
+    }
+
     /**
      * Reponse to checks - LEAVE *
      */
@@ -904,6 +943,12 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
         return new SM_SYSTEM_MESSAGE(1300238);
     }
 
+    public static SM_SYSTEM_MESSAGE STR_GUILD_LEAVE_CANT_LEAVE_GUILD_WHILE_USING_WAREHOUSE()
+    {
+        // You cannot leave your Legion while using the Legion Warehouse.
+        return new SM_SYSTEM_MESSAGE(1300237);
+    }
+    
     /**
      * Reponse to checks - KICK *
      */
@@ -920,6 +965,21 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     public static SM_SYSTEM_MESSAGE LEGION_CANT_KICK_BRIGADE_GENERAL() {
         // You cannot kick out the Legion Brigade General.
         return new SM_SYSTEM_MESSAGE(1300249);
+    }
+    public static SM_SYSTEM_MESSAGE STR_GUILD_BANISH_DONT_HAVE_RIGHT_TO_BANISH()
+    {
+        // You do not have the authority to kick out a Legion member.
+        return new SM_SYSTEM_MESSAGE(1300244);
+    }
+    public static SM_SYSTEM_MESSAGE STR_GUILD_BANISH_I_AM_NOT_BELONG_TO_GUILD()
+    {
+        // You are not a member of a Legion.
+        return new SM_SYSTEM_MESSAGE(1300242);
+    }
+    public static SM_SYSTEM_MESSAGE STR_GUILD_BANISH_CAN_NOT_BANISH_SAME_MEMBER_RANK()
+    {
+        // You cannot kick out a Legion member who holds the same rank as you.
+        return new SM_SYSTEM_MESSAGE(1390241);
     }
 
     /**
@@ -995,12 +1055,50 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
         // You cannot disband your Legion while you have items left in the Legion warehouse.
         return new SM_SYSTEM_MESSAGE(1390212);
     }
+    
+    public static SM_SYSTEM_MESSAGE STR_GUILD_DISPERSE_CANT_DISPERSE_GUILD_WHILE_USING_WAREHOUSE()
+    {
+        // You cannot disband your Legion while you are using the Legion warehouse.
+        return new SM_SYSTEM_MESSAGE(1300298);
+    }
+
+    /**
+     * Legion Warehouse related messages
+     */
+    public static SM_SYSTEM_MESSAGE STR_NO_GUILD_TO_DEPOSIT()
+    {
+        // You must be a Legion member to use the Legion warehouse.
+        return new SM_SYSTEM_MESSAGE(1300278);
+    }
+    public static SM_SYSTEM_MESSAGE STR_GUILD_WAREHOUSE_NO_RIGHT()
+    {
+        // You do not have the authority to use the Legion warehouse.
+        return new SM_SYSTEM_MESSAGE(1300322);
+    }
+    public static SM_SYSTEM_MESSAGE STR_GUILD_WAREHOUSE_IN_USE()
+    {
+        // Another Legion member is using the warehouse. Please try again later.
+        return new SM_SYSTEM_MESSAGE(1300280);
+    }
+    public static SM_SYSTEM_MESSAGE STR_MSG_WAREHOUSE_CANT_LEGION_DEPOSIT()
+    {
+        // You cannot store this item in the Legion warehouse.
+        return new SM_SYSTEM_MESSAGE(1400355);
+    }
 
     /**
      * Legion Message correct order from bottom
      */
     public static SM_SYSTEM_MESSAGE STR_MSG_NOTIFY_LOGIN_GUILD(String charName) {
         return new SM_SYSTEM_MESSAGE(1400133, charName);
+    }
+
+    /**
+     * You have cancelled using the item.
+     */
+    public static SM_SYSTEM_MESSAGE STR_ITEM_CANCELED()
+    {
+        return new SM_SYSTEM_MESSAGE(1300427);
     }
 
     /**
@@ -1068,6 +1166,11 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
 
     public static SM_SYSTEM_MESSAGE STR_ATTACK_TOO_FAR_FROM_TARGET() {
         return new SM_SYSTEM_MESSAGE(1300032);
+    }
+
+    public static SM_SYSTEM_MESSAGE STR_SKILL_OBSTACLE()
+    {
+        return new SM_SYSTEM_MESSAGE(1300030);
     }
 
     public static SM_SYSTEM_MESSAGE NO_POWER_SHARD_EQUIPPED() {
@@ -1144,11 +1247,29 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     }
 
     /**
+     * Your Class cannot use the selected item.
+     */
+    public static SM_SYSTEM_MESSAGE STR_CANNOT_USE_ITEM_INVALID_CLASS()
+    {
+        return new SM_SYSTEM_MESSAGE(1300371);
+    }
+
+    /**
      * cannot equip items if require level higher than character level
      */
     public static SM_SYSTEM_MESSAGE STR_CANNOT_USE_ITEM_TOO_LOW_LEVEL_MUST_BE_THIS_LEVEL(int itemLevel,
-                                                                                         DescriptionId itemDescId) {
+        DescriptionId itemDescId)
+    {
         return new SM_SYSTEM_MESSAGE(1300372, itemLevel, itemDescId);
+    }
+
+    /**
+     * cannot equip items if require level lower than character level
+     */
+    public static SM_SYSTEM_MESSAGE STR_CANNOT_USE_ITEM_TOO_HIGH_LEVEL(int itemLevel,
+        DescriptionId itemDescId)
+    {
+        return new SM_SYSTEM_MESSAGE(1400267, itemLevel, itemDescId);
     }
 
     /**
@@ -1342,16 +1463,33 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
     public static final SM_SYSTEM_MESSAGE STR_MSG_ENTER_ONLY_PARTY_DON = new SM_SYSTEM_MESSAGE(1390256);
 
     //You may enter %WORLDNAME0 again after %1 minutes.
-
     public static SM_SYSTEM_MESSAGE STR_MSG_CANNOT_ENTER_INSTANCE_COOL_TIME_MIN(int worldDescId, int time) {
         return new SM_SYSTEM_MESSAGE(1400030, new DescriptionId(worldDescId * 2 + 1), time);
     }
     //You may enter %WORLDNAME0 again after %1 hours
-
-    public static SM_SYSTEM_MESSAGE STR_MSG_CANNOT_ENTER_INSTANCE_COOL_TIME_HOUR(int worldDescId, int time) {
+    public static SM_SYSTEM_MESSAGE STR_MSG_CANNOT_ENTER_INSTANCE_COOL_TIME_HOUR(int worldDescId, int time)
+    {
         return new SM_SYSTEM_MESSAGE(1400029, new DescriptionId(worldDescId * 2 + 1), time);
     }
-
+    //You may enter %0 again after %1 minutes.
+    public static SM_SYSTEM_MESSAGE STR_MSG_CANNOT_ENTER_INSTANCE_COOL_TIME_MIN_CLIENT(int worldDescId, int time)
+    {
+        return new SM_SYSTEM_MESSAGE(1400038, new DescriptionId(worldDescId * 2 + 1), time);
+    }
+    //You may enter %0 again after %1 hours
+    public static SM_SYSTEM_MESSAGE STR_MSG_CANNOT_ENTER_INSTANCE_COOL_TIME_HOUR_CLIENT(int worldDescId, int time)
+    {
+        return new SM_SYSTEM_MESSAGE(1400037, new DescriptionId(worldDescId * 2 + 1), time);
+    }
+    
+    //You need %0 to open the door.
+    public static SM_SYSTEM_MESSAGE STR_CANNOT_OPEN_DOOR_NEED_NAMED_KEY_ITEM(int nameId)
+    {
+        return new SM_SYSTEM_MESSAGE(1300722, new DescriptionId(nameId * 2 + 1));
+    }
+    
+    //You need a key to open the door.
+    public static SM_SYSTEM_MESSAGE STR_CANNOT_OPEN_DOOR_NEED_KEY_ITEM = new SM_SYSTEM_MESSAGE(1300723);
 
     public static final SM_SYSTEM_MESSAGE STR_GIVE_ITEM_PROC_NO_PROC_GIVE_ITEM = new SM_SYSTEM_MESSAGE(1300505);
     public static final SM_SYSTEM_MESSAGE STR_GIVE_ITEM_PROC_CANNOT_GIVE_PROC_TO_EQUIPPED_ITEM = new SM_SYSTEM_MESSAGE(1300503);
@@ -1446,6 +1584,99 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket {
 
     public static final SM_SYSTEM_MESSAGE STR_MSG_DELETE_CASH_ITEM_BY_TIMEOUT(int nameId) {
     	return new SM_SYSTEM_MESSAGE(1400034, new DescriptionId(nameId));
+    }
+
+    /**
+     * Skill related
+     */
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_ABYSS_SKILL_IS_FIRED(String raceName, String playerName, String zoneName, int skillDesc)
+    {
+        //"playername" of "race" uses "skillname" in "zonename"
+        //%1 of %0 uses %3 in %2.
+        return new SM_SYSTEM_MESSAGE(1390155, raceName, playerName, zoneName, new DescriptionId(skillDesc));
+    }
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_CANT_CAST_IN_ABNORMAL_STATE()
+    {
+        //You cannot use the skill while in an Altered State.
+        return new SM_SYSTEM_MESSAGE(1300064);
+    }
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_CAN_NOT_CAST_IN_SHAPECHANGE()
+    {
+        //You cannot use this skill while transformed.
+        return new SM_SYSTEM_MESSAGE(1300149);
+    }
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_CANT_CAST_MAGIC_SKILL_WHILE_SILENCED()
+    {
+        //You cannot cast spells while silenced.
+        return new SM_SYSTEM_MESSAGE(1300062);
+    }
+    // not used
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_CAN_NOT_ATTACK_WHILE_IN_ABNORMAL_STATE()
+    {
+        //You cannot attack while in an Altered State.
+        return new SM_SYSTEM_MESSAGE(1300066);
+    }
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_TARGET_SKILL_CANCELED()
+    {
+        //You interrupted the target&apos;s skill.
+        return new SM_SYSTEM_MESSAGE(1300109);
+    }
+    public static final SM_SYSTEM_MESSAGE STR_SKILL_PROC_EFFECT_OCCURRED(int skillDesc)
+    {
+        //send with reflector
+        //%0 has been activated.
+        return new SM_SYSTEM_MESSAGE(1301062, new DescriptionId(skillDesc));
+    }
+
+    /**
+     * Stigma related
+     */
+    public static final SM_SYSTEM_MESSAGE STR_STIGMA_CANNT_UNEQUIP_STONE_FIRST_UNEQUIP_CURRENT_EQUIPPED_ITEM()
+    {
+        //The Stigma Stone cannot be removed: All items currently equipped via the skills acquired through this Stigma Stone must be removed first.
+        return new SM_SYSTEM_MESSAGE(1300444);
+    }
+    
+    public static final SM_SYSTEM_MESSAGE    STR_MSG_INVENTORY_SPLIT_DURING_TRADE    = new SM_SYSTEM_MESSAGE(1300713);
+    
+    /**
+     * The target is invalid. Please select a player.
+     */
+    public static final SM_SYSTEM_MESSAGE    STR_ASSISTKEY_INCORRECT_TARGET    = new SM_SYSTEM_MESSAGE(1300677);
+    
+    /**
+     * The person you want to assist does not have a target.
+     */
+    public static final SM_SYSTEM_MESSAGE    STR_ASSISTKEY_NO_USER    = new SM_SYSTEM_MESSAGE(1300678);
+    
+    
+    /**
+     * in combat
+     */
+    public static int MSG_ASF_COMBAT = 1400079;
+    
+    /** 
+     * You cannot feed your pet %0.
+     */
+    public static SM_SYSTEM_MESSAGE STR_MSGBOX_TOYPET_FEED_CANT_FEED(int nameId)
+    {
+        return new SM_SYSTEM_MESSAGE(1400698, new DescriptionId(nameId * 2 + 1));
+    }
+    
+    /** 
+     * %0 spits out %1 and makes a face.
+     */
+    public static SM_SYSTEM_MESSAGE STR_MSG_TOYPET_FEED_FOOD_NOT_LOVEFLAVOR(String petName, int nameId)
+    {
+        return new SM_SYSTEM_MESSAGE(1400618, petName, new DescriptionId(nameId));
+    }    
+    
+    /**
+     * %0 indicates that it is not hungry.
+     */
+    public static SM_SYSTEM_MESSAGE STR_MSG_TOYPET_LIMIT_LOVE_COUNT(String petName)
+    {
+        return new SM_SYSTEM_MESSAGE(1400696, petName);
     }
 
     private final int code;

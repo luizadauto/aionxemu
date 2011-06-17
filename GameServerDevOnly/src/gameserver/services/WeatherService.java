@@ -21,7 +21,7 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_WEATHER;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.MapRegion;
 import gameserver.world.World;
 import gameserver.world.WorldMap;

@@ -70,6 +70,8 @@ public class CM_SUMMON_ATTACK extends AionClientPacket {
         }
 
         Creature creature = (Creature) World.getInstance().findAionObject(targetObjId);
+        if (creature == null)
+            return;
         summon.getController().attackTarget(creature);
     }
 }

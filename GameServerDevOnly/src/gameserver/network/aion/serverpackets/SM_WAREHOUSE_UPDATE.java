@@ -14,13 +14,10 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package gameserver.network.aion.serverpackets;
 
+import gameserver.configs.main.GSConfig;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.items.ItemId;
 import gameserver.model.templates.item.ItemTemplate;
@@ -43,8 +40,12 @@ public class SM_WAREHOUSE_UPDATE extends InventoryPacket {
     }
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
         writeC(buf, warehouseType);
+        if(GSConfig.SERVER_VERSION.startsWith("2.1"))
+        writeH(buf, 19);
+        else
         writeH(buf, 13);
         writeH(buf, 1);
 
@@ -52,14 +53,24 @@ public class SM_WAREHOUSE_UPDATE extends InventoryPacket {
 
         ItemTemplate itemTemplate = item.getItemTemplate();
 
-        if (itemTemplate.getTemplateId() == ItemId.KINAH.value()) {
-            writeKinah(buf, item, false);
-        } else if (itemTemplate.isWeapon()) {
-            writeWeaponInfo(buf, item, false);
-        } else if (itemTemplate.isArmor()) {
-            writeArmorInfo(buf, item, false, false, false);
-        } else {
-            writeGeneralItemInfo(buf, item, false, false);
+        if(itemTemplate.getTemplateId() == ItemId.KINAH.value())
+        {
+            writeKinah(buf, item);
+        }
+        else if (itemTemplate.isWeapon())
+        {
+            writeWeaponInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+        }
+        else if (itemTemplate.isArmor())
+        {
+            writeArmorInfo(buf,item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+        }
+        else
+        {
+            writeGeneralItemInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
         }
 
     }

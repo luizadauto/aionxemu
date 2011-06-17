@@ -23,25 +23,31 @@ import gameserver.network.aion.AionServerPacket;
 import java.nio.ByteBuffer;
 
 /**
- * @author Sweetkr
+ * @author Sweetkr, Kamui
  */
-public class SM_SHOW_BRAND extends AionServerPacket {
+public class SM_SHOW_BRAND extends AionServerPacket
+{
+    private int modeId;
     private int brandId;
     private int targetObjectId;
-
-    public SM_SHOW_BRAND(int brandId, int targetObjectId) {
+    
+    public SM_SHOW_BRAND(int modeId, int brandId, int targetObjectId)
+    {
+        this.modeId = modeId;
         this.brandId = brandId;
         this.targetObjectId = targetObjectId;
     }
 
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
 
         writeH(buf, 0x01); //unk
-		writeD(buf, 0x01); //unk
+        writeD(buf, modeId);
         writeD(buf, brandId);
         writeD(buf, targetObjectId);
-
+        
     }
 }
+

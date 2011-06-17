@@ -49,61 +49,55 @@ public class SM_UPDATE_ITEM extends InventoryPacket {
         writeD(buf, itemTemplate.getNameId());
         writeH(buf, 0);
     }
-
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
 
         writeGeneralInfo(buf, item);
 
         ItemTemplate itemTemplate = item.getItemTemplate();
 
-        if (itemTemplate.getTemplateId() == ItemId.KINAH.value()) {
-            writeKinah(buf, item, true);
-        } else if (itemTemplate.isWeapon()) {
-            writeWeaponInfo(buf, item, true, isWeaponSwitch, false, false);
-        } else if (itemTemplate.isArmor()) {
-            writeArmorInfo(buf, item, true, false, false);
-        } else if (itemTemplate.isStigma()) {
-            writeStigmaInfo(buf, item);
-        } else {
+        if(itemTemplate.getTemplateId() == ItemId.KINAH.value())
+        {
+            writeKinah(buf, item);
+            writeC(buf, 0x1A); // FF FF equipment
+            writeC(buf, 0);
+        }
+        else if (itemTemplate.isWeapon())
+        {
+            if(isWeaponSwitch)
+                writeWeaponSwitch(buf, item);
+            else
+            {
+                writeWeaponInfo(buf, item);
+                writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+                writeC(buf, 0);
+            }
+        }
+        else if (itemTemplate.isArmor())
+        {
+            writeArmorInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+            writeC(buf, 0);
+        }
+        else if (itemTemplate.isStigma())
+        {
+            writeStigmaInfo(buf,item);
+        }
+        else
+        {
             writeGeneralItemInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+            writeC(buf, 0);
         }
     }
-
-    protected void writeGeneralItemInfo(ByteBuffer buf, Item item) {
-        writeH(buf, 0x16); //length of details
-        writeC(buf, 0);
-        writeH(buf, item.getItemMask());
-        writeD(buf, (int) item.getItemCount());
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeH(buf, 0);
-        writeC(buf, 0);
-        writeH(buf, 0);
-        writeH(buf, item.getEquipmentSlot()); // not equipable items
-    }
-
+    
     @Override
-    protected void writeStigmaInfo(ByteBuffer buf, Item item) {
+    protected void writeStigmaInfo(ByteBuffer buf, Item item)
+    {
         int itemSlotId = item.getEquipmentSlot();
         writeH(buf, 0x05); //length of details
         writeC(buf, 0x06); //unk
         writeD(buf, item.isEquipped() ? itemSlotId : 0);
     }
-
-    @Override
-    protected void writeKinah(ByteBuffer buf, Item item, boolean isInventory) {
-        writeH(buf, 0x16); //length of details
-        writeC(buf, 0);
-        writeH(buf, item.getItemMask());
-        writeQ(buf, item.getItemCount());
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeH(buf, 0);
-        writeC(buf, 0);
-        writeC(buf, 0x1A); // FF FF equipment
-        writeC(buf, 0);
-    }
-
 }

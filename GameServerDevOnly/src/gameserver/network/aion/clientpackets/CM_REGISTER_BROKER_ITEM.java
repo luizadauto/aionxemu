@@ -28,7 +28,7 @@ import gameserver.services.BrokerService;
  */
 public class CM_REGISTER_BROKER_ITEM extends AionClientPacket {
     private static final Logger	log	= Logger.getLogger(CM_REGISTER_BROKER_ITEM.class);
-
+    @SuppressWarnings("unused")
     private int brokerId;
     private int itemUniqueId;
     private long price;

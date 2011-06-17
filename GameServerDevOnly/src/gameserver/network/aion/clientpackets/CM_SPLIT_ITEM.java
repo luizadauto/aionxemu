@@ -22,7 +22,9 @@ package gameserver.network.aion.clientpackets;
 
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.ItemService;
+import gameserver.utils.PacketSendUtility;
 
 /**
  * @author kosyak
@@ -56,6 +58,12 @@ public class CM_SPLIT_ITEM extends AionClientPacket {
     @Override
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
+
+        if (player.isTrading())
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_INVENTORY_SPLIT_DURING_TRADE);
+            return;
+        }
 
         if (destinationItemObjId == 0)
             ItemService.splitItem(player, sourceItemObjId, itemAmount, slotNum, sourceStorageType, destinationStorageType);

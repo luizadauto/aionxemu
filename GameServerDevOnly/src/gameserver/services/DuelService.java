@@ -68,7 +68,7 @@ public class DuelService {
         /**
          * Check if requester isn't already in a duel and responder is same race
          */
-        if (ArenaService.getInstance().isInArena(requester) || ArenaService.getInstance().isInArena(responder)) {
+        if(requester.getInArena() || responder.getInArena()) {
             PacketSendUtility.sendPacket(requester, SM_SYSTEM_MESSAGE.DUEL_PARTNER_INVALID(responder.getName()));
             return;
         }

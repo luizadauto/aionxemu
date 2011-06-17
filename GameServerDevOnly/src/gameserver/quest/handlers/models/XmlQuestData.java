@@ -21,7 +21,12 @@ import gameserver.quest.handlers.models.xmlQuest.events.OnKillEvent;
 import gameserver.quest.handlers.models.xmlQuest.events.OnTalkEvent;
 import gameserver.quest.handlers.template.XmlQuest;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.List;
 

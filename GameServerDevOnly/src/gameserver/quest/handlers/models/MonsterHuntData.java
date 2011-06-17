@@ -18,10 +18,15 @@ package gameserver.quest.handlers.models;
 
 import gameserver.quest.QuestEngine;
 import gameserver.quest.handlers.template.MonsterHunt;
-import javolution.util.FastMap;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.List;
+import javolution.util.FastMap;
 
 /**
  * @author MrPoke

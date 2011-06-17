@@ -132,7 +132,9 @@ public class CM_EMOTION extends AionClientPacket {
                 // cannot sit while in combat mode, unset current state first
                 if (player.isInState(CreatureState.WEAPON_EQUIPPED)) {
                     player.unsetState(CreatureState.WEAPON_EQUIPPED);
-                    PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, EmotionType.NEUTRALMODE2, 0, player.getObjectId()), true);
+                    PacketSendUtility.broadcastPacket(player, new SM_EMOTION(
+                        player, EmotionType.NEUTRALMODE, emotion, x, y, z, heading,
+                        (player.getTarget() == null) ? 0 : player.getTarget().getObjectId()), true);
 
                     // pause for animation
                     try {
@@ -197,7 +199,14 @@ public class CM_EMOTION extends AionClientPacket {
                 player.getController().onJump();
                 break;
         }
-        PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, emotionType, emotion, x, y, z, heading,
+        // Ghetto code for pet snuggle.
+        if(emotion == 0x72 && player.getToyPet() != null) {
+            PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, emotionType, emotion, x, y, z, heading,
+                player.getToyPet().getUid()), true);
+        }
+        else {
+            PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, emotionType, emotion, x, y, z, heading,
                 player.getTarget() == null ? 0 : player.getTarget().getObjectId()), true);
-	}
+        }
+    }
 }

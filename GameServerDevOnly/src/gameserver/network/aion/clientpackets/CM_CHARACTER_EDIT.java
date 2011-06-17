@@ -61,6 +61,11 @@ public class CM_CHARACTER_EDIT extends AionClientPacket {
         Account account = client.getAccount();
         objectId = readD();
         Player player = PlayerService.getPlayer(objectId, account);
+        if(player.getPlayerAccount().getId() != account.getId())
+        {
+            Logger.getLogger(CM_CHARACTER_EDIT.class).warn("HACK ATTEMPT: " + client.getIP() + " trying to hack chaOid " + objectId + " not on his account!");
+            return;
+        }
         readB(44);
         PlayerCommonData playerCommonData = player.getCommonData();
         PlayerAppearance playerAppearance = player.getPlayerAppearance();

@@ -24,7 +24,7 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_MESSAGE;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import javolution.util.FastSet;
 import org.apache.log4j.Logger;
@@ -88,9 +88,9 @@ public class AnnouncementService {
                         public boolean run(Player player) {
                             if (announce.getFaction().equalsIgnoreCase("ALL"))
                                 if (announce.getChatType() == ChatType.SHOUT || announce.getChatType() == ChatType.GROUP_LEADER)
-                                    PacketSendUtility.sendPacket(player, new SM_MESSAGE(1, "Auto Announce", announce.getAnnounce(), announce.getChatType()));
+                                    PacketSendUtility.sendPacket(player, new SM_MESSAGE(1, "Info", announce.getAnnounce(), announce.getChatType()));
                                 else
-                                    PacketSendUtility.sendPacket(player, new SM_MESSAGE(1, "Auto Announce", announce.getAnnounce(), announce.getChatType()));
+                                    PacketSendUtility.sendPacket(player, new SM_MESSAGE(1, "Info", announce.getAnnounce(), announce.getChatType()));
                             else if (announce.getFactionEnum() == player.getCommonData().getRace())
                                 if (announce.getChatType() == ChatType.SHOUT || announce.getChatType() == ChatType.GROUP_LEADER)
                                     PacketSendUtility.sendPacket(player, new SM_MESSAGE(1, (announce.getFaction().equalsIgnoreCase("ELYOS") ? "Elyos" : "Asmodian") + " Auto Announce", announce.getAnnounce(), announce.getChatType()));

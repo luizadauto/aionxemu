@@ -23,11 +23,18 @@ import gameserver.model.account.Account;
 import gameserver.model.account.AccountTime;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.serverpackets.SM_L2AUTH_LOGIN_CHECK;
+import gameserver.network.aion.serverpackets.SM_QUIT_RESPONSE;
 import gameserver.network.aion.serverpackets.SM_RECONNECT_KEY;
 import gameserver.network.loginserver.LoginServerConnection.State;
-import gameserver.network.loginserver.serverpackets.*;
+import gameserver.network.loginserver.serverpackets.SM_ACCOUNT_AUTH;
+import gameserver.network.loginserver.serverpackets.SM_ACCOUNT_DISCONNECTED;
+import gameserver.network.loginserver.serverpackets.SM_ACCOUNT_RECONNECT_KEY;
+import gameserver.network.loginserver.serverpackets.SM_BAN;
+import gameserver.network.loginserver.serverpackets.SM_LS_CONTROL;
 import gameserver.services.AccountService;
+import gameserver.services.PlayerService;
 import gameserver.utils.ThreadPoolManager;
+
 import org.apache.log4j.Logger;
 
 import java.nio.channels.SocketChannel;
@@ -267,6 +274,7 @@ public class LoginServer {
         synchronized (this) {
             AionConnection client = loggedInAccounts.get(accountId);
             if (client != null) {
+                PlayerService.playerLoggedOut(client.getActivePlayer());
                 closeClientWithCheck(client, accountId);
             }
             //This account is not logged in on this GameServer but LS thinks different...
@@ -278,7 +286,7 @@ public class LoginServer {
 
     private void closeClientWithCheck(AionConnection client, final int accountId) {
         log.info("Closing client connection " + accountId);
-        client.close(/* closePacket, */false);
+        client.close(new SM_QUIT_RESPONSE(), true);
         ThreadPoolManager.getInstance().schedule(new Runnable() {
 
             @Override
@@ -286,7 +294,7 @@ public class LoginServer {
                 AionConnection client = loggedInAccounts.get(accountId);
                 if (client != null) {
                     log.warn("Removing client from server because of stalled connection");
-                    client.close(false);
+                    client.close(new SM_QUIT_RESPONSE(), true);
                     loggedInAccounts.remove(accountId);
                     sendAccountDisconnected(accountId);
                 }

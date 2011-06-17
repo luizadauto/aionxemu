@@ -23,7 +23,7 @@ import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.shield.Shield;
 import gameserver.utils.MathUtil;
 import gameserver.world.ObjectContainer;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -23,7 +23,7 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.i18n.CustomMessageId;
 import gameserver.utils.i18n.LanguageHandler;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 
 /**

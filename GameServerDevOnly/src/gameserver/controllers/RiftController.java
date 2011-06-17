@@ -34,7 +34,7 @@ import gameserver.services.RespawnService;
 import gameserver.services.TeleportService;
 import gameserver.spawn.RiftSpawnManager.RiftEnum;
 import gameserver.utils.PacketSendUtility;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.WorldMapInstance;
 import gameserver.world.WorldType;
 

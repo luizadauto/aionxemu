@@ -23,7 +23,7 @@ import gameserver.network.aion.serverpackets.SM_GAME_TIME;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.utils.gametime.DayTime;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 

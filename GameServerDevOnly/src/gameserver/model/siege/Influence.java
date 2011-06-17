@@ -20,7 +20,7 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_INFLUENCE_RATIO;
 import gameserver.services.SiegeService;
 import gameserver.utils.PacketSendUtility;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 
 /**

@@ -60,7 +60,7 @@ public class SM_WAREHOUSE_INFO extends InventoryPacket {
             ItemTemplate itemTemplate = item.getItemTemplate();
 
             if (itemTemplate.getTemplateId() == ItemId.KINAH.value())
-                writeKinah(buf, item, false);
+                writeKinah(buf, item);
             else if (itemTemplate.isWeapon()) {
                 writeWeaponInfo(buf, item);
                 writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());

@@ -24,6 +24,7 @@ import gameserver.model.gameobjects.stats.PlayerLifeStats;
 import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
+import gameserver.skill.model.SkillSubType;
 import gameserver.utils.gametime.GameTimeManager;
 
 import java.nio.ByteBuffer;
@@ -110,7 +111,10 @@ public class SM_STATS_INFO extends AionServerPacket {
 
         writeH(buf, pgs.getCurrentStat(StatEnum.PHYSICAL_DEFENSE));// [current pdef]
 
-        writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_ATTACK));// [current magic attack ?]
+        int magicalAttack = (int) (pgs.getBaseStat(StatEnum.MAGICAL_ATTACK) *
+            pgs.getCurrentStat(StatEnum.KNOWLEDGE) * 0.01) +
+            pgs.getStatBonus(StatEnum.MAGICAL_ATTACK);
+        writeH(buf, magicalAttack);// [current magical attack]
 
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_RESIST)); // [current mres]
 
@@ -126,24 +130,23 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeH(buf, pgs.getCurrentStat(StatEnum.MAIN_HAND_ACCURACY));// [current main_hand_accuracy]
         writeH(buf, pgs.getCurrentStat(StatEnum.OFF_HAND_ACCURACY));// [current off_hand_accuracy]
 
-        writeH(buf, 0);// [unk]
+        int boostCastTime = (int) ((pgs.getCurrentStat(StatEnum.BOOST_CASTING_TIME) - 100 ) * 0.1);
+        writeH(buf, boostCastTime);
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_ACCURACY));// [current magic accuracy]
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_CRITICAL)); // [current crit spell]
 
-        writeH(buf, 0);// [unk]
+        writeH(buf, 0); // [old current magic boost location]
 
-        writeF(buf, (pgs.getBaseStat(StatEnum.BOOST_CASTING_TIME) -
-            pgs.getCurrentStat(StatEnum.BOOST_CASTING_TIME)) / 100f + 1); // [current boost casting time]
+        float castingSpeed = (pgs.getBaseStat(StatEnum.BOOST_CASTING_TIME) -
+            pgs.getCurrentStat(StatEnum.BOOST_CASTING_TIME) -
+            player.getController().getBoostCastingRate(SkillSubType.NONE)) / 100f + 1;
+        writeF(buf, castingSpeed < 0 ? 0 : castingSpeed);// current cast speed 2.1
+        writeH(buf, pgs.getCurrentStat(StatEnum.CONCENTRATION));// current concentration
+        
+        writeH(buf, pgs.getCurrentStat(StatEnum.BOOST_MAGICAL_SKILL)); // [current magic boost] 1.9 version
+        
+        writeH(buf, pgs.getCurrentStat(StatEnum.BOOST_HEAL)-100); // [current boost_heal]
 
-        writeH(buf, 40);// [unk] 1.9 version
-
-        // FIXME: TempFix MBoost Cap 2600
-        int totalBoostMagicalSkill = pgs.getCurrentStat(StatEnum.BOOST_MAGICAL_SKILL);
-        if (totalBoostMagicalSkill > 2600)
-            totalBoostMagicalSkill = 2600;
-        writeH(buf, totalBoostMagicalSkill); // [current magic boost] 1.9 version
-
-        writeH(buf, pgs.getCurrentStat(StatEnum.BOOST_HEAL)); // [current boost_heal]
         writeH(buf, pgs.getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST)); // [current strike resist]
         writeH(buf, pgs.getCurrentStat(StatEnum.MAGICAL_CRITICAL_RESIST));// [current spell resist]
         writeH(buf, pgs.getCurrentStat(StatEnum.PHYSICAL_CRITICAL_DAMAGE_REDUCE));// [current strike fortitude]
@@ -158,8 +161,14 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeD(buf, pcd.getPlayerClass().getClassId());// [Player Class id]
 
         writeQ(buf, 0);// [unk] 1.9 version
-        writeQ(buf, 0);// Current energy of repose 1.9
-        writeQ(buf, 251141);// Max energy of repose 1.9
+        if(player.getCommonData().getRepletionState() > 0){
+            writeQ(buf, player.getCommonData().getRepletionState());// Current energy of repose 2.1
+            writeQ(buf, (((player.getLevel() * 1000) * 2) * player.getLevel()));// Weird working formula for energy of respose
+        }
+        else{
+            writeQ(buf, 0);
+            writeQ(buf, 0);
+        }
         writeQ(buf, 0);// [unk] 1.9 version
 
         //writeQ(buf, 4020244);// [current energy of repose]
@@ -192,7 +201,7 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeH(buf, pgs.getBaseStat(StatEnum.MAIN_HAND_POWER));// [base main hand attack]
         writeH(buf, pgs.getBaseStat(StatEnum.OFF_HAND_POWER));// [base off hand attack]
 
-        writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_ATTACK)); // [base magic attack ?]
+        writeH(buf, (int)(pgs.getBaseStat(StatEnum.MAGICAL_ATTACK)*pgs.getCurrentStat(StatEnum.KNOWLEDGE)*0.01)); // [base magical attack]
         writeH(buf, pgs.getBaseStat(StatEnum.PHYSICAL_DEFENSE)); // [base pdef]
 
         writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_RESIST)); // [base magic res]
@@ -221,9 +230,9 @@ public class SM_STATS_INFO extends AionServerPacket {
         writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_ACCURACY));// [base magic accuracy]
 
         writeH(buf, 0); // [base concentration]
-        writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_ATTACK) + pgs.getBaseStat(StatEnum.BOOST_MAGICAL_SKILL));// [base magic boost]
+        writeH(buf, pgs.getBaseStat(StatEnum.BOOST_MAGICAL_SKILL));// [base magic boost]
 
-        writeH(buf, pgs.getBaseStat(StatEnum.BOOST_HEAL)); // [base boostheal]
+        writeH(buf, pgs.getBaseStat(StatEnum.BOOST_HEAL)-100); // [base boostheal]
         writeH(buf, pgs.getBaseStat(StatEnum.PHYSICAL_CRITICAL_RESIST)); // [base strike resist]
         writeH(buf, pgs.getBaseStat(StatEnum.MAGICAL_CRITICAL_RESIST));// [base spell resist]
         writeH(buf, pgs.getBaseStat(StatEnum.PHYSICAL_CRITICAL_DAMAGE_REDUCE)); // [base strike fortitude]

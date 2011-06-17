@@ -26,7 +26,7 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;

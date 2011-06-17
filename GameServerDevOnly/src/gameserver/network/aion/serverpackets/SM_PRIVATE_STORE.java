@@ -65,13 +65,17 @@ public class SM_PRIVATE_STORE extends InventoryPacket {
             if (item == null || itemTemplate == null) {
                 log.warn("SM_PRIVATE_STORE.writeImpl - Item is null or ItemTemplate is null. " + storeItem.toString());
             }
-            if (itemTemplate.isWeapon()) {
-                writeWeaponInfo(buf, item, false, false, true, false);
-            } else if (itemTemplate.isArmor()) {
-                writeArmorInfo(buf, item, false, true, false);
-            } else {
-                writeGeneralItemInfo(buf, item, true, false);
+            if (itemTemplate.isWeapon())
+            {
+                writeWeaponInfo(buf, item);
             }
-        }
+            else if (itemTemplate.isArmor())
+            {
+                writeArmorInfo(buf, item);
+            }
+            else
+            {
+                writeGeneralItemInfo(buf, item);
+            }
     }
 }

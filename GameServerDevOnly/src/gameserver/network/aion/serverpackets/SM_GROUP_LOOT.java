@@ -52,6 +52,38 @@ public class SM_GROUP_LOOT extends AionServerPacket {
     }
 
     /**
+     * Update the roll when someone rolls or passes.
+     */
+    public SM_GROUP_LOOT(int groupId, int itemId, int itemIndex, int lootCorpseId, int distributionId, int playerId, int luck)
+    {
+        this.groupId = groupId;
+        this.unk1 = 1;
+        this.unk2 = 1;
+        this.itemId = itemId;
+        this.itemIndex = itemIndex;
+        this.lootCorpseId = lootCorpseId;
+        this.distributionId = distributionId;
+        this.playerId = playerId;
+        this.luck = luck;
+    }
+
+    /**
+     * Send a packet with the winner.
+     */
+    public SM_GROUP_LOOT(int groupId, int itemId, int itemIndex, int lootCorpseId, int distributionId, int playerId)
+    {
+        this.groupId = groupId;
+        this.unk1 = 1;
+        this.unk2 = 1;
+        this.itemId = itemId;
+        this.itemIndex = itemIndex;
+        this.lootCorpseId = lootCorpseId;
+        this.distributionId = distributionId;
+        this.playerId = playerId;
+        this.luck = -1;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

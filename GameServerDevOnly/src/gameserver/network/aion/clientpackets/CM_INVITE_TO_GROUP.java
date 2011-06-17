@@ -17,7 +17,6 @@
 
 package gameserver.network.aion.clientpackets;
 
-import gameserver.configs.main.CustomConfig;
 import gameserver.model.gameobjects.player.DeniedStatus;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
@@ -54,32 +53,38 @@ public class CM_INVITE_TO_GROUP extends AionClientPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void runImpl() {
-        if (CustomConfig.GMTAG_DISPLAY) {
-            name = name.replaceAll(CustomConfig.GM_LEVEL1, "");
-            name = name.replaceAll(CustomConfig.GM_LEVEL2, "");
-            name = name.replaceAll(CustomConfig.GM_LEVEL3, "");
-            name = name.replaceAll(CustomConfig.GM_LEVEL4, "");
-            name = name.replaceAll(CustomConfig.GM_LEVEL5, "");
-        }
-        
+    protected void runImpl()
+    {
         final String playerName = Util.convertName(name);
 
         final Player inviter = getConnection().getActivePlayer();
         final Player invited = World.getInstance().findPlayer(playerName);
 
-        if (invited != null) {
-            if (invited.getPlayerSettings().isInDeniedStatus(DeniedStatus.GROUP)) {
+        if(invited != null)
+        {
+            if(invited.getPlayerSettings().isInDeniedStatus(DeniedStatus.GROUP))
+            {
                 sendPacket(SM_SYSTEM_MESSAGE.STR_MSG_REJECTED_INVITE_PARTY(invited.getName()));
                 return;
             }
-            if (inviteType == 0)
-                GroupService.getInstance().invitePlayerToGroup(inviter, invited);
-            else if (inviteType == 10)
-                AllianceService.getInstance().invitePlayerToAlliance(inviter, invited);
-            else
-                PacketSendUtility.sendMessage(inviter, "You used an unknown invite type: " + inviteType);
-        } else
+
+            switch (inviteType)
+            {
+                case 0:
+                    GroupService.getInstance().invitePlayerToGroup(inviter, invited);
+                    break;
+                case 10:
+                    AllianceService.getInstance().invitePlayerToAlliance(inviter, invited);
+                    break;
+                case 26:
+                    // TODO: League Service
+                    //LeagueService.getInstance().invitePlayerToLeague(inviter, invited);
+                    break;
+                default:
+                    PacketSendUtility.sendMessage(inviter, "You used an unknown invite type: " + inviteType);
+            }
+        }
+        else
             inviter.getClientConnection().sendPacket(SM_SYSTEM_MESSAGE.PLAYER_IS_OFFLINE(name));
     }
 }

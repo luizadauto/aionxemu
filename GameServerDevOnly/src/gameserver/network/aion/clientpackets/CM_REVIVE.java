@@ -55,6 +55,12 @@ public class CM_REVIVE extends AionClientPacket {
     protected void runImpl() {
         Player activePlayer = getConnection().getActivePlayer();
 
+        if (!activePlayer.getLifeStats().isAlreadyDead())
+        {
+            Logger.getLogger(this.getClass()).info("[AUDIT]Player "+activePlayer.getName()+" sending fake CM_REVIVE: Player is not dead!");
+            return;
+        }
+
         ReviveType reviveType = ReviveType.getReviveTypeById(reviveId);
         if (reviveType == null) {
             log.warn("Unsupported revive type: " + reviveId);
@@ -77,10 +83,13 @@ public class CM_REVIVE extends AionClientPacket {
             case KISK_REVIVE:
                 activePlayer.getReviveController().kiskRevive();
                 break;
+            case INSTANCE_ENTRY:
+                activePlayer.getReviveController().instanceEntryRevive();
+                break;
             default:
                 break;
         }
-		
+
         activePlayer.getReviveController().setToBeTeleported(false);
 	}
 }

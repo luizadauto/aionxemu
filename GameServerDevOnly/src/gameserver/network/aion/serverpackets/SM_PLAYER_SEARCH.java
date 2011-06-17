@@ -37,6 +37,7 @@ public class SM_PLAYER_SEARCH extends AionServerPacket {
 
     private List<Player> players;
     private int region;
+    private int status;
 
     /**
      * Constructs a new packet that will send these players
@@ -68,13 +69,16 @@ public class SM_PLAYER_SEARCH extends AionServerPacket {
             writeC(buf, player.getPlayerClass().getClassId());
             writeC(buf, player.getGender().getGenderId());
             writeC(buf, player.getLevel());
-            //TODO: When groups finish, send 3 here if in group
-            writeC(buf, player.isLookingForGroup() ? 0x02 : 0x00); // Status. 2 = LFG, 3 = In group, others = solo
+            if(player.isLookingForGroup())
+                status = 2;
+            else if(player.isInGroup())
+                status = 3;
+            else
+                status = 0;
+            writeC(buf, status); // Status. 2 = LFG, 3 = In group, others = solo
             writeS(buf, player.getName());
             byte[] unknown = new byte[44 - (player.getName().length() * 2 + 2)]; // What on earth is this nonsense?
             writeB(buf, unknown);
-			
-		}
-	}
-	
+        }
+    }
 }

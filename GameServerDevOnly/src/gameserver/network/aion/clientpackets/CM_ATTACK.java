@@ -67,9 +67,15 @@ public class CM_ATTACK extends AionClientPacket {
     protected void runImpl() {
         Player player = getConnection().getActivePlayer();
         if (player != null && !player.getLifeStats().isAlreadyDead()) {
+            if(player.isProtectionActive())
+                player.getController().stopProtectionActiveTask();
+
+            if(!player.getController().checkAttackPacketSpeed())
+                return;
+
             AionObject object = World.getInstance().findAionObject(targetObjectId);
             if (object instanceof Creature)
-                player.getController().attackTarget((Creature) object);
+                player.getController().attackTarget((Creature) object, attackno, time, type);
         }
     }
 }

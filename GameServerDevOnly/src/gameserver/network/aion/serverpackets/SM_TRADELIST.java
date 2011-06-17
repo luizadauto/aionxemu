@@ -14,76 +14,115 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package gameserver.network.aion.serverpackets;
 
-
+import org.apache.log4j.Logger;
+import gameserver.configs.main.GSConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Npc;
-import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.PurchaseLimit;
 import gameserver.model.templates.TradeListTemplate;
 import gameserver.model.templates.TradeListTemplate.TradeTab;
 import gameserver.model.templates.goods.GoodsList;
-import gameserver.services.TradeService;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
-import org.apache.log4j.Logger;
+import gameserver.services.PurchaseLimitService;
 
 import java.nio.ByteBuffer;
-import java.util.List;
 import java.util.ArrayList;
-
+import java.util.List;
 
 /**
+ * 
  * @author alexa026
- *         modified by ATracer, Sarynth
+ * modified by ATracer, Sarynth, ginho1
  */
-public class SM_TRADELIST extends AionServerPacket {
-
+public class SM_TRADELIST extends AionServerPacket
+{
     private int targetObjectId;
     private int npcTemplateId;
     private TradeListTemplate tlist;
     private int buyPriceModifier;
-    private Player player;
-    
-    public SM_TRADELIST(Npc npc, TradeListTemplate tlist, int buyPriceModifier, Player player) {
+    private int finalPriceModifier;
+        
+    public SM_TRADELIST(Npc npc, TradeListTemplate tlist, int buyPriceModifier)
+    {
+        if(tlist == null)
+            return;
         this.targetObjectId = npc.getObjectId();
         this.npcTemplateId = npc.getNpcId();
         this.tlist = tlist;
         this.buyPriceModifier = buyPriceModifier;
-        this.player = player;
+        finalPriceModifier = Math.round((buyPriceModifier + (tlist.getBuyRate() * buyPriceModifier)) * tlist.getSellRate());
     }
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
-        List<GoodsList.Item> limitedItems = new ArrayList<GoodsList.Item>();
-        if ((tlist != null) && (tlist.getNpcId() != 0) && (tlist.getCount() != 0)) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
+        if ((tlist != null)&&(tlist.getNpcId()!=0)&&(tlist.getCount()!=0))
+        {
             writeD(buf, targetObjectId);
-            //writeC(buf, tlist.isAbyss() ? 2 : 1); //abyss or normal
-            writeC(buf, tlist.getCategory() + 1);
-            writeD(buf, buyPriceModifier); // Vendor Buy Price Modifier
+            switch (tlist.getType()) {
+                case ABYSS:
+                    writeC(buf, 2);
+                    break;
+                case COUPON:
+                    writeC(buf, 3);
+                    break;
+                case EXTRA:
+                    writeC(buf, 4);
+                    break;
+                default:
+                    writeC(buf, 1);
+            }
+            
+            writeD(buf, finalPriceModifier); // Vendor Buy Price Modifier
             writeH(buf, tlist.getCount());
-            for (TradeTab tradeTabl : tlist.getTradeTablist()) {
+
+            List<GoodsList> list = new ArrayList<GoodsList>();
+            boolean isLimited = false;
+            int countItems = 0;
+
+            for(TradeTab tradeTabl : tlist.getTradeTablist())
+            {
                 writeD(buf, tradeTabl.getId());
-                GoodsList goodsList = DataManager.GOODSLIST_DATA.getGoodsListById(tradeTabl.getId());
-                if(goodsList == null || goodsList.getItemList() == null)
-                    continue;
-                for (GoodsList.Item item : goodsList.getItemList()) {
-                    if (item.isLimited()) {
-                        limitedItems.add(item);
+
+                if(GSConfig.ENABLE_PURCHASE_LIMIT)
+                {
+                    GoodsList goodsListAdd = DataManager.GOODSLIST_DATA.getGoodsListById(tradeTabl.getId());
+
+                    if(goodsListAdd.isLimited())
+                    {
+                        isLimited = true;
+                        countItems += goodsListAdd.getItemsList().size();
+
+                        list.add(goodsListAdd);
                     }
                 }
             }
-            
-            if(!limitedItems.isEmpty()) {
-                writeH(buf, limitedItems.size());
-                for (GoodsList.Item item : limitedItems) {
-                    writeD(buf, item.getId());
-                    writeH(buf, TradeService.getInstance().getCountItemSoldToPlayer(npcTemplateId, player.getCommonData().getPlayerObjId(), item.getId())); //amount sold to player
-                    writeH(buf, TradeService.getInstance().getItemStock(npcTemplateId, item.getId(), item.getSellLimit())); //amount left
+
+            if(isLimited)
+            {
+                PurchaseLimit purchaseLimit = con.getActivePlayer().getPurchaseLimit();
+
+                writeH(buf, countItems);
+
+                for(GoodsList goodsList : list)
+                {
+                    if(goodsList != null && goodsList.getItemsList() != null && purchaseLimit != null)
+                    {
+                        for(GoodsList.Item item : goodsList.getItemsList())
+                        {
+                            writeD(buf, item.getId());
+                            writeH(buf, purchaseLimit.getItemLimitCount(item.getId()));
+                            writeH(buf, (item.getSelllimit() - PurchaseLimitService.getInstance().getCountItem(item.getId())));
+                        }
+                    }
                 }
             }
-        } else if (tlist == null) {
+        }
+        else if(tlist == null)
+        {
             Logger.getLogger(SM_TRADELIST.class).warn("Empty TradeListTemplate for NpcId: " + npcTemplateId);
             writeD(buf, targetObjectId);
             writeC(buf, 1);
@@ -92,3 +131,4 @@ public class SM_TRADELIST extends AionServerPacket {
         }
     }
 }
+

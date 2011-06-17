@@ -37,7 +37,7 @@ public class SM_CRAFT_ANIMATION extends AionServerPacket {
      * @param skillId
      * @param action
      */
-    public SM_CRAFT_ANIMATION(int senderObjectId, int targetObjectId, int skillId, int action) {
+    public SM_CRAFT_ANIMATION(final int senderObjectId, final int targetObjectId, final int skillId, final int action) {
         this.senderObjectId = senderObjectId;
         this.targetObjectId = targetObjectId;
         this.skillId = skillId;

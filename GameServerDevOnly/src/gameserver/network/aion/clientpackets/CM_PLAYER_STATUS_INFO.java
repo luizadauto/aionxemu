@@ -17,49 +17,58 @@
 
 package gameserver.network.aion.clientpackets;
 
+import gameserver.model.alliance.PlayerAlliance;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.AllianceService;
 import gameserver.services.GroupService;
+import gameserver.utils.PacketSendUtility;
 import gameserver.world.World;
 
 /**
  * Called when entering the world and during group management
- *
- * @author Lyahim
- * @author ATracer
- * @author Simple
+ * 
+ * @author Lyahim, ATracer, Simple, ginhol
  */
 
-public class CM_PLAYER_STATUS_INFO extends AionClientPacket {
-
+public class CM_PLAYER_STATUS_INFO extends AionClientPacket
+{
     /**
      * Definitions
      */
-    private int status;
-    private int playerObjId;
+    private int                status;
+    private int                playerObjId;
+    private int                allianceGroupId;
+    private int                secondObjectId;
 
-    public CM_PLAYER_STATUS_INFO(int opcode) {
+    public CM_PLAYER_STATUS_INFO(int opcode)
+    {
         super(opcode);
     }
 
     @Override
-    protected void readImpl() {
+    protected void readImpl()
+    {
         status = readC();
         playerObjId = readD();
+        allianceGroupId = readD();
+        secondObjectId = readD();
     }
 
     @Override
-    protected void runImpl() {
+    protected void runImpl()
+    {
         Player myActivePlayer = getConnection().getActivePlayer();
 
-        switch (status) {
+        switch(status)
+        {
             // Note: This is currently used for PlayerGroup...
             // but it also is sent when leaving the alliance.
             case 9:
                 getConnection().getActivePlayer().setLookingForGroup(playerObjId == 2);
-                break;
-
+            break;
+            
             //Alliance Statuses
             case 12:
             case 14:
@@ -68,25 +77,42 @@ public class CM_PLAYER_STATUS_INFO extends AionClientPacket {
             case 23:
             case 24:
                 AllianceService.getInstance().playerStatusInfo(myActivePlayer, status, playerObjId);
-                break;
+            break;
+            case 25:
+                PlayerAlliance alliance = myActivePlayer.getPlayerAlliance();
 
-            // PlayerGroup Statuses
+                if (alliance == null)
+                {
+                    // Huh... packet spoofing?
+                    PacketSendUtility.sendPacket(myActivePlayer, new SM_SYSTEM_MESSAGE(1301015));
+                    return;
+                }
+
+                if (!alliance.hasAuthority(myActivePlayer.getObjectId()))
+                {
+                    // You are not the leader!
+                    PacketSendUtility.sendPacket(myActivePlayer, new SM_SYSTEM_MESSAGE(1400749));
+                    return;
+                }
+
+                AllianceService.getInstance().handleGroupChange(alliance, playerObjId, allianceGroupId, secondObjectId);
+            break;
+            //PlayerGroup Statuses
             case 2:
             case 3:
             case 6:
                 Player player = null;
 
-                if (playerObjId == 0)
+                if(playerObjId == 0)
                     player = getConnection().getActivePlayer();
                 else
                     player = World.getInstance().findPlayer(playerObjId);
 
-                if (player == null || player.getPlayerGroup() == null)
+                if(player == null || player.getPlayerGroup() == null)
                     return;
 
                 GroupService.getInstance().playerStatusInfo(status, player);
                 break;
-
         }
     }
 }

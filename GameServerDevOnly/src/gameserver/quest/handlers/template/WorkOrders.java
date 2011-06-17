@@ -16,6 +16,7 @@
  */
 package gameserver.quest.handlers.template;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.templates.QuestTemplate;
@@ -40,20 +41,23 @@ import java.util.List;
 
 /**
  * @author Mr. Poke
+ *
  */
-public class WorkOrders extends QuestHandler {
+public class WorkOrders extends QuestHandler
+{
     private final WorkOrdersData workOrdersData;
-
     /**
      * @param questId
      */
-    public WorkOrders(WorkOrdersData workOrdersData) {
+    public WorkOrders(WorkOrdersData workOrdersData)
+    {
         super(workOrdersData.getId());
         this.workOrdersData = workOrdersData;
     }
 
     @Override
-    public void register() {
+    public void register()
+    {
         qe.setNpcQuestData(workOrdersData.getStartNpcId()).addOnQuestStart(workOrdersData.getId());
         qe.setNpcQuestData(workOrdersData.getStartNpcId()).addOnTalkEvent(workOrdersData.getId());
         qe.addOnQuestAbort(workOrdersData.getId());
@@ -61,95 +65,117 @@ public class WorkOrders extends QuestHandler {
     }
 
     @Override
-    public boolean onDialogEvent(QuestCookie env) {
+    public boolean onDialogEvent(QuestCookie env)
+    {
         Player player = env.getPlayer();
-        if (env.getTargetId() != workOrdersData.getStartNpcId())
+        if(env.getTargetId() != workOrdersData.getStartNpcId())
             return false;
         QuestState qs = player.getQuestStateList().getQuestState(workOrdersData.getId());
-        if (qs == null || qs.getStatus() == QuestStatus.NONE || qs.getStatus() == QuestStatus.COMPLETE) {
-            switch (env.getDialogId()) {
+        if(qs == null || qs.getStatus() == QuestStatus.NONE || qs.getStatus() == QuestStatus.COMPLETE)
+        {
+            switch(env.getDialogId())
+            {
                 case 25:
                     return sendQuestDialog(env, 4);
                 case 1002:
-                    if (player.getInventory().isFull()) {
+                    if(player.getInventory().isFull())
+                    {
                         PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_FULL_INVENTORY);
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                         return true;
-                    } else if (QuestService.startQuest(env, QuestStatus.START)) {
-                        if (ItemService.addItems(player, workOrdersData.getGiveComponent())) {
+                    }
+                    else if (QuestService.startQuest(env, QuestStatus.START))
+                    {
+                        if (ItemService.addItems(player, workOrdersData.getGiveComponent()))
+                        {
                             player.getRecipeList().addRecipe(player, DataManager.RECIPE_DATA.getRecipeTemplateById(workOrdersData.getRecipeId()));
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                         }
                         return true;
                     }
             }
-        } else if (qs != null && qs.getStatus() == QuestStatus.START) {
+        }
+        else if (qs != null && qs.getStatus() == QuestStatus.START)
+        {
             if (env.getDialogId() == 25)
                 return sendQuestDialog(env, 5);
-            else if (env.getDialogId() == 17) {
+            else if (env.getDialogId() == 17)
+            {
                 int questId = env.getQuestId();
                 QuestWorkItems qwi = DataManager.QUEST_DATA.getQuestById(questId).getQuestWorkItems();
 
-                if (player.getInventory().isFull()) {
+                if(player.getInventory().isFull())
+                {
                     boolean failed = true;
-                    if (qwi != null) {
+                    if(qwi != null)
+                    {
                         long count = 0;
-                        for (QuestItems qi : qwi.getQuestWorkItem()) {
+                        for(QuestItems qi : qwi.getQuestWorkItem())
+                        {
                             count = player.getInventory().getItemCountByItemId(qi.getItemId());
-                            if (qi.getCount() <= count) {
+                            if(qi.getCount() <= count)
+                            {
                                 failed = false; // we can remove all and free a slot
                                 break;
                             }
                         }
                     }
-                    if (failed) {
+                    if(failed)
+                    {
                         PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_FULL_INVENTORY);
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                         return true;
                     }
                 }
-                if (QuestService.collectItemCheck(env, false)) {
-                    QuestTemplate template = DataManager.QUEST_DATA.getQuestById(questId);
+                if (QuestService.collectItemCheck(env, false))
+                {
+                    QuestTemplate    template = DataManager.QUEST_DATA.getQuestById(questId);
                     CollectItems collectItems = template.getCollectItems();
-
+                    
                     // remove crafted items only when the work order is removed from the dialog;
                     // otherwise, leave them for bonus exchange
                     int playerSkillPoints = player.getSkillList().getSkillLevel(template.getCombineSkill());
                     int craftSkillPoints = template.getCombineSkillPoint();
-                    if (craftSkillPoints == 1)
+                    if(craftSkillPoints == 1)
                         craftSkillPoints = 0;
                     long removeCount = 0;
 
-                    for (CollectItem collectItem : collectItems.getCollectItem()) {
-                        if (craftSkillPoints <= playerSkillPoints / 10 * 10 - 4 * 10)
+                    for (CollectItem collectItem : collectItems.getCollectItem())
+                    {
+                        if(!CustomConfig.WORK_ORDER_BONUS || (craftSkillPoints <= playerSkillPoints / 10 * 10 - 4 * 10))
                             removeCount = player.getInventory().getItemCountByItemId(collectItem.getItemId());
                         else
                             removeCount = collectItem.getCount();
-                        player.getInventory().removeFromBagByItemId(collectItem.getItemId(), removeCount);
+                        if(!player.getInventory().removeFromBagByItemId(collectItem.getItemId(), removeCount))
+                            return false;
                     }
-
+                    
                     //remove all worker list item if finished.
-                    if (qwi != null) {
+                    if(qwi != null)
+                    {
                         long count = 0;
-                        for (QuestItems qi : qwi.getQuestWorkItem()) {
-                            if (qi != null) {
+                        for(QuestItems qi : qwi.getQuestWorkItem())
+                        {
+                            if(qi != null)
+                            {    
                                 count = player.getInventory().getItemCountByItemId(qi.getItemId());
-                                if (count > 0)
-                                    player.getInventory().removeFromBagByItemId(qi.getItemId(), count);
+                                if(count > 0)
+                                    player.getInventory().removeFromBagByItemId(qi.getItemId(), count);    
                             }
                         }
                     }
-                    // always apply bonus, don't check items, unless the bonus depends on the count
+                    // always apply bonus, don't check items, unless the bonus depends on the count 
                     // of the crafted products
                     BonusTemplate bonusTemplate = DataManager.BONUS_DATA.getBonusInfoByQuestId(questId);
-                    if (bonusTemplate != null) {
+                    if(bonusTemplate != null)
+                    {
                         List<AbstractInventoryBonus> bi = bonusTemplate.getItemBonuses();
                         for (int i = 0; i < bi.size(); i++)
                             bi.get(i).apply(player, null);
                     }
                     qs.setStatus(QuestStatus.COMPLETE);
                     abortQuest(env);
-                    qs.setCompliteCount(qs.getCompliteCount() + 1);
+                    qs.setCompliteCount(qs.getCompleteCount() + 1);
                     updateQuestStatus(env);
                     PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                     return true;
@@ -158,17 +184,20 @@ public class WorkOrders extends QuestHandler {
         }
         return false;
     }
-
-    public boolean onQuestFinishEvent(QuestCookie env) {
+    
+    public boolean onQuestFinishEvent(QuestCookie env)
+    {
         return true;
     }
 
-    public boolean onQuestAbortEvent(QuestCookie env) {
+    public boolean onQuestAbortEvent(QuestCookie env)
+    {
         abortQuest(env);
         return true;
     }
-
-    private void abortQuest(QuestCookie env) {
+    
+    private void abortQuest(QuestCookie env)
+    {
         env.getPlayer().getRecipeList().deleteRecipe(env.getPlayer(), workOrdersData.getRecipeId());
     }
 }

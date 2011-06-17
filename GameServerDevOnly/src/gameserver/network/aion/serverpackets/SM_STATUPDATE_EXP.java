@@ -55,8 +55,16 @@ public class SM_STATUPDATE_EXP extends AionServerPacket {
         writeQ(buf, currentExp);
         writeQ(buf, recoverableExp);
         writeQ(buf, maxExp);
-        writeQ(buf, curBoostExp);
-        writeQ(buf, maxBoostExp);
+        if(con.getActivePlayer() != null && con.getActivePlayer().getCommonData().getRepletionState() > 0)
+        {
+            writeQ(buf, con.getActivePlayer().getCommonData().getRepletionState());
+            writeQ(buf, (((con.getActivePlayer().getLevel() * 1000) * 2) * con.getActivePlayer().getLevel()));
+        }
+        else
+        {
+            writeQ(buf, curBoostExp);
+            writeQ(buf, maxBoostExp);
+        }
 	}
 
 }

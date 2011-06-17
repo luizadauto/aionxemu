@@ -15,25 +15,45 @@
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package gameserver.network.aion.clientpackets;
 
+import org.apache.log4j.Logger;
+import com.aionemu.commons.database.dao.DAOManager;
+import gameserver.dao.PlayerPetsDAO;
+import gameserver.dataholders.DataManager;
+import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.ToyPet;
+import gameserver.model.gameobjects.state.CreatureState;
+import gameserver.model.templates.item.ItemCategory;
+import gameserver.model.templates.pet.PetTemplate;
 import gameserver.network.aion.AionClientPacket;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.ToyPetService;
 import gameserver.utils.PacketSendUtility;
 
-/**
- * @author xitanium
- */
-public class CM_PET extends AionClientPacket {
+import java.util.List;
 
+/**
+ * 
+ * @author xitanium, Sylar, Kamui
+ * 
+ */
+public class CM_PET extends AionClientPacket
+{
+    
+    private static Logger    log    = Logger.getLogger(CM_PET.class);
+    
     private int actionId;
     private int petId;
     private String petName;
     private int decorationId;
     private int eggObjId;
-
+    private int foodObjId;
+    private int foodAmount;
+    
+    @SuppressWarnings("unused")
+    private int unk1;
     @SuppressWarnings("unused")
     private int unk2;
     @SuppressWarnings("unused")
@@ -42,15 +62,18 @@ public class CM_PET extends AionClientPacket {
     private int unk5;
     @SuppressWarnings("unused")
     private int unk6;
-
-    public CM_PET(int opcode) {
+    
+    public CM_PET(int opcode)
+    {
         super(opcode);
     }
 
     @Override
-    protected void readImpl() {
+    protected void readImpl()
+    {
         actionId = readH();
-        switch (actionId) {
+        switch(actionId)
+        {
             case 1:
                 //adopt
                 eggObjId = readD();
@@ -67,6 +90,12 @@ public class CM_PET extends AionClientPacket {
             case 4:
                 petId = readD();
                 break;
+            case 9:
+                //feed
+                unk1 = readD();
+                foodObjId = readD();
+                foodAmount = readD();
+                break;
             case 10:
                 petId = readD();
                 petName = readS();
@@ -80,13 +109,65 @@ public class CM_PET extends AionClientPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void runImpl() {
+    protected void runImpl()
+    {
         Player player = getConnection().getActivePlayer();
-        switch (actionId) {
+
+        switch(actionId)
+        {
+            case 0:
+                break;
             case 1:
                 // adopt
-                player.getInventory().removeFromBagByObjectId(eggObjId, 1);
-                ToyPetService.getInstance().createPetForPlayer(player, petId, decorationId, petName);
+                if(!ToyPetService.isValidName(petName))
+                {
+                    PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400643));//[That name is invalid. Please try another..]
+                    return;
+                }
+                Item petEgg = player.getInventory().getItemByObjId(eggObjId);
+                if (petEgg != null)
+                {
+                    ItemCategory eggCategory = petEgg.getItemTemplate().getItemCategory();
+                    
+                    if ( eggCategory != ItemCategory.CASH_PETADOPTION 
+                        && eggCategory != ItemCategory.PETADOPTION
+                        && eggCategory != ItemCategory.CHANGE_CHARACTER_NAME )
+                    {    
+                        log.info("[AUDIT] Player" + player.getName() + "trying to create pet: " + petId + " from item: "+petEgg.getItemId());
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400642));
+                        return;
+                    }
+                            
+                    PetTemplate pt = DataManager.PET_DATA.getPetTemplateByEggId(petEgg.getItemId());
+                    if ( pt == null || pt.getPetId() != petId )
+                    {
+                        log.info("[AUDIT] Player" + player.getName() + "trying to create pet: " + petId + " from item: "+petEgg.getItemId());
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400642));
+                        return;
+                    }
+                    
+                    List<ToyPet> list = DAOManager.getDAO(PlayerPetsDAO.class).getPlayerPets(player.getObjectId());
+                    ToyPet pet = null;
+                    for(ToyPet p : list)
+                    {
+                        if(p.getPetId() == petId)
+                        {
+                            pet = p;
+                            break;
+                        }
+                    }
+                    
+                    if (pet != null)
+                    {
+                        PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400651));
+                        return;
+                    }
+                    
+                    if (!player.getInventory().removeFromBagByObjectId(eggObjId, 1))
+                        return;
+                    
+                    ToyPetService.getInstance().createPetForPlayer(player, petId, decorationId, petName);
+                }
                 break;
             case 2:
                 // surrender
@@ -100,8 +181,26 @@ public class CM_PET extends AionClientPacket {
                 // dismiss
                 ToyPetService.getInstance().dismissPet(player, petId);
                 break;
+            case 9:
+                // feed
+                // TODO: you get this message when try to move after state change
+                // thus, it appears after the rest as well
+                if (player.getState() != CreatureState.ACTIVE.getId() &&
+                    player.getState() != (CreatureState.ACTIVE.getId() | CreatureState.POWERSHARD.getId()))
+                {
+                    PacketSendUtility.sendPacket(player, 
+                        SM_SYSTEM_MESSAGE.STR_MSGBOX_TOYPET_FEED_CANT_FEED(SM_SYSTEM_MESSAGE.MSG_ASF_COMBAT));
+                    return;
+                }
+                ToyPetService.getInstance().feedPet(player, foodObjId, foodAmount);
+                break;
             case 10:
                 // rename
+                if(!ToyPetService.isValidName(petName))
+                {
+                    PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1400643));//[That name is invalid. Please try another..]
+                    return;
+                }
                 ToyPetService.getInstance().renamePet(player, petId, petName);
                 break;
             default:
@@ -109,3 +208,4 @@ public class CM_PET extends AionClientPacket {
         }
     }
 }
+

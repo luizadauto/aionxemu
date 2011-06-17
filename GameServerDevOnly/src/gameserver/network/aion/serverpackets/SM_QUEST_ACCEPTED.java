@@ -32,8 +32,18 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
     private int step;
     private int action;
     private int timer;
+    private int sharerId;
+    @SuppressWarnings("unused")
+    private boolean unk;
 
     // accept = 1 - get quest 2 - quest steps/hand in 3 - fail/delete 4 - display client timer
+    public SM_QUEST_ACCEPTED(int action, int questId, QuestStatus status, int step)
+    {
+        this.action = action;
+        this.questId = questId;
+        this.status = status.value();
+        this.step = step;
+    }
 
     /**
      * Accept Quest(1)
@@ -65,6 +75,7 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
         this.step = 0;
     }
 
+    
     /**
      * Display Timer(4)
      */
@@ -75,6 +86,29 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
         this.step = 0;
     }
 
+    public SM_QUEST_ACCEPTED(int action, int questId, int timer)
+    {
+        this.action = action;
+        this.questId = questId;
+        this.timer = timer;
+        this.step = 0;
+    }
+
+    public SM_QUEST_ACCEPTED(int questId, int sharerId, boolean unk)
+    {
+        this.action = 5;
+        this.questId = questId;
+        this.sharerId = sharerId;
+        this.unk = true;
+    }
+    
+    public SM_QUEST_ACCEPTED(int action, int questId)
+    {
+        this.action = action;
+        this.questId = questId;
+        this.status = 1;
+        this.step = 0;
+    }
     /**
      * {@inheritDoc}
      */
@@ -82,6 +116,8 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
         switch (action) {
             case 1:
+            if(GSConfig.SERVER_VERSION.startsWith("2.1"))
+            {            
                 writeC(buf, action);
                 writeD(buf, questId);
                 writeC(buf, status);// quest status goes by ENUM value
@@ -89,6 +125,7 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
                 writeD(buf, step);// current quest step
                 writeH(buf, 0);
                 break;
+            }
             case 2:
                 writeC(buf, action);
                 writeD(buf, questId);
@@ -100,8 +137,12 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
             case 3:
                 writeC(buf, action);
                 writeD(buf, questId);
-                writeC(buf, status);// quest status goes by ENUM value
-                writeD(buf, step);// current quest step
+                writeC(buf, status);
+                if(GSConfig.SERVER_VERSION.startsWith("2.0"))
+                writeC(buf, 0x0);
+                writeC(buf, step);
+                if(GSConfig.SERVER_VERSION.startsWith("2.0"))
+                writeD(buf, 0x0);
                 break;
             case 4:
                 writeC(buf, action);
@@ -110,6 +151,19 @@ public class SM_QUEST_ACCEPTED extends AionServerPacket {
                 writeC(buf, 0x01);
                 writeH(buf, 0x0);
                 writeC(buf, 0x01);
-		}
-	}
+                break;
+            case 5:
+                writeC(buf, action);
+                writeD(buf, questId);
+                writeD(buf, sharerId);
+                writeD(buf, 0);
+                break;
+            case 6:
+                writeC(buf, action);
+                writeD(buf, questId);
+                writeC(buf, status);
+                writeC(buf, step);
+                writeH(buf, 0x0);
+        }
+    }
 }

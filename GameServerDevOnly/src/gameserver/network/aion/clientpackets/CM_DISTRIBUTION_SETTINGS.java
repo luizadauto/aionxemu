@@ -17,7 +17,7 @@
 
 package gameserver.network.aion.clientpackets;
 
-
+import gameserver.model.alliance.PlayerAlliance;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.group.LootDistribution;
 import gameserver.model.group.LootGroupRules;
@@ -99,16 +99,36 @@ public class CM_DISTRIBUTION_SETTINGS extends AionClientPacket {
      * {@inheritDoc}
      */
     @Override
-    protected void runImpl() {
+    protected void runImpl()
+    {
         Player leader = getConnection().getActivePlayer();
-        if (leader != null) {
-            PlayerGroup pg = leader.getPlayerGroup();
-            if (pg != null)
-                pg.setLootGroupRules(new LootGroupRules(this.lootrules,
-                        this.autodistribution, this.common_item_above,
-                        this.superior_item_above, this.heroic_item_above,
-                        this.fabled_item_above, this.ethernal_item_above,
-                        this.over_ethernal, this.over_over_ethernal));
+        if(leader != null)
+        {
+            if(leader.isInAlliance())
+            {
+                PlayerAlliance pa = leader.getPlayerAlliance();
+
+                if(pa != null)
+                {
+                    pa.setLootAllianceRules(new LootGroupRules(this.lootrules,
+                    this.autodistribution, this.common_item_above,
+                    this.superior_item_above, this.heroic_item_above,
+                    this.fabled_item_above, this.ethernal_item_above,
+                    this.over_ethernal, this.over_over_ethernal));
+                }
+            }else if(leader.isInGroup())
+            {
+                PlayerGroup pg = leader.getPlayerGroup();
+                
+                if(pg != null)
+                {
+                    pg.setLootGroupRules(new LootGroupRules(this.lootrules,
+                    this.autodistribution, this.common_item_above,
+                    this.superior_item_above, this.heroic_item_above,
+                    this.fabled_item_above, this.ethernal_item_above,
+                    this.over_ethernal, this.over_over_ethernal));
+                }
+            }
         }
     }
 }

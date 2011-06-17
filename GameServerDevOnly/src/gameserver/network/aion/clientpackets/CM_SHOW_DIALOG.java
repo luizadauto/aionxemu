@@ -24,11 +24,13 @@ import gameserver.model.siege.Artifact;
 import gameserver.network.aion.AionClientPacket;
 import gameserver.network.aion.serverpackets.SM_LOOKATOBJECT;
 import gameserver.utils.PacketSendUtility;
+import gameserver.utils.MathUtil;
 import gameserver.world.World;
 
+import org.apache.log4j.Logger;
+
 /**
- * @author alexa026, Avol
- *         modified by ATracer
+ * @author alexa026, Avol, ATracer
  */
 public class CM_SHOW_DIALOG extends AionClientPacket {
     private int targetObjectId;
@@ -58,8 +60,13 @@ public class CM_SHOW_DIALOG extends AionClientPacket {
         AionObject targetObject = World.getInstance().findAionObject(targetObjectId);
         Player player = getConnection().getActivePlayer();
 
-        if (targetObject == null || player == null)
+        if(targetObject == null || player == null || !(targetObject instanceof Npc))
             return;
+        if(!MathUtil.isIn3dRange((Npc)targetObject, player, 30))
+        {
+            Logger.getLogger(this.getClass()).info("[AUDIT]Player "+player.getName()+" sending fake CM_SHOW_DIALOG!");
+            return;
+        }
 
         if (targetObject instanceof Artifact) {
             ((Artifact) targetObject).getController().onDialogRequest(player);

@@ -60,7 +60,8 @@ public class CM_SUMMON_CASTSPELL extends AionClientPacket {
 
         AionObject targetObject = World.getInstance().findAionObject(targetObjId);
         if (targetObject instanceof Creature) {
-            summon.getController().useSkill(skillId, (Creature) targetObject);
+            if (summon.getController().checkSkillPacket(skillId, (Creature) targetObject))
+                summon.getController().useSkill(skillId, (Creature) targetObject);
         }
     }
 }

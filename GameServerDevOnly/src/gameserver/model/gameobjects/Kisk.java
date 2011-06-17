@@ -27,7 +27,7 @@ import gameserver.model.templates.stats.KiskStatsTemplate;
 import gameserver.network.aion.serverpackets.SM_KISK_UPDATE;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.utils.PacketSendUtility;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 import java.util.ArrayList;
 import java.util.List;

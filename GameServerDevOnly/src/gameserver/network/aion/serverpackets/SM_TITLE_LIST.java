@@ -23,6 +23,8 @@ import gameserver.model.gameobjects.player.Title;
 import gameserver.model.gameobjects.player.TitleList;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
+import gameserver.services.TitleService;
+import gameserver.utils.PacketSendUtility;
 
 import java.nio.ByteBuffer;
 
@@ -69,16 +71,31 @@ public class SM_TITLE_LIST extends AionServerPacket {
         return;
     }
 
-    private void writeImplTitleList(ByteBuffer buf) {
-        if (GSConfig.SERVER_VERSION.startsWith("2.0"))
+    private void writeImplTitleList(ByteBuffer buf)
+    {
+        Player player = titleList.getOwner();
+        TitleService.removeExpiredTitles(player);
+
+        if(GSConfig.SERVER_VERSION.startsWith("2."))
             writeH(buf, 0); // unk
         else
             writeC(buf, 0); // unk
 
         writeH(buf, titleList.size());
-        for (Title title : titleList.getTitles()) {
-            writeD(buf, title.getTemplate().getTitleId());
-            writeD(buf, 0);
+
+        for(final Title title : titleList.getTitles())
+        {
+            writeD(buf, title.getTitleId());
+            writeD(buf, (int)title.getTitleTimeLeft());
+        }
+
+        if(player.getCommonData().getTitleId() > 0)
+        {
+            if(titleList.canAddTitle(player.getCommonData().getTitleId()))
+            {
+                player.getCommonData().setTitleId(0);
+                PacketSendUtility.sendMessage(player, "The usage time of title has expired.");
+            }
         }
     }
 

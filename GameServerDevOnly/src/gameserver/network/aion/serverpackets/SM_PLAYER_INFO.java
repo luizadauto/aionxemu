@@ -60,19 +60,14 @@ public class SM_PLAYER_INFO extends AionServerPacket {
      */
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
+        if(con == null || con.getActivePlayer() == null)
+            return;
+
         PlayerCommonData pcd = player.getCommonData();
 
-        final int raceId;
-        
-        if(player.getAdminNeutral() > 1 || con.getActivePlayer().getAdminNeutral() > 1)
-        		raceId = con.getActivePlayer().getCommonData().getRace().getRaceId();
-
-        else if((player.getAdminEnmity() > 1 || con.getActivePlayer().getAdminEnmity() > 1) &&
-        		con.getActivePlayer().getName() != player.getName() && con.getActivePlayer().isFriend(player))
-        		raceId = (con.getActivePlayer().getCommonData().getRace().getRaceId() == 0 ? 1 : 0);
-
-        else 
-        		raceId = pcd.getRace().getRaceId();
+        final int raceId = (player.getAdminNeutral() || con.getActivePlayer().getAdminNeutral()) ?
+                con.getActivePlayer().getCommonData().getRace().getRaceId() :
+                pcd.getRace().getRaceId();
 
         final int genderId = pcd.getGender().getGenderId();
         final PlayerAppearance playerAppearance = player.getPlayerAppearance();
@@ -90,10 +85,9 @@ public class SM_PLAYER_INFO extends AionServerPacket {
          */
         writeD(buf, player.getTransformedModelId() == 0 ? pcd.getTemplateId() : player.getTransformedModelId());
 
-		/**
-        * if (GSConfig.SERVER_VERSION.startsWith("2"))
-        */ 
-		writeC(buf, 0x00);
+        if (GSConfig.SERVER_VERSION.startsWith("2."))
+
+        writeC(buf, 0x00);
 
         writeC(buf, enemy ? 0x00 : 0x26);
 
@@ -278,7 +272,8 @@ public class SM_PLAYER_INFO extends AionServerPacket {
         writeH(buf, player.getPlayerSettings().getDeny()); // unk - 0x00
         writeH(buf, player.getAbyssRank().getRank().getId()); // abyss rank
         writeH(buf, 0x00); // unk - 0x01
-        writeD(buf, player.getTarget() == null ? 0 : player.getTarget().getObjectId());
+        writeD(buf, (player.getTarget() == null || player.getTarget().getObjectId() == null) ? 
+            0 : player.getTarget().getObjectId());
         writeC(buf, 0); // suspect id
 	}
 }

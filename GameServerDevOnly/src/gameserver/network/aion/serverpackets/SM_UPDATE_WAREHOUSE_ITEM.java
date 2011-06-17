@@ -42,43 +42,41 @@ public class SM_UPDATE_WAREHOUSE_ITEM extends InventoryPacket {
     }
 
     @Override
-    protected void writeImpl(AionConnection con, ByteBuffer buf) {
+    protected void writeImpl(AionConnection con, ByteBuffer buf)
+    {
         writeGeneralInfo(buf, item);
 
         ItemTemplate itemTemplate = item.getItemTemplate();
 
-        if (itemTemplate.getTemplateId() == ItemId.KINAH.value()) {
-            writeKinah(buf, item, false);
-        } else if (itemTemplate.isWeapon()) {
-            writeWeaponInfo(buf, item, false);
-        } else if (itemTemplate.isArmor()) {
-            writeArmorInfo(buf, item, false, false, false);
-        } else {
-            writeGeneralItemInfo(buf, item, false, false);
+        if(itemTemplate.getTemplateId() == ItemId.KINAH.value())
+        {
+            writeKinah(buf, item);
+        }
+        else if (itemTemplate.isWeapon())
+        {
+            writeWeaponInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+        }
+        else if (itemTemplate.isArmor())
+        {
+            writeArmorInfo(buf,item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
+        }
+        else
+        {
+            writeGeneralItemInfo(buf, item);
+            writeH(buf, item.isEquipped() ? 255 : item.getEquipmentSlot());
         }
     }
 
     @Override
-    protected void writeGeneralInfo(ByteBuffer buf, Item item) {
+    protected void writeGeneralInfo(ByteBuffer buf, Item item)
+    {
         writeD(buf, item.getObjectId());
         writeC(buf, warehouseType);
         ItemTemplate itemTemplate = item.getItemTemplate();
         writeH(buf, 0x24);
         writeD(buf, itemTemplate.getNameId());
         writeH(buf, 0);
-    }
-
-    @Override
-    protected void writeKinah(ByteBuffer buf, Item item, boolean isInventory) {
-        writeH(buf, 0x16); //length of details
-        writeC(buf, 0);
-        writeH(buf, item.getItemMask());
-        writeQ(buf, item.getItemCount());
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeH(buf, 0);
-        writeC(buf, 0);
-        writeC(buf, 0xFF); // FF FF equipment
-        writeC(buf, 0xFF);
     }
 }

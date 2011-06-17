@@ -14,33 +14,31 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package gameserver.quest.model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author Rolandas
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "QuestStartCondition")
-public class QuestStartCondition {
+public class QuestStartCondition
+{
+    @XmlElement(name = "quest")
+    protected List<QuestStep> questSteps;
 
-    @XmlAttribute(name = "quest")
-    protected int questId;
-
-    @XmlAttribute
-    int step;
-
-    public int getQuestId() {
-        return questId;
+    public List<QuestStep> getQuests() {
+        if (questSteps == null) {
+            questSteps = new ArrayList<QuestStep>();
+        }
+        return this.questSteps;
     }
-
-    public int getStep() {
-        return step;
-    }
-
 }

@@ -17,6 +17,7 @@
 
 package gameserver.network.loginserver.clientpackets;
 
+import gameserver.configs.administration.AdminConfig;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.loginserver.LsClientPacket;
 import gameserver.utils.PacketSendUtility;
@@ -60,6 +61,9 @@ public class CM_BAN_RESPONSE extends LsClientPacket {
         if (admin == null) {
             return;
         }
+
+        if (admin.getAccessLevel() < AdminConfig.COMMAND_BAN)
+            return;
 
         // Some messages stuff
         String message;

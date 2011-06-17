@@ -24,7 +24,7 @@ import gameserver.model.gameobjects.Trap;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.skill.model.Skill;
 import gameserver.utils.MathUtil;
-import gameserver.world.Executor;
+import gameserver.model.gameobjects.stats.modifiers.Executor;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlAccessType;

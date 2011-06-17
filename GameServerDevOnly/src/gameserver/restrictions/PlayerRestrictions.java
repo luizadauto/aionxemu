@@ -30,9 +30,12 @@ import gameserver.model.siege.FortressGeneral;
 import gameserver.model.siege.FortressGate;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.skill.effect.EffectId;
+import gameserver.skill.model.Effect;
 import gameserver.skill.model.Skill;
 import gameserver.skill.model.SkillType;
+import gameserver.skill.model.TransformType;
 import gameserver.utils.PacketSendUtility;
+import gameserver.world.WorldType;
 
 /**
  * @author lord_rex
@@ -51,12 +54,19 @@ public class PlayerRestrictions extends AbstractRestrictions {
             return false;
         }
 
+        //cant ressurect non players and non dead
+        if (skill.getSkillTemplate().hasResurrectEffect() && (!(target instanceof Player) || !((Creature)target).getLifeStats().isAlreadyDead()))
+            return false;
+
         if (skill.getSkillTemplate().hasItemHealFpEffect() && !player.isInState(CreatureState.FLYING)) { // player must be flying when using flight potions
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_RESTRICTION_FLY_ONLY);
             return false;
         }
 
         if ((player.getEffectController().isAbnormalState(EffectId.CANT_ATTACK_STATE)) && (skill.getSkillTemplate().getSkillId() != 1968))
+            return false;
+
+        if (skill.getSkillTemplate().getStack().contains("SHAPE_IDELIM") && player.getWorldId() != 300190000)
             return false;
 
         if (player.isInState(CreatureState.PRIVATE_SHOP)) {
@@ -74,6 +84,10 @@ public class PlayerRestrictions extends AbstractRestrictions {
             Player targetPlayer = (Player) creature;
 
             if (targetPlayer.getAdminNeutral() > 1)
+                return false;
+
+            //cannot attack player in protective task
+            if(targetPlayer.isProtectionActive())
                 return false;
 
             // Check if the target Player is on the opposing faction but in
@@ -96,46 +110,63 @@ public class PlayerRestrictions extends AbstractRestrictions {
         if (player.isCasting())
             return false;
 
-        if ((!player.canAttack()) && (skill.getSkillTemplate().getSkillId() != 1968))
+        if (player.getLifeStats().isAlreadyDead() || player.isInState(CreatureState.DEAD))
             return false;
+
+        if ( (!player.canAttack()) && (!skill.getSkillTemplate().hasEvadeEffect()) )
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_CANT_CAST_IN_ABNORMAL_STATE());
+            return false;
+        }
 
         if (skill.getSkillTemplate().getType() == SkillType.MAGICAL
                 && player.getEffectController().isAbnormalSet(EffectId.SILENCE))
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_CANT_CAST_MAGIC_SKILL_WHILE_SILENCED());
             return false;
+        }
 
         if (skill.getSkillTemplate().getType() == SkillType.PHYSICAL
-                && player.getEffectController().isAbnormalSet(EffectId.BLOCKADE))
+                && player.getEffectController().isAbnormalSet(EffectId.BIND))
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_CANT_CAST_IN_ABNORMAL_STATE());        
+            return false;
+        }
+
+        if(player.isSkillDisabled(skill.getSkillTemplate().getDelayId()))
             return false;
 
-        if (player.isSkillDisabled(skill.getSkillTemplate().getSkillId()))
+        //check for abyss skill, those can be used only in abyss or in balaurea
+        if (skill.getSkillTemplate().getStack().contains("ABYSS_RANKERSKILL"))
+        {
+            if (player.getWorldType() != WorldType.ABYSS && 
+                player.getWorldType() != WorldType.BALAUREA ||
+                player.isInInstance())
+                return false;
+        }
+        if (skill.getSkillTemplate().getStack().contains("POLYMORPH_CROMEDE") && player.getWorldId() != 300230000)
+                return false;
+
+        boolean isAvatar = false;
+
+        //cannot use skills while transformed
+        for(Effect ef : player.getEffectController().getAbnormalEffects())
+        {
+            if (ef.getTransformType() == TransformType.NONE)
+            {
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_CAN_NOT_CAST_IN_SHAPECHANGE());
+                return false;
+            }
+            if (ef.isAvatar())
+                isAvatar = true;
+        }
+
+        //cannot use abyss skills without deity transfomation
+        if (!isAvatar && skill.getSkillTemplate().getStack().contains("ABYSS_RANKERSKILL") 
+            && !skill.getSkillTemplate().getStack().contains("ABYSS_RANKERSKILL_DARK_AVATAR") 
+            && !skill.getSkillTemplate().getStack().contains("ABYSS_RANKERSKILL_LIGHT_AVATAR"))
             return false;
 
-                
-        int transformed = player.getTransformedModelId() ; 
-        if(transformed != 0) { 
-            switch(transformed) { 
-                case (212104): //agrint 
-                case (213140): //frozen agrint 
-                case (213020): //malek drakie 
-                case (211850): //oculazen 
-                case (211318): //fungie 
-                case (210656): //pluma 
-                case (210915): //griffo 
-                case (210833): //drakie 
-                case (210119): //sparkie 
-                case (254523): //acheron drake 
-                case (210832): //drake 
-                case (210633): //frightcorn 
-                case (210421): //karnif 1 
-                case (211875): //karnif 2 
-                case (210390): //karnif 3 
-                case (215956): //poco mookie 
-                case (210138): //worg 1 
-                case (210757): //worg 2 
-                case (210306): //worg 3 
-                return false; 
-            } 
-        } 
         return true;
     }
 
@@ -143,14 +174,17 @@ public class PlayerRestrictions extends AbstractRestrictions {
     public boolean canInviteToGroup(Player player, Player target) {
         final PlayerGroup group = player.getPlayerGroup();
 
+        if(target == null)
+        {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.INVITED_PLAYER_OFFLINE());
+            return false;
+        }
+
         if (group != null && group.isFull()) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.FULL_GROUP());
             return false;
         } else if (group != null && player.getObjectId() != group.getGroupLeader().getObjectId()) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.ONLY_GROUP_LEADER_CAN_INVITE());
-            return false;
-        } else if (target == null) {
-            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.INVITED_PLAYER_OFFLINE());
             return false;
         } else if (target.getCommonData().getRace() != player.getCommonData().getRace() && !GroupConfig.GROUP_INVITE_OTHER_RACE) {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_PARTY_CANT_INVITE_OTHER_RACE());
