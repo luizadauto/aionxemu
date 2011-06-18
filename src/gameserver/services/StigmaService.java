@@ -16,6 +16,7 @@
  */
 package gameserver.services;
 
+import gameserver.configs.main.CustomConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.model.DescriptionId;
 import gameserver.model.Race;
@@ -24,13 +25,17 @@ import gameserver.model.gameobjects.PersistentState;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.SkillListEntry;
 import gameserver.model.items.ItemSlot;
+import gameserver.model.templates.item.ItemCategory;
+import gameserver.model.templates.item.ItemType;
 import gameserver.model.templates.item.RequireSkill;
 import gameserver.model.templates.item.Stigma;
 import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import gameserver.network.aion.serverpackets.SM_STIGMA_SKILL_REMOVE;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.skill.SkillEngine;
+import gameserver.skill.model.Skill;
 import gameserver.utils.PacketSendUtility;
-import gameserver.configs.main.CustomConfig;
+
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -62,7 +67,7 @@ public class StigmaService {
                  return false;
             }
 
-            if (!resultItem.getItemTemplate().isClassSpecific(player.getCommonData().getPlayerClass())) {
+            if (!resultItem.getItemTemplate().checkClassRestrict(player.getCommonData().getPlayerClass())) {
                 log.info("[AUDIT]Possible client hack not valid for class. player: " + player.getName());
                 return false;
             }
@@ -92,10 +97,20 @@ public class StigmaService {
                 log.info("[AUDIT]Possible client hack advanced stigma skill player: " + player.getName());
             }
 
-            player.getInventory().removeFromBagByItemId(141000001, shardCount);
+            if (!player.getInventory().removeFromBagByItemId(141000001, shardCount))
+                return false;
+
             SkillListEntry skill = new SkillListEntry(skillId, true, stigmaInfo.getSkilllvl(), PersistentState.NOACTION);
             player.getSkillList().addSkill(skill);
             PacketSendUtility.sendPacket(player, new SM_SKILL_LIST(skill, 1300401));
+
+            //start effect for dual-wielding stigmas
+            if (skillId == 19 || skillId == 360)
+            {
+                Skill sk = SkillEngine.getInstance().getSkill(player, skillId, stigmaInfo.getSkilllvl(), player);
+                if(sk != null)
+                    sk.useSkill();
+            } 
         }
         return true;
     }
@@ -108,6 +123,17 @@ public class StigmaService {
 
             Stigma stigmaInfo = resultItem.getItemTemplate().getStigma();
             int skillId = stigmaInfo.getSkillid();
+
+            //trying to remove dual/wielding stigma
+            if (skillId == 19 || skillId == 360)
+            {
+                if (player.getEquipment().isDualWieldEquipped())
+                {
+                    PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_STIGMA_CANNT_UNEQUIP_STONE_FIRST_UNEQUIP_CURRENT_EQUIPPED_ITEM());
+                    return false;
+                }
+            }
+
             for (Item item : player.getEquipment().getEquippedItemsStigma()) {
                 Stigma si = item.getItemTemplate().getStigma();
                 if (resultItem == item || si == null)
@@ -132,7 +158,11 @@ public class StigmaService {
                     }
                 }
             }
-            
+
+            //remove efect for dual-wielding stigma stones
+            if (skillId == 19 || skillId == 360)
+                player.getEffectController().removePassiveEffect(skillId);
+
             player.getSkillList().removeSkill(skillId);
             int nameId = DataManager.SKILL_DATA.getSkillTemplate(skillId).getNameId();
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300403, new DescriptionId(nameId)));
@@ -159,6 +189,14 @@ public class StigmaService {
             int skillId = stigmaInfo.getSkillid();
             SkillListEntry skill = new SkillListEntry(skillId, true, stigmaInfo.getSkilllvl(), PersistentState.NOACTION);
             player.getSkillList().addSkill(skill);
+            
+            //start effect for dual-wielding stigmas
+            if (skillId == 19 || skillId == 360)
+            {
+                Skill sk = SkillEngine.getInstance().getSkill(player, skillId, stigmaInfo.getSkilllvl(), player);
+                if(sk != null)
+                    sk.useSkill();
+            }
         }
 
         for (Item item : stigmaItems) {
@@ -169,6 +207,13 @@ public class StigmaService {
             }
 
             Stigma stigmaInfo = item.getItemTemplate().getStigma();
+            if(stigmaInfo == null)
+            {
+                log.warn("Stigma info missing for item: " + item.getItemTemplate().getTemplateId());
+                player.getEquipment().unEquipItem(item.getObjectId(), 0);
+                continue;
+            }
+
             int needSkill = stigmaInfo.getRequireSkill().size();
             for (RequireSkill rs : stigmaInfo.getRequireSkill()) {
                 for (int id : rs.getSkillId()) {
@@ -183,7 +228,7 @@ public class StigmaService {
                 player.getEquipment().unEquipItem(item.getObjectId(), 0);
                 continue;
             }
-            if (!item.getItemTemplate().isClassSpecific(player.getCommonData().getPlayerClass())) {
+            if (!item.getItemTemplate().checkClassRestrict(player.getCommonData().getPlayerClass())) {
                 log.info("[AUDIT]Possible client hack not valid for class. player: " + player.getName());
                 player.getEquipment().unEquipItem(item.getObjectId(), 0);
                 continue;

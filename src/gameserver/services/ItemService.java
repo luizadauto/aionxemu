@@ -24,25 +24,42 @@ import gameserver.dataholders.DataManager;
 import gameserver.model.DescriptionId;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
+import gameserver.model.gameobjects.player.Equipment;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.gameobjects.player.StorageType;
-import gameserver.model.gameobjects.player.Equipment;
 import gameserver.model.items.FusionStone;
 import gameserver.model.items.GodStone;
 import gameserver.model.items.ItemId;
 import gameserver.model.items.ManaStone;
+import gameserver.model.templates.item.ArmorType;
 import gameserver.model.templates.item.GodstoneInfo;
 import gameserver.model.templates.item.ItemTemplate;
+import gameserver.model.templates.quest.CollectItem;
+import gameserver.model.templates.quest.CollectItems;
 import gameserver.model.templates.quest.QuestItems;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
+import gameserver.network.aion.serverpackets.SM_DELETE_WAREHOUSE_ITEM;
+import gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
+import gameserver.network.aion.serverpackets.SM_UPDATE_WAREHOUSE_ITEM;
+import gameserver.network.aion.serverpackets.SM_WAREHOUSE_UPDATE;
+import gameserver.quest.QuestEngine;
+import gameserver.quest.model.QuestState;
+import gameserver.quest.model.QuestStatus;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.idfactory.IDFactory;
-import gameserver.utils.i18n.CustomMessageId;
-import gameserver.utils.i18n.LanguageHandler;
-import org.apache.log4j.Logger;
 
-import java.util.*;
+import org.apache.log4j.Logger;
+import gnu.trove.TIntArrayList;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author ATracer
@@ -63,15 +80,6 @@ public class ItemService {
         return it;
     }
 
-   /**
-     * @param itemId
-     * @param count
-     * @return Creates new Item instance.
-     */
-    public static Item newItem(int itemId, long count) {
-        return newItem(itemId, count, null);
-    }
-
     /**
      * @param itemId
      * @param count
@@ -79,11 +87,18 @@ public class ItemService {
      *         If count is greater than template maxStackCount, count value will be cut to maximum allowed
      *         This method will return null if ItemTemplate for itemId was not found.
      */
-    public static Item newItem(int itemId, long count, String itemCreator) {
+    public static Item newItem(int itemId, long count, String crafterName, int ownerId, long tempItemTime, int tempTradeTime) {
         ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
         if (itemTemplate == null) {
+            log.error("Item was not populated correctly. Item template is missing for item id: " + itemId);
             return null;
         }
+
+        //Outside expire time has higher priority
+        if(tempItemTime <= 0)
+            tempItemTime = itemTemplate.getExpireMinutes() * 60L;        
+        if(tempTradeTime <= 0)
+            tempTradeTime = itemTemplate.getTempExchangeMinutes() * 60;
 
         int maxStackCount = itemTemplate.getMaxStackCount();
         if (count > maxStackCount && maxStackCount != 0) {
@@ -91,8 +106,8 @@ public class ItemService {
         }
 
         //TODO if Item object will contain ownerId - item can be saved to DB before return
-        Item temp = new Item(IDFactory.getInstance().nextId(), itemId, itemTemplate, count, itemCreator, false, 0);
-        if (itemTemplate.isWeapon() || itemTemplate.isArmor()) {
+        Item temp = new Item(IDFactory.getInstance().nextId(), itemTemplate, count, false, 0, crafterName, ownerId, tempItemTime, tempTradeTime);
+        if (itemTemplate.isWeapon() || itemTemplate.isArmor(true)) {
             temp.setOptionalSocket(Rnd.get(0, itemTemplate.getOptionSlotBonus()));
         }
         return temp;
@@ -124,11 +139,20 @@ public class ItemService {
         Storage sourceStorage = player.getStorage(sourceStorageType);
         Storage destinationStorage = player.getStorage(destinationStorageType);
 
+        Item itemToSplit = sourceStorage.getItemByObjId(itemObjId);
+        
+        if (sourceStorageType >= 1 && sourceStorageType <= 3 &&
+            destinationStorageType >= 1 && destinationStorageType <= 3)
+        {
+            log.warn("[CHEAT] Player : " + player.getName() + " trying to duplicate an item ! Item id : " + itemToSplit.getItemId() + ", name : " + itemToSplit.getName());
+            return;
+        }
+
         if (splitAmount <= 0) {
             log.warn(String.format("CHECKPOINT: attempt to split with 0 <= amount %d %d %d", itemObjId, splitAmount, slotNum));
             return;
         }
-        Item itemToSplit = sourceStorage.getItemByObjId(itemObjId);
+
         if (itemToSplit == null) {
             itemToSplit = sourceStorage.getKinahItem();
             if (itemToSplit.getObjectId() != itemObjId || itemToSplit == null) {
@@ -136,6 +160,10 @@ public class ItemService {
                 return;
             }
         }
+
+        //if you are splitting to different storage, check if item is storable there
+        if (sourceStorage != destinationStorage && !itemToSplit.isStorable(destinationStorage.getStorageType()))
+            return;
 
         // To move kinah from inventory to warehouse and vise versa client using split item packet
         if (itemToSplit.getItemTemplate().isKinah()) {
@@ -153,10 +181,7 @@ public class ItemService {
         if (destinationStorage.putToBag(newItem) != null) {
             sourceStorage.decreaseItemCount(itemToSplit, splitAmount);
 
-            List<Item> itemsToUpdate = new ArrayList<Item>();
-            itemsToUpdate.add(newItem);
-
-            sendStorageUpdatePacket(player, destinationStorageType, itemsToUpdate.get(0));
+            sendStorageUpdatePacket(player, destinationStorageType, newItem, false);
             sendUpdateItemPacket(player, sourceStorageType, itemToSplit);
         } else {
             releaseItemId(newItem);
@@ -176,8 +201,8 @@ public class ItemService {
                 if (chksum != source.getKinahItem().getItemCount() + destination.getKinahItem().getItemCount())
                     return;
 
-                source.decreaseKinah(splitAmount);
-                destination.increaseKinah(splitAmount);
+                if(source.decreaseKinah(splitAmount))
+                    destination.increaseKinah(splitAmount);
                 break;
             }
 
@@ -188,8 +213,8 @@ public class ItemService {
                 if (chksum != source.getKinahItem().getItemCount() + destination.getKinahItem().getItemCount())
                     return;
 
-                source.decreaseKinah(splitAmount);
-                destination.increaseKinah(splitAmount);
+                if(source.decreaseKinah(splitAmount))
+                    destination.increaseKinah(splitAmount);
                 break;
             }
             default:
@@ -228,11 +253,13 @@ public class ItemService {
             return; //Invalid item amount
 
         if (sourceItem.getItemCount() == itemAmount) {
-            destinationStorage.increaseItemCount(destinationItem, itemAmount);
-            sourceStorage.removeFromBag(sourceItem, true);
+            if(!sourceStorage.removeFromBag(sourceItem, true))
+                return;
 
+            destinationStorage.increaseItemCount(destinationItem, itemAmount);
+
+            sendUpdateItemPacket(player, destinationStorageType, destinationItem);            
             sendDeleteItemPacket(player, sourceStorageType, sourceItem.getObjectId());
-            sendUpdateItemPacket(player, destinationStorageType, destinationItem);
 
         } else if (sourceItem.getItemCount() > itemAmount) {
             sourceStorage.decreaseItemCount(sourceItem, itemAmount);
@@ -261,11 +288,13 @@ public class ItemService {
         int sourceSlot = sourceItem.getEquipmentSlot();
         int replaceSlot = replaceItem.getEquipmentSlot();
 
+        if(!sourceStorage.removeFromBag(sourceItem, false))
+            return;
+        if(!replaceStorage.removeFromBag(replaceItem, false))
+            return;
+
         sourceItem.setEquipmentSlot(replaceSlot);
         replaceItem.setEquipmentSlot(sourceSlot);
-
-        sourceStorage.removeFromBag(sourceItem, false);
-        replaceStorage.removeFromBag(replaceItem, false);
 
         Item newSourceItem = sourceStorage.putToBag(replaceItem);
         Item newReplaceItem = replaceStorage.putToBag(sourceItem);
@@ -277,8 +306,19 @@ public class ItemService {
         sendStorageUpdatePacket(player, replaceStorageType, newReplaceItem);
     }
 
+    /**
+     *  Adds regular item count to player inventory
+     *  I moved this method to service cause right implementation of it is critical to server
+     *  operation and could cause starvation of object ids.
+     *  
+     *  This packet will send necessary packets to client (initialize used only from quest engine
+     *  
+     * @param player
+     * @param itemId
+     * @param count - amount of item that were not added to player's inventory
+     */
     public static long addItem(Player player, int itemId, long count) {
-        return addItem(player, itemId, count, null);
+        return addItem(player, itemId, count, 0);
     }
 
     /**
@@ -291,15 +331,32 @@ public class ItemService {
      * @param player
      * @param itemId
      * @param count
-     * @param itemCreator
+     * @param tempItemTime
      *
      * amount of item that were not added to player's inventory
      */
-    public static long addItem(Player player, int itemId, long count, String itemCreator) {
-        if (GSConfig.LOG_ITEM)
+    public static long addItem(Player player, int itemId, long count, long tempItemTime)
+    {
+        if(GSConfig.LOG_ITEM)
             log.info(String.format("[ITEM] ID/Count - %d/%d to player %s.", itemId, count, player.getName()));
 
-        return addFullItem(player, itemId, count, itemCreator, null, null, 0);
+        return addItem(player, itemId, count, "", tempItemTime, 0);        
+    }
+
+    /**
+     * Adds item that is crafted and/or temporary and/or with temporary trade
+     * 
+     * @param player
+     * @param itemId
+     * @param count
+     * @param crafterName
+     * @param tempItemTime
+     * @param tempTradeTime
+     * @return
+     */
+    public static long addItem(Player player, int itemId, long count, String crafterName, long tempItemTime, int tempTradeTime)
+    {
+        return addFullItem(player, itemId, count, null, null, 0, crafterName, tempItemTime, tempTradeTime);
     }
 
     /**
@@ -311,9 +368,7 @@ public class ItemService {
      * @param godStone
      * @param enchantLevel
      */
-    public static long addFullItem(Player player, int itemId, long count,
-        String itemCreator, Set<ManaStone> manastones, GodStone godStone,
-        int enchantLevel)
+    public static long addFullItem(Player player, int itemId, long count, Set<ManaStone> manastones, GodStone godStone, int enchantLevel, String crafterName, long tempItemTime, int tempTradeTime)
     {
         Storage inventory = player.getInventory();
 
@@ -322,11 +377,34 @@ public class ItemService {
             return count;
 
         int maxStackCount = itemTemplate.getMaxStackCount();
+        Map<Long, Item> equipShards = new HashMap<Long, Item>();
+
 
         if (itemId == ItemId.KINAH.value()) {
             inventory.increaseKinah(count);
             return 0;
-        } else {
+        }
+        else if (itemTemplate.getArmorType() == ArmorType.SHARD && !player.isTrading() && !player.isInGroup())
+        {
+            Equipment equipment = player.getEquipment();
+            List<Item> items = equipment.getEquippedItemsByItemId(itemTemplate.getTemplateId());
+            for (Item eqItem : items)
+            {
+                if (eqItem.getItemId() != itemId)
+                    continue;
+                long shardsAdded = 0;
+                if (eqItem.getItemCount() > maxStackCount - count)
+                    shardsAdded = maxStackCount - eqItem.getItemCount();
+                else
+                    shardsAdded = count;
+                count -= shardsAdded;
+                if (shardsAdded > 0)
+                    equipShards.put(shardsAdded, eqItem);
+                if (count == 0)
+                    break;
+            }
+        }
+
             /**
              * Increase count of existing items
              */
@@ -338,11 +416,29 @@ public class ItemService {
                 if (count <= freeCount) {
                     inventory.increaseItemCount(existingItem, count);
                     count = 0;
-                } else {
+                }
+                else
+                {
                     inventory.increaseItemCount(existingItem, freeCount);
                     count -= freeCount;
                 }
-                updateItem(player, existingItem, false);
+
+                TIntArrayList questIds = QuestEngine.getInstance().getQuestsForCollectItem(itemId);
+
+                if(questIds != null && questIds.size() != 0)
+                {
+                    for(int index = 0; index < questIds.size(); index++)
+                    {
+                        int questId = questIds.get(index);
+                        QuestState qs = player.getQuestStateList().getQuestState(questId);
+                        if(qs != null && qs.getStatus() == QuestStatus.START && collected(player, questId, itemId))
+                            sendUpdateItemPacket(player, 0, existingItem);
+                        else
+                            updateItem(player, existingItem, false);
+                    }
+                }
+                else
+                    updateItem(player, existingItem, false);
             }
 
             /**
@@ -351,15 +447,13 @@ public class ItemService {
             while (!inventory.isFull() && count > 0) {
                 // item count still more than maxStack value
                 if (count > maxStackCount) {
-                    Item item = newItem(itemId, maxStackCount, itemCreator);
+                    Item item = newItem(itemId, maxStackCount, crafterName, player.getObjectId(), tempItemTime, tempTradeTime);
                     count -= maxStackCount;
                     inventory.putToBag(item);
                     updateItem(player, item, true);
-
-                    if (RentalService.getInstance().isRentalItem(item))
-                    	RentalService.getInstance().addRentalItem(player, item);
                 } else {
-                    Item item = newItem(itemId, count, itemCreator);
+                    Item item = newItem(itemId, count, crafterName, player.getObjectId(), tempItemTime, tempTradeTime);
+
 
                     //add item stones if available
                     //1. manastones
@@ -379,18 +473,56 @@ public class ItemService {
                     inventory.putToBag(item);
                     updateItem(player, item, true);
                     count = 0;
-
-                    if (RentalService.getInstance().isRentalItem(item))
-                    	RentalService.getInstance().addRentalItem(player, item);
                 }
             }
 
             if (inventory.isFull() && count > 0) {
                 PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DICE_INVEN_ERROR);
             }
+            else if (count == 0)
+            {
+                // Now put shards
+                for (Map.Entry<Long, Item> shardPair : equipShards.entrySet())
+                {
+                    Item shard = shardPair.getValue();
+                    shard.setItemCount(shardPair.getKey() + shard.getItemCount());
+                    updateItem(player, shard, false);
+                    player.getEquipment().setPersistentState(PersistentState.UPDATE_REQUIRED);
+                }
+            }
+            equipShards = null;
 
             return count;
         }
+    }
+
+    /**
+     * @return
+     */
+    private static boolean collected(Player player, int questId, int collectedItemId)
+    {
+        int count = 0;
+
+        if(collectedItemId == 0)
+            return false;
+
+        CollectItems collectitems = DataManager.QUEST_DATA.getQuestById(questId).getCollectItems();
+        if(collectitems != null)
+        {
+            List<CollectItem> collectitem = collectitems.getCollectItem();
+            if(collectitem != null)
+            {
+                for(CollectItem ci : collectitem)
+                {
+                    if(ci.getItemId() == collectedItemId)
+                        count = ci.getCount();
+                }
+            }
+        }
+
+        if(player.getInventory().getItemCountByItemId(collectedItemId) >= count)
+            return true;
+        return false;
     }
 
     /**
@@ -407,7 +539,6 @@ public class ItemService {
             return;
 
         //check if item is storable
-        if(destinationStorageType < 32 || destinationStorageType > 35) //pets storages
         if (!item.isStorable(destinationStorageType))
             return;//TODO: proper message
 
@@ -430,10 +561,13 @@ public class ItemService {
 
             long freeCount = maxStackCount - existingItem.getItemCount();
             if (count <= freeCount) {
+                if(!sourceStorage.removeFromBag(item, true))
+                    return;
+
                 destinationStorage.increaseItemCount(existingItem, count);
                 count = 0;
                 sendDeleteItemPacket(player, sourceStorageType, item.getObjectId());
-                sourceStorage.removeFromBag(item, true);
+
 
             } else {
                 destinationStorage.increaseItemCount(existingItem, freeCount);
@@ -449,13 +583,13 @@ public class ItemService {
                 count -= maxStackCount;
                 Item newitem = newItem(item.getItemTemplate().getTemplateId(), maxStackCount);
                 newitem = destinationStorage.putToBag(newitem);
-                sendStorageUpdatePacket(player, destinationStorageType, newitem);
+                sendStorageUpdatePacket(player, destinationStorageType, newitem, true);
             } else {
                 item.setItemCount(count);
                 sourceStorage.removeFromBag(item, false);
                 sendDeleteItemPacket(player, sourceStorageType, item.getObjectId());
                 Item newitem = destinationStorage.putToBag(item);
-                sendStorageUpdatePacket(player, destinationStorageType, newitem);
+                sendStorageUpdatePacket(player, destinationStorageType, newitem, true);
 
                 count = 0;
             }
@@ -469,10 +603,64 @@ public class ItemService {
 
     }
 
+    public static void addRepurchaseItem(Player player, Item item)
+    {
+        Storage destinationStorage = player.getInventory();
+        List<Item> existingItems = destinationStorage.getItemsByItemId(item.getItemTemplate().getTemplateId());
+
+        long count = item.getItemCount();
+        int maxStackCount = item.getItemTemplate().getMaxStackCount();
+
+        for(Item existingItem : existingItems)
+        {
+            if(count == 0)
+                break;
+
+            long freeCount = maxStackCount - existingItem.getItemCount();
+            if(count <= freeCount)
+            {
+                destinationStorage.increaseItemCount(existingItem, count);
+                count = 0;
+            }
+            else
+            {
+                destinationStorage.increaseItemCount(existingItem, freeCount);
+                count -= freeCount;
+            }
+            sendStorageUpdatePacket(player, 0, existingItem, false);
+
+        }
+
+        while(!destinationStorage.isFull() && count > 0)
+        {
+            // item count still more than maxStack value
+            if(count > maxStackCount)
+            {
+                count -= maxStackCount;
+                Item newitem = newItem(item.getItemTemplate().getTemplateId(), maxStackCount, item.getCrafterName(), player.getObjectId(), item.getTempItemTimeLeft(), item.getTempTradeTimeLeft());
+                newitem = destinationStorage.putToBag(newitem);
+                sendStorageUpdatePacket(player, 0, newitem, true);
+            }
+            else
+            {
+                item.setItemCount(count);
+                Item newitem = destinationStorage.putToBag(item);
+                sendStorageUpdatePacket(player, 0, newitem, true);
+
+                count = 0;
+            }
+        }
+
+        if(count > 0) // if storage is full and some items left
+        {
+            item.setItemCount(count);
+            sendUpdateItemPacket(player, 0, item);
+        }
+    }
 
     public static void updateItem(Player player, Item item, boolean isNew) {
         if (isNew)
-            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(Collections.singletonList(item)));
+            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(item, isNew));
         else
             PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(item));
     }
@@ -486,7 +674,7 @@ public class ItemService {
 
     private static void sendStorageUpdatePacket(Player player, int storageType, Item item) {
         if (storageType == StorageType.CUBE.getId())
-            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(Collections.singletonList(item)));
+            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(item, isNew));
         else
             PacketSendUtility.sendPacket(player, new SM_WAREHOUSE_UPDATE(item, storageType));
     }
@@ -753,34 +941,23 @@ public class ItemService {
             if(gsID != 168)
              return;
         }
+        if (!player.getInventory().removeFromBagByObjectId(stoneId, 1))
+            return;
+
+        if (!player.getInventory().decreaseKinah(socketPrice))
+            return;
 
         weaponItem.addGodStone(godStoneItemId);
         PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_GIVE_ITEM_PROC_ENCHANTED_TARGET_ITEM(new DescriptionId(Integer.parseInt(weaponItem.getName()))));
-        player.getInventory().removeFromBagByObjectId(stoneId, 1);
 
-        player.getInventory().decreaseKinah(socketPrice);
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(weaponItem));
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(kinahItem));
     }
 
-    public static boolean addItems(Player player, List<QuestItems> questItems) {
-        int needSlot = 0;
-        for (QuestItems qi : questItems) {
-            int itemId = qi.getItemId();
-            if (itemId != ItemId.KINAH.value() && qi.getCount() != 0) {
-                ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
-                if (itemTemplate == null) {
-                    PacketSendUtility.sendMessage(player, LanguageHandler.translate(CustomMessageId.COMMAND_ADD_FAILURE, itemId, player.getName()));
-                    return false;
-                }
-                int stackCount = itemTemplate.getMaxStackCount();
-                int count = qi.getCount() / stackCount;
-                if (qi.getCount() % stackCount != 0)
-                    count++;
-                needSlot += count;
-            }
-        }
-        if (needSlot > player.getInventory().getNumberOfFreeSlots()) {
+    public static boolean addItems(Player player, List<QuestItems> questItems)
+    {
+        if (!canAddItems(player, questItems))
+        {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.MSG_FULL_INVENTORY);
             return false;
         }
@@ -789,20 +966,39 @@ public class ItemService {
         return true;
     }
 
+    public static boolean canAddItems(Player player, List<QuestItems> questItems)
+    {
+        int needSlot = 0;
+        for (QuestItems qi : questItems)
+        {
+            if (qi.getItemId() != ItemId.KINAH.value() && qi.getCount()!= 0)
+            {
+                int stackCount = DataManager.ITEM_DATA.getItemTemplate(qi.getItemId()).getMaxStackCount();
+                int count = qi.getCount()/stackCount;
+                if (qi.getCount() % stackCount != 0)
+                    count++;
+                needSlot += count;
+            }
+        }
+        
+        return needSlot <= player.getInventory().getNumberOfFreeSlots();
+    }
+
     /**
      * @param player
      */
     public static void restoreKinah(Player player) {
         // if kinah was deleted by some reason it should be restored with 0 count
         if (player.getStorage(StorageType.CUBE.getId()).getKinahItem() == null) {
-            Item kinahItem = newItem(182400001, 0);
+            Item kinahItem = newItem(182400001, 0, "", player.getObjectId(), 0, 0);
             player.getStorage(StorageType.CUBE.getId()).onLoadHandler(kinahItem);
         }
 
         if (player.getStorage(StorageType.ACCOUNT_WAREHOUSE.getId()).getKinahItem() == null) {
-            Item kinahItem = newItem(182400001, 0);
-			kinahItem.setItemLocation(StorageType.ACCOUNT_WAREHOUSE.getId());
-			player.getStorage(StorageType.ACCOUNT_WAREHOUSE.getId()).onLoadHandler(kinahItem);
-		}
-	}
+            Item kinahItem = newItem(182400001, 0, "", player.getObjectId(), 0, 0);
+
+            kinahItem.setItemLocation(StorageType.ACCOUNT_WAREHOUSE.getId());
+            player.getStorage(StorageType.ACCOUNT_WAREHOUSE.getId()).onLoadHandler(kinahItem);
+        }
+    }
 }

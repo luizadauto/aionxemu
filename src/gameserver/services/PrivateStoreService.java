@@ -90,7 +90,11 @@ public class PrivateStoreService {
      * @return
      */
     private static boolean validateItem(Item item, int itemId, long itemAmount) {
-        return !(item.getItemTemplate().getTemplateId() != itemId || itemAmount > item.getItemCount());
+        if (item.getItemTemplate().getTemplateId() != itemId || itemAmount > item.getItemCount() || itemAmount < 1)
+        {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -187,7 +191,8 @@ public class PrivateStoreService {
         /**
          * Decrease kinah for buyer and Increase kinah for seller
          */
-        buyer.removeKinah(price);
+        if(!buyer.removeKinah(price))
+            return;
         seller.addKinah(price);
 
         List<Item> newItems = new ArrayList<Item>();
@@ -211,8 +216,9 @@ public class PrivateStoreService {
 
             decreaseItemFromPlayer(seller, item, tradeItem);
             ItemService.addFullItem(buyer, item.getItemTemplate().getTemplateId(),
-                tradeItem.getCount(), item.getItemCreator(), manaStones, godStone,
-                item.getEnchantLevel());
+                tradeItem.getCount(), manaStones, godStone, item.getEnchantLevel(),
+                item.getCrafterName(), item.getTempItemTimeLeft(),
+                item.getTempTradeTimeLeft());
             tradeItem.setItemId(storeItem.getItemId());
         }
 

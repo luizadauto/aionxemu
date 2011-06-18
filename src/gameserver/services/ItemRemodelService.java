@@ -68,7 +68,8 @@ public class ItemRemodelService {
                 return;
             }
             // Remove Money
-            player.getInventory().decreaseKinah(remodelCost);
+            if(!player.getInventory().decreaseKinah(remodelCost))
+                return;
 
             // Remove Pattern Reshaper
             player.getInventory().decreaseItemCount(extractItem, 1);
@@ -101,21 +102,12 @@ public class ItemRemodelService {
             return;
         }
 
-		// TODO: Find a consistent mask value to determine if item may be remodeled.
-
-
-        // Temporary check... I *think* epic and mythic items can *never* be remodeled...
-
-        if (keepItem.getItemTemplate().getItemQuality() == ItemQuality.EPIC ||
-
-                keepItem.getItemTemplate().getItemQuality() == ItemQuality.MYTHIC) {
-
+        //check if item is remodel able
+        if (!keepItem.getItemTemplate().isChangeSkinPermitted())
+        {
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300478,
-
-                    new DescriptionId(keepItem.getItemTemplate().getNameId())));
-
+                new DescriptionId(keepItem.getItemTemplate().getNameId())));
             return;
-
         }
 
 
@@ -134,7 +126,8 @@ public class ItemRemodelService {
 		
         // -- SUCCESS --
         // Remove Money
-        player.getInventory().decreaseKinah(remodelCost);
+        if(!player.getInventory().decreaseKinah(remodelCost))
+            return;
 
         // Remove Item
         player.getInventory().decreaseItemCount(extractItem, 1);

@@ -169,6 +169,13 @@ public class PvpService {
         int maxRank = AbyssRankEnum.GRADE9_SOLDIER.getId();
         int maxLevel = 0;
 
+        if(victim.isInDredgion())
+        {
+            Player winner = victim.getAggroList().getMostPlayerDamage();
+            DredgionInstanceService.getInstance().doPvpReward(winner, victim);
+            return true;
+        }
+
         for (Player member : group.getMembers()) {
             if (MathUtil.isIn3dRange(member, victim, GroupConfig.GROUP_MAX_DISTANCE)) {
                 // Don't distribute AP to a dead player!
@@ -295,6 +302,7 @@ public class PvpService {
             baseApReward = StatFunctions.calculatePvpApGained(victim, winner.getAbyssRank().getRank().getId(), winner.getLevel());
 
         int apPlayerReward = Math.round(baseApReward * winner.getRates().getApPlayerRate() * aggro.getDamage() / totalDamage);
+
         if (winner.isInDredgion())
             winner.getDredgion().updateScore(winner, baseApReward);
         else

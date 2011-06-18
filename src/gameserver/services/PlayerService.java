@@ -25,7 +25,29 @@ import gameserver.controllers.PlayerController;
 import gameserver.controllers.ReviveController;
 import gameserver.controllers.SummonController.UnsummonType;
 import gameserver.controllers.effect.PlayerEffectController;
-import gameserver.dao.*;
+import gameserver.dao.AbyssRankDAO;
+import gameserver.dao.BlockListDAO;
+import gameserver.dao.FriendListDAO;
+import gameserver.dao.GuildDAO;
+import gameserver.dao.InventoryDAO;
+import gameserver.dao.ItemCooldownsDAO;
+import gameserver.dao.ItemStoneListDAO;
+import gameserver.dao.MailDAO;
+import gameserver.dao.PlayerAppearanceDAO;
+import gameserver.dao.PlayerDAO;
+import gameserver.dao.PlayerEffectsDAO;
+import gameserver.dao.PlayerEmotionListDAO;
+import gameserver.dao.PlayerInstanceCDDAO;
+import gameserver.dao.PlayerLifeStatsDAO;
+import gameserver.dao.PlayerMacrossesDAO;
+import gameserver.dao.PlayerPunishmentsDAO;
+import gameserver.dao.PlayerQuestListDAO;
+import gameserver.dao.PlayerRecipesDAO;
+import gameserver.dao.PlayerSettingsDAO;
+import gameserver.dao.PlayerSkillListDAO;
+import gameserver.dao.PlayerTitleListDAO;
+import gameserver.dao.PlayerWorldBanDAO;
+import gameserver.dao.PurchaseLimitDAO;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.PlayerInitialData;
 import gameserver.dataholders.PlayerInitialData.LocationData;
@@ -36,7 +58,14 @@ import gameserver.model.account.Account;
 import gameserver.model.account.PlayerAccountData;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.PersistentState;
-import gameserver.model.gameobjects.player.*;
+import gameserver.model.gameobjects.player.Equipment;
+import gameserver.model.gameobjects.player.MacroList;
+import gameserver.model.gameobjects.player.Mailbox;
+import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.PlayerAppearance;
+import gameserver.model.gameobjects.player.PlayerCommonData;
+import gameserver.model.gameobjects.player.Storage;
+import gameserver.model.gameobjects.player.StorageType;
 import gameserver.model.gameobjects.player.FriendList.Status;
 import gameserver.model.gameobjects.stats.PlayerGameStats;
 import gameserver.model.gameobjects.stats.PlayerLifeStats;
@@ -100,6 +129,7 @@ public class PlayerService {
                 && DAOManager.getDAO(PlayerAppearanceDAO.class).store(player)
                 && DAOManager.getDAO(PlayerSkillListDAO.class).storeSkills(player)
                 && DAOManager.getDAO(InventoryDAO.class).store(player)
+                && DAOManager.getDAO(PlayerEmotionListDAO.class).storeEmotions(player)
                 && DAOManager.getDAO(PlayerTitleListDAO.class).storeTitles(player);
     }
 
@@ -114,11 +144,13 @@ public class PlayerService {
         DAOManager.getDAO(PlayerSettingsDAO.class).saveSettings(player);
         DAOManager.getDAO(PlayerQuestListDAO.class).store(player);
         DAOManager.getDAO(PlayerTitleListDAO.class).storeTitles(player);
+        DAOManager.getDAO(PlayerEmotionListDAO.class).storeEmotions(player);
         DAOManager.getDAO(AbyssRankDAO.class).storeAbyssRank(player);
         DAOManager.getDAO(PlayerPunishmentsDAO.class).storePlayerPunishments(player);
         DAOManager.getDAO(InventoryDAO.class).store(player);
         DAOManager.getDAO(ItemStoneListDAO.class).save(player);
         DAOManager.getDAO(MailDAO.class).storeMailbox(player);
+        DAOManager.getDAO(GuildDAO.class).storeGuild(player);
     }
 
     /**
@@ -167,11 +199,15 @@ public class PlayerService {
         player.setFriendList(DAOManager.getDAO(FriendListDAO.class).load(player));
         player.setBlockList(DAOManager.getDAO(BlockListDAO.class).load(player));
         player.setTitleList(DAOManager.getDAO(PlayerTitleListDAO.class).loadTitleList(playerObjId));
+        player.setEmotionList(DAOManager.getDAO(PlayerEmotionListDAO.class).loadEmotionList(playerObjId));
 
         DAOManager.getDAO(PlayerSettingsDAO.class).loadSettings(player);
         DAOManager.getDAO(AbyssRankDAO.class).loadAbyssRank(player);
+        DAOManager.getDAO(GuildDAO.class).loadGuild(player);
         PlayerStatsData playerStatsData = DataManager.PLAYER_STATS_DATA;
         player.setPlayerStatsTemplate(playerStatsData.getTemplate(player));
+
+        DAOManager.getDAO(PurchaseLimitDAO.class).loadPurchaseLimit(player);
 
         player.setGameStats(new PlayerGameStats(playerStatsData, player));
 
@@ -226,6 +262,8 @@ public class PlayerService {
         DAOManager.getDAO(PlayerEffectsDAO.class).loadPlayerEffects(player);
         // load item cooldowns
         DAOManager.getDAO(ItemCooldownsDAO.class).loadItemCooldowns(player);
+        // load instance cooldowns
+        DAOManager.getDAO(PlayerInstanceCDDAO.class).loadCooldowns(player);
 
         if (player.getCommonData().getTitleId() > 0) {
             TitleChangeListener.onTitleChange(player.getGameStats(), player.getCommonData().getTitleId(), true);
@@ -287,12 +325,9 @@ public class PlayerService {
         for (ItemType itemType : items) {
 
             int itemId = itemType.getTemplate().getTemplateId();
-            Item item = ItemService.newItem(itemId, itemType.getCount());
+            Item item = ItemService.newItem(itemId, itemType.getCount(), "", playerCommonData.getPlayerObjId(), 0, 0);
             if (item == null)
                 continue;
-
-			if (RentalService.getInstance().isRentalItem(item))
-				RentalService.getInstance().addRentalItem(newPlayer, item);
 
             // When creating new player - all equipment that has slot values will be equipped
             // Make sure you will not put into xml file more items than possible to equip.
@@ -359,9 +394,17 @@ public class PlayerService {
             log.debug("Update prison timer to " + prisonTimer / 1000 + " seconds !");
         }
 
+        //if player is using LWH, set it non-used
+        if (player.getLegion() != null)
+        {
+            if (player.getLegion().getLegionWarehouse() != null && player.getLegion().getLegionWarehouse().getUser() == player.getObjectId())
+                player.getLegion().getLegionWarehouse().setUser(0);
+        }
+
         //store current effects
         DAOManager.getDAO(PlayerEffectsDAO.class).storePlayerEffects(player);
         DAOManager.getDAO(ItemCooldownsDAO.class).storeItemCooldowns(player);
+        DAOManager.getDAO(PlayerInstanceCDDAO.class).storeCooldowns(player);
         DAOManager.getDAO(PlayerLifeStatsDAO.class).updatePlayerLifeStat(player);
         player.getEffectController().removeAllEffects();
 
@@ -400,6 +443,8 @@ public class PlayerService {
 
         if (!GSConfig.DISABLE_CHAT_SERVER)
             ChatService.onPlayerLogout(player);
+
+        TemporaryObjectsService.getInstance().onPlayerLogout(player);
 
         storePlayer(player);
 

@@ -22,19 +22,27 @@ import gameserver.dao.MailDAO;
 import gameserver.dao.PlayerDAO;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Letter;
-import gameserver.model.gameobjects.player.*;
+import gameserver.model.gameobjects.player.Mailbox;
+import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.player.PlayerCommonData;
+import gameserver.model.gameobjects.player.Storage;
+import gameserver.model.gameobjects.player.StorageType;
 import gameserver.model.templates.mail.MailMessage;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
+import gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
+import gameserver.network.aion.serverpackets.SM_MAIL_SERVICE;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.utils.idfactory.IDFactory;
 import gameserver.world.World;
+
 import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -68,7 +76,10 @@ public class MailService {
      * @param express
      */
     public void sendMail(Player sender, String recipientName, String title, String message, int attachedItemObjId,
-                         int attachedItemCount, int attachedKinahCount, boolean express, boolean isPetitionReply) {
+                         int attachedItemCount, int attachedKinahCount, boolean express, boolean isPetitionReply)
+    {
+        if (recipientName == null)
+            return;
 
         if (recipientName.length() > 16)
             return;
@@ -78,6 +89,12 @@ public class MailService {
 
         if (message.length() > 1000)
             message = message.substring(0, 1000);
+
+        if(!sender.getMailbox().canSendMail())
+        {
+            PacketSendUtility.sendPacket(sender, new SM_SYSTEM_MESSAGE(1400375));
+            return;
+        }
 
         if (!DAOManager.getDAO(PlayerDAO.class).isNameUsed(recipientName)) {
             PacketSendUtility.sendPacket(sender, new SM_MAIL_SERVICE(MailMessage.NO_SUCH_CHARACTER_NAME));
@@ -117,10 +134,10 @@ public class MailService {
                 return;
 
         Item attachedItem = null;
-        int finalAttachedKinahCount = 0;
+        long finalAttachedKinahCount = 0;
 
-        int kinahMailCommission = 0;
-        int itemMailCommission = 0;
+        long kinahMailCommission = 0;
+        long itemMailCommission = 0;
 
         Storage senderInventory = sender.getInventory();
 
@@ -131,6 +148,10 @@ public class MailService {
 
             // Check Mailing Untradeable Hack
             if (!senderItem.getItemTemplate().isTradeable())
+                return;
+
+            //check if item isnt already soul bounded
+            if (senderItem.isSoulBound())
                 return;
 
             float qualityPriceRate;
@@ -160,7 +181,9 @@ public class MailService {
             }
 
             if (senderItem.getItemCount() == attachedItemCount) {
-                senderInventory.removeFromBag(senderItem, false);
+                if (!senderInventory.removeFromBag(senderItem, false))
+                    return;
+
                 PacketSendUtility.sendPacket(sender, new SM_DELETE_ITEM(attachedItemObjId));
 
                 senderItem.setEquipped(false);
@@ -173,8 +196,12 @@ public class MailService {
                         .getItemCount())
                         * qualityPriceRate);
             } else if (senderItem.getItemCount() > attachedItemCount) {
-                attachedItem = ItemService.newItem(senderItem.getItemTemplate().getTemplateId(),
-                    attachedItemCount, senderItem.getItemCreator());
+                attachedItem = ItemService.newItem(
+                    senderItem.getItemTemplate().getTemplateId(),
+                    attachedItemCount,
+                    senderItem.getCrafterName(), sender.getObjectId(),
+                    senderItem.getTempItemTimeLeft(),
+                    senderItem.getTempTradeTimeLeft());
                 senderItem.decreaseItemCount(attachedItemCount);
                 PacketSendUtility.sendPacket(sender, new SM_UPDATE_ITEM(senderItem));
 
@@ -208,7 +235,8 @@ public class MailService {
          */
         if (!isPetitionReply) {
             if (senderInventory.getKinahItem().getItemCount() > finalAttachedKinahCount) {
-                senderInventory.decreaseKinah(finalAttachedKinahCount);
+                if(!senderInventory.decreaseKinah(finalAttachedKinahCount))
+                    return;
             } else {
                 log.warn("[AUDIT] Mail kinah exploit: " + sender.getObjectId());
                 return;
@@ -218,7 +246,7 @@ public class MailService {
                 if (!DAOManager.getDAO(InventoryDAO.class).store(attachedItem, recipientCommonData.getPlayerObjId()))
                     return;
 
-            int finalMailCommission = 0;
+            long finalMailCommission = 0;
 
             if (express)
                 finalMailCommission = 520 + kinahMailCommission + itemMailCommission;
@@ -226,7 +254,8 @@ public class MailService {
                 finalMailCommission = 10 + kinahMailCommission + itemMailCommission;
 
             if (senderInventory.getKinahItem().getItemCount() > finalMailCommission) {
-                senderInventory.decreaseKinah(finalMailCommission);
+                if(!senderInventory.decreaseKinah(finalMailCommission))
+                    return;
             } else {
                 log.warn("[AUDIT] Mail kinah exploit: " + sender.getObjectId());
                 return;
@@ -241,12 +270,11 @@ public class MailService {
             recipientMailbox.putLetterToMailbox(newLetter);
 
             Collection<Letter> lts = onlineRecipient.getMailbox().getLetters();
-            int mailCount = 0;
+            int mailCount = recipientMailbox.size();
             int unreadMailCount = 0;
             boolean hasExpress = false;
 
             for (Letter lt : lts) {
-                mailCount++;
                 if (lt.isUnread()) {
                     unreadMailCount++;
                     if (!hasExpress && lt.isExpress())
@@ -315,12 +343,11 @@ public class MailService {
             recipientMailbox.putLetterToMailbox(newLetter);
 
             Collection<Letter> lts = onlineRecipient.getMailbox().getLetters();
-            int mailCount = 0;
+            int mailCount = recipientMailbox.size();
             int unreadMailCount = 0;
             boolean hasExpress = false;
 
             for (Letter lt : lts) {
-                mailCount++;
                 if (lt.isUnread()) {
                     unreadMailCount++;
                     if (!hasExpress && lt.isExpress())
@@ -382,7 +409,7 @@ public class MailService {
                     return;
                 }
                 Item inventoryItem = player.getInventory().putToBag(attachedItem);
-                PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(Collections.singletonList(inventoryItem)));
+                PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(inventoryItem, true));
                 PacketSendUtility.sendPacket(player, new SM_MAIL_SERVICE(letterId, attachmentType));
                 letter.removeAttachedItem();
                 break;
@@ -405,7 +432,7 @@ public class MailService {
 
         mailbox.removeLetter(letterId);
         DAOManager.getDAO(MailDAO.class).deleteLetter(letterId);
-        PacketSendUtility.sendPacket(player, new SM_MAIL_SERVICE(letterId));
+        PacketSendUtility.sendPacket(player, new SM_MAIL_SERVICE(player, letterId));
     }
 
     /**
@@ -456,7 +483,7 @@ public class MailService {
                     * qualityPriceRate);
         }
 
-        int finalMailPrice = 10 + itemMailCommission + kinahMailCommission;
+        long finalMailPrice = 10 + itemMailCommission + kinahMailCommission;
 
         if (sender.getInventory().getKinahItem().getItemCount() >= finalMailPrice)
             return true;
@@ -489,12 +516,11 @@ public class MailService {
             PacketSendUtility.sendPacket(player, new SM_MAIL_SERVICE(player, player.getMailbox().getLetters()));
 
             Collection<Letter> lts = player.getMailbox().getLetters();
-            int mailCount = 0;
+            int mailCount = player.getMailbox().size();
             int unreadMailCount = 0;
             boolean hasExpress = false;
 
             for (Letter lt : lts) {
-                mailCount++;
                 if (lt.isUnread()) {
                     unreadMailCount++;
                     if (!hasExpress && lt.isExpress())

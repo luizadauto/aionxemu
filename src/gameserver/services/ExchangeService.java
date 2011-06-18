@@ -23,7 +23,11 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.trade.Exchange;
 import gameserver.model.trade.ExchangeItem;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
+import gameserver.network.aion.serverpackets.SM_EXCHANGE_ADD_ITEM;
+import gameserver.network.aion.serverpackets.SM_EXCHANGE_ADD_KINAH;
+import gameserver.network.aion.serverpackets.SM_EXCHANGE_CONFIRMATION;
+import gameserver.network.aion.serverpackets.SM_EXCHANGE_REQUEST;
 import gameserver.restrictions.RestrictionsManager;
 import gameserver.task.AbstractFIFOPeriodicTaskManager;
 import gameserver.utils.PacketSendUtility;
@@ -113,6 +117,9 @@ public class ExchangeService {
      */
     public void addKinah(Player activePlayer, long itemCount) {
         Exchange currentExchange = getCurrentExchange(activePlayer);
+        if (currentExchange == null)
+            return;
+
         if (currentExchange.isLocked())
             return;
 
@@ -145,14 +152,23 @@ public class ExchangeService {
         if (item == null)
             return;
 
-        // Check Trade Hack
+        // Check Trade Hack & temporary trade conditions
         if (!item.getItemTemplate().isTradeable())
-            return;
+            if(item.getTempTradeTimeLeft() <= 0)
+                return;
+            else if (!activePlayer.isInGroup())
+                return;
+            else if (!activePlayer.getPlayerGroup().getMembers().contains(getCurrentParter(activePlayer)))
+                return;
 
         if (itemCount < 1)
             return;
 
         if (itemCount > item.getItemCount())
+            return;
+
+        //check if item isnt soul bounded already
+        if (item.isSoulBound())
             return;
 
         Player partner = getCurrentParter(activePlayer);
@@ -175,11 +191,12 @@ public class ExchangeService {
             Item newItem = null;
             if (itemCount < item.getItemCount()) {
                 newItem = ItemService.newItem(item.getItemId(), itemCount,
-                    item.getItemCreator());
+                    item.getCrafterName(), activePlayer.getObjectId(),
+                    item.getTempItemTimeLeft(), item.getTempTradeTimeLeft());
             } else {
                 newItem = item;
             }
-            exchangeItem = new ExchangeItem(itemObjId, itemCount, newItem, item.getItemCount());
+            exchangeItem = new ExchangeItem(itemObjId, itemCount, newItem);
             currentExchange.addItem(itemObjId, exchangeItem);
             actuallAddCount = itemCount;
         }
@@ -262,8 +279,11 @@ public class ExchangeService {
 
         cleanupExchanges(activePlayer, currentPartner);
 
-        removeItemsFromInventory(activePlayer, exchange1);
-        removeItemsFromInventory(currentPartner, exchange2);
+        if(!removeItemsFromInventory(activePlayer, exchange1))
+            return;
+
+        if(!removeItemsFromInventory(currentPartner, exchange2))
+            return;
 
         putItemToInventory(currentPartner, exchange1, exchange2);
         putItemToInventory(activePlayer, exchange2, exchange1);
@@ -292,7 +312,7 @@ public class ExchangeService {
      * @param player
      * @param exchange
      */
-    private void removeItemsFromInventory(Player player, Exchange exchange) {
+    private boolean removeItemsFromInventory(Player player, Exchange exchange) {
         Storage inventory = player.getInventory();
 
         for (ExchangeItem exchangeItem : exchange.getItems().values()) {
@@ -300,7 +320,7 @@ public class ExchangeService {
             Item itemInInventory = inventory.getItemByObjId(exchangeItem.getItemObjId());
 
             if (item == null || itemInInventory == null)
-                return;
+                return false;
 
             long itemCount = exchangeItem.getItemCount();
 
@@ -308,13 +328,25 @@ public class ExchangeService {
                 inventory.decreaseItemCount(itemInInventory, itemCount);
                 exchange.addItemToUpdate(itemInInventory);
             } else {
-                inventory.removeFromBag(itemInInventory, false);
+                if(!inventory.removeFromBag(itemInInventory, false))
+                {
+                    log.info("[AUDIT] " + player.getName() + " <ExchangeService.removeItemsFromInventory> Item remove hack suspected. Item ID: " + String.valueOf(itemInInventory.getItemId()) + ", UniqueID: " + String.valueOf(itemInInventory.getObjectId()));
+                    return false;
+                }
+
                 exchangeItem.setItem(itemInInventory);
                 PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(itemInInventory.getObjectId()));
             }
         }
-        player.getInventory().decreaseKinah(exchange.getKinahCount());
+        if(!player.getInventory().decreaseKinah(exchange.getKinahCount()))
+        {
+            log.info("[AUDIT] " + player.getName() + " <ExchangeService.removeItemsFromInventory> Kinah remove hack suspected. True amount: " + String.valueOf(player.getInventory().getKinahCount()) + ", Client: " + String.valueOf(exchange.getKinahCount()));
+            return false;
+        }
+
         exchange.addItemToUpdate(player.getInventory().getKinahItem());
+
+        return true;
     }
 
     /**

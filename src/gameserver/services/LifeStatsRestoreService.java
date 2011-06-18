@@ -64,11 +64,14 @@ public class LifeStatsRestoreService {
         int delay = DEFAULT_FPREDUCE_DELAY;
 
         boolean flightAllowed = false;
-        if (lifeStats.getOwner().getZoneInstance() != null)
-            flightAllowed = lifeStats.getOwner().getZoneInstance().getTemplate().isFlightAllowed();
+        if (lifeStats.getOwner() != null)
+        {
+            if (lifeStats.getOwner().getZoneInstance() != null)
+                flightAllowed = lifeStats.getOwner().getZoneInstance().getTemplate().isFlightAllowed();
 
-        if (lifeStats.getOwner().isInState(CreatureState.GLIDING) && flightAllowed)
-            delay = 2000;
+            if (lifeStats.getOwner().isInState(CreatureState.GLIDING) && flightAllowed)
+                delay = 2000;
+        }
 
         return ThreadPoolManager.getInstance().scheduleAtFixedRate(new FpReduceTask(lifeStats, currentFlightZoneName), 2000, delay);
     }
@@ -143,7 +146,9 @@ public class LifeStatsRestoreService {
 
             if (lifeStats.getCurrentFp() == 0) {
                 if (lifeStats.getOwner().getFlyState() > 0) {
-                    lifeStats.getOwner().getFlyController().endFly();
+                    //NOTE exception for Prayer of Freedom
+                    if (!lifeStats.getOwner().getEffectController().hasAbnormalEffect(537))
+                        lifeStats.getOwner().getFlyController().endFly();
                 } else {
                     lifeStats.triggerFpRestore();
                 }

@@ -21,11 +21,13 @@ import gameserver.dataholders.DataManager;
 import gameserver.dataholders.PlayerInitialData.LocationData;
 import gameserver.model.EmotionType;
 import gameserver.model.Race;
+import gameserver.model.TaskId;
 import gameserver.model.gameobjects.Kisk;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.gameobjects.state.CreatureState;
+import gameserver.model.instances.Dredgion;
 import gameserver.model.templates.BindPointTemplate;
 import gameserver.model.templates.portal.ExitPoint;
 import gameserver.model.templates.portal.PortalTemplate;
@@ -33,8 +35,17 @@ import gameserver.model.templates.spawn.SpawnTemplate;
 import gameserver.model.templates.teleport.TelelocationTemplate;
 import gameserver.model.templates.teleport.TeleportLocation;
 import gameserver.model.templates.teleport.TeleporterTemplate;
-import gameserver.network.aion.serverpackets.*;
-import gameserver.network.aion.serverpacketseq.SEQ_SM_WINDSTREAM_ANNOUNCE;
+import gameserver.network.aion.serverpackets.SM_CHANNEL_INFO;
+import gameserver.network.aion.serverpackets.SM_EMOTION;
+import gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
+import gameserver.network.aion.serverpackets.SM_PLAYER_INFO;
+import gameserver.network.aion.serverpackets.SM_PLAYER_SPAWN;
+import gameserver.network.aion.serverpackets.SM_QUEST_ACCEPTED;
+import gameserver.network.aion.serverpackets.SM_SET_BIND_POINT;
+import gameserver.network.aion.serverpackets.SM_STATS_INFO;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_TELEPORT_LOC;
+import gameserver.network.aion.serverpackets.SM_TELEPORT_MAP;
 import gameserver.services.ZoneService.ZoneUpdateMode;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
@@ -86,6 +97,12 @@ public class TeleportService
             return;
         }
 
+        if( template.getRace() != null && !player.getCommonData().getRace().equals(template.getRace()) )
+        {
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
+                return;
+        }
+
         TeleportLocation location = template.getTeleLocIdData().getTeleportLocation(locId);
         if(location == null)
         {
@@ -133,6 +150,12 @@ public class TeleportService
             PacketSendUtility.sendMessage(player,
                 "Missing locId for this teleporter at teleporter_templates.xml with locId: " + locId);
             return;
+        }
+
+        if( template.getRace() != null && !player.getCommonData().getRace().equals(template.getRace()) )
+        {
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
+                return;
         }
 
         TeleportLocation location = template.getTeleLocIdData().getTeleportLocation(locId);
@@ -259,9 +282,21 @@ public class TeleportService
     public static boolean teleportTo(final Player player, final int worldId, final int instanceId, final float x,
         final float y, final float z, final byte heading, final int delay)
     {
+        boolean arena = player.getInArena();
         boolean dead = player.getLifeStats().isAlreadyDead();
-        if(dead || !player.isSpawned())
-            return false;
+        if(!arena)
+        {
+            if(!player.isSpawned())
+                return false;
+        }
+        
+        if(player.isInInstance() && player.getQuestTimerOn() && player.getWorldId() != worldId)
+        {
+            player.setQuestTimerOn(false);
+            PacketSendUtility.sendPacket(player, new SM_QUEST_ACCEPTED(4, 0, 0));
+            if(player.getController().hasTask(TaskId.QUEST_TIMER))
+                player.getController().getTask(TaskId.QUEST_TIMER).cancel(false);
+        }
 
         if(DuelService.getInstance().isDueling(player.getObjectId()))
             DuelService.getInstance().loseDuel(player);
@@ -272,6 +307,8 @@ public class TeleportService
         if(delay == 0)
         {
             changePosition(player, worldId, instanceId, x, y, z, heading);
+            if(arena && dead)
+                player.getReviveController().skillRevive(false);
             return true;
         }
 
@@ -287,6 +324,9 @@ public class TeleportService
                 changePosition(player, worldId, instanceId, x, y, z, heading);
             }
         }, delay);
+
+        if(arena)
+            player.setInArena(false);
 
         return true;
     }
@@ -491,6 +531,24 @@ public class TeleportService
         teleportTo(player, worldId, exitPoint.getX(), exitPoint.getY(), exitPoint.getZ(), delay);
     }
 
+    public static void teleportToInstanceEntry(Player player, int worldId, int instanceId, int delay)
+    {
+        PortalTemplate template = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
+        if(template == null)
+        {
+            log.warn("No portal template found for instance : " + worldId);
+            return;
+        }
+        ExitPoint exitPoint = null;
+        for(ExitPoint point : template.getExitPoint())
+        {
+            if(point.getRace() == null || point.getRace().equals(player.getCommonData().getRace()))
+                exitPoint = point;
+        }
+        if(exitPoint != null)
+            teleportTo(player, worldId, instanceId, exitPoint.getX(), exitPoint.getY(), exitPoint.getZ(), delay);
+    }
+
     public static void teleportToNpc(Player player, int npcId)
     {
         int delay = 0;
@@ -499,6 +557,7 @@ public class TeleportService
         if(template == null)
         {
             log.warn("No npc template found for : " + npcId);
+            PacketSendUtility.sendMessage(player, "NpcId "+ npcId +" doesn't exist or isn't spawned");
             return;
         }
 
@@ -530,14 +589,21 @@ public class TeleportService
 
     public static void teleportToPrison(Player player)
     {
-        switch(player.getCommonData().getRace())
-        {
-            case ELYOS:
-                teleportTo(player, WorldMapType.LF_PRISON.getId(), 256, 256, 49, 0);
-                break;
-            case ASMODIANS:
-                teleportTo(player, WorldMapType.DF_PRISON.getId(), 256, 256, 49, 0);
-                break;
-        }
+        teleportTo(player, WorldMapType.PRISON.getId(), 256, 256, 49, 0);
+    }
+
+    public static void dredgionRevive(Player player)
+    {
+        int instanceid = 300110000;
+
+        if( player.getLevel() > 50)
+            instanceid = 300210000;
+
+        Dredgion dred = (Dredgion)World.getInstance().getWorldMap(instanceid).getWorldMapInstanceById(player.getInstanceId());
+        
+        if(dred.getRegisteredGroup().getObjectId() == player.getPlayerGroup().getObjectId())
+            TeleportService.teleportTo(player, dred.getMapId(), dred.getInstanceId(), 558f, 190f, 432f, 0);
+        else
+            TeleportService.teleportTo(player, dred.getMapId(), dred.getInstanceId(), 414f, 193f, 431f, 0);
     }
 }

@@ -23,7 +23,11 @@ import gameserver.dao.PlayerDAO;
 import gameserver.model.gameobjects.player.BlockedPlayer;
 import gameserver.model.gameobjects.player.Friend;
 import gameserver.model.gameobjects.player.Player;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.network.aion.serverpackets.SM_BLOCK_LIST;
+import gameserver.network.aion.serverpackets.SM_BLOCK_RESPONSE;
+import gameserver.network.aion.serverpackets.SM_FRIEND_LIST;
+import gameserver.network.aion.serverpackets.SM_FRIEND_NOTIFY;
+import gameserver.network.aion.serverpackets.SM_FRIEND_RESPONSE;
 import gameserver.world.World;
 
 /**

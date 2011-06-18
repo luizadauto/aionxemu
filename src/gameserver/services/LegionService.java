@@ -18,6 +18,8 @@ package gameserver.services;
 
 import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.configs.main.LegionConfig;
+import gameserver.controllers.movement.ActionObserver;
+import gameserver.controllers.movement.ActionObserver.ObserverType;
 import gameserver.dao.LegionDAO;
 import gameserver.dao.LegionMemberDAO;
 import gameserver.model.gameobjects.Creature;
@@ -26,8 +28,30 @@ import gameserver.model.gameobjects.player.DeniedStatus;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.RequestResponseHandler;
 import gameserver.model.gameobjects.player.StorageType;
-import gameserver.model.legion.*;
-import gameserver.network.aion.serverpackets.*;
+import gameserver.model.legion.Legion;
+import gameserver.model.legion.LegionEmblem;
+import gameserver.model.legion.LegionHistory;
+import gameserver.model.legion.LegionHistoryType;
+import gameserver.model.legion.LegionMember;
+import gameserver.model.legion.LegionMemberEx;
+import gameserver.model.legion.LegionRank;
+import gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
+import gameserver.network.aion.serverpackets.SM_LEGION_ADD_MEMBER;
+import gameserver.network.aion.serverpackets.SM_LEGION_EDIT;
+import gameserver.network.aion.serverpackets.SM_LEGION_EMBLEM;
+import gameserver.network.aion.serverpackets.SM_LEGION_EMBLEM_SEND;
+import gameserver.network.aion.serverpackets.SM_LEGION_INFO;
+import gameserver.network.aion.serverpackets.SM_LEGION_LEAVE_MEMBER;
+import gameserver.network.aion.serverpackets.SM_LEGION_MEMBERLIST;
+import gameserver.network.aion.serverpackets.SM_LEGION_TABS;
+import gameserver.network.aion.serverpackets.SM_LEGION_UPDATE_EMBLEM;
+import gameserver.network.aion.serverpackets.SM_LEGION_UPDATE_MEMBER;
+import gameserver.network.aion.serverpackets.SM_LEGION_UPDATE_NICKNAME;
+import gameserver.network.aion.serverpackets.SM_LEGION_UPDATE_SELF_INTRO;
+import gameserver.network.aion.serverpackets.SM_LEGION_UPDATE_TITLE;
+import gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_WAREHOUSE_INFO;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.utils.Util;
@@ -35,6 +59,7 @@ import gameserver.utils.idfactory.IDFactory;
 import gameserver.world.World;
 import gameserver.world.container.LegionContainer;
 import gameserver.world.container.LegionMemberContainer;
+
 import org.apache.log4j.Logger;
 
 import java.nio.ByteBuffer;
@@ -503,13 +528,14 @@ public class LegionService {
      */
     public void createLegion(Player activePlayer, String legionName) {
         if (legionRestrictions.canCreateLegion(activePlayer, legionName)) {
+            if(!activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_CREATE_REQUIRED_KINAH))
+                return;
+
             /**
              * Create new legion and put originator as first member
              */
             Legion legion = new Legion(IDFactory.getInstance().nextId(), legionName);
             legion.addLegionMember(activePlayer.getObjectId());
-
-            activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_CREATE_REQUIRED_KINAH);
 
             /**
              * Create a LegionMember, add it to the legion and bind it to a Player
@@ -726,7 +752,8 @@ public class LegionService {
     private void requestChangeLevel(Player activePlayer, long kinahAmount) {
         if (legionRestrictions.canChangeLevel(activePlayer, kinahAmount)) {
             Legion legion = activePlayer.getLegion();
-            activePlayer.getInventory().decreaseKinah(legion.getKinahPrice());
+            if(!activePlayer.getInventory().decreaseKinah(legion.getKinahPrice()))
+                return;
             changeLevel(legion, legion.getLegionLevel() + 1, false);
             addHistory(legion, legion.getLegionLevel() + "", LegionHistoryType.LEVEL_UP);
         }
@@ -863,7 +890,9 @@ public class LegionService {
 
     public void storeLegionEmblem(Player activePlayer, LegionEmblem customEmblem) {
         addHistory(activePlayer.getLegion(), "", LegionHistoryType.EMBLEM_MODIFIED);
-        activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_EMBLEM_REQUIRED_KINAH);
+        if(!activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_EMBLEM_REQUIRED_KINAH))
+            return;
+
         activePlayer.getLegion().setLegionEmblem(customEmblem);
         updateMembersEmblem(activePlayer.getLegion());
         PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_CHANGED_EMBLEM());
@@ -877,7 +906,8 @@ public class LegionService {
             else
                 addHistory(legion, "", LegionHistoryType.EMBLEM_MODIFIED);
 
-            activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_EMBLEM_REQUIRED_KINAH);
+            if(!activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_EMBLEM_REQUIRED_KINAH))
+                return;
             legion.getLegionEmblem().setEmblem(emblemVer, color_r, color_g, color_b, isCustom);
             updateMembersEmblem(legion);
             PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_CHANGED_EMBLEM());
@@ -907,15 +937,32 @@ public class LegionService {
     /**
      * @param activePlayer
      */
-    public void openLegionWarehouse(Player activePlayer) {
-        if (legionRestrictions.canOpenWarehouse(activePlayer)) {
-            // TODO: ADD WAREHOUSE EXPAND TO LEGION!!!
-            // TODO send splitted wh packets ?
+    public void openLegionWarehouse(Player activePlayer)
+    {
+        final Legion legion = activePlayer.getLegion();
+
+        if(legionRestrictions.canOpenWarehouse(activePlayer))
+        {
+            int expandLvl = legion.getLegionLevel() - 1;
+
             PacketSendUtility.sendPacket(activePlayer, new SM_DIALOG_WINDOW(activePlayer.getObjectId(), 25));
             PacketSendUtility.sendPacket(activePlayer, new SM_WAREHOUSE_INFO(activePlayer.getLegion()
-                    .getLegionWarehouse().getStorageItems(), StorageType.LEGION_WAREHOUSE.getId(), 0, true));
+                .getLegionWarehouse().getStorageItems(), StorageType.LEGION_WAREHOUSE.getId(), expandLvl, true));
             PacketSendUtility.sendPacket(activePlayer, new SM_WAREHOUSE_INFO(null,
-                    StorageType.LEGION_WAREHOUSE.getId(), 0, false));
+                StorageType.LEGION_WAREHOUSE.getId(), expandLvl, false));
+            
+            legion.getLegionWarehouse().setUser(activePlayer.getObjectId());
+            activePlayer.getObserveController().attach(
+                new ActionObserver(ObserverType.MOVE)
+                    {
+                        @Override
+                        public void moved()
+                        {
+                            legion.getLegionWarehouse().setUser(0);
+                        }
+                    }
+            );
+
         }
     }
 
@@ -1458,8 +1505,10 @@ public class LegionService {
                 // No rights to invite
                 return false;
             } else if (activePlayer.getCommonData().getRace() != targetPlayer.getCommonData().getRace()
-                    && !LegionConfig.LEGION_INVITEOTHERFACTION) {
-                // Not Same Race
+                    && !LegionConfig.LEGION_INVITEOTHERFACTION)
+            {
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE
+                    .STR_GUILD_INVITE_CAN_NOT_INVITE_OTHER_RACE());
                 return false;
             }
             return true;
@@ -1485,21 +1534,29 @@ public class LegionService {
             // TODO: Can not kick during a war!!
             Legion legion = activePlayer.getLegion();
 
-            if (isSelf(activePlayer, legionMember.getObjectId())) {
+            if(isSelf(activePlayer, legionMember.getObjectId()))
+            {
                 PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_CANT_KICK_YOURSELF());
                 return false;
-            } else if (legionMember.isBrigadeGeneral()) {
+            }
+            else if(legionMember.isBrigadeGeneral())
+            {
                 PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_CANT_KICK_BRIGADE_GENERAL());
                 return false;
-            } else if (legionMember.getRank() == activePlayer.getLegionMember().getRank()) {
-                // Same rank so can't kick
-                // TODO: Message
+            }
+            else if(legionMember.getRank() == activePlayer.getLegionMember().getRank())
+            {
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.STR_GUILD_BANISH_CAN_NOT_BANISH_SAME_MEMBER_RANK());
                 return false;
-            } else if (!legion.isMember(legionMember.getObjectId())) {
-                // Not in same legion
+            }
+            else if(!legion.isMember(legionMember.getObjectId()))
+            {
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.STR_GUILD_BANISH_I_AM_NOT_BELONG_TO_GUILD());
                 return false;
-            } else if (!activePlayer.getLegionMember().hasRights(KICK)) {
-                // No rights to kick
+            }
+            else if(!activePlayer.getLegionMember().hasRights(KICK))
+            {
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.STR_GUILD_BANISH_DONT_HAVE_RIGHT_TO_BANISH());
                 return false;
             }
             return true;
@@ -1632,19 +1689,26 @@ public class LegionService {
         private boolean canDisbandLegion(Player activePlayer, Legion legion) {
             // TODO: Can't disband during a war!!
             // TODO: Can't disband legion with fortress or hideout!!
-            if (!isBrigadeGeneral(activePlayer)) {
+            if(!isBrigadeGeneral(activePlayer))
+            {
                 PacketSendUtility
-                        .sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_DISPERSE_ONLY_MASTER_CAN_DISPERSE());
+                    .sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_DISPERSE_ONLY_MASTER_CAN_DISPERSE());
                 return false;
-            } else if (legion.getLegionWarehouse().size() > 0) {
-                // TODO: Can't disband during using legion warehouse!!
+            }
+            else if(legion.getLegionWarehouse().isInUse())
+            {
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.STR_GUILD_DISPERSE_CANT_DISPERSE_GUILD_WHILE_USING_WAREHOUSE());
                 return false;
-            } else if (legion.isDisbanding()) {
+            }
+            else if(legion.isDisbanding())
+            {
                 PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_DISPERSE_ALREADY_REQUESTED());
                 return false;
-            } else if (legion.getLegionWarehouse().getStorageItems().size() > 0) {
+            }
+            else if(legion.getLegionWarehouse().getStorageItems().size() > 0 || legion.getLegionWarehouse().size() > 0)
+            {
                 PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE
-                        .LEGION_DISPERSE_CANT_DISPERSE_GUILD_STORE_ITEM_IN_WAREHOUSE());
+                    .LEGION_DISPERSE_CANT_DISPERSE_GUILD_STORE_ITEM_IN_WAREHOUSE());
                 return false;
             }
             return true;
@@ -1659,6 +1723,11 @@ public class LegionService {
         private boolean canLeave(Player activePlayer) {
             if (isBrigadeGeneral(activePlayer)) {
                 PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.LEGION_CANT_LEAVE_BEFORE_CHANGE_MASTER());
+                return false;
+            }
+            else if (activePlayer.getLegion() != null && activePlayer.getLegion().getLegionWarehouse().getUser() == activePlayer.getObjectId())
+            {
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.STR_GUILD_LEAVE_CANT_LEAVE_GUILD_WHILE_USING_WAREHOUSE());
                 return false;
             }
             return true;
@@ -1733,7 +1802,8 @@ public class LegionService {
          */
         public boolean canOpenWarehouse(Player activePlayer) {
             if (!activePlayer.isLegionMember()) {
-                // TODO: Message: Not in a legion
+                PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE
+                    .STR_NO_GUILD_TO_DEPOSIT());
                 return false;
             } else {
                 //lots of exploits if enable - need fix this function
@@ -1742,16 +1812,20 @@ public class LegionService {
 
                 Legion legion = activePlayer.getLegion();
                 if (!activePlayer.getLegionMember().hasRights(WAREHOUSE)) {
-                    // No warehouse rights
+                    PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE
+                        .STR_GUILD_WAREHOUSE_NO_RIGHT());
                     return false;
-                } else if (legion.isDisbanding()) {
+                }
+                else if (legion.isDisbanding()) {
                     PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE
                             .LEGION_WAREHOUSE_CANT_USE_WHILE_DISPERSE());
                     return false;
-                } else if (!LegionConfig.LEGION_WAREHOUSE) {
-                    // Legion Warehouse not enabled
+                }
+                else if (legion.getLegionWarehouse().isInUse()) {
+                    PacketSendUtility.sendPacket(activePlayer, SM_SYSTEM_MESSAGE.STR_GUILD_WAREHOUSE_IN_USE());
                     return false;
-                } else {
+                }
+                else {
                     // TODO: ADD WAREHOUSE EXPAND TO LEGION!!!
                     // TODO send splitted wh packets ? remove duplication
                     PacketSendUtility.sendPacket(activePlayer, new SM_DIALOG_WINDOW(activePlayer.getObjectId(), 25));
@@ -1844,16 +1918,19 @@ public class LegionService {
 			return LegionConfig.NICKNAME_PATTERN.matcher(name).matches();
 		}
 
-		/**
+        /**
          * Checks if a announcement is valid. It should contain only english letters
-         *
-         * @param name announcement
+         * 
+         * @param announcement
          * @return true if name is valid, false overwise
          */
-		private boolean isValidAnnouncement(String name)
-		{
-			return LegionConfig.ANNOUNCEMENT_PATTERN.matcher(name).matches();
-		}
+        private boolean isValidAnnouncement(String announcement)
+        {
+            String text = announcement;
+            text = text.replaceAll("\n","");
+            text = text.replaceAll("\r","");
+            return LegionConfig.ANNOUNCEMENT_PATTERN.matcher(text).matches();
+        }
 	}
 	
 	@SuppressWarnings("synthetic-access")

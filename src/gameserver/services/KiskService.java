@@ -46,8 +46,12 @@ public class KiskService {
     public static void removeKisk(Kisk kisk) {
         for (Player member : kisk.getCurrentMemberList()) {
             kiskContainer.remove(member);
-            member.setKisk(null);
-            TeleportService.sendSetBindPoint(member);
+            if (member.getKisk() == kisk)
+                member.setKisk(null);
+
+            if (member.getKisk() == null)
+                TeleportService.sendSetBindPoint(member);
+
             if (member.getLifeStats().isAlreadyDead())
                 PacketSendUtility.sendPacket(member, new SM_DIE(false, false, 0));
             // TODO: Figure out what happens when kisk expires, but player has self-rez stone or Rebirth effect.

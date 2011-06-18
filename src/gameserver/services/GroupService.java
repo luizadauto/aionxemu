@@ -202,7 +202,7 @@ public class GroupService {
     /**
      * @param player
      */
-    public void removePlayerFromGroup(Player player) {
+    public void removePlayerFromGroup(final Player player) {
         if (player.isInGroup()) {
             final PlayerGroup group = player.getPlayerGroup();
             int playerObj = player.getObjectId();
@@ -357,7 +357,7 @@ public class GroupService {
         double mod = 1;
         if (players.size() == 0)
             return;
-        if (players.size() > 1) {
+        else if (players.size() > 1) {
             mod = 1 + (((players.size() - 1) * 10) / 100);
         }
 
@@ -400,14 +400,17 @@ public class GroupService {
 
     /**
      * This method will send the show brand to every groupmember
-     *
+     * 
      * @param playerGroup
+     * @param modeId
      * @param brandId
      * @param targetObjectId
      */
-    public void showBrand(PlayerGroup playerGroup, int brandId, int targetObjectId) {
-        for (Player member : playerGroup.getMembers()) {
-            PacketSendUtility.sendPacket(member, new SM_SHOW_BRAND(brandId, targetObjectId));
+    public void showBrand(PlayerGroup playerGroup, int modeId, int brandId, int targetObjectId)
+    {
+        for(Player member : playerGroup.getMembers())
+        {
+            PacketSendUtility.sendPacket(member, new SM_SHOW_BRAND(modeId, brandId, targetObjectId));
         }
     }
 
