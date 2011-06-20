@@ -257,7 +257,7 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player> {
     /**
      * @param worldPosition
      */
-    public ZoneName findFlightZoneInCurrentMap(WorldPosition worldPosition) {
+    public FlightZoneInstance findFlightZoneInCurrentMap(WorldPosition worldPosition) {
         if (worldPosition == null)
             return null;
 
@@ -268,7 +268,7 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player> {
 
         for (FlightZoneInstance zone : zones) {
             if (checkPointInFlightZone(zone, worldPosition))
-                return zone.getTemplate().getName();
+                return zone;
         }
         return null;
     }

@@ -38,10 +38,10 @@ public class OpenAerialEffect extends EffectTemplate {
         effect.addToEffectedController();
     }
 
-   @Override
-    public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.OPENAREIAL_RESISTANCE))
-            effect.addSucessEffect(this);
+    @Override
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect, StatEnum.OPENAREIAL_RESISTANCE, SpellStatus.OPENAERIAL);
     }
 
     @Override

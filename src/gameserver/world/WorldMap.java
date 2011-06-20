@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -189,13 +190,22 @@ public class WorldMap {
      */
     public boolean isInstanceType() {
         return worldMapTemplate.isInstance();
-	}
-	
-	/**
-	 * @return
-	 */
-	public Collection<WorldMapInstance> getInstances()
-	{
-		return instances.values();
-	}
+    }
+
+    /**
+     * @return
+     */
+    public Collection<WorldMapInstance> getInstances()
+    {
+        return instances.values();
+    }
+
+    /**
+     * @return the InstanceIds
+     */
+    public Set<Integer> getInstanceIds()
+    {
+        return instances.keySet();
+    }
+
 }

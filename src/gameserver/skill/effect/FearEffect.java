@@ -46,8 +46,7 @@ public class FearEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.FEAR_RESISTANCE))
-            effect.addSucessEffect(this);
+        super.calculate(effect, StatEnum.FEAR_RESISTANCE, null); 
     }
 
     @Override

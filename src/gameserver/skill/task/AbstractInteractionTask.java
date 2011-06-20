@@ -36,8 +36,12 @@ public abstract class AbstractInteractionTask {
      * @param requestor
      * @param responder
      */
-    public AbstractInteractionTask(Player requestor, VisibleObject responder) {
+    public AbstractInteractionTask(Player requestor, VisibleObject responder, int skillLvlDiff) {
         super();
+        if(skillLvlDiff == 99999)
+            this.interval = 1500;
+        else
+            this.interval = 2500;
         this.requestor = requestor;
         if (responder == null)
             this.responder = requestor;

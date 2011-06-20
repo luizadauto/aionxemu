@@ -1,99 +1,102 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of aion-unique <aion-unique.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  aion-unique is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.task;
 
 import com.aionemu.commons.utils.Rnd;
+import gameserver.configs.main.CustomConfig;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
-import gameserver.configs.main.CraftConfig;
+
 
 /**
- * @author ATracer
+ * @author ATracer, HellBoy
+ *
  */
-public abstract class AbstractCraftTask extends AbstractInteractionTask {
-
-    protected int successValue;
-    protected int failureValue;
-    protected int currentSuccessValue;
-    protected int currentFailureValue;
+public abstract class AbstractCraftTask extends AbstractInteractionTask
+{
+    protected int maxValue = 100;
+    protected int currentSuccessValue = 0;
+    protected int currentFailureValue = 0;
     protected int skillLvlDiff;
-    protected boolean critical;
-    protected boolean setCritical = false;
-
+    protected boolean speedUp;
+    
     /**
+     * 
      * @param requestor
      * @param responder
-     * @param successValue
-     * @param failureValue
+     * @param skillLvlDiff
      */
-    public AbstractCraftTask(Player requestor, VisibleObject responder, int successValue, int failureValue, int skillLvlDiff) {
-        super(requestor, responder);
-        this.successValue = successValue;
-        this.failureValue = failureValue;
+    public AbstractCraftTask(Player requestor, VisibleObject responder, int skillLvlDiff)
+    {
+        super(requestor, responder, skillLvlDiff);
         this.skillLvlDiff = skillLvlDiff;
-        this.critical = Rnd.get(100) <= CraftConfig.CRIT_CRAFT;
     }
 
     @Override
-    protected boolean onInteraction() {
-        if (currentSuccessValue == successValue) {
-            onSuccessFinish();
-            return true;
+    protected boolean onInteraction()
+    {
+        if(currentSuccessValue == maxValue)
+        {
+            return onSuccessFinish();
         }
-        if (currentFailureValue == failureValue) {
+        if(currentFailureValue == maxValue)
+        {
             onFailureFinish();
             return true;
         }
-
+        
         analyzeInteraction();
-
+        
         sendInteractionUpdate();
         return false;
     }
-
+    
     /**
-     * Perform interaction calculation
+     *  Perform interaction calculation
      */
-    private void analyzeInteraction() {
-        //TODO better random
-        //if(Rnd.nextBoolean())
-        int multi = Math.max(0, 33 - skillLvlDiff * 5);
-        if (skillLvlDiff == 99999) {
-            currentSuccessValue = successValue;
-        } else if (Rnd.get(100) > multi) {
-            if (critical && Rnd.get(100) < 30)
-                setCritical = true;
-            currentSuccessValue += Rnd.get(successValue / (multi + 1) / 2, successValue);
-        } else {
-            currentFailureValue += Rnd.get(failureValue / (multi + 1) / 2, failureValue);
+    private void analyzeInteraction()
+    {
+        speedUp = false;
+        int multi = Math.max(0, CustomConfig.REGULAR_CRAFTING_SUCCESS-skillLvlDiff*5);
+        if(skillLvlDiff == 99999)
+        {
+            currentSuccessValue = maxValue;
+            return;
         }
-
-        if (currentSuccessValue >= successValue) {
-            if (critical)
-                setCritical = true;
-            currentSuccessValue = successValue;
-        } else if (currentFailureValue >= failureValue) {
-            currentFailureValue = failureValue;
-        }
+        
+        speedUp = Rnd.get(100) <= CustomConfig.CRAFTING_SPEEDUP;
+        
+        if(speedUp)
+            currentSuccessValue += Rnd.get(maxValue/2,maxValue);
+        
+        if(Rnd.get(100) > multi)
+            currentSuccessValue += Rnd.get(maxValue/(multi+1)/2,maxValue);
+        else
+            currentFailureValue += Rnd.get(maxValue/(multi+1)/2,maxValue);
+        
+        if(currentSuccessValue >= maxValue)
+            currentSuccessValue = maxValue;
+        else if(currentFailureValue >= maxValue)
+            currentFailureValue = maxValue;
     }
-
+    
     protected abstract void sendInteractionUpdate();
-
-    protected abstract void onSuccessFinish();
-
+    
+    protected abstract boolean onSuccessFinish();
+    
     protected abstract void onFailureFinish();
 }

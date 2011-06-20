@@ -20,7 +20,7 @@ package gameserver.utils;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.geometry.Point3D;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * Class with basic math.<br>
@@ -282,7 +282,10 @@ public class MathUtil {
      * @return true if objects are in range, false otherwise
      */
     public static boolean isIn3dRange(VisibleObject object1, VisibleObject object2, float range) {
-        if (object1.getWorldId() != object2.getWorldId())
+        if(object1 == null || object2 == null)
+            return false;
+
+        if(object1.getWorldId() != object2.getWorldId() || object1.getInstanceId() != object2.getInstanceId())
             return false;
 
         float dx = (object2.getX() - object1.getX());

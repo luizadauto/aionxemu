@@ -37,8 +37,7 @@ public class ConfuseEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.CONFUSE_RESISTANCE))
-            effect.addSucessEffect(this);
+        super.calculate(effect, StatEnum.CONFUSE_RESISTANCE, null);
     }
 
 }

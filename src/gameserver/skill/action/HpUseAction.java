@@ -39,7 +39,13 @@ public class HpUseAction extends Action {
     @Override
     public void act(Skill skill) {
         Creature effector = skill.getEffector();
-        int valueWithDelta = value + delta * skill.getSkillLevel();
+        int valueWithDelta = 0;
+        if (percent)
+        {
+            valueWithDelta = effector.getLifeStats().getMaxHp() * value / 100;
+        }
+        else
+            valueWithDelta = value + delta * skill.getSkillLevel();
 
         effector.getLifeStats().reduceHp(valueWithDelta, null);
     }

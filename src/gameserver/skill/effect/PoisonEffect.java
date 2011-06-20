@@ -1,88 +1,71 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of aion-unique <aion-unique.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  aion-unique is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.effect;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+import gameserver.controllers.attack.AttackUtil;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import gameserver.skill.model.Effect;
-import gameserver.utils.ThreadPoolManager;
-import gameserver.utils.stats.StatFunctions;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import java.util.concurrent.Future;
 
 /**
  * @author ATracer
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PoisonEffect")
-public class PoisonEffect extends EffectTemplate {
-    @XmlAttribute(required = true)
-    protected int checktime;
-    @XmlAttribute
-    protected int value;
-    @XmlAttribute
-    protected int delta;
-
+public class PoisonEffect extends AbstractOverTimeEffect
+{
     @Override
-    public void applyEffect(Effect effect) {
-        effect.addToEffectedController();
+    public void calculate(Effect effect)
+    {
+        //calculate damage
+        int valueWithDelta = value + delta * effect.getSkillLevel();
+        int damage = AttackUtil.calculateMagicalOverTimeResult(effect, valueWithDelta, element, this.position, true);
+        effect.setReserved4(damage);
+        
+        super.calculate(effect, StatEnum.POISON_RESISTANCE, null);
     }
 
     @Override
-    public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.POISON_RESISTANCE))
-            effect.addSucessEffect(this);
-    }
-
-    @Override
-    public void endEffect(Effect effect) {
+    public void endEffect(Effect effect)
+    {
         Creature effected = effect.getEffected();
         effected.getEffectController().unsetAbnormal(EffectId.POISON.getEffectId());
     }
 
     @Override
-    public void onPeriodicAction(Effect effect) {
+    public void onPeriodicAction(Effect effect)
+    {
         Creature effected = effect.getEffected();
         Creature effector = effect.getEffector();
-        int valueWithDelta = value + delta * effect.getSkillLevel();
-        int damage = StatFunctions.calculateMagicDamageToTarget(effector, effected, valueWithDelta, getElement());
-        effected.getController().onAttack(effector, effect.getSkillId(), TYPE.DAMAGE, damage, true);
+        effected.getController().onAttack(effector, effect.getSkillId(), TYPE.HP, effect.getReserved4(), 25, effect.getAttackStatus(), false, true);
+        effected.getObserveController().notifyDotObservers(effected);
     }
 
     @Override
-    public void startEffect(final Effect effect) {
-        final Creature effected = effect.getEffected();
-
-        effect.setAbnormal(EffectId.POISON.getEffectId());
-        effected.getEffectController().setAbnormal(EffectId.POISON.getEffectId());
-
-        Future<?> task = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Runnable() {
-
-            @Override
-            public void run() {
-                onPeriodicAction(effect);
-            }
-        }, checktime, checktime);
-        effect.setPeriodicTask(task, position);
+    public void startEffect(final Effect effect)
+    {
+        super.startEffect(effect, EffectId.POISON);
     }
 
 }

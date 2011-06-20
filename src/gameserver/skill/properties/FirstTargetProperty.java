@@ -22,9 +22,11 @@ import gameserver.model.gameobjects.Summon;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.services.GroupService;
+import gameserver.skill.model.CreatureWithDistance;
 import gameserver.skill.model.Skill;
 import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -72,7 +74,7 @@ public class FirstTargetProperty
                 }
                 break;
             case TARGET:
-                if (skill.getFirstTarget() == null)
+                if (skill.getFirstTarget() == null || skill.getFirstTarget() == skill.getEffector())
                     return false;
                 break;
             case MYPET:
@@ -91,19 +93,22 @@ public class FirstTargetProperty
                 skill.setFirstTarget(skill.getEffector());
                 break;
 			case TARGET_MYPARTY_NONVISIBLE:
-				Creature effected = skill.getFirstTarget();
-				if(effected == null || MathUtil.isIn3dRange( skill.getEffector(), effected, visibleDistance) || !GroupService.getInstance().isGroupMember(effected.getObjectId()))
+                if(!(skill.getFirstTarget() instanceof Player))
+                    return false;
+                
+                Player effected = (Player) skill.getFirstTarget();
+                
+                if(effected == null || !GroupService.getInstance().isGroupMember(effected.getObjectId()) || skill.getEffector().getWorldId() != effected.getWorldId() )
 					return false;
 				skill.setFirstTargetRangeCheck(false);
 				break;
             case POINT:
-                // TODO: Implement Range Check for Point
-                skill.setFirstTargetRangeCheck(false);
-                return true;
+                skill.setFirstTarget(null);
+                break;
         }
 
         if (skill.getFirstTarget() != null)
-            skill.getEffectedList().add(skill.getFirstTarget());
+            skill.getEffectedList().add(new CreatureWithDistance(skill.getFirstTarget(), 0));
         return true;
     }
 }

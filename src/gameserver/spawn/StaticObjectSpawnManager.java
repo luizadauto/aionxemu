@@ -49,6 +49,7 @@ public class StaticObjectSpawnManager {
             staticObject.setKnownlist(new KnownList(staticObject));
             bringIntoWorld(staticObject, spawn, instanceIndex);
         }
+        spawnGroup.clearLastSpawnedTemplate();
     }
 
     /**

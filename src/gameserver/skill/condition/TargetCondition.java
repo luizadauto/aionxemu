@@ -37,6 +37,9 @@ public class TargetCondition
     @XmlAttribute(required = true)
     protected TargetAttribute value;
 
+    @XmlAttribute
+    protected FlyRestrictionAttribute restriction;
+
     /**
      * Gets the value of the value property.
      *
@@ -48,17 +51,30 @@ public class TargetCondition
     }
 
     @Override
-    public boolean verify(Skill skill) {
-        if (value != TargetAttribute.NONE && skill.getFirstTarget() == null) {
+    public boolean verify(Skill skill)
+    {
+        if (skill.getTargetType() == 1)
+            return true;
+        
+        if(skill.getFirstTarget() == null)
             return false;
+        
+        //0: regular, 1: fly, 2: glide
+        if (skill.getFirstTarget() instanceof Player && restriction != null)
+        {
+            switch (restriction)
+            {
+                case GROUND:
+                    if (((Player)skill.getFirstTarget()).getFlyState() != 0)
+                        return false;
+                    break;
+                case FLY:
+                    if (((Player)skill.getFirstTarget()).getFlyState() != 1)
+                        return false;
+                    break;
+            }
         }
-        switch (value) {
-            case NPC:
-                return skill.getFirstTarget() instanceof Npc;
-            case PC:
-                return skill.getFirstTarget() instanceof Player;
-            default:
-                return false;
-        }
+        
+        return true;
     }
 }

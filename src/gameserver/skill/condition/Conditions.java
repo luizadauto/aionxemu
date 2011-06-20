@@ -16,7 +16,12 @@
  */
 package gameserver.skill.condition;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,7 @@ import java.util.List;
 public class Conditions {
     @XmlElements({
             @XmlElement(name = "target", type = TargetCondition.class),
+            @XmlElement(name = "self", type = SelfCondition.class),
             @XmlElement(name = "mp", type = MpCondition.class),
             @XmlElement(name = "hp", type = HpCondition.class),
             @XmlElement(name = "dp", type = DpCondition.class),

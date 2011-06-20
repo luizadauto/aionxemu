@@ -17,6 +17,7 @@
 
 package gameserver.skill.effect;
 
+import gameserver.skill.action.DamageType;
 import gameserver.skill.model.Effect;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,6 +47,6 @@ public class MpAttackInstantEffect extends DamageEffect {
 
     @Override
     public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
+        super.calculate(effect, DamageType.MAGICAL, false);
     }
 }

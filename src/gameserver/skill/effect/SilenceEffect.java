@@ -38,8 +38,7 @@ public class SilenceEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.SILENCE_RESISTANCE))
-            effect.addSucessEffect(this);
+        super.calculate(effect, StatEnum.SILENCE_RESISTANCE, null);
     }
 
     @Override

@@ -16,7 +16,12 @@
  */
 package gameserver.skill.effect.modifier;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +38,10 @@ public class ActionModifiers {
             @XmlElement(name = "backdamage", type = BackDamageModifier.class),
             @XmlElement(name = "stundamage", type = StunDamageModifier.class),
             @XmlElement(name = "poisondamage", type = PoisonDamageModifier.class),
-            @XmlElement(name = "targetrace", type = TargetRaceDamageModifier.class)
+            @XmlElement(name = "targetrace", type = TargetRaceDamageModifier.class),
+            @XmlElement(name = "flyingdamage", type = FlyingDamageModifier.class),
+            @XmlElement(name = "nonflyingdamage", type = NonFlyingDamageModifier.class),
+            @XmlElement(name = "abnormaldamage", type = AbnormalDamageModifier.class)
     })
     protected List<ActionModifier> actionModifiers;
 

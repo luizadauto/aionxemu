@@ -33,7 +33,14 @@ public class RegularRates extends Rates {
     }
 
     @Override
-    public float getApNpcRate() {
+    public int getChestDropRate()
+    {
+        return RateConfig.CHEST_DROP_RATE;
+    }
+
+    @Override
+    public float getApNpcRate()
+    {
         return RateConfig.AP_NPC_RATE;
     }
 
@@ -71,6 +78,12 @@ public class RegularRates extends Rates {
         return RateConfig.CRAFTING_XP_RATE;
     }
 
+    @Override
+    public float getCraftingLvlRate()
+    {
+        return RateConfig.CRAFTING_LVL_RATE;
+    }
+
     /* (non-Javadoc)
       * @see com.aionemu.gameserver.utils.rates.Rates#getGatheringXPRate()
       */
@@ -78,6 +91,12 @@ public class RegularRates extends Rates {
     @Override
     public float getGatheringXPRate() {
         return RateConfig.GATHERING_XP_RATE;
+    }
+
+    @Override
+    public float getGatheringLvlRate()
+    {
+        return RateConfig.GATHERING_LVL_RATE;
     }
 
     @Override

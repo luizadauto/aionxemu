@@ -48,6 +48,12 @@ public class PremiumRates extends Rates {
     }
 
     @Override
+    public int getChestDropRate()
+    {
+        return RateConfig.PREMIUM_CHEST_DROP_RATE;
+    }
+
+    @Override
     public int getQuestKinahRate() {
         return RateConfig.PREMIUM_QUEST_KINAH_RATE;
     }
@@ -71,6 +77,12 @@ public class PremiumRates extends Rates {
         return RateConfig.PREMIUM_CRAFTING_XP_RATE;
     }
 
+    @Override
+    public float getCraftingLvlRate()
+    {
+        return RateConfig.PREMIUM_CRAFTING_LVL_RATE;
+    }
+
     /* (non-Javadoc)
       * @see com.aionemu.gameserver.utils.rates.Rates#getGatheringXPRate()
       */
@@ -78,6 +90,12 @@ public class PremiumRates extends Rates {
     @Override
     public float getGatheringXPRate() {
         return RateConfig.PREMIUM_GATHERING_XP_RATE;
+    }
+
+    @Override
+    public float getGatheringLvlRate()
+    {
+        return RateConfig.PREMIUM_GATHERING_LVL_RATE;
     }
 
     @Override

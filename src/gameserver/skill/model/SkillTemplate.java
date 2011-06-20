@@ -54,6 +54,8 @@ public class SkillTemplate {
 
     @XmlAttribute(name = "skill_id", required = true)
     protected int skillId;
+    @XmlAttribute(name = "delay_id", required = true)
+    protected int delayId;
     @XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlAttribute(name = "nameId", required = true)
@@ -74,6 +76,10 @@ public class SkillTemplate {
     protected ActivationAttribute activationAttribute;
     @XmlAttribute(name = "duration", required = true)
     protected int duration;
+    @XmlAttribute(name = "dispel_category",required = true)
+    protected DispelCategoryType dispelCategory;
+    @XmlAttribute(name = "dispel_level")
+    protected int dispelLevel;
     @XmlAttribute(name = "cooldown")
     protected int cooldown;
     @XmlAttribute(name = "penalty_skill_id")
@@ -154,6 +160,16 @@ public class SkillTemplate {
     }
 
     /**
+     * Gets the value of the delayId property.
+     * 
+     */
+    public int getDelayId() {
+        if (delayId == 0)
+            return skillId;
+        return delayId;
+    }
+
+    /**
      * Gets the value of the name property.
      *
      * @return possible object is
@@ -216,6 +232,14 @@ public class SkillTemplate {
     }
 
     /**
+     * @return the targetSlot Level
+     */
+    public DispelCategoryType getDispelCategory()
+    {
+        return dispelCategory;
+    }
+
+    /**
      * @return the duration
      */
     public int getDuration() {
@@ -244,7 +268,6 @@ public class SkillTemplate {
     public boolean isActive() {
         return activationAttribute == ActivationAttribute.ACTIVE;
     }
-
 
     public TargetRangeProperty getTargetRangeProperty() {
         if (setproperties == null)
@@ -344,5 +367,10 @@ public class SkillTemplate {
 
     public boolean hasItemHealFpEffect() {
         return getEffects() != null && getEffects().isItemHealFp();
-	}
+    }
+
+    public boolean hasEvadeEffect()
+    {
+        return getEffects() != null && getEffects().isEvadeEffect();
+    }
 }

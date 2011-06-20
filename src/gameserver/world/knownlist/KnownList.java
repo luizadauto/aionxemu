@@ -22,7 +22,7 @@ import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.shield.Shield;
 import gameserver.utils.MathUtil;
-import gameserver.world.ObjectContainer;
+import gameserver.model.gameobjects.stats.modifiers.ObjectContainer;
 import gameserver.model.gameobjects.stats.modifiers.Executor;
 
 import java.util.ArrayList;
@@ -171,6 +171,9 @@ public class KnownList extends ObjectContainer {
         }
 
         private void updateKnownObjects() {
+            if (owner == null || !owner.isSpawned())
+                return;
+
             for (MapRegion r : owner.getActiveRegion().getNeighbours()) {
                 if (r != null)
                     r.doOnAllObjects(KnownListExecutor.this, true);

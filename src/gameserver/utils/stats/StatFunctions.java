@@ -245,7 +245,7 @@ public class StatFunctions {
      * @return Damage made to target (-hp value)
      */
     public static int calculateBaseDamageToTarget(Creature attacker, Creature target) {
-        return calculatePhysicDamageToTarget(attacker, target, 0);
+        return calculatePhysicDamageToTarget(attacker, target, 0, 0);
     }
 
     /**
@@ -254,16 +254,27 @@ public class StatFunctions {
      * @param skillDamages
      * @return Damage made to target (-hp value)
      */
-    public static int calculatePhysicDamageToTarget(Creature attacker, Creature target, int skillDamages) {
+    public static int calculatePhysicDamageToTarget(Creature attacker, Creature target, int skillDamages, int bonusDamages) {
         CreatureGameStats<?> ags = attacker.getGameStats();
         CreatureGameStats<?> tgs = target.getGameStats();
 
         int resultDamage = 0;
 
         if (attacker instanceof Player) {
-            int totalMin = ags.getCurrentStat(StatEnum.MIN_DAMAGES);
-            int totalMax = ags.getCurrentStat(StatEnum.MAX_DAMAGES);
-            int average = Math.round((totalMin + totalMax) / 2);
+            int min = ags.getCurrentStat(StatEnum.MAIN_MIN_DAMAGES);
+            int max = ags.getCurrentStat(StatEnum.MAIN_MAX_DAMAGES);
+            int min2 = ags.getCurrentStat(StatEnum.OFF_MIN_DAMAGES);
+            int max2 = ags.getCurrentStat(StatEnum.OFF_MAX_DAMAGES);
+            //weapon with higher average should be taken into account for skills
+            if (skillDamages > 0)
+            {
+                if(((min + max)/2) < ((min2 + max2)/2))
+                {
+                    min = min2;
+                    max = max2;
+                }
+            }
+            int average = Math.round((min + max)/2);
             int mainHandAttack = ags.getBaseStat(StatEnum.MAIN_HAND_POWER);
 
             Equipment equipment = ((Player) attacker).getEquipment();
@@ -275,24 +286,23 @@ public class StatFunctions {
                     average = 1;
                     log.warn("Weapon stat MIN_MAX_DAMAGE resulted average zero in main-hand calculation");
                     log.warn("Weapon ID: " + String.valueOf(equipment.getMainHandWeapon().getItemTemplate().getTemplateId()));
-                    log.warn("MIN_DAMAGE = " + String.valueOf(totalMin));
-                    log.warn("MAX_DAMAGE = " + String.valueOf(totalMax));
+                    log.warn("MIN_DAMAGE = " + String.valueOf(min));
+                    log.warn("MAX_DAMAGE = " + String.valueOf(max));
                 }
 
                 //TODO move to controller
                 if (weaponType == WeaponType.BOW)
                     equipment.useArrow();
 
-                int min = Math.round((((mainHandAttack * 100) / average) * totalMin) / 100);
-                int max = Math.round((((mainHandAttack * 100) / average) * totalMax) / 100);
+                min = Math.round((((mainHandAttack * 100) / average) * min) / 100);
+                max = Math.round((((mainHandAttack * 100) / average) * max) / 100);
 
-                int base = Rnd.get(min, max);
+                int base = Math.round(Rnd.get(min,max) * ags.getCurrentStat(StatEnum.POWER)* 0.01f);
 
+                resultDamage = base + ags.getStatBonus(StatEnum.MAIN_HAND_PHYSICAL_ATTACK) + skillDamages + bonusDamages;
 
-                resultDamage = Math.round((base * (ags.getCurrentStat(StatEnum.POWER) * 0.01f + (ags.getBaseStat(StatEnum.MAIN_HAND_POWER) * 0.2f) * 0.01f))
-                        + ags.getStatBonus(StatEnum.MAIN_HAND_POWER) + skillDamages);
-
-            } else   //if hand attack
+            }
+            else   //if hand attack
             {
                 int base = Rnd.get(16, 20);
                 resultDamage = Math.round(base * (ags.getCurrentStat(StatEnum.POWER) * 0.01f));
@@ -311,9 +321,10 @@ public class StatFunctions {
             }
         } else if (attacker instanceof Summon) {
             int baseDamage = ags.getCurrentStat(StatEnum.MAIN_HAND_POWER);
+            // 10% range for summon attack
             int max = ((baseDamage * attacker.getLevel()) / 10);
-            resultDamage += Rnd.get(baseDamage, max);
-            resultDamage = adjustDamages(attacker, target, resultDamage);
+            int min = Math.round(max * 0.9f);
+            resultDamage += Rnd.get(min, max);
         } else {
             NpcRank npcRank = ((Npc) attacker).getObjectTemplate().getRank();
             double multipler = calculateRankMultipler(npcRank);
@@ -332,6 +343,54 @@ public class StatFunctions {
         return resultDamage;
     }
 
+    
+    /**
+     * 
+     * @param attacker
+     * @param target
+     * @param skillDamages
+     * @return Damage made to target (-hp value)
+     */
+    public static int calculateMagicalAttackToTarget(Creature attacker, Creature attacked, SkillElement element)
+    {
+        CreatureGameStats<?> ags = attacker.getGameStats();
+
+        int resultDamage = 0;
+
+        if (attacker instanceof Player)
+        {
+            int min = ags.getCurrentStat(StatEnum.MAIN_MIN_DAMAGES);
+            int max = ags.getCurrentStat(StatEnum.MAIN_MAX_DAMAGES);
+
+            Equipment equipment = ((Player)attacker).getEquipment();
+
+
+            int base = Math.round(Rnd.get(min,max) * ags.getCurrentStat(StatEnum.KNOWLEDGE)* 0.01f);
+            
+            resultDamage = base + ags.getStatBonus(StatEnum.MAGICAL_ATTACK);
+            
+            if(attacker.isInState(CreatureState.POWERSHARD))
+            {
+                Item mainHandPowerShard = equipment.getMainHandPowerShard();
+                if(mainHandPowerShard != null)
+                {
+                    resultDamage += mainHandPowerShard.getItemTemplate().getWeaponBoost();
+
+                    equipment.usePowerShard(mainHandPowerShard, 1);
+                }
+            }
+            
+        }
+                
+        // magical resistance
+        resultDamage = Math.round(resultDamage * (1 - attacked.getGameStats().getMagicalDefenseFor(element) / 1000f));
+        
+        if (resultDamage<=0)
+            resultDamage=1;
+        
+        return resultDamage;
+    }
+
     /**
      * @param attacker
      * @param target
@@ -341,8 +400,8 @@ public class StatFunctions {
         CreatureGameStats<?> ags = attacker.getGameStats();
         CreatureGameStats<?> tgs = target.getGameStats();
 
-        int totalMin = ags.getCurrentStat(StatEnum.MIN_DAMAGES);
-        int totalMax = ags.getCurrentStat(StatEnum.MAX_DAMAGES);
+        int totalMin = ags.getCurrentStat(StatEnum.OFF_MIN_DAMAGES);
+        int totalMax = ags.getCurrentStat(StatEnum.OFF_MAX_DAMAGES);
         int average = Math.round((totalMin + totalMax) / 2);
         int offHandAttack = ags.getBaseStat(StatEnum.OFF_HAND_POWER);
 
@@ -374,14 +433,17 @@ public class StatFunctions {
             }
         }
 
-        Damage -= Math.round(tgs.getCurrentStat(StatEnum.PHYSICAL_DEFENSE) * 0.10f);
-
-        for (float i = 0.25f; i <= 1; i += 0.25f) {
-            if (Rnd.get(0, 100) < 50) {
-                Damage *= i;
-                break;
-            }
+        int dualEffect = ((Player)attacker).getEffectController().getDualEffect();
+        if (dualEffect == 0)
+        {
+            log.warn("Missing dualeffect for player "+((Player)attacker).getName()+" possible hack? or bug?");
+            dualEffect = 25;
         }
+        if(Rnd.get(0, 100) < 25)
+            Damage *= (dualEffect * 0.01f);
+
+        // physical defense
+        Damage -= Math.round(tgs.getCurrentStat(StatEnum.PHYSICAL_DEFENSE) * 0.10f);
 
         if (Damage <= 0)
             Damage = 1;
@@ -396,7 +458,7 @@ public class StatFunctions {
      * @param skillEffectTemplate
      * @return HP damage to target
      */
-    public static int calculateMagicDamageToTarget(Creature speller, Creature target, int baseDamages, SkillElement element) {
+    public static int calculateMagicDamageToTarget(Creature speller, Creature target, int baseDamages, int bonusDamages, SkillElement element, boolean dot) {
         CreatureGameStats<?> sgs = speller.getGameStats();
         CreatureGameStats<?> tgs = target.getGameStats();
 
@@ -407,7 +469,14 @@ public class StatFunctions {
         if (totalBoostMagicalSkill > 2600)
             totalBoostMagicalSkill = 2600;
 
-        int damages = Math.round(baseDamages * ((sgs.getCurrentStat(StatEnum.KNOWLEDGE) / 100f) + (totalBoostMagicalSkill / 1000f)));
+        int knowledge = 0;
+        
+        if (dot)
+            knowledge = 100;
+        else
+            knowledge = sgs.getCurrentStat(StatEnum.KNOWLEDGE);
+
+        int damages = Math.round(baseDamages * ((knowledge / 100f) + (totalBoostMagicalSkill / 1000f)));
 
         //adjusting baseDamages according to attacker and target level
         //
@@ -590,8 +659,10 @@ public class StatFunctions {
      * @param attacked
      * @return int
      */
-    public static int calculatePhysicalDodgeRate(Creature attacker, Creature attacked) {
+    public static int calculatePhysicalDodgeRate(Creature attacker, Creature attacked, int accMod) {
         //check always dodge
+        if (attacker.getObserveController().checkAttackerStatus(AttackStatus.DODGE))
+            return 100;
         if (attacked.getObserveController().checkAttackStatus(AttackStatus.DODGE))
             return 100;
 
@@ -602,6 +673,9 @@ public class StatFunctions {
                     .getGameStats().getCurrentStat(StatEnum.OFF_HAND_ACCURACY)) / 2);
         else
             accuracy = attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_ACCURACY);
+
+        //add bonus stat from effecttemplate
+        accurancy += accMod;
 
         int dodgeRate = (attacked.getGameStats().getCurrentStat(StatEnum.EVASION) - accuracy) / 10;
         // maximal dodge rate
@@ -691,9 +765,10 @@ public class StatFunctions {
 
         if (attacker instanceof Player && ((Player) attacker).getEquipment().getOffHandWeaponType() != null)
             critical = Math.round(((attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL) + attacker
-                    .getGameStats().getCurrentStat(StatEnum.OFF_HAND_CRITICAL)) / 2) - attacked.getGameStats().getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST));
+                    .getGameStats().getCurrentStat(StatEnum.OFF_HAND_CRITICAL)) / 2));
         else
-            critical = attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST);
+            critical = attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_CRITICAL);
+        critical = Math.round(critical * criticalProb - attacked.getGameStats().getCurrentStat(StatEnum.PHYSICAL_CRITICAL_RESIST));
 
 
         double criticalRate;
@@ -724,7 +799,7 @@ public class StatFunctions {
         if (attacker.getObserveController().checkAttackerStatus(AttackStatus.CRITICAL))
             return 100;
 
-        critical = attacker.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL) - attacked.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL_RESIST);
+        critical = Math.round(attacker.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL) * criticalProb - attacked.getGameStats().getCurrentStat(StatEnum.MAGICAL_CRITICAL_RESIST)); 
 
         double criticalRate;
 
@@ -758,6 +833,8 @@ public class StatFunctions {
         int attackerLevel = attacker.getLevel();
         int targetLevel = attacked.getLevel();
 
+        //add bonus stat from effecttemplate
+        stat_acc += accMod;
         int resist = (stat_res - stat_acc) / 10;
 
         if ((targetLevel - attackerLevel) > 2)
@@ -790,7 +867,10 @@ public class StatFunctions {
             player.getFlyController().onStopGliding();
             player.getController().onDie(player);
 
-            player.getReviveController().bindRevive();
+            if (player.getKisk() != null)
+                player.getReviveController().kiskRevive();
+            else
+                player.getReviveController().bindRevive();
             return true;
         } else if (distance >= FallDamageConfig.MINIMUM_DISTANCE_DAMAGE) {
             float dmgPerMeter = player.getLifeStats().getMaxHp() * FallDamageConfig.FALL_DAMAGE_PERCENTAGE / 100f;

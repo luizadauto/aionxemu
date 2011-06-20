@@ -47,6 +47,6 @@ public class HostileUpEffect extends EffectTemplate {
     @Override
     public void calculate(Effect effect) {
         effect.setTauntHate(value + delta * effect.getSkillLevel());
-        effect.addSucessEffect(this);
+        super.calculate(effect);
     }
 }

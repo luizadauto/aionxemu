@@ -1,56 +1,62 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of aion-unique <aion-unique.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  aion-unique is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.effect;
-
-import gameserver.model.gameobjects.player.Player;
-import gameserver.model.gameobjects.stats.StatEnum;
-import gameserver.skill.model.Effect;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.stats.StatEnum;
+import gameserver.skill.model.Effect;
+import gameserver.skill.model.HealType;
+
+
 
 /**
  * @author ATracer
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ItemHealDpEffect")
 public class ItemHealDpEffect
-        extends AbstractHealEffect {
+extends AbstractHealEffect
+{
 
     @Override
-    public void applyEffect(Effect effect) {
-        ((Player) effect.getEffected()).getCommonData().addDp(-effect.getReserved1());
+    public void applyEffect(Effect effect)
+    {
+        super.applyEffect(effect,HealType.DP);
     }
 
     @Override
-    public void calculate(Effect effect) {
-        super.calculate(effect);
-        effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect,HealType.DP,false);
     }
 
     @Override
-    protected int getCurrentStatValue(Effect effect) {
+    protected int getCurrentStatValue(Effect effect)
+    {
         return ((Player) effect.getEffected()).getCommonData().getDp();
     }
-
     @Override
-    protected int getMaxStatValue(Effect effect) {
+    protected int getMaxCurStatValue(Effect effect)
+    {
         return effect.getEffected().getGameStats().getCurrentStat(StatEnum.MAXDP);
     }
 

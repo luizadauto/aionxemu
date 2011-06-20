@@ -14,13 +14,12 @@
  *  You should have received a copy of the GNU Lesser Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
-* This file is part of the requirements for the Illusion Gate Skill.
-* Code References from ATracer's SummonTrapEffect.java of Aion-Unique
-*/
 package gameserver.skill.effect;
 
-import gameserver.model.TaskId;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.GroupGate;
 import gameserver.model.templates.spawn.SpawnTemplate;
@@ -28,24 +27,19 @@ import gameserver.skill.model.Effect;
 import gameserver.spawn.SpawnEngine;
 import gameserver.utils.ThreadPoolManager;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import java.util.concurrent.Future;
 
 /**
  * @author LokiReborn
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SummonGroupGateEffect")
-public class SummonGroupGateEffect extends SummonEffect {
-    @XmlAttribute(name = "time", required = true)
-    protected int time;
-
+public class SummonGroupGateEffect extends SummonEffect
+{
     @Override
-    public void applyEffect(Effect effect) {
-        Creature effector = effect.getEffector();
+    public void applyEffect(Effect effect)
+    {
+        final Creature effector = effect.getEffector();
         SpawnEngine spawnEngine = SpawnEngine.getInstance();
         float x = effector.getX();
         float y = effector.getY();
@@ -57,18 +51,19 @@ public class SummonGroupGateEffect extends SummonEffect {
         SpawnTemplate spawn = spawnEngine.addNewSpawn(worldId, instanceId, npcId, x, y, z, heading, 0, 0, true, true);
         final GroupGate groupgate = spawnEngine.spawnGroupGate(spawn, instanceId, effector);
 
-        Future<?> task = ThreadPoolManager.getInstance().schedule(new Runnable() {
+        ThreadPoolManager.getInstance().schedule(new Runnable(){
 
             @Override
-            public void run() {
-                groupgate.getController().onDespawn(true);
+            public void run()
+            {
+                groupgate.getController().onDelete();
             }
         }, time * 1000);
-        groupgate.getController().addTask(TaskId.DESPAWN, task);
     }
 
     @Override
-    public void calculate(Effect effect) {
+    public void calculate(Effect effect)
+    {
         super.calculate(effect);
     }
 }

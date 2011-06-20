@@ -33,6 +33,7 @@ import gameserver.configs.main.ThreadConfig;
 import gameserver.configs.network.NetworkConfig;
 import gameserver.dao.PlayerDAO;
 import gameserver.dataholders.DataManager;
+import gameserver.geo.GeoEngine;
 import gameserver.model.Race;
 import gameserver.model.siege.Influence;
 import gameserver.network.aion.GameConnectionFactoryImpl;
@@ -41,10 +42,33 @@ import gameserver.network.loginserver.LoginServer;
 import gameserver.network.rdc.RDCConnectionFactory;
 import gameserver.network.rdc.commands.RDCACommandTable;
 import gameserver.quest.QuestEngine;
-import gameserver.services.*;
+import gameserver.services.AbyssRankingService;
+import gameserver.services.AllianceService;
+import gameserver.services.AnnouncementService;
+import gameserver.services.BrokerService;
+import gameserver.services.DebugService;
+import gameserver.services.DropService;
+import gameserver.services.DuelService;
+import gameserver.services.ExchangeService;
+import gameserver.services.FlyRingService;
+import gameserver.services.GameTimeService;
+import gameserver.services.GroupService;
+import gameserver.services.MailService;
+import gameserver.services.NpcShoutsService;
+import gameserver.services.PeriodicSaveService;
+import gameserver.services.PetitionService;
+import gameserver.services.PurchaseLimitService;
+import gameserver.services.ShieldService;
+import gameserver.services.SiegeService;
+import gameserver.services.WeatherService;
+import gameserver.services.ZoneService;
 import gameserver.spawn.SpawnEngine;
 import gameserver.task.tasks.PacketBroadcaster;
-import gameserver.utils.*;
+import gameserver.utils.AEVersions;
+import gameserver.utils.DeadlockDetector;
+import gameserver.utils.ThreadPoolManager;
+import gameserver.utils.ThreadUncaughtExceptionHandler;
+import gameserver.utils.Util;
 import gameserver.utils.chathandlers.ChatHandlers;
 import gameserver.utils.gametime.GameTimeManager;
 import gameserver.utils.i18n.LanguageHandler;
@@ -53,6 +77,7 @@ import gameserver.utils.scheduler.Scheduler;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
@@ -72,8 +97,8 @@ public class GameServer {
 
     private static int ELYOS_COUNT = 0;
     private static int ASMOS_COUNT = 0;
-    private static double ELYOS_RATIO = 0.0;
-    private static double ASMOS_RATIO = 0.0;
+    public static double ELYOS_RATIO = 0.0;
+    public static double ASMOS_RATIO = 0.0;
     private static final ReentrantLock lock = new ReentrantLock();
     public static Server nioServer;
     public static Server rdcServer;
@@ -93,6 +118,14 @@ public class GameServer {
         else
             CONFIGURATION_FILE = args[0];
 
+        File cfgFile = new File(CONFIGURATION_FILE);
+        if(!cfgFile.exists())
+            log.fatal("Unable to stat " + CONFIGURATION_FILE + " : No such file.");
+        if(!cfgFile.canRead())
+            log.fatal("Unable to stat " + CONFIGURATION_FILE + " : Unreadable file (check filesystem permissions)");
+        
+        cfgFile = null;
+
         initUtilityServicesAndConfig();
 
         Util.printSection("World");
@@ -104,12 +137,20 @@ public class GameServer {
         // Set all players is offline
         DAOManager.getDAO(PlayerDAO.class).setPlayersOffline(false);
 
+        log.info("Start loading Geo");
+        long startTime = System.currentTimeMillis();
+        GeoEngine.getInstance();
+        log.info("Geo Loaded in " + (System.currentTimeMillis() - startTime)/1000 + " s");
+
+        NpcShoutsService.getInstance();
+
         Util.printSection("Spawns");
         SpawnEngine.getInstance();
+        DayNightSpawnManager.getInstance().notifyChangeMode();
 
         Util.printSection("Quests");
         QuestEngine.getInstance();
-        QuestEngine.getInstance().load();
+        QuestEngine.getInstance().load(false);
 
         Util.printSection("TaskManagers");
         PacketBroadcaster.getInstance();
@@ -160,7 +201,14 @@ public class GameServer {
 
         AbyssRankingService.getInstance();
 
-		RentalService.getInstance();
+        try {
+            GameServer.ASMOS_COUNT = DAOManager.getDAO(PlayerDAO.class).getCharacterCountForRace(Race.ASMODIANS);
+            GameServer.ELYOS_COUNT = DAOManager.getDAO(PlayerDAO.class).getCharacterCountForRace(Race.ELYOS);
+            computeRatios();
+        }
+        catch (Exception e) { }
+        log.info("Race Count : Elyos =" + ELYOS_COUNT + " Asmodians =" + ASMOS_COUNT);
+        log.info("Race Ratios : Elyos =" + ELYOS_RATIO + " Asmodians=" + ASMOS_RATIO);
 
         Util.printSection("System");
         AEVersions.printFullVersionInfo();
@@ -176,6 +224,9 @@ public class GameServer {
         GameTimeManager.startClock();
         
         Scheduler scheduler = Scheduler.getInstance();
+
+        if(GSConfig.ENABLE_PURCHASE_LIMIT)
+            PurchaseLimitService.getInstance().load();
 
         if (TaskManagerConfig.DEADLOCK_DETECTOR_ENABLED) {
             log.info("Starting deadlock detector");

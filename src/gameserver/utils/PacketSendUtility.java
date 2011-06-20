@@ -128,6 +128,28 @@ public class PacketSendUtility {
     }
 
     /**
+     * Broadcasts packet to all Players from knownList of the given visible object within the specified distance in meters
+     * 
+     * @param visibleObject
+     * @param packet
+     * @param distance
+     */
+    public static void broadcastPacket(final VisibleObject visibleObject, final AionServerPacket packet, final int distance)
+    {
+        visibleObject.getKnownList().doOnAllPlayers(new Executor<Player>(){
+            @Override
+            public boolean run(Player p)
+            {
+                if(MathUtil.getDistance(visibleObject, p) <= distance)
+                {
+                    sendPacket(p, packet);
+                }
+                return true;
+            }
+        }, true);
+    }
+    
+    /**
      * Broadcasts packet to all visible players matching a filter
      *
      * @param player

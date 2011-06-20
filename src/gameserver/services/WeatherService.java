@@ -27,7 +27,12 @@ import gameserver.world.World;
 import gameserver.world.WorldMap;
 import javolution.util.FastMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This service in future should schedule job that is changing weather sometimes in region and probably sends to all
@@ -93,6 +98,28 @@ public class WeatherService {
          */
         public WorldMap getMap() {
             return map;
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int hashCode = 0;
+            hashCode += 1000000007 * created.hashCode();
+            if (map != null)
+                hashCode += 1000000009 * map.hashCode();
+            return hashCode;
+        }
+        
+        @Override
+        public boolean equals(Object that)
+        {
+            if (this == that) 
+                return true;
+            if (!(that instanceof WeatherKey))
+                return false;
+            WeatherKey other = (WeatherKey)that;
+            return other.created.equals(this.created) && 
+                (other.map == null && this.map == null || other.map.equals(this.map));
         }
 
         /**
@@ -216,7 +243,7 @@ public class WeatherService {
             World.getInstance().doOnAllPlayers(new Executor<Player>() {
                 @Override
                 public boolean run(Player currentPlayer) {
-                    if (!currentPlayer.isSpawned())
+                    if(!currentPlayer.isSpawned() || !currentPlayer.isOnline())
                         return true;
 
                     WorldMap currentPlayerWorldMap = currentPlayer.getActiveRegion().getParent().getParent();

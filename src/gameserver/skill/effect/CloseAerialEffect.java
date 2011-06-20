@@ -37,8 +37,6 @@ public class CloseAerialEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-        effect.setSpellStatus(SpellStatus.CLOSEAERIAL);
+        super.calculate(effect, null, SpellStatus.CLOSEAERIAL);
     }
-
 }

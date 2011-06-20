@@ -16,7 +16,12 @@
  */
 package gameserver.skill.properties;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +33,13 @@ import java.util.List;
 @XmlType(name = "Properties")
 public class Properties {
     @XmlElements({
-            @XmlElement(name = "firsttarget", type = FirstTargetProperty.class),
-            @XmlElement(name = "targetrange", type = TargetRangeProperty.class),
-            @XmlElement(name = "addweaponrange", type = AddWeaponRangeProperty.class),
-            @XmlElement(name = "targetrelation", type = TargetRelationProperty.class),
-            @XmlElement(name = "firsttargetrange", type = FirstTargetRangeProperty.class)
+        @XmlElement(name = "addweaponrange", type = AddWeaponRangeProperty.class),
+        @XmlElement(name = "firsttarget", type = FirstTargetProperty.class),
+        @XmlElement(name = "firsttargetrange", type = FirstTargetRangeProperty.class),
+        @XmlElement(name = "targetrange", type = TargetRangeProperty.class),
+        @XmlElement(name = "targetspecies", type = TargetSpeciesProperty.class),
+        @XmlElement(name = "targetrelation", type = TargetRelationProperty.class),
+        @XmlElement(name = "targetstatus", type = TargetStatusProperty.class)
     })
     protected List<Property> properties;
 

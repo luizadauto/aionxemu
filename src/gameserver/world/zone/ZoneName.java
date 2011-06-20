@@ -68,7 +68,7 @@ public enum ZoneName {
     COLISEUM,
     OUTER_DOCK,
     DIONYSIA_TAVERN,
-    //COLISEUM, 2 coliseum maps
+    COLISEUM_PVP_ZONE,
     LIBRARY_OF_THE_SAGES,
     SANCTUM_GATE,
     LYCEUM,

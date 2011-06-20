@@ -34,11 +34,6 @@ public class OneTimeBoostHealEffect extends EffectTemplate {
     protected float percent;
 
     @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
-
-    @Override
     public void applyEffect(Effect effect) {
         effect.addToEffectedController();
     }

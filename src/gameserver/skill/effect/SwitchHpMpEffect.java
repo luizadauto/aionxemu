@@ -1,50 +1,49 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of aion-unique <aion-unique.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  aion-unique is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.effect;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.stats.CreatureLifeStats;
 import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import gameserver.skill.model.Effect;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
  * @author ATracer
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SwitchHpMpEffect")
-public class SwitchHpMpEffect extends EffectTemplate {
+public class SwitchHpMpEffect extends EffectTemplate
+{
 
     @Override
-    public void applyEffect(Effect effect) {
+    public void applyEffect(Effect effect)
+    {
         CreatureLifeStats<? extends Creature> lifeStats = effect.getEffected().getLifeStats();
         int currentHp = lifeStats.getCurrentHp();
         int currentMp = lifeStats.getCurrentMp();
-
-        lifeStats.increaseHp(TYPE.NATURAL_HP, currentMp - currentHp);
-        lifeStats.increaseMp(TYPE.NATURAL_MP, currentHp - currentMp);
-    }
-
-    @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
+        //TODO figure out logid and type
+        lifeStats.increaseHp(TYPE.HP, currentMp - currentHp, effect.getSkillId(), 170);
+        lifeStats.increaseMp(TYPE.MP, currentHp - currentMp, effect.getSkillId(), 170);
     }
 }

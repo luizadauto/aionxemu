@@ -31,9 +31,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FpAttackInstantEffect")
-public class FpAttackInstantEffect extends DamageEffect {
+public class FpAttackInstantEffect extends EffectTemplate {
     @XmlAttribute
-    protected boolean percent;
+    protected int        value;
+    @XmlAttribute
+    protected boolean        percent;
 
     @Override
     public void applyEffect(Effect effect) {
@@ -50,7 +52,9 @@ public class FpAttackInstantEffect extends DamageEffect {
     }
 
     @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        if (effect.getEffected() instanceof Player)
+            super.calculate(effect);
     }
 }

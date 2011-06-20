@@ -17,6 +17,7 @@
 package gameserver.utils.idfactory;
 
 import com.aionemu.commons.database.dao.DAOManager;
+import gameserver.dao.IdViewDAO;
 import gameserver.dao.InventoryDAO;
 import gameserver.dao.LegionDAO;
 import gameserver.dao.MailDAO;
@@ -65,6 +66,7 @@ public class IDFactory {
         lockIds(0);
         // Here should be calls to all IDFactoryAwareDAO implementations to initialize
         // used values in IDFactory
+        lockIds(DAOManager.getDAO(IdViewDAO.class).getUsedIDs());
         lockIds(DAOManager.getDAO(PlayerDAO.class).getUsedIDs());
         lockIds(DAOManager.getDAO(InventoryDAO.class).getUsedIDs());
         lockIds(DAOManager.getDAO(LegionDAO.class).getUsedIDs());

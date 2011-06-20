@@ -38,13 +38,9 @@ public class StunEffect extends EffectTemplate {
     }
 
     @Override
-    public void calculate(Effect effect) {
-      if (effect.getSkillId() == 919 || effect.getSkillId() == 124 || effect.getSkillId() == 11904)
-         effect.addSucessEffect(this);
-      else{
-         if (calculateEffectResistRate(effect, StatEnum.STUN_RESISTANCE))
-            effect.addSucessEffect(this);
-      }
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect, StatEnum.STUN_RESISTANCE, null);
     }
 
     @Override

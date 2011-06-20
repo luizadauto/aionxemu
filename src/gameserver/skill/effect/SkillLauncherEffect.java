@@ -45,11 +45,6 @@ public class SkillLauncherEffect extends EffectTemplate {
         e.applyEffect();
     }
 
-    @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
-
     public int getLaunchSkillId() {
         return skillId;
     }

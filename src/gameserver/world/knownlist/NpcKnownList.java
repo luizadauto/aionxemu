@@ -32,6 +32,9 @@ public class NpcKnownList extends KnownList {
      * Do KnownList update.
      */
     public void doUpdate() {
+        if(owner == null || !owner.isSpawned())
+            clear();
+
         MapRegion mapRegion = owner.getActiveRegion();
         if (mapRegion == null)
             return;

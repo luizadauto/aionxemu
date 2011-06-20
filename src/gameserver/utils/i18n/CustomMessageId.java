@@ -197,7 +197,12 @@ public enum CustomMessageId {
     ERROR_ITEM_TEMPATE_MISSING("ITEM TEMPLATE NOT FOUND: PlayerId %d, ItemObjectId %d, ItemId %d"),
     ERROR_TRADEITEM_TEMPATE_MISSING("ITEM TEMPLATE NOT FOUND: PlayerId %d, ItemObjectId %d"),
     ERROR_LOCATION_NOT_EXIST("Location does not exist: %s"),
-    PLAYER_INVENTORY_FULL("Your Inventory is Full. Free some space and try again.");
+    PLAYER_INVENTORY_FULL("Your Inventory is Full. Free some space and try again."),
+    COMMAND_ADDCUBE_SYNTAX("Syntax: //addcube <player name>"),
+    COMMAND_ADDCUBE_ADMIN_SUCCESS("9 cube slots successfully added to player %s!"),
+    COMMAND_ADDCUBE_PLAYER_SUCCESS("Admin %s gave you a cube expansion!"),
+    COMMAND_ADDCUBE_FAILURE("Cube expansion cannot be added to %s!\nReason: player cube already fully expanded."),
+    DREDGION_LEVEL_TOO_LOW("Your level is too low to enter the Dredgion.");
 
     private String fallbackMessage;
 

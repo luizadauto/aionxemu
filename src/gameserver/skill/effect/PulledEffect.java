@@ -41,11 +41,25 @@ public class PulledEffect extends EffectTemplate {
     }
 
     @Override
-    public void calculate(Effect effect) {
-        if (effect.getEffector() instanceof Player && effect.getEffected() != null) {
-            effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        //player with shield on and in abyss transformation cannot be pulled
+        if (effect.getEffected() instanceof Player)
+        {
+            for (Effect ef : effect.getEffected().getEffectController().getAbnormalEffects())
+            {
+                for (EffectTemplate et : ef.getEffectTemplates())
+                {
+                    if (et instanceof ShieldEffect && !(et instanceof ReflectorEffect)
+                        && !(et instanceof ProvokerEffect) && !(et instanceof ProtectEffect))
+                        return;
+                }
+                if (ef.isAvatar())
+                    return;
+            }
         }
-        effect.setSpellStatus(SpellStatus.NONE);
+        
+        super.calculate(effect, null, SpellStatus.NONE);
     }
 
     @Override
@@ -64,6 +78,8 @@ public class PulledEffect extends EffectTemplate {
                         effector.getZ() + 0.25F,
                         effected.getHeading());
                 PacketSendUtility.broadcastPacketAndReceive(effected, new SM_FORCED_MOVE(effector, effected));
+                if (effected.isCasting())
+                    effected.getController().cancelCurrentSkill();
             }
         }, 1000);
     }

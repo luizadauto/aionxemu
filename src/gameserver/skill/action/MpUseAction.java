@@ -38,14 +38,21 @@ public class MpUseAction extends Action {
     protected int delta;
 
     @Override
-    public void act(Skill skill) {
+    public void act(Skill skill)
+    {
         Creature effector = skill.getEffector();
-        int valueWithDelta = value + delta * skill.getSkillLevel();
-        int changeMpPercent = skill.getChangeMpConsumption();
-        if (changeMpPercent != 0)
-            valueWithDelta = valueWithDelta + ((int) (valueWithDelta / ((int) (100 / changeMpPercent))));
-
-        effector.getLifeStats().reduceMp(valueWithDelta);
+        float valueWithDelta = 0;
+        if (percent)
+        {
+            valueWithDelta = effector.getLifeStats().getMaxMp() * value / 100;
+        }
+        else
+        {    
+            valueWithDelta = value + delta * skill.getSkillLevel();
+            int changeMpPercent = skill.getChangeMpConsumption();
+            if (changeMpPercent != 0)
+                valueWithDelta = valueWithDelta + (valueWithDelta*((float)changeMpPercent/100f) );
+        }
+        effector.getLifeStats().reduceMp((int)valueWithDelta);
     }
-
 }

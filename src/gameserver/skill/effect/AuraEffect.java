@@ -56,21 +56,29 @@ public class AuraEffect extends EffectTemplate {
     @Override
     public void onPeriodicAction(Effect effect) {
         Player effector = (Player) effect.getEffector();
-        if (effector.isInAlliance()) {
-            for (PlayerAllianceMember allianceMember : effector.getPlayerAlliance().getMembersForGroup(effector.getObjectId())) {
-                if (allianceMember.isOnline() && MathUtil.isIn3dRange(effector, allianceMember.getPlayer(), distance + 4)) {
-                    applyAuraTo(allianceMember.getPlayer());
+        float auraRangeRate = effector.getController().getAuraRangeRate();
+        
+        if (effector.isInAlliance())
+        {
+            for (PlayerAllianceMember allianceMember : effector.getPlayerAlliance().getMembersForGroup(effector.getObjectId()))
+            {
+                if (allianceMember.isOnline() && MathUtil.isIn3dRange(effector, allianceMember.getPlayer(), distance * auraRangeRate))
+                {
+                    applyAuraTo(allianceMember.getPlayer(), template);
                 }
             }
-        } else if (effector.isInGroup()) {
+        }
+        else if (effector.isInGroup()) {
             for (Player member : effector.getPlayerGroup().getMembers()) {
-                if (MathUtil.isIn3dRange(effector, member, distance + 4)) {
-                    applyAuraTo(member);
+                if (MathUtil.isIn3dRange(effector, member, distance * auraRangeRate))
+                {
+                    applyAuraTo(member, template);
                 }
             }
         } else {
             applyAuraTo(effector);
         }
+        PacketSendUtility.broadcastPacket(effector, new SM_MANTRA_EFFECT(effector, skillId));
     }
 
     /**
@@ -92,7 +100,7 @@ public class AuraEffect extends EffectTemplate {
 
             @Override
             public void run() {
-                onPeriodicAction(effect);
+                onPeriodicAction(effect, DataManager.SKILL_DATA.getSkillTemplate(skillId));
             }
         }, 0, 6500);
         effect.setPeriodicTask(task, position);

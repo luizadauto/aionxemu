@@ -36,9 +36,9 @@ public class CurseEffect extends BufEffect {
     protected int value;
 
     @Override
-    public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.CURSE_RESISTANCE))
-            effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect, StatEnum.CURSE_RESISTANCE, null);
     }
 
     @Override

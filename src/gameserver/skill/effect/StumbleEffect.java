@@ -40,10 +40,7 @@ public class StumbleEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.STUMBLE_RESISTANCE)) {
-            effect.addSucessEffect(this);
-            effect.setSpellStatus(SpellStatus.STUMBLE);
-        }
+        super.calculate(effect, StatEnum.STUMBLE_RESISTANCE, SpellStatus.STUMBLE);
     }
 
     @Override

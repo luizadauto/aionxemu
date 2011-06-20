@@ -41,11 +41,11 @@ public enum EffectId {
     SNARE(131072),
     SLOW(262144),
     SPIN(524288),
-    BLOCKADE(1048576),
-    UNKNOWN2(2097152), //(Curse of Roots I, Fear I)
+    BIND(1048576),
+    DEFORM(2097152), //(Curse of Roots I, Fear I)
     CANNOT_MOVE(4194304), //(Inescapable Judgment I)
     SHAPECHANGE(8388608), //cannot fly
-    KNOCKBACK(16777216),
+    KNOCKBACK(16777216), //simple_root
     INVISIBLE_RELATED(536870912),//hide 33554432
 
     /**

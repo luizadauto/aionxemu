@@ -19,40 +19,34 @@ package gameserver.skill.effect;
 
 import gameserver.model.gameobjects.player.Player;
 import gameserver.skill.model.Effect;
-import gameserver.utils.ThreadPoolManager;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
-import java.util.concurrent.Future;
 
 /**
  * @author Sippolo
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FpAttackEffect")
-public class FpAttackEffect extends DamageEffect {
-    @XmlAttribute(required = true)
-    protected int checktime;
-
+public class FpAttackEffect extends AbstractOverTimeEffect   {
     @XmlAttribute
     protected boolean percent;
 
     @Override
-    public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, null))
-            effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        // Only players have FP
+        if (!(effect.getEffected() instanceof Player))
+            return;
+
+        super.calculate(effect);
     }
 
     @Override
     public void applyEffect(Effect effect) {
         effect.addToEffectedController();
-    }
-
-    @Override
-    public void endEffect(Effect effect) {
-
     }
 
     @Override
@@ -68,18 +62,4 @@ public class FpAttackEffect extends DamageEffect {
         effected.getLifeStats().reduceFp(newValue);
     }
 
-    @Override
-    public void startEffect(final Effect effect) {
-        // Only players have FP
-        if (!(effect.getEffected() instanceof Player))
-            return;
-        Future<?> task = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Runnable() {
-
-            @Override
-            public void run() {
-                onPeriodicAction(effect);
-            }
-        }, checktime, checktime);
-        effect.setPeriodicTask(task, position);
-    }
 }

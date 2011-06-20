@@ -16,8 +16,10 @@
  */
 package gameserver.services;
 
+
 import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.configs.main.CustomConfig;
+import gameserver.configs.main.GSConfig;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.GoodsListData;
 import gameserver.dataholders.TradeListData;
@@ -42,7 +44,11 @@ import gameserver.utils.scheduler.Scheduler;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author ATracer, Rama, Flay
@@ -129,11 +135,14 @@ public class TradeService {
             if (count != 0) {
                 log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
                         .getObjectId(), tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount(), count));
-                inventory.decreaseKinah(tradeListPrice);
+                if (!inventory.decreaseKinah(tradeListPrice))
+                    return false;
                 return false;
             }
         }
-        inventory.decreaseKinah(tradeListPrice);
+        if (!inventory.decreaseKinah(tradeListPrice))
+            return false;
+
         PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(kinahItem));
         PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(addedItems));
         // TODO message
@@ -220,7 +229,8 @@ public class TradeService {
         player.getCommonData().setAp(rank.getAp() - tradeList.getRequiredAp());
         Map<Integer, Integer> requiredItems = tradeList.getRequiredItems();
         for (Integer itemId : requiredItems.keySet()) {
-            player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
+            if (!player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId)))
+                return false;
         }
 
         PacketSendUtility.sendPacket(player, new SM_ABYSS_RANK(rank));
@@ -264,7 +274,13 @@ public class TradeService {
 
         Map<Integer, Integer> requiredItems = tradeList.getRequiredItems();
         for (Integer itemId : requiredItems.keySet()) {
-            player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
+            if (!player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId)))
+                return false;
+        }
+
+        for (Item item : player.getInventory().getAllItemsByItemId(tradeList.getCurrencyId()))
+        {
+            PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(item));
         }
 
         PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(addedItems));
@@ -339,13 +355,19 @@ public class TradeService {
             }
 
             if (item.getItemCount() - tradeItem.getCount() == 0) {
-                inventory.removeFromBag(item, true); // need to be here to avoid exploit by sending packet with many
+                if (!inventory.removeFromBag(item, true)); // need to be here to avoid exploit by sending packet with many
+                    return false;
+
                 // items with same unique ids
                 kinahReward += item.getItemTemplate().getPrice() * item.getItemCount();
 
                 // TODO check retail packet here
                 PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(item.getObjectId()));
-            } else if (item.getItemCount() - tradeItem.getCount() > 0) {
+
+                if(GSConfig.ENABLE_REPURCHASE)
+                    player.getRepurchase().addItem(item.getObjectId(), item);
+            }
+            else if (item.getItemCount() - tradeItem.getCount() > 0) {
                 if (inventory.decreaseItemCount(item, tradeItem.getCount()) >= 0) {
                     // TODO check retail packet here
                     kinahReward += item.getItemTemplate().getPrice() * tradeItem.getCount();

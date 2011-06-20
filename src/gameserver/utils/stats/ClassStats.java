@@ -17,8 +17,28 @@
 package gameserver.utils.stats;
 
 import gameserver.model.PlayerClass;
-import gameserver.utils.stats.enums.*;
-
+import gameserver.utils.stats.enums.ACCURACY;
+import gameserver.utils.stats.enums.AGILITY;
+import gameserver.utils.stats.enums.ATTACK_RANGE;
+import gameserver.utils.stats.enums.ATTACK_SPEED;
+import gameserver.utils.stats.enums.BLOCK;
+import gameserver.utils.stats.enums.EARTH_RESIST;
+import gameserver.utils.stats.enums.EVASION;
+import gameserver.utils.stats.enums.FIRE_RESIST;
+import gameserver.utils.stats.enums.FLY_SPEED;
+import gameserver.utils.stats.enums.HEALTH;
+import gameserver.utils.stats.enums.KNOWLEDGE;
+import gameserver.utils.stats.enums.MAGIC_ACCURACY;
+import gameserver.utils.stats.enums.MAIN_HAND_ACCURACY;
+import gameserver.utils.stats.enums.MAIN_HAND_ATTACK;
+import gameserver.utils.stats.enums.MAIN_HAND_CRITRATE;
+import gameserver.utils.stats.enums.MAXHP;
+import gameserver.utils.stats.enums.PARRY;
+import gameserver.utils.stats.enums.POWER;
+import gameserver.utils.stats.enums.SPEED;
+import gameserver.utils.stats.enums.WATER_RESIST;
+import gameserver.utils.stats.enums.WILL;
+import gameserver.utils.stats.enums.WIND_RESIST;
 
 /**
  * @author ATracer

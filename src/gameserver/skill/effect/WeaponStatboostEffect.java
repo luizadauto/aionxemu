@@ -87,14 +87,4 @@ public class WeaponStatboostEffect extends BufEffect {
 
     }
 
-    @Override
-    public void applyEffect(Effect effect) {
-        effect.addToEffectedController();
-    }
-
-    @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
-
 }

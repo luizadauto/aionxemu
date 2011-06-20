@@ -1,18 +1,18 @@
 /*
- * This file is part of Aion X EMU <aionxemu>.
+ * This file is part of aion-unique <aion-unique.com>.
  *
- *  This is free software: you can redistribute it and/or modify
+ *  aion-unique is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.model;
 
@@ -22,13 +22,14 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author Sippolo
- * @param attack Skill template.
+ * 
  */
 @XmlType(name = "attackType")
 @XmlEnum
-public enum AttackType {
-    EVERYHIT,
+public enum AttackType
+{
+    ATTACKED,
     PHYSICAL_SKILL,
     MAGICAL_SKILL,
-    ALL_SKILL
+    ATTACK
 }

@@ -61,6 +61,7 @@ public class StaticObjectKnownList extends NpcKnownList {
         }
 
         for (VisibleObject object : objectsToAdd) {
+            owner.getKnownList().storeObject(object);
             object.getKnownList().storeObject(owner);
             owner.getController().see(object);
         }

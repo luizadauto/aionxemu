@@ -26,7 +26,13 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author -Nemesiss-, NB4L1, MrPoke, lord_rex
@@ -164,6 +170,11 @@ public final class ThreadPoolManager implements DisconnectionThreadPool {
         execute(r);
     }
 
+    public final void executeInterruptable(InterruptableTask r)
+    {
+        execute(r);
+    }
+
     public final void executeLongRunning(Runnable r) {
         r = new ExecuteWrapper(r);
 
@@ -175,6 +186,11 @@ public final class ThreadPoolManager implements DisconnectionThreadPool {
     public final Future<?> submit(Runnable r) {
         r = new ThreadPoolExecuteWrapper(r);
 
+        return instantPool.submit(r);
+    }
+
+    public final Future<?> submitInterruptable(InterruptableTask r)
+    {
         return instantPool.submit(r);
     }
 

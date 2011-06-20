@@ -21,6 +21,8 @@ import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.AionObject;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.VisibleObject;
+import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.stats.modifiers.ObjectContainer;
 import gameserver.model.templates.WorldMapTemplate;
 import gameserver.utils.idfactory.IDFactory;
 import gameserver.world.exceptions.AlreadySpawnedException;
@@ -129,9 +131,9 @@ public class World extends ObjectContainer {
             object.getPosition().setMapRegion(newRegion);
         }
 
-        if (updateKnownList) {
+        // Do not update if there is no player who cares around
+        if(updateKnownList && (object instanceof Player || object.getKnownList().getPlayersCount() > 0))
             object.updateKnownlist();
-        }
     }
 
     /**
@@ -218,13 +220,18 @@ public class World extends ObjectContainer {
         object.updateKnownlist();
     }
 
+    public void despawn(VisibleObject object)
+    {
+        despawn(object, false);
+    }
+
     /**
      * Despawn VisibleObject, object will become invisible and object position will become invalid. All others objects
      * will be noticed that this object is no longer visible.
      *
      * @throws NullPointerException if object is already despawned
      */
-    public void despawn(VisibleObject object) {
+    public void despawn(VisibleObject object, boolean instance) {
         if (object.getActiveRegion() != null) { // can be null if an instance gets deleted?
             if (object.getActiveRegion().getParent() != null)
                 object.getActiveRegion().getParent().removeObject(object);
@@ -240,6 +247,28 @@ public class World extends ObjectContainer {
         }
 
         object.clearKnownlist();
+
+        if(object instanceof Npc && instance)
+        {
+            Npc npc = (Npc)object;
+            npc.stopShoutThread();
+            npc.getAi().clearDesires();
+            npc.getAi().clearEventHandler();
+            npc.getAi().clearStateHandler();
+            npc.getEffectController().removeAllEffects();
+            npc.getLifeStats().cancelAllTasks();
+            npc.getAggroList().clear();
+            npc.setPosition(null);
+            npc.setObserveController(null);
+            npc.setKnownlist(null);
+            npc.setGameStats(null);
+            npc.setLifeStats(null);
+            npc.setMoveController(null);
+            npc.setAi(null);
+            npc.setEffectController(null);
+        }
+        
+        super.removeObject(object);
     }
 
     @Override

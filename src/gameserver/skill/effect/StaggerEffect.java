@@ -41,10 +41,7 @@ public class StaggerEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.STAGGER_RESISTANCE)) {
-            effect.addSucessEffect(this);
-            effect.setSpellStatus(SpellStatus.STAGGER);
-        }
+        super.calculate(effect, StatEnum.STAGGER_RESISTANCE, SpellStatus.STAGGER);
     }
 
     @Override

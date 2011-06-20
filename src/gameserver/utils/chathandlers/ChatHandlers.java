@@ -77,17 +77,36 @@ public class ChatHandlers {
         }
     }
 
-    public void reloadChatHandlers() {
-        try {
-            sm.reload();
+    public void reloadChatHandlers()
+    {
+        ScriptManager tmpSM;
+        final CommandChatHandler adminCCH;
+        try
+        {
+            tmpSM = new ScriptManager();
+            adminCCH = new CommandChatHandler();
+            tmpSM.setGlobalClassListener(new ChatHandlersLoader(adminCCH));
+            
+            tmpSM.load(CHAT_DESCRIPTOR_FILE);
         }
-        catch (Exception e) {
+        catch(Exception e)
+        {
             throw new GameServerError("Can't reload chat handlers.", e);
         }
+        
+        if(tmpSM != null && adminCCH != null)
+        {
+            sm.shutdown();
+            sm = null;
+            handlers.clear();
+            sm = tmpSM;
+            addChatHandler(adminCCH);
+        }
+        
     }
 
     @SuppressWarnings("synthetic-access")
     private static class SingletonHolder {
         protected static final ChatHandlers instance = new ChatHandlers();
-	}
+    }
 }

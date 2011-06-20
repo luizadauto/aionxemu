@@ -45,7 +45,7 @@ public class ChangeMpConsumptionEffect extends BufEffect {
 
             @Override
             public void skilluse(Skill skill) {
-                skill.setChangeMpConsumption(value);
+                skill.setChangeMpConsumption(-value);
             }
         };
 

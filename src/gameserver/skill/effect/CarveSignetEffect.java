@@ -1,68 +1,87 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of aion-unique <aion-unique.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  aion-unique is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.effect;
-
-import gameserver.dataholders.DataManager;
-import gameserver.model.gameobjects.Creature;
-import gameserver.skill.action.DamageType;
-import gameserver.skill.model.Effect;
-import gameserver.skill.model.SkillTemplate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import com.aionemu.commons.utils.Rnd;
+import gameserver.dataholders.DataManager;
+import gameserver.model.gameobjects.Creature;
+import gameserver.skill.action.DamageType;
+import gameserver.skill.model.Effect;
+import gameserver.skill.model.SkillTemplate;
+
+
 /**
  * @author ATracer
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CarveSignetEffect")
-public class CarveSignetEffect extends DamageEffect {
+public class CarveSignetEffect extends DamageEffect
+{
     @XmlAttribute(required = true)
     protected int signetlvl;
     @XmlAttribute(required = true)
     protected int signetid;
     @XmlAttribute(required = true)
     protected String signet;
-
+    @XmlAttribute(name = "probability",required = true)
+    protected int prob;
+        
     @Override
-    public void applyEffect(Effect effect) {
+    public void applyEffect(Effect effect)
+    {
         super.applyEffect(effect);
-
+            
+        if (Rnd.get(0, 100) > prob)
+            return;
+        
         Creature effected = effect.getEffected();
-        Effect placedSignet = effected.getEffectController().getAnormalEffect(signet);
-        int nextSignetlvl = 1;
-        if (placedSignet != null) {
-            nextSignetlvl = placedSignet.getSkillId() - this.signetid + 2;
-            if (nextSignetlvl > signetlvl || nextSignetlvl > 5)
-                return;
+        int nextSignetlvl = effect.getCarvedSignet();
+        
+        Effect placedSignet = effected.getEffectController().getAbnormalEffect(signet+"_"+(nextSignetlvl-1));
+                
+        if(nextSignetlvl > signetlvl || nextSignetlvl > 5)
+            return;
+        if (placedSignet != null)
             placedSignet.endEffect();
-        }
-
-        SkillTemplate template = DataManager.SKILL_DATA.getSkillTemplate(signetid + nextSignetlvl - 1);
-        int effectsDuration = template.getEffectsDuration();
-        Effect newEffect = new Effect(effect.getEffector(), effect.getEffected(), template, nextSignetlvl, effectsDuration);
+        
+        SkillTemplate template = DataManager.SKILL_DATA.getSkillTemplate((signetid-signetlvl) + nextSignetlvl );
+        Effect newEffect = new Effect(effect.getEffector(), effect.getEffected(), template, nextSignetlvl, 0);
         newEffect.initialize();
         newEffect.applyEffect();
     }
 
     @Override
-    public void calculate(Effect effect) {
-        super.calculate(effect, DamageType.PHYSICAL);
+    public void calculate(Effect effect)
+    {
+        Creature effected = effect.getEffected();
+        int nextSignetlvl = 1;
+        for (int i=1;i <= 5;i++)
+        {
+            if (effected.getEffectController().getAbnormalEffect(signet+"_"+i) != null)
+                nextSignetlvl = i+1;
+        }
+        effect.setCarvedSignet(nextSignetlvl);
+        
+        super.calculate(effect, DamageType.PHYSICAL, true);
     }
 }

@@ -69,11 +69,6 @@ public class OneTimeBoostSkillCriticalEffect extends EffectTemplate {
     }
 
     @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
-
-    @Override
     public void applyEffect(Effect effect) {
         effect.addToEffectedController();
     }

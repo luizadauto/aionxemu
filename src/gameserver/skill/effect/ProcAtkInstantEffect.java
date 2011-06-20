@@ -1,52 +1,64 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ *  This file is part of Zetta-Core Engine <http://www.zetta-core.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *  Zetta-Core is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License,
+ *  or (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  Zetta-Core is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a  copy  of the GNU General Public License
+ *  along with Zetta-Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package gameserver.skill.effect;
-
-import gameserver.controllers.attack.AttackUtil;
-import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
-import gameserver.skill.model.Effect;
-import gameserver.utils.ThreadPoolManager;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import gameserver.model.DescriptionId;
+import gameserver.model.gameobjects.player.Player;
+import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
+import gameserver.skill.action.DamageType;
+import gameserver.skill.model.Effect;
+import gameserver.utils.PacketSendUtility;
+import gameserver.utils.ThreadPoolManager;
+
+
 
 /**
  * @author kecimis
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProcAtkInstantEffect")
-public class ProcAtkInstantEffect extends DamageEffect {
+public class ProcAtkInstantEffect extends DamageEffect
+{
     @Override
-    public void applyEffect(final Effect effect) {
-        ThreadPoolManager.getInstance().schedule(new Runnable() {
+    public void applyEffect(final Effect effect)
+    {
+        
+        final boolean isGodstone = (effect.getItemTemplate() != null && effect.getItemTemplate().getGodstoneInfo() != null ? true : false);
+        ThreadPoolManager.getInstance().schedule(new Runnable(){
             @Override
-            public void run() {
-                effect.getEffected().getController().onAttack(effect.getEffector(), effect.getSkillId(), TYPE.DAMAGE, effect.getReserved1(), false);
+            public void run()
+            {
+                if (effect.getEffector() instanceof Player && !isGodstone)
+                    PacketSendUtility.sendPacket((Player)effect.getEffector(), new SM_SYSTEM_MESSAGE(1301062, new DescriptionId(effect.getSkillTemplate().getNameId())));
+                //TODO figure out logId
+                effect.getEffected().getController().onAttack(effect.getEffector(), effect.getSkillId(), TYPE.HP, effect.getReserved1(), 0,effect.getAttackStatus(), false, true);
             }
-        }, 1000);
+        }, 800);
     }
 
     @Override
-    public void calculate(Effect effect) {
-        int valueWithDelta = value + delta * effect.getSkillLevel();
-        AttackUtil.calculateMagicalSkillAttackResult(effect, valueWithDelta, getElement());
-        effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect, DamageType.MAGICAL, true, false);
     }
 }

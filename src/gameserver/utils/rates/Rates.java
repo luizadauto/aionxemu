@@ -32,9 +32,15 @@ public abstract class Rates {
 
     public abstract float getGatheringXPRate();
 
+    public abstract float getGatheringLvlRate();
+
     public abstract float getCraftingXPRate();
 
+    public abstract float getCraftingLvlRate();
+
     public abstract int getDropRate();
+
+    public abstract int getChestDropRate();
 
     public abstract int getQuestXpRate();
 

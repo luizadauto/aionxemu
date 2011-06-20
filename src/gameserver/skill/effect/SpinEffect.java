@@ -38,11 +38,7 @@ public class SpinEffect extends EffectTemplate {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.SPIN_RESISTANCE)) {
-            effect.setSpellStatus(SpellStatus.SPIN);
-            effect.addSucessEffect(this);
-        }
-
+        super.calculate(effect, StatEnum.SPIN_RESISTANCE, SpellStatus.SPIN);
     }
 
     @Override

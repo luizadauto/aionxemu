@@ -53,14 +53,14 @@ public class ArmorMasteryEffect extends BufEffect {
         boolean armorMasterySet = player.getEffectController().isArmorMasterySet(skillId);
         boolean isArmorEquiped = player.getEquipment().isArmorEquipped(armorType);
         if (!armorMasterySet && isArmorEquiped)
-            effect.addSucessEffect(this);
+            super.calculate(effect);
     }
 
     @Override
     public void startEffect(Effect effect) {
         super.startEffect(effect);
         Player player = (Player) effect.getEffector();
-        player.getEffectController().removeEffect(effect.getSkillId());
+        player.getEffectController().removePassiveEffect(player.getEffectController().getArmorMastery());
         player.getEffectController().setArmorMastery(effect.getSkillId());
     }
 

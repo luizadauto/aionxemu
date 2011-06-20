@@ -21,6 +21,7 @@ import gameserver.controllers.movement.ActionObserver;
 import gameserver.controllers.movement.ActionObserver.ObserverType;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Creature;
+import gameserver.skill.action.DamageType;
 import gameserver.skill.model.Effect;
 import gameserver.skill.model.ProvokeTarget;
 import gameserver.skill.model.ProvokeType;
@@ -36,15 +37,9 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProvokerEffect")
-public class ProvokerEffect extends EffectTemplate {
-    @XmlAttribute
-    protected int prob2;
-    @XmlAttribute
-    protected int prob1;
+public class ProvokerEffect extends ShieldEffect {
     @XmlAttribute(name = "provoke_target")
     protected ProvokeTarget provokeTarget;
-    @XmlAttribute(name = "provoke_type")
-    protected ProvokeType provokeType;
     @XmlAttribute(name = "skill_id")
     protected int skillId;
 
@@ -54,21 +49,20 @@ public class ProvokerEffect extends EffectTemplate {
     }
 
     @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
-
-    @Override
     public void startEffect(Effect effect) {
         ActionObserver observer = null;
         final Creature effector = effect.getEffector();
-        switch (provokeType) {
+
+        if(attacktype == null)
+            return;
+
+         switch (attacktype) {
             case ATTACK://nmlattack
                 observer = new ActionObserver(ObserverType.ATTACK) {
 
                     @Override
                     public void attack(Creature creature) {
-                        if (Rnd.get(0, 100) <= prob2) {
+                        if (Rnd.get(0, 100) <= probability) {
                             Creature target = getProvokeTarget(provokeTarget, effector, creature);
                             createProvokedEffect(effector, target);
                         }
@@ -81,14 +75,47 @@ public class ProvokerEffect extends EffectTemplate {
 
                     @Override
                     public void attacked(Creature creature) {
-                        if (Rnd.get(0, 100) <= prob2) {
+                        if (Rnd.get(0, 100) <= probability) {
                             Creature target = getProvokeTarget(provokeTarget, effector, creature);
                             createProvokedEffect(effector, target);
                         }
                     }
                 };
                 break;
-            //TODO MAGICALHIT, PHYSICALHIT
+            case MAGICAL_SKILL://mahit
+                observer = new ActionObserver(ObserverType.HITTED){
+
+                    @Override
+                    public void hitted(Creature creature, DamageType type)
+                    {
+                        if(type == DamageType.MAGICAL)
+                        {
+                            if(Rnd.get(0, 100) <= probability)
+                            {
+                                Creature target = getProvokeTarget(provokeTarget, effector, creature);
+                                createProvokedEffect(effector, target);
+                            }
+                        }
+                    }
+                };
+                break;
+            case PHYSICAL_SKILL://phhit
+                observer = new ActionObserver(ObserverType.HITTED){
+
+                    @Override
+                    public void hitted(Creature creature, DamageType type)
+                    {
+                        if(type == DamageType.PHYSICAL)
+                        {
+                            if(Rnd.get(0, 100) <= probability)
+                            {
+                                Creature target = getProvokeTarget(provokeTarget, effector, creature);
+                                createProvokedEffect(effector, target);
+                            }
+                        }
+                    }
+                };
+                break;
         }
 
         if (observer == null)

@@ -18,8 +18,10 @@
 package gameserver.world;
 
 import gameserver.model.gameobjects.VisibleObject;
+import gameserver.model.gameobjects.stats.modifiers.ObjectContainer;
 import gameserver.model.group.PlayerGroup;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +61,10 @@ public class WorldMapInstance extends ObjectContainer {
      * Id of this instance (channel)
      */
     private int instanceId;
+    /**
+     * timer end time in case instance have timer
+     */
+    private Calendar                 timerEnd             = null;
 
     /**
      * Constructor.
@@ -198,6 +204,11 @@ public class WorldMapInstance extends ObjectContainer {
         registeredObjects.add(objectId);
     }
 
+    public void removeRegisteredGroup()
+    {
+        registeredGroup = null;
+    }
+
     /**
      * @param objectId
      * @return
@@ -224,7 +235,24 @@ public class WorldMapInstance extends ObjectContainer {
      * @return the registeredGroup
      */
     public PlayerGroup getRegisteredGroup()
-	{
-		return registeredGroup;
-	}
+    {
+        return registeredGroup;
+    }
+
+    /**
+     * @param timeInSeconds
+     */
+    public void setTimerEnd(int timeInSeconds)
+    {
+        timerEnd = Calendar.getInstance();
+        timerEnd.setTimeInMillis(Calendar.getInstance().getTimeInMillis() + timeInSeconds*1000);
+    }
+
+    /**
+     * @return
+     */
+    public Calendar getTimerEnd()
+    {
+        return timerEnd;
+    }
 }

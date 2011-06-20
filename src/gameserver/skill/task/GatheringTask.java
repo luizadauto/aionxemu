@@ -75,17 +75,14 @@ public class GatheringTask extends AbstractCraftTask {
     }
 
     @Override
-    protected void onSuccessFinish() {
+    protected boolean onSuccessFinish() {
         PacketSendUtility.sendPacket(requestor, new SM_GATHER_UPDATE(template, material, currentSuccessValue, currentFailureValue, 2));
         PacketSendUtility.sendPacket(requestor, new SM_GATHER_UPDATE(template, material, currentSuccessValue, currentFailureValue, 6));
         PacketSendUtility.broadcastPacket(requestor, new SM_GATHER_STATUS(requestor.getObjectId(), responder.getObjectId(), 2), true);
         PacketSendUtility.sendPacket(requestor, SM_SYSTEM_MESSAGE.EXTRACT_GATHER_SUCCESS_1_BASIC(new DescriptionId(material.getNameid())));
         ItemService.addItem(requestor, material.getItemid(), 1);
         ((Gatherable) responder).getController().rewardPlayer(requestor);
+        return true;
     }
 
-	@Override
-	protected void onComboStart()
-	{		
-	}
 }

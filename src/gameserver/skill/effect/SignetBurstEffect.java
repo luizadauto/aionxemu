@@ -1,75 +1,94 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of aion-unique <aion-unique.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  aion-unique is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  aion-unique is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.effect;
-
-import gameserver.model.gameobjects.Creature;
-import gameserver.skill.model.Effect;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import gameserver.controllers.attack.AttackUtil;
+import gameserver.model.gameobjects.Creature;
+import gameserver.skill.action.DamageType;
+import gameserver.skill.model.Effect;
+
+
 /**
- * @author ATracer
+ * @author ATracer, kecimis
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SignetBurstEffect")
-public class SignetBurstEffect extends DamageEffect {
+public class SignetBurstEffect extends DamageEffect
+{
     @XmlAttribute
     protected int signetlvl;
     @XmlAttribute
     protected String signet;
 
     @Override
-    public void calculate(Effect effect) {
+    public void calculate(Effect effect)
+    {
         Creature effected = effect.getEffected();
-        Effect signetEffect = effected.getEffectController().getAnormalEffect(signet);
-        if (signetEffect == null)
-            return;
-
-        int level = signetEffect.getSkillLevel();
-        int valueWithDelta = value + delta * effect.getSkillLevel();
-        int finalDamage = valueWithDelta * level / 5;
-
-        if(level <3){
-            effect.setReserved1(finalDamage);
-            signetEffect.endEffect();
-             }
-        else{
-            effect.setReserved1(finalDamage);
-            effect.addSucessEffect(this);
-            signetEffect.endEffect();
+        Effect signetEffect = null;
+        for (int i=1;i <= 5;i++)
+        {
+            if (effected.getEffectController().getAbnormalEffect(signet+"_"+i) != null)
+            {
+                signetEffect = effected.getEffectController().getAbnormalEffect(signet+"_"+i);
+                break;
             }
         }
-
-    @Override
-    public void startEffect(Effect effect) {
-        if (effect.getSkillId() == 833 || effect.getSkillId() == 834 || effect.getSkillId() == 835) {
-            effect.getEffected().getController().cancelCurrentSkill();
-            effect.getEffected().getEffectController().setAbnormal(EffectId.STUN.getEffectId());
+        
+        if(signetEffect == null)
+            return;
+        
+        int level = signetEffect.getSkillLevel();
+        int valueWithDelta = value + delta * effect.getSkillLevel();
+        
+        //custom bonuses for magical accurancy according to rune level and effector level
+        int accmod = 0;
+        switch (level)
+        {
+            case 1: 
+                accmod = 18 * effect.getEffector().getLevel();//-990 on 55lvl
+                break;
+            case 2:
+                accmod = 4 * effect.getEffector().getLevel();//-220 on 55 lvl
+                break;
+            case 3:
+                accmod = 4 * effect.getEffector().getLevel();//+220 on 55 lvl
+                break;
+            case 4:
+                accmod = 9 * effect.getEffector().getLevel();//+495 on 55lvl
+                break;
+            case 5:
+                accmod = 18 * effect.getEffector().getLevel();//+990 on 55lvl
+                break;
         }
-    }
+        effect.setAccModBoost(accmod);
+        
+        //calculate damage
+        AttackUtil.calculateMagicalSkillAttackResult(effect, (valueWithDelta * level/5), getElement(), applyActionModifiers(effect), false);
 
-    @Override
-    public void endEffect(Effect effect) {
-        if (effect.getSkillId() == 833 || effect.getSkillId() == 834 || effect.getSkillId() == 835) {
-            effect.getEffected().getEffectController().unsetAbnormal(EffectId.STUN.getEffectId());
-        }
-    }
+        effect.setSignetBursted(level);
+        signetEffect.endEffect();
 
+        super.calculate(effect, DamageType.MAGICAL, false);
+
+    }
 }
+

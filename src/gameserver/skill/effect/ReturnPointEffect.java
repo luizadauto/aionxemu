@@ -38,14 +38,14 @@ public class ReturnPointEffect extends EffectTemplate {
         int worldId = itemTemplate.getReturnWorldId();
         String pointAlias = itemTemplate.getReturnAlias();
         TeleportService.teleportToPortalExit(((Player) effect.getEffector()), pointAlias, worldId,
-                500);
+                0);
     }
 
     @Override
     public void calculate(Effect effect) {
         ItemTemplate itemTemplate = effect.getItemTemplate();
         if (itemTemplate != null)
-            effect.addSucessEffect(this);
+            super.calculate(effect);
     }
 
 }

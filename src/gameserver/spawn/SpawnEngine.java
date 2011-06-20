@@ -17,34 +17,77 @@
 package gameserver.spawn;
 
 import com.aionemu.commons.database.dao.DAOManager;
-import gameserver.controllers.*;
+import gameserver.controllers.ActionitemController;
+import gameserver.controllers.AethericFieldController;
+import gameserver.controllers.ArtifactController;
+import gameserver.controllers.ArtifactProtectorController;
+import gameserver.controllers.BindpointController;
+import gameserver.controllers.ChestController;
+import gameserver.controllers.FortressGateArtifactController;
+import gameserver.controllers.FortressGateController;
+import gameserver.controllers.FortressGeneralController;
+import gameserver.controllers.GatherableController;
+import gameserver.controllers.GroupGateController;
+import gameserver.controllers.HomingController;
+import gameserver.controllers.KiskController;
+import gameserver.controllers.MonsterController;
+import gameserver.controllers.NpcController;
+import gameserver.controllers.NpcWithCreatorController;
+import gameserver.controllers.PortalController;
+import gameserver.controllers.PostboxController;
+import gameserver.controllers.RestrictedPortalController;
+import gameserver.controllers.SummonController;
 import gameserver.controllers.effect.EffectController;
-import gameserver.controllers.instances.FireTempleController;
-import gameserver.controllers.instances.SteelRakeController;
-import gameserver.controllers.instances.HaramelController;
+import gameserver.controllers.instances.BeshmundirTempleController;
 import gameserver.controllers.instances.KromedesTrialController;
+import gameserver.controllers.instances.SteelRakeController;
 import gameserver.dao.SpawnDAO;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.NpcData;
 import gameserver.model.NpcType;
-import gameserver.model.gameobjects.*;
+import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Gatherable;
+import gameserver.model.gameobjects.GroupGate;
+import gameserver.model.gameobjects.Homing;
+import gameserver.model.gameobjects.Kisk;
+import gameserver.model.gameobjects.Monster;
+import gameserver.model.gameobjects.Npc;
+import gameserver.model.gameobjects.Servant;
+import gameserver.model.gameobjects.SkillAreaNpc;
+import gameserver.model.gameobjects.Summon;
+import gameserver.model.gameobjects.Totem;
+import gameserver.model.gameobjects.Trap;
+import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.gameobjects.stats.NpcLifeStats;
-import gameserver.model.siege.*;
-import gameserver.model.siege.AethericField.AethericFieldGenerator;
-import gameserver.model.siege.AethericField.AethericFieldShield;
+import gameserver.model.gameobjects.stats.StatEnum;
+import gameserver.model.siege.AethericField;
+import gameserver.model.siege.Artifact;
+import gameserver.model.siege.ArtifactProtector;
+import gameserver.model.siege.FortressGate;
+import gameserver.model.siege.FortressGateArtifact;
+import gameserver.model.siege.FortressGeneral;
+import gameserver.model.siege.InstancePortal;
+import gameserver.model.siege.SiegeRace;
 import gameserver.model.templates.GatherableTemplate;
 import gameserver.model.templates.NpcTemplate;
 import gameserver.model.templates.VisibleObjectTemplate;
 import gameserver.model.templates.WorldMapTemplate;
-import gameserver.model.templates.siege.*;
+import gameserver.model.templates.siege.AethericFieldTemplate;
+import gameserver.model.templates.siege.ArtifactTemplate;
+import gameserver.model.templates.siege.FortressGateArtifactTemplate;
+import gameserver.model.templates.siege.FortressGateTemplate;
+import gameserver.model.templates.siege.FortressGeneralTemplate;
+import gameserver.model.templates.siege.InstancePortalTemplate;
 import gameserver.model.templates.spawn.SpawnGroup;
 import gameserver.model.templates.spawn.SpawnTemplate;
 import gameserver.model.templates.stats.SummonStatsTemplate;
 import gameserver.utils.idfactory.IDFactory;
-import gameserver.world.knownlist.NpcKnownList;
-import gameserver.world.knownlist.StaticObjectKnownList;
+import gameserver.world.NpcKnownList;
+import gameserver.world.StaticObjectKnownList;
 import gameserver.world.World;
+
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -88,55 +131,61 @@ public class SpawnEngine {
         }
         return vObject;
     }
-
     /**
      * Creates VisibleObject instance and spawns it using given {@link SpawnTemplate} instance.
-     *
+     * 
      * @param spawn
      * @return created and spawned VisibleObject
      */
-    public VisibleObject spawnObject(SpawnTemplate spawn, int instanceIndex) {
-
+    public VisibleObject spawnObject(SpawnTemplate spawn, int instanceIndex)
+    {
+        
         VisibleObjectTemplate template = null;
-        if (spawn == null) {
+        if (spawn == null)
+        {
             return null;
         }
-
+        
         int objectId = spawn.getSpawnGroup().getNpcid();
-
-        NpcData npcData = DataManager.NPC_DATA;
-        if (objectId > 400000 && objectId < 499999)// gatherable
+        
+        NpcData    npcData = DataManager.NPC_DATA;
+        if(objectId > 400000 && objectId < 499999)// gatherable
         {
             template = DataManager.GATHERABLE_DATA.getGatherableTemplate(objectId);
-            if (template == null)
+            if(template == null)
                 return null;
             gatherableCounter++;
-        } else
+        }
+        else
         // npc
         {
             template = npcData.getNpcTemplate(objectId);
-            if (template == null) {
+            if(template == null)
+            {
                 log.error("No template for NPC " + String.valueOf(objectId));
                 return null;
             }
             npcCounter++;
         }
         IDFactory iDFactory = IDFactory.getInstance();
-        if (template instanceof NpcTemplate) {
+        if(template instanceof NpcTemplate)
+        {
             NpcType npcType = ((NpcTemplate) template).getNpcType();
             Npc npc = null;
 
-            if (npcType != null) {
-                switch (npcType) {
+            if(npcType != null)
+            {
+                switch(npcType)
+                {
                     case AGGRESSIVE:
                     case ATTACKABLE:
                         npc = new Monster(iDFactory.nextId(), new MonsterController(),
-                                spawn, template);
+                            spawn, template);
                         npc.setKnownlist(new NpcKnownList(npc));
                         break;
                     case POSTBOX:
                         npc = new Npc(iDFactory.nextId(), new PostboxController(), spawn,
-                                template);
+                            template);
                         npc.setKnownlist(new StaticObjectKnownList(npc));
                         break;
                     case RESURRECT:
@@ -147,51 +196,88 @@ public class SpawnEngine {
                         break;
                     case USEITEM:
                         npc = new Npc(iDFactory.nextId(), new ActionitemController(),
-                                spawn, template);
+                            spawn, template);
                         npc.setKnownlist(new StaticObjectKnownList(npc));
                         break;
                     case PORTAL:
                         npc = new Npc(iDFactory.nextId(), new PortalController(), spawn,
-                                template);
+                            template);
                         npc.setKnownlist(new StaticObjectKnownList(npc));
                         break;
+                    case CHEST:
+                        npc = new Npc(iDFactory.nextId(), new ChestController(), spawn,
+                            template);
+                        npc.setKnownlist(new NpcKnownList(npc));
+                        break;
+                    case NEUTRAL:
                     default: // NON_ATTACKABLE
                         npc = new Npc(iDFactory.nextId(), new NpcController(), spawn,
-                                template);
+                            template);
                         npc.setKnownlist(new NpcKnownList(npc));
                         break;
                 }
-            } else {
+            }
+            else
+            {
                 npc = new Npc(iDFactory.nextId(), new NpcController(), spawn,
-                        template);
+                    template);
                 npc.setKnownlist(new NpcKnownList(npc));
             }
-
+            
             //steel rake exception
-            if (objectId == 215402 || objectId == 215403 || objectId == 215404 || objectId == 215405 || objectId == 798378 || objectId == 798379) {
+            if (objectId == 215402 || objectId == 215403 || objectId == 215404 || objectId == 215405 || objectId == 798378 || objectId == 798379)
+            {
+                npc = null;
                 npc = new Npc(iDFactory.nextId(), new SteelRakeController(),
-                        spawn, template);
-                npc.setKnownlist(new NpcKnownList(npc));
-            } else if (objectId == 700548 || objectId == 730207) {
-                npc = new Npc(iDFactory.nextId(), new SteelRakeController(),
-                        spawn, template);
-                npc.setKnownlist(new StaticObjectKnownList(npc));
-            }
-            //Haramel exception
-            if (objectId == 730321) {
-                npc = new Npc(iDFactory.nextId(), new HaramelController(),
-                        spawn, template);
-                npc.setKnownlist(new StaticObjectKnownList(npc));
-            }
-            if (objectId == 216922 || objectId == 700852) {
-                npc = new Npc(iDFactory.nextId(), new HaramelController(),
-                        spawn, template);
+                    spawn, template);
                 npc.setKnownlist(new NpcKnownList(npc));
             }
-            //Kromedes Trial exception
-            if (objectId == 205229 || objectId == 205234) {
+            else if (objectId == 700548 || objectId == 730207)
+            {
+                npc = null;
+                npc = new Npc(iDFactory.nextId(), new SteelRakeController(),
+                    spawn, template);
+                npc.setKnownlist(new StaticObjectKnownList(npc));
+            }
+            //Beshmundir Temple exception
+            else if (objectId == 799517 || objectId == 799518 || objectId == 799519 || objectId == 799520 || objectId == 730275)
+            {
+                npc = null;
+                npc = new Npc(iDFactory.nextId(), new BeshmundirTempleController(),
+                    spawn, template);
+                npc.setKnownlist(new StaticObjectKnownList(npc));
+            }
+            //KromedesTrial exception
+            else if (objectId == 700926 || objectId == 700924 || objectId == 700927 || objectId == 700922 || objectId == 730339 || objectId == 730336 || objectId == 730338 || objectId == 730337)
+            {
+                npc = null;
                 npc = new Npc(iDFactory.nextId(), new KromedesTrialController(),
-                        spawn, template);
+                    spawn, template);
+                npc.setKnownlist(new StaticObjectKnownList(npc));
+            }
+            //restricted teleporters exception
+            if (objectId == 730218 || objectId == 730219)
+            {
+                npc = null;
+                npc = new Npc(iDFactory.nextId(), new RestrictedPortalController(),
+                    spawn, template);
+                npc.setKnownlist(new StaticObjectKnownList(npc));
+            }
+            
+            //quest related exceptions
+            if (objectId == 212649 || objectId == 204649 || objectId == 204020 || objectId == 278593 || objectId == 278599 || objectId == 278600 || objectId == 278601 || objectId == 278602 || objectId == 278603 || objectId == 278604 || objectId == 278605)
+            {
+                npc = null;
+                npc = new Monster(iDFactory.nextId(), new MonsterController(),
+                    spawn, template);
+                npc.setKnownlist(new NpcKnownList(npc));
+            }
+            //Veille && Mastarius exception
+            if(objectId == 258221 || objectId == 258219)
+            {
+                npc = null;
+                npc = new Monster(iDFactory.nextId(), new MonsterController(),
+                    spawn, template);
                 npc.setKnownlist(new NpcKnownList(npc));
             }
 
@@ -199,9 +285,11 @@ public class SpawnEngine {
             npc.setEffectController(new EffectController(npc));
             npc.getController().onRespawn();
             bringIntoWorld(npc, spawn, instanceIndex);
-
+            
             return npc;
-        } else if (template instanceof GatherableTemplate) {
+        }
+        else if(template instanceof GatherableTemplate)
+        {
             Gatherable gatherable = new Gatherable(spawn, template, iDFactory.nextId(), new GatherableController());
             gatherable.setKnownlist(new StaticObjectKnownList(gatherable));
             bringIntoWorld(gatherable, spawn, instanceIndex);
@@ -219,7 +307,7 @@ public class SpawnEngine {
     public Trap spawnTrap(SpawnTemplate spawn, int instanceIndex, Creature creator, int skillId) {
         int objectId = spawn.getSpawnGroup().getNpcid();
         NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
-        Trap trap = new Trap(IDFactory.getInstance().nextId(), new NpcController(), spawn,
+        Trap trap = new Trap(IDFactory.getInstance().nextId(), new NpcWithCreatorController(), spawn,
                 npcTemplate);
         trap.setKnownlist(new NpcKnownList(trap));
         trap.setEffectController(new EffectController(trap));
@@ -251,7 +339,7 @@ public class SpawnEngine {
         SpawnTemplate sTemplate = addNewSpawn(mapId, 1, ipNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
         sTemplate.setStaticid(template.getBaseInfo().getStaticId());
 		InstancePortal portal = new InstancePortal(IDFactory.getInstance().nextId(), new PortalController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(ipNpcId), fortressId, template.getBaseInfo().getStaticId(), race);
-        portal.setKnownlist(new NpcKnownList(portal));
+        portal.setKnownlist(new StaticObjectKnownList(portal));
         portal.setEffectController(new EffectController(portal));
         portal.setLifeStats(new NpcLifeStats(portal));
         portal.getController().onRespawn();
@@ -265,7 +353,7 @@ public class SpawnEngine {
         SpawnTemplate sTemplate = addNewSpawn(mapId, 1, fgNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
         sTemplate.setStaticid(template.getBaseInfo().getStaticId());
         FortressGate gate = new FortressGate(IDFactory.getInstance().nextId(), new FortressGateController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(fgNpcId), fortressId, template);
-        gate.setKnownlist(new NpcKnownList(gate));
+        gate.setKnownlist(new StaticObjectKnownList(gate));
         gate.setEffectController(new EffectController(gate));
         gate.setLifeStats(new NpcLifeStats(gate));
         gate.getController().onRespawn();
@@ -279,8 +367,9 @@ public class SpawnEngine {
         SpawnTemplate sTemplate = addNewSpawn(mapId, 1, fgaNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
         sTemplate.setStaticid(template.getBaseInfo().getStaticId());
         FortressGateArtifact artifact = new FortressGateArtifact(IDFactory.getInstance().nextId(), new FortressGateArtifactController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(fgaNpcId), template.getHealGatePercent());
-        artifact.setKnownlist(new NpcKnownList(artifact));
+        artifact.setKnownlist(new StaticObjectKnownList(artifact));
         artifact.setEffectController(new EffectController(artifact));
+        artifact.setLifeStats(new NpcLifeStats(artifact));
         artifact.getController().onRespawn();
         bringIntoWorld(artifact, sTemplate, 1);
         return artifact;
@@ -292,7 +381,7 @@ public class SpawnEngine {
         int artifactNpcId = template.getBaseInfo().getNpcId(race);
         SpawnTemplate artifactSpawnTemplate = addNewSpawn(mapId, 1, artifactNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte) template.getBaseInfo().getH(), 0, 0, true, true);
         Artifact af = new Artifact(IDFactory.getInstance().nextId(), new ArtifactController(), artifactSpawnTemplate, DataManager.NPC_DATA.getNpcTemplate(artifactNpcId), artifactId);
-        af.setKnownlist(new NpcKnownList(af));
+        af.setKnownlist(new StaticObjectKnownList(af));
         af.setEffectController(new EffectController(af));
         af.getController().onRespawn();
         af.setTemplate(template);
@@ -315,35 +404,18 @@ public class SpawnEngine {
         return af;
     }
 
-    public AethericField spawnAethericField(int fortressId, SiegeRace race, AethericFieldTemplate template) {
+    public AethericField spawnAethericGenerator(int fortressId, SiegeRace race, AethericFieldTemplate template)
+    {
         int mapId = DataManager.SIEGE_LOCATION_DATA.getSiegeLocations().get(fortressId).getLocationTemplate().getWorldId();
-        AethericField field = new AethericField(fortressId);
-        AethericFieldController fieldController = new AethericFieldController();
-        // Field Generator
-        int generatorNpcId = template.getGeneratorTemplate().getBaseInfo().getNpcId(race);
-        SpawnTemplate gST = addNewSpawn(mapId, 1, generatorNpcId, template.getGeneratorTemplate().getBaseInfo().getX(), template.getGeneratorTemplate().getBaseInfo().getY(), template.getGeneratorTemplate().getBaseInfo().getZ(), (byte) template.getGeneratorTemplate().getBaseInfo().getH(), 0, 0, true, true);
-        AethericFieldGenerator afGenerator = field.new AethericFieldGenerator(IDFactory.getInstance().nextId(), fieldController.new AethericFieldGeneratorController(), gST, DataManager.NPC_DATA.getNpcTemplate(generatorNpcId), field);
-        afGenerator.setKnownlist(new NpcKnownList(afGenerator));
-        afGenerator.setEffectController(new EffectController(afGenerator));
-        afGenerator.setLifeStats(new NpcLifeStats(afGenerator));
-        afGenerator.getController().onRespawn();
-        bringIntoWorld(afGenerator, gST, 1);
-
-        // Field Shield
-        int shieldNpcId = template.getShieldTemplate().getBaseInfo().getNpcId(race);
-        SpawnTemplate sST = addNewSpawn(mapId, 1, shieldNpcId, template.getShieldTemplate().getBaseInfo().getX(), template.getShieldTemplate().getBaseInfo().getY(), template.getShieldTemplate().getBaseInfo().getZ(), (byte) template.getShieldTemplate().getBaseInfo().getH(), 0, 0, true);
-        AethericFieldShield shield = field.new AethericFieldShield(IDFactory.getInstance().nextId(), fieldController.new AethericFieldShieldController(), sST, DataManager.NPC_DATA.getNpcTemplate(shieldNpcId), field);
-        shield.setKnownlist(new NpcKnownList(shield));
-        shield.setEffectController(new EffectController(shield));
-        shield.getController().onRespawn();
-        bringIntoWorld(shield, sST, 1);
-
-
-        field.setGenerator(afGenerator);
-        field.setShield(shield);
-
-        return field;
-
+        int generatorNpcId = template.getBaseInfo().getNpcId(race);
+        SpawnTemplate sTemplate = addNewSpawn(mapId, 1, generatorNpcId, template.getBaseInfo().getX(), template.getBaseInfo().getY(), template.getBaseInfo().getZ(), (byte)template.getBaseInfo().getH(), 0, 0, true, true);
+        AethericField generator = new AethericField(IDFactory.getInstance().nextId(), new AethericFieldController(), sTemplate, DataManager.NPC_DATA.getNpcTemplate(generatorNpcId) ,fortressId);
+        generator.setKnownlist(new NpcKnownList(generator));
+        generator.setEffectController(new EffectController(generator));
+        generator.setLifeStats(new NpcLifeStats(generator));
+        generator.getController().onRespawn();
+        bringIntoWorld(generator, sTemplate, 1);
+        return generator;
     }
 
     /**
@@ -357,7 +429,7 @@ public class SpawnEngine {
         NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
         GroupGate groupgate = new GroupGate(IDFactory.getInstance().nextId(), new GroupGateController(), spawn,
                 npcTemplate);
-        groupgate.setKnownlist(new StaticObjectKnownList(groupgate));
+        groupgate.setKnownlist(new NpcKnownList(groupgate));
         groupgate.setEffectController(new EffectController(groupgate));
         groupgate.setCreator(creator);
         groupgate.getController().onRespawn();
@@ -393,18 +465,103 @@ public class SpawnEngine {
     public Servant spawnServant(SpawnTemplate spawn, int instanceIndex, Creature creator, int skillId, int hpRatio) {
         int objectId = spawn.getSpawnGroup().getNpcid();
         NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
-        Servant servant = new Servant(IDFactory.getInstance().nextId(), new ServantController(), spawn,
+        Servant servant = new Servant(IDFactory.getInstance().nextId(), new NpcWithCreatorController(), spawn,
                 npcTemplate);
         servant.setKnownlist(new NpcKnownList(servant));
         servant.setEffectController(new EffectController(servant));
         servant.setCreator(creator);
         servant.setSkillId(skillId);
         servant.setTarget(creator.getTarget());
-        servant.setHpRatio(hpRatio);
-        servant.getController().onRespawn();
+        servant.getGameStats().setStat(StatEnum.MAXHP, Math.round((float)creator.getLifeStats().getMaxHp() * hpRatio / 100));
+        //since servants are op and we dont have proper stats
+        servant.getGameStats().setStat(StatEnum.BOOST_MAGICAL_SKILL, 300);
         servant.getObjectTemplate().setLevel(creator.getLevel());
+        servant.getController().onRespawn();
         bringIntoWorld(servant, spawn, instanceIndex);
         return servant;
+    }
+
+    
+    /**
+     * @param spawn
+     * @param instanceIndex
+     * @param creator
+     * @param skillId
+     * @return
+    */
+    public SkillAreaNpc spawnSkillAreaNpc(SpawnTemplate spawn, int instanceIndex, Creature creator, int skillId)
+    {
+        int objectId = spawn.getSpawnGroup().getNpcid();
+        NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
+        SkillAreaNpc saNpc = new SkillAreaNpc(IDFactory.getInstance().nextId(), new NpcWithCreatorController(), spawn,
+            npcTemplate);
+        saNpc.setNpcSkillList(DataManager.NPC_SKILL_DATA.getNpcSkillList(objectId));
+        saNpc.setKnownlist(new NpcKnownList(saNpc));
+        saNpc.setEffectController(new EffectController(saNpc));
+        saNpc.setCreator(creator);
+        saNpc.setSkillId(skillId);
+        saNpc.getController().onRespawn();
+        bringIntoWorld(saNpc, spawn, instanceIndex);
+        return saNpc;
+    }
+
+    /**
+     * 
+     * @param spawn
+     * @param instanceIndex
+     * @param creator
+     * @param skillId
+     * @return
+     */
+    public Totem spawnTotem(SpawnTemplate spawn, int instanceIndex, Creature creator, int skillId)
+    {
+        int objectId = spawn.getSpawnGroup().getNpcid();
+        NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
+        Totem totem = new Totem(IDFactory.getInstance().nextId(), new NpcWithCreatorController(), spawn,
+            npcTemplate);
+        totem.setKnownlist(new NpcKnownList(totem));
+        totem.setEffectController(new EffectController(totem));
+        totem.setCreator(creator);
+        totem.setSkillId(skillId);
+        totem.getController().onRespawn();
+        totem.getObjectTemplate().setLevel(creator.getLevel());
+        bringIntoWorld(totem, spawn, instanceIndex);
+        return totem;
+    }
+
+    /**
+     * 
+     * @param spawn
+     * @param instanceIndex
+     * @param creator
+     * @param attackCount
+     * @return
+     */
+    public Homing spawnHoming(SpawnTemplate spawn, int instanceIndex, Creature creator, int attackCount, int skillId, byte masterLevel)
+    {
+            int objectId = spawn.getSpawnGroup().getNpcid();
+            NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
+            //sets players lvl till we figure out retail like lvls
+            npcTemplate.setLevel(masterLevel);
+            Homing homing = new Homing(IDFactory.getInstance().nextId(), new HomingController(), spawn,
+                    npcTemplate);
+            homing.setState(CreatureState.WEAPON_EQUIPPED);
+            homing.setKnownlist(new NpcKnownList(homing));
+            homing.setEffectController(new EffectController(homing));
+            homing.setCreator(creator);
+            homing.setAttackCount(attackCount);
+            homing.setSkillId(skillId);
+            homing.setTarget(creator.getTarget());
+            //set accurancy and magical accurancy, completly custom: lvl 55 has 2200 both
+            homing.getGameStats().setStat(StatEnum.MAIN_HAND_ACCURACY, Math.round((float)homing.getLevel()*(2200f/55f)));
+            homing.getGameStats().setStat(StatEnum.MAGICAL_ACCURACY, Math.round((float)homing.getLevel()*(2200f/55f)));
+            //set custom power to prevent really low dmg of energies/servants
+            //lvl 55 has 40 power(aprox. 200 per hit on a player)
+            if (homing.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_PHYSICAL_ATTACK) < (homing.getLevel()*40/55))
+                homing.getGameStats().setStat(StatEnum.MAIN_HAND_PHYSICAL_ATTACK, Math.round((float)homing.getLevel()*(40f/55f)));
+            homing.getController().onRespawn();
+            bringIntoWorld(homing, spawn, instanceIndex);
+            return homing;
     }
 
     /**
@@ -592,6 +749,7 @@ public class SpawnEngine {
 
                     instanceSpawnCounter++;
                 }
+                spawnGroup.clearLastSpawnedTemplate();
             } else {
                 switch (spawnGroup.getHandler()) {
                     case RIFT:

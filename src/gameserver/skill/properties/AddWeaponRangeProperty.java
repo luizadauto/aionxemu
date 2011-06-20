@@ -34,7 +34,7 @@ public class AddWeaponRangeProperty
 
     @Override
     public boolean set(Skill skill) {
-        // TODO Auto-generated method stub
+        skill.setAddWeaponRangeProperty(true);
         return true;
     }
 }

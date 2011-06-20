@@ -1,44 +1,58 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of zetta-core <zetta-core.org>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
+ *  zetta-core is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
+ *  zetta-core is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ *  GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with zetta-core.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gameserver.skill.effect;
-
-import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
-import gameserver.skill.model.Effect;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import gameserver.model.gameobjects.stats.StatEnum;
+import gameserver.skill.model.Effect;
+import gameserver.skill.model.HealType;
+
+
+
 /**
- * @author ATracer
+ * @author kecimis
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HealEffect")
-public class HealEffect
-        extends AbstractHealEffect {
-
+public class HealEffect extends HealOverTimeEffect
+{
     @Override
-    public void applyEffect(Effect effect) {
-        effect.getEffected().getLifeStats().increaseHp(TYPE.NATURAL_HP, -effect.getReserved1());
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect, HealType.HP);
     }
-
     @Override
-    public void calculate(Effect effect) {
-        super.calculate(effect);
-        effect.addSucessEffect(this);
+    public void onPeriodicAction(Effect effect)
+    {
+        super.onPeriodicAction(effect, HealType.HP);
+    }
+    
+    @Override
+    protected int getCurrentStatValue(Effect effect)
+    {
+        return effect.getEffected().getLifeStats().getCurrentHp();
+    }
+    @Override
+    protected int getMaxCurStatValue(Effect effect)
+    {
+        return effect.getEffected().getGameStats().getCurrentStat(StatEnum.MAXHP);
     }
 }

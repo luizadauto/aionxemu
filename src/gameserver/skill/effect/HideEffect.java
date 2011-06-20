@@ -47,12 +47,6 @@ public class HideEffect extends BufEffect {
     }
 
     @Override
-    public void calculate(Effect effect) {
-        //TODO calc probability
-        effect.addSucessEffect(this);
-    }
-
-    @Override
     public void endEffect(Effect effect) {
         super.endEffect(effect);
 

@@ -16,6 +16,7 @@
  */
 package gameserver.skill.condition;
 
+import gameserver.model.gameobjects.Servant;
 import gameserver.skill.model.Skill;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -38,6 +39,8 @@ public class HpCondition extends Condition {
 
     @Override
     public boolean verify(Skill skill) {
+        if (skill.getEffector() instanceof Servant)
+            return true;
         int valueWithDelta = value + delta * skill.getSkillLevel();
         return skill.getEffector().getLifeStats().getCurrentHp() > valueWithDelta;
     }

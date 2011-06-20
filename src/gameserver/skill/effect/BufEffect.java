@@ -19,12 +19,17 @@ package gameserver.skill.effect;
 import gameserver.controllers.movement.ActionObserver;
 import gameserver.controllers.movement.ActionObserver.ObserverType;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.gameobjects.Summon;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.gameobjects.stats.CreatureGameStats;
 import gameserver.model.gameobjects.stats.id.SkillEffectId;
-import gameserver.model.gameobjects.stats.modifiers.*;
+import gameserver.model.gameobjects.stats.modifiers.AddModifier;
+import gameserver.model.gameobjects.stats.modifiers.RateModifier;
+import gameserver.model.gameobjects.stats.modifiers.SetModifier;
+import gameserver.model.gameobjects.stats.modifiers.StatModifier;
 import gameserver.network.aion.serverpackets.SM_STATS_INFO;
+import gameserver.network.aion.serverpackets.SM_SUMMON_UPDATE;
 import gameserver.skill.change.Change;
 import gameserver.skill.model.Effect;
 import gameserver.utils.PacketSendUtility;
@@ -51,7 +56,8 @@ public abstract class BufEffect extends EffectTemplate {
                 public void stateChanged(CreatureState state, boolean isSet) {
                     if (state == CreatureState.FLYING) {
                         if (isSet) {
-                            effect.addToEffectedController();
+                            if (!effect.getEffected().getEffectController().hasAbnormalEffect(effect.getSkillId()))
+                                effect.addToEffectedController();
                         } else {
                             effect.endEffect();
                         }
@@ -59,7 +65,9 @@ public abstract class BufEffect extends EffectTemplate {
                 }
             };
             effect.getEffected().getObserveController().addObserver(observer);
-            effect.setActionObserver(observer, position);
+            //add observer only for non-passives
+            if (!effect.getSkillTemplate().isPassive())
+                effect.setActionObserver(observer, position);
         } else {
             effect.addToEffectedController();
         }
@@ -79,6 +87,11 @@ public abstract class BufEffect extends EffectTemplate {
         Creature effected = effect.getEffected();
         int skillId = effect.getSkillId();
         effected.getGameStats().endEffect(SkillEffectId.getInstance(skillId, effectid, position));
+        
+        //remove observer for non passive skill
+        if (effect.getSkillTemplate().isPassive())
+            return;
+
         ActionObserver observer = effect.getActionObserver(position);
         if (observer != null)
             effect.getEffected().getObserveController().removeObserver(observer);
@@ -122,6 +135,11 @@ public abstract class BufEffect extends EffectTemplate {
             if (effect.getEffected() instanceof Player) {
                 Player player = (Player) effect.getEffected();
                 PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
+            }
+            else if(effect.getEffected() instanceof Summon)
+            {
+                Summon s = (Summon)effect.getEffected();
+                PacketSendUtility.sendPacket(s.getMaster(), new SM_SUMMON_UPDATE(s));
             }
         }
     }

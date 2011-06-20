@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum TransformType {
     AVATAR,
+    PC_INSTANCE,
     PC,
     NONE
 }

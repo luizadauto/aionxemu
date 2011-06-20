@@ -91,9 +91,4 @@ public class OneTimeBoostSkillAttackEffect extends BufEffect {
         AttackCalcObserver observer = effect.getAttackStatusObserver(position);
         effect.getEffected().getObserveController().removeAttackCalcObserver(observer);
     }
-
-    @Override
-    public void calculate(Effect effect) {
-        super.calculate(effect);
-    }
 }

@@ -23,7 +23,9 @@ import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.skill.model.Skill;
 import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
+
 import org.apache.log4j.Logger;
+import gameserver.geo.GeoEngine;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -51,7 +53,14 @@ public class FirstTargetRangeProperty extends Property {
 
         Creature effector = skill.getEffector();
         Creature firstTarget = skill.getFirstTarget();
-        if (firstTarget == null)
+        if(firstTarget == null && skill.getTargetType() == 1)//point skill
+        {
+            if (MathUtil.getDistance(skill.getEffector(), skill.getX(), skill.getY(), skill.getZ()) <= value)
+                return true;
+            else
+                return false;
+        }
+        else if (firstTarget == null)
             return false;
 
         if (firstTarget.getPosition().getMapId() == 0)
@@ -60,24 +69,27 @@ public class FirstTargetRangeProperty extends Property {
         float distance = (float) value;
 
         //addweaponrange
-        if (skill.getSkillTemplate().getInitproperties() != null) {
-            for (Property prop : skill.getSkillTemplate().getInitproperties().getProperties()) {
-                if (prop instanceof AddWeaponRangeProperty)
-                    distance += (float) skill.getEffector().getGameStats().getCurrentStat(StatEnum.ATTACK_RANGE) / 1000;
-            }
-        }
+        if (skill.getAddWeaponRangeProperty())
+            distance += (float)skill.getEffector().getGameStats().getCurrentStat(StatEnum.ATTACK_RANGE) / 1000f;
+
         //tolerance
-        distance += 1.5;
+        distance += 3.0;
 
         //testing new firsttargetrangeproperty
-        if ((float) (MathUtil.getDistance(effector, firstTarget)) <= distance) {
-            return true;
-        } else {
-            if (effector instanceof Player) {
+        if (!MathUtil.isIn3dRange(effector, firstTarget, distance))
+        {
+            if (effector instanceof Player)
                 PacketSendUtility.sendPacket((Player) effector, SM_SYSTEM_MESSAGE.STR_ATTACK_TOO_FAR_FROM_TARGET());
-            }
             return false;
         }
+
+        if (!GeoEngine.getInstance().canSee(effector, firstTarget))
+        {
+            if (effector instanceof Player)
+                PacketSendUtility.sendPacket((Player) effector, SM_SYSTEM_MESSAGE.STR_SKILL_OBSTACLE);
+            return false;
+        }
+        return true;
     }
 
     public int getValue() {

@@ -16,6 +16,7 @@
  */
 package gameserver.skill.effect;
 
+import gameserver.skill.model.DispelCategoryType;
 import gameserver.skill.model.Effect;
 import gameserver.skill.model.SkillTargetSlot;
 
@@ -35,11 +36,6 @@ public class DispelBuffEffect extends EffectTemplate {
 
     @Override
     public void applyEffect(Effect effect) {
-        effect.getEffected().getEffectController().removeEffectByTargetSlot(SkillTargetSlot.BUFF, count);
-    }
-
-    @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
+        effect.getEffected().getEffectController().removeEffectByDispelCat(DispelCategoryType.BUFF, SkillTargetSlot.BUFF , count);
     }
 }

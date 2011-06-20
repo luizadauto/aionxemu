@@ -39,9 +39,9 @@ public class ParalyzeEffect extends EffectTemplate {
     }
 
     @Override
-    public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.PARALYZE_RESISTANCE))
-            effect.addSucessEffect(this);
+    public void calculate(Effect effect)
+    {
+        super.calculate(effect, StatEnum.PARALYZE_RESISTANCE, null);
     }
 
     @Override

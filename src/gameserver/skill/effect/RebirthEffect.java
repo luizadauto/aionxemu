@@ -37,11 +37,6 @@ public class RebirthEffect extends EffectTemplate {
         effect.addToEffectedController();
     }
 
-    @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
-
     public int getResurrectPercent() {
         return resurrectPercent;
     }

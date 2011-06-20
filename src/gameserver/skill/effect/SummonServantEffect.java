@@ -43,7 +43,7 @@ public class SummonServantEffect extends SummonEffect {
     @XmlAttribute(name = "skill_id", required = true)
     protected int skillId;
     @XmlAttribute(name = "hp_ratio", required = true)
-    protected int hpRatio;
+    protected float hpRatio;
     @XmlAttribute(name = "count", required = false)
     protected int count;
 

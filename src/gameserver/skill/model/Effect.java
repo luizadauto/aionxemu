@@ -16,22 +16,37 @@
  */
 package gameserver.skill.model;
 
+import org.apache.log4j.Logger;
 import com.aionemu.commons.utils.Rnd;
 import gameserver.controllers.attack.AttackStatus;
 import gameserver.controllers.movement.ActionObserver;
 import gameserver.controllers.movement.AttackCalcObserver;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.player.Player;
-import gameserver.model.gameobjects.stats.listeners.ItemEquipmentListener;
 import gameserver.model.templates.item.ItemTemplate;
-import gameserver.model.templates.item.WeaponType;
 import gameserver.network.aion.serverpackets.SM_SKILL_ACTIVATION;
-import gameserver.skill.effect.*;
+import gameserver.skill.action.DamageType;
+import gameserver.skill.effect.DamageEffect;
+import gameserver.skill.effect.DelayDamageEffect;
+import gameserver.skill.effect.EffectId;
+import gameserver.skill.effect.EffectTemplate;
+import gameserver.skill.effect.Effects;
+import gameserver.skill.effect.MpHealEffect;
+import gameserver.skill.effect.PulledEffect;
+import gameserver.skill.effect.SimpleRootEffect;
+import gameserver.skill.effect.SkillLauncherEffect;
+import gameserver.skill.effect.TransformEffect;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
+
+import javolution.util.FastMap;
+
 
 /**
  * @author ATracer
@@ -50,6 +65,12 @@ public class Effect {
     private Future<?> mpUseTask = null;
     private Future<?> hpUseTask = null;
 
+    private boolean isDmgEffect = false;
+    private boolean isDelayDamage = false;
+    private boolean isMpHeal = false;
+    private boolean isPulledEffect = false;
+    private boolean isSimpleRootEffect = false;
+
     /**
      * Used for damage/heal values
      */
@@ -62,6 +83,11 @@ public class Effect {
      * Used for shield hit damage
      */
     private int reserved3;
+    /**
+     * Used for damage over time
+     * totaly custom doesnt fit client_skills
+     */
+    private int reserved4;
 
     /**
      * Spell Status
@@ -79,9 +105,16 @@ public class Effect {
     private SpellStatus spellStatus = SpellStatus.NONE;
 
     private AttackStatus attackStatus = AttackStatus.NORMALHIT;
-    private int shieldDefense;
+
+    /**
+     * 1 : reflector
+     * 2 : normal shield
+     * 4 : protect
+     */  
+    private int shieldType;
 
     private boolean addedToController;
+    private boolean forbidAdding = false;
     private AttackCalcObserver[] attackStatusObserver;
 
     private AttackCalcObserver[] attackShieldObserver;
@@ -102,7 +135,7 @@ public class Effect {
      */
     private int effectHate;
 
-    private Collection<EffectTemplate> sucessEffects = Collections.synchronizedList(new ArrayList<EffectTemplate>());
+    private Map<Integer,EffectTemplate> sucessEffects = Collections.synchronizedMap(new FastMap<Integer,EffectTemplate>());
 
     protected int abnormals;
 
@@ -110,6 +143,39 @@ public class Effect {
      * Action observer that should be removed after effect end
      */
     private ActionObserver[] actionObserver;
+
+    private int signetBursted = 0;
+    private int carvedSignet = 0;
+    
+    private int reflectedDamage = 0;
+    private int reflectorSkillId = 0;
+
+    /**
+     * coordinates for point skills or dashtype skills
+     */
+    private float x;
+    private float y;
+    private float z;
+    
+    private DashParam dashType = null;
+    
+    /**
+     * healvalues
+     */
+    private int healValue;
+    private int mpValue;
+    private int hotValue;
+    private int motValue;
+    
+    /**
+     * DamageType of skill
+     */
+    private DamageType damageType = DamageType.MAGICAL;
+    
+    private float criticalProb = 1.0f; 
+    
+    //custom boost for signetbursteffect
+    private int accModBoost = 0;
 
     /**
      * ABNORMAL EFFECTS
@@ -121,6 +187,17 @@ public class Effect {
 
     public int getAbnormals() {
         return abnormals;
+    }
+
+    /**
+     *  Used for checking unique abnormal states
+     *  
+     * @param effectId
+     * @return
+     */
+    public boolean isAbnormalSet(EffectId effectId)
+    {
+        return (abnormals & effectId.getEffectId()) == effectId.getEffectId();
     }
 
     public Effect(Creature effector, Creature effected, SkillTemplate skillTemplate, int skillLevel, int duration) {
@@ -148,6 +225,14 @@ public class Effect {
      */
     public int getSkillId() {
         return skillTemplate.getSkillId();
+    }
+
+    /**
+     * @return the SkillTemplate
+     */
+    public SkillTemplate getSkillTemplate()
+    {
+        return skillTemplate;
     }
 
     /**
@@ -315,6 +400,22 @@ public class Effect {
     }
 
     /**
+     * @return the reserved3
+     */
+    public int getReserved4()
+    {
+        return reserved4;
+    }
+
+    /**
+     * @param reserved3 the reserved3 to set
+     */
+    public void setReserved4(int reserved4)
+    {
+        this.reserved4 = reserved4;
+    }
+
+    /**
      * @return the attackStatus
      */
     public AttackStatus getAttackStatus() {
@@ -358,6 +459,11 @@ public class Effect {
 
     public int getTargetSlotLevel() {
         return skillTemplate.getTargetSlotLevel();
+    }
+
+    public DispelCategoryType getDispelCat()
+    {
+        return skillTemplate.getDispelCategory();
     }
 
     /**
@@ -414,15 +520,17 @@ public class Effect {
     /**
      * @return the shieldDefense
      */
-    public int getShieldDefense() {
-        return shieldDefense;
+    public int getShieldType()
+    {
+        return shieldType;
     }
 
     /**
-     * @param shieldDefense the shieldDefense to set
+     * @param set shielddefense
      */
-    public void setShieldDefense(int shieldDefense) {
-        this.shieldDefense = shieldDefense;
+    public void setShieldType(int value)
+    {
+        this.shieldType|= value;
     }
 
     /**
@@ -459,7 +567,7 @@ public class Effect {
      */
     public boolean containsEffectId(int effectId) {
         synchronized (sucessEffects) {
-            for (EffectTemplate template : sucessEffects) {
+            for (EffectTemplate template : sucessEffects.values()) {
                 if (template.getEffectid() == effectId)
                     return true;
             }
@@ -476,61 +584,80 @@ public class Effect {
      *  - END
      */
 
-
     /**
      * Do initialization with proper calculations
      */
-    public void initialize() {
-        if (skillTemplate.getEffects() == null)
+    public void initialize()
+    {
+        if(skillTemplate.getEffects() == null)
             return;
 
-        boolean isDmgEffect = false;
-        EffectTemplate moveBehindEffect = null;
-
-        for (EffectTemplate template : getEffectTemplates()) {
+        for(EffectTemplate template : getEffectTemplates())
+        {
             template.calculate(this);
-            if (template instanceof DamageEffect && !(template instanceof DamageOverTimeEffect)) {
+            
+            if (template instanceof DamageEffect)
                 isDmgEffect = true;
-            }
-            if (template instanceof MoveBehindEffect) {
-                moveBehindEffect = template;
-            }
+            if (template instanceof DelayDamageEffect)
+                isDelayDamage = true;
+            if (template instanceof MpHealEffect)
+                isMpHeal = true;
+            if (template instanceof PulledEffect)
+                isPulledEffect = true;
+            if (template instanceof SimpleRootEffect)
+                isSimpleRootEffect = true;
         }
 
-        synchronized (sucessEffects) {
-            for (EffectTemplate template : sucessEffects) {
+        synchronized (sucessEffects)
+        {
+            for(EffectTemplate template : sucessEffects.values())
+            {
                 template.calculateSubEffect(this);
                 template.calculateHate(this);
             }
         }
-
-        if (isDmgEffect) {
-            if (getAttackStatus() == AttackStatus.RESIST || getAttackStatus() == AttackStatus.DODGE) {
-                sucessEffects.clear();
-                if (moveBehindEffect != null) {
-                    sucessEffects.add(moveBehindEffect);
-                }
-                return;
-            } else {
-                if (sucessEffects.size() != getEffectTemplates().size()) {
-                    synchronized (sucessEffects) {
-                        for (Iterator<EffectTemplate> it = sucessEffects.iterator(); it.hasNext();) {
-                            EffectTemplate template = it.next();
-
-                            if (template instanceof DamageEffect && !(template instanceof DamageOverTimeEffect))
-                                continue;
-
-                            it.remove();
-                        }
-                    }
-                }
+        
+        if (sucessEffects.isEmpty())
+        {
+            if (getSkillType() == SkillType.PHYSICAL)
+            {
+                if (getAttackStatus() == AttackStatus.CRITICAL)    
+                    setAttackStatus(AttackStatus.CRITICAL_DODGE);
+                else
+                    setAttackStatus(AttackStatus.DODGE);
             }
-        } else if (sucessEffects.size() != getEffectTemplates().size()) {
-            sucessEffects.clear();
-            if (getSkillType() == SkillType.MAGICAL)
-                setAttackStatus(AttackStatus.RESIST);
             else
-                setAttackStatus(AttackStatus.DODGE);
+            {
+                if (getAttackStatus() == AttackStatus.CRITICAL)    
+                    setAttackStatus(AttackStatus.CRITICAL_RESIST);
+                else
+                    setAttackStatus(AttackStatus.RESIST);
+            }
+            
+            this.setReserved1(0);
+        }
+        
+        //set spellstatus for sm_castspell_end packet
+        switch(getAttackStatus())
+        {
+            case DODGE:
+            case CRITICAL_DODGE:
+                setSpellStatus(SpellStatus.DODGE);
+                break;
+            case PARRY:
+            case CRITICAL_PARRY:
+                if (getSpellStatus() == SpellStatus.NONE)
+                    setSpellStatus(SpellStatus.PARRY);
+                break;
+            case BLOCK:
+            case CRITICAL_BLOCK:
+                if (getSpellStatus() == SpellStatus.NONE)
+                    setSpellStatus(SpellStatus.BLOCK);
+                break;
+            case RESIST:
+            case CRITICAL_RESIST:
+                setSpellStatus(SpellStatus.RESIST);
+                break;
         }
     }
 
@@ -542,7 +669,7 @@ public class Effect {
             return;
 
         synchronized (sucessEffects) {
-            for (EffectTemplate template : sucessEffects) {
+            for (EffectTemplate template : sucessEffects.values()) {
                 template.applyEffect(this);
                 template.startSubEffect(this);
             }
@@ -551,8 +678,11 @@ public class Effect {
         /**
          * broadcast final hate to all visible objects
          */
-        if (effectHate != 0)
+        if (effectHate != 0) {
+            if (getEffected() != null && effector.isEnemy(getEffected()) && !this.isDelayDamage())
+                getEffected().getAggroList().addHate(effector, 1);
             effector.getController().broadcastHate(effectHate);
+        }
     }
 
     /**
@@ -569,7 +699,7 @@ public class Effect {
             return;
 
         synchronized (sucessEffects) {
-            for (EffectTemplate template : sucessEffects) {
+            for (EffectTemplate template : sucessEffects.values()) {
                 template.startEffect(this);
             }
         }
@@ -610,26 +740,36 @@ public class Effect {
         PacketSendUtility.sendPacket((Player) effector, new SM_SKILL_ACTIVATION(getSkillId(), false));
     }
 
+    
     /**
      * End effect and all effect actions
      * This method is synchronized and prevented to be called several times
      * which could cause unexpected behavior
      */
-    public synchronized void endEffect() {
-        if (isStopped)
+    public synchronized void endEffect()
+    {
+        if(isStopped)
             return;
 
-        synchronized (sucessEffects) {
-            for (EffectTemplate template : sucessEffects) {
+        if (sucessEffects == null)
+        {
+            Logger.getLogger(this.getClass()).warn("sucessEffects null for skillId: "+this.getSkillId());
+            return;
+        }
+        synchronized (sucessEffects)
+        {
+            for(EffectTemplate template : sucessEffects.values())
+            {
                 template.endEffect(this);
             }
         }
-
-        if (isToggle() && effector instanceof Player) {
+        
+        if(isToggle() && effector instanceof Player)
+        {
             deactivateToggleSkill();
         }
         stopTasks();
-        effected.getEffectController().clearEffect(this);
+        effected.getEffectController().clearEffect(this);    
         this.isStopped = true;
         this.addedToController = false;
 
@@ -658,11 +798,17 @@ public class Effect {
                     periodicTask = null;
                 }
             }
+            this.periodicTasks = null;
         }
 
         if (mpUseTask != null) {
             mpUseTask.cancel(true);
             mpUseTask = null;
+        }
+
+        if (hpUseTask != null) {
+            hpUseTask.cancel(true);
+            hpUseTask = null;
         }
 
         if (hpUseTask != null) {
@@ -706,11 +852,25 @@ public class Effect {
     /**
      * Try to add this effect to effected controller
      */
-    public void addToEffectedController() {
-        if (!addedToController && effected != null && effected.getEffectController() != null) {
+    public void addToEffectedController()
+    {
+        if (forbidAdding)
+            return;
+        if(!addedToController && effected != null && effected.getEffectController() != null)
+        {
             effected.getEffectController().addEffect(this);
             addedToController = true;
         }
+    }
+
+    public void setForbidAdding(boolean bol)
+    {
+        this.forbidAdding = bol;
+    }
+
+    public void setAddedToController(boolean bol)
+    {
+        this.addedToController = bol;
     }
 
     /**
@@ -746,8 +906,8 @@ public class Effect {
      * @return actionObserver for this effect template
      */
     public ActionObserver getActionObserver(int i) {
-	if (actionObserver == null)
-		return null;
+        if(actionObserver == null || actionObserver[i-1] == null)
+            return null;
         return actionObserver[i - 1];
     }
 
@@ -760,28 +920,44 @@ public class Effect {
         actionObserver[i - 1] = observer;
     }
 
-    public void addSucessEffect(EffectTemplate effect) {
-        sucessEffects.add(effect);
+    public void addSucessEffect(EffectTemplate effect)
+    {
+        sucessEffects.put(effect.getPosition(), effect);
+    }
+
+    public boolean isInSuccessEffects(int position)
+    {
+        if (sucessEffects.get(position) != null)
+            return true;
+        
+        return false;
     }
 
     /**
      * @return
      */
     public Collection<EffectTemplate> getSuccessEffect() {
-        return sucessEffects;
+        return sucessEffects.values();
     }
 
-    public void addAllEffectToSucess() {
-        for (EffectTemplate template : getEffectTemplates()) {
-            sucessEffects.add(template);
+    public void clearSucessEffects()
+    {
+        this.sucessEffects.clear();
+    }
+
+    public void addAllEffectToSucess()
+    {
+        for(EffectTemplate template : getEffectTemplates())
+        {
+            sucessEffects.put(template.getPosition(), template);
         }
     }
-
+  
     public int getEffectsDuration() {
         int duration = 0;
 
         synchronized (sucessEffects) {
-            for (EffectTemplate template : sucessEffects) {
+            for (EffectTemplate template : sucessEffects.values()) {
                 int effectDuration = template.getDuration();
                 if (template.getRandomTime() > 0)
                     effectDuration -= Rnd.get(template.getRandomTime());
@@ -791,6 +967,27 @@ public class Effect {
         if (effected instanceof Player && skillTemplate.getPvpDuration() != 0)
             duration = duration * skillTemplate.getPvpDuration() / 100;
         return duration;
+    }
+
+    public boolean isDmgEffect()
+    {
+        return this.isDmgEffect;
+    }
+    public boolean isDelayDamage()
+    {
+        return isDelayDamage;
+    }
+    public boolean isMpHeal()
+    {
+        return isMpHeal;
+    }
+    public boolean isPulledEffect()
+    {
+        return isPulledEffect;
+    }
+    public boolean isSimpleRootEffect()
+    {
+        return isSimpleRootEffect;
     }
 
     public boolean isStance() {
@@ -819,6 +1016,151 @@ public class Effect {
                 return ((SkillLauncherEffect) et).getLaunchSkillId();
         }
         return 0;
+    }
+
+    /**
+     * coordinates for point skills
+     * @return
+     */
+    public float getX()
+    {
+        return this.x;
+    }
+    public void setX(float x)
+    {
+        this.x = x;
+    }
+    public float getY()
+    {
+        return this.y;
+    }
+    public void setY(float y)
+    {
+        this.y = y;
+    }
+    public float getZ()
+    {
+        return this.z;
+    }
+    public void setZ(float z)
+    {
+        this.z = z;
+    }
+    public int getHealValue()
+    {
+        return this.healValue;
+    }
+    public void setHealValue(int healValue)
+    {
+        this.healValue = healValue;
+    }
+    public int getMpValue()
+    {
+        return this.mpValue;
+    }
+    public void setMpValue(int mpValue)
+    {
+        this.mpValue = mpValue;
+    }
+    public int gethotValue()
+    {
+        return this.hotValue;
+    }
+    public void sethotValue(int hotValue)
+    {
+        this.hotValue = hotValue;
+    }
+    public int getmotValue()
+    {
+        return this.motValue;
+    }
+    public void setmotValue(int motValue)
+    {
+        this.motValue = motValue;
+    }
+    
+    /**
+     * Number of signets bursted with SignetBurstEffect
+     * @return
+     */
+    public int getSignetBursted()
+    {
+        return this.signetBursted;
+    }
+    public void setSignetBursted(int value)
+    {
+        this.signetBursted = value;
+    }
+    /**
+     * Number of signets carved on target
+     * @return
+     */
+    public int getCarvedSignet()
+    {
+        return this.carvedSignet;
+    }
+    public void setCarvedSignet(int value)
+    {
+        this.carvedSignet = value;
+    }
+    
+    /**
+     * reflected damage
+     * @return
+     */
+    public int getReflectorDamage()
+    {
+        return this.reflectedDamage;
+    }
+    public void setReflectorDamage(int value)
+    {
+        this.reflectedDamage = value;
+    }
+    public int getReflectorSkillId()
+    {
+        return this.reflectorSkillId;
+    }
+    public void setReflectorSkillId(int value)
+    {
+        this.reflectorSkillId = value;
+    }
+    
+    
+    public DamageType getDamageType()
+    {
+        return this.damageType;
+    }
+    public void setDamageType(DamageType damageType)
+    {
+        this.damageType = damageType;
+    }
+    /**
+     * adjust chance to crit
+     * @return
+     */
+    public float getCriticalProb()
+    {
+        return this.criticalProb;
+    }
+    public void setCriticalProb(float criticalProb)
+    {
+        this.criticalProb = criticalProb;
+    }
+    public int getAccModBoost()
+    {
+        return this.accModBoost;
+    }
+    public void setAccModBoost(int accModBoost)
+    {
+        this.accModBoost = accModBoost;
+    }
+    public void setDashParam(DashParam dashParam)
+    {
+        this.dashType = dashParam;
+    }
+    public DashParam getDashParam()
+    {
+        return this.dashType;
     }
 
     /**

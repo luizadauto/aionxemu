@@ -43,14 +43,14 @@ public class BindEffect extends EffectTemplate {
     @Override
     public void startEffect(Effect effect) {
         final Creature effected = effect.getEffected();
-        effect.setAbnormal(EffectId.BLOCKADE.getEffectId());
-        effected.getEffectController().setAbnormal(EffectId.BLOCKADE.getEffectId());
+        effect.setAbnormal(EffectId.BIND.getEffectId());
+        effected.getEffectController().setAbnormal(EffectId.BIND.getEffectId());
         if (effected.getCastingSkill() != null && effected.getCastingSkill().getSkillTemplate().getType() == SkillType.PHYSICAL)
             effected.getController().cancelCurrentSkill();
     }
 
     @Override
     public void endEffect(Effect effect) {
-        effect.getEffected().getEffectController().unsetAbnormal(EffectId.BLOCKADE.getEffectId());
+        effect.getEffected().getEffectController().unsetAbnormal(EffectId.BIND.getEffectId());
     }
 }

@@ -33,9 +33,4 @@ public class SignetEffect extends EffectTemplate {
     public void applyEffect(Effect effect) {
         effect.addToEffectedController();
     }
-
-    @Override
-    public void calculate(Effect effect) {
-        effect.addSucessEffect(this);
-    }
 }

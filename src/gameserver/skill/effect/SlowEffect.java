@@ -37,8 +37,7 @@ public class SlowEffect extends BufEffect {
 
     @Override
     public void calculate(Effect effect) {
-        if (calculateEffectResistRate(effect, StatEnum.MAGICAL_RESIST) && calculateEffectResistRate(effect, StatEnum.SLOW_RESISTANCE))
-            effect.addSucessEffect(this);
+        super.calculate(effect, StatEnum.SLOW_RESISTANCE, null);
     }
 
     @Override

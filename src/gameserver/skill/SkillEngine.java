@@ -20,6 +20,7 @@ import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.templates.item.ItemTemplate;
 import gameserver.skill.model.ActivationAttribute;
 import gameserver.skill.model.Skill;
 import gameserver.skill.model.SkillTemplate;
@@ -65,14 +66,20 @@ public class SkillEngine {
     }
 
     /**
-     * This method is used for not learned skills (item skills etc)
-     *
+     *  This method is used for not learned skills (item skills etc)
+     *  
      * @param creature
      * @param skillId
      * @param skillLevel
      * @return Skill
      */
-    public Skill getSkill(Creature creature, int skillId, int skillLevel, VisibleObject firstTarget) {
+    public Skill getSkill(Creature creature, int skillId, int skillLevel, VisibleObject firstTarget)
+    {
+        return this.getSkill(creature, skillId, skillLevel, firstTarget, null);
+    }
+    
+    public Skill getSkill(Creature creature, int skillId, int skillLevel, VisibleObject firstTarget, ItemTemplate itemTemplate)
+    {
         SkillTemplate template = DataManager.SKILL_DATA.getSkillTemplate(skillId);
 
         if (template == null)
@@ -81,7 +88,7 @@ public class SkillEngine {
         Creature target = null;
         if (firstTarget instanceof Creature)
             target = (Creature) firstTarget;
-        return new Skill(template, creature, skillLevel, target);
+        return new Skill(template, creature, skillLevel, target, itemTemplate);
     }
 
     public static SkillEngine getInstance()
