@@ -149,9 +149,10 @@ public class SummonController extends CreatureController<Summon> {
     }
 
     private void checkCurrentHp() {
-        if (!getOwner().getLifeStats().isFullyRestoredHp()) && !this.hasTask(TaskId.RESTORE))
+        if (!getOwner().getLifeStats().isFullyRestoredHp() && !this.hasTask(TaskId.RESTORE)) {
             getOwner().getController().addNewTask(TaskId.RESTORE,
-                    LifeStatsRestoreService.getInstance().scheduleHpRestoreTask(getOwner().getLifeStats()));
+                LifeStatsRestoreService.getInstance().scheduleHpRestoreTask(getOwner().getLifeStats()));
+        }
     }
 
     /**

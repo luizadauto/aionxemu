@@ -76,9 +76,7 @@ import gameserver.restrictions.RestrictionsManager;
 import gameserver.services.AllianceService;
 import gameserver.services.ArenaService;
 import gameserver.services.ClassChangeService;
-import gameserver.services.DredgionInstanceService;
 import gameserver.services.DuelService;
-import gameserver.services.InstanceService;
 import gameserver.services.ItemService;
 import gameserver.services.LegionService;
 import gameserver.services.NpcShoutsService;
@@ -88,6 +86,8 @@ import gameserver.services.SkillLearnService;
 import gameserver.services.ToyPetService;
 import gameserver.services.ZoneService;
 import gameserver.services.ZoneService.ZoneUpdateMode;
+import gameserver.services.instance.InstanceService;
+import gameserver.services.instance.DredgionInstanceService;
 import gameserver.skill.SkillEngine;
 import gameserver.skill.model.Effect;
 import gameserver.skill.model.HealType;
@@ -263,7 +263,17 @@ public class PlayerController extends CreatureController<Player> {
      */
     public void onEnterZone(ZoneInstance zoneInstance)
     {
+        addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
         QuestEngine.getInstance().onEnterZone(new QuestCookie(null, this.getOwner(), 0, 0), zoneInstance.getTemplate().getName());
+        
+        Player player = getOwner();
+        ZoneInstance currentZone = player.getZoneInstance();
+        if(currentZone != null && GSConfig.FREEFLY == true) {
+            currentZone.isFlightAllowed();
+        }
+        if(currentZone != null && !currentZone.isFlightAllowed() && player.getAccessLevel() < AdminConfig.GM_FLIGHT_FREE) {
+            checkNoFly(player);
+        }
     }
 
     /**
@@ -760,26 +770,6 @@ public class PlayerController extends CreatureController<Player> {
         player.setFlightDistance(0);
         player.setState(CreatureState.ACTIVE);
         addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
-    }
-
-    public void onEnterZone(ZoneInstance zoneInstance)
-    {
-        addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
-        QuestEngine.getInstance().onEnterZone(new QuestCookie(null, this.getOwner(), 0, 0), zoneInstance.getTemplate().getName());
-        
-        Player player = getOwner();
-        ZoneInstance currentZone = player.getZoneInstance();
-        if(currentZone != null && GSConfig.FREEFLY == true) {
-            currentZone.isFlightAllowed();
-        }
-        if(currentZone != null && !currentZone.isFlightAllowed() && player.getAccessLevel() < AdminConfig.GM_FLIGHT_FREE) {
-            checkNoFly(player);
-        }
-    }
-
-    public void onLeaveZone(ZoneInstance zoneInstance)
-    {
-        
     }
 
     public void checkNoFly(final Player player)	

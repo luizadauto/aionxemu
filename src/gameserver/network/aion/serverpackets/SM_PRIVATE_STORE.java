@@ -77,5 +77,6 @@ public class SM_PRIVATE_STORE extends InventoryPacket {
             {
                 writeGeneralItemInfo(buf, item);
             }
+        }
     }
 }

@@ -34,7 +34,7 @@ public enum Gender {
     /**
      * Females
      */
-    FEMALE(1);
+    FEMALE(1),
     /**
      * Males & Females
      */

@@ -45,9 +45,13 @@ import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import gameserver.restrictions.RestrictionsManager;
 import gameserver.skill.SkillEngine;
 import gameserver.skill.action.DamageType;
+import gameserver.skill.model.AttackType;
+import gameserver.skill.model.Effect;
+import gameserver.skill.model.HealType;
 import gameserver.skill.model.Skill;
 import gameserver.skill.model.SkillSubType;
 import gameserver.skill.model.SkillType;
+
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
 import gameserver.world.World;

@@ -303,16 +303,6 @@ public class AionConnection extends AConnection {
     }
 
     /**
-     * Sends AionServerPacketSeq to this client.
-     *
-     * @param bps AionServerPacketSeq to be sent.
-     */
-    public final void sendPacketSeq(AionServerPacketSeq bps) {
-        for (AionServerPacket bp : bps.getPacketSeq())
-            sendPacket(bp);
-    }
-
-    /**
      * Its guaranted that closePacket will be sent before closing connection, but all past and future packets wont.
      * Connection will be closed [by Dispatcher Thread], and onDisconnect() method will be called to clear all other
      * things. forced means that server shouldn't wait with removing this connection.

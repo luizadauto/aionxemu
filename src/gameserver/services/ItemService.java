@@ -405,95 +405,94 @@ public class ItemService {
             }
         }
 
-            /**
-             * Increase count of existing items
-             */
-            List<Item> existingItems = inventory.getAllItemsByItemId(itemId); // look for existing in equipment. need for power shards.
-            for (Item existingItem : existingItems) {
-                if (count == 0)
-                    break;
-                long freeCount = maxStackCount - existingItem.getItemCount();
-                if (count <= freeCount) {
-                    inventory.increaseItemCount(existingItem, count);
-                    count = 0;
-                }
-                else
-                {
-                    inventory.increaseItemCount(existingItem, freeCount);
-                    count -= freeCount;
-                }
-
-                TIntArrayList questIds = QuestEngine.getInstance().getQuestsForCollectItem(itemId);
-
-                if(questIds != null && questIds.size() != 0)
-                {
-                    for(int index = 0; index < questIds.size(); index++)
-                    {
-                        int questId = questIds.get(index);
-                        QuestState qs = player.getQuestStateList().getQuestState(questId);
-                        if(qs != null && qs.getStatus() == QuestStatus.START && collected(player, questId, itemId))
-                            sendUpdateItemPacket(player, 0, existingItem);
-                        else
-                            updateItem(player, existingItem, false);
-                    }
-                }
-                else
-                    updateItem(player, existingItem, false);
+        /**
+         * Increase count of existing items
+         */
+        List<Item> existingItems = inventory.getAllItemsByItemId(itemId); // look for existing in equipment. need for power shards.
+        for (Item existingItem : existingItems) {
+            if (count == 0)
+                break;
+            long freeCount = maxStackCount - existingItem.getItemCount();
+            if (count <= freeCount) {
+                inventory.increaseItemCount(existingItem, count);
+                count = 0;
             }
-
-            /**
-             * Create new stacks
-             */
-            while (!inventory.isFull() && count > 0) {
-                // item count still more than maxStack value
-                if (count > maxStackCount) {
-                    Item item = newItem(itemId, maxStackCount, crafterName, player.getObjectId(), tempItemTime, tempTradeTime);
-                    count -= maxStackCount;
-                    inventory.putToBag(item);
-                    updateItem(player, item, true);
-                } else {
-                    Item item = newItem(itemId, count, crafterName, player.getObjectId(), tempItemTime, tempTradeTime);
-
-
-                    //add item stones if available
-                    //1. manastones
-                    if (manastones != null) {
-                        for (ManaStone manaStone : manastones) {
-                            addManaStone(item, manaStone.getItemId());
-                        }
-                    }
-                    //2. godstone
-                    if (godStone != null) {
-                        item.addGodStone(godStone.getItemId());
-                    }
-                    //3. enchantLevel
-                    if (enchantLevel > 0) {
-                        item.setEnchantLevel(enchantLevel);
-                    }
-                    inventory.putToBag(item);
-                    updateItem(player, item, true);
-                    count = 0;
-                }
-            }
-
-            if (inventory.isFull() && count > 0) {
-                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DICE_INVEN_ERROR);
-            }
-            else if (count == 0)
+            else
             {
-                // Now put shards
-                for (Map.Entry<Long, Item> shardPair : equipShards.entrySet())
+                inventory.increaseItemCount(existingItem, freeCount);
+                count -= freeCount;
+            }
+
+            TIntArrayList questIds = QuestEngine.getInstance().getQuestsForCollectItem(itemId);
+
+            if(questIds != null && questIds.size() != 0)
+            {
+                for(int index = 0; index < questIds.size(); index++)
                 {
-                    Item shard = shardPair.getValue();
-                    shard.setItemCount(shardPair.getKey() + shard.getItemCount());
-                    updateItem(player, shard, false);
-                    player.getEquipment().setPersistentState(PersistentState.UPDATE_REQUIRED);
+                    int questId = questIds.get(index);
+                    QuestState qs = player.getQuestStateList().getQuestState(questId);
+                    if(qs != null && qs.getStatus() == QuestStatus.START && collected(player, questId, itemId))
+                        sendUpdateItemPacket(player, 0, existingItem);
+                    else
+                        updateItem(player, existingItem, false);
                 }
             }
-            equipShards = null;
-
-            return count;
+            else
+                updateItem(player, existingItem, false);
         }
+
+        /**
+         * Create new stacks
+         */
+        while (!inventory.isFull() && count > 0) {
+            // item count still more than maxStack value
+            if (count > maxStackCount) {
+                Item item = newItem(itemId, maxStackCount, crafterName, player.getObjectId(), tempItemTime, tempTradeTime);
+                count -= maxStackCount;
+                inventory.putToBag(item);
+                updateItem(player, item, true);
+            } else {
+                Item item = newItem(itemId, count, crafterName, player.getObjectId(), tempItemTime, tempTradeTime);
+
+
+                //add item stones if available
+                //1. manastones
+                if (manastones != null) {
+                    for (ManaStone manaStone : manastones) {
+                        addManaStone(item, manaStone.getItemId());
+                    }
+                }
+                //2. godstone
+                if (godStone != null) {
+                    item.addGodStone(godStone.getItemId());
+                }
+                //3. enchantLevel
+                if (enchantLevel > 0) {
+                    item.setEnchantLevel(enchantLevel);
+                }
+                inventory.putToBag(item);
+                updateItem(player, item, true);
+                count = 0;
+            }
+        }
+
+        if (inventory.isFull() && count > 0) {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_DICE_INVEN_ERROR);
+        }
+        else if (count == 0)
+        {
+            // Now put shards
+            for (Map.Entry<Long, Item> shardPair : equipShards.entrySet())
+            {
+                Item shard = shardPair.getValue();
+                shard.setItemCount(shardPair.getKey() + shard.getItemCount());
+                updateItem(player, shard, false);
+                player.getEquipment().setPersistentState(PersistentState.UPDATE_REQUIRED);
+            }
+        }
+        equipShards = null;
+
+        return count;
     }
 
     /**

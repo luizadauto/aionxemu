@@ -106,6 +106,7 @@ public class Equipment {
                         return null;
                     break;
             }
+        }
 
         //gender restriction
         if (itemTemplate.getGenderPermitted() != Gender.ALL && itemTemplate.getGenderPermitted() != owner.getGender())
@@ -413,7 +414,7 @@ public class Equipment {
                 }//no break
             case 1:
                 //check dual skill
-                if (itemInMainHand != null &&  && owner.getSkillList().getDualMasterySkill() == 0) {
+                if (itemInMainHand != null && owner.getSkillList().getDualMasterySkill() == 0) {
                     if (validateOnly) {
                         requiredSlots++;
                         markedFreeSlots.add(ItemSlot.MAIN_HAND.getSlotIdMask());

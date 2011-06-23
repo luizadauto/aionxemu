@@ -196,9 +196,9 @@ public class Npc extends Creature {
      */
     public boolean isGuard() {
         String currentTribe = getTribe();
-        return DataManager.TRIBE_RELATIONS_DATA.isGuardDark(currentTribe)
-            || DataManager.TRIBE_RELATIONS_DATA.isGuardLight(currentTribe);
-            || DataManager.TRIBE_RELATIONS_DATA.isGuardDrakan(currentTribe);
+        return DataManager.TRIBE_RELATIONS_DATA.isGuardDark(currentTribe) ||
+            DataManager.TRIBE_RELATIONS_DATA.isGuardLight(currentTribe) ||
+            DataManager.TRIBE_RELATIONS_DATA.isGuardDrakan(currentTribe);
     }
 
     @Override
@@ -323,7 +323,7 @@ public class Npc extends Creature {
 
     @Override
     public void setKnownlist(KnownList knownList) {
-        if(knownList != null && !(knownList instanceof NpcKnownList))
+        if(knownList != null && !(knownList instanceof NpcKnownList)) {
             throw new RuntimeException("Invalid knownlist " + knownList.getClass().getSimpleName() + " for " + getClass().getSimpleName());
         }
         super.setKnownlist(knownList);

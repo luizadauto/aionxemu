@@ -64,7 +64,6 @@ public class ToyPetSpawnAction extends AbstractItemAction {
             return false;
         }
         if (player.isInInstance()) {
-        {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_CANNOT_REGISTER_BINDSTONE_FAR_FROM_NPC);
             return false;
         }
@@ -78,7 +77,6 @@ public class ToyPetSpawnAction extends AbstractItemAction {
             PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_CANNOT_REGISTER_BINDSTONE_FAR_FROM_NPC);
             return false;
         }
-
         return true;
     }
 

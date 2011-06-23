@@ -55,6 +55,7 @@ import gameserver.skill.properties.Properties;
 import gameserver.skill.properties.Property;
 import gameserver.skill.properties.TargetRangeAttribute;
 import gameserver.skill.properties.TargetRangeProperty;
+import gameserver.skill.properties.TargetRelationAttribute;
 import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
@@ -119,14 +120,11 @@ public class Skill {
     private float y;
     private float z;
 
-    private int changeMpConsumptionValue;
-
     /**
      * Duration that depends on BOOST_CASTING_TIME
      */
     private int duration;
 
-    private boolean    firstTargetRangeCheck = true;
     private boolean addWeaponRangeProperty = false;
     private FirstTargetAttribute firstTargetAttribute;
     private TargetRangeAttribute targetRangeAttribute;
@@ -174,7 +172,7 @@ public class Skill {
      * @param skillLvl
      * @param firstTarget
      */
-    public Skill(SkillTemplate skillTemplate, Creature effector, int skillLvl, Creature firstTarget) {
+    public Skill(SkillTemplate skillTemplate, Creature effector, int skillLvl, Creature firstTarget, ItemTemplate itemTemplate) {
         this.effectedList = new TreeSet<CreatureWithDistance>();
         this.effects = new ArrayList<Effect>();
         this.conditionChangeListener = new StartMovingListener();
@@ -852,33 +850,9 @@ public class Skill {
         return skillTemplate.getActivationAttribute() == ActivationAttribute.PASSIVE;
     }
 
-    /**
-     * @return true if the present skill is a non-targeted, non-point AOE skill
-     */
-    public boolean checkNonTargetAOE()
-    {
-        return (firstTargetAttribute == FirstTargetAttribute.ME
-            && targetRangeAttribute == TargetRangeAttribute.AREA);
-    }
-
-    /**
-    * @param FirstTargetAttributethe firstTargetAttribute to set
-    */
-    public void setFirstTargetProperty(FirstTargetAttribute firstTargetAttribute)
-    {
-        this.firstTargetAttribute = firstTargetAttribute;
-    }
-
     public FirstTargetAttribute getFirstTargetProperty()
     {
         return firstTargetAttribute;
-    }
-    /**
-    * @param targetRangeAttribute the targetRangeAttribute to set
-    */
-    public void setTargetRangeAttribute(TargetRangeAttribute targetRangeAttribute)
-    {
-        this.targetRangeAttribute = targetRangeAttribute;
     }
 
     /**
@@ -1015,13 +989,6 @@ public class Skill {
     public boolean isAreaEnemySkill() {
         return (targetRangeAttribute == TargetRangeAttribute.AREA &&
             targetRelationAttribute == TargetRelationAttribute.ENEMY);
-    }
-
-    /**
-     * @param firstTargetRangeCheck the firstTargetRangeCheck to set
-     */
-    public void setFirstTargetRangeCheck(boolean firstTargetRangeCheck) {
-        this.firstTargetRangeCheck = firstTargetRangeCheck;
     }
 
     /**

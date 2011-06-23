@@ -28,8 +28,8 @@ import gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
 import gameserver.network.aion.serverpackets.SM_PLAYER_INFO;
 import gameserver.network.aion.serverpackets.SM_STATS_INFO;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
-import gameserver.services.DredgionInstanceService;
 import gameserver.services.TeleportService;
+import gameserver.services.instance.DredgionInstanceService;
 import gameserver.skill.SkillEngine;
 import gameserver.skill.effect.EffectTemplate;
 import gameserver.skill.effect.RebirthEffect;
@@ -58,7 +58,7 @@ public class ReviveController {
     /**
      *
      */
-    public void skillRevive(bool cheatCheck) {
+    public void skillRevive(boolean cheatCheck) {
         if ((player.getController().getTask(TaskId.SKILL_RESURRECT) == null || player.getController().getTask(TaskId.SKILL_RESURRECT).isDone()) && cheatCheck)
         {
             Logger.getLogger(this.getClass()).info("[AUDIT]Player "+player.getName()+" sending fake CM_REVIVE: Player wasnt skill resurrected!");

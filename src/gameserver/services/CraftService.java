@@ -158,7 +158,7 @@ public class CraftService {
      * @param recipeId
      * @param targetObjId
      */
-    public static void startCrafting(Player player, int recipeId, int targetObjId)
+    public static void startCrafting(Player player, int recipeId, int targetObjId) {
         if (player.getCraftingTask() != null && player.getCraftingTask().isInProgress())
             return;
 

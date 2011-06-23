@@ -46,8 +46,6 @@ public class CraftingTask extends AbstractCraftTask
 
     public CraftingTask(Player requestor, StaticObject responder, RecipeTemplate recipeTemplate, ItemTemplate itemTemplate)
     {
-        RecipeTemplate recipeTemplate, ItemTemplate itemTemplate,
-            int originalTemplate, int skillLvlDiff, int comboStep) {
         super(requestor, responder, recipeTemplate.getSkillid() == 40009 ? 99999 :requestor.getSkillList().getSkillLevel(recipeTemplate.getSkillid())-recipeTemplate.getSkillpoint());
 
         this.recipeTemplate = recipeTemplate;

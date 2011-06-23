@@ -24,7 +24,9 @@ import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.state.CreatureState;
+import gameserver.skill.action.DamageType;
 import gameserver.skill.model.Skill;
+
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.List;

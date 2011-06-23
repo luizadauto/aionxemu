@@ -162,9 +162,9 @@ public class SpawnTemplate {
     /**
      * @param isResting the isResting to set
      */
-    public void setResting(boolean isResting, int instance)
-    {
+    public void setResting(boolean isResting, int instance) {
         restingState.set(instance, isResting);
+    }
 
     /**
      * @return the isSpawned
@@ -178,7 +178,6 @@ public class SpawnTemplate {
      */
     public void setSpawned(boolean isSpawned, int instance) {
         spawnState.set(instance, isSpawned);
-
     }
 
     /**

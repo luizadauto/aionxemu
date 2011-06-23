@@ -286,7 +286,7 @@ public class DropService {
 
         int normalDropPercentage = 100;
         int craftItemDropPercentage = 100;
-        if(!DropConfig.DISABLE_DROP_REDUCTION && npc.getObjectTemplate().getNpcType() != NpcType.CHEST)
+        if(!DropConfig.DISABLE_DROP_REDUCTION && npc.getObjectTemplate().getNpcType() != NpcType.CHEST) {
             normalDropPercentage = DropRewardEnum.dropRewardFrom(npc.getLevel() - lvl);
             // craft items will keep dropping if the player is killing low level mobs:
             craftItemDropPercentage = 100 - ((100 - normalDropPercentage) / 2);

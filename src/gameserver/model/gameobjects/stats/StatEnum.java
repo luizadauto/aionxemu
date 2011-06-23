@@ -171,7 +171,7 @@ public enum StatEnum {
     BOOST_GROUP_HUNTING_XP_RATE(0, "boost_group_hunting_xp_rate"),
     BOOST_QUEST_XP_RATE(0, "boost_quest_xp_rate"),
     BOOST_CRAFTING_XP_RATE(0, "boost_crafting_xp_rate"),
-    BOOST_GATHERING_XP_RATE(0, "boost_gathering_xp_rate");
+    BOOST_GATHERING_XP_RATE(0, "boost_gathering_xp_rate"),
 
     /*
      * custom
@@ -302,6 +302,7 @@ public enum StatEnum {
                         return OFF_MAX_DAMAGES;
                     case MAIN_HAND:
                         return MAIN_MAX_DAMAGES;
+                }
             default:
                 return this;
         }
