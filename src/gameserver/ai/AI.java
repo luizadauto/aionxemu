@@ -163,7 +163,7 @@ public abstract class AI<T extends Creature> implements Runnable {
     }
 
     public void addDesire(Desire desire) {
-        this.desireQueue.addDesire(desire);
+        this.desireQueue.add(desire);
     }
 
     public int desireQueueSize() {

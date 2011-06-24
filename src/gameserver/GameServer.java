@@ -146,7 +146,6 @@ public class GameServer {
 
         Util.printSection("Spawns");
         SpawnEngine.getInstance();
-        DayNightSpawnManager.getInstance().notifyChangeMode();
 
         Util.printSection("Quests");
         QuestEngine.getInstance();

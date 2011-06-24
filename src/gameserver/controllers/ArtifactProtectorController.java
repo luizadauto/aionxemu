@@ -57,7 +57,7 @@ public class ArtifactProtectorController extends NpcController {
             else if (lastAttacker instanceof Summon)
                 taker = ((Summon) lastAttacker).getMaster();
             else if (lastAttacker instanceof Trap)
-                taker = (Player) ((Trap) lastAttacker).getCreator();
+                taker = (Player) ((Trap) lastAttacker).getMaster();
             else
                 taker = null;
 

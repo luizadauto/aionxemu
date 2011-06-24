@@ -30,6 +30,8 @@ import gameserver.model.gameobjects.Summon.SummonMode;
 import gameserver.model.gameobjects.VisibleObject;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.stats.StatEnum;
+import gameserver.network.aion.serverpackets.SM_ATTACK;
+import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
 import gameserver.network.aion.serverpackets.SM_SUMMON_OWNER_REMOVE;
 import gameserver.network.aion.serverpackets.SM_SUMMON_PANEL_REMOVE;
@@ -206,7 +208,7 @@ public class SummonController extends CreatureController<Summon> {
          */
         super.attackTarget(target);
 
-        List<AttackResult> attackList = AttackUtil.calculateAttackResult(summon, target);
+        List<AttackResult> attackList = AttackUtil.calculatePhysicalAttackResult(summon, target);
 
         int damage = 0;
         for (AttackResult result : attackList) {
@@ -217,7 +219,7 @@ public class SummonController extends CreatureController<Summon> {
         PacketSendUtility.broadcastPacket(summon, new SM_ATTACK(summon, target, summon.getGameStats()
                 .getAttackCounter(), 274, attackType, attackList));
 
-        target.getController().onAttack(summon, damage, true);
+        target.getController().onAttack(summon, damage, null, true);
         summon.getGameStats().increaseAttackCounter();
 
     }
@@ -237,7 +239,7 @@ public class SummonController extends CreatureController<Summon> {
         super.onAttack(creature, skillId, type, damage, logId, status, notifyAttackedObservers, sendPacket);
         getOwner().getLifeStats().reduceHp(damage, creature);
         PacketSendUtility.broadcastPacket(getOwner(), new SM_ATTACK_STATUS(getOwner(), TYPE.REGULAR, 0,
-                damage));
+                damage, logId));
         PacketSendUtility.sendPacket(getOwner().getMaster(), new SM_SUMMON_UPDATE(getOwner()));
     }
 

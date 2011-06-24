@@ -26,7 +26,7 @@ import gameserver.model.templates.spawn.SpawnTemplate;
 /**
  * @author ATracer
  */
-public class Trap extends Npc {
+public class Trap extends NpcWithCreator {
 
     /**
      * @param objId
@@ -65,15 +65,5 @@ public class Trap extends Npc {
     @Override
     public NpcObjectType getNpcObjectType() {
         return NpcObjectType.TRAP;
-    }
-
-    @Override
-    public Creature getActingCreature() {
-        return this.creator;
-    }
-
-    @Override
-    public Creature getMaster() {
-        return this.creator;
     }
 }

@@ -148,7 +148,7 @@ public class FlyController
     {
         // Check Flight
         FlightZoneInstance currentFlightZone = null;
-        if (ZoneService.getInstance().mapHasFightZones(player.getWorldId()))
+        if (ZoneService.getInstance().mapHasFlightZones(player.getWorldId()))
         {
             currentFlightZone = ZoneService.getInstance().findFlightZoneInCurrentMap(player.getPosition());
             if (currentFlightZone == null && !player.isGM())

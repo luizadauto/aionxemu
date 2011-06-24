@@ -22,6 +22,7 @@ import com.aionemu.commons.utils.PropertiesUtils;
 import gameserver.GameServer;
 import gameserver.configs.administration.AdminConfig;
 import gameserver.configs.main.*;
+import gameserver.configs.network.FloodConfig;
 import gameserver.configs.network.IPConfig;
 import gameserver.configs.network.NetworkConfig;
 import org.apache.log4j.Logger;

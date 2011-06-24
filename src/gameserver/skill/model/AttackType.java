@@ -31,5 +31,7 @@ public enum AttackType
     ATTACKED,
     PHYSICAL_SKILL,
     MAGICAL_SKILL,
-    ATTACK
+    ATTACK,
+    EVERYHIT,
+    ALL_SKILL,
 }

@@ -26,9 +26,6 @@ public class AdminConfig {
     @Property(key = "gameserver.administration.command.enemy", defaultValue = "3")
     public static int COMMAND_ENEMY;
 
-    @Property(key = "gameserver.administration.command.who", defaultValue = "3")
-    public static int COMMAND_WHO;
-
     @Property(key = "administration.command.passkeyreset", defaultValue = "3")
     public static int COMMAND_PASSKEY_RESET;
 
@@ -327,9 +324,6 @@ public class AdminConfig {
     
     @Property(key = "gameserver.administration.command.removecd", defaultValue = "3")
     public static int    COMMAND_REMOVECD;
-    
-    @Property(key = "gameserver.administration.command.see", defaultValue = "3")
-    public static int    COMMAND_SEE;
 
     @Property(key = "gameserver.administration.command.passkey", defaultValue = "3")
     public static int    COMMAND_PASSKEY;

@@ -18,6 +18,7 @@ package gameserver.controllers.movement;
 
 import gameserver.controllers.attack.AttackResult;
 import gameserver.controllers.attack.AttackStatus;
+import gameserver.model.gameobjects.Creature;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class AttackCalcObserver {
      * @param value
      * @return value
      */
-    public void checkShield(List<AttackResult> attackList) {
+    public void checkShield(List<AttackResult> attackList, Creature attacker) {
 
     }
 

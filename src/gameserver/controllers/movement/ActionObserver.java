@@ -40,7 +40,8 @@ public class ActionObserver
         DEATH,
         JUMP,
         DOT,
-        HITTED
+        HITTED,
+        GODSTONE,
     }
     
     private ObserverType observerType;
@@ -69,4 +70,5 @@ public class ActionObserver
     public void jump(){};
     public void onDot(Creature creature) {};
     public void hitted(Creature creature, DamageType type) {};
+	public void onGodstone(Creature creature) {};
 }

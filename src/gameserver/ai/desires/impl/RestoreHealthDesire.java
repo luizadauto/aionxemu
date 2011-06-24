@@ -21,6 +21,7 @@ import gameserver.ai.AI;
 import gameserver.ai.desires.AbstractDesire;
 import gameserver.ai.events.Event;
 import gameserver.model.gameobjects.Creature;
+import gameserver.model.siege.FortressGeneral;
 import gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 
 /**

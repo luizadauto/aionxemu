@@ -18,6 +18,7 @@ package gameserver.controllers;
 
 import com.aionemu.commons.utils.Rnd;
 import gameserver.ai.events.Event;
+import gameserver.configs.main.GeoDataConfig;
 import gameserver.controllers.attack.AttackResult;
 import gameserver.controllers.attack.AttackStatus;
 import gameserver.controllers.attack.AttackUtil;
@@ -263,7 +264,7 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
                 getOwner().getLifeStats().increaseMp(TYPE.MP, value);
                 break;
             case FP:
-                getOwner().getLifeStats().increaseFp(value);
+                getOwner().getLifeStats().increaseFp(TYPE.FP, value);
                 break;
         }
     }
@@ -478,7 +479,7 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
                 case 900020000:
                 case 900030000:
                 case 900100000:
-                    fixZ = GeoData.getZ(owner.getWorldId(), owner.getX(), owner.getY(), owner.getZ());
+                    fixZ = GeoEngine.getInstance().getZ(owner.getWorldId(), owner.getX(), owner.getY(), owner.getZ());
                     if (owner instanceof Npc) {
                         Creature target = (Creature) owner.getTarget();
                         if (target != null && (target instanceof Player || target instanceof Summon)) {

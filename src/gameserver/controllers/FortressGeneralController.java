@@ -108,7 +108,7 @@ public class FortressGeneralController extends NpcController
             else if(creature instanceof Summon)
                 sender = ((Summon)creature).getMaster();
             else if(creature instanceof Trap)
-                sender = (Player)((Trap)creature).getCreator();
+                sender = (Player)((Trap)creature).getMaster();
             else
                 return;
             

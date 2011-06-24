@@ -71,7 +71,7 @@ public class GeoEngine
         }
     }
 
-    public float getZ(int worldId, float x, float y, float z)
+    public static float getZ(int worldId, float x, float y, float z)
     {
         if(GSConfig.GEODATA_ENABLED && geoMaps.containsKey(worldId))
             return geoMaps.get(worldId).getZ(x, y, z);

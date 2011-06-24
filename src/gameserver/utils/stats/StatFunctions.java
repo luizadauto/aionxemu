@@ -299,7 +299,7 @@ public class StatFunctions {
 
                 int base = Math.round(Rnd.get(min,max) * ags.getCurrentStat(StatEnum.POWER)* 0.01f);
 
-                resultDamage = base + ags.getStatBonus(StatEnum.MAIN_HAND_PHYSICAL_ATTACK) + skillDamages + bonusDamages;
+                resultDamage = base + ags.getStatBonus(StatEnum.MAIN_HAND_POWER) + skillDamages + bonusDamages;
 
             }
             else   //if hand attack
@@ -675,7 +675,7 @@ public class StatFunctions {
             accuracy = attacker.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_ACCURACY);
 
         //add bonus stat from effecttemplate
-        accurancy += accMod;
+        accuracy += accMod;
 
         int dodgeRate = (attacked.getGameStats().getCurrentStat(StatEnum.EVASION) - accuracy) / 10;
         // maximal dodge rate
@@ -756,7 +756,7 @@ public class StatFunctions {
      * @param attacker
      * @return double
      */
-    public static double calculatePhysicalCriticalRate(Creature attacker, Creature attacked) {
+    public static double calculatePhysicalCriticalRate(Creature attacker, Creature attacked, float criticalProb) {
         int critical;
 
         // check always critical
@@ -792,7 +792,7 @@ public class StatFunctions {
      * @param attacker
      * @return double
      */
-    public static double calculateMagicCriticalRate(Creature attacker, Creature attacked) {
+    public static double calculateMagicalCriticalRate(Creature attacker, Creature attacked, float criticalProb) {
         int critical;
 
         // check always critical
@@ -823,7 +823,7 @@ public class StatFunctions {
      * @param attacked
      * @return int
      */
-    public static int calculateMagicalResistRate(Creature attacker, Creature attacked) {
+    public static int calculateMagicalResistRate(Creature attacker, Creature attacked, int accMod) {
         if (attacked.getObserveController().checkAttackStatus(AttackStatus.RESIST))
             return 100;
 
@@ -877,7 +877,7 @@ public class StatFunctions {
             int damage = (int) (distance * dmgPerMeter);
 
             player.getLifeStats().reduceHp(damage, player);
-            PacketSendUtility.sendPacket(player, new SM_ATTACK_STATUS(player, SM_ATTACK_STATUS.TYPE.DAMAGE, 0, damage));
+            PacketSendUtility.sendPacket(player, new SM_ATTACK_STATUS(player, SM_ATTACK_STATUS.TYPE.FALL_DAMAGE, -damage));
         }
 
         return false;

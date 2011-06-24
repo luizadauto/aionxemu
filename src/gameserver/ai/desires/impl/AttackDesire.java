@@ -34,7 +34,7 @@ import gameserver.utils.MathUtil;
  */
 public class AttackDesire extends AbstractDesire {
     private int attackNotPossibleCounter;
-
+	private int maxAtkTry		= 6;
     private int attackCounter = 1;
 
     /**

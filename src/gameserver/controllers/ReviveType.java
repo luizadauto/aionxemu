@@ -60,6 +60,5 @@ public enum ReviveType {
                 return rt;
         }
         throw new IllegalArgumentException("Unsupported revive type: " + id);
-        return null;
     }
 }

@@ -46,8 +46,6 @@ public class DayTimeChangeEventHandler implements EventHandler {
         if (spawnTime == null)
             return;
 
-        int instanceId = owner.getInstanceId();
-
         DayTime dayTime = GameTimeManager.getGameTime().getDayTime();
         if (spawnTime.isAllowedDuring(dayTime)) {
             RespawnService.addDayTimeSpawn((VisibleObject) owner);

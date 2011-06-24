@@ -305,37 +305,33 @@ public class PortalController extends NpcController {
         return instance;
     }
 
-    /**
-     * @param players
-     */
-    private void transfer(Player player, WorldMapInstance instance) {
-        int instanceId = DataManager.WORLD_MAPS_DATA.getTemplate(instance.getMapId()).getInstanceId();
-        int cd = DataManager.WORLD_MAPS_DATA.getTemplate(instance.getMapId()).getCooldown();
-
-        if (InstanceService.onRegisterRequest(player, instanceId, cd) || player.getWorldId() == instance.getMapId() || !CustomConfig.INSTANCE_COOLDOWN) {
-            ExitPoint exitPoint = null;
-            for (ExitPoint point : portalTemplate.getExitPoint()) {
-                if (point.getRace() == null || point.getRace().equals(player.getCommonData().getRace()))
-                    exitPoint = point;
-            }
-
-            if(instance.getTimerEnd() != null)
-            {
-                int timeInSeconds = (int)((instance.getTimerEnd().getTimeInMillis() - System.currentTimeMillis())/1000);
-                
-                if(timeInSeconds > 0)
-                {
-                    player.setQuestTimerOn(true);
-                    PacketSendUtility.sendPacket(player, new SM_QUEST_ACCEPTED(4, 0, timeInSeconds));
-                }
-            }
-
-            TeleportService.teleportTo(player, exitPoint.getMapId(), instance.getInstanceId(),
-                    exitPoint.getX(), exitPoint.getY(), exitPoint.getZ(), 0);
-        } else {
-            PacketSendUtility.sendMessage(player, "You cannot do that");
-        }
-    }
+	/**
+	 * @param players
+	 */
+	private void transfer(Player player, WorldMapInstance instance)
+	{
+		
+		ExitPoint exitPoint = null;
+		for (ExitPoint point : portalTemplate.getExitPoint())
+		{
+			if(point.getRace() == null || point.getRace().equals(player.getCommonData().getRace()))
+				exitPoint = point;
+		}
+		
+		if(instance.getTimerEnd() != null)
+		{
+			int timeInSeconds = (int)((instance.getTimerEnd().getTimeInMillis() - System.currentTimeMillis())/1000);
+			
+			if(timeInSeconds > 0)
+			{
+				player.setQuestTimerOn(true);
+				PacketSendUtility.sendPacket(player, new SM_QUEST_ACCEPTED(4, 0, timeInSeconds));
+			}
+		}
+		
+		TeleportService.teleportTo(player, exitPoint.getMapId(), instance.getInstanceId(),
+			exitPoint.getX(), exitPoint.getY(), exitPoint.getZ(), 0);
+	}
 
     /**
      * @param player

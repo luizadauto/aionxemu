@@ -19,11 +19,8 @@ package gameserver.controllers;
 import gameserver.configs.main.CustomConfig;
 import gameserver.configs.administration.AdminConfig;
 import gameserver.configs.main.GSConfig;
-import gameserver.configs.main.GeoDataConfig;
 import gameserver.controllers.SummonController.UnsummonType;
-import gameserver.controllers.attack.AttackResult;
 import gameserver.controllers.attack.AttackStatus;
-import gameserver.controllers.attack.AttackUtil;
 import gameserver.controllers.instances.FortressInstanceTimer;
 import gameserver.controllers.movement.MovementType;
 import gameserver.dataholders.DataManager;
@@ -43,12 +40,12 @@ import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.player.SkillListEntry;
 import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.gameobjects.state.CreatureVisualState;
-import gameserver.model.gameobjects.stats.PlayerGameStats;
 import gameserver.model.gameobjects.stats.StatEnum;
 import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.model.group.GroupEvent;
 import gameserver.model.templates.quest.QuestItems;
 import gameserver.model.templates.stats.PlayerStatsTemplate;
+import gameserver.network.aion.serverpackets.SM_CUBE_UPDATE;
 import gameserver.network.aion.serverpackets.SM_DELETE;
 import gameserver.network.aion.serverpackets.SM_DIE;
 import gameserver.network.aion.serverpackets.SM_EMOTION;
@@ -57,12 +54,14 @@ import gameserver.network.aion.serverpackets.SM_INSTANCE_SCORE;
 import gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
 import gameserver.network.aion.serverpackets.SM_KISK_UPDATE;
 import gameserver.network.aion.serverpackets.SM_LEVEL_UPDATE;
+import gameserver.network.aion.serverpackets.SM_MOVE;
 import gameserver.network.aion.serverpackets.SM_NEARBY_QUESTS;
 import gameserver.network.aion.serverpackets.SM_NPC_INFO;
 import gameserver.network.aion.serverpackets.SM_PET;
 import gameserver.network.aion.serverpackets.SM_PLAYER_INFO;
 import gameserver.network.aion.serverpackets.SM_PLAYER_STATE;
 import gameserver.network.aion.serverpackets.SM_PRIVATE_STORE;
+import gameserver.network.aion.serverpackets.SM_QUEST_LIST;
 import gameserver.network.aion.serverpackets.SM_SKILL_CANCEL;
 import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import gameserver.network.aion.serverpackets.SM_STATS_INFO;
@@ -77,6 +76,7 @@ import gameserver.services.AllianceService;
 import gameserver.services.ArenaService;
 import gameserver.services.ClassChangeService;
 import gameserver.services.DuelService;
+import gameserver.services.HTMLService;
 import gameserver.services.ItemService;
 import gameserver.services.LegionService;
 import gameserver.services.NpcShoutsService;
@@ -99,7 +99,6 @@ import gameserver.task.tasks.PacketBroadcaster.BroadcastMode;
 import gameserver.utils.MathUtil;
 import gameserver.utils.PacketSendUtility;
 import gameserver.utils.ThreadPoolManager;
-import gameserver.model.gameobjects.stats.modifiers.Executor;
 import gameserver.world.World;
 import gameserver.world.WorldMapInstance;
 import gameserver.world.WorldType;
@@ -107,14 +106,12 @@ import gameserver.world.zone.ZoneInstance;
 import org.apache.log4j.Logger;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.Future;
 
 /**
  * This class is for controlling players.
  *
- * @author -Nemesiss-, ATracer (2009-09-29), xavier, Sarynth
- * @author RotO (Attack-speed hack protection)
+ * @author -Nemesis-, ATracer, blakawk, xavier, Sarynth, RotO
  */
 public class PlayerController extends CreatureController<Player> {
     private boolean isInShutdownProgress = false;
@@ -438,89 +435,21 @@ public class PlayerController extends CreatureController<Player> {
         startProtectionActiveTask();
     }
 
-    @Override
-    public void attackTarget(Creature target) {
-        Player player = getOwner();
+	public void attackTarget(Creature target, int atknumber, int time, int attackType)
+	{
+		super.attackTarget(target, atknumber, time, attackType);
+	}
 
-        /**
-         * Check all prerequisites
-         */
-        if (target == null || !player.canAttack())
-            return;
+	public void onAttack(Creature creature, int skillId, TYPE type, int damage, int logId, AttackStatus status, boolean notifyAttackedObservers, boolean sendPacket)
+	{
+		if(getOwner().getLifeStats().isAlreadyDead())
+			return;
 
-        PlayerGameStats gameStats = player.getGameStats();
+     	if(getOwner().isInvul())
+			damage = 0;
 
-        // check player attack Z distance
-        if (Math.abs(player.getZ() - target.getZ()) > 6)
-            return;
-
-        if (!RestrictionsManager.canAttack(player, target))
-            return;
-
-        int attackSpeed = gameStats.getCurrentStat(StatEnum.ATTACK_SPEED);
-        long milis = System.currentTimeMillis();
-        if (milis - lastAttackMilis < attackSpeed) {
-            /**
-             * Hack!
-             */
-            return;
-        }
-        lastAttackMilis = milis;
-
-        /**
-         * notify attack observers
-         */
-        super.attackTarget(target);
-
-        /**
-         * Calculate and apply damage
-         */
-        List<AttackResult> attackResult = AttackUtil.calculateAttackResult(player, target);
-
-        int damage = 0;
-        for (AttackResult result : attackResult) {
-            damage += result.getDamage();
-        }
-
-        long time = System.currentTimeMillis();
-        int attackType = 0; // TODO investigate attack types
-        PacketSendUtility.broadcastPacket(player, new SM_ATTACK(player, target, gameStats.getAttackCounter(),
-                (int) time, attackType, attackResult), true);
-
-        target.getController().onAttack(player, damage, true);
-
-        gameStats.increaseAttackCounter();
-    }
-
-    public void onAttack(Creature creature, int skillId, TYPE type, int damage, int unknown, boolean notifyAttackedObservers) {
-        Player player = getOwner();
-
-        if (player.getLifeStats().isAlreadyDead())
-            return;
-
-        // Reduce the damage to exactly what is required to ensure death.
-        // - Important that we don't include 7k worth of damage when the
-        //   creature only has 100 hp remaining. (For AggroList dmg count.)
-        if (damage > player.getLifeStats().getCurrentHp())
-            damage = player.getLifeStats().getCurrentHp() + 1;
-
-        super.onAttack(creature, skillId, type, damage, notifyAttackedObservers);
-
-        if (player.isInvul() || player.isProtect() || player.isProtectionActive())
-            damage = 0;
-
-        player.getLifeStats().reduceHp(damage, creature, false);
-
-        PacketSendUtility.broadcastPacket(player, new SM_ATTACK_STATUS(player, type, skillId, damage, unknown), true);
-        if (player.getLifeStats().isAlreadyDead()) {
-            player.getController().onDie(creature);
-        }
-    }
-
-    @Override
-    public void onAttack(Creature creature, int skillId, TYPE type, int damage, boolean notifyAttackedObservers) {
-        this.onAttack(creature, skillId, type, damage, 0xA6, notifyAttackedObservers);
-    }
+		super.onAttack(creature, skillId, type, damage, logId, status, notifyAttackedObservers, sendPacket);
+	}
 
     /**
      * @param skillId

@@ -296,8 +296,9 @@ public class ObserveController {
 
     /**
      * @param attackList
+     * @param attacker 
      */
-    public void checkShieldStatus(List<AttackResult> attackList) {
+    public void checkShieldStatus(List<AttackResult> attackList, Creature attacker) {
         synchronized (attackCalcObservers) {
             for (AttackCalcObserver observer : attackCalcObservers) {
                 observer.checkShield(attackList, attacker);
