@@ -71,10 +71,6 @@ public class DropList {
         return copy;
     }
 
-    public Set<DropTemplate> getDropsFor(int mobId) {
-        return templatesMap.get(mobId);
-    }
-
     public int getSize() {
         return templatesMap.size();
     }

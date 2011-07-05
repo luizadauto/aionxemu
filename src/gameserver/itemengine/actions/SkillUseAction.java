@@ -19,7 +19,6 @@ package gameserver.itemengine.actions;
 import gameserver.model.DescriptionId;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
-import gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.skill.effect.Effects;
 import gameserver.skill.SkillEngine;
@@ -30,6 +29,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author ATracer
@@ -76,7 +77,7 @@ public class SkillUseAction extends AbstractItemAction {
     public void act(Player player, Item parentItem, Item targetItem)
     {
         Skill skill = SkillEngine.getInstance().getSkill(player, skillid, level,
-            player.getTarget(), parentItem.getItemTemplate(), parentItem.getItemTemplate());
+            player.getTarget(), parentItem.getItemTemplate());
         if(skill == null)
             Logger.getLogger(SkillUseAction.class).error("Skill id is null for SkillUseAction !");
 

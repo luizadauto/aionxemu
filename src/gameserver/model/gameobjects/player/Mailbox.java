@@ -27,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Mailbox {
     private Map<Integer, Letter> mails = new ConcurrentHashMap<Integer, Letter>();
+	private int sendMailLimit = 0;
 
     /**
      * @param letter
@@ -47,8 +48,8 @@ public class Mailbox {
             public int compare(Letter o1, Letter o2) {
                 if (o1.getTimeStamp().getTime() > o2.getTimeStamp().getTime())
                     return -1;
-                else
-                    return 1;
+				if(o1.getTimeStamp().getTime() < o2.getTimeStamp().getTime())
+					return 1;
 
                 return o1.getObjectId() > o2.getObjectId() ? 1 : -1;
             }

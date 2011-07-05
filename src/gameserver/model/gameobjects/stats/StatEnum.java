@@ -315,7 +315,6 @@ public enum StatEnum {
                 if (magicalAttack)
                     return false;
                 return true;
-                break;
             case PHYSICAL_ACCURACY:
             case PHYSICAL_CRITICAL:
                 return true;

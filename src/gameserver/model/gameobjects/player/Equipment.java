@@ -120,7 +120,7 @@ public class Equipment {
             return null;
         
         //level restriction
-        LevelRestrict restrict = itemTemplate.getRectrict(owner.getCommonData().getPlayerClass(), owner.getLevel());
+        LevelRestrict restrict = itemTemplate.getRestrict(owner.getCommonData().getPlayerClass(), owner.getLevel());
         LevelRestrictType restrictType = restrict.getType();
         if(restrictType != LevelRestrictType.NONE)
         {

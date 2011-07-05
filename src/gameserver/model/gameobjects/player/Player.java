@@ -25,7 +25,6 @@ import gameserver.controllers.FlyController;
 import gameserver.controllers.PlayerController;
 import gameserver.controllers.ReviveController;
 import gameserver.controllers.effect.PlayerEffectController;
-import gameserver.controllers.instances.DredgionController;
 import gameserver.dao.AbyssRankDAO;
 import gameserver.dao.InventoryDAO;
 import gameserver.dao.ItemStoneListDAO;
@@ -88,7 +87,6 @@ import gameserver.world.zone.ZoneInstance;
 import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -97,8 +95,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ScheduledFuture;
-
 import java.util.concurrent.ScheduledFuture;
 
 import gnu.trove.TIntObjectHashMap;
@@ -167,10 +163,8 @@ public class Player extends Creature {
     private Kisk kisk;
     private Prices prices;
     private boolean isGagged = false;
-	private boolean							isAdminNeutral = false;
 
     private boolean isWhisperable = true;
-    private DredgionController dredgion;
     private long lastZephyrInvokationSeconds = 0;
     private int zephyrObjectId = 0;
     private ToyPet toyPet;
@@ -202,7 +196,7 @@ public class Player extends Creature {
 
 	private LastUsedCache<Integer, NpcDropStat>			lastNpcDrops;
 
-    public long lastChat = 0;
+    public long lastMessageTime = 0;
 
 	/**
 	 * Windstream variable for handshake.
@@ -1420,22 +1414,6 @@ public class Player extends Creature {
         return itemCoolDowns;
     }
 
-	/**
-	 * @return isAdminNeutral value
-	 */
-	public boolean getAdminNeutral()
-	{
-		return isAdminNeutral;
-	}
-
-	/**
-	 * @param newValue
-	 */
-	public void setAdminNeutral(boolean newValue)
-	{
-		isAdminNeutral = newValue;
-	}
-
     /**
      * @param delayId
      * @param time
@@ -1561,22 +1539,6 @@ public class Player extends Creature {
      */
     public boolean isInAlliance(Player target) {
         return target.getPlayerAlliance() != null && playerAlliance == target.getPlayerAlliance();
-    }
-
-    /**
-     * @param object
-     */
-    public void setDredgion(DredgionController newDred) {
-        // TODO Auto-generated method stub
-        this.dredgion = newDred;
-    }
-
-    public DredgionController getDredgion() {
-        return this.dredgion;
-    }
-
-    public boolean isInDredgion() {
-        return dredgion != null;
     }
 
     public static String getChanName(int chanId) {

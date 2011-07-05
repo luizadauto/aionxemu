@@ -17,7 +17,6 @@
 
 package gameserver.model.templates.bonus;
 
-import com.aionemu.commons.utils.Rnd;
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
@@ -25,13 +24,16 @@ import gameserver.model.templates.item.ItemBonus;
 import gameserver.model.templates.quest.QuestItems;
 import gameserver.services.ItemService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import com.aionemu.commons.utils.Rnd;
 
 /**
  * @author Rolandas

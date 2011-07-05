@@ -40,7 +40,7 @@ import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import gameserver.network.aion.serverpackets.SM_USE_OBJECT;
 import gameserver.quest.model.QuestState;
 import gameserver.quest.model.QuestStatus;
-import gameserver.services.InstanceService;
+import gameserver.services.instance.InstanceService;
 import gameserver.services.TeleportService;
 import gameserver.skill.SkillEngine;
 import gameserver.utils.MathUtil;

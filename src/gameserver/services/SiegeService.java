@@ -1443,4 +1443,14 @@ public class SiegeService
             }
         }
     }
+
+    public static SiegeRace getSiegeRaceFromRace(Race race) {
+        switch (race) {
+            case ELYOS:
+                return SiegeRace.ELYOS;
+            case ASMODIANS:
+                return SiegeRace.ASMODIANS;
+        }
+        return null;
+    }
 }

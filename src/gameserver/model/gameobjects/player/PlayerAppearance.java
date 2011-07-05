@@ -17,6 +17,8 @@
 
 package gameserver.model.gameobjects.player;
 
+import java.lang.reflect.Method;
+
 /**
  * @author SoulKeeper, srx47, alexa026, Divinity
  */

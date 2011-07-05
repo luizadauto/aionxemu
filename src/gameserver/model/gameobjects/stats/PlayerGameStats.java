@@ -24,7 +24,6 @@ import gameserver.model.gameobjects.state.CreatureState;
 import gameserver.model.gameobjects.stats.id.ItemStatEffectId;
 import gameserver.model.gameobjects.stats.id.StatEffectId;
 import gameserver.model.gameobjects.stats.modifiers.AddModifier;
-import gameserver.model.gameobjects.stats.modifiers.CheckWeapon;
 import gameserver.model.gameobjects.stats.modifiers.MeanModifier;
 import gameserver.model.gameobjects.stats.modifiers.SetModifier;
 import gameserver.model.gameobjects.stats.modifiers.SimpleModifier;
@@ -40,8 +39,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.Map.Entry;
+import java.util.TreeSet;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author xavier
@@ -131,7 +132,7 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
                                 }
                             }
                             else if(slots == ItemSlot.MAIN_HAND.getSlotIdMask())
-                                setStat(StatEnum.MAIN_HAND_PHYSICAL_ATTACK, 0);
+                                setStat(StatEnum.MAIN_HAND_POWER, 0);
                             
                             if(slots == ItemSlot.MAIN_HAND.getSlotIdMask() || slots == ItemSlot.SUB_HAND.getSlotIdMask())
                             {
@@ -189,7 +190,7 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
                                 }
                             }
                             // base main_hand_power is adjusted by power
-                            if (statToModify == StatEnum.MAIN_HAND_PHYSICAL_ATTACK && !modifier.isBonus())
+                            if (statToModify == StatEnum.MAIN_HAND_POWER && !modifier.isBonus())
                             {
                                 if (modifier instanceof AddModifier)
                                     modifier = AddModifier.newInstance(modifier.getStat(),Math.round(((SimpleModifier)modifier).getValue() * power), false);
@@ -260,8 +261,8 @@ public class PlayerGameStats extends CreatureGameStats<Player> {
             {
                 this.setStat(StatEnum.OFF_HAND_CRITICAL, 0);
                 this.setStat(StatEnum.OFF_HAND_CRITICAL, 0, true);
-                this.setStat(StatEnum.OFF_HAND_PHYSICAL_ATTACK, 0);
-                this.setStat(StatEnum.OFF_HAND_PHYSICAL_ATTACK, 0, true);
+                this.setStat(StatEnum.OFF_HAND_POWER, 0);
+                this.setStat(StatEnum.OFF_HAND_POWER, 0, true);
                 this.setStat(StatEnum.OFF_HAND_ACCURACY, 0);
                 this.setStat(StatEnum.OFF_HAND_ACCURACY, 0, true);
             }        

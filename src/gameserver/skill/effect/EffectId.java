@@ -62,7 +62,7 @@ public enum EffectId {
                     FEAR.effectId |
                     CANNOT_MOVE.effectId
     ),
-    CANT_MOVE_STATE(SPIN.effectId | ROOT.effectId | SLEEP.effectId | STUMBLE.effectId | STUN.effectId | STAGGER.effectId | OPENAERIAL.effectId | PARALYZE.effectId | CANNOT_MOVE.effectId);
+    CANT_MOVE_STATE(SPIN.effectId | ROOT.effectId | SLEEP.effectId | STUMBLE.effectId | STUN.effectId | STAGGER.effectId | OPENAERIAL.effectId | PARALYZE.effectId | CANNOT_MOVE.effectId | KNOCKBACK.effectId);
 
     private int effectId;
 

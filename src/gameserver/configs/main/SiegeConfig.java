@@ -32,6 +32,9 @@ public class SiegeConfig {
     @Property(key = "gameserver.siege.enabled", defaultValue = "true")
     public static boolean SIEGE_ENABLED;
 
+	@Property(key = "gameserver.siege.schedule.type", defaultValue = "1")
+	public static int	SIEGE_SCHEDULE_TYPE;
+
     /**
      * Siege Timer Interval
      */

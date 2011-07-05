@@ -156,7 +156,7 @@ public class ItemStorage {
                 return item.getEquipmentSlot();
             }
         }
-        log.warn("ItemStorage.getSlotIdByItemId("+itemId+") Item could not Found.");
+        log.warn("ItemStorage.getSlotIdByItemId("+objId+") Item could not Found.");
         return -1;
     }
 

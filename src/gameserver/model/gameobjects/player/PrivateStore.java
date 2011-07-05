@@ -18,7 +18,6 @@ package gameserver.model.gameobjects.player;
 
 import gameserver.model.trade.TradePSItem;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -80,7 +79,7 @@ public class PrivateStore {
      * @param itemSlot return tradeItem
      */
     public TradePSItem getTradeItemBySlot(int itemSlot) {
-        if(items.containsKey(itemSlot))
+        if(items.contains(itemSlot))
             return items.get(itemSlot);
         return null;
     }

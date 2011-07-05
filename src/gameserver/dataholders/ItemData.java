@@ -18,7 +18,6 @@ package gameserver.dataholders;
 
 import gameserver.model.items.ItemBonus;
 import gameserver.model.templates.bonus.InventoryBonusType;
-import gameserver.model.templates.item.ItemBonus;
 import gameserver.model.templates.item.ItemCategory;
 import gameserver.model.templates.item.ItemRace;
 import gameserver.model.templates.item.ItemTemplate;

@@ -77,7 +77,7 @@ public abstract class Creature extends VisibleObject {
 	
     private long lastAttack = 0;
 	
-	private int			isAdminNeutral = 0;
+	private boolean			isAdminNeutral = false;
 	private int			isAdminEnmity = 0;
 
     /**
@@ -657,7 +657,7 @@ public abstract class Creature extends VisibleObject {
     /**
      * @return isAdminNeutral value
      */
-    public int getAdminNeutral()
+    public boolean getAdminNeutral()
     {
         return isAdminNeutral;
     }
@@ -665,7 +665,7 @@ public abstract class Creature extends VisibleObject {
     /**
      * @param newValue
      */
-    public void setAdminNeutral(int newValue)
+    public void setAdminNeutral(boolean newValue)
     {
         isAdminNeutral = newValue;
     }

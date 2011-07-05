@@ -371,7 +371,7 @@ public class EffectController {
                 EffectId.DISEASE,
                 EffectId.SILENCE,
                 EffectId.CURSE,
-                EffectId.BLOCKADE,
+                EffectId.BIND,
                 EffectId.SNARE,
                 EffectId.SLOW
         };
@@ -401,7 +401,7 @@ public class EffectController {
                 EffectId.FEAR,
                 EffectId.PETRIFICATION,
                 EffectId.SNARE,
-                EffectId.UNKNOWN2,
+                EffectId.DEFORM,
                 EffectId.SLOW,
                 EffectId.CHAOS
         };

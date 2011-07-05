@@ -54,8 +54,7 @@ public class LevelUpSurveyData
     {
         for (Survey survey : getSurveys())
         {
-            if (player.getLevel() == survey.getLevel() &&
-                (player.getCommonData().getRace() == survey.getRace() || survey.getRace() == Race.PC_ALL))
+            if (survey.isLevel(player.getLevel()))
                 return survey;
         }
         return null;

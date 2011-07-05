@@ -22,8 +22,8 @@ import gameserver.model.gameobjects.stats.StatEffectType;
  * @author xavier
  */
 public class StatEffectId implements Comparable<StatEffectId> {
-    private int id;
-    private StatEffectType type;
+    protected int id;
+    protected StatEffectType type;
 
     protected StatEffectId(int id, StatEffectType type) {
         this.id = id;

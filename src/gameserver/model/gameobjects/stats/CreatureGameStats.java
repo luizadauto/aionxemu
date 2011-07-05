@@ -18,7 +18,6 @@ package gameserver.model.gameobjects.stats;
 
 import gameserver.model.SkillElement;
 import gameserver.model.gameobjects.Creature;
-import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.player.Player;
 import gameserver.model.gameobjects.stats.id.ItemStatEffectId;
 import gameserver.model.gameobjects.stats.id.SkillEffectId;
@@ -168,84 +167,75 @@ public class CreatureGameStats<T extends Creature> {
         return statsModifiers.containsKey(id);
     }
 
-    /**
-     * Recomputation of all stats
-     */
-    public void recomputeStats() {
-        // make sure we are not doing it twice
-        if (!recomputing.compareAndSet(false, true))
-            return;
+	/**
+	 * Recomputation of all stats
+	 */
+	public void recomputeStats()
+	{
+		try 
+		{
+			// make sure we are not doing it twice
+			if (!recomputing.compareAndSet(false, true))
+				return;
+			
+			resetStats();
+			Map<StatEnum, StatModifiers> orderedModifiers = new HashMap<StatEnum, StatModifiers>();
+				
+			synchronized (statsModifiers)
+			{
+				//sort StatEffectIds according to StatEffectType order
+				List<StatEffectId> statEffectIds = new ArrayList<StatEffectId>(statsModifiers.keySet());
+		        Collections.sort(statEffectIds);
 
-        resetStats();
-        Map<StatEnum, StatModifiers> orderedModifiers = new HashMap<StatEnum, StatModifiers>();
+		        for (StatEffectId eid : statEffectIds)
+		        {
+					TreeSet<StatModifier> modifiers = statsModifiers.get(eid);
+					int slots = 0;
 
-        synchronized (statsModifiers) {
-            for (Entry<StatEffectId, TreeSet<StatModifier>> modifiers : statsModifiers.entrySet()) {
-                StatEffectId eid = modifiers.getKey();
-                int slots = 0;
+					if(modifiers == null)
+						continue;
+									
+					for(StatModifier modifier : modifiers)
+					{
+						if(eid instanceof ItemStatEffectId)
+						{
+							slots = ((ItemStatEffectId) eid).getSlot();
+						}
+						
+						if (slots == 0)
+							slots = ItemSlot.NONE.getSlotIdMask();
+						
+						List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
+						for(ItemSlot slot : oSlots)
+						{
+							StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(slot, false);
+							
+							if(!orderedModifiers.containsKey(statToModify))
+							{
+								orderedModifiers.put(statToModify, new StatModifiers());
+							}
+							orderedModifiers.get(statToModify).add(modifier);
+						}
+					}
+				}
+			}
+			
+			for(Entry<StatEnum, StatModifiers> entry : orderedModifiers.entrySet())
+			{
+				applyModifiers(entry.getKey(), entry.getValue());
+			}
 
-                if (modifiers.getValue() == null)
-                    continue;
+			orderedModifiers.clear();
+			
+			//apply limits
+			applyLimits();
+		}
+		finally
+		{
+			recomputing.set(false);
+		}
+	}
 
-                for (StatModifier modifier : modifiers.getValue()) {
-                    if (eid instanceof ItemStatEffectId) {
-                        slots = ((ItemStatEffectId) eid).getSlot();
-                    }
-                    if (slots == 0)
-                        slots = ItemSlot.NONE.getSlotIdMask();
-                    if (modifier.getStat().isMainOrSubHandStat() && owner instanceof Player) {
-                        if (slots != ItemSlot.MAIN_HAND.getSlotIdMask() && slots != ItemSlot.SUB_HAND.getSlotIdMask()) {
-                            if (((Player) owner).getEquipment().getOffHandWeaponType() != null)
-                                slots = ItemSlot.MAIN_OR_SUB.getSlotIdMask();
-                            else {
-                                slots = ItemSlot.MAIN_HAND.getSlotIdMask();
-                                setStat(StatEnum.OFF_HAND_ACCURACY, 0, false);
-                            }
-                        } else if (slots == ItemSlot.MAIN_HAND.getSlotIdMask())
-                            setStat(StatEnum.MAIN_HAND_POWER, 0);
-                    }
-
-                    List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
-                    for (ItemSlot slot : oSlots) {
-                        List<StatEnum> statToModifies = new ArrayList<StatEnum>();
-                        if(modifier.getStatToModifies().size() > 0){
-                            statToModifies = modifier.getStatToModifies();//for WeaponMastery
-                        }else{
-                        	statToModifies.add(modifier.getStat().getMainOrSubHandStat(slot));
-                        }
-                        
-                        for(StatEnum statToModify : statToModifies){
-	                        if ((slot == ItemSlot.SUB_HAND && statToModify == StatEnum.PARRY && !modifier.isBonus())
-	                            || (slot == ItemSlot.SUB_HAND && statToModify == StatEnum.MAGICAL_ACCURACY && !modifier.isBonus()))
-	                           continue;
-	
-	                        if (!orderedModifiers.containsKey(statToModify)) {
-	                            orderedModifiers.put(statToModify, new StatModifiers());
-	                        }
-	                    	if(!modifier.isCanDuplicate() && orderedModifiers.get(statToModify).getModifiers(modifier.getPriority()).contains(modifier)){
-	                    		continue;
-	                        }
-                            orderedModifiers.get(statToModify).add(modifier);
-                        }
-                    }
-                }
-            }
-        }
-
-        for (Entry<StatEnum, StatModifiers> entry : orderedModifiers.entrySet()) {
-            applyModifiers(entry.getKey(), entry.getValue());
-        }
-
-        setStat(StatEnum.ATTACK_SPEED, Math.round(getBaseStat(StatEnum.MAIN_HAND_ATTACK_SPEED)
-                + getBaseStat(StatEnum.OFF_HAND_ATTACK_SPEED) * 0.25f), false);
-
-        setStat(StatEnum.ATTACK_SPEED, getStatBonus(StatEnum.MAIN_HAND_ATTACK_SPEED)
-                + getStatBonus(StatEnum.OFF_HAND_ATTACK_SPEED), true);
-
-        orderedModifiers.clear();
-    }
-
-   
     protected void applyLimits()
     {
         int MIN_SPEED = 600;

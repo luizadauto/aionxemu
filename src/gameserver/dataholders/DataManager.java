@@ -18,6 +18,9 @@ package gameserver.dataholders;
 
 import org.apache.log4j.Logger;
 import gameserver.dataholders.loadingutils.XmlDataLoader;
+import gameserver.itemengine.actions.ItemActions;
+import gameserver.model.templates.compressed_items.CompressedItem;
+import gameserver.model.templates.item.ItemTemplate;
 import gameserver.utils.Util;
 
 

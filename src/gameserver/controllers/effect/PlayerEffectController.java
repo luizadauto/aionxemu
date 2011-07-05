@@ -30,15 +30,36 @@ import gameserver.utils.PacketSendUtility;
 
 import java.util.Collections;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author ATracer
  */
 public class PlayerEffectController extends EffectController {
+	/**
+	 * Logger for this class.
+	 */
+	private static final Logger log = Logger.getLogger(PlayerEffectController.class);
+
     /**
      * weapon mastery
      */
     private int weaponEffects;
     private int subWeaponEffects;
+
+	/**
+	 * dual weapon mastery
+	 */
+	private int dualEffects;
+	/**
+	 * holds the value of DualMasteryEffect
+	 */
+	private int dualEffect;
+	
+	/**
+	 * shield mastery
+	 */
+	private int shieldEffects;
 
     /**
      * armor mastery

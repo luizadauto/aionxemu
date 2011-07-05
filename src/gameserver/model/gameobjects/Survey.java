@@ -91,6 +91,10 @@ public class Survey {
     public int getPlayerLevelMax() {
         return playerLevelMax;
     }
+    
+    public boolean isLevel(int level) {
+    	return (level >= playerLevelMin && level <= playerLevelMax);
+    }
 
     public int getItemCount() {
         return itemCount;

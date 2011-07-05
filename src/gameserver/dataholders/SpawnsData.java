@@ -18,6 +18,7 @@ package gameserver.dataholders;
 
 import gameserver.model.templates.spawn.SpawnGroup;
 import gameserver.model.templates.spawn.SpawnTemplate;
+import gameserver.spawn.DayNightSpawnManager;
 import gameserver.spawn.SpawnEngine;
 import gnu.trove.TIntObjectHashMap;
 import org.apache.log4j.Logger;

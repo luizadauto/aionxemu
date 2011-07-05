@@ -407,6 +407,12 @@ public class CustomConfig {
     @Property(key = "gameserver.chat.talkdelay", defaultValue = "10")
     public static int TALK_DELAY;
 
+	/**
+	 * Interval between messages in world/race chats
+	 */
+	@Property(key = "gameserver.channels.message.interval", defaultValue = "0")
+	public static byte		CHANNEL_MESSAGE_INTERVAL;
+
     /**
      * Time Length of Duel Battles.
      */
