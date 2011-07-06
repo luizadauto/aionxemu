@@ -75,7 +75,8 @@ public class CraftSkillUpdateService {
         cost.put(299, 460000);
         cost.put(399, 1500000);
 		cost.put(449, 3400000);
-        cost.put(499, 3500000);
+        cost.put(499, 6000000);
+        cost.put(549, 10000000);
 
         craftingSkillIds.add(40001);
         craftingSkillIds.add(40002);
@@ -132,7 +133,7 @@ public class CraftSkillUpdateService {
 
         // max mastered crafting skill == 3
         if (isCraftingSkill(skillId)
-                && (!canLearnMoreMasterCraftingSkill(player) && skillLvl == 499)) {
+                && (!canLearnMoreMasterCraftingSkill(player) && skillLvl == 549)) {
             PacketSendUtility.sendMessage(player, "You can only master 3 crafting skills.");
             return;
         }
@@ -195,7 +196,7 @@ public class CraftSkillUpdateService {
             int skillLvl = 0;
             if (player.getSkillList().isSkillPresent(skillId)) {
                 skillLvl = player.getSkillList().getSkillLevel(skillId);
-                if (skillLvl > 499)
+                if (skillLvl > 549)
                     mastered++;
             }
         }

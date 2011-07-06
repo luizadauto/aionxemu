@@ -28,6 +28,7 @@ import gameserver.dao.SpawnDAO;
 import gameserver.dataholders.DataManager;
 import gameserver.model.ChatType;
 import gameserver.model.EmotionType;
+import gameserver.model.Race;
 import gameserver.model.TaskId;
 import gameserver.model.gameobjects.Creature;
 import gameserver.model.gameobjects.Npc;
@@ -173,6 +174,19 @@ public class NpcController extends CreatureController<Npc> {
 
     @Override
     public void onDialogRequest(Player player) {
+    	// zer0patches todo check for better solution, portal data looks correct for portal controller but
+    	// problem occurs because it is a quest teleportation via quest dialog on npc so portal check is bypassed
+    	// Prevent Elyos's from using Aerolink in Gelkmaros -> Pandaemonium
+    	if (player.getCommonData().getRace() == Race.ELYOS && getOwner().getNpcId() == 730221) {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
+            return;
+    	}
+    	// Prevent Asmodian's from using Aerolink in Inggison -> Sanctum
+    	if (player.getCommonData().getRace() == Race.ASMODIANS && getOwner().getNpcId() == 730220) {
+            PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
+            return;
+    	}
+    	
         getOwner().getAi().handleEvent(Event.TALK);
 
         if (QuestEngine.getInstance().onDialog(new QuestCookie(getOwner(), player, 0, -1)))

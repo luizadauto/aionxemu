@@ -4938,13 +4938,13 @@
 	<spawn map="210050000" npcid="216501" pool="1" interval="295">
 		<object h="73" x="2913.8801" y="596.9655" z="345.75"/>
 	</spawn>
-	<spawn map="210050000" npcid="216502" pool="1" interval="295">
+	<spawn map="210050000" npcid="216502" pool="1" interval="10800">
 		<object h="26" x="101.50488" y="316.3283" z="583.5152"/>
 	</spawn>
 	<spawn map="210050000" npcid="216503" pool="1" interval="295">
 		<object h="53" x="114.36895" y="588.71436" z="620.1982"/>
 	</spawn>
-	<spawn map="210050000" npcid="216504" pool="1" interval="295">
+	<spawn map="210050000" npcid="216504" pool="1" interval="14400">
 		<object h="73" x="226.45454" y="676.4607" z="618.75"/>
 	</spawn>
 	<spawn map="210050000" npcid="216511" pool="1" interval="295">

@@ -3799,4 +3799,248 @@
 		<production chance="3" item_id="162000061" count="20"/>
 		<production chance="3" item_id="160001274" count="20"/>
 	</compressed_item>
+	<!-- Major Radiant Ops Reward -->
+	<compressed_item id="188050575">
+		<production chance="10" item_id="186000051" count="1"/>
+		<production chance="15" item_id="186000052" count="1"/>
+		<production chance="20" item_id="186000053" count="1"/>
+		<production chance="25" item_id="186000054" count="1"/>
+	</compressed_item>
+	<!-- Major Blood Crusade Reward -->
+	<compressed_item id="188050579">
+		<production chance="10" item_id="186000051" count="1"/>
+		<production chance="15" item_id="186000052" count="1"/>
+		<production chance="20" item_id="186000053" count="1"/>
+		<production chance="25" item_id="186000054" count="1"/>
+	</compressed_item>
+	<!-- Greater Radiant Ops Reward -->
+	<compressed_item id="188050574">
+		<production chance="10" item_id="186000055" count="1"/>
+		<production chance="15" item_id="186000056" count="1"/>
+		<production chance="20" item_id="186000057" count="1"/>
+		<production chance="25" item_id="186000058" count="1"/>
+	</compressed_item>
+	<!-- Blood Crusade Reward -->
+	<compressed_item id="188050577">
+		<production chance="10" item_id="186000059" count="1"/>
+		<production chance="15" item_id="186000060" count="1"/>
+		<production chance="20" item_id="186000061" count="1"/>
+		<production chance="25" item_id="186000062" count="1"/>
+	</compressed_item>
+	<!-- Radiant Ops Reward -->
+	<compressed_item id="188050573">
+		<production chance="10" item_id="186000059" count="1"/>
+		<production chance="15" item_id="186000060" count="1"/>
+		<production chance="20" item_id="186000061" count="1"/>
+		<production chance="25" item_id="186000062" count="1"/>
+	</compressed_item>
+	<!-- Greater Blood Crusade Reward -->
+	<compressed_item id="188050578">
+		<production chance="10" item_id="186000055" count="1"/>
+		<production chance="15" item_id="186000056" count="1"/>
+		<production chance="20" item_id="186000057" count="1"/>
+		<production chance="25" item_id="186000058" count="1"/>
+	</compressed_item>
+	<!-- Lesser Radiant Ops Reward -->
+	<compressed_item id="188050572">
+		<production chance="10" item_id="186000063" count="1"/>
+		<production chance="15" item_id="186000064" count="1"/>
+		<production chance="20" item_id="186000065" count="1"/>
+		<production chance="25" item_id="186000066" count="1"/>
+	</compressed_item>
+	<!-- Lesser Blood Crusade Reward -->
+	<compressed_item id="188050576">
+		<production chance="10" item_id="186000063" count="1"/>
+		<production chance="15" item_id="186000064" count="1"/>
+		<production chance="20" item_id="186000065" count="1"/>
+		<production chance="25" item_id="186000066" count="1"/>
+	</compressed_item>
+	<!-- Lesser Field Warden Supplies -->
+	<compressed_item id="188050559">
+		<production chance="20" item_id="162000023" count="30"/>
+		<production chance="20" item_id="162000054" count="30"/>
+		<production chance="20" item_id="162000059" count="30"/>
+		<production chance="20" item_id="162000004" count="30"/>
+		<production chance="20" item_id="162000009" count="30"/>
+		<production chance="20" item_id="162000048" count="30"/>
+		<production chance="20" item_id="162000043" count="30"/>
+		<production chance="20" item_id="160001273" count="30"/>
+	</compressed_item>
+	<!-- Lesser Alabaster Order Supplies -->
+	<compressed_item id="188050556">
+		<production chance="20" item_id="162000023" count="30"/>
+		<production chance="20" item_id="162000054" count="30"/>
+		<production chance="20" item_id="162000059" count="30"/>
+		<production chance="20" item_id="162000004" count="30"/>
+		<production chance="20" item_id="162000009" count="30"/>
+		<production chance="20" item_id="162000048" count="30"/>
+		<production chance="20" item_id="162000043" count="30"/>
+		<production chance="20" item_id="160001273" count="30"/>
+	</compressed_item>
+	<!-- General Radiant Ops Supplies -->
+	<compressed_item id="188050568">
+		<production chance="20" item_id="160001274" count="40"/>
+		<production chance="20" item_id="162000049" count="40"/>
+		<production chance="20" item_id="162000044" count="40"/>
+		<production chance="20" item_id="162000015" count="40"/>
+		<production chance="20" item_id="162000020" count="40"/>
+		<production chance="20" item_id="162000005" count="40"/>
+		<production chance="20" item_id="162000010" count="40"/>
+		<production chance="20" item_id="162000055" count="40"/>
+		<production chance="20" item_id="162000060" count="40"/>
+	</compressed_item>
+	<!-- General Blood Crusade Supplies -->
+	<compressed_item id="188050570">
+		<production chance="20" item_id="160001274" count="40"/>
+		<production chance="20" item_id="162000049" count="40"/>
+		<production chance="20" item_id="162000044" count="40"/>
+		<production chance="20" item_id="162000015" count="40"/>
+		<production chance="20" item_id="162000020" count="40"/>
+		<production chance="20" item_id="162000005" count="40"/>
+		<production chance="20" item_id="162000010" count="40"/>
+		<production chance="20" item_id="162000055" count="40"/>
+		<production chance="20" item_id="162000060" count="40"/>
+	</compressed_item>
+	<!-- Alabaster Order Supplies -->
+	<compressed_item id="188050557">
+		<production chance="20" item_id="160001274" count="20"/>
+		<production chance="20" item_id="162000049" count="20"/>
+		<production chance="20" item_id="162000044" count="20"/>
+		<production chance="20" item_id="162000015" count="20"/>
+		<production chance="20" item_id="162000020" count="20"/>
+		<production chance="20" item_id="162000005" count="20"/>
+		<production chance="20" item_id="162000010" count="20"/>
+		<production chance="20" item_id="162000055" count="20"/>
+		<production chance="20" item_id="162000060" count="20"/>
+	</compressed_item>
+	<!-- Alabaster Order Reward -->
+	<compressed_item id="188050563">
+		<production chance="10" item_id="167000482" count="5"/>
+		<production chance="10" item_id="167000483" count="5"/>
+		<production chance="10" item_id="167000489" count="5"/>
+		<production chance="10" item_id="167000497" count="5"/>
+		<production chance="10" item_id="167000540" count="5"/>
+		<production chance="10" item_id="167000488" count="5"/>
+		<production chance="10" item_id="167000487" count="5"/>
+		<production chance="10" item_id="167000484" count="5"/>
+		<production chance="10" item_id="167000539" count="5"/>
+		<production chance="10" item_id="167000485" count="5"/>
+		<production chance="10" item_id="167000491" count="5"/>
+	</compressed_item>
+	<!-- Greater Alabaster Order Supplies -->
+	<compressed_item id="188050558">
+		<production chance="1" item_id="162000065" count="2"/>
+		<production chance="1" item_id="162000066" count="2"/>
+		<production chance="1" item_id="162000074" count="2"/>
+		<production chance="1" item_id="162000064" count="2"/>
+		<production chance="5" item_id="162000050" count="10"/>
+		<production chance="10" item_id="162000045" count="20"/>
+		<production chance="10" item_id="162000016" count="20"/>
+		<production chance="10" item_id="162000021" count="20"/>
+		<production chance="10" item_id="162000006" count="20"/>
+		<production chance="10" item_id="162000011" count="20"/>
+		<production chance="10" item_id="162000056" count="20"/>
+		<production chance="10" item_id="162000061" count="20"/>
+		<production chance="10" item_id="160001274" count="20"/>
+	</compressed_item>
+	<!-- Greater Alabaster Order Reward-->
+	<compressed_item id="188050564">
+		<production chance="10" item_id="167000514" count="5"/>
+		<production chance="10" item_id="167000515" count="5"/>
+		<production chance="10" item_id="167000518" count="5"/>
+		<production chance="10" item_id="167000521" count="5"/>
+		<production chance="10" item_id="167000523" count="5"/>
+		<production chance="10" item_id="167000542" count="5"/>
+		<production chance="10" item_id="167000520" count="5"/>
+		<production chance="10" item_id="167000519" count="5"/>
+		<production chance="10" item_id="167000516" count="5"/>
+		<production chance="10" item_id="167000541" count="5"/>
+		<production chance="10" item_id="167000517" count="5"/>
+		<production chance="10" item_id="167000522" count="5"/>
+	</compressed_item>
+	<!-- Lesser Alabaster Order Reward -->
+	<compressed_item id="188050562">
+		<production chance="10" item_id="167000450" count="5"/>
+		<production chance="10" item_id="167000450" count="5"/>
+		<production chance="10" item_id="167000454" count="5"/>
+		<production chance="10" item_id="167000457" count="5"/>
+		<production chance="10" item_id="167000456" count="5"/>
+		<production chance="10" item_id="167000455" count="5"/>
+		<production chance="10" item_id="167000452" count="5"/>
+		<production chance="10" item_id="167000453" count="5"/>
+		<production chance="10" item_id="167000459" count="5"/>
+		<production chance="10" item_id="167000538" count="5"/>
+		<production chance="10" item_id="167000537" count="5"/>
+	</compressed_item>
+	<!-- Lesser Field Warden Reward -->
+	<compressed_item id="188050565">
+		<production chance="10" item_id="167000450" count="5"/>
+		<production chance="10" item_id="167000450" count="5"/>
+		<production chance="10" item_id="167000454" count="5"/>
+		<production chance="10" item_id="167000457" count="5"/>
+		<production chance="10" item_id="167000456" count="5"/>
+		<production chance="10" item_id="167000455" count="5"/>
+		<production chance="10" item_id="167000452" count="5"/>
+		<production chance="10" item_id="167000453" count="5"/>
+		<production chance="10" item_id="167000459" count="5"/>
+		<production chance="10" item_id="167000538" count="5"/>
+		<production chance="10" item_id="167000537" count="5"/>
+	</compressed_item>
+	<!-- Greater Field Warden Reward-->
+	<compressed_item id="188050567">
+		<production chance="10" item_id="167000514" count="5"/>
+		<production chance="10" item_id="167000515" count="5"/>
+		<production chance="10" item_id="167000518" count="5"/>
+		<production chance="10" item_id="167000521" count="5"/>
+		<production chance="10" item_id="167000523" count="5"/>
+		<production chance="10" item_id="167000542" count="5"/>
+		<production chance="10" item_id="167000520" count="5"/>
+		<production chance="10" item_id="167000519" count="5"/>
+		<production chance="10" item_id="167000516" count="5"/>
+		<production chance="10" item_id="167000541" count="5"/>
+		<production chance="10" item_id="167000517" count="5"/>
+		<production chance="10" item_id="167000522" count="5"/>
+	</compressed_item>
+	<!-- Field Warden Reward -->
+	<compressed_item id="188050566">
+		<production chance="10" item_id="167000482" count="5"/>
+		<production chance="10" item_id="167000483" count="5"/>
+		<production chance="10" item_id="167000489" count="5"/>
+		<production chance="10" item_id="167000497" count="5"/>
+		<production chance="10" item_id="167000540" count="5"/>
+		<production chance="10" item_id="167000488" count="5"/>
+		<production chance="10" item_id="167000487" count="5"/>
+		<production chance="10" item_id="167000484" count="5"/>
+		<production chance="10" item_id="167000539" count="5"/>
+		<production chance="10" item_id="167000485" count="5"/>
+		<production chance="10" item_id="167000491" count="5"/>
+	</compressed_item>
+	<!-- Field Warden Supplies -->
+	<compressed_item id="188050560">
+		<production chance="20" item_id="160001274" count="20"/>
+		<production chance="20" item_id="162000049" count="20"/>
+		<production chance="20" item_id="162000044" count="20"/>
+		<production chance="20" item_id="162000015" count="20"/>
+		<production chance="20" item_id="162000020" count="20"/>
+		<production chance="20" item_id="162000005" count="20"/>
+		<production chance="20" item_id="162000010" count="20"/>
+		<production chance="20" item_id="162000055" count="20"/>
+		<production chance="20" item_id="162000060" count="20"/>
+	</compressed_item>
+	<!-- Greater Field Warden Supplies -->
+	<compressed_item id="188050561">
+		<production chance="1" item_id="162000065" count="2"/>
+		<production chance="1" item_id="162000066" count="2"/>
+		<production chance="1" item_id="162000074" count="2"/>
+		<production chance="1" item_id="162000064" count="2"/>
+		<production chance="5" item_id="162000050" count="10"/>
+		<production chance="10" item_id="162000045" count="20"/>
+		<production chance="10" item_id="162000016" count="20"/>
+		<production chance="10" item_id="162000021" count="20"/>
+		<production chance="10" item_id="162000006" count="20"/>
+		<production chance="10" item_id="162000011" count="20"/>
+		<production chance="10" item_id="162000056" count="20"/>
+		<production chance="10" item_id="162000061" count="20"/>
+		<production chance="10" item_id="160001274" count="20"/>
+	</compressed_item>
 </compressed_items>

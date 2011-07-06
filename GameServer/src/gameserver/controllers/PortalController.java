@@ -67,8 +67,10 @@ public class PortalController extends NpcController {
             return;
 
         if (getOwner() instanceof InstancePortal) {
-            if (((InstancePortal) getOwner()).getRace().getRaceId() != player.getCommonData().getRace().getRaceId())
+            if (((InstancePortal) getOwner()).getRace().getRaceId() != player.getCommonData().getRace().getRaceId()) {
+                PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MOVE_PORTAL_ERROR_INVALID_RACE);
                 return;
+        }
         }
 
         final int defaultUseTime = 3000;
