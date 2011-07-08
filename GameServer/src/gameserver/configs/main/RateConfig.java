@@ -19,7 +19,7 @@ package gameserver.configs.main;
 import com.aionemu.commons.configuration.Property;
 
 /**
- * @author ATracer
+ * @author ATracer, Geekswordsman
  */
 public class RateConfig {
     /**
@@ -87,7 +87,22 @@ public class RateConfig {
 
     @Property(key = "gameserver.rate.vip.xp", defaultValue = "3")
     public static int VIP_XP_RATE;
-
+    
+    /**
+     * Experience Bonuses for grouping with larger members
+     */
+    @Property(key = "gameserver.rate.groupsizebonus.enable", defaultValue = "true")
+    public static boolean GROUPSIZEBONUS_XP_ENABLE;
+    
+    @Property(key = "gameserver.rate.regular.groupsizebonus.xp", defaultValue = "2")
+    public static float GROUPSIZEBONUS_REGULAR_XP_RATE;
+    
+    @Property(key = "gameserver.rate.premium.groupsizebonus.xp", defaultValue = "2")
+    public static float GROUPSIZEBONUS_PREMIUM_XP_RATE;
+    
+    @Property(key = "gameserver.rate.vip.groupsizebonus.xp", defaultValue = "2")
+    public static float GROUPSIZEBONUS_VIP_XP_RATE;
+    
     /**
      * Quest Xp Rate - Regular,Vip and Premium
      */

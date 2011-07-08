@@ -47,7 +47,17 @@ public abstract class Rates {
     public abstract int getPvpDpRate();
     
     public abstract int getGroupDpRate();
+    
+    public abstract boolean getIsGroupSizeBonusExpEnabled();
+    
+    public abstract double getGroupSizeBonusExpRate();
+/*
+    public abstract double getGroupSizeBonusRegularXpRate();
 
+    public abstract double getGroupSizeBonusPremiumXpRate();
+    
+    public abstract double getGroupSizeBonusVIPXpRate();
+*/
     /**
      * @param membership
      * @return Rates

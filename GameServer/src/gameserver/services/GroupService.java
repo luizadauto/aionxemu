@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * @author Simple
+ * @author Simple, Geekswordsman
  */
 public class GroupService {
 
@@ -291,8 +291,16 @@ public class GroupService {
             // Exp reward
             if (highestLevel - member.getCommonData().getLevel() <= GroupConfig.GROUP_MAX_LEVEL_DIFFERENCE) {
                 long currentExp = member.getCommonData().getExp();
+
                 reward = (expReward * member.getLevel()) / partyLvlSum;
                 reward *= member.getRates().getGroupXpRate();
+
+                // If enabled, modify the reward based on group size.
+                if (member.getRates().getIsGroupSizeBonusExpEnabled()) {
+                	double groupMod = players.size() * member.getRates().getGroupSizeBonusExpRate();
+                	reward *= (1 + (groupMod / 100));
+                }
+
                 member.getCommonData().setExp(currentExp + reward);
             }
 

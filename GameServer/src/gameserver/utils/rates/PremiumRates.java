@@ -100,4 +100,14 @@ public class PremiumRates extends Rates {
         return RateConfig.PREMIUM_GROUPDP_RATE;
     };
 
+    @Override
+    public boolean getIsGroupSizeBonusExpEnabled() {
+    	return RateConfig.GROUPSIZEBONUS_XP_ENABLE;
+    };
+    
+    @Override
+    public double getGroupSizeBonusExpRate() {
+    	return RateConfig.GROUPSIZEBONUS_PREMIUM_XP_RATE;
+    };
+    
 }

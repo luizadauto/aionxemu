@@ -19,7 +19,7 @@ package gameserver.utils.rates;
 import gameserver.configs.main.RateConfig;
 
 /**
- * @author ATracer
+ * @author ATracer, Geekswordsman
  */
 public class RegularRates extends Rates {
     @Override
@@ -99,5 +99,14 @@ public class RegularRates extends Rates {
     public int getGroupDpRate() {
         return RateConfig.GROUPDP_RATE;
     };
-
+    
+    @Override
+    public boolean getIsGroupSizeBonusExpEnabled() {
+    	return RateConfig.GROUPSIZEBONUS_XP_ENABLE;
+    };
+    
+    @Override
+    public double getGroupSizeBonusExpRate() {
+    	return RateConfig.GROUPSIZEBONUS_REGULAR_XP_RATE;
+    };
 }

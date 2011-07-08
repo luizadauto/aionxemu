@@ -100,4 +100,14 @@ public class VipRates extends Rates {
         return RateConfig.VIP_GROUPDP_RATE;
     };
 
+    @Override
+    public boolean getIsGroupSizeBonusExpEnabled() {
+    	return RateConfig.GROUPSIZEBONUS_XP_ENABLE;
+    };
+    
+    @Override
+    public double getGroupSizeBonusExpRate() {
+    	return RateConfig.GROUPSIZEBONUS_VIP_XP_RATE;
+    };
+
 }
