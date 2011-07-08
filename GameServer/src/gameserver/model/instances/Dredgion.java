@@ -72,10 +72,13 @@ public class Dredgion {
                     asmosPoints += participants.get(p);
                 else elyosPoints += participants.get(p);
             }
+            if (asmosPoints == elyosPoints)
+                return Race.NONE;
+            else
             if (asmosPoints > elyosPoints)
                 return Race.ASMODIANS;
-            else
-                return Race.ELYOS;
+
+            else return Race.ELYOS;
         }
     }
 
