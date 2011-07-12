@@ -348,14 +348,17 @@ public class Equipment {
                         }
                 }//no break
             case 1:
-                //check dual skill
-                if (itemInMainHand != null && (!owner.getSkillList().isSkillPresent(19) && !owner.getSkillList().isSkillPresent(360))) {
-                    if (validateOnly) {
-                        requiredSlots++;
-                        markedFreeSlots.add(ItemSlot.MAIN_HAND.getSlotIdMask());
-                    } else
-                        unEquip(ItemSlot.MAIN_HAND.getSlotIdMask());
-                }
+				//check dual skill
+				if(itemInMainHand != null && owner.getSkillList().getDualMasterySkill() == 0 )
+				{
+					if(validateOnly)
+					{
+						requiredSlots++;
+						markedFreeSlots.add(ItemSlot.MAIN_HAND.getSlotIdMask());
+					}
+					else
+						unEquip(ItemSlot.MAIN_HAND.getSlotIdMask());
+				}
                 //check 2h weapon in main hand
                 else if (itemInMainHand != null && itemInMainHand.getItemTemplate().getWeaponType().getRequiredSlots() == 2) {
                     if (validateOnly) {
@@ -928,4 +931,22 @@ public class Equipment {
 
         return false;
     }
+	
+	public boolean isDualWieldEquipped()
+	{
+		if (this.getMainHandWeapon() != null && this.getOffHandWeapon() != null && getOffHandWeaponType() != null)
+		{
+			switch (getOffHandWeaponType())
+			{
+				case DAGGER_1H:
+				case MACE_1H:
+				case SWORD_1H:
+				case TOOLHOE_1H:
+					if (this.getMainHandWeapon().getObjectId() != this.getOffHandWeapon().getObjectId())
+						return true;
+				break;
+			}
+		}
+		return false;
+	}
 }

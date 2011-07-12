@@ -44,6 +44,20 @@ public class PlayerEffectController extends EffectController {
      * armor mastery
      */
     private int armorEffects;
+	
+	/**
+	 * dual weapon mastery
+	 */
+	private int dualEffects;
+	/**
+	 * holds the value of DualMasteryEffect
+	 */
+	private int dualEffect;
+	
+	/**
+	 * shield mastery
+	 */
+	private int shieldEffects;
 
     /**
      * current food effect
@@ -165,6 +179,72 @@ public class PlayerEffectController extends EffectController {
         return armorEffects == skillId;
     }
 
+		/**
+	 * Dual Weapon mastery
+	 */
+	public boolean isDualMasterySet(int skillId)
+	{
+		return dualEffects == skillId;
+	}
+	
+	public void setDualMastery(int skillId)
+	{
+		dualEffects = skillId;
+	}
+
+	public void unsetDualMastery()
+	{
+		dualEffects = 0;
+	}
+
+	public int getDualMastery()
+	{
+		return dualEffects;
+	}
+	
+	/**
+	 * Set dualEffect, used in calculation of offhand damage
+	 * @param dualEffect
+	 */
+	
+	public void setDualEffect(int dualEffect)
+	{
+		this.dualEffect = dualEffect;
+	}
+
+	public void unsetDualEffect()
+	{
+		dualEffect = 0;
+	}
+
+	public int getDualEffect()
+	{
+		return dualEffect;
+	}
+	
+	/**
+	 * Shield mastery
+	 */
+	public void setShieldMastery(int skillId)
+	{
+		shieldEffects = skillId;
+	}
+
+	public void unsetShieldMastery()
+	{
+		shieldEffects = 0;
+	}
+
+	public int getShieldMastery()
+	{
+		return shieldEffects;
+	}
+	
+	public boolean isShieldMasterySet(int skillId)
+	{
+		return shieldEffects == skillId;
+	}
+	
     /**
      * @param skillId
      * @param skillLvl

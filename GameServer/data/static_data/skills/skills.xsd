@@ -16,7 +16,7 @@
 			<xs:element name="startconditions" type="Conditions" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="setproperties" type="Properties" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="useconditions" type="Conditions" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="effects" type="Effects" minOccurs="0"/>
+			<xs:element name="effects" type="Effects" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="actions" type="Actions" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 		<xs:attribute name="penalty_skill_id" type="skillId"/>
@@ -141,6 +141,10 @@
 			<xs:element name="onetimeboostheal" type="OneTimeBoostHealEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="xpboost" type="XPBoostEffect" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="summonhoming" type="SummonHomingEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="shieldmastery" type="ShieldMasteryEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="dualmastery" type="DualMasteryEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="extendaurarange" type="ExtendAuraRangeEffect" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="skillatk_instant" type="SkillAttackInstantEffect" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 		<xs:attribute name="food" type="xs:boolean"/>
 	</xs:complexType>
@@ -152,6 +156,7 @@
 			<xs:element name="target" type="TargetCondition" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="playermove" type="PlayerMovedCondition" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="arrowcheck" type="ArrowCheckCondition" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="self" type="SelfCondition" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Properties">
@@ -161,6 +166,7 @@
 			<xs:element name="firsttargetrange" type="FirstTargetRangeProperty" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="targetrange" type="TargetRangeProperty" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="targetrelation" type="TargetRelationProperty" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="targetstatus" type="TargetStatusProperty" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Actions">
@@ -199,6 +205,12 @@
 		<xs:attribute name="randomtime" type="xs:int"/>
 		<xs:attribute name="duration" type="xs:int"/>
 		<xs:attribute name="onfly" type="xs:boolean" default="false"/>
+		<xs:attribute name="noresist" type="xs:boolean" default="false"/>
+		<xs:attribute name="preeffects_mask" type="xs:int"/>
+		<xs:attribute name="preeffect_prob" type="xs:float" default="1"/>
+		<xs:attribute name="critical_prob" type="xs:float" default="1"/>
+		<xs:attribute name="acc_mod" type="xs:int" default="0"/>
+		<xs:attribute name="cond_effect" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="Property" abstract="true"/>
 	<xs:complexType name="ActionModifier" abstract="true"/>
@@ -285,6 +297,15 @@
 				<xs:attribute name="race" type="SkillTargetRace" use="required"/>
 				<xs:attribute name="delta" type="xs:int" use="required"/>
 				<xs:attribute name="value" type="xs:int" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+		<xs:complexType name="AbnormalDamageModifier">
+		<xs:complexContent>
+			<xs:extension base="ActionModifier">
+				<xs:attribute name="value" type="xs:int"/>
+				<xs:attribute name="delta" type="xs:int"/>
+				<xs:attribute name="type" type="AbnormalState"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -379,6 +400,8 @@
 				<xs:attribute name="delta" type="xs:int"/>
 				<xs:attribute name="value" type="xs:int"/>
 				<xs:attribute name="cond_race" type="SkillTargetRace"/>
+				<xs:attribute name="attacktype" type="AttackType"/>
+				<xs:attribute name="probability" type="xs:int"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -567,6 +590,12 @@
 			<xs:extension base="Effect">
 				<xs:attribute name="delta" type="xs:int"/>
 				<xs:attribute name="value" type="xs:int" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+		<xs:complexType name="SkillAttackInstantEffect">
+		<xs:complexContent>
+			<xs:extension base="DamageEffect">
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -952,6 +981,26 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:complexType name="ShieldMasteryEffect">
+    <xs:complexContent>
+      <xs:extension base="BufEffect">
+			</xs:extension>
+    </xs:complexContent>
+    </xs:complexType>
+	 <xs:complexType name="DualMasteryEffect">
+    <xs:complexContent>
+    <xs:extension base="BufEffect">
+			<xs:attribute name="value" type="xs:int"/>
+      </xs:extension>
+    </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ExtendAuraRangeEffect">
+    <xs:complexContent>
+      <xs:extension base="Effect">
+        <xs:attribute name="value" type="xs:int"/>
+      </xs:extension>
+    </xs:complexContent>
+    </xs:complexType>
 	<!-- CONDITIONS -->
 	<xs:complexType name="MpCondition">
 		<xs:complexContent>
@@ -995,6 +1044,13 @@
 			<xs:extension base="Condition"/>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:complexType name="SelfCondition">
+		<xs:complexContent>
+			<xs:extension base="Condition">
+				<xs:attribute name="restriction" type="FlyRestriction" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 	<!-- PROPERTIES -->
 	<!-- init properties -->
 	<xs:complexType name="AddWeaponRangeProperty">
@@ -1033,13 +1089,22 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	  	<xs:complexType name="TargetStatusProperty">
+		<xs:complexContent>
+			<xs:extension base="Property">
+				<xs:attribute name="value" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 	<!-- MISC -->
 	<xs:simpleType name="AttackType">
 		<xs:restriction base="xs:string">
+		    <xs:enumeration value="ATTACKED"/>
 			<xs:enumeration value="EVERYHIT"/>
 			<xs:enumeration value="PHYSICAL_SKILL"/>
 			<xs:enumeration value="MAGICAL_SKILL"/>
 			<xs:enumeration value="ALL_SKILL"/>
+			<xs:enumeration value="ATTACK"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TransformType">
@@ -1238,4 +1303,43 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+		<xs:simpleType name="AbnormalState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BIND"/>
+			<xs:enumeration value="BLEED"/>
+			<xs:enumeration value="BLIND"/>
+			<xs:enumeration value="CURSE"/>
+			<xs:enumeration value="DEFORM"/>
+			<xs:enumeration value="FEAR"/>
+			<xs:enumeration value="OPENAERIAL"/>
+			<xs:enumeration value="PARALYZE"/>
+			<xs:enumeration value="POISON"/>
+			<xs:enumeration value="SNARE"/>
+			<xs:enumeration value="SPIN"/>
+			<xs:enumeration value="STAGGER"/>
+			<xs:enumeration value="STUMBLE"/>
+			<xs:enumeration value="STUN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DispelCategoryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE"/>
+			<xs:enumeration value="ALL"/>
+			<xs:enumeration value="BUFF"/>
+			<xs:enumeration value="DEBUFF_MENTAL"/>
+			<xs:enumeration value="DEBUFF_PHYSICAL"/>
+			<xs:enumeration value="EXTRA"/>
+			<xs:enumeration value="NPC_BUFF"/>
+			<xs:enumeration value="NPC_DEBUFF_PHYSICAL"/>
+			<xs:enumeration value="STUN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlyRestriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE"/>
+			<xs:enumeration value="ALL"/>
+			<xs:enumeration value="FLY"/>
+			<xs:enumeration value="GROUND"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>

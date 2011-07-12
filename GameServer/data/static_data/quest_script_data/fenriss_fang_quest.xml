@@ -21,6 +21,6 @@
 	<!-- 4938: Work of the Fenris's Fangs handled by script -->
 	<!-- 4939: Proving Ground handled by script -->
 	<!-- 4940: Decorations of Pandaemonium handled by script -->
-	<!-- [Group] Pandaemonium Honors -->
-	<item_collecting id="4941" start_npc_id="204060" />
+	<!-- 4941:[Group] Pandaemonium Honors handled by script -->
+	
 </quest_scripts>

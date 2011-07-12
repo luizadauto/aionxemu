@@ -159,10 +159,17 @@ public class ItemEquipmentListener {
 
         addGodstoneEffect(owner, item);
 
-        recalculateWeaponMastery(owner);
-
-        if (item.getItemTemplate().isArmor())
-            recalculateArmorMastery(owner);
+		if(item.getItemTemplate().isWeapon())
+		{
+			recalculateWeaponMastery(owner);
+			recalculateDualMastery(owner);
+		}
+		
+		if(item.getItemTemplate().isArmor(true))
+		{
+			recalculateArmorMastery(owner);
+			recalculateShieldMastery(owner);
+		}
 
         EnchantService.onItemEquip(owner, item);
         owner.getController().updatePassiveStats();
@@ -268,6 +275,67 @@ public class ItemEquipmentListener {
             }
         }
     }
+	
+	/**
+	 * @param owner
+	 */
+	private static void recalculateDualMastery(Player owner)
+	{
+		//don't calculate for not initialized equipment
+		if(owner.getEquipment() == null)
+			return;
+		
+		int currentDualMasterySkill =  owner.getEffectController().getDualMastery();
+		if (owner.getEquipment().isDualWieldEquipped() && currentDualMasterySkill != 0)
+		{
+			owner.getEffectController().removePassiveEffect(currentDualMasterySkill);
+			return;
+		}
+		
+		boolean weaponsEquiped = (owner.getEquipment().getOffHandWeapon() != null && owner.getEquipment().getMainHandWeapon() != null);
+		Integer skillId = owner.getSkillList().getDualMasterySkill();
+		if(skillId == null)
+			return;
+		boolean masterySet = owner.getEffectController().isDualMasterySet(skillId);
+		//remove effect if no weapon is equiped
+			
+		if(masterySet && !weaponsEquiped)
+		{
+			owner.getEffectController().removePassiveEffect(skillId);
+		}
+		//add effect if weapon is equiped
+		if(!masterySet && weaponsEquiped)
+		{
+			owner.getController().useSkill(skillId);
+		}
+	}
+	/**
+	 * @param owner
+	 */
+	private static void recalculateShieldMastery(Player owner)
+	{
+		//don't calculate for not initialized equipment
+		if(owner.getEquipment() == null)
+			return;
+		
+		boolean shieldEquiped = owner.getEquipment().isShieldEquipped();
+		Integer skillId = owner.getSkillList().getShieldMasterySkill();
+		if(skillId == null)
+			return;
+		boolean masterySet = owner.getEffectController().isShieldMasterySet(skillId);
+		//remove effect if no armor is equiped
+			
+		if(masterySet && !shieldEquiped)
+		{
+			owner.getEffectController().removePassiveEffect(skillId);
+		}
+		//add effect if armor is equiped
+		if(!masterySet && shieldEquiped)
+		{
+			owner.getController().useSkill(skillId);
+		}
+
+	}
 
     /**
      * All modifiers of stones will be applied to character

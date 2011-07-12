@@ -440,9 +440,58 @@ public class ItemTemplate extends VisibleObjectTemplate {
     /**
      * @return true or false
      */
-    public boolean isArmor() {
-        return equipmentType == EquipType.ARMOR;
-    }
+	public boolean isArmor()
+	{
+		return isArmor(false);
+	}
+	public boolean isArmor(boolean onlySet)
+	{
+		if (onlySet)
+		{
+			/*
+			 * CL_
+			 * RB_
+			 * LT_
+			 * CH_
+			 * PL_
+			 * 
+			 * TORSO
+			 * PANTS
+			 * SHOULDER
+			 * SHOES
+			 * GLOVE
+			 * 
+			 * SHIELD
+			 */
+			if (equipmentType == EquipType.ARMOR)
+			{
+				if (itemCategory == ItemCategory.SHIELD)
+					return true;
+				
+				String[] prefixes = {"CL_","RB_","LT_","CH_","PL_"};
+				String[] types = {"TORSO","PANTS","SHOULDER","SHOES","GLOVE"};
+				boolean isPresent = false;
+				for (String prefix : prefixes)
+				{
+					for(String type : types)
+					{
+						if(itemCategory.toString().equals(prefix+type))
+						{
+							isPresent = true;
+							break;
+						}
+					}
+				}
+			
+				if (!isPresent)
+					return false;
+			}
+			else
+				return false;
+		}
+		
+		return equipmentType == EquipType.ARMOR;
+	}
 
     public boolean isKinah() {
         return itemId == ItemId.KINAH.value();

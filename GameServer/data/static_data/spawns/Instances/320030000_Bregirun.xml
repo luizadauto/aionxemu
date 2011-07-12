@@ -5,6 +5,10 @@
 
  -->
 <spawns>
+    <!-- Kargate -->
+	<spawn map="320040000" npcid="204432" pool="1" interval="300">
+		<object staticid="0" x="272.82886" y="176.81439" z="204.34718" h="0"/>
+	</spawn>
 	<!-- Abyss Gate Guardian Stone (Object Normal lvl:1)-->
 	<spawn map="320030000" npcid="700142" pool="1" interval="295">
 		<object staticid="75" x="261.35947" y="229.51807" z="213.92033" h="93" w="0" rw="0"/>

@@ -27,6 +27,8 @@ import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import gameserver.skillengine.effect.ArmorMasteryEffect;
 import gameserver.skillengine.effect.EffectTemplate;
 import gameserver.skillengine.effect.WeaponMasteryEffect;
+import gameserver.skillengine.effect.DualMasteryEffect;
+import gameserver.skillengine.effect.ShieldMasteryEffect;
 import gameserver.skillengine.model.SkillTemplate;
 import gameserver.utils.PacketSendUtility;
 import org.apache.log4j.Logger;
@@ -65,6 +67,14 @@ public class SkillList {
 	 * Current armor mastery skills
 	 */
 	private final Map<ArmorType, Integer> armorMasterySkills = new HashMap<ArmorType, Integer>();
+	/**
+	 * Current dual weapon mastery skill
+	 */
+	private int dualMasterySkill = 0;
+	/**
+	 * Current shield mastery skill
+	 */
+	private int shieldMasterySkill = 0;
 
 	/**
 	 * Creates an empty skill list
@@ -84,6 +94,8 @@ public class SkillList {
 		this.deletedSkills = new ArrayList<SkillListEntry>();
 		calculateUsedWeaponMasterySkills();
 		calculateUsedArmorMasterySkills();
+	    calculateUsedDualMasterySkills();
+		calculateUsedShieldMasterySkills();
 	}
 
 	/**
@@ -135,9 +147,12 @@ public class SkillList {
 		if (skillTemplate.isPassive()) {
 			calculateUsedWeaponMasterySkills();
 			calculateUsedArmorMasterySkills();
-
+			calculateUsedDualMasterySkills();
+			calculateUsedShieldMasterySkills();
+			
 			ItemEquipmentListener.recalculateWeaponMastery(player);
 			ItemEquipmentListener.recalculateArmorMastery(player);
+
 			if(msg)
 				player.getController().updatePassiveStats();
 		}
@@ -167,6 +182,8 @@ public class SkillList {
 		if (skillTemplate.isPassive()) {
 			calculateUsedWeaponMasterySkills();
 			calculateUsedArmorMasterySkills();
+			calculateUsedDualMasterySkills();
+			calculateUsedShieldMasterySkills();
 		}
 		return true;
 	}
@@ -356,7 +373,75 @@ public class SkillList {
 			}
 		}
 	}
-
+    /**
+	 * Calculates dual weapon mastery skills that will used during equip
+	 */
+	private void calculateUsedDualMasterySkills()
+	{		
+		int dualMasteryLevel = 0;
+		dualMasterySkill = 0;
+		for(SkillListEntry skillListEntry : getAllSkills())
+		{
+			SkillTemplate skillTemplate = DataManager.SKILL_DATA.getSkillTemplate(skillListEntry.getSkillId());
+			if(skillTemplate == null)
+			{
+				logger.warn("CHECKPOINT: no skill template found for " + skillListEntry.getSkillId());
+				continue;
+			}
+			
+			if(skillTemplate.isPassive())
+			{
+				if(skillTemplate.getEffects() == null)
+					continue;
+				
+				EffectTemplate template = null;
+				if((template = skillTemplate.getEffectTemplate(1)) instanceof DualMasteryEffect)
+				{
+					DualMasteryEffect dme = (DualMasteryEffect) template;
+					if(dualMasteryLevel <= dme.getBasicLvl())
+					{
+						dualMasteryLevel = dme.getBasicLvl();
+						dualMasterySkill = skillTemplate.getSkillId();
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Calculates shield mastery skill that will used during equip
+	 */
+	private void calculateUsedShieldMasterySkills()
+	{		
+		int skillLevel = 0;
+		for(SkillListEntry skillListEntry : getAllSkills())
+		{
+			SkillTemplate skillTemplate = DataManager.SKILL_DATA.getSkillTemplate(skillListEntry.getSkillId());
+			if(skillTemplate == null)
+			{
+				logger.warn("CHECKPOINT: no skill template found for " + skillListEntry.getSkillId());
+				continue;
+			}
+			
+			if(skillTemplate.isPassive())
+			{
+				if(skillTemplate.getEffects() == null)
+					continue;
+				
+				EffectTemplate template = null;
+				if((template = skillTemplate.getEffectTemplate(1)) instanceof ShieldMasteryEffect)
+				{
+					ShieldMasteryEffect sme = (ShieldMasteryEffect) template;
+					if(skillLevel < sme.getBasicLvl())
+					{
+						skillLevel = sme.getBasicLvl();
+						shieldMasterySkill = skillTemplate.getSkillId();
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * @param weaponType
 	 * @return
@@ -371,5 +456,12 @@ public class SkillList {
 	 */
 	public Integer getArmorMasterySkill(ArmorType armorType) {
 		return armorMasterySkills.get(armorType);
+	}
+	public Integer getDualMasterySkill() {
+		return dualMasterySkill;
+	}
+	
+	public Integer getShieldMasterySkill() {
+		return shieldMasterySkill;
 	}
 }
