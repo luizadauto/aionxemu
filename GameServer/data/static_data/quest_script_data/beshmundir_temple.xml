@@ -89,7 +89,6 @@
 		<monster_infos var_id="0" npc_id="216313" max_kill="12"/>
 	</monster_hunt>
 	<!-- 30301: TODO: Tracking Supplies -->
-	<item_collecting id="30301" start_npc_id="799225"/>
 	<!-- 30302: TODO: Mysterious Motives -->
 	<!-- 30303: TODO: [Group] The Fall of Isbariya -->
 	<!-- 30304: Herka's Advice -->
