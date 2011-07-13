@@ -1,20 +1,21 @@
-/*
- * This file is part of Aion X EMU <aionxemu.com>.
+/**
+ * This file is part of Aion X Emu <aionxemu.com>
  *
- * This is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  This is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Lesser Public License
+ *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-package quest.pandaemonium;
+
+package quest.greater_stigma_quest;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
@@ -30,30 +31,28 @@ import gameserver.utils.PacketSendUtility;
 
 import java.util.Collections;
 
-/**
- * @author kecimis
- */
-public class _4935ABookletOnStigma extends QuestHandler {
+public class _3931HowToUseStigma extends QuestHandler {
 
-    private final static int questId = 4935;
-    private final static int[] npc_ids = {204051, 204285, 279005};
+    private final static int questId = 3931;
+    private final static int[] npc_ids = {798321, 279005, 203711};
     /*
-    * 204051 - Vergelmir
-    * 204285 - Teirunerk
+    *
+    * 798321 - Koruchinerk
     * 279005 - Kohrunerk
+    * 203711 - Miriya
     *
     * 182207104 - Pirates Research Log
     */
 
-    public _4935ABookletOnStigma() {
+    public _3931HowToUseStigma() {
         super(questId);
     }
 
     @Override
     public void register() {
-        qe.setNpcQuestData(204051).addOnQuestStart(questId);    //Vergelmir
-        qe.setQuestItemIds(182207107).add(questId); //Teirunerks Letter
-        qe.setQuestItemIds(182207108).add(questId);    //Tattered Booklet
+        qe.setNpcQuestData(203711).addOnQuestStart(questId);    //Miriya
+        qe.setQuestItemIds(182206080).add(questId); //Kohrunerks Belt
+        qe.setQuestItemIds(182206081).add(questId);    //Stigma Manual
         for (int npc_id : npc_ids)
             qe.setNpcQuestData(npc_id).addOnTalkEvent(questId);
     }
@@ -69,7 +68,7 @@ public class _4935ABookletOnStigma extends QuestHandler {
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-            if (targetId == 204051)//Vergelmir
+            if (targetId == 203711)//Miriya
             {
                 if (env.getDialogId() == 25)
                     return sendQuestDialog(env, 4762);
@@ -84,7 +83,7 @@ public class _4935ABookletOnStigma extends QuestHandler {
 
         if (qs.getStatus() == QuestStatus.REWARD) {
 
-            if (targetId == 204051 && player.getInventory().getItemCountByItemId(182207108) == 1)//Vergelmir
+            if (targetId == 203711 && player.getInventory().getItemCountByItemId(182206081) == 1)//Miriya
             {
                 if (env.getDialogId() == -1)
                     return sendQuestDialog(env, 10002);
@@ -94,7 +93,7 @@ public class _4935ABookletOnStigma extends QuestHandler {
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.START) {
-            if (targetId == 204285)//Teirunerk
+            if (targetId == 798321)//Koruchinerk
             {
                 switch (env.getDialogId()) {
                     case 25:
@@ -107,7 +106,7 @@ public class _4935ABookletOnStigma extends QuestHandler {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setQuestVarById(0, var + 1);
                                 updateQuestStatus(env);
-                                ItemService.addItems(player, Collections.singletonList(new QuestItems(182207107, 1)));
+                                ItemService.addItems(player, Collections.singletonList(new QuestItems(182206080, 1)));
                                 return sendQuestDialog(env, 10000);
                             } else
                                 return sendQuestDialog(env, 10001);
@@ -120,7 +119,7 @@ public class _4935ABookletOnStigma extends QuestHandler {
                         return true;
                 }
                 return false;
-            } else if (targetId == 279005 && player.getInventory().getItemCountByItemId(182207107) == 1)//Kohrunerk
+            } else if (targetId == 279005 && player.getInventory().getItemCountByItemId(182206080) == 1)//Kohrunerk
             {
                 switch (env.getDialogId()) {
                     case 25:
@@ -128,8 +127,8 @@ public class _4935ABookletOnStigma extends QuestHandler {
                             return sendQuestDialog(env, 1693);
                     case 10255:
                         if (var == 2)
-                            player.getInventory().removeFromBagByItemId(182207107, 1);
-                        ItemService.addItems(player, Collections.singletonList(new QuestItems(182207108, 1)));
+                            player.getInventory().removeFromBagByItemId(182206080, 1);
+                        ItemService.addItems(player, Collections.singletonList(new QuestItems(182206081, 1)));
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         qs.setStatus(QuestStatus.REWARD);
                         updateQuestStatus(env);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <quest_scripts>
-	<!--
+<!--
  This file is part of Aion X Emu <aionxemu.com>.
 
 	This is free software: you can redistribute it and/or modify
@@ -15,19 +15,25 @@
 
 	You should have received a copy of the GNU Lesser Public License
 	along with this software.  If not, see <http://www.gnu.org/licenses/>.
+
+	@Author/Remodeler Khaos
 -->
 
-	<!-- 3930: [Group] The Shattered Stigma handled by script -->
-	<!-- 3931: [Group] How to Use Stigma handled by script -->
-	<!-- 3932: [Group] Stop the Shulacks! handled by script -->
-	<!-- 4934: [Group] The Shulack's Stigma handled by script -->
-	<!-- 4935: [Group] A Booklet on Stigma handled by script -->
-	<!-- 4936: [Group] Secret of the Greater Stigma handled by script -->
-	<!-- 11049: Taloc's Heart Full of Soul -->
-	<item_collecting id="11049" start_npc_id="798909" />
-	<!-- 21049: Stigma Expansion -->
-	<item_collecting id="21049" start_npc_id="799208" />
-	<!-- 30216: TODO: Stigma Dogma handled by script-->
+	<!-- 3930: TODO: [Group] The Shattered Stigma -->
+	<!-- 3931: TODO: [Group] How to Use Stigma -->
+	<!-- 3932: TODO: [Group] Stop the Shulacks! -->
+	<!-- 4934: TODO: [Group] The Shulack's Stigma -->
+	<!-- 4935: TODO: [Group] A Booklet on Stigma -->
+	<!-- 4936: TODO: [Group] Secret of the Greater Stigma -->
+	<!-- 11049: TODO: Taloc's Heart Full of Soul -->
+	<!-- 11275: TODO: Cracking The Stigma Threshold -->
+	<!-- 11276: TODO: Stigma Enlightenment -->
+	<report_to id="11276" start_npc_id="798909" end_npc_id="798909"/>	
+	<!-- 21049: TODO: Stigma Expansion -->
+	<!-- 21277: TODO: Out Of Their Cold Dead Hands -->
+	<!-- 21278: TODO: Test Subject One -->
+	<report_to id="21278" start_npc_id="799208" end_npc_id="799208"/>	
+	<!-- 30216: TODO: Stigma Dogma -->
 	<!-- 30217: TODO: [Group] Stigmas & Scars -->
 	<!-- 30218: [Group] Aeshma's Vengeance -->
 	<monster_hunt id="30218" start_npc_id="799504">

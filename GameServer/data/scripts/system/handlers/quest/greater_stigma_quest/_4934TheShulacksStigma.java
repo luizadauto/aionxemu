@@ -14,7 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
-package quest.pandaemonium;
+
+package quest.greater_stigma_quest;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;

@@ -15,7 +15,7 @@
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package quest.sanctum;
+package quest.greater_stigma_quest;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;

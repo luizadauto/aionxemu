@@ -1,21 +1,21 @@
-/**
- * This file is part of Aion X Emu <aionxemu.com>
+/*
+ * This file is part of Aion X EMU <aionxemu.com>.
  *
- *  This is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This software is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package quest.sanctum;
+package quest.greater_stigma_quest;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
@@ -27,23 +27,27 @@ import gameserver.questEngine.model.QuestStatus;
 import gameserver.services.QuestService;
 import gameserver.utils.PacketSendUtility;
 
-public class _3932StopTheShulacks extends QuestHandler {
 
-    private final static int questId = 3932;
-    private final static int[] npc_ids = {203711, 204656};
+/**
+ * @author kecimis
+ */
+public class _4936SecretOfTheGreaterStigma extends QuestHandler {
+
+    private final static int questId = 4936;
+    private final static int[] npc_ids = {204051, 204837};
     /*
-    * 203711 - Miriya
-    * 204656 - Maloren
+    * 204051 - Vergelmir
+    * 204837 - Hresvelgr
     *
     */
 
-    public _3932StopTheShulacks() {
+    public _4936SecretOfTheGreaterStigma() {
         super(questId);
     }
 
     @Override
     public void register() {
-        qe.setNpcQuestData(203711).addOnQuestStart(questId);    //Miriya
+        qe.setNpcQuestData(204051).addOnQuestStart(questId);    //Vergelmir
         for (int npc_id : npc_ids)
             qe.setNpcQuestData(npc_id).addOnTalkEvent(questId);
     }
@@ -59,7 +63,7 @@ public class _3932StopTheShulacks extends QuestHandler {
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-            if (targetId == 203711)//Miriya
+            if (targetId == 204051)//Vergelmir
             {
                 if (env.getDialogId() == 25)
                     return sendQuestDialog(env, 1011);
@@ -73,14 +77,14 @@ public class _3932StopTheShulacks extends QuestHandler {
         int var = qs.getQuestVarById(0);
 
         if (qs.getStatus() == QuestStatus.REWARD) {
-            if (targetId == 203711)//Miriya
+            if (targetId == 204051)//Vergelmir
             {
                 return defaultQuestEndDialog(env);
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.START) {
 
-            if (targetId == 203711 && var == 1)//Miriya
+            if (targetId == 204051 && var == 1)//Vergelmir
             {
                 switch (env.getDialogId()) {
                     case 25:
@@ -94,7 +98,7 @@ public class _3932StopTheShulacks extends QuestHandler {
                             return sendQuestDialog(env, 2716);
                 }
 
-            } else if (targetId == 204656 && var == 0)//Maloren
+            } else if (targetId == 204837 && var == 0)//Hresvelgr
             {
                 switch (env.getDialogId()) {
                     case 25:
@@ -113,4 +117,4 @@ public class _3932StopTheShulacks extends QuestHandler {
         return false;
     }
 
-} 
+}  
