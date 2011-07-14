@@ -125,11 +125,11 @@ public class _30317SpiritsAndStigmaSlots extends QuestHandler
 							case 26:
 								return sendQuestDialog(env, 2375);
 							case 33:
-								if (player.getInventory().getItemCountByItemId(182209618) < 1)
+								if (player.getInventory().getItemCountByItemId(182209718) < 1)
 								{
 									return sendQuestDialog(env, 10001);
 								}
-								else if (player.getInventory().getItemCountByItemId(182209619) < 1)
+								else if (player.getInventory().getItemCountByItemId(182209719) < 1)
 								{
 									return sendQuestDialog(env, 10001);
 								}
