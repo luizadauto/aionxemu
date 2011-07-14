@@ -114,7 +114,7 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
 
                 }
                 break;
-                case 700140: {
+                case 700551: {
                     if (qs.getQuestVarById(0) == 4) {
                         TeleportService.teleportTo(player, 220030000, 2453.0f, 2553.2f, 316.3f, 26);
                         qs.setStatus(QuestStatus.REWARD);

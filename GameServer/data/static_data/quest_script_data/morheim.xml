@@ -27,29 +27,34 @@
     <!-- 2038: A Lost Daeva handled by script -->
     <!-- 2039: Allies Among Enemies handled by script -->
     <!-- 2040: Kikananta's Loyalty handled by script -->
-    <!-- 2041: TODO: [Group] Hold The Front Line -->
+    <!-- 2041: [Group] Hold The Front Line handled by script -->
     <!-- 2300: Morheim Commander's Call handled by script -->
     <!-- Teleporter Troubles -->
     <item_collecting id="2301" start_npc_id="204399" action_item_id="296439"/>
     <!-- Frenai's Lost Jewelry -->
     <item_collecting id="2302" start_npc_id="204324"/>
-    <!-- 2303: TODO: Daeva, Where's My Herb? -->
+    <!-- 2303: Daeva, Where's My Herb? handled by script -->
     <!-- Active Discouragement -->
     <monster_hunt id="2304" start_npc_id="204302">
         <monster_infos var_id="0" max_kill="15" npc_id="211300"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="211307"/>
     </monster_hunt>
     <!-- The Claw of the Tayga -->
     <item_collecting id="2305" start_npc_id="204302"/>
-    <!-- 2306: TODO: Orders From the Fortress -->
-    <!-- 2307: TODO: Irresistible Soup -->
+	<!-- Orders From the Fortress -->
+	<report_to id="2306" start_npc_id="204303" end_npc_id="204378"/>
+	<!-- 2307: Irresistible Soup handled by script -->
     <!-- Outfighting Arachnas -->
     <monster_hunt id="2308" start_npc_id="204424">
         <monster_infos var_id="0" max_kill="12" npc_id="211301"/>
+		<monster_infos var_id="0" max_kill="12" npc_id="211309"/>
     </monster_hunt>
     <!-- Strange Mushrooms -->
     <monster_hunt id="2309" start_npc_id="730037">
-        <monster_infos var_id="0" max_kill="25" npc_id="211318"/>
-        <monster_infos var_id="1" max_kill="15" npc_id="211317"/>
+ 		<monster_infos var_id="0" max_kill="25" npc_id="211318"/>
+		<monster_infos var_id="0" max_kill="25" npc_id="211314"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="211317"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="211323"/>
     </monster_hunt>
     <!-- 2310: A Sorrowful Message -->
 	<report_to id="2310" start_npc_id="730038" end_npc_id="204392" item_id="182204109"/>
@@ -60,6 +65,7 @@
     <!-- Why the Fish Aren't Biting -->
     <monster_hunt id="2313" start_npc_id="204379">
         <monster_infos var_id="0" max_kill="9" npc_id="211325"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211338"/>
     </monster_hunt>
     <!-- A Seafood Feast -->
     <item_collecting id="2314" start_npc_id="204379"/>
@@ -68,27 +74,35 @@
     <!-- [Coin] Nip Spriggs in the Bud -->
     <monster_hunt id="2317" start_npc_id="790020">
         <monster_infos var_id="0" max_kill="20" npc_id="211315"/>
+		<monster_infos var_id="0" max_kill="20" npc_id="211321"/>
+		<monster_infos var_id="0" max_kill="20" npc_id="211335"/>
         <monster_infos var_id="1" max_kill="9" npc_id="211336"/>
     </monster_hunt>
     <!-- [Coin] Foes of the Fortress -->
     <monster_hunt id="2318" start_npc_id="204360">
-        <monster_infos var_id="0" max_kill="10" npc_id="211302"/>
-        <monster_infos var_id="1" max_kill="10" npc_id="211298"/>
-        <monster_infos var_id="2" max_kill="10" npc_id="211297"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="211302"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="211310"/>
+		<monster_infos var_id="1" max_kill="10" npc_id="211298"/>
+		<monster_infos var_id="1" max_kill="10" npc_id="211305"/>
+		<monster_infos var_id="2" max_kill="10" npc_id="211297"/>
+		<monster_infos var_id="2" max_kill="10" npc_id="211304"/>
     </monster_hunt>
     <!-- Keindor's Message -->
     <report_to id="2319" start_npc_id="730037" end_npc_id="798105"/>
     <!-- Reclaiming History -->
     <item_collecting id="2320" start_npc_id="204329"/>
-    <!-- 2321: TODO: [Spy] The Spirit's Letter -->
+    <!-- 2321: [Spy] The Spirit's Letter handled by script -->
     <!-- [Coin] Clearing The Way -->
     <monster_hunt id="2322" start_npc_id="204368">
-        <monster_infos var_id="0" max_kill="21" npc_id="211368"/>
-        <monster_infos var_id="1" max_kill="12" npc_id="211367"/>
+		<monster_infos var_id="0" max_kill="21" npc_id="211368"/>
+		<monster_infos var_id="0" max_kill="21" npc_id="211392"/>
+		<monster_infos var_id="1" max_kill="12" npc_id="211367"/>
+		<monster_infos var_id="1" max_kill="12" npc_id="212635"/>
+		<monster_infos var_id="1" max_kill="12" npc_id="211391"/>
     </monster_hunt>
     <!-- Creepy Crawlies -->
     <item_collecting id="2323" start_npc_id="204335"/>
-    <!-- 2324: TODO: The Spirit's Notebook -->
+    <!-- 2324: The Spirit's Notebook handled by script -->
     <!-- An Unfinished Mystery -->
     <item_collecting id="2325" start_npc_id="204373"/>
     <!-- Wasting the Watch -->
@@ -99,10 +113,14 @@
     </monster_hunt>
     <!-- Octanu's Lair -->
     <monster_hunt id="2327" start_npc_id="204330">
-        <monster_infos var_id="0" max_kill="10" npc_id="212621"/>
-        <monster_infos var_id="1" max_kill="10" npc_id="212623"/>
-        <monster_infos var_id="2" max_kill="7" npc_id="212626"/>
-        <monster_infos var_id="3" max_kill="7" npc_id="212628"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="212621"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="212622"/>
+		<monster_infos var_id="1" max_kill="10" npc_id="212623"/>
+		<monster_infos var_id="1" max_kill="10" npc_id="212624"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212626"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212627"/>
+		<monster_infos var_id="3" max_kill="7" npc_id="212628"/>
+		<monster_infos var_id="3" max_kill="7" npc_id="212629"/>
     </monster_hunt>
     <!-- Millennium Eka -->
     <item_collecting id="2328" start_npc_id="204330"/>
@@ -129,15 +147,18 @@
     <item_collecting id="2340" start_npc_id="204335"/>
     <!-- [Group] Weakening the Iceclaws -->
     <monster_hunt id="2341" start_npc_id="204333">
-        <monster_infos var_id="0" max_kill="7" npc_id="211437"/>
-        <monster_infos var_id="1" max_kill="19" npc_id="211409"/>
+ 		<monster_infos var_id="0" max_kill="7" npc_id="211437"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="211456"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212634"/>
+		<monster_infos var_id="1" max_kill="19" npc_id="211409"/>
+		<monster_infos var_id="1" max_kill="19" npc_id="211410"/>
     </monster_hunt>
     <!-- [Group] An Ice Claw Raid -->
     <monster_hunt id="2342" start_npc_id="204333">
         <monster_infos var_id="0" max_kill="5" npc_id="211457"/>
         <monster_infos var_id="1" max_kill="5" npc_id="211460"/>
     </monster_hunt>
-    <!-- 2343: TODO: Ancient Ginseng -->
+    <!-- 2343: Ancient Ginseng handled by script -->
     <!-- Destroying the Mau Flag -->
     <monster_hunt id="2344" start_npc_id="204329">
         <monster_infos var_id="0" max_kill="5" npc_id="700250"/>
@@ -148,17 +169,21 @@
     <!-- Swiftness for Hunters -->
     <monster_hunt id="2351" start_npc_id="204392">
         <monster_infos var_id="0" max_kill="20" npc_id="212437"/>
+		<monster_infos var_id="0" max_kill="20" npc_id="212438"/>
     </monster_hunt>
     <!-- Courage for Hunters -->
     <monster_hunt id="2352" start_npc_id="204392">
         <monster_infos var_id="0" max_kill="10" npc_id="212440"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="212441"/>
     </monster_hunt>
     <!-- [Group] Legendary Amethysts -->
     <item_collecting id="2353" start_npc_id="790020" action_item_id="700254"/>
     <!-- [Group] Kimssi's Wish -->
     <monster_hunt id="2354" start_npc_id="204393">
-        <monster_infos var_id="0" max_kill="15" npc_id="212747"/>
-        <monster_infos var_id="1" max_kill="10" npc_id="212746"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212747"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212748"/>
+		<monster_infos var_id="1" max_kill="10" npc_id="212746"/>
+		<monster_infos var_id="1" max_kill="10" npc_id="212990"/>
     </monster_hunt>
     <!-- [Group] Seeking the Spotlight -->
     <monster_hunt id="2355" start_npc_id="204393">
@@ -169,17 +194,21 @@
     <!-- Nosy Barghests -->
     <monster_hunt id="2357" start_npc_id="204338">
         <monster_infos var_id="0" max_kill="15" npc_id="212452"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212453"/>
     </monster_hunt>
     <!-- Obscured Vision -->
     <monster_hunt id="2358" start_npc_id="204339">
         <monster_infos var_id="0" max_kill="9" npc_id="211386"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211419"/>
     </monster_hunt>
     <!-- Oculazen Irises -->
     <item_collecting id="2359" start_npc_id="204339"/>
     <!-- A Foul Stench -->
     <monster_hunt id="2360" start_npc_id="204372">
-        <monster_infos var_id="0" max_kill="10" npc_id="212458"/>
-        <monster_infos var_id="1" max_kill="20" npc_id="212456"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="212458"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="212459"/>
+		<monster_infos var_id="1" max_kill="20" npc_id="212456"/>
+		<monster_infos var_id="1" max_kill="20" npc_id="212457"/>
     </monster_hunt>
     <!-- Elim Fruit -->
     <report_to id="2361" start_npc_id="204372" end_npc_id="204363" item_id="182204144"/>
@@ -188,6 +217,7 @@
     <!-- Peace at the Last -->
     <monster_hunt id="2363" start_npc_id="204363">
         <monster_infos var_id="0" max_kill="9" npc_id="212463"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="212464"/>
         <monster_infos var_id="1" max_kill="3" npc_id="212465"/>
     </monster_hunt>
     <!-- The Agrint's Message -->
@@ -195,53 +225,67 @@
     <!-- Putting out Fires -->
     <monster_hunt id="2365" start_npc_id="204363">
         <monster_infos var_id="0" max_kill="15" npc_id="212476"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212477"/>
     </monster_hunt>
     <!-- Destroyer Hamitemon -->
     <monster_hunt id="2366" start_npc_id="204363">
         <monster_infos var_id="0" max_kill="1" npc_id="212823"/>
     </monster_hunt>
-    <!-- 2367: TODO: A Prized Possession -->
+	<!-- 2367: A Prized Possession handled by script -->
     <!-- A Quota of Creatures -->
     <monster_hunt id="2368" start_npc_id="204338">
-        <monster_infos var_id="0" max_kill="5" npc_id="212452"/>
-        <monster_infos var_id="1" max_kill="5" npc_id="211386"/>
-        <monster_infos var_id="2" max_kill="7" npc_id="212454"/>
-        <monster_infos var_id="3" max_kill="9" npc_id="212458"/>
-        <monster_infos var_id="4" max_kill="9" npc_id="212456"/>
+ 		<monster_infos var_id="0" max_kill="5" npc_id="212452"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="212453"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="211386"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="211419"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212454"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212455"/>
+		<monster_infos var_id="3" max_kill="9" npc_id="212458"/>
+		<monster_infos var_id="3" max_kill="9" npc_id="212459"/>
+		<monster_infos var_id="4" max_kill="9" npc_id="212456"/>
+		<monster_infos var_id="4" max_kill="9" npc_id="212457"/>
     </monster_hunt>
     <!-- [Group] Barosunerk's Grand Plan -->
     <item_collecting id="2369" start_npc_id="798083"/>
     <!-- The Bottom of the Temple -->
     <monster_hunt id="2370" start_npc_id="798080">
-        <monster_infos var_id="0" max_kill="10" npc_id="211453"/>
-        <monster_infos var_id="1" max_kill="5" npc_id="211448"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="211453"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="211468"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="211448"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="211462"/>
     </monster_hunt>
     <!-- [Group] Kalgolem Crystals -->
     <item_collecting id="2371" start_npc_id="798079"/>
-    <!-- Immortal Love -->
-    <item_collecting id="2372" start_npc_id="798056" end_npc_id="798079"/>
-    <!-- [Group] An Ancient Weapon -->
-    <item_collecting id="2373" start_npc_id="204408"/>
+    <!-- 2372: Immortal Love handled by script -->
+    <!-- 2373: [Group] An Ancient Weapon handled by script -->
     <!-- [Group] Re-sanctifying the Temple -->
     <monster_hunt id="2374" start_npc_id="204408">
-        <monster_infos var_id="0" max_kill="15" npc_id="212788"/>
-        <monster_infos var_id="1" max_kill="7" npc_id="212802"/>
-        <monster_infos var_id="2" max_kill="5" npc_id="212794"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212788"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212801"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="212802"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="212803"/>
+		<monster_infos var_id="2" max_kill="5" npc_id="212794"/>
     </monster_hunt>
     <!-- [Group] All Nyerk and No Play -->
     <monster_hunt id="2375" start_npc_id="798079" end_npc_id="798080">
-        <monster_infos var_id="0" max_kill="5" npc_id="212685"/>
-        <monster_infos var_id="1" max_kill="5" npc_id="212689"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="212685"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="212686"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="212689"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="212690"/>
     </monster_hunt>
     <!-- [Group] Sarinerk's Safety -->
     <monster_hunt id="2376" start_npc_id="798080">
-        <monster_infos var_id="0" max_kill="6" npc_id="212693"/>
-        <monster_infos var_id="1" max_kill="3" npc_id="212697"/>
+		<monster_infos var_id="0" max_kill="6" npc_id="212693"/>
+		<monster_infos var_id="0" max_kill="6" npc_id="212694"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="212697"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="212698"/>
     </monster_hunt>
     <!-- [Group] A Curse-Breaking Clue -->
     <monster_hunt id="2377" start_npc_id="798080">
-        <monster_infos var_id="0" max_kill="7" npc_id="212710"/>
-        <monster_infos var_id="1" max_kill="7" npc_id="212714"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212710"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212711"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="212714"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="212715"/>
     </monster_hunt>
     <!-- [Group] Secret of the Flame Stones -->
     <item_collecting id="2378" start_npc_id="204408"/>
@@ -262,6 +306,7 @@
     <!-- Worgs at the Door -->
     <monster_hunt id="2385" start_npc_id="204349">
         <monster_infos var_id="0" max_kill="10" npc_id="211482"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="211495"/>
     </monster_hunt>
     <!-- Skinning Spriggs -->
     <item_collecting id="2386" start_npc_id="204349" end_npc_id="790011"/>
@@ -269,8 +314,10 @@
     <item_collecting id="2387" start_npc_id="204343"/>
     <!-- Stopping the Klaw Expansion -->
     <monster_hunt id="2388" start_npc_id="204342">
-        <monster_infos var_id="0" max_kill="9" npc_id="211503"/>
-        <monster_infos var_id="1" max_kill="16" npc_id="211502"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211503"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211515"/>
+		<monster_infos var_id="1" max_kill="16" npc_id="211502"/>
+		<monster_infos var_id="1" max_kill="16" npc_id="212618"/>
     </monster_hunt>
     <!-- Crop Stompers -->
     <item_collecting id="2389" start_npc_id="204340"/>
@@ -282,8 +329,7 @@
     </monster_hunt>
     <!-- Rynoce Horn -->
     <item_collecting id="2391" start_npc_id="204343"/>
-    <!-- Beautiful Feather -->
-    <item_collecting id="2392" start_npc_id="798085"/>
+    <!-- 2392: Beautiful Feather handled by script -->
     <!-- 2393: The Love of a Father handled by script -->
     <!-- 2394: TODO: A Dying Wish -->
     <!-- Report to the Observatory -->
@@ -292,8 +338,10 @@
     <!-- 2397: [Spend Coin] Silver (Mage/Priest) handled by script -->
     <!-- [Coin] Protecting Tripeed -->
     <monster_hunt id="2398" start_npc_id="204359">
-        <monster_infos var_id="0" max_kill="25" npc_id="212479"/>
-        <monster_infos var_id="1" max_kill="9" npc_id="212473"/>
+		<monster_infos var_id="0" max_kill="25" npc_id="212479"/>
+		<monster_infos var_id="0" max_kill="25" npc_id="212480"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="212473"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="212474"/>
     </monster_hunt>
     <!-- 2399: TODO: Leader Of The Pack -->
     <!-- Angreboda Returns a Favor -->
@@ -305,16 +353,21 @@
     <!-- Stubborn by Nature -->
     <monster_hunt id="2403" start_npc_id="204353">
         <monster_infos var_id="0" max_kill="9" npc_id="212492"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="212493"/>
     </monster_hunt>
     <!-- Impressing Letum -->
     <monster_hunt id="2404" start_npc_id="204350">
         <monster_infos var_id="0" max_kill="12" npc_id="212495"/>
+		<monster_infos var_id="0" max_kill="12" npc_id="212504"/>
     </monster_hunt>
     <!-- [Group] Taking Back the Hot Springs -->
     <monster_hunt id="2405" start_npc_id="204381">
-        <monster_infos var_id="0" max_kill="3" npc_id="212500"/>
-        <monster_infos var_id="1" max_kill="3" npc_id="212638"/>
-        <monster_infos var_id="2" max_kill="7" npc_id="211523"/>
+ 		<monster_infos var_id="0" max_kill="3" npc_id="212500"/>
+		<monster_infos var_id="0" max_kill="3" npc_id="212501"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="212638"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="212639"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="211523"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212636"/>
     </monster_hunt>
     <!-- [Group] Striking the Elite -->
     <monster_hunt id="2406" start_npc_id="204342">
@@ -326,17 +379,24 @@
     <item_collecting id="2407" start_npc_id="204345"/>
     <!-- The Klaw Headache -->
     <monster_hunt id="2408" start_npc_id="204380">
-        <monster_infos var_id="0" max_kill="17" npc_id="211557"/>
-        <monster_infos var_id="1" max_kill="7" npc_id="211558"/>
+ 		<monster_infos var_id="0" max_kill="17" npc_id="211557"/>
+		<monster_infos var_id="0" max_kill="17" npc_id="212510"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="211587"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="211558"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="211146"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="211161"/>
     </monster_hunt>
-    <!-- 2409: TODO: Propaganda -->
+    <!-- 2409: Propaganda handled by script -->
     <!-- [Coin] Thinning the Ranks -->
     <monster_hunt id="2410" start_npc_id="204380">
-        <monster_infos var_id="0" max_kill="6" npc_id="211718"/>
-        <monster_infos var_id="1" max_kill="6" npc_id="212893"/>
-        <monster_infos var_id="2" max_kill="5" npc_id="211025"/>
+		<monster_infos var_id="0" max_kill="6" npc_id="212884"/>
+		<monster_infos var_id="0" max_kill="6" npc_id="212885"/>
+		<monster_infos var_id="1" max_kill="6" npc_id="212893"/>
+		<monster_infos var_id="1" max_kill="6" npc_id="212894"/>
+		<monster_infos var_id="2" max_kill="5" npc_id="212895"/>
+		<monster_infos var_id="2" max_kill="5" npc_id="212896"/>
     </monster_hunt>
-    <!-- 2411: TODO: Earth Spirit? Water Spirit? -->
+    <!-- 2411: Earth Spirit? Water Spirit? handled by script -->
     <!-- Elemental Stone of Earth -->
     <item_collecting id="2412" start_npc_id="204366"/>
     <!-- Elemental Stone of Water -->
@@ -345,8 +405,10 @@
     <report_to id="2414" start_npc_id="204369" end_npc_id="204369"/>
     <!-- Trolls on the Path -->
     <monster_hunt id="2415" start_npc_id="204359">
-        <monster_infos var_id="0" max_kill="11" npc_id="212535"/>
-        <monster_infos var_id="1" max_kill="7" npc_id="211529"/>
+		<monster_infos var_id="0" max_kill="11" npc_id="212535"/>
+		<monster_infos var_id="0" max_kill="11" npc_id="212536"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="211529"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="2115245"/>
     </monster_hunt>
     <!-- Abex on a Stick -->
     <item_collecting id="2416" start_npc_id="204364"/>
@@ -356,20 +418,22 @@
     <report_to id="2418" start_npc_id="204369" end_npc_id="204340" item_id="182204179"/>
     <!-- Lepharist Ointment -->
     <item_collecting id="2419" start_npc_id="204383"/>
-    <!-- 2421: Handled By Script Asgeirr's Request -->
-    <!-- 2422: TODO: [Spy] Liquor that Makes You Vanish -->
-    <!-- 2423: TODO: [Spy] There And Back Again -->
+	<!-- 2421: Asgeirr's Request handled by script -->
+	<!-- 2422: [Spy] Liquor that Makes You Vanish handled by script -->
+	<!-- 2423: [Spy] There And Back Again handled by script -->
     <!-- Greeting to an Alchemist -->
     <report_to id="2424" start_npc_id="730037" end_npc_id="204433"/>
     <!-- Restarting the Research -->
     <item_collecting id="2425" start_npc_id="204433"/>
     <!-- Scouting the Lab -->
     <monster_hunt id="2426" start_npc_id="204433">
-        <monster_infos var_id="0" max_kill="8" npc_id="211319"/>
-        <monster_infos var_id="1" max_kill="3" npc_id="211328"/>
+		<monster_infos var_id="0" max_kill="8" npc_id="211319"/>
+		<monster_infos var_id="0" max_kill="8" npc_id="211327"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="211328"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="212375"/>
     </monster_hunt>
-    <!-- 2427: TODO: Recovering Research Material -->
-    <!-- 2428: TODO: The Absolutely Essential Book -->
+	<!-- 2427: Recovering Research Material handled by script -->
+	<!-- 2428: The Absolutely Essential Book handled by script -->
     <!-- Keeping Warm -->
     <item_collecting id="2429" start_npc_id="204378"/>
     <!-- 2430: Handle By Script Secret Information -->
@@ -384,30 +448,47 @@
     <report_to id="2433" start_npc_id="204388" end_npc_id="203602"/>
     <!-- [Group] Revenge is Sweet -->
     <monster_hunt id="2434" start_npc_id="204388">
-        <monster_infos var_id="0" max_kill="9" npc_id="211574"/>
-        <monster_infos var_id="1" max_kill="12" npc_id="211575"/>
-        <monster_infos var_id="2" max_kill="9" npc_id="211612"/>
-        <monster_infos var_id="3" max_kill="12" npc_id="211574"/>
-        <monster_infos var_id="4" max_kill="9" npc_id="212729"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211595"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211608"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211574"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211599"/>
+		<monster_infos var_id="1" max_kill="12" npc_id="211575"/>
+		<monster_infos var_id="1" max_kill="12" npc_id="211601"/>
+		<monster_infos var_id="2" max_kill="9" npc_id="211612"/>
+		<monster_infos var_id="2" max_kill="9" npc_id="212727"/>
+		<monster_infos var_id="2" max_kill="9" npc_id="212726"/>
+		<monster_infos var_id="3" max_kill="12" npc_id="211574"/>
+		<monster_infos var_id="3" max_kill="12" npc_id="211599"/>
+		<monster_infos var_id="3" max_kill="12" npc_id="211595"/>
+		<monster_infos var_id="3" max_kill="12" npc_id="211608"/>
+		<monster_infos var_id="4" max_kill="9" npc_id="212729"/>
     </monster_hunt>
-    <!-- 2435: TODO: The Blue Vine Necklace -->
+    <!-- 2435: The Blue Vine Necklace handled by script -->
     <!-- 2436: TODO: Looking for BuBu Pat -->
     <!-- Father's Revenge -->
     <monster_hunt id="2437" start_npc_id="204390">
-        <monster_infos var_id="0" max_kill="7" npc_id="212546"/>
-        <monster_infos var_id="1" max_kill="7" npc_id="212548"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212546"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212547"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="212548"/>
+		<monster_infos var_id="1" max_kill="7" npc_id="212549"/>
     </monster_hunt>
     <!-- Quieting the Karnifs -->
     <monster_hunt id="2438" start_npc_id="204400">
-        <monster_infos var_id="0" max_kill="7" npc_id="212538"/>
-        <monster_infos var_id="1" max_kill="9" npc_id="212541"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212538"/>
+		<monster_infos var_id="0" max_kill="7" npc_id="212539"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="212541"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="212542"/>
     </monster_hunt>
     <!-- [Group] Never to Rise Again -->
     <monster_hunt id="2439" start_npc_id="204400">
-        <monster_infos var_id="0" max_kill="9" npc_id="211598"/>
-        <monster_infos var_id="1" max_kill="9" npc_id="212732"/>
-        <monster_infos var_id="2" max_kill="9" npc_id="212734"/>
-        <monster_infos var_id="3" max_kill="9" npc_id="211596"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211598"/>
+		<monster_infos var_id="0" max_kill="9" npc_id="211610"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="212732"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="212733"/>
+		<monster_infos var_id="2" max_kill="9" npc_id="212734"/>
+		<monster_infos var_id="2" max_kill="9" npc_id="212735"/>
+		<monster_infos var_id="3" max_kill="9" npc_id="211596"/>
+		<monster_infos var_id="3" max_kill="9" npc_id="211609"/>
     </monster_hunt>
     <!-- The Secret Ingredient -->
     <item_collecting id="2440" start_npc_id="204390"/>
@@ -425,12 +506,14 @@
     <item_collecting id="2446" start_npc_id="204402"/>
     <!-- [Group] Chaomirk's Request -->
     <monster_hunt id="2447" start_npc_id="798115">
-        <monster_infos var_id="0" max_kill="5" npc_id="211562"/>
-        <monster_infos var_id="1" max_kill="3" npc_id="212721"/>
-        <monster_infos var_id="2" max_kill="7" npc_id="212722"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="211562"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="211588"/>
+		<monster_infos var_id="1" max_kill="3" npc_id="212721"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212722"/>
+		<monster_infos var_id="2" max_kill="7" npc_id="212723"/>
     </monster_hunt>
     <!-- 2448: TODO: Chaomirk Sends for Help -->
-    <!-- 2449: TODO: Extricating Chaomirk -->
+    <!-- 2449: Extricating Chaomirk handled by script -->
     <!-- Titanium Tribute -->
     <item_collecting id="2451" start_npc_id="204312"/>
     <!-- Shoot That Poison Arrow -->
@@ -482,25 +565,25 @@
     <item_collecting id="2475" start_npc_id="204390"/>
     <!-- A Picky Eater -->
     <item_collecting id="2476" start_npc_id="204355" end_npc_id="204355"/>
-    <!-- 2477: TODO: A Dish For Dukar -->
+    <!-- 2477: A Dish For Dukar handled by script -->
     <!-- [Spy] Ingredients For Sausage -->
     <item_collecting id="2478" start_npc_id="204355"/>
     <!-- 2479: Reaching Out -->
 	<report_to id="2479" start_npc_id="204392" end_npc_id="730038"/>
-    <!-- 2480: TODO: [Spy] Elim of Elysea -->
+    <!-- 2480:[Spy] Elim of Elysea handled by script -->
     <!-- [Spy] Curious Behavior -->
     <item_collecting id="2481" start_npc_id="204210"/>
-    <!-- 2482: TODO: Caryatid of Abyss -->
+    <!-- 2482: Caryatid of Abyss handled by script -->
     <!-- [Spy] Homecoming of the Soul -->
     <item_collecting id="2483" start_npc_id="204344"/>
-    <!-- 2484: TODO: [Spy] Our Man in Elysea -->
+    <!-- 2484:[Spy] Our Man in Elysea handled by script -->
     <!-- [Spy/Group] Killing Mabangtah -->
     <monster_hunt id="2485" start_npc_id="204407">
         <monster_infos var_id="0" max_kill="1" npc_id="204020"/>
     </monster_hunt>
-    <!-- 2486: TODO: A Strange Creature -->
+    <!-- 2486: A Strange Creature handled by script  -->
     <!-- 2487: TODO: [Spy] Researching the Pretor -->
-    <!-- 2488: TODO: Pretors in Beluslan -->
+    <!-- 2488: Pretors in Beluslan handled by script -->
     <!-- [Group] Missssst Mane Mayhem -->
     <monster_hunt id="2489" start_npc_id="204414">
         <monster_infos var_id="0" max_kill="1" npc_id="212865"/>
@@ -513,7 +596,7 @@
     <item_collecting id="2491" start_npc_id="204388"/>
     <!-- Bolverk's Secret Request -->
     <report_to id="2492" start_npc_id="204300" end_npc_id="204327"/>
-    <!-- 2493: TODO: Bringing up Tayga -->
+    <!-- 2493: Bringing up Tayga handled by script -->
     <!-- Three Treasures -->
     <item_collecting id="2494" start_npc_id="798125"/>
     <!-- 2495: Sprigg Nightlights handled by script -->
@@ -521,12 +604,18 @@
     <item_collecting id="2496" start_npc_id="204386" action_item_id="700320"/>
     <!-- Good Tools After Bad -->
     <item_collecting id="2497" start_npc_id="204379" action_item_id="700321"/>
-    <!-- 2498: TODO: The Sodden Scroll -->
+    <!-- 2498: The Sodden Scroll handled by script-->
     <!-- Fragments of Aion's Tower -->
     <item_collecting id="2499" start_npc_id="204300" action_item_id="700322"/>
-    <!-- 4300: TODO: News For the Settlers -->
-    <!-- 4301: TODO: Marital Difficulties -->
-    <!-- 4302: TODO: Anti-Venom -->
+	<!-- News For the Settlers -->
+	<report_to id="4300" start_npc_id="204323" end_npc_id="205126" item_id="182204263"/>
+	<!-- Marital Difficulties -->
+	<item_collecting id="4301" start_npc_id="204426"/>
+	<!-- Anti-Venom -->
+	<monster_hunt id="4302" start_npc_id="204337">
+		<monster_infos var_id="0" max_kill="13" npc_id="212392"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="211373"/>
+	</monster_hunt>
     <!-- Muorinerk's Offer -->
     <item_collecting id="4303" start_npc_id="798085"/>
     <!-- [Group] Ringleaders for a Ring -->
@@ -551,11 +640,71 @@
     <item_collecting id="4311" start_npc_id="204339"/>
     <!-- [Group] Gangleri's Request -->
     <monster_hunt id="4312" start_npc_id="204372">
-        <monster_infos var_id="0" max_kill="5" npc_id="212678"/>
-        <monster_infos var_id="1" max_kill="5" npc_id="212680"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="212678"/>
+		<monster_infos var_id="0" max_kill="5" npc_id="212679"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="212680"/>
+		<monster_infos var_id="1" max_kill="5" npc_id="212681"/>
     </monster_hunt>
     <!-- [Group] The Still Remaining Mission -->
     <monster_hunt id="4313" start_npc_id="204372">
         <monster_infos var_id="0" max_kill="11" npc_id="212676"/>
+		<monster_infos var_id="0" max_kill="11" npc_id="212677"/>
     </monster_hunt>
+	<!-- Arachna Phobia -->
+	<monster_hunt id="4314" start_npc_id="204424">
+		<monster_infos var_id="0" max_kill="12" npc_id="211309"/>
+		<monster_infos var_id="0" max_kill="12" npc_id="211301"/>
+	</monster_hunt>
+	<!-- Kinah Keeps Me Warm -->
+	<item_collecting id="4315" start_npc_id="204378"/>
+	<!-- Relic Roadshow -->
+	<item_collecting id="4316" start_npc_id="204329"/>
+	<!-- Land of the Speed -->
+	<monster_hunt id="4317" start_npc_id="204392">
+		<monster_infos var_id="0" max_kill="20" npc_id="212438"/>
+		<monster_infos var_id="0" max_kill="20" npc_id="212437"/>
+	</monster_hunt>
+	<!-- Home of the Brave -->
+	<monster_hunt id="4318" start_npc_id="204392">
+		<monster_infos var_id="0" max_kill="10" npc_id="212441"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="212440"/>
+	</monster_hunt>
+	<!-- An Eggs-acting Quest -->
+	<item_collecting id="4319" start_npc_id="204332" action_item_id="700235"/>
+	<!-- The Last Piece of the Puzzle -->
+	<monster_hunt id="4320" start_npc_id="204338">
+		<monster_infos var_id="0" max_kill="15" npc_id="212453"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212452"/>
+	</monster_hunt>
+	<!-- Melting the Ice Claws -->
+	<monster_hunt id="4321" start_npc_id="204333">
+		<monster_infos var_id="0" max_kill="10" npc_id="212633"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="211436"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="212993"/>
+		<monster_infos var_id="2" max_kill="20" npc_id="211441"/>
+		<monster_infos var_id="2" max_kill="20" npc_id="211410"/>
+	</monster_hunt>
+	<!-- A Melange of Spices -->
+	<item_collecting id="4322" start_npc_id="204332"/>
+	<!-- Avenging Matilda -->
+	<monster_hunt id="4323" start_npc_id="204333">
+		<monster_infos var_id="0" max_kill="22" npc_id="211499"/>
+		<monster_infos var_id="0" max_kill="22" npc_id="211485"/>
+		<monster_infos var_id="1" max_kill="9" npc_id="211500"/>
+	</monster_hunt>
+	<!-- Overworked and Underappreciated -->
+	<monster_hunt id="4324" start_npc_id="204349">
+		<monster_infos var_id="0" max_kill="14" npc_id="211484"/>
+	</monster_hunt>
+	<!-- Morheim's Agony -->
+	<monster_hunt id="4325" start_npc_id="204363">
+		<monster_infos var_id="0" max_kill="15" npc_id="212472"/>
+		<monster_infos var_id="0" max_kill="15" npc_id="212471"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="212477"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="212476"/>
+	</monster_hunt>
+	<!-- [Coin/Group] Courting Disaster -->
+	<monster_hunt id="4326" start_npc_id="204359">
+		<monster_infos var_id="0" max_kill="1" npc_id="212846"/>
+	</monster_hunt>
 </quest_scripts>

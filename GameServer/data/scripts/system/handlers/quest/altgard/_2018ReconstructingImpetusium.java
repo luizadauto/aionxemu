@@ -125,7 +125,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler {
                                                 targetObjectId), true);
 
                                         QuestService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 210752, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true);
-                                        npc.getController().onDie(null);
+                                        npc.getController().onDie(player);
 
                                     }
                                 }, 3000);
