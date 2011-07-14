@@ -19,136 +19,130 @@ package quest.greater_stigma_quest;
 
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
+import gameserver.model.templates.quest.QuestItems;
+import gameserver.model.gameobjects.Item;
 import gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import gameserver.questEngine.handlers.QuestHandler;
 import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
+import gameserver.services.ItemService;
 import gameserver.services.QuestService;
 import gameserver.utils.PacketSendUtility;
 
+/**
+ * @Author Khaos
+ * 
+ */
 
 public class _30317SpiritsAndStigmaSlots extends QuestHandler
 {
-    private final static int questId = 30317;
-
+	private final static int questId = 30317;
+	
     public _30317SpiritsAndStigmaSlots()
 	{
-        super(questId);
-    }
+		super (questId);
+	}
 	
-    @Override
-    public boolean onDialogEvent(QuestCookie env)
+	@Override
+	public void register()
 	{
-        // Instanceof
-        final Player player = env.getPlayer();
-        int targetId = 0;
-        if (env.getVisibleObject() instanceof Npc)
+		qe.setNpcQuestData(798208).addOnQuestStart(questId); //Garath start
+		qe.setNpcQuestData(799322).addOnTalkEvent(questId); //Herka
+		qe.setNpcQuestData(799506).addOnTalkEvent(questId); //Faithful Responded Ultra summoned
+		qe.setNpcQuestData(798208).addOnTalkEvent(questId); //Garath finish
+	}
+	
+	@Override
+	public boolean onDialogEvent(final QuestCookie env)
+	{
+		//Instanceof
+		final Player player = env.getPlayer();
+		int targetId = 0;
+		if (env.getVisibleObject() instanceof Npc)
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
-        QuestState qs = player.getQuestStateList().getQuestState(questId);
-
-        // ------------------------------------------------------------
+		final QuestState qs = player.getQuestStateList().getQuestState(questId);
+		
+		// ------------------------------------------------------------
         // NPC Quest :
-        // 0 - Start to //Garath
-        if (qs == null || qs.getStatus() == QuestStatus.NONE)
+		// Garath start
+		if (qs == null || qs.getStatus() == QuestStatus.NONE)
 		{
-            if (targetId == 798208) //Garath
+			if (targetId == 798208) // Garath Start
 			{
-                // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                if (env.getDialogId() == 26)
-                    // Send HTML_PAGE_SELECT_NONE to eddit-HtmlPages.xml
-                    return sendQuestDialog(env, 4762);
-                else
-                    return defaultQuestStartDialog(env);
-            }
-        }
-
-        if (qs == null)
-            return false;
-
-        int var = qs.getQuestVarById(0);
-
-        if (qs.getStatus() == QuestStatus.START)
+				if (env.getDialogId() == 26)
+					return sendQuestDialog(env, 4762);
+				else
+					return defaultQuestStartDialog(env);
+			}
+		}
+		
+		if (qs == null)
+			return false;
+		
+		int var = qs.getQuestVarById(0);
+		
+		if (qs.getStatus() == QuestStatus.START)
 		{
-            switch (targetId)
+			switch (targetId)
 			{
-                case 799322: //Herka
-                    switch (env.getDialogId())
+				// Herka
+				case 799322:
+					if (var == 0)
 					{
-                        // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                        case 26:
-                        // Send select1 to eddit-HtmlPages.xml
-                            return sendQuestDialog(env, 1011);
-                        // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
-                        case 10000:
-                            qs.setQuestVarById(0, var + 1);
-                            updateQuestStatus(env);
-                            PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-                            return true;
-                    }
-                case 799506: //Faithful Respondent Utra
-                    if (var == 1)
-					{
-                        switch (env.getDialogId())
+						switch (env.getDialogId())
 						{
-                            // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 26:
-                            // Send select2 to eddit-HtmlPages.xml
-                                return sendQuestDialog(env, 1352);
-                            // Get HACTION_SETPRO2 in the eddit-HyperLinks.xml
-                            case 10001:
-                                qs.setQuestVarById(0, var + 1);
-                                updateQuestStatus(env);
-                                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-                                return true;
-                        }
-                    }
-                    // Report The Result To Garath.
-                case 798208: //Garath
-                    switch (env.getDialogId())
+							case 26:
+								return sendQuestDialog(env, 1011);
+							case 10000:
+								qs.setQuestVar(1);
+								updateQuestStatus(env);
+								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
+								return true;
+						}
+					}
+					// Faithful Utra summoned
+				case 799506:
+					if (var == 1)
 					{
-                        // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                        case 26:
-                        // Send select1 to eddit-HtmlPages.xml
-                            return sendQuestDialog(env, 2375);
-                         case 2034:
-                        // Send select2 to eddit-HtmlPages.xml
-                            return sendQuestDialog(env, 2034);
-                        // Get HACTION_CHECK_USER_HAS_QUEST_ITEM in the eddit-HyperLinks.xml
-                        case 33:
-                        // Collect Spirit's Incense Burner (1)
-                        // Collect Scroll Of Repose (1)
-                            if (QuestService.collectItemCheck(env, true))
-	          {
-                                player.getInventory().removeFromBagByItemId(182209718, 1);
-                                player.getInventory().removeFromBagByItemId(182209719, 1);
-                                qs.setStatus(QuestStatus.REWARD);
-                                updateQuestStatus(env);
-                                return sendQuestDialog(env, 5);
-                            } else {
-                                // Send check_user_item_fail to eddit-HtmlPages.xml
-                                return sendQuestDialog(env, 2716);
-                            }
-                    }
-                    break;
-                // No match
-                default:
-                    return defaultQuestStartDialog(env);
-            }
-        } else if (qs.getStatus() == QuestStatus.REWARD)
-		{
-            if(targetId == 798208) //Garath
-                return defaultQuestEndDialog(env);
-        }
-        return false;
-    }
-	
-    @Override
-    public void register()
-	{
-        qe.setNpcQuestData(798208).addOnQuestStart(questId); //Garath
-        qe.setNpcQuestData(799322).addOnTalkEvent(questId); //Herka
-		qe.setNpcQuestData(799506).addOnTalkEvent(questId); //Faithful Respondent Utra
-		qe.setNpcQuestData(798208).addOnTalkEvent(questId); //Garath
-    }
+						switch (env.getDialogId())
+						{
+							case 26:
+								return sendQuestDialog(env, 1352);
+							case 10001:
+								qs.setQuestVar(2);
+								updateQuestStatus(env);
+								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
+								return true;
+						}
+					}
+					// Report The Result To Garath.
+				case 798208:
+					if (var == 2)
+					{
+						switch (env.getDialogId())
+						{
+							case 26:
+								return sendQuestDialog(env, 2375);
+							case 33:
+								if (player.getInventory().getItemCountByItemId(182209618) < 1)
+								{
+									return sendQuestDialog(env, 10001);
+								}
+								else if (player.getInventory().getItemCountByItemId(182209619) < 1)
+								{
+									return sendQuestDialog(env, 10001);
+								}
+								player.getInventory().removeFromBagByItemId(182209718, 1);
+								player.getInventory().removeFromBagByItemId(182209719, 1);
+								qs.setStatus(QuestStatus.REWARD);
+								updateQuestStatus(env);
+								return sendQuestDialog(env, 5);
+						}
+					}
+				return false;
+			}
+		}
+		return false;
+	}
 }

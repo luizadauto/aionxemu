@@ -25,13 +25,17 @@
 	<!-- 4934: TODO: [Group] The Shulack's Stigma -->
 	<!-- 4935: TODO: [Group] A Booklet on Stigma -->
 	<!-- 4936: TODO: [Group] Secret of the Greater Stigma -->
-	<!-- 11049: TODO: Taloc's Heart Full of Soul -->
-	<!-- 11275: TODO: Cracking The Stigma Threshold -->
-	<!-- 11276: TODO: Stigma Enlightenment -->
+	<!-- 11049: Taloc's Heart Full of Soul -->
+	<item_collecting id="11049" start_npc_id="798909" />
+	<!-- 11275: Cracking The Stigma Threshold -->
+	<item_collecting id="11275" start_npc_id="798909" />	
+	<!-- 11276: Stigma Enlightenment -->
 	<report_to id="11276" start_npc_id="798909" end_npc_id="798909"/>	
-	<!-- 21049: TODO: Stigma Expansion -->
-	<!-- 21277: TODO: Out Of Their Cold Dead Hands -->
-	<!-- 21278: TODO: Test Subject One -->
+	<!-- 21049: Stigma Expansion -->
+	<item_collecting id="21049" start_npc_id="799208" />
+	<!-- 21277: Out Of Their Cold Dead Hands -->
+	<item_collecting id="21277" start_npc_id="799208" />
+	<!-- 21278: Test Subject One -->
 	<report_to id="21278" start_npc_id="799208" end_npc_id="799208"/>	
 	<!-- 30216: TODO: Stigma Dogma -->
 	<!-- 30217: TODO: [Group] Stigmas & Scars -->

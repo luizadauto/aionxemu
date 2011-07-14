@@ -906,6 +906,10 @@
     	<spawn map="300170000" npcid="730285" pool="1" interval="295">
         	<object  x="1477.045" y="229.344" z="243.50" h="30" />
     	</spawn>
+		<!-- Faithful Responded Ultra summoned [Quest 5 Slots Greater Stigma] -->
+    	<spawn map="300170000" npcid="799506" pool="1" interval="295">
+        	<object  x="1356.8656" y="394.25888" z="249.25415" h="88" />
+    	</spawn>
 	<!-- Stormwings - Prison of Ice - portal -->
 <!--    <spawn map="300170000" npcid="730276" pool="1" interval="295">		-->
 <!--       	<object  x="1611.1266" y="1604.6935" z="311.78503" h="0" />		-->

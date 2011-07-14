@@ -197,7 +197,16 @@ public enum CustomMessageId {
     ERROR_ITEM_TEMPATE_MISSING("ITEM TEMPLATE NOT FOUND: PlayerId %d, ItemObjectId %d, ItemId %d"),
     ERROR_TRADEITEM_TEMPATE_MISSING("ITEM TEMPLATE NOT FOUND: PlayerId %d, ItemObjectId %d"),
     ERROR_LOCATION_NOT_EXIST("Location does not exist: %s"),
-    PLAYER_INVENTORY_FULL("Your Inventory is Full. Free some space and try again.");
+    PLAYER_INVENTORY_FULL("Your Inventory is Full. Free some space and try again."),
+    
+    COMMAND_EXCHANGETOLL_SYNTAX("Syntax: .exchangetoll [ap] amount\nThis command will exchange the specified amount of Kinah (or AP if specified) into Toll for use in the ingameshop.\nCurrent Exchange Rates:\n%d AP per Toll\n%d Kinah per Toll"),
+    COMMAND_EXCHANGETOLL_AP_SYNTAX("Syntax: .exchangetoll ap amount\nThis command will exchange the specified amount of AP into Toll for use in the ingameshop.\nCurrent Exchange Rate:\n%d AP per Toll"),
+    COMMAND_EXCHANGETOLL_KINAH_SYNTAX("Syntax: .exchangetoll amount\nThis command will exchange the specified amount of Kinah into Toll for use in the ingameshop.\nCurrent Exchange Rate:\n%d Kinah per Toll"),
+    COMMAND_EXCHANGETOLL_NOT_ENOUGH_AP("You do not have that many Abyss Points!"),
+    COMMAND_EXCHANGETOLL_NOT_ENOUGH_KINAH("You do not have that much kinah!"),
+    COMMAND_EXCHANGETOLL_NOT_GAINING_TOLL_VIA_AP("%d is not enough Abyss Points to convert into Toll (minimum: %d)."),
+    COMMAND_EXCHANGETOLL_NOT_GAINING_TOLL_VIA_KINAH("%d is not enough Kinah to convert into Toll (minimum: %d)"),
+    COMMAND_EXCHANGETOLL_SUCCESS("Exchange successful.  You have gained %d Toll.");
 
     private String fallbackMessage;
 
