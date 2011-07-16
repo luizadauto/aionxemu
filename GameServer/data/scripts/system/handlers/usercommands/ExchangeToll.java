@@ -87,7 +87,7 @@ public class ExchangeToll extends UserCommand {
         		return;
         	}
         	
-        	tollToGain = (apExchangeRate / apToExchange);
+        	tollToGain = (apToExchange / apExchangeRate);
         	
         	player.getCommonData().setAp(currentAP - apToExchange);
         } else {
@@ -105,7 +105,7 @@ public class ExchangeToll extends UserCommand {
             		return;
             	}
             	
-            	tollToGain = (apExchangeRate / apToExchange);
+            	tollToGain = (apToExchange / apExchangeRate);
             	
             	player.getCommonData().setAp(currentAP - apToExchange);
         	} else {
@@ -117,7 +117,7 @@ public class ExchangeToll extends UserCommand {
         			return;
         		}
 
-        		tollToGain = (kinahExchangeRate / kinahToExchange);
+        		tollToGain = (kinahToExchange / kinahExchangeRate);
 
         		player.getInventory().decreaseKinah(kinahToExchange);
         	}

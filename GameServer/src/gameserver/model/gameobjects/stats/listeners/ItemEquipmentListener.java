@@ -165,7 +165,7 @@ public class ItemEquipmentListener {
 			recalculateDualMastery(owner);
 		}
 		
-		if(item.getItemTemplate().isArmor(true))
+		if(item.getItemTemplate().isArmor())
 		{
 			recalculateArmorMastery(owner);
 			recalculateShieldMastery(owner);

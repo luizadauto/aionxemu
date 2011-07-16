@@ -4043,4 +4043,16 @@
 		<production chance="10" item_id="162000061" count="20"/>
 		<production chance="10" item_id="160001274" count="20"/>
 	</compressed_item>
+	<!-- Rainbow Dye Pack -->
+	<compressed_item id="188051207">
+		<production chance="100" item_id="169220029" count="1"/>
+		<production chance="100" item_id="169220020" count="1"/>
+		<production chance="100" item_id="169220002" count="1"/>
+		<production chance="100" item_id="169220027" count="1"/>
+		<production chance="100" item_id="169220025" count="1"/>
+		<production chance="100" item_id="169220004" count="1"/>
+		<production chance="100" item_id="169220035" count="1"/>
+		<production chance="100" item_id="169220007" count="1"/>
+		<production chance="100" item_id="169220009" count="1"/>
+	</compressed_item>
 </compressed_items>

@@ -861,6 +861,18 @@
 	<spawn map="220020000" npcid="204435" pool="1" interval="295">
 		<object x="329.1142" y="2293.8037" z="461.2403" h="42"/>
 	</spawn>
+	<!-- Purra? (NPC Normal lvl:15)-->
+	<spawn map="220020000" npcid="204438" pool="1" interval="295">
+		<object x="235.5446" y="2418.9722" z="461.73087" h="120"/>
+	</spawn>
+	<!-- Purra? (NPC Normal lvl:15)-->
+	<spawn map="220020000" npcid="204437" pool="1" interval="295">
+		<object x="370.98" y="2402.43" z="462.0" h="3"/>
+	</spawn>
+	<!-- Purra? (NPC Normal lvl:15)-->
+	<spawn map="220020000" npcid="204436" pool="1" interval="295">
+		<object x="343.58664" y="2329.5928" z="459.1532" h="29"/>
+	</spawn>
 	<!-- Raukus (NPC Elite lvl:45)-->
 	<spawn map="220020000" npcid="204349" pool="1" interval="295">
 		<object x="2362.6172" y="1858.1859" z="100.0" h="35"/>

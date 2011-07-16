@@ -111,6 +111,17 @@ public class _2493BringingUpTayga extends QuestHandler {
                                     .getObjectId(), 0));
                             return true;
                     }
+					break;
+				        case 204436:
+				        case 204437:
+				        case 204438:
+					        switch(env.getDialogId()){
+						case 25:
+							if(var == 0)
+								return sendQuestDialog(env, 1353);
+					}
+					break;
+					
             }
         }
         return false;
