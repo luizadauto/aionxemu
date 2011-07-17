@@ -17,7 +17,6 @@
 
 package gameserver.network.aion.serverpackets;
 
-
 import gameserver.dataholders.DataManager;
 import gameserver.model.gameobjects.Npc;
 import gameserver.model.gameobjects.player.Player;
@@ -33,7 +32,6 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.ArrayList;
 
-
 /**
  * @author alexa026
  *         modified by ATracer, Sarynth
@@ -44,8 +42,9 @@ public class SM_TRADELIST extends AionServerPacket {
     private int npcTemplateId;
     private TradeListTemplate tlist;
     private int buyPriceModifier;
+    private static Logger log = Logger.getLogger(SM_TRADELIST.class);
     private Player player;
-    
+
     public SM_TRADELIST(Npc npc, TradeListTemplate tlist, int buyPriceModifier, Player player) {
         this.targetObjectId = npc.getObjectId();
         this.npcTemplateId = npc.getNpcId();
@@ -65,23 +64,25 @@ public class SM_TRADELIST extends AionServerPacket {
             writeH(buf, tlist.getCount());
             for (TradeTab tradeTabl : tlist.getTradeTablist()) {
                 writeD(buf, tradeTabl.getId());
-                GoodsList goodsList = DataManager.GOODSLIST_DATA.getGoodsListById(tradeTabl.getId());
-                if(goodsList == null || goodsList.getItemList() == null)
-                    continue;
-                for (GoodsList.Item item : goodsList.getItemList()) {
-                    if (item.isLimited()) {
-                        limitedItems.add(item);
+               GoodsList goodsList = DataManager.GOODSLIST_DATA.getGoodsListById(tradeTabl.getId());
+               if(goodsList == null || goodsList.getItemList() == null)
+                  continue;
+               for (GoodsList.Item item : goodsList.getItemList()) {
+                  if (item.isLimited()) {
+                     limitedItems.add(item);
+                    log.info("Found stock limited item " + item.getId());
                     }
-                }
+               }
             }
             
             if(!limitedItems.isEmpty()) {
-                writeH(buf, limitedItems.size());
-                for (GoodsList.Item item : limitedItems) {
-                    writeD(buf, item.getId());
-                    writeH(buf, TradeService.getInstance().getCountItemSoldToPlayer(npcTemplateId, player.getCommonData().getPlayerObjId(), item.getId())); //amount sold to player
-                    writeH(buf, TradeService.getInstance().getItemStock(npcTemplateId, item.getId(), item.getSellLimit())); //amount left
-                }
+            log.info("The NPC have stock limited "+ limitedItems.size() +" items");
+               writeH(buf, limitedItems.size());
+               for (GoodsList.Item item : limitedItems) {
+                  writeD(buf, item.getId());
+                  writeH(buf, TradeService.getInstance().getCountItemSoldToPlayer(npcTemplateId, player.getCommonData().getPlayerObjId(), item.getId())); //amount sold to player
+                  writeH(buf, TradeService.getInstance().getItemStock(npcTemplateId, item.getId(), item.getSellLimit())); //amount left
+               }
             }
         } else if (tlist == null) {
             Logger.getLogger(SM_TRADELIST.class).warn("Empty TradeListTemplate for NpcId: " + npcTemplateId);

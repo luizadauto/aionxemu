@@ -18,10 +18,10 @@ package gameserver.services;
 
 import com.aionemu.commons.database.dao.DAOManager;
 import gameserver.configs.main.CustomConfig;
+import gameserver.dao.NpcStocksDAO;
 import gameserver.dataholders.DataManager;
 import gameserver.dataholders.GoodsListData;
 import gameserver.dataholders.TradeListData;
-import gameserver.dao.NpcStocksDAO;
 import gameserver.model.NpcStocks;
 import gameserver.model.gameobjects.Item;
 import gameserver.model.gameobjects.Npc;
@@ -31,6 +31,7 @@ import gameserver.model.gameobjects.player.Storage;
 import gameserver.model.templates.TradeListTemplate;
 import gameserver.model.templates.TradeListTemplate.TradeTab;
 import gameserver.model.templates.goods.GoodsList;
+import gameserver.services.TradeService;
 import gameserver.model.trade.TradeItem;
 import gameserver.model.trade.TradeList;
 import gameserver.network.aion.serverpackets.SM_ABYSS_RANK;
@@ -38,7 +39,6 @@ import gameserver.network.aion.serverpackets.SM_DELETE_ITEM;
 import gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
 import gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import gameserver.utils.PacketSendUtility;
-import gameserver.utils.scheduler.Scheduler;
 import gameserver.world.World;
 import org.apache.log4j.Logger;
 
@@ -59,20 +59,13 @@ public class TradeService {
     public TradeService()
     {
         npcStocks = DAOManager.getDAO(NpcStocksDAO.class).getStocks();
-        Scheduler.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                restockNpc();
-            }
-        }, "0 10-24/2");
     }
-    
+
     /**
      * @param player
      * @param tradeList
      * @return true or false
      */
-
     public static boolean performBuyFromShop(Player player, TradeList tradeList) {
 
         if (!validateBuyItems(tradeList, player)) {
@@ -96,6 +89,7 @@ public class TradeService {
 
         long tradeListPrice = tradeList.getRequiredKinah();
         
+        
         Npc npc = (Npc) World.getInstance().findAionObject(tradeList.getSellerObjId());
         TradeListTemplate tradeListTemplate = tradeListData.getTradeListTemplate(npc.getObjectTemplate()
                 .getTemplateId());
@@ -111,7 +105,6 @@ public class TradeService {
             }
         }
 
-
         List<Item> addedItems = new ArrayList<Item>();
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
             long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
@@ -124,8 +117,6 @@ public class TradeService {
                 TradeService.getInstance().increaseItemSoldToPlayer(npcId, playerId, itemTemplateId, (int)tradeItem.getCount());
                 TradeService.getInstance().decreaseItemStock(npcId, itemTemplateId, (int)tradeItem.getCount());
             }
-
-            
             if (count != 0) {
                 log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
                         .getObjectId(), tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount(), count));
@@ -140,35 +131,37 @@ public class TradeService {
         return true;
     }
     
-   
-    public int getCountItemSoldToPlayer(int npcId, int playerId, int itemTemplateId) {
+    public int getCountItemSoldToPlayer(int npcId, int playerId, int itemTemplateId)
+    {
         int soldCount = npcStocks.getCountSoldToPlayer(playerId, npcId, itemTemplateId);
         return soldCount;
     }
-
+    
     //  restock only npc concerned (ether / flux) and with different schedules.
     public void restockNpc() {
         DAOManager.getDAO(NpcStocksDAO.class).restockNpcs();
         npcStocks.restockNpcs();
     }
-
-    public int getItemStock(int npcId, int itemTemplateId, int limit) {
+    
+    public int getItemStock(int npcId, int itemTemplateId, int limit)
+    {
         int soldCount = npcStocks.getItemCountSold(npcId, itemTemplateId);
         return limit - soldCount;
     }
-
-    public void decreaseItemStock(int npcId, int itemTemplateId, int count) {
+    
+    public void decreaseItemStock(int npcId, int itemTemplateId, int count)
+    {
         npcStocks.increaseSoldCount(npcId, itemTemplateId, count);
     }
-
-    public void increaseItemSoldToPlayer(int npcId, int playerId, int itemTemplateId, int count) {
+    
+    public void increaseItemSoldToPlayer(int npcId, int playerId, int itemTemplateId, int count)
+    {
         npcStocks.increaseSoldCountToPlayer(playerId, npcId, itemTemplateId, count);
     }
-
+    
     public List<Map<String, Integer>> getNpcStocks() {
         return npcStocks.getAll();
     }
-
 
     /**
      * Probably later merge with regular buy
@@ -230,52 +223,52 @@ public class TradeService {
     }
 
     /**
-     * @param player
-     * @param tradeList
-     */
-    public static boolean performBuyFromSpecialShop(Player player, TradeList tradeList)
-    {
-        if (!validateBuyItems(tradeList, player)) {
+	 * @param player
+	 * @param tradeList
+	 */
+	public static boolean performBuyFromSpecialShop(Player player, TradeList tradeList)
+	{
+		if (!validateBuyItems(tradeList, player)) {
             PacketSendUtility.sendMessage(player, "Some items are not allowed to be selled from this npc");
             if (CustomConfig.ARTMONEY_HACK)
             PunishmentService.setIsInPrison(player, true, CustomConfig.ARTMONEY_HACKBUY_TIME);
             return false;
         }
 
-        if (!tradeList.calculateSpecialBuyListPrice(player))
-            return false;
+		if (!tradeList.calculateSpecialBuyListPrice(player))
+			return false;
 
-        Storage inventory = player.getInventory();
+		Storage inventory = player.getInventory();
         int freeSlots = inventory.getLimit() - inventory.getAllItems().size() + 1;
 
         if (freeSlots < tradeList.size())
-            return false;
+        	return false;
 
         List<Item> addedItems = new ArrayList<Item>();
 
         for (TradeItem tradeItem : tradeList.getTradeItems()) {
-            long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
-            if (count != 0) {
-                log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
+        	long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+        	if (count != 0) {
+        		log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
                     .getObjectId(), tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount(), count));
-                return false;
-            }
+        		return false;
+        	}
         }
 
         Map<Integer, Integer> requiredItems = tradeList.getRequiredItems();
         for (Integer itemId : requiredItems.keySet()) {
-            player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
+        	player.getInventory().removeFromBagByItemId(itemId, requiredItems.get(itemId));
         }
 
         PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(addedItems));
 
-        return true;
-    }
+		return true;
+	}
 
     /**
      * @param tradeList
      */
-    private static boolean validateBuyItems(TradeList tradeList, Player player) {
+     private static boolean validateBuyItems(TradeList tradeList, Player player) {
         Npc npc = (Npc) World.getInstance().findAionObject(tradeList.getSellerObjId());
         TradeListTemplate tradeListTemplate = tradeListData.getTradeListTemplate(npc.getObjectTemplate()
                 .getTemplateId());
@@ -375,14 +368,13 @@ public class TradeService {
         return tradeListData;
     }
     
-    @SuppressWarnings("synthetic-access")
+    
+	@SuppressWarnings("synthetic-access")
     private static class SingletonHolder {
         protected static final TradeService instance = new TradeService();
     }
-   
-    public static final TradeService getInstance() {
-    	return SingletonHolder.instance;
-    }
-
-    
+	
+	public static final TradeService getInstance() {
+		return SingletonHolder.instance;
+	}
 }
