@@ -66,7 +66,7 @@ public class _2303DaevaWheresMyHerb extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1003);
 					case 10009:
@@ -82,7 +82,7 @@ public class _2303DaevaWheresMyHerb extends QuestHandler
 		{
 			if(var == 15)
 				return defaultQuestRewardDialog(env, 798082, 1353);
-			else if(var == 25)
+			else if(var == 26)
 				return defaultQuestRewardDialog(env, 798082, 1438, 1);
 		}
 		return false;

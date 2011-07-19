@@ -56,7 +56,7 @@ public class _1725CenturionsForgetfulness extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 278520) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 1011);
                 } else if (env.getDialogId() == 1002) {
                     if (QuestService.startQuest(env, QuestStatus.START)) {
@@ -68,7 +68,7 @@ public class _1725CenturionsForgetfulness extends QuestHandler {
             }
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 278514) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -77,7 +77,7 @@ public class _1725CenturionsForgetfulness extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 278590) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     player.getInventory().removeFromBagByItemId(182202153, 1);

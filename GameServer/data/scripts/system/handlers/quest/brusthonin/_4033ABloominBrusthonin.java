@@ -59,12 +59,12 @@ public class _4033ABloominBrusthonin extends QuestHandler {
         if (targetId == 205155) //Heintz
         {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 33) {
                     if (QuestService.collectItemCheck(env, true)) {
@@ -78,7 +78,7 @@ public class _4033ABloominBrusthonin extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 1009) {
                     qs.setStatus(QuestStatus.REWARD);

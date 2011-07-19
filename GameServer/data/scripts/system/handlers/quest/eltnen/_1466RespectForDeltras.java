@@ -88,7 +88,7 @@ public class _1466RespectForDeltras extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 212649) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201385, 1))))
@@ -100,7 +100,7 @@ public class _1466RespectForDeltras extends QuestHandler {
             }
         } else if (targetId == 203903) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START)
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(2);

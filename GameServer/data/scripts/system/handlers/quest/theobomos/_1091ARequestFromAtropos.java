@@ -57,7 +57,7 @@ public class _1091ARequestFromAtropos extends QuestHandler {
         if (targetId != 798155)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 10002);
             else if (env.getDialogId() == 1009) {
                 qs.setStatus(QuestStatus.REWARD);
@@ -67,7 +67,7 @@ public class _1091ARequestFromAtropos extends QuestHandler {
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {1092, 1093, 1094};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

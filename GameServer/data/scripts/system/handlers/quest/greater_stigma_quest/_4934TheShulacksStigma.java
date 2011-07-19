@@ -62,7 +62,7 @@ public class _4934TheShulacksStigma extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204051) {
                 // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     // Send HTML_PAGE_SELECT_NONE to eddit-HtmlPages.xml
                     return sendQuestDialog(env, 4762);
                 else
@@ -85,7 +85,7 @@ public class _4934TheShulacksStigma extends QuestHandler {
                     if (var == 0) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select1 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1011);
                             // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
@@ -101,7 +101,7 @@ public class _4934TheShulacksStigma extends QuestHandler {
                     if (var == 1) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select1 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1352);
                             // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
@@ -114,11 +114,11 @@ public class _4934TheShulacksStigma extends QuestHandler {
                     } else if (var == 2) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select1 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1693);
                             // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
-                            case 33:
+                            case 34:
                                 if (player.getInventory().getItemCountByItemId(182207102) < 1) {
                                     // player doesn't own required item
                                     return sendQuestDialog(env, 10001);

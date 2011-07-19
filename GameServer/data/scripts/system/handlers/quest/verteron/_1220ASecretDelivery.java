@@ -50,7 +50,7 @@ public class _1220ASecretDelivery extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203172) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 1011);
                 } else
                     return defaultQuestStartDialog(env);
@@ -64,7 +64,7 @@ public class _1220ASecretDelivery extends QuestHandler {
             switch (targetId) {
                 case 798004: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             return sendQuestDialog(env, 1352);
                         case 10000:
                             return defaultCloseDialog(env, 0, 1);
@@ -72,7 +72,7 @@ public class _1220ASecretDelivery extends QuestHandler {
                 }
                 case 798046: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             return sendQuestDialog(env, 2375);
                         }
                         case 1009: {

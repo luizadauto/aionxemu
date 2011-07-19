@@ -59,7 +59,7 @@ public class _1467TheFourLeaders extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204045) {
                 switch (env.getDialogId()) {
-                    case 25: {
+                    case 26: {
                         return sendQuestDialog(env, 4762);
                     }
                     case 1002: {
@@ -129,7 +129,7 @@ public class _1467TheFourLeaders extends QuestHandler {
                             }
                         }
                     }
-                    case 17: {
+                    case 18: {
                         QuestService.questFinish(env, qs.getQuestVarById(0) - 1);
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(),
                                 10));

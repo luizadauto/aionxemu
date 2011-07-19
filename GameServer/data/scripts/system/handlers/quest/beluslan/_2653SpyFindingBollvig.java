@@ -58,7 +58,7 @@ public class _2653SpyFindingBollvig extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 204650) {
             if (qs == null) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -78,7 +78,7 @@ public class _2653SpyFindingBollvig extends QuestHandler {
             }
         } else if (targetId == 204775) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START)
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(3);

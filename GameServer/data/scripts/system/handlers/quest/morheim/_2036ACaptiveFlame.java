@@ -74,7 +74,7 @@ public class _2036ACaptiveFlame extends QuestHandler {
             switch (targetId) {
                 case 204407: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 4)
@@ -86,7 +86,7 @@ public class _2036ACaptiveFlame extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 4) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setStatus(QuestStatus.REWARD);
@@ -100,7 +100,7 @@ public class _2036ACaptiveFlame extends QuestHandler {
                 break;
                 case 204408: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 1353:

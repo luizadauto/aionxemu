@@ -142,7 +142,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 				case 10000:
@@ -159,7 +159,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 					else if(var == 6)
@@ -198,7 +198,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 2)
 						return sendQuestDialog(env, 1693);
 				case 10002:
@@ -216,7 +216,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 7)
 						return sendQuestDialog(env, 3398);
 				case 10007:
@@ -234,7 +234,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 8)
 						return sendQuestDialog(env, 3739);
 				case 10008:
@@ -252,7 +252,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 10)
 						return sendQuestDialog(env, 1608);
 				case 10010:
@@ -270,7 +270,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 11)
 						return sendQuestDialog(env, 1949);
 				case 10011:
@@ -292,7 +292,7 @@ public class _10023SullasStartlingDiscovery extends QuestHandler
 					if(var >= 12)
 						return sendQuestDialog(env, 3995);
 				break;
-				case 25:
+				case 26:
 					if(var == 12)
 						return sendQuestDialog(env, 3995);
 				break;

@@ -102,7 +102,7 @@ public class _2058ASpyAmongtheLepharists extends QuestHandler {
         }
         if (targetId == 204774) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 1012:
@@ -118,7 +118,7 @@ public class _2058ASpyAmongtheLepharists extends QuestHandler {
             }
         } else if (targetId == 204809) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:

@@ -79,7 +79,7 @@ public class _1092JosnacksDilemma extends QuestHandler {
         }
         if (targetId == 798155) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 3)
@@ -100,7 +100,7 @@ public class _1092JosnacksDilemma extends QuestHandler {
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
-                case 33:
+                case 34:
                     if (var == 4) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setStatus(QuestStatus.REWARD);
@@ -112,7 +112,7 @@ public class _1092JosnacksDilemma extends QuestHandler {
             }
         } else if (targetId == 798206) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 2)

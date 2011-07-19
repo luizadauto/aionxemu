@@ -85,7 +85,7 @@ public class _2549AGiftForAmma extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1352);
 				case 10000:

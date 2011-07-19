@@ -66,7 +66,7 @@ public class _2367APrizedPossession extends QuestHandler
 			{	
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1003);
 					case 10009:

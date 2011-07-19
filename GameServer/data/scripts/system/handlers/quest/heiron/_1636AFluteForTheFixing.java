@@ -64,7 +64,7 @@ public class _1636AFluteForTheFixing extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204535) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 4762);
                 } else
                     return defaultQuestStartDialog(env);
@@ -78,7 +78,7 @@ public class _1636AFluteForTheFixing extends QuestHandler {
             switch (targetId) {
                 case 203792: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             long itemCount1 = player.getInventory().getItemCountByItemId(182201786);
                             long itemCount2 = player.getInventory().getItemCountByItemId(152020034);
                             long itemCount3 = player.getInventory().getItemCountByItemId(152020091);
@@ -99,7 +99,7 @@ public class _1636AFluteForTheFixing extends QuestHandler {
                                     .getObjectId(), 0));
                             return true;
                         }
-                        case 33: {
+                        case 34: {
                             qs.setQuestVarById(0, qs.getQuestVarById(0) + 2);
                             updateQuestStatus(env);
 

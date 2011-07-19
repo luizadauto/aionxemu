@@ -83,7 +83,7 @@ public class _30132Releasing_The_Mace_Potential extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                             //Siel's Supreme Mace (1)
                             //Noxallon Ingot (1)
                             if (QuestService.collectItemCheck(env, true))

@@ -60,7 +60,7 @@ public class _4939ProvingGround extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204053) {
                 // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     // Send select_none to eddit-HtmlPages.xml
                     return sendQuestDialog(env, 4762);
                 else
@@ -81,7 +81,7 @@ public class _4939ProvingGround extends QuestHandler {
                 case 204055:
                     switch (env.getDialogId()) {
                         // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                        case 25:
+                        case 26:
                             // Send select1 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 1011);
                         // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
@@ -97,7 +97,7 @@ public class _4939ProvingGround extends QuestHandler {
                     if (var == 1) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select2 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1352);
                             // Get HACTION_SETPRO2 in the eddit-HyperLinks.xml
@@ -114,7 +114,7 @@ public class _4939ProvingGround extends QuestHandler {
                     if (var == 2) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select3 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1693);
                             // Get HACTION_SETPRO3 in the eddit-HyperLinks.xml
@@ -129,11 +129,11 @@ public class _4939ProvingGround extends QuestHandler {
                     if (var == 3) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select4 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 2034);
                             // Get HACTION_CHECK_USER_HAS_QUEST_ITEM in the eddit-HyperLinks.xml
-                            case 33:
+                            case 34:
                                 if (player.getInventory().getItemCountByItemId(186000079) >= 30) {
                                     player.getInventory().removeFromBagByItemId(186000079, 30);
                                     qs.setQuestVarById(0, var + 1);
@@ -151,7 +151,7 @@ public class _4939ProvingGround extends QuestHandler {
                     if (var == 4) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 if (player.getInventory().getItemCountByItemId(186000084) >= 1)
                                     // Send select5 to eddit-HtmlPages.xml
                                     return sendQuestDialog(env, 2375);

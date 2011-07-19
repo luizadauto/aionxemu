@@ -96,7 +96,7 @@ public class _2060RestoringBeluslanObservatory extends QuestHandler {
         }
         if (targetId == 204701) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -109,7 +109,7 @@ public class _2060RestoringBeluslanObservatory extends QuestHandler {
             }
         } else if (targetId == 204785) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 4)
@@ -128,7 +128,7 @@ public class _2060RestoringBeluslanObservatory extends QuestHandler {
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
-                case 33:
+                case 34:
                     if (var == 4) {
                         if (QuestService.collectItemCheck(env, false)) {
                             return sendQuestDialog(env, 2376);
@@ -151,7 +151,7 @@ public class _2060RestoringBeluslanObservatory extends QuestHandler {
             }
         } else if (targetId == 278088) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                 case 2035:

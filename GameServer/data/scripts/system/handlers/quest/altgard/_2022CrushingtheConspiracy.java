@@ -62,7 +62,7 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null) {
             if (targetId == 203557) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -71,7 +71,7 @@ public class _2022CrushingtheConspiracy extends QuestHandler {
             switch (targetId) {
                 case 203557: {
                     if (qs.getQuestVarById(0) == 0) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                         {
                             PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 66));
 														return sendQuestDialog(env, 1011);

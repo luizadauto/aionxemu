@@ -57,7 +57,7 @@ public class _3056InSearchOfZirius extends QuestHandler {
 		{
 			if(targetId == 798213)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 10002);
 				else if(env.getDialogId() == 1009)
 					return sendQuestDialog(env, 5);
@@ -73,7 +73,7 @@ public class _3056InSearchOfZirius extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 				case 10001:

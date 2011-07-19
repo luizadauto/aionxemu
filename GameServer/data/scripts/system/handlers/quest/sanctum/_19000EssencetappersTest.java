@@ -66,7 +66,7 @@ public class _19000EssencetappersTest extends QuestHandler
 						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1352);
-						case 33:
+						case 34:
 							return defaultQuestItemCheck(env, 1, 2, true, 5, 10001);
 					}
 					break;

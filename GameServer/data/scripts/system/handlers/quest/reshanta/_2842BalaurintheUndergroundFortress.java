@@ -60,7 +60,7 @@ public class _2842BalaurintheUndergroundFortress extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE || qs.getStatus() == QuestStatus.COMPLETE) {
             if (targetId == 266568) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     newInstance = InstanceService.getNextAvailableInstance(300070000);

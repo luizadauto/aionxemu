@@ -65,7 +65,7 @@ public class _1015FrillneckHunt extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203129) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 8)

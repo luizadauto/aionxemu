@@ -71,7 +71,7 @@ public class _2945HoningYourSkills extends QuestHandler {
             switch (targetId) {
                 case 204075: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -86,7 +86,7 @@ public class _2945HoningYourSkills extends QuestHandler {
                 break;
                 case 204088: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10255:

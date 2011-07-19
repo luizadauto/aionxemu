@@ -51,7 +51,7 @@ public class _1472GanimerksEspionage extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 203903) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
@@ -60,7 +60,7 @@ public class _1472GanimerksEspionage extends QuestHandler {
             }
         } else if (targetId == 798114) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setStatus(QuestStatus.REWARD);

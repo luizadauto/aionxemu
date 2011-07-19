@@ -102,7 +102,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
         }
         if (targetId == 205150) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 1012:
@@ -118,7 +118,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205188) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10002:
@@ -131,7 +131,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205190) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                     if (var == 4)
@@ -148,7 +148,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
-                case 33:
+                case 34:
                     if (var == 4) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setQuestVarById(0, var + 1);
@@ -203,7 +203,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
 			}						
         } else if (targetId == 205208) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2717);
                 case 10005:
@@ -218,7 +218,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205209) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2802);
                 case 10005:
@@ -233,7 +233,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205210) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2887);
                 case 10005:
@@ -248,7 +248,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205211) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2887);
                 case 10005:
@@ -263,7 +263,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205212) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2972);
                 case 10005:
@@ -278,7 +278,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205213) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 3058);
                 case 10005:
@@ -293,7 +293,7 @@ public class _2092GravesoftheRedSkyLegion extends QuestHandler {
             }
         } else if (targetId == 205214) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 3143);
                 case 10005:

@@ -76,7 +76,7 @@ public class _1075NewWings extends QuestHandler {
         }
         if (targetId == 278506) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 1013:
@@ -92,7 +92,7 @@ public class _1075NewWings extends QuestHandler {
             }
         } else if (targetId == 279023) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -106,7 +106,7 @@ public class _1075NewWings extends QuestHandler {
             }
         } else if (targetId == 278643) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                     else if (var == 3)

@@ -58,7 +58,7 @@ public class _3031WantedPirates extends QuestHandler {
 		{
 			if(targetId == 798172)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 10002);
 				else if(env.getDialogId() == 1009)
 					return sendQuestDialog(env, 5);

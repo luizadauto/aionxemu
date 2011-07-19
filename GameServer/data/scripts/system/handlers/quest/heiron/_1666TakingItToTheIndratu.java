@@ -62,7 +62,7 @@ public class _1666TakingItToTheIndratu extends QuestHandler
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else
 					return defaultQuestStartDialog(env);
@@ -74,7 +74,7 @@ public class _1666TakingItToTheIndratu extends QuestHandler
 			}
 			else if( qs.getQuestVarById(0) == 15 && qs.getQuestVarById(1) == 15 )
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 				{
 					return sendQuestDialog(env, 1352);
 				}

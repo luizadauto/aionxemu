@@ -54,7 +54,7 @@ public class _2221ManirsUncle extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null) {
             if (targetId == 203607) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -63,7 +63,7 @@ public class _2221ManirsUncle extends QuestHandler {
             switch (targetId) {
                 case 203608: {
                     if (qs.getQuestVarById(0) == 0) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 1352);
                         else if (env.getDialogId() == 10000) {
                             qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -73,7 +73,7 @@ public class _2221ManirsUncle extends QuestHandler {
                         }
                     }
                     if (qs.getQuestVarById(0) == 2) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 2375);
                         else if (env.getDialogId() == 1009) {
                             player.getInventory().removeFromBagByItemId(182203215, 1);

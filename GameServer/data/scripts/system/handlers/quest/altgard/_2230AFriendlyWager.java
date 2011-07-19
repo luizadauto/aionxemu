@@ -46,7 +46,7 @@ public class _2230AFriendlyWager extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (env.getTargetId() == 203621) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1011);
                     case 1007:
                         return sendQuestDialog(env, 4);
@@ -69,10 +69,10 @@ public class _2230AFriendlyWager extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203621) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 2375);
-                    case 33:
+                    case 34:
                         if (var == 0) {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setStatus(QuestStatus.REWARD);

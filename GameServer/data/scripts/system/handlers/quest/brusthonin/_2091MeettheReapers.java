@@ -61,7 +61,7 @@ public class _2091MeettheReapers extends QuestHandler {
         if (targetId != 205150)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 10002);
             else if (env.getDialogId() == 1009) {
                 qs.setStatus(QuestStatus.REWARD);
@@ -71,7 +71,7 @@ public class _2091MeettheReapers extends QuestHandler {
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {2092, 2093, 2094};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

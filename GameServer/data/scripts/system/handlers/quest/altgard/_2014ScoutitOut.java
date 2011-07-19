@@ -71,7 +71,7 @@ public class _2014ScoutitOut extends QuestHandler {
             switch (targetId) {
                 case 203606:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 1 || var == 2)
@@ -126,7 +126,7 @@ public class _2014ScoutitOut extends QuestHandler {
                     break;
                 case 203633:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 1693);
                             break;

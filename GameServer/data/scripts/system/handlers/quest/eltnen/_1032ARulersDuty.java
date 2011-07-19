@@ -101,7 +101,7 @@ public class _1032ARulersDuty extends QuestHandler {
         if (targetId == 203932) //Phomona
         {
             if (qs.getStatus() == QuestStatus.START) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(1);
@@ -119,7 +119,7 @@ public class _1032ARulersDuty extends QuestHandler {
         } else if (targetId == 730020) //Demro
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -130,7 +130,7 @@ public class _1032ARulersDuty extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 5) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10004) {
                     qs.setStatus(QuestStatus.REWARD);
@@ -144,7 +144,7 @@ public class _1032ARulersDuty extends QuestHandler {
         } else if (targetId == 730019) //Lodas
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     player.getInventory().removeFromBagByItemId(182201001, 1);
@@ -156,7 +156,7 @@ public class _1032ARulersDuty extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 4) {
-			       if (env.getDialogId() == 25)
+			       if (env.getDialogId() == 26)
 				    return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVar(5);

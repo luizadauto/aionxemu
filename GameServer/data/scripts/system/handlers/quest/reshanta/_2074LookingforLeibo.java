@@ -69,7 +69,7 @@ public class _2074LookingforLeibo extends QuestHandler {
             switch (targetId) {
                 case 278036: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -84,7 +84,7 @@ public class _2074LookingforLeibo extends QuestHandler {
                 break;
                 case 204207: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 10002:
@@ -99,7 +99,7 @@ public class _2074LookingforLeibo extends QuestHandler {
                 break;
                 case 798067: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -114,7 +114,7 @@ public class _2074LookingforLeibo extends QuestHandler {
                 break;
                 case 279029: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                             else if (var == 6)
@@ -138,7 +138,7 @@ public class _2074LookingforLeibo extends QuestHandler {
                 break;
                 case 203550: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:

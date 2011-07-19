@@ -83,7 +83,7 @@ public class _11047What_Up_Brohum extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Brohum Fur (15)
 						//Collect Disposable Aether Refining Device (1)
                             if (QuestService.collectItemCheck(env, true))

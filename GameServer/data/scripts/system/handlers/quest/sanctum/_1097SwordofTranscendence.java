@@ -61,7 +61,7 @@ public class _1097SwordofTranscendence extends QuestHandler {
             switch (targetId) {
                 case 790001: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -76,7 +76,7 @@ public class _1097SwordofTranscendence extends QuestHandler {
                 break;
                 case 798316: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:
@@ -91,7 +91,7 @@ public class _1097SwordofTranscendence extends QuestHandler {
                 break;
                 case 279034: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 10002:
@@ -99,7 +99,7 @@ public class _1097SwordofTranscendence extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 2) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setStatus(QuestStatus.REWARD);

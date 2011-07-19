@@ -80,12 +80,12 @@ public class _4038AlasPoorGroznak extends QuestHandler {
         if (targetId == 205150) //Surt
         {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 1009) {
                     qs.setStatus(QuestStatus.REWARD);
@@ -97,7 +97,7 @@ public class _4038AlasPoorGroznak extends QuestHandler {
         } else if (targetId == 730155) //Groznak's Skull
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -108,7 +108,7 @@ public class _4038AlasPoorGroznak extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 33) {
                     if (QuestService.collectItemCheck(env, true)) {
@@ -122,7 +122,7 @@ public class _4038AlasPoorGroznak extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     QuestService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 214555, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true); //Spawn Groznak's Servant

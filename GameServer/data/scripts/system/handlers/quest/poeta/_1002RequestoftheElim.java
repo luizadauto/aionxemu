@@ -70,7 +70,7 @@ public class _1002RequestoftheElim extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203076:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -79,7 +79,7 @@ public class _1002RequestoftheElim extends QuestHandler {
                     break;
                 case 730007:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 5)
@@ -90,7 +90,7 @@ public class _1002RequestoftheElim extends QuestHandler {
                                 return sendQuestDialog(env, 2120);
                         case 1353:
                             return defaultQuestMovie(env, 20);
-                        case 33:
+                        case 34:
                             return defaultQuestItemCheck(env, 6, 12, false, 2120, 2205);
                         case 10001:
                             return defaultCloseDialog(env, 1, 2, 182200002, 1, 0, 0);
@@ -104,7 +104,7 @@ public class _1002RequestoftheElim extends QuestHandler {
                     switch (env.getDialogId()) {
                         case -1:
                             return defaultQuestUseNpc(env, 2, 5, EmotionType.START_QUESTLOOT, EmotionType.END_QUESTLOOT, true);
-                        case 25:
+                        case 26:
                             if (defaultCloseDialog(env, 2, 4) || defaultCloseDialog(env, 4, 5)) {
                                 Npc npc = (Npc) env.getVisibleObject();
                                 if (npc != null)
@@ -115,7 +115,7 @@ public class _1002RequestoftheElim extends QuestHandler {
                     break;
                 case 730008:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 13)
                                 return sendQuestDialog(env, 2375);
                             else if (var == 14)
@@ -132,7 +132,7 @@ public class _1002RequestoftheElim extends QuestHandler {
                     break;
                 case 205000:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 20) {
                                 PacketSendUtility.sendPacket(player, new SM_EMOTION(player, EmotionType.START_FLYTELEPORT, 1001, 0));
                                 final QuestState qs2 = qs;

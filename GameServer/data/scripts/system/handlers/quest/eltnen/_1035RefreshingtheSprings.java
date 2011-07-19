@@ -78,7 +78,7 @@ public class _1035RefreshingtheSprings extends QuestHandler {
         }
         if (targetId == 203917) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 4)
@@ -103,7 +103,7 @@ public class _1035RefreshingtheSprings extends QuestHandler {
             }
         } else if (targetId == 203992) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 3)
@@ -143,7 +143,7 @@ public class _1035RefreshingtheSprings extends QuestHandler {
             return false;
         } else if (targetId == 203965) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 4)
                         return sendQuestDialog(env, 2034);
                 case 10003:
@@ -157,7 +157,7 @@ public class _1035RefreshingtheSprings extends QuestHandler {
             }
         } else if (targetId == 203968) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2375);
                 case 10004:
@@ -171,7 +171,7 @@ public class _1035RefreshingtheSprings extends QuestHandler {
             }
         } else if (targetId == 203987) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 6)
                         return sendQuestDialog(env, 2716);
                     else if (var == 8)
@@ -205,7 +205,7 @@ public class _1035RefreshingtheSprings extends QuestHandler {
             }
         } else if (targetId == 203934) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 9)
                         return sendQuestDialog(env, 3398);
                     else if (var == 11)

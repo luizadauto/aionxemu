@@ -64,7 +64,7 @@ public class _11012PracticalNursing extends QuestHandler
 		{
 			if(qs == null)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 4762);
 				else if(env.getDialogId() == 1002)
 				{
@@ -87,7 +87,7 @@ public class _11012PracticalNursing extends QuestHandler
 		{
 			if(targetId == 799072 && var == 0)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 10000)
 				{
@@ -102,7 +102,7 @@ public class _11012PracticalNursing extends QuestHandler
 			}
 			else if(targetId == 799073 && var == 1)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1352);
 				else if(env.getDialogId() == 10001)
 				{
@@ -117,7 +117,7 @@ public class _11012PracticalNursing extends QuestHandler
 			}
 			else if(targetId == 799074 && var == 2)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1693);
 				else if(env.getDialogId() == 10002)
 				{

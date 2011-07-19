@@ -81,7 +81,7 @@ public class _1034DisappearingAether extends QuestHandler {
         }
         if (targetId == 203903) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -94,14 +94,14 @@ public class _1034DisappearingAether extends QuestHandler {
             }
         } else if (targetId == 204032) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 3)
                         return sendQuestDialog(env, 1693);
                     else if (var == 4)
                         return sendQuestDialog(env, 2034);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         qs.setStatus(QuestStatus.REWARD);
                         updateQuestStatus(env);

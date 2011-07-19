@@ -73,7 +73,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler {
             switch (targetId) {
                 case 203649:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 4)
@@ -89,7 +89,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 7) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setStatus(QuestStatus.REWARD);

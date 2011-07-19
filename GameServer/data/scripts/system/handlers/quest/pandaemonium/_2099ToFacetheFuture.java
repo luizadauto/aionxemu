@@ -141,7 +141,7 @@ public class _2099ToFacetheFuture extends QuestHandler
 		{
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 10000)
 				{
@@ -160,7 +160,7 @@ public class _2099ToFacetheFuture extends QuestHandler
 		{
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1352);
 				else if(env.getDialogId() == 10001)
 				{
@@ -191,7 +191,7 @@ public class _2099ToFacetheFuture extends QuestHandler
 		{
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 53)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 2375);
 				else if(env.getDialogId() == 10004)
 				{

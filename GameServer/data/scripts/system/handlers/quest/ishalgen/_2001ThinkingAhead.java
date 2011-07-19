@@ -64,7 +64,7 @@ public class _2001ThinkingAhead extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203518) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 1)
@@ -83,7 +83,7 @@ public class _2001ThinkingAhead extends QuestHandler {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
                         }
-                    case 33:
+                    case 34:
                         if (var == 1) {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setQuestVarById(0, var + 1);

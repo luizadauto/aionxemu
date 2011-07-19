@@ -61,7 +61,7 @@ public class _2237AFertileField extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203629) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -91,7 +91,7 @@ public class _2237AFertileField extends QuestHandler {
                     }
                 }
                 case 203629: {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 2375);
                     else if (env.getDialogId() == 33)
                         if (QuestService.collectItemCheck(env, true)) {

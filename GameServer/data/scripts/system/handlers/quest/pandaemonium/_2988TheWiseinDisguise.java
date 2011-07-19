@@ -56,7 +56,7 @@ public class _2988TheWiseinDisguise extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204182) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -71,7 +71,7 @@ public class _2988TheWiseinDisguise extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 204338 && var == 0) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1352);
                     case 10000:
                         qs.setQuestVarById(0, var + 1);
@@ -81,7 +81,7 @@ public class _2988TheWiseinDisguise extends QuestHandler {
                 }
             } else if (targetId == 204213 && var == 1) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1693);
                     case 10001:
                         qs.setQuestVarById(0, var + 1);
@@ -91,7 +91,7 @@ public class _2988TheWiseinDisguise extends QuestHandler {
                 }
             } else if (targetId == 204146 && var == 2) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 2034);
                     case 2035:
                         if (player.getInventory().getItemCountByItemId(186000039) == 1) {

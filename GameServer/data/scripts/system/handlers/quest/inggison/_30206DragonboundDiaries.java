@@ -70,11 +70,11 @@ public class _30206DragonboundDiaries	extends QuestHandler
 			{
 				switch (env.getDialogId())
 				{
-				case 25:
+				case 26:
 					return sendQuestDialog(env, 1011);
 				case 1008:
 					return sendQuestDialog(env, 2375);
-				case 33:
+				case 34:
 					if (player.getInventory().getItemCountByItemId(182209608) < 1)
 					{
 						return sendQuestDialog(env, 2716);

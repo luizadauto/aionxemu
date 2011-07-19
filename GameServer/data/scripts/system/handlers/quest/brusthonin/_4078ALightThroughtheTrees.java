@@ -50,7 +50,7 @@ public class _4078ALightThroughtheTrees extends QuestHandler {
 	{
 		if(qs == null || qs.getStatus() == QuestStatus.NONE)
 		{
-                		if (env.getDialogId() == 25)
+                		if (env.getDialogId() == 26)
                     			return sendQuestDialog(env, 4762);
                 		else
                     			return defaultQuestStartDialog(env);
@@ -79,10 +79,10 @@ public class _4078ALightThroughtheTrees extends QuestHandler {
 	{
 		switch(env.getDialogId())
 		{
-			case 25:
+			case 26:
 				if(var == 0)
 					return sendQuestDialog(env, 1011);
-			case 33:
+			case 34:
 				if(player.getInventory().getItemCountByItemId(182209049) >= 9 )
 				{
 					player.getInventory().removeFromBagByItemId(182209049, 9);

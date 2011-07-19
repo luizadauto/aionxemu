@@ -58,7 +58,7 @@ public class _4015TheMissingLaborers extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null) {
             if (targetId == 205130) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -89,7 +89,7 @@ public class _4015TheMissingLaborers extends QuestHandler {
                 }
                 case 205130: {
                     if (qs.getQuestVarById(0) == 1) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 2375);
                         else if (env.getDialogId() == 1009) {
                             qs.setStatus(QuestStatus.REWARD);

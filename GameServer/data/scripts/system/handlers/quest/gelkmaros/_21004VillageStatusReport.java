@@ -52,7 +52,7 @@ public class _21004VillageStatusReport extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 799268) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1352);
                     case 10000:
@@ -60,7 +60,7 @@ public class _21004VillageStatusReport extends QuestHandler {
                 }
             } else if (env.getTargetId() == 799269) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1693);
                     case 10001:

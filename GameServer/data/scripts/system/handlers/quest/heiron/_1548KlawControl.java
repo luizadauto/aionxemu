@@ -51,7 +51,7 @@ public class _1548KlawControl extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 204583) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);

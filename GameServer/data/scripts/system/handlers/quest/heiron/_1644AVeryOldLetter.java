@@ -85,7 +85,7 @@ public class _1644AVeryOldLetter extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1352);
 					else 	if(var == 2)
@@ -114,7 +114,7 @@ public class _1644AVeryOldLetter extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1693);
 				case 10001:
@@ -133,13 +133,13 @@ public class _1644AVeryOldLetter extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 3)
 						return sendQuestDialog(env, 2375);
 				case 1009:
 					if(var == 3)
 						return sendQuestDialog(env, 5);
-				case 17:
+				case 18:
 					{
 						int rewardExp = player.getRates().getQuestXpRate() * 758600;
 						int rewardKinah = player.getRates().getQuestXpRate() * 18200;

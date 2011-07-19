@@ -115,7 +115,7 @@ public class _2837RelicRewardAncientCrown extends QuestHandler {
                             return sendQuestDialog(env, 7);
                         else if (var == 4)
                             return sendQuestDialog(env, 8);
-                    case 17:
+                    case 18:
                         QuestService.questFinish(env, qs.getQuestVars().getQuestVars() - 1);
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;

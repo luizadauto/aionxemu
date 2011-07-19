@@ -81,7 +81,7 @@ public class _3095ADecisiveClue extends QuestHandler {
 
             case 798225: {
                 if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 1352);
                     else if (env.getDialogId() == 10000) {
                         qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -92,7 +92,7 @@ public class _3095ADecisiveClue extends QuestHandler {
                     } else
                         return defaultQuestStartDialog(env);
                 } else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 2375);
                     else if (env.getDialogId() == 1009) {
                         qs.setStatus(QuestStatus.REWARD);
@@ -106,7 +106,7 @@ public class _3095ADecisiveClue extends QuestHandler {
 
             case 203898: {
                 if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 1693);
                     else if (env.getDialogId() == 10001) {
                         player.getInventory().removeFromBagByItemId(182208053, 1);

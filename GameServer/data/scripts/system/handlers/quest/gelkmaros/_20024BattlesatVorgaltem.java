@@ -169,7 +169,7 @@ public class _20024BattlesatVorgaltem extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 				case 10000:
@@ -186,7 +186,7 @@ public class _20024BattlesatVorgaltem extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 					else if(var == 2)
@@ -227,7 +227,7 @@ public class _20024BattlesatVorgaltem extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 4)
 						return sendQuestDialog(env, 2375);
 					else if(var == 5)
@@ -239,7 +239,7 @@ public class _20024BattlesatVorgaltem extends QuestHandler
 					else if(var == 11)
 						return sendQuestDialog(env, 1608);
 				break;
-				case 33:
+				case 34:
 					if(var == 5)
 					{
 						if(QuestService.collectItemCheck(env, true))
@@ -291,7 +291,7 @@ public class _20024BattlesatVorgaltem extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 6)
 						return sendQuestDialog(env, 3057);
 				case 10006:

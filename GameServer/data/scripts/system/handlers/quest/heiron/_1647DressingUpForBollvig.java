@@ -63,7 +63,7 @@ public class _1647DressingUpForBollvig extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 790019) {
                 switch (env.getDialogId()) {
-                    case 25: {
+                    case 26: {
                         return sendQuestDialog(env, 4762);
                     }
                     case 1002: {
@@ -86,7 +86,7 @@ public class _1647DressingUpForBollvig extends QuestHandler {
             switch (targetId) {
                 case 790019: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             return sendQuestDialog(env, 10002);
                         }
                         case 1009: {

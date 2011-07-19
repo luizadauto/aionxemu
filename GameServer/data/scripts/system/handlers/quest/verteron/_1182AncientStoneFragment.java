@@ -55,7 +55,7 @@ public class _1182AncientStoneFragment extends QuestHandler {
             }
         } else if (targetId == 203099) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START) {
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START) {
                     return sendQuestDialog(env, 2375);
                 } else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(1);

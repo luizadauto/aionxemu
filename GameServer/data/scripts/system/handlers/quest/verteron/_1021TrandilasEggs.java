@@ -63,7 +63,7 @@ public class _1021TrandilasEggs extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203129) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:

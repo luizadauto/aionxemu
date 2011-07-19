@@ -56,7 +56,7 @@ public class _2200AltgardDuties extends QuestHandler {
         if (targetId != 203557)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25) {
+            if (env.getDialogId() == 26) {
                 qs.setQuestVar(1);
                 qs.setStatus(QuestStatus.REWARD);
                 updateQuestStatus(env);
@@ -64,7 +64,7 @@ public class _2200AltgardDuties extends QuestHandler {
             } else
                 return defaultQuestStartDialog(env);
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

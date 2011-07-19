@@ -62,7 +62,7 @@ public class _1063BrigadierIndratu extends QuestHandler {
             switch (targetId) {
                 case 204500: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             if (qs.getQuestVarById(0) == 0) {
                                 return sendQuestDialog(env, 1011);
                             }
@@ -84,7 +84,7 @@ public class _1063BrigadierIndratu extends QuestHandler {
         } else if (qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 203700) {
                 switch (env.getDialogId()) {
-                    case 25: {
+                    case 26: {
                         return sendQuestDialog(env, 10002);
                     }
                     case 1009: {

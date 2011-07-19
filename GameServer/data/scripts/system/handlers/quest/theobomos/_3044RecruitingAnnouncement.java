@@ -58,7 +58,7 @@ public class _3044RecruitingAnnouncement extends QuestHandler {
             }
         } else if (targetId == 798206) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1009) {
                     qs.setStatus(QuestStatus.REWARD);

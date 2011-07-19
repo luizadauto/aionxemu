@@ -45,7 +45,7 @@ public class _3006TheShugoFugitive extends QuestHandler {
 	{
 		if(qs == null || qs.getStatus() == QuestStatus.NONE)
                         {
-                                if(env.getDialogId() == 25)
+                                if(env.getDialogId() == 26)
                                          return sendQuestDialog(env, 1011);
                                 else
                                         return defaultQuestStartDialog(env);
@@ -75,7 +75,7 @@ public class _3006TheShugoFugitive extends QuestHandler {
 	{
 		switch(env.getDialogId())
 		{
-			case 25:
+			case 26:
 				if(var == 0)
 					return sendQuestDialog(env, 1352);
 			case 10000:

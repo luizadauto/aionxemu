@@ -52,7 +52,7 @@ public class _28600SuspiciousErrand extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 205233) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1352);
                         else if (var == 2)
@@ -65,7 +65,7 @@ public class _28600SuspiciousErrand extends QuestHandler {
                 }
             } else if (env.getTargetId() == 204254) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1693);
                     case 10001:

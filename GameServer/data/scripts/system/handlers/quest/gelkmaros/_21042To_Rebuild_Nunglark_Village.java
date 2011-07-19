@@ -83,7 +83,7 @@ public class _21042To_Rebuild_Nunglark_Village extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Krall Blood (6)
 						//Collect Mau Blood (6)
                         //Collect Disposable Aether Refining Device (1)

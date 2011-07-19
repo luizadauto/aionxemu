@@ -65,7 +65,7 @@ public class _2477ADishForDukar extends QuestHandler
 				case 204355:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1352);
 						case 10000:
@@ -77,7 +77,7 @@ public class _2477ADishForDukar extends QuestHandler
 				case 204100:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 2)
 								return sendQuestDialog(env, 1693);
 						case 10255:

@@ -125,7 +125,7 @@ public class _2008Ascension extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203550) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 4)
@@ -197,7 +197,7 @@ public class _2008Ascension extends QuestHandler {
                 }
             } else if (targetId == 790003) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
                     case 10001:
@@ -214,7 +214,7 @@ public class _2008Ascension extends QuestHandler {
                 }
             } else if (targetId == 790002) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 2)
                             return sendQuestDialog(env, 1693);
                     case 10002:
@@ -230,7 +230,7 @@ public class _2008Ascension extends QuestHandler {
                 }
             } else if (targetId == 203546) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 3)
                             return sendQuestDialog(env, 2034);
                     case 10003:
@@ -247,7 +247,7 @@ public class _2008Ascension extends QuestHandler {
                 }
             } else if (targetId == 205020) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 99) {
                             Skill skill = SkillEngine.getInstance().getSkill(player,1853,1,player);
                             skill.useSkill();
@@ -307,7 +307,7 @@ public class _2008Ascension extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs != null && qs.getStatus() == QuestStatus.START) {
             int var = qs.getQuestVars().getQuestVars();
-            if (var == 5 || (var >= 50 && var <= 55) || var == 99) {
+            if(var == 5 || (var >= 51 && var <= 56) || var == 99) {
                 if (player.getWorldId() != 320010000) {
                     qs.setQuestVar(4);
                     updateQuestStatus(env);
@@ -360,7 +360,7 @@ public class _2008Ascension extends QuestHandler {
         if (qs.getStatus() != QuestStatus.START)
             return false;
         int var = qs.getQuestVars().getQuestVars();
-        if (var == 5 || (var >= 51 && var <= 53)) {
+        if(var == 5 || (var >= 51 && var <= 54)) {
             qs.setQuestVar(4);
             updateQuestStatus(env);
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));

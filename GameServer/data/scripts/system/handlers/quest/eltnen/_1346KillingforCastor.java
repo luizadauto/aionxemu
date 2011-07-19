@@ -63,14 +63,14 @@ public class _1346KillingforCastor extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203966) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203965) {
-                if (env.getDialogId() == 25 && qs.getQuestVarById(1) == 20 && qs.getQuestVarById(0) == 15) {
+                if (env.getDialogId() == 26 && qs.getQuestVarById(1) == 20 && qs.getQuestVarById(0) == 15) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
                     qs.setStatus(QuestStatus.REWARD);
                     updateQuestStatus(env);
@@ -80,7 +80,7 @@ public class _1346KillingforCastor extends QuestHandler {
             }
         } else if (qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 203965) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 5);
                 else if (env.getDialogId() == 1009)
                     return sendQuestDialog(env, 5);

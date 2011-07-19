@@ -86,7 +86,7 @@ public class _1094ProjectDrakanhammer extends QuestHandler {
         }
         if (targetId == 203834) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -99,7 +99,7 @@ public class _1094ProjectDrakanhammer extends QuestHandler {
             }
         } else if (targetId == 798155) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 1353:

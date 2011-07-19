@@ -43,7 +43,7 @@ public class _2918DeepMaternalLove extends QuestHandler {
         }
         if (targetId == 203574) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START)
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setStatus(QuestStatus.REWARD);

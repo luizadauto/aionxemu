@@ -60,7 +60,7 @@ public class _2484OurManInElysea extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204407) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182204205, 1))))
@@ -95,9 +95,9 @@ public class _2484OurManInElysea extends QuestHandler {
                 }
                 case 203331: {
                     if (qs.getQuestVarById(0) == 1) {
-                        if (env.getDialogId() == 17)
+                        if (env.getDialogId() == 18)
                             return sendQuestDialog(env, 5);
-                        else if (env.getDialogId() == 25) {
+                        else if (env.getDialogId() == 26) {
                             qs.setStatus(QuestStatus.REWARD);
                             updateQuestStatus(env);
                             return sendQuestDialog(env, 5);

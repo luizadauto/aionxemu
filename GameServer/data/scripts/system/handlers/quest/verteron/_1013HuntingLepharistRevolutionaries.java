@@ -64,7 +64,7 @@ public class _1013HuntingLepharistRevolutionaries extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203126) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 11)

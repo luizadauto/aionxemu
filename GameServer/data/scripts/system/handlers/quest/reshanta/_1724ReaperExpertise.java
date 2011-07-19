@@ -55,7 +55,7 @@ public class _1724ReaperExpertise extends QuestHandler {
 
         if (targetId == 278519) {
             if (qs == null) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1003) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182203131, 1))))
@@ -67,7 +67,7 @@ public class _1724ReaperExpertise extends QuestHandler {
             }
         } else if (qs != null && qs.getStatus() == QuestStatus.START) {
             if (targetId == 278591) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -76,7 +76,7 @@ public class _1724ReaperExpertise extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 278599) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

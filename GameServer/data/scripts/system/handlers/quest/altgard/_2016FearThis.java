@@ -74,7 +74,7 @@ public class _2016FearThis extends QuestHandler {
             switch (targetId) {
                 case 203631:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 6)
@@ -91,7 +91,7 @@ public class _2016FearThis extends QuestHandler {
                     break;
                 case 203621:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 7)
                                 return sendQuestDialog(env, 1693);
                             else if (var == 8)
@@ -109,7 +109,7 @@ public class _2016FearThis extends QuestHandler {
                                 return true;
                             }
                             break;
-                        case 33:
+                        case 34:
                             if (var == 8) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setQuestVarById(0, var + 1);

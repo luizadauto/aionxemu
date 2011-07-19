@@ -82,7 +82,7 @@ public class _1042KeeperoftheKaidanKey extends QuestHandler {
         }
         if (targetId == 203989) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 1012:
@@ -98,10 +98,10 @@ public class _1042KeeperoftheKaidanKey extends QuestHandler {
             }
         } else if (targetId == 203901) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1352);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         player.getInventory().removeFromBagByItemId(182201018, 1);           ///// nobody needs useless junk ///
                         qs.setStatus(QuestStatus.REWARD);

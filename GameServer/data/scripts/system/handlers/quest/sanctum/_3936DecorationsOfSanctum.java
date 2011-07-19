@@ -52,7 +52,7 @@ public class _3936DecorationsOfSanctum extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203710) {
                 // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     // Send select_none to eddit-HtmlPages.xml
                     return sendQuestDialog(env, 4762);
                 else
@@ -71,7 +71,7 @@ public class _3936DecorationsOfSanctum extends QuestHandler {
                 case 203710:
                     switch (env.getDialogId()) {
                         // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                        case 25:
+                        case 26:
                             // Send select1 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 1011);
                         // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
@@ -79,7 +79,7 @@ public class _3936DecorationsOfSanctum extends QuestHandler {
                             // Send select2 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 1352);
                         // Get HACTION_CHECK_USER_HAS_QUEST_ITEM in the eddit-HyperLinks.xml
-                        case 33:
+                        case 34:
                             // Collect Bloodwing Wings (10)
                             // Collect Sylphen Saliva (10)
                             // Collect Hornskull's Tongue (10)

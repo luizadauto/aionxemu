@@ -76,7 +76,7 @@ public class _1014OdiumintheDukakiSettlement extends QuestHandler {
         }
         if (targetId == 203129) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 10)
@@ -119,7 +119,7 @@ public class _1014OdiumintheDukakiSettlement extends QuestHandler {
             }
         } else if (targetId == 730020) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     return false;

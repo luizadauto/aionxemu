@@ -92,7 +92,7 @@ public class _1361FindingDrinkingWater extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203943) //Turiel
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201326, 1))))
@@ -104,7 +104,7 @@ public class _1361FindingDrinkingWater extends QuestHandler {
             }
         } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) //Reward
         {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 2375);
             else if (env.getDialogId() == 1009) {
                 qs.setQuestVar(2);

@@ -73,14 +73,14 @@ public class _1053TheKlawThreat extends QuestHandler {
         }
         if (targetId == 204583) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 2)
                         return sendQuestDialog(env, 1693);
-                case 33:
+                case 34:
                     if (var == 1 && QuestService.collectItemCheck(env, true))
                         return sendQuestDialog(env, 10000);
                     else

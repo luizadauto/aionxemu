@@ -58,7 +58,7 @@ public class _30201SuppliesParty extends QuestHandler
 		{
 			if (targetId == 798926)
 			{
-				if (env.getDialogId() == 25)
+				if (env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else
 					return defaultQuestStartDialog(env);
@@ -67,7 +67,7 @@ public class _30201SuppliesParty extends QuestHandler
 		} else if (targetId == 798926) {
 			if (qs != null || qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0)
 			{
-				if (env.getDialogId() == 25)
+				if (env.getDialogId() == 26)
 					return sendQuestDialog(env, 2375);
 				else if (env.getDialogId() == 1007)
 					return sendQuestDialog(env, 2375);
@@ -81,7 +81,7 @@ public class _30201SuppliesParty extends QuestHandler
 						return sendQuestDialog(env, 5);						
 					}
 				}
-				else if (env.getDialogId() == 17)
+				else if (env.getDialogId() == 18)
 				{
 					player.getInventory().removeFromBagByItemId(182209601, 1);
 					updateQuestStatus(env);

@@ -65,7 +65,7 @@ public class _2040KikanantasLoyalty extends QuestHandler {
             switch (targetId) {
                 case 204388: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 3)
@@ -89,7 +89,7 @@ public class _2040KikanantasLoyalty extends QuestHandler {
                 break;
                 case 204345: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                         case 10255:
@@ -104,7 +104,7 @@ public class _2040KikanantasLoyalty extends QuestHandler {
                 break;
                 case 204414: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 2)
@@ -126,7 +126,7 @@ public class _2040KikanantasLoyalty extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 2) {
                                 if (QuestService.collectItemCheck(env, false)) {
                                     return sendQuestDialog(env, 10000);

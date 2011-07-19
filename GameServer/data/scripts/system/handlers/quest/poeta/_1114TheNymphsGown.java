@@ -57,7 +57,7 @@ public class _1114TheNymphsGown extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203075:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 2)
@@ -81,7 +81,7 @@ public class _1114TheNymphsGown extends QuestHandler {
                     break;
                 case 203058:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10001:

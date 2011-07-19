@@ -64,7 +64,7 @@ public class _2039AlliesAmongEnemies extends QuestHandler {
             switch (targetId) {
                 case 204345: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -79,7 +79,7 @@ public class _2039AlliesAmongEnemies extends QuestHandler {
                 break;
                 case 204387: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 2)
@@ -106,7 +106,7 @@ public class _2039AlliesAmongEnemies extends QuestHandler {
                 break;
                 case 204411: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1694);
                         case 10002:
@@ -121,7 +121,7 @@ public class _2039AlliesAmongEnemies extends QuestHandler {
                 break;
                 case 204412: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1779);
                         case 10003:
@@ -136,7 +136,7 @@ public class _2039AlliesAmongEnemies extends QuestHandler {
                 break;
                 case 204413: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1864);
                         case 10004:

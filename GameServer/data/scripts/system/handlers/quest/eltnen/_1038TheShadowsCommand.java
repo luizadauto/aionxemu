@@ -66,7 +66,7 @@ public class _1038TheShadowsCommand extends QuestHandler {
                     break;
                 case 203933:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 2)
@@ -75,7 +75,7 @@ public class _1038TheShadowsCommand extends QuestHandler {
                                 return sendQuestDialog(env, 1694);
                             else if (var == 4)
                                 return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                             return defaultQuestItemCheck(env, 4, 0, false, 2035, 2120);
                         case 10001:
                             return defaultCloseDialog(env, 1, 2);
@@ -91,7 +91,7 @@ public class _1038TheShadowsCommand extends QuestHandler {
                     break;
                 case 203991:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 6)
                                 return sendQuestDialog(env, 2375);
                         case 10004:

@@ -60,7 +60,7 @@ public class _1414OperationWindmill extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203989) //Tumblusen
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201349, 1))))

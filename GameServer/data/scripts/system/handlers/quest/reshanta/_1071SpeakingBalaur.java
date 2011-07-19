@@ -82,7 +82,7 @@ public class _1071SpeakingBalaur extends QuestHandler {
         }
         if (targetId == 278532) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -96,7 +96,7 @@ public class _1071SpeakingBalaur extends QuestHandler {
             }
         } else if (targetId == 798026) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 4)
@@ -147,7 +147,7 @@ public class _1071SpeakingBalaur extends QuestHandler {
             }
         } else if (targetId == 798025) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10002:
@@ -161,7 +161,7 @@ public class _1071SpeakingBalaur extends QuestHandler {
             }
         } else if (targetId == 279019) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                     return false;

@@ -91,7 +91,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler {
         }
         if (targetId == 204753) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 1)
@@ -121,7 +121,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler {
             }
         } else if (targetId == 790016) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 2034);
                 case 2035:
@@ -133,7 +133,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler {
             }
         } else if (targetId == 730036) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 1353:
@@ -145,7 +145,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler {
             }
         } else if (targetId == 279000) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1693);
                 case 1694:

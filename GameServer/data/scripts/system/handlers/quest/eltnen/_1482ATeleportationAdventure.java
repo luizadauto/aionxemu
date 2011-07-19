@@ -55,7 +55,7 @@ public class _1482ATeleportationAdventure extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203919) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 4762);
                 } else
                     return defaultQuestStartDialog(env);
@@ -68,7 +68,7 @@ public class _1482ATeleportationAdventure extends QuestHandler {
             switch (targetId) {
                 case 203337: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             switch (qs.getQuestVarById(0)) {
                                 case 0: {
                                     return sendQuestDialog(env, 1011);

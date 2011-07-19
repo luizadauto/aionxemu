@@ -98,7 +98,7 @@ public class _11050InggisonCoinFountain extends QuestHandler
 		
 		if(qs.getStatus() == QuestStatus.REWARD && env.getTargetId() == 730241)
 		{
-			if (env.getDialogId() == 17)
+			if (env.getDialogId() == 18)
 			{
 				if (player.getInventory().getItemCountByItemId(186000030) > 0 &&
 					QuestService.questFinish(env, 0))

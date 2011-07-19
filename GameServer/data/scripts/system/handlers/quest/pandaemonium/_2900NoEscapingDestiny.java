@@ -84,7 +84,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
             switch (targetId) {
                 case 204182:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -98,7 +98,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
                     break;
                 case 203550:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             if (var == 10)
@@ -122,7 +122,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
                     break;
                 case 790003:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 10002:
@@ -136,7 +136,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
                     break;
                 case 790002:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -150,7 +150,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
                     break;
                 case 203546:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                             else if (var == 9)
@@ -190,7 +190,7 @@ public class _2900NoEscapingDestiny extends QuestHandler {
                                 return false;
                             }
                             break;
-                        case 25:
+                        case 26:
                             if (var == 95)
                                 return sendQuestDialog(env, 2716);
                             else if (var == 99)

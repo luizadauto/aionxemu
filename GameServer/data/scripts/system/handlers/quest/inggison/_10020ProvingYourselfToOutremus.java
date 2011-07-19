@@ -94,7 +94,7 @@ public class _10020ProvingYourselfToOutremus extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 						return false;
@@ -115,7 +115,7 @@ public class _10020ProvingYourselfToOutremus extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 1)
 							return sendQuestDialog(env, 1352);
 						if(var == 3 || var == 4)
@@ -149,7 +149,7 @@ public class _10020ProvingYourselfToOutremus extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 5)
 							return sendQuestDialog(env, 3057);
 						if(var == 10)
@@ -183,7 +183,7 @@ public class _10020ProvingYourselfToOutremus extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 6)
 							return sendQuestDialog(env, 3058);
 						return false;

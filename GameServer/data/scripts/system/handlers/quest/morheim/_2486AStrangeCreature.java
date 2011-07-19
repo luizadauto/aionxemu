@@ -68,7 +68,7 @@ public class _2486AStrangeCreature extends QuestHandler
 				case 204208:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1352);
 						case 10000:
@@ -78,7 +78,7 @@ public class _2486AStrangeCreature extends QuestHandler
 				case 204092:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1693);
 						case 10001:
@@ -88,7 +88,7 @@ public class _2486AStrangeCreature extends QuestHandler
 				case 798063:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 2)
 								return sendQuestDialog(env, 2034);
 						case 10002:

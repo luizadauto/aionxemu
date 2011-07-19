@@ -97,7 +97,7 @@ public class _2061SuppressingtheBakarmaLegion extends QuestHandler {
         }
         if (targetId == 204702) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 2)
@@ -131,7 +131,7 @@ public class _2061SuppressingtheBakarmaLegion extends QuestHandler {
             }
         } else if (targetId == 278001) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -145,7 +145,7 @@ public class _2061SuppressingtheBakarmaLegion extends QuestHandler {
             }
         } else if (targetId == 204807) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                 case 10003:

@@ -50,14 +50,14 @@ public class _2332MeatyTreats extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 798084) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (qs != null && qs.getStatus() == QuestStatus.START) {
             if (targetId == 798084) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     if (QuestService.collectItemCheck(env, true))
                         return sendQuestDialog(env, 1352);
                     else
@@ -70,7 +70,7 @@ public class _2332MeatyTreats extends QuestHandler {
 
                 }
             }
-        } else if (env.getDialogId() == 17 && qs.getStatus() == QuestStatus.REWARD && targetId == 798084) {
+        } else if (env.getDialogId() == 18 && qs.getStatus() == QuestStatus.REWARD && targetId == 798084) {
             QuestService.questFinish(env, qs.getQuestVarById(0));
             return sendQuestDialog(env, 1008);
         } else if (qs.getStatus() == QuestStatus.COMPLETE && targetId == 798084) {

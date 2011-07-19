@@ -49,7 +49,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 263569) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:
@@ -57,7 +57,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 263267) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
                     case 10001:
@@ -65,7 +65,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 264769) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 2)
                             return sendQuestDialog(env, 1693);
                     case 10002:
@@ -73,7 +73,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 271054) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 3)
                             return sendQuestDialog(env, 2034);
                     case 10003:
@@ -81,7 +81,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 266554) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 4)
                             return sendQuestDialog(env, 2375);
                     case 10004:
@@ -89,7 +89,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 270152) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 5)
                             return sendQuestDialog(env, 2716);
                     case 10005:
@@ -97,7 +97,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 269252) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 6)
                             return sendQuestDialog(env, 3057);
                     case 10006:
@@ -105,7 +105,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 268052) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 7)
                             return sendQuestDialog(env, 3398);
                     case 10007:
@@ -113,7 +113,7 @@ public class _2798SignontheDottedLine extends QuestHandler {
                 }
             } else if (env.getTargetId() == 260236) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 8)
                             return sendQuestDialog(env, 3739);
                     case 10255:

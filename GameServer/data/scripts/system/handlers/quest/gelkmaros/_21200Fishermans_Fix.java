@@ -83,7 +83,7 @@ public class _21200Fishermans_Fix extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Lucal's Fishing Rod (4)
                         //Collect Lidded Bucket (4)
                             if (QuestService.collectItemCheck(env, true))

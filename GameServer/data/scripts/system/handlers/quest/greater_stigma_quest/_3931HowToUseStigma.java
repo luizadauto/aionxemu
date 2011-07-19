@@ -70,7 +70,7 @@ public class _3931HowToUseStigma extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203711)//Miriya
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else return defaultQuestStartDialog(env);
 
@@ -96,12 +96,12 @@ public class _3931HowToUseStigma extends QuestHandler {
             if (targetId == 798321)//Koruchinerk
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
-                    case 33:
+                    case 34:
                         if (var == 1) {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setQuestVarById(0, var + 1);
@@ -122,7 +122,7 @@ public class _3931HowToUseStigma extends QuestHandler {
             } else if (targetId == 279005 && player.getInventory().getItemCountByItemId(182206080) == 1)//Kohrunerk
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 2)
                             return sendQuestDialog(env, 1693);
                     case 10255:

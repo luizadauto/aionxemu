@@ -78,7 +78,7 @@ public class _1055EternalRest extends QuestHandler {
         }
         if (targetId == 204629) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 2)
@@ -101,14 +101,14 @@ public class _1055EternalRest extends QuestHandler {
             }
         } else if (targetId == 204625) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 2)
                         return sendQuestDialog(env, 1693);
                     else if (var == 4)
                         return sendQuestDialog(env, 2375);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         qs.setQuestVarById(0, var + 1);
                         updateQuestStatus(env);
@@ -134,7 +134,7 @@ public class _1055EternalRest extends QuestHandler {
             }
         } else if (targetId == 204628) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1694);
                 case 10002:
@@ -148,7 +148,7 @@ public class _1055EternalRest extends QuestHandler {
             }
         } else if (targetId == 204627) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1781);
                 case 10002:
@@ -162,7 +162,7 @@ public class _1055EternalRest extends QuestHandler {
             }
         } else if (targetId == 204626) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1864);
                 case 10002:
@@ -176,7 +176,7 @@ public class _1055EternalRest extends QuestHandler {
             }
         } else if (targetId == 204622) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1949);
                 case 10002:

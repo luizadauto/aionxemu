@@ -62,7 +62,7 @@ public class _1012MaskedLoiterers extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203111) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 2)
@@ -83,7 +83,7 @@ public class _1012MaskedLoiterers extends QuestHandler {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
                         }
-                    case 33:
+                    case 34:
                         if (var == 3) {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setStatus(QuestStatus.REWARD);

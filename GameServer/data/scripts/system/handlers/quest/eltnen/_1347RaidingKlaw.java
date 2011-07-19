@@ -53,7 +53,7 @@ public class _1347RaidingKlaw extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 203965) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -64,7 +64,7 @@ public class _1347RaidingKlaw extends QuestHandler {
 
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203966) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     qs.setStatus(QuestStatus.REWARD);
                     updateQuestStatus(env);
                     return sendQuestDialog(env, 1352);

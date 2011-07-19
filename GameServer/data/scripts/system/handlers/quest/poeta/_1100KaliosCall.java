@@ -52,7 +52,7 @@ public class _1100KaliosCall extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203067) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1011);
                     case 1009:
                         return defaultCloseDialog(env, 0, 0, true, true);
@@ -60,7 +60,7 @@ public class _1100KaliosCall extends QuestHandler {
             }
         } else if (qs.getStatus() == QuestStatus.REWARD) {
             if (env.getTargetId() == 203067) {
-                if (env.getDialogId() == 17) {
+                if (env.getDialogId() == 18) {
                     int[] ids = {1001, 1002, 1003, 1004, 1005};
                     for (int id : ids) {
                         QuestService.startQuest(new QuestCookie(env.getVisibleObject(), player, id, env.getDialogId()), QuestStatus.LOCKED);

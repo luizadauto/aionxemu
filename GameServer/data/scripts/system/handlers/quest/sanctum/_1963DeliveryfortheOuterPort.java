@@ -53,7 +53,7 @@ public class _1963DeliveryfortheOuterPort extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203851) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1352);
                     case 10000:

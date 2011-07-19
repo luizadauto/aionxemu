@@ -86,7 +86,7 @@ public class _2393TheLoveOfAFather extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 204343) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182204162, 1))))
@@ -96,7 +96,7 @@ public class _2393TheLoveOfAFather extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.REWARD) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.REWARD)
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.REWARD)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(2);

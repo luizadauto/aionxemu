@@ -62,7 +62,7 @@ public class _2500OrdersFromNerita extends QuestHandler {
         if (targetId != 204702)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 10002);
             else if (env.getDialogId() == 1009) {
                 qs.setStatus(QuestStatus.REWARD);
@@ -72,7 +72,7 @@ public class _2500OrdersFromNerita extends QuestHandler {
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {2051, 2052, 2053, 2054, 2055, 2056, 2057, 2058, 2059, 2060, 2061};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

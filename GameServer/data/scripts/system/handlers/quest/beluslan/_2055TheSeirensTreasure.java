@@ -79,7 +79,7 @@ public class _2055TheSeirensTreasure extends QuestHandler {
         }
         if (targetId == 204768) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     if (var == 2)
@@ -122,7 +122,7 @@ public class _2055TheSeirensTreasure extends QuestHandler {
             }
         } else if (targetId == 204743) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -137,7 +137,7 @@ public class _2055TheSeirensTreasure extends QuestHandler {
             }
         } else if (targetId == 204808) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                     if (var == 4)
@@ -163,7 +163,7 @@ public class _2055TheSeirensTreasure extends QuestHandler {
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         qs.setQuestVarById(0, var + 1);
                         updateQuestStatus(env);

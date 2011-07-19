@@ -189,7 +189,7 @@ public class _10025ItsBetterItsAnObelisk extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 				case 10000:
@@ -206,7 +206,7 @@ public class _10025ItsBetterItsAnObelisk extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 				case 10001:
@@ -223,7 +223,7 @@ public class _10025ItsBetterItsAnObelisk extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 2)
 						return sendQuestDialog(env, 1693);
 				case 10002:
@@ -240,7 +240,7 @@ public class _10025ItsBetterItsAnObelisk extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 3)
 						return sendQuestDialog(env, 2034);
 				case 10003:
@@ -259,7 +259,7 @@ public class _10025ItsBetterItsAnObelisk extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 5)
 						return sendQuestDialog(env, 2716);
 					else if(var == 7)
@@ -288,7 +288,7 @@ public class _10025ItsBetterItsAnObelisk extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 8)
 						return sendQuestDialog(env, 3739);
 				case 10008:

@@ -57,10 +57,10 @@ public class _1018MarkofVengeance extends QuestHandler {
 
         if (targetId == 203098 && qs.getStatus() == QuestStatus.START) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         qs.setQuestVarById(0, var + 1);
                         qs.setStatus(QuestStatus.REWARD);

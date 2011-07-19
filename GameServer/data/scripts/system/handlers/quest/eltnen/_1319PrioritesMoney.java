@@ -61,14 +61,14 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203908) //Priorite
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) //Reward
         {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 4080);
             else if (env.getDialogId() == 1009) {
                 qs.setQuestVar(8);
@@ -81,7 +81,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         {
 
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -96,7 +96,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 203910) //Hebestis
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -110,7 +110,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 203906) //Benos
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -124,7 +124,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 203915) //Diokles
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 3) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -138,7 +138,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 203907) //Tuskeos
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 4) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2716);
                 else if (env.getDialogId() == 10004) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -152,7 +152,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 798050) //Girrinerk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 5) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3057);
                 else if (env.getDialogId() == 10005) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -166,7 +166,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 798049) //Shaoranranerk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 6) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3398);
                 else if (env.getDialogId() == 10006) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -180,7 +180,7 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
         } else if (targetId == 798046) //Arnesonerk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 7) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3739);
                 else if (env.getDialogId() == 10007) {
                     qs.setStatus(QuestStatus.REWARD);

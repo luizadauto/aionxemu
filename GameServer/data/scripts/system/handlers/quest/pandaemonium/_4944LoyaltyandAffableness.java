@@ -74,7 +74,7 @@ public class _4944LoyaltyandAffableness extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1011);
 							else if(var == 306)
@@ -101,7 +101,7 @@ public class _4944LoyaltyandAffableness extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 5)
 								return sendQuestDialog(env, 2716);
 						case 2717:

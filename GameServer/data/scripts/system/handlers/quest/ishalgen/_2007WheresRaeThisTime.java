@@ -65,7 +65,7 @@ public class _2007WheresRaeThisTime extends QuestHandler {
             switch (targetId) {
                 case 203516:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -79,7 +79,7 @@ public class _2007WheresRaeThisTime extends QuestHandler {
                     break;
                 case 203519:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:
@@ -93,7 +93,7 @@ public class _2007WheresRaeThisTime extends QuestHandler {
                     break;
                 case 203539:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 1694:
@@ -110,7 +110,7 @@ public class _2007WheresRaeThisTime extends QuestHandler {
                     break;
                 case 203552:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -124,7 +124,7 @@ public class _2007WheresRaeThisTime extends QuestHandler {
                     break;
                 case 203554:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                             else if (var == 8)

@@ -57,7 +57,7 @@ public class _2207ConversingWithaSkurv extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203590) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182203257, 1))))
@@ -73,7 +73,7 @@ public class _2207ConversingWithaSkurv extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START || qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 203591) {
                 if (var == 0) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 1352);
                     else if (env.getDialogId() == 10000) {
                         qs.setQuestVar(1);
@@ -83,7 +83,7 @@ public class _2207ConversingWithaSkurv extends QuestHandler {
                     }
                 }
                 if (var == 2 || var == 3) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 2375);
                     else if (env.getDialogId() == 1009) {
                         qs.setQuestVar(3);
@@ -95,7 +95,7 @@ public class _2207ConversingWithaSkurv extends QuestHandler {
                 }
             } else if (targetId == 203557) {
                 if (var == 1) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 1693);
                     else if (env.getDialogId() == 10001) {
                         qs.setQuestVar(2);

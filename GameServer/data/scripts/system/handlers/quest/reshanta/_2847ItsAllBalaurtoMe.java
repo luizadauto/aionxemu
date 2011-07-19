@@ -58,7 +58,7 @@ public class _2847ItsAllBalaurtoMe extends QuestHandler {
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(0, 0));
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 278020) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -67,7 +67,7 @@ public class _2847ItsAllBalaurtoMe extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 279005) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -76,7 +76,7 @@ public class _2847ItsAllBalaurtoMe extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 798063) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

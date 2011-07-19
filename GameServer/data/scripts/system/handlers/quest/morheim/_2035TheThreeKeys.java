@@ -83,7 +83,7 @@ public class _2035TheThreeKeys extends QuestHandler {
             switch (targetId) {
                 case 204317: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -98,7 +98,7 @@ public class _2035TheThreeKeys extends QuestHandler {
                 break;
                 case 204408: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                             else if (var == 6)
@@ -114,7 +114,7 @@ public class _2035TheThreeKeys extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 6) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     player.getInventory().removeFromBagByItemId(182204012, 1);

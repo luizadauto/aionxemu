@@ -51,7 +51,7 @@ public class _3966SaluteANewUniform extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 798391) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -65,7 +65,7 @@ public class _3966SaluteANewUniform extends QuestHandler {
 
         if (targetId == 203994) {
             if (qs.getStatus() == QuestStatus.START && var == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(++var);
@@ -78,7 +78,7 @@ public class _3966SaluteANewUniform extends QuestHandler {
             }
         } else if (targetId == 204030) {
             if (qs.getStatus() == QuestStatus.START && var == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVar(++var);
@@ -91,7 +91,7 @@ public class _3966SaluteANewUniform extends QuestHandler {
             }
         } else if (targetId == 204568) {
             if (qs.getStatus() == QuestStatus.START && var == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVar(++var);

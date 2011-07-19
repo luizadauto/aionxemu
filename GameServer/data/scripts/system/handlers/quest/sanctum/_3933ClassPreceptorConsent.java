@@ -59,7 +59,7 @@ public class _3933ClassPreceptorConsent extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203701) {
                 // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     // Send HTML_PAGE_SELECT_NONE to eddit-HtmlPages.xml
                     return sendQuestDialog(env, 4762);
                 else
@@ -80,7 +80,7 @@ public class _3933ClassPreceptorConsent extends QuestHandler {
                 case 203704:
                     switch (env.getDialogId()) {
                         // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                        case 25:
+                        case 26:
                             // Send select1 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 1011);
                         // Get HACTION_SETPRO1 in the eddit-HyperLinks.xml
@@ -95,7 +95,7 @@ public class _3933ClassPreceptorConsent extends QuestHandler {
                     if (var == 1) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select2 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1352);
                             // Get HACTION_SETPRO2 in the eddit-HyperLinks.xml
@@ -111,7 +111,7 @@ public class _3933ClassPreceptorConsent extends QuestHandler {
                     if (var == 2) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select3 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 1693);
                             // Get HACTION_SETPRO3 in the eddit-HyperLinks.xml
@@ -127,7 +127,7 @@ public class _3933ClassPreceptorConsent extends QuestHandler {
                     if (var == 3) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 // Send select4 to eddit-HtmlPages.xml
                                 return sendQuestDialog(env, 2034);
                             // Get HACTION_SETPRO4 in the eddit-HyperLinks.xml
@@ -143,7 +143,7 @@ public class _3933ClassPreceptorConsent extends QuestHandler {
                     if (var == 4) {
                         switch (env.getDialogId()) {
                             // Get HACTION_QUEST_SELECT in the eddit-HyperLinks.xml
-                            case 25:
+                            case 26:
                                 if (player.getInventory().getItemCountByItemId(186000080) >= 1)
                                     // Send select5 to eddit-HtmlPages.xml
                                     return sendQuestDialog(env, 2375);

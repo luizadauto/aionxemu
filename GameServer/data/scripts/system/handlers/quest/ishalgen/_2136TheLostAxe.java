@@ -86,7 +86,7 @@ public class _2136TheLostAxe extends QuestHandler {
 
         if (targetId == 790009) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1011);
                 case 10000: // one axe, reward index 0

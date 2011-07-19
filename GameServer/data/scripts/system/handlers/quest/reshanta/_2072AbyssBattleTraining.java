@@ -73,7 +73,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
         }
         if (targetId == 278126) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 1013:
@@ -90,7 +90,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
             }
         } else if (targetId == 278127) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 1353:
@@ -107,7 +107,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
             }
         } else if (targetId == 278128) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 1694:
@@ -124,7 +124,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
             }
         } else if (targetId == 278129) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                 case 2035:
@@ -141,7 +141,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
             }
         } else if (targetId == 278130) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 4)
                         return sendQuestDialog(env, 2375);
                 case 2376:
@@ -158,7 +158,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
             }
         } else if (targetId == 278131) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2716);
                 case 2717:
@@ -175,7 +175,7 @@ public class _2072AbyssBattleTraining extends QuestHandler {
             }
         } else if (targetId == 278136) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 6)
                         return sendQuestDialog(env, 3057);
                 case 3058:

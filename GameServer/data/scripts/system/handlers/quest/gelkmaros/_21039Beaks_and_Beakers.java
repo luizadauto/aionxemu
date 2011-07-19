@@ -92,7 +92,7 @@ public class _21039Beaks_and_Beakers extends QuestHandler
                         // Send select2 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 2034);
                         // Get HACTION_CHECK_USER_HAS_QUEST_ITEM in the eddit-HyperLinks.xml
-                        case 33:
+                        case 34:
                         // Collect Strigik Beak (50)
                         // Collect Disposable Aether Refining Device (1)
                             if (QuestService.collectItemCheck(env, true))

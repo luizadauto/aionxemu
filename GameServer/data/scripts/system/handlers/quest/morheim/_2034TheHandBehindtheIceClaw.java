@@ -86,7 +86,7 @@ public class _2034TheHandBehindtheIceClaw extends QuestHandler {
         }
         if (targetId == 204303) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 5)
@@ -108,7 +108,7 @@ public class _2034TheHandBehindtheIceClaw extends QuestHandler {
             }
         } else if (targetId == 204332) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 2) {

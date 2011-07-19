@@ -53,14 +53,14 @@ public class _1900RingImbuedAether extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 203757) {
             if (qs == null) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (targetId == 203739) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -73,7 +73,7 @@ public class _1900RingImbuedAether extends QuestHandler {
             }
         } else if (targetId == 203766) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -86,7 +86,7 @@ public class _1900RingImbuedAether extends QuestHandler {
             }
         } else if (targetId == 203797) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -99,7 +99,7 @@ public class _1900RingImbuedAether extends QuestHandler {
             }
         } else if (targetId == 203795) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 3) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

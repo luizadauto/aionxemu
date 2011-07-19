@@ -72,7 +72,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203550) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:
@@ -88,7 +88,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
                 }
             } else if (targetId == 204182) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
                     case 1353:
@@ -106,7 +106,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
                 }
             } else if (targetId == 204075) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 2)
                             return sendQuestDialog(env, 1693);
                     case 1694:
@@ -149,7 +149,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 0)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                             QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), 2200, env.getDialogId()), QuestStatus.START);
@@ -172,7 +172,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 1)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                             QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), 2200, env.getDialogId()), QuestStatus.START);
@@ -195,7 +195,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 2)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                             QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), 2200, env.getDialogId()), QuestStatus.START);
@@ -218,7 +218,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 3)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
                             QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), 2200, env.getDialogId()), QuestStatus.START);

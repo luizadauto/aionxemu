@@ -59,7 +59,7 @@ public class _2848WhisperingStigma extends QuestHandler {
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(0, 0));
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 278137) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -68,7 +68,7 @@ public class _2848WhisperingStigma extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 278089) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -77,7 +77,7 @@ public class _2848WhisperingStigma extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 204799) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

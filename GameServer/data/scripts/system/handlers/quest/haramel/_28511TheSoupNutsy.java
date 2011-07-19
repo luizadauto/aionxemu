@@ -59,7 +59,7 @@ public class _28511TheSoupNutsy extends QuestHandler
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 4762);
 				else
 					return defaultQuestStartDialog(env);
@@ -73,7 +73,7 @@ public class _28511TheSoupNutsy extends QuestHandler
 		{
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 33)
 				{

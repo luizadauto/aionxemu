@@ -72,7 +72,7 @@ public class _2037TheProtectorofNepra extends QuestHandler {
             switch (targetId) {
                 case 204369: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 1012:
@@ -89,7 +89,7 @@ public class _2037TheProtectorofNepra extends QuestHandler {
                 }
                 case 204361: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 3 && (player.getInventory().getItemCountByItemId(182204015) == 1))
@@ -131,7 +131,7 @@ public class _2037TheProtectorofNepra extends QuestHandler {
                 }
                 case 278004: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 10002:

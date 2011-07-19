@@ -64,7 +64,7 @@ public class _11026SolidEvidence extends QuestHandler
 		{
 			if(targetId == 798950) 
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 1002)
 				{
@@ -82,7 +82,7 @@ public class _11026SolidEvidence extends QuestHandler
 		{
 			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1352);
 				else if(env.getDialogId() == 10000)
 				{
@@ -101,7 +101,7 @@ public class _11026SolidEvidence extends QuestHandler
 		{		
 			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 2375);
 				else if(env.getDialogId() == 1009)
 				{

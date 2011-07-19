@@ -38,7 +38,7 @@ public class _3319AnOrderforGojirunerk extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 798050) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 1011);
                 } else
                     return defaultQuestStartDialog(env);
@@ -52,7 +52,7 @@ public class _3319AnOrderforGojirunerk extends QuestHandler {
             switch (targetId) {
                 case 798138: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             return sendQuestDialog(env, 1352);
                         }
                         case 10000: {
@@ -66,7 +66,7 @@ public class _3319AnOrderforGojirunerk extends QuestHandler {
                 }
                 case 798050: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             return sendQuestDialog(env, 2375);
                         }
                         case 1009: {

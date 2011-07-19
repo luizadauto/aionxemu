@@ -55,14 +55,14 @@ public class _2691SpysAdvice extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 204777) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (targetId == 204225) {
             if (qs != null && qs.getStatus() == QuestStatus.START) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 33) {
                     if (QuestService.collectItemCheck(env, true)) {

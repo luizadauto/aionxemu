@@ -123,7 +123,7 @@ public class _1039SomethingInTheWater extends QuestHandler {
         if (targetId == 203946) //Asclepius
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(1);
@@ -136,7 +136,7 @@ public class _1039SomethingInTheWater extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 3) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVar(4);
@@ -152,7 +152,7 @@ public class _1039SomethingInTheWater extends QuestHandler {
         } else if (targetId == 203705) //Jumentis
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVar(3);

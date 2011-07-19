@@ -50,7 +50,7 @@ public class _1367MabangtahsFeast extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 204023) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -58,7 +58,7 @@ public class _1367MabangtahsFeast extends QuestHandler {
                 long itemCount;
                 long itemCount1;
                 long itemCount2;
-                if (env.getDialogId() == 25 && qs.getQuestVarById(0) == 0) {
+                if (env.getDialogId() == 26 && qs.getQuestVarById(0) == 0) {
                     itemCount = player.getInventory().getItemCountByItemId(182201333); // 2
                     itemCount1 = player.getInventory().getItemCountByItemId(182201332); // 5
                     itemCount2 = player.getInventory().getItemCountByItemId(182201331); // 1

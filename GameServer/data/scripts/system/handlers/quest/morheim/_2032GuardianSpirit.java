@@ -79,7 +79,7 @@ public class _2032GuardianSpirit extends QuestHandler {
                 case 204302:
                     if (var == 0) {
                         switch (env.getDialogId()) {
-                            case 25:
+                            case 26:
                                 return sendQuestDialog(env, 1011);
                             case 10000:
                             case 10001:
@@ -94,7 +94,7 @@ public class _2032GuardianSpirit extends QuestHandler {
                     break;
                 case 204329:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             switch (var) {
                                 case 1:
                                     return sendQuestDialog(env, 1352);
@@ -128,7 +128,7 @@ public class _2032GuardianSpirit extends QuestHandler {
                                     PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                     return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 2) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setQuestVarById(0, var + 1);

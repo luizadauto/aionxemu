@@ -84,7 +84,7 @@ public class _1040ScoutingtheScouts extends QuestHandler {
         }
         if (targetId == 203989) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 4)
@@ -113,7 +113,7 @@ public class _1040ScoutingtheScouts extends QuestHandler {
             }
         } else if (targetId == 203901) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 1693);
                     return false;
@@ -129,7 +129,7 @@ public class _1040ScoutingtheScouts extends QuestHandler {
             }
         } else if (targetId == 204020) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 6)
                         return sendQuestDialog(env, 2034);
                     else if (var == 10)
@@ -155,7 +155,7 @@ public class _1040ScoutingtheScouts extends QuestHandler {
             }
         } else if (targetId == 204024) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 7)
                         return sendQuestDialog(env, 2375);
                     else if (var == 9)

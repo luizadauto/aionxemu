@@ -75,7 +75,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
         if (targetId == 203901) //Telemachus
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(1);
@@ -87,7 +87,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 3) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVar(4);
@@ -98,7 +98,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 6) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2716);
                 else if (env.getDialogId() == 10005) {
                     qs.setQuestVar(7);
@@ -114,7 +114,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
         } else if (targetId == 204015) //Civil Engineer
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVar(2);
@@ -132,7 +132,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
         } else if (targetId == 203833) //Xenophon
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 4) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVar(5);
@@ -147,7 +147,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
         } else if (targetId == 278500) //Yuditio
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 5) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10004) {
                     qs.setQuestVar(6);
@@ -162,7 +162,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
         } else if (targetId == 204042) //Laigas
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 7) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3057);
                 else if (env.getDialogId() == 10006) {
                     qs.setQuestVar(8);
@@ -176,7 +176,7 @@ public class _1041ADangerousArtifact extends QuestHandler {
                     return defaultQuestStartDialog(env);
 
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 9) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3398);
                 else if (env.getDialogId() == 10007) {
                     qs.setStatus(QuestStatus.REWARD);

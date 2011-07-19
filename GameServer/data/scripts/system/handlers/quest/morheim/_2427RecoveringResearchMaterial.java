@@ -67,7 +67,7 @@ public class _2427RecoveringResearchMaterial extends QuestHandler
 				case 204433:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 2375);
 						case 33:

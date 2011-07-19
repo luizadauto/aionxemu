@@ -60,12 +60,12 @@ public class _2430SecretInformation extends QuestHandler {
         if (targetId == 204327) //Sveinn
         {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(2);
@@ -97,7 +97,7 @@ public class _2430SecretInformation extends QuestHandler {
         } else if (targetId == 204377) //Grall
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(4);
@@ -112,7 +112,7 @@ public class _2430SecretInformation extends QuestHandler {
         } else if (targetId == 798078) //Hugorunerk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 4) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVar(5);
@@ -126,7 +126,7 @@ public class _2430SecretInformation extends QuestHandler {
         } else if (targetId == 798081) //Pararinirerk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 5) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10004) {
                     qs.setQuestVar(6);
@@ -140,7 +140,7 @@ public class _2430SecretInformation extends QuestHandler {
         } else if (targetId == 798082) //Bicorunerk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 6) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2716);
                 else if (env.getDialogId() == 10005) {
                     qs.setQuestVar(8);
@@ -154,7 +154,7 @@ public class _2430SecretInformation extends QuestHandler {
         } else if (targetId == 204300) //Bolverk
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 8) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3057);
                 else if (env.getDialogId() == 1009) //Need check Item
                 {

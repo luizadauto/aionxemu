@@ -77,7 +77,7 @@ public class _1922DeliveronYourPromises extends QuestHandler {
             switch (targetId) {
                 case 203830: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10010:
@@ -101,7 +101,7 @@ public class _1922DeliveronYourPromises extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 1 || var == 4 || var == 9) {
                                 qs.setQuestVarById(0, 0);
                                 updateQuestStatus(env);
@@ -112,7 +112,7 @@ public class _1922DeliveronYourPromises extends QuestHandler {
                 break;
                 case 203901: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 2)
@@ -150,7 +150,7 @@ public class _1922DeliveronYourPromises extends QuestHandler {
                 break;
                 case 203764: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 1693);
                             else if (var == 5)

@@ -75,7 +75,7 @@ public class _4200ASuspiciousCall extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204839)//Uikinerk
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else return defaultQuestStartDialog(env);
 
@@ -100,7 +100,7 @@ public class _4200ASuspiciousCall extends QuestHandler {
             if (targetId == 204839)//Uikinerk
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1003);
                     case 1011:
                         return sendQuestDialog(env, 1011);
@@ -118,7 +118,7 @@ public class _4200ASuspiciousCall extends QuestHandler {
             } else if (targetId == 798332 && var == 1)//Haorunerk
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1352);
                     case 1353:
                         PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 431));
@@ -141,7 +141,7 @@ public class _4200ASuspiciousCall extends QuestHandler {
             } else if (targetId == 279006 && var == 3)//Garkbinerk
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 2034);
                     case 10255:
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));

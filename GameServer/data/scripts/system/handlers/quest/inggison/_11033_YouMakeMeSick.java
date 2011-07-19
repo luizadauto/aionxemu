@@ -76,12 +76,12 @@ import gameserver.utils.ThreadPoolManager;
             switch (env.getTargetId()) {
                 case 798959:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                              else if (var == 1)
                             return sendQuestDialog(env, 1352);
-                        case 33:
+                        case 34:
                         if (var == 0) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setQuestVarById(0, var + 1);

@@ -58,7 +58,7 @@ public class _1535TheColdColdGround extends QuestHandler {
 
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 4762);
             else
                 return defaultQuestStartDialog(env);
@@ -71,7 +71,7 @@ public class _1535TheColdColdGround extends QuestHandler {
 
             switch (env.getDialogId()) {
                 case -1:
-                case 25:
+                case 26:
                     if (abexSkins || worgSkins || karnifSkins)
                         return sendQuestDialog(env, 1352);
                 case 10000:

@@ -57,7 +57,7 @@ public class _1355TheFireTempleKey extends QuestHandler {
             }
         } else if (targetId == 203933) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START) {
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START) {
                     return sendQuestDialog(env, 2375);
                 } else if (env.getDialogId() == 1009) {
                     player.getInventory().removeFromBagByItemId(182201400, 1);

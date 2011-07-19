@@ -62,7 +62,7 @@ public class _11005TheLimitsofGenius extends QuestHandler
 		{
 			if(targetId == 798942)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 				{
 					return sendQuestDialog(env, 1011);
 				}
@@ -82,7 +82,7 @@ public class _11005TheLimitsofGenius extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 1352);
 						}
@@ -99,7 +99,7 @@ public class _11005TheLimitsofGenius extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 1693);
 						}
@@ -116,7 +116,7 @@ public class _11005TheLimitsofGenius extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 2375);
 						}

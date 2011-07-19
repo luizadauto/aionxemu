@@ -68,7 +68,7 @@ public class _30204PilomenesAdvice	extends QuestHandler
 		{
 			if (targetId == 798926) // Outremus Start
 			{
-				if (env.getDialogId() == 25)
+				if (env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else
 				qs.setStatus(QuestStatus.REWARD);

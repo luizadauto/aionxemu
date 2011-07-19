@@ -72,7 +72,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 790001) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:
@@ -88,7 +88,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
                 }
             } else if (targetId == 203725) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
                     case 1353:
@@ -107,7 +107,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
                 }
             } else if (targetId == 203752) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 2)
                             return sendQuestDialog(env, 1693);
                     case 1694:
@@ -151,7 +151,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 0)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
@@ -172,7 +172,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 1)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
@@ -193,7 +193,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 2)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
@@ -214,7 +214,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler {
                     case 14:
                     case 15:
                     case 16:
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, 3)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;

@@ -84,7 +84,7 @@ public class _30026Noble_Siels_Supreme_Orb extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                             //Siel's Supreme Orb (1)
                             //Noxallon Ingot (1)
                             if (QuestService.collectItemCheck(env, true))

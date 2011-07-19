@@ -78,7 +78,7 @@ public class _18602NightmareinShiningArmor extends QuestHandler {
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 4762);
 				else
 					return defaultQuestStartDialog(env);
@@ -115,7 +115,7 @@ public class _18602NightmareinShiningArmor extends QuestHandler {
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 						else if(var == 4)

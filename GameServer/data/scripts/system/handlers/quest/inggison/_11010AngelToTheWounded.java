@@ -65,7 +65,7 @@ public class _11010AngelToTheWounded extends QuestHandler
 		{
 			if(targetId == 798931)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 				{
 					return sendQuestDialog(env, 1011);
 				}
@@ -85,7 +85,7 @@ public class _11010AngelToTheWounded extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 1352);
 						}
@@ -102,7 +102,7 @@ public class _11010AngelToTheWounded extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 1693);
 						}
@@ -119,7 +119,7 @@ public class _11010AngelToTheWounded extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 2034);
 						}

@@ -55,7 +55,7 @@ public class _1966AHelmetGoneAstray extends QuestHandler {
             }
         } else if (targetId == 278555) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START) {
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START) {
                     return sendQuestDialog(env, 2375);
                 } else if (env.getDialogId() == 1009) {
                     player.getInventory().removeFromBagByItemId(182206035, 1);

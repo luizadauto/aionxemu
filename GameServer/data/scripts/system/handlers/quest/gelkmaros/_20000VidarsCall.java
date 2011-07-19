@@ -62,7 +62,7 @@ public class _20000VidarsCall extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 204052) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10255:
@@ -73,7 +73,7 @@ public class _20000VidarsCall extends QuestHandler {
             if (env.getTargetId() == 798800) {
                 if (env.getDialogId() == -1)
                     return sendQuestDialog(env, 10002);
-                else if (env.getDialogId() == 17)
+                else if (env.getDialogId() == 18)
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), 20001, env.getDialogId()), QuestStatus.LOCKED);
                 return defaultQuestEndDialog(env);
             }

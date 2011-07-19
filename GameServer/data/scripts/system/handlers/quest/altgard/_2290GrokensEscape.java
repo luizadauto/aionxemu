@@ -62,7 +62,7 @@ public class _2290GrokensEscape extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203608) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (QuestService.startQuest(env, QuestStatus.START)) {
@@ -122,7 +122,7 @@ public class _2290GrokensEscape extends QuestHandler {
                 break;
                 case 203607: {
                     if (qs.getQuestVarById(0) == 3) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 1693);
                         else if (env.getDialogId() == 1009) {
                             player.getInventory().removeFromBagByItemId(182203208, 1);

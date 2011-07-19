@@ -46,7 +46,7 @@ public class _1152OdellaRecipe extends QuestHandler {
 
         if (env.getTargetId() == 203132) {
             if (qs == null) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1007)
                     return sendQuestDialog(env, 4);
@@ -63,14 +63,14 @@ public class _1152OdellaRecipe extends QuestHandler {
             if (qs != null) {
                 var = qs.getQuestVarById(0);
                 if (qs.getStatus() == QuestStatus.START && var == 0) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 1352);
                     else if (env.getDialogId() == 10000)
                         return defaultCloseDialog(env, 0, 1, 0, 0, 182200526, 1);
                     else
                         return defaultQuestStartDialog(env);
                 } else if (qs.getStatus() == QuestStatus.REWARD) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 2375);
                     else if (env.getDialogId() == 1009)
                         return defaultCloseDialog(env, 2, 2, true, true, 0, 0, 0, 169400112, 1);

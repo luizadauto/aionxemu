@@ -83,7 +83,7 @@ public class _11022For_The_Scholars extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Sticky Fluid (15)
                         //Collect Disposable Aether Refining Device (1)
                             if (QuestService.collectItemCheck(env, true))

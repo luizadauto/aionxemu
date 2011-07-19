@@ -47,14 +47,14 @@ public class _3701TeachThemaLesson extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 278533) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 278517) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

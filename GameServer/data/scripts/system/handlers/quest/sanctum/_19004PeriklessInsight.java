@@ -60,7 +60,7 @@ public class _19004PeriklessInsight extends QuestHandler {
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203757) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -70,7 +70,7 @@ public class _19004PeriklessInsight extends QuestHandler {
             switch (targetId) {
                 case 203752: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1352);
                         case 10000:
@@ -85,7 +85,7 @@ public class _19004PeriklessInsight extends QuestHandler {
                 break;
                 case 203701: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1693);
                         case 10001:
@@ -100,7 +100,7 @@ public class _19004PeriklessInsight extends QuestHandler {
                 break;
                 case 798500: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 2375);
                         case 1009:

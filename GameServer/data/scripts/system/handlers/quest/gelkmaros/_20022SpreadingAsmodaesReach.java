@@ -86,7 +86,7 @@ public class _20022SpreadingAsmodaesReach extends QuestHandler {
         }
         if (targetId == 799226) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -99,7 +99,7 @@ public class _20022SpreadingAsmodaesReach extends QuestHandler {
             }
         } else if (targetId == 799282) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 2)
@@ -110,7 +110,7 @@ public class _20022SpreadingAsmodaesReach extends QuestHandler {
                         return sendQuestDialog(env, 3398);
                     else if (var == 9)
                         return sendQuestDialog(env, 4080);
-                case 33:
+                case 34:
                     if (var == 2) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setQuestVarById(0, var + 1);

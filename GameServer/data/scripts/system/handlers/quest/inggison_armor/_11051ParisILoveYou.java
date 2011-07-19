@@ -83,7 +83,7 @@ public class _11051ParisILoveYou extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Dragonbound's Bandana (30)
                         //Collect Kinah (50000)
                             if (QuestService.collectItemCheck(env, true))

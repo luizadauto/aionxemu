@@ -55,7 +55,7 @@ public class _1146DelicateMandrake extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203123) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1011);
                     case 1007:
                         return sendQuestDialog(env, 4);

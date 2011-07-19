@@ -67,7 +67,7 @@ public class _11001KindMeira extends QuestHandler
 		{
 			if(qs == null)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 1002)
 				{
@@ -92,7 +92,7 @@ public class _11001KindMeira extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 1352);
 						}
@@ -109,7 +109,7 @@ public class _11001KindMeira extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 1693);
 						}
@@ -126,7 +126,7 @@ public class _11001KindMeira extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 2034);
 						}
@@ -143,7 +143,7 @@ public class _11001KindMeira extends QuestHandler
 				{
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 						{
 							return sendQuestDialog(env, 2375);
 						}

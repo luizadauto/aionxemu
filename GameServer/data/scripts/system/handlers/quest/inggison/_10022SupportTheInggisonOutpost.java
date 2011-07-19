@@ -95,7 +95,7 @@ public class _10022SupportTheInggisonOutpost extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 					else if(var == 11)
@@ -122,7 +122,7 @@ public class _10022SupportTheInggisonOutpost extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 					else if(qs.getQuestVarById(1) == 20 || qs.getQuestVarById(2) == 20 || qs.getQuestVarById(0) == 3)
@@ -162,7 +162,7 @@ public class _10022SupportTheInggisonOutpost extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 4)
 						return sendQuestDialog(env, 2375);
 					else if(var == 7)
@@ -203,7 +203,7 @@ public class _10022SupportTheInggisonOutpost extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 5)
 						return sendQuestDialog(env, 2716);					
 				case 10005:
@@ -220,7 +220,7 @@ public class _10022SupportTheInggisonOutpost extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 6)
 						return sendQuestDialog(env, 3057);					
 				case 10006:

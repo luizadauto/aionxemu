@@ -60,10 +60,10 @@ public class _1127AncientCube extends QuestHandler {
                         return defaultQuestUseNpc(env, 0, 1, EmotionType.NEUTRALMODE2, EmotionType.START_LOOT, false);
                 case 798008:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 2375);
-                        case 33:
+                        case 34:
                             return defaultQuestItemCheck(env, 1, 0, true, 5, 2716);
                     }
             }

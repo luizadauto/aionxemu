@@ -91,7 +91,7 @@ public class _11251Greatsword_Predilection extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                             //Piece Of Aegis (1)
 						    //Laestrygos's Greatsword (1)
                             //Kinah (8000000)

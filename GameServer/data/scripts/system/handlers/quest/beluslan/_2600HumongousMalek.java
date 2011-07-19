@@ -67,7 +67,7 @@ public class _2600HumongousMalek extends QuestHandler {
 	{
 		if(qs == null || qs.getStatus() == QuestStatus.NONE)
                         {
-                                if(env.getDialogId() == 25)
+                                if(env.getDialogId() == 26)
                                          return sendQuestDialog(env, 1011);
                                 else
                                         return defaultQuestStartDialog(env);
@@ -92,7 +92,7 @@ public class _2600HumongousMalek extends QuestHandler {
 	{
 		switch(env.getDialogId())
 		{
-			case 25:
+			case 26:
 				if(var == 0)
 					return sendQuestDialog(env, 1352);
 			case 10000:
@@ -144,7 +144,7 @@ public class _2600HumongousMalek extends QuestHandler {
 	{
 		switch(env.getDialogId())
 		{
-			case 25:
+			case 26:
 				if(var == 1)
 					return sendQuestDialog(env, 2375);
 			case 1009:

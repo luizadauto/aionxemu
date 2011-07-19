@@ -90,7 +90,7 @@ public class _2093TheSecretPassage extends QuestHandler {
         }
         if (targetId == 205150) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 1012:
@@ -106,7 +106,7 @@ public class _2093TheSecretPassage extends QuestHandler {
             }
         } else if (targetId == 205159) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -119,7 +119,7 @@ public class _2093TheSecretPassage extends QuestHandler {
             }
         } else if (targetId == 205164) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10002:
@@ -132,7 +132,7 @@ public class _2093TheSecretPassage extends QuestHandler {
             }
         } else if (targetId == 205197) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                     if (var == 4)
@@ -149,7 +149,7 @@ public class _2093TheSecretPassage extends QuestHandler {
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
-                case 33:
+                case 34:
                     if (var == 4) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setQuestVarById(0, var + 1);
@@ -161,7 +161,7 @@ public class _2093TheSecretPassage extends QuestHandler {
             }
         } else if (targetId == 205198) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2716);
                     else if (var == 7)

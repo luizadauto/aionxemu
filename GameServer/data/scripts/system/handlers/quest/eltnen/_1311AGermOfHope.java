@@ -60,7 +60,7 @@ public class _1311AGermOfHope extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203997) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1013) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201305, 1))))
@@ -99,7 +99,7 @@ public class _1311AGermOfHope extends QuestHandler {
                 }
                 case 203997: {
                     if (qs.getQuestVarById(0) == 1) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 2375);
                         else if (env.getDialogId() == 33) {
                             player.getInventory().removeFromBagByItemId(182201305, 1);

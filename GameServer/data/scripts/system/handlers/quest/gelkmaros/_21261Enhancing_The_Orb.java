@@ -95,7 +95,7 @@ public class _21261Enhancing_The_Orb extends QuestHandler
 						    //Send select2 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 2034);
 							//Get HACTION_CHECK_USER_HAS_QUEST_ITEM in the eddit-HyperLinks.xml
-                        case 33:
+                        case 34:
                             //Piece Of Zikel (1)
 						    //Athana's Orb (1)
                             //Kinah (8000000)

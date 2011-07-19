@@ -75,7 +75,7 @@ public class _3967AndusDyeBox extends QuestHandler {
         if (targetId == 798309) // Arenzes
         {
             if (qs.getStatus() == QuestStatus.START && var == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182206122, 1)))) {

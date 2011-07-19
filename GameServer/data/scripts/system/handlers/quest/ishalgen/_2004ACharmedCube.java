@@ -65,7 +65,7 @@ public class _2004ACharmedCube extends QuestHandler {
             switch (targetId) {
                 case 203539: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 1)
@@ -80,7 +80,7 @@ public class _2004ACharmedCube extends QuestHandler {
                                 return true;
                             }
                             break;
-                        case 33:
+                        case 34:
                             if (var == 1) {
                                 if (player.getInventory().getItemCountByItemId(182203005) > 0) {
                                     return sendQuestDialog(env, 1438);
@@ -119,7 +119,7 @@ public class _2004ACharmedCube extends QuestHandler {
                 }
                 case 203550: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                             else if (var == 6)

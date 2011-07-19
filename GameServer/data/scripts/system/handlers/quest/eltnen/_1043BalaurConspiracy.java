@@ -102,7 +102,7 @@ public class _1043BalaurConspiracy extends QuestHandler
 			case 203901:
 				switch( env.getDialogId() )
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 					case 10000:
@@ -118,7 +118,7 @@ public class _1043BalaurConspiracy extends QuestHandler
 			case 204020:
 				switch( env.getDialogId() )
 				{
-					case 25:
+					case 26:
 						if(var == 1)
 							return sendQuestDialog(env, 1352);
 					case 10001:
@@ -134,7 +134,7 @@ public class _1043BalaurConspiracy extends QuestHandler
 			case 204044:
 				switch( env.getDialogId() )
 				{
-					case 25:
+					case 26:
 						if(var == 2)
 							return sendQuestDialog(env, 1693);
 						else if(var == 4)

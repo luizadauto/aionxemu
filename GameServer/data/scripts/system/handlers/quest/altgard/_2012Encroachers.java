@@ -74,7 +74,7 @@ public class _2012Encroachers extends QuestHandler {
             if (targetId == 203559) {
 
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)        //Initialisation du dialogue
                             return sendQuestDialog(env, 1011);
                         else if (var <= 5)    //Rendu de la quete

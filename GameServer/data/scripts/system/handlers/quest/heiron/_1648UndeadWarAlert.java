@@ -40,7 +40,7 @@ public class _1648UndeadWarAlert extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204545) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 1011);
                 } else
                     return defaultQuestStartDialog(env);
@@ -54,7 +54,7 @@ public class _1648UndeadWarAlert extends QuestHandler {
             switch (targetId) {
                 case 204612: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             if (qs.getQuestVarById(0) == 0) {
                                 return sendQuestDialog(env, 1352);
                             }
@@ -70,7 +70,7 @@ public class _1648UndeadWarAlert extends QuestHandler {
                 }
                 case 204500: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             if (qs.getQuestVarById(0) == 1) {
                                 return sendQuestDialog(env, 1693);
                             }

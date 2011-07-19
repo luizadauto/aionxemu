@@ -80,7 +80,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
             switch (targetId) {
                 case 203149:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 2)
@@ -125,7 +125,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
                     }
                 case 203148:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:
@@ -140,7 +140,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
                     }
                 case 203832:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -155,7 +155,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
                     }
                 case 203705:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                         case 10004:
@@ -168,7 +168,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
                     }
                 case 203822:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 5)
                                 return sendQuestDialog(env, 2716);
                         case 10005:
@@ -184,7 +184,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
                     }
                 case 203761:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 6)
                                 return sendQuestDialog(env, 3057);
                         case 10006:
@@ -200,7 +200,7 @@ public class _1016SourceOfThePollution extends QuestHandler {
                     }
                 case 203195:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 9)
                                 return sendQuestDialog(env, 3739);
                         case 10008:

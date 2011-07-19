@@ -58,7 +58,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
 
         if (targetId == 279007) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
@@ -66,7 +66,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                 return defaultQuestEndDialog(env);
         } else if (qs != null && qs.getStatus() == QuestStatus.START) {
             if (targetId == 263568) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -75,7 +75,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 263266) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -84,7 +84,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 264768) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -93,7 +93,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 271053) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2035);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -102,7 +102,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 266553) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10004) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -111,7 +111,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 270151) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2716);
                 else if (env.getDialogId() == 10005) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -120,7 +120,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 269251) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3057);
                 else if (env.getDialogId() == 10006) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -129,7 +129,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 268051) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3398);
                 else if (env.getDialogId() == 10007) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -138,7 +138,7 @@ public class _1798JakurerksShotattheBigTime extends QuestHandler {
                     return true;
                 }
             } else if (targetId == 260235) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3740);
                 else if (env.getDialogId() == 10255) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

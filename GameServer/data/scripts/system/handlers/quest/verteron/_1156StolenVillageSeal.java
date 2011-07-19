@@ -56,7 +56,7 @@ public class _1156StolenVillageSeal extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203128) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -80,7 +80,7 @@ public class _1156StolenVillageSeal extends QuestHandler {
         } else if (qs.getStatus() == QuestStatus.START) {
             switch (targetId) {
                 case 700003: {
-                    if (var == 0 && env.getDialogId() == 25)
+                    if (var == 0 && env.getDialogId() == 26)
                         return sendQuestDialog(env, 1352);
                     else if (env.getDialogId() == 10000) {
                         qs.setQuestVarById(0, 1);

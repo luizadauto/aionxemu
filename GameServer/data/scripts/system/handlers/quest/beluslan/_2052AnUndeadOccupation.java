@@ -89,7 +89,7 @@ public class _2052AnUndeadOccupation extends QuestHandler {
         }
         if (targetId == 204715) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -102,7 +102,7 @@ public class _2052AnUndeadOccupation extends QuestHandler {
             }
         } else if (targetId == 204801) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 12)
@@ -124,12 +124,12 @@ public class _2052AnUndeadOccupation extends QuestHandler {
             }
         } else if (targetId == 204805) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 13)
                         return sendQuestDialog(env, 2034);
                     if (var == 14)
                         return sendQuestDialog(env, 2375);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         qs.setQuestVarById(0, var + 1);
                         updateQuestStatus(env);

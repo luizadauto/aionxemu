@@ -66,7 +66,7 @@ public class _1011DangerFromAbove extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203109) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:
@@ -80,7 +80,7 @@ public class _1011DangerFromAbove extends QuestHandler {
                 }
             } else if (targetId == 203122) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
                     case 1353:

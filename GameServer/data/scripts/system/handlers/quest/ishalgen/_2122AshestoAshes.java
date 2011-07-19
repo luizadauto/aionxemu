@@ -71,7 +71,7 @@ public class _2122AshestoAshes extends QuestHandler {
             else if (qs.getStatus() == QuestStatus.START) {
                 int var = qs.getQuestVarById(0);
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         break;

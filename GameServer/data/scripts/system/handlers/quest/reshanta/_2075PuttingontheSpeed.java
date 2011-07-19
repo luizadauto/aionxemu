@@ -75,7 +75,7 @@ public class _2075PuttingontheSpeed extends QuestHandler {
         }
         if (targetId == 278034) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -88,7 +88,7 @@ public class _2075PuttingontheSpeed extends QuestHandler {
             }
         } else if (targetId == 279004) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 1353:
@@ -104,7 +104,7 @@ public class _2075PuttingontheSpeed extends QuestHandler {
             }
         } else if (targetId == 279024) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                     else if (var == 4)
@@ -127,7 +127,7 @@ public class _2075PuttingontheSpeed extends QuestHandler {
             }
         } else if (targetId == 279006) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                 case 10003:

@@ -65,7 +65,7 @@ public class _4936SecretOfTheGreaterStigma extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204051)//Vergelmir
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else return defaultQuestStartDialog(env);
 
@@ -87,9 +87,9 @@ public class _4936SecretOfTheGreaterStigma extends QuestHandler {
             if (targetId == 204051 && var == 1)//Vergelmir
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 2375);
-                    case 33:
+                    case 34:
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setStatus(QuestStatus.REWARD);
                             updateQuestStatus(env);
@@ -101,7 +101,7 @@ public class _4936SecretOfTheGreaterStigma extends QuestHandler {
             } else if (targetId == 204837 && var == 0)//Hresvelgr
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1352);
                     case 10000:
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));

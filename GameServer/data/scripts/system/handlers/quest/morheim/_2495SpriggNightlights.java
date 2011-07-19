@@ -57,7 +57,7 @@ public class _2495SpriggNightlights extends QuestHandler {
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
         if (targetId == 798125) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -65,7 +65,7 @@ public class _2495SpriggNightlights extends QuestHandler {
                 long itemCount;
                 long itemCount1;
                 long itemCount2;
-                if (env.getDialogId() == 25 && qs.getQuestVarById(0) == 0) {
+                if (env.getDialogId() == 26 && qs.getQuestVarById(0) == 0) {
                     return sendQuestDialog(env, 2375);
                 } else if (env.getDialogId() == 33 && qs.getQuestVarById(0) == 0) {
                     itemCount = player.getInventory().getItemCountByItemId(182204227);
@@ -84,11 +84,11 @@ public class _2495SpriggNightlights extends QuestHandler {
                 } else
                     return defaultQuestEndDialog(env);
             } else if (qs.getStatus() == QuestStatus.REWARD) {
-                if (env.getDialogId() == 25 && qs.getQuestVarById(0) == 5) {
+                if (env.getDialogId() == 26 && qs.getQuestVarById(0) == 5) {
                     return sendQuestDialog(env, 5);
-                } else if (env.getDialogId() == 25 && qs.getQuestVarById(0) == 6) {
+                } else if (env.getDialogId() == 26 && qs.getQuestVarById(0) == 6) {
                     return sendQuestDialog(env, 6);
-                } else if (env.getDialogId() == 25 && qs.getQuestVarById(0) == 7) {
+                } else if (env.getDialogId() == 26 && qs.getQuestVarById(0) == 7) {
                     return sendQuestDialog(env, 7);
                 } else {
                     return defaultQuestEndDialog(env);

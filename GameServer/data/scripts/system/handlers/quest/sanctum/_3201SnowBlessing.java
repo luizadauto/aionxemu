@@ -38,7 +38,7 @@ public class _3201SnowBlessing extends QuestHandler
 			switch(env.getTargetId()) {
 				case 279009:
 					switch(env.getDialogId()) {
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1352);
 						case 10000:

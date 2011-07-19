@@ -60,7 +60,7 @@ public class _1500OrdersFromPerento extends QuestHandler {
         if (targetId != 204500)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 10002);
             else if (env.getDialogId() == 1009) {
                 qs.setStatus(QuestStatus.REWARD);
@@ -70,7 +70,7 @@ public class _1500OrdersFromPerento extends QuestHandler {
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1062, 1063};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

@@ -50,14 +50,14 @@ public class _1351EarningMaranasRespect extends QuestHandler {
         long itemCount;
         if (targetId == 203965) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (targetId == 203983) {
             if (qs != null && qs.getStatus() == QuestStatus.START) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 33) {
                     itemCount = player.getInventory().getItemCountByItemId(182201321);

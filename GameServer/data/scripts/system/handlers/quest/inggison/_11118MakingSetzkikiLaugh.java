@@ -59,7 +59,7 @@ public class _11118MakingSetzkikiLaugh extends QuestHandler {
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 4762);
 				else
 					return defaultQuestStartDialog(env);
@@ -88,7 +88,7 @@ public class _11118MakingSetzkikiLaugh extends QuestHandler {
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 						else if(var == 1)
@@ -101,7 +101,7 @@ public class _11118MakingSetzkikiLaugh extends QuestHandler {
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 							return true;
 						}
-					case 33:
+					case 34:
 						if(var == 1)
 						{
 							if(player.getInventory().getItemCountByItemId(182206794) >= 20)
@@ -122,7 +122,7 @@ public class _11118MakingSetzkikiLaugh extends QuestHandler {
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 2)
 							return sendQuestDialog(env, 2034);
 					case 10255:

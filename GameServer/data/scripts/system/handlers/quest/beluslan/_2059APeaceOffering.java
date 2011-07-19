@@ -94,7 +94,7 @@ public class _2059APeaceOffering extends QuestHandler {
         }
         if (targetId == 204787) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 4)
@@ -119,7 +119,7 @@ public class _2059APeaceOffering extends QuestHandler {
             }
         } else if (targetId == 204795) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -132,7 +132,7 @@ public class _2059APeaceOffering extends QuestHandler {
             }
         } else if (targetId == 204796) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10002:

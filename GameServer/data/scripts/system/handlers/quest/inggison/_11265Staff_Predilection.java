@@ -95,7 +95,7 @@ public class _11265Staff_Predilection extends QuestHandler
 						    //Send select2 to eddit-HtmlPages.xml
                             return sendQuestDialog(env, 2034);
 							//Get HACTION_CHECK_USER_HAS_QUEST_ITEM in the eddit-HyperLinks.xml
-                        case 33:
+                        case 34:
                             //Piece Of Aegis (1)
 						    //Laestrygos's Staff (1)
                             //Kinah (8000000)

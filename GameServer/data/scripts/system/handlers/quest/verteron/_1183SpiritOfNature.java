@@ -56,7 +56,7 @@ public class _1183SpiritOfNature extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 730012) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 1011);
                 } else
                     return defaultQuestStartDialog(env);
@@ -87,7 +87,7 @@ public class _1183SpiritOfNature extends QuestHandler {
                 }
                 case 730014: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             return sendQuestDialog(env, 1693);
                         }
                         case 10001: {
@@ -107,7 +107,7 @@ public class _1183SpiritOfNature extends QuestHandler {
                 }
                 case 730012: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             return sendQuestDialog(env, 2375);
                         }
                         case 1009: {

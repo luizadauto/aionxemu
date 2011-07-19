@@ -98,7 +98,7 @@ public class _2031PetrifyingElim extends QuestHandler {
         if (targetId == 204304) //Vili
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(1);
@@ -111,7 +111,7 @@ public class _2031PetrifyingElim extends QuestHandler {
         } else if (targetId == 730038) //Nabaru
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 1353)
                     PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 71));
@@ -125,7 +125,7 @@ public class _2031PetrifyingElim extends QuestHandler {
             }
 
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 33) {
                     if (player.getInventory().getItemCountByItemId(182204001) > 0) {
@@ -140,7 +140,7 @@ public class _2031PetrifyingElim extends QuestHandler {
             }
 
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 3) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10003) {
                     qs.setQuestVar(4);

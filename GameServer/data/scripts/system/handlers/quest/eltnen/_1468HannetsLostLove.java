@@ -55,12 +55,12 @@ public class _1468HannetsLostLove extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 790004) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.START) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     final int targetObjectId = env.getVisibleObject().getObjectId();
@@ -78,7 +78,7 @@ public class _1468HannetsLostLove extends QuestHandler {
             }
         } else if (targetId == 203184) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -91,7 +91,7 @@ public class _1468HannetsLostLove extends QuestHandler {
             }
         } else if (targetId == 204007) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -104,7 +104,7 @@ public class _1468HannetsLostLove extends QuestHandler {
             }
         } else if (targetId == 203969) {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

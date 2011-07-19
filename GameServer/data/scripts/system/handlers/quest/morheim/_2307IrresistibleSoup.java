@@ -57,7 +57,7 @@ public class _2307IrresistibleSoup extends QuestHandler {
         if (targetId == 204378) //Favyr
         {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
@@ -67,7 +67,7 @@ public class _2307IrresistibleSoup extends QuestHandler {
         } else if (targetId == 204336) //Spedor
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(2);

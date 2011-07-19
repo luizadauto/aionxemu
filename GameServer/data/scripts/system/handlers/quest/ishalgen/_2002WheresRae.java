@@ -70,7 +70,7 @@ public class _2002WheresRae extends QuestHandler {
             switch (targetId) {
                 case 203519: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -84,7 +84,7 @@ public class _2002WheresRae extends QuestHandler {
                 }
                 case 203534: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 1353:
@@ -101,7 +101,7 @@ public class _2002WheresRae extends QuestHandler {
                 }
                 case 790002: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                             else if (var == 10)
@@ -137,7 +137,7 @@ public class _2002WheresRae extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 11) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setQuestVarById(0, 12);
@@ -151,7 +151,7 @@ public class _2002WheresRae extends QuestHandler {
                 break;
                 case 205020: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             PacketSendUtility.sendPacket(player, new SM_EMOTION(player, EmotionType.START_FLYTELEPORT, 3001, 0));
                             ThreadPoolManager.getInstance().schedule(new Runnable() {
                                 @Override
@@ -196,7 +196,7 @@ public class _2002WheresRae extends QuestHandler {
                     break;
                 case 203553:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 15)
                                 return sendQuestDialog(env, 3057);
                         case 10006:

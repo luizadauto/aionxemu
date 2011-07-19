@@ -52,7 +52,7 @@ public class _1430ATeleportationExperiment extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203919) //Onesimus
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
@@ -61,7 +61,7 @@ public class _1430ATeleportationExperiment extends QuestHandler {
         {
 
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -72,7 +72,7 @@ public class _1430ATeleportationExperiment extends QuestHandler {
                     return defaultQuestStartDialog(env);
             } else if (qs != null && qs.getStatus() == QuestStatus.REWARD) //Reward
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4080);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(2);

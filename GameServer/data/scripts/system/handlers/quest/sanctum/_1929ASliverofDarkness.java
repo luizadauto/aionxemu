@@ -83,7 +83,7 @@ public class _1929ASliverofDarkness extends QuestHandler {
             switch (targetId) {
                 case 203752:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -97,7 +97,7 @@ public class _1929ASliverofDarkness extends QuestHandler {
                     break;
                 case 203852:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:
@@ -111,7 +111,7 @@ public class _1929ASliverofDarkness extends QuestHandler {
                     break;
                 case 203164:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                             else if (var == 8)
@@ -140,7 +140,7 @@ public class _1929ASliverofDarkness extends QuestHandler {
                     break;
                 case 205110:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 93)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -188,13 +188,13 @@ public class _1929ASliverofDarkness extends QuestHandler {
                                 return false;
                             }
                             break;
-                        case 25:
+                        case 26:
                             if (var == 98)
                                 return sendQuestDialog(env, 2375);
                             else if (var == 96)
                                 return sendQuestDialog(env, 2716);
                             break;
-                        case 2546:
+                        case 2646:
                             if (var == 98) {
                                 int itemId = getStoneId(player);
                                 if (player.getInventory().getItemCountByItemId(itemId) > 0) {
@@ -230,7 +230,7 @@ public class _1929ASliverofDarkness extends QuestHandler {
                 case 203701:
                     if (var == 9) {
                         switch (env.getDialogId()) {
-                            case 25:
+                            case 26:
                                 if (var == 9)
                                     return sendQuestDialog(env, 3398);
                             case 10007:

@@ -69,7 +69,7 @@ public class _1563TheLegendofVindachinerk extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 1)
 							return sendQuestDialog(env, 1352);
 					case 10001:
@@ -80,7 +80,7 @@ public class _1563TheLegendofVindachinerk extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 1)
 							return sendQuestDialog(env, 1438);
 					case 10001:

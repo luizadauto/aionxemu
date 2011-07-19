@@ -51,7 +51,7 @@ public class _2721MeetingwiththeBrigadeGeneral extends QuestHandler {
 
         if (targetId == 278001) {
             if (qs == null) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -63,7 +63,7 @@ public class _2721MeetingwiththeBrigadeGeneral extends QuestHandler {
 
         if (targetId == 278002) {
             if (qs.getStatus() == QuestStatus.START) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
 
                 else if (env.getDialogId() == 10000) {
@@ -78,7 +78,7 @@ public class _2721MeetingwiththeBrigadeGeneral extends QuestHandler {
 
         if (targetId == 278003) {
             if (qs.getStatus() == QuestStatus.START) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
 
                 else if (env.getDialogId() == 10001) {
@@ -92,7 +92,7 @@ public class _2721MeetingwiththeBrigadeGeneral extends QuestHandler {
         }
 
         if (targetId == 278054) {
-            if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START)
+            if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START)
                 return sendQuestDialog(env, 2375);
             else if (env.getDialogId() == 1009) {
                 qs.setQuestVar(3);

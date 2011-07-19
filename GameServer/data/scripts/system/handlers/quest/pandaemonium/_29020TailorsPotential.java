@@ -80,7 +80,7 @@ public class _29020TailorsPotential extends QuestHandler
 						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1352);
-						case 33:
+						case 34:
 							if (var == 1)
 							{
 								if(QuestService.collectItemCheck(env, true))

@@ -55,12 +55,12 @@ public class _1111InsomniaMedicine extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203061) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1352);
                         else if (var == 1)
                             return sendQuestDialog(env, 1353);
-                    case 33:
+                    case 34:
                         return defaultQuestItemCheck(env, 0, 1, false, 1353, 1693);
                     case 10000:
                         return defaultCloseDialog(env, 1, 2, true, false, 182200222, 1, 0, 0);

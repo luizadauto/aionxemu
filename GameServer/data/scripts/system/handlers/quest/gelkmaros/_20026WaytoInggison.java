@@ -56,7 +56,7 @@ public class _20026WaytoInggison extends QuestHandler {
             switch (env.getTargetId()) {
                 case 799364:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -64,7 +64,7 @@ public class _20026WaytoInggison extends QuestHandler {
                     }
                 case 799365:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10255:

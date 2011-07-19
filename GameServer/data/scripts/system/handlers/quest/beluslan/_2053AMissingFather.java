@@ -90,7 +90,7 @@ public class _2053AMissingFather extends QuestHandler {
         }
         if (targetId == 204707) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 5)
@@ -112,7 +112,7 @@ public class _2053AMissingFather extends QuestHandler {
             }
         } else if (targetId == 204749) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -139,7 +139,7 @@ public class _2053AMissingFather extends QuestHandler {
             }
         } else if (targetId == 204800) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 6)
                         return sendQuestDialog(env, 3057);
                 case 10006:

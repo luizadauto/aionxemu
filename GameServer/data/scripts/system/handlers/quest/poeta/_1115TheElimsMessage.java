@@ -55,7 +55,7 @@ public class _1115TheElimsMessage extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203072:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1352);
                         case 10000:

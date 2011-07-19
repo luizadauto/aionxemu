@@ -72,7 +72,7 @@ public class _1023ANestofLepharists extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203098) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:
@@ -81,7 +81,7 @@ public class _1023ANestofLepharists extends QuestHandler {
             } else if (env.getTargetId() == 203183)//Khidia
             {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 1)
                             return sendQuestDialog(env, 1352);
                         else if (var == 3)

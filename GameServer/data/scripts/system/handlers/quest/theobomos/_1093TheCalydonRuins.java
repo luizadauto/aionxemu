@@ -85,7 +85,7 @@ public class _1093TheCalydonRuins extends QuestHandler {
         }
         if (targetId == 798155) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -98,7 +98,7 @@ public class _1093TheCalydonRuins extends QuestHandler {
             }
         } else if (targetId == 203784) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -112,7 +112,7 @@ public class _1093TheCalydonRuins extends QuestHandler {
             }
         } else if (targetId == 798176) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 1694:
@@ -128,7 +128,7 @@ public class _1093TheCalydonRuins extends QuestHandler {
             }
         } else if (targetId == 798212) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 7)
                         return sendQuestDialog(env, 3398);
                     if (var == 8)
@@ -145,7 +145,7 @@ public class _1093TheCalydonRuins extends QuestHandler {
                         PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                         return true;
                     }
-                case 33:
+                case 34:
                     if (var == 7) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setQuestVarById(0, var + 1);

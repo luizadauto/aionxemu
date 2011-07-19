@@ -74,12 +74,12 @@ public class _1052RootoftheRot extends QuestHandler {
         }
         if (targetId == 204549) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 1)
                         return sendQuestDialog(env, 1352);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, false))
 //					if(player.getInventory().getItemCountByItemId(182201603) == 3 && 
 //										player.getInventory().getItemCountByItemId(182201604) == 3)
@@ -108,7 +108,7 @@ public class _1052RootoftheRot extends QuestHandler {
             }
         } else if (targetId == 730026) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10255:

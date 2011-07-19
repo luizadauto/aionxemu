@@ -60,7 +60,7 @@ public class _21123Senegal_Arrow extends QuestHandler
 						return defaultCloseDialog(env, 0, 1);
 					case 10001:
 						return defaultCloseDialog(env, 1, 0);
-					case 33:
+					case 34:
 						return defaultQuestItemCheck(env, 1, 0, true, 5, 10001);
 				}
 			}

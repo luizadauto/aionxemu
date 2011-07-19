@@ -60,7 +60,7 @@ public class _30203GroupHalttheCeremony extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 798926) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);

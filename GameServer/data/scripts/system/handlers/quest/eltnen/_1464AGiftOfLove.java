@@ -62,12 +62,12 @@ public class _1464AGiftOfLove extends QuestHandler
 				case 204424:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1011);
 						case 10000:
 							return defaultCloseDialog(env, 0, 1);
-						case 33:
+						case 34:
 							return defaultQuestItemCheck(env, 0, 1, true, 10000, 10001, 182201384, 1);
 					}
 					break;

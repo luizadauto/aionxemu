@@ -87,7 +87,7 @@ public class _1057CreatingaMonster extends QuestHandler {
         }
         if (targetId == 204502) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 3)
@@ -114,7 +114,7 @@ public class _1057CreatingaMonster extends QuestHandler {
             }
         } else if (targetId == 204619) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:

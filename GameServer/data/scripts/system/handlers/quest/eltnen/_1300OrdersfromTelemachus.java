@@ -60,7 +60,7 @@ public class _1300OrdersfromTelemachus extends QuestHandler {
         if (targetId != 203901)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25) {
+            if (env.getDialogId() == 26) {
                 qs.setQuestVar(1);
                 qs.setStatus(QuestStatus.REWARD);
                 updateQuestStatus(env);
@@ -68,7 +68,7 @@ public class _1300OrdersfromTelemachus extends QuestHandler {
             } else
                 return defaultQuestStartDialog(env);
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

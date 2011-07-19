@@ -62,7 +62,7 @@ public class _1687TheTigrakiAgreement extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE || qs.getStatus() == QuestStatus.COMPLETE) {
             if (targetId == 204601) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 4762);
                 } else
                     return defaultQuestStartDialog(env);
@@ -76,7 +76,7 @@ public class _1687TheTigrakiAgreement extends QuestHandler {
             switch (targetId) {
                 case 204601: {
                     switch (env.getDialogId()) {
-                        case 25: {
+                        case 26: {
                             long itemCount1 = player.getInventory().getItemCountByItemId(186000035);
                             long itemCount2 = player.getInventory().getItemCountByItemId(186000036);
                             if (itemCount1 >= 2 && itemCount2 >= 5) {

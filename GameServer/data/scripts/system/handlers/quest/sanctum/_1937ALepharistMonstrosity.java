@@ -60,7 +60,7 @@ public class _1937ALepharistMonstrosity extends QuestHandler {
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 1002)
 				{
@@ -97,7 +97,7 @@ public class _1937ALepharistMonstrosity extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1352);
 				case 10000:
@@ -115,7 +115,7 @@ public class _1937ALepharistMonstrosity extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1693);
 				case 10001:
@@ -133,7 +133,7 @@ public class _1937ALepharistMonstrosity extends QuestHandler {
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 2)
 						return sendQuestDialog(env, 2034);
 				case 10002:

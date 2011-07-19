@@ -54,7 +54,7 @@ public class _1988AMeetingwithaSage extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203725) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -69,7 +69,7 @@ public class _1988AMeetingwithaSage extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203989 && var == 0) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1352);
                     case 10000:
                         qs.setQuestVarById(0, var + 1);
@@ -79,7 +79,7 @@ public class _1988AMeetingwithaSage extends QuestHandler {
                 }
             } else if (targetId == 798018 && var == 1) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1693);
                     case 10001:
                         qs.setQuestVarById(0, var + 1);
@@ -89,7 +89,7 @@ public class _1988AMeetingwithaSage extends QuestHandler {
                 }
             } else if (targetId == 203771 && var == 2) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 2034);
                     case 2035:
                         if (player.getInventory().getItemCountByItemId(186000039) == 1) {

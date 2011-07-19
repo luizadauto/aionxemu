@@ -83,7 +83,7 @@ public class _11043Core_Of_The_Problem extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Blue Searcher Core (1)
 						//Collect Shining Searcher Core (1)
                         //Collect Old Searcher Core (1)

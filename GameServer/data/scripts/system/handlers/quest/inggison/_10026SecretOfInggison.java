@@ -72,7 +72,7 @@ public class _10026SecretOfInggison extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 					case 1353:
@@ -95,7 +95,7 @@ public class _10026SecretOfInggison extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 1)
 							return sendQuestDialog(env, 1352);
 					case 1012:

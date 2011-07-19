@@ -61,7 +61,7 @@ public class _3963FlorasThirdCharm extends QuestHandler {
 			switch (env.getTargetId())	{
 				case 203740:
 					switch(env.getDialogId()) {
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1352);
 						case 10000:
@@ -70,10 +70,10 @@ public class _3963FlorasThirdCharm extends QuestHandler {
 					break;
 				case 798384:
 					switch(env.getDialogId()) {
-						case 25:
+						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 2375);
-						case 33:
+						case 34:
 							return defaultQuestItemCheck(env, 1, 2, true, 5, 2716);
 					}
 					break;

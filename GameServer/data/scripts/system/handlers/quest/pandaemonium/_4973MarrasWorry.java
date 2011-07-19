@@ -67,7 +67,7 @@ public class _4973MarrasWorry extends QuestHandler
 				case 204130:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1352);
 						case 10000:
@@ -77,7 +77,7 @@ public class _4973MarrasWorry extends QuestHandler
 				case 204728:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1693);
 						case 10001:
@@ -87,7 +87,7 @@ public class _4973MarrasWorry extends QuestHandler
 				case 204324:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 2)
 								return sendQuestDialog(env, 2034);
 						case 10002:

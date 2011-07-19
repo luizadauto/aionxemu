@@ -70,7 +70,7 @@ public class _2015TaketheInitiative extends QuestHandler {
                                 return sendQuestDialog(env, 1352);
                             }
                             break;
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             break;

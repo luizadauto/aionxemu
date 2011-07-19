@@ -76,7 +76,7 @@ public class _2947FollowingThrough extends QuestHandler {
             switch (targetId) {
                 case 204053: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10010:
@@ -100,7 +100,7 @@ public class _2947FollowingThrough extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 1 || var == 4 || var == 9) {
                                 qs.setQuestVarById(0, 0);
                                 updateQuestStatus(env);
@@ -111,7 +111,7 @@ public class _2947FollowingThrough extends QuestHandler {
                 break;
                 case 204301: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 2)
@@ -149,7 +149,7 @@ public class _2947FollowingThrough extends QuestHandler {
                 break;
                 case 204089: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 1693);
                             else if (var == 5)

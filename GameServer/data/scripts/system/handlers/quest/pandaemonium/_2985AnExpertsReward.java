@@ -55,7 +55,7 @@ public class _2985AnExpertsReward extends QuestHandler
 		{
 			if(env.getTargetId() == 204052)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 				{
 					int skillLevel = 0;
 					for (int skillId : skill_ids)
@@ -80,7 +80,7 @@ public class _2985AnExpertsReward extends QuestHandler
 		{
 			if(env.getTargetId() == 204072)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 				{
 					defaultCloseDialog(env, 0, 0, true, true);
 					return sendQuestDialog(env, 2375);

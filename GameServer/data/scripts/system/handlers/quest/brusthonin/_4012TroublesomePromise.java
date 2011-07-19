@@ -61,7 +61,7 @@ public class _4012TroublesomePromise extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 205142) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -94,7 +94,7 @@ public class _4012TroublesomePromise extends QuestHandler {
                 }
                 case 730104: {
                     if (qs.getQuestVarById(0) == 1) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 2375);
                         else if (env.getDialogId() == 33) {
                             player.getInventory().removeFromBagByItemId(182209005, 1);

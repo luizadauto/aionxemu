@@ -58,7 +58,7 @@ public class _2493BringingUpTayga extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204325) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);
@@ -72,7 +72,7 @@ public class _2493BringingUpTayga extends QuestHandler {
 
         if (qs.getStatus() == QuestStatus.REWARD) {
             if (targetId == 204325) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 10002);
                 else
                     return defaultQuestEndDialog(env);
@@ -97,7 +97,7 @@ public class _2493BringingUpTayga extends QuestHandler {
                                 npc.getController().onDespawn(false);
                                 return true;
                             }
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10255:
@@ -116,7 +116,7 @@ public class _2493BringingUpTayga extends QuestHandler {
 				        case 204437:
 				        case 204438:
 					        switch(env.getDialogId()){
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1353);
 					}

@@ -109,7 +109,7 @@ public class _18622KaligasCollection extends QuestHandler {
 							case -1:
 								if (var == 1)
 									return sendQuestDialog(env, 5);
-							case 17:
+							case 18:
 								QuestService.questFinish(env, qs.getQuestVars().getQuestVars() - 1);
 								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 								return true;

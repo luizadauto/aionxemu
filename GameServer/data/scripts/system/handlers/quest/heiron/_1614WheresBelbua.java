@@ -57,7 +57,7 @@ public class _1614WheresBelbua extends QuestHandler {
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE) 
 			{			
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 4762);
 				else
 					return defaultQuestStartDialog(env);
@@ -99,7 +99,7 @@ public class _1614WheresBelbua extends QuestHandler {
 								}
 							}
 						}
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1011);
 						case 10000:

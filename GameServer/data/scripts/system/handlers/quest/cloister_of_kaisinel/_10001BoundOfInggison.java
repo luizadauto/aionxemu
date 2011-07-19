@@ -72,7 +72,7 @@ public class _10001BoundOfInggison extends QuestHandler
 		{
 			if(qs == null)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else
 					return defaultQuestStartDialog(env);
@@ -88,7 +88,7 @@ public class _10001BoundOfInggison extends QuestHandler
 		{
 			if(targetId == 798600 && var == 0)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else if(env.getDialogId() == 10000)
 				{
@@ -103,7 +103,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 798513 && var == 1)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1352);
 				else if(env.getDialogId() == 10001)
 				{
@@ -118,7 +118,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 203760 && var == 2)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 1693);
 				else if(env.getDialogId() == 10002)
 				{
@@ -133,7 +133,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 203782 && var == 3)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 2034);
 				else if(env.getDialogId() == 10003)
 				{
@@ -148,7 +148,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 798408 && var == 4)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 2375);
 				else if(env.getDialogId() == 10004)
 				{
@@ -163,7 +163,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 203709 && var == 5)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 2716);
 				else if(env.getDialogId() == 10005)
 				{
@@ -178,7 +178,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 798408 && var == 6)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 3057);
 				else if(env.getDialogId() == 10006)
 				{
@@ -193,7 +193,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			}
 			else if(targetId == 798408 && var == 7)
 			{
-				if(env.getDialogId() == 25)
+				if(env.getDialogId() == 26)
 					return sendQuestDialog(env, 3398);
 				else if(env.getDialogId() == 10255)
 				{
@@ -209,7 +209,7 @@ public class _10001BoundOfInggison extends QuestHandler
 			{
 				if(env.getDialogId() == -1)
 					return sendQuestDialog(env, 10002);
-				else if(env.getDialogId() == 17)
+				else if(env.getDialogId() == 18)
 				{
 					int[] ids = { 10020, 10021, 10022, 10023, 10024, 10025, 10026 };
 					for(int id : ids)

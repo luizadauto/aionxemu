@@ -57,7 +57,7 @@ public class _2003TreasureOfTheDeceased extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203539) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 1)
@@ -72,7 +72,7 @@ public class _2003TreasureOfTheDeceased extends QuestHandler {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
                         }
-                    case 33:
+                    case 34:
                         if (var == 1) {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setStatus(QuestStatus.REWARD);

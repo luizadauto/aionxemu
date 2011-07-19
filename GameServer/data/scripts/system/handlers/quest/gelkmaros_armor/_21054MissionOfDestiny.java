@@ -86,7 +86,7 @@ public class _21054MissionOfDestiny extends QuestHandler
                         //
                             return sendQuestDialog(env, 2034);
                         //
-                        case 33:
+                        case 34:
                         //Collect Hardened Drakscale (30)
                         //Collect Kinah (150000)
                             if (QuestService.collectItemCheck(env, true))

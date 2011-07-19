@@ -173,7 +173,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 					else if(var == 3)
@@ -200,7 +200,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 					else if(var == 2)
@@ -210,7 +210,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 					else if(var == 11)
 						return sendQuestDialog(env, 1608);
 					break;
-				case 33:
+				case 34:
 					if(QuestService.collectItemCheck(env, true))
 					{
 						qs.setQuestVarById(0, var + 1);
@@ -255,7 +255,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 4)
 						return sendQuestDialog(env, 2375);
 				case 10004:
@@ -274,7 +274,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 9)
 						return sendQuestDialog(env, 4080);
 				case 10009:
@@ -294,7 +294,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{		
-				case 25:
+				case 26:
 					if(var == 7)
 						return sendQuestDialog(env, 4080);
 				case 10009:
@@ -317,7 +317,7 @@ public class _20023KumbandasWhereabouts extends QuestHandler
 					if(var >= 6)
 						return sendQuestDialog(env, 3057);
 				break;
-				case 25:
+				case 26:
 					if(var == 6)
 						return sendQuestDialog(env, 3057);
 				break;

@@ -60,7 +60,7 @@ public class _2300MorheimCommandersCall extends QuestHandler {
         if (targetId != 204301)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25) {
+            if (env.getDialogId() == 26) {
                 qs.setQuestVar(1);
                 qs.setStatus(QuestStatus.REWARD);
                 updateQuestStatus(env);
@@ -68,7 +68,7 @@ public class _2300MorheimCommandersCall extends QuestHandler {
             } else
                 return defaultQuestStartDialog(env);
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

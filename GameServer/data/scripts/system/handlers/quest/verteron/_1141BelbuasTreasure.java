@@ -49,7 +49,7 @@ public class _1141BelbuasTreasure extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null) {
             if (targetId == 730001) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);

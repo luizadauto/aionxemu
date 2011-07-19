@@ -63,7 +63,7 @@ public class _2990MakingTheDaevanionWeapon extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204146)// Kanensa
             {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     int plate = player.getEquipment().itemSetPartsEquipped(9);
                     int chain = player.getEquipment().itemSetPartsEquipped(8);
                     int leather = player.getEquipment().itemSetPartsEquipped(7);
@@ -87,7 +87,7 @@ public class _2990MakingTheDaevanionWeapon extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 204146) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         if (var == 1)
@@ -96,7 +96,7 @@ public class _2990MakingTheDaevanionWeapon extends QuestHandler {
                             return sendQuestDialog(env, 1693);
                         if (var == 3 && player.getInventory().getItemCountByItemId(186000040) > 0)
                             return sendQuestDialog(env, 2034);
-                    case 33:
+                    case 34:
                         if (var == 0) {
                             if (QuestService.collectItemCheck(env, true)) {
                                 qs.setQuestVarById(0, var + 1);
@@ -165,23 +165,23 @@ public class _2990MakingTheDaevanionWeapon extends QuestHandler {
         int var3 = qs.getQuestVarById(3);
         int targetId = env.getTargetId();
 
-        if ((targetId == 256617 || targetId == 253720 || targetId == 254513) && qs.getQuestVarById(0) == 2) {
+        if ((targetId == 266617 || targetId == 263720 || targetId == 264513) && qs.getQuestVarById(0) == 2) {
             switch (targetId) {
-                case 256617:
+                case 266617:
                     if (var1 >= 0 && var1 < 60) {
                         ++var1;
                         qs.setQuestVarById(1, var1 + 1);
                         updateQuestStatus(env);
                     }
                     break;
-                case 253720:
+                case 263720:
                     if (var2 >= 0 && var2 < 120) {
                         ++var2;
                         qs.setQuestVarById(2, var2 + 3);
                         updateQuestStatus(env);
                     }
                     break;
-                case 254513:
+                case 264513:
                     if (var3 >= 0 && var3 < 240) {
                         ++var3;
                         qs.setQuestVarById(3, var3 + 7);

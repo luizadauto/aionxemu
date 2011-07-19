@@ -51,12 +51,12 @@ public class _21027FearlessKantele extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 799255) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 1)
                             return sendQuestDialog(env, 1352);
-                    case 33:
+                    case 34:
                         return defaultQuestItemCheck(env, 1, 2, true, 10000, 10001);
                     case 10000:
                         return defaultCloseDialog(env, 0, 1);

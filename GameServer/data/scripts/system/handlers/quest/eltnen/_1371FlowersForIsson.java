@@ -56,19 +56,19 @@ public class _1371FlowersForIsson extends QuestHandler {
         long itemCount = 0;
         if (targetId == 203949) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START) {
                 int var = qs.getQuestVarById(0);
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0) {
                             return sendQuestDialog(env, 1352);
                         }
 
-                    case 33:
+                    case 34:
                         if (var == 0)
                             itemCount = player.getInventory().getItemCountByItemId(152000601);
                         if (itemCount > 4) {

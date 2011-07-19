@@ -58,7 +58,7 @@ public class _2989CeremonyoftheWise extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204146) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -75,7 +75,7 @@ public class _2989CeremonyoftheWise extends QuestHandler {
             switch (targetId) {
                 case 204056://Traufnir
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.GLADIATOR || playerClass == PlayerClass.TEMPLAR)
                                 return sendQuestDialog(env, 1352);
                             else
@@ -88,7 +88,7 @@ public class _2989CeremonyoftheWise extends QuestHandler {
                     }
                 case 204057://Sigyn
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.ASSASSIN || playerClass == PlayerClass.RANGER)
                                 return sendQuestDialog(env, 1693);
                             else
@@ -101,7 +101,7 @@ public class _2989CeremonyoftheWise extends QuestHandler {
                     }
                 case 204058://Sif
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.SORCERER || playerClass == PlayerClass.SPIRIT_MASTER)
                                 return sendQuestDialog(env, 2034);
                             else
@@ -114,7 +114,7 @@ public class _2989CeremonyoftheWise extends QuestHandler {
                     }
                 case 204059://Freyr
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.CLERIC || playerClass == PlayerClass.CHANTER)
                                 return sendQuestDialog(env, 2375);
                             else
@@ -127,7 +127,7 @@ public class _2989CeremonyoftheWise extends QuestHandler {
                     }
                 case 204146:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 2716);
                             else if (var == 2)

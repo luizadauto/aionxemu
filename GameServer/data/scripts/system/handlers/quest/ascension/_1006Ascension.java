@@ -107,7 +107,7 @@ public class _1006Ascension extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 790001) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 3)
@@ -174,7 +174,7 @@ public class _1006Ascension extends QuestHandler {
                 }
             } else if (targetId == 730008) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 2) {
                             if (player.getInventory().getItemCountByItemId(182200008) != 0)
                                 return sendQuestDialog(env, 1352);
@@ -198,7 +198,7 @@ public class _1006Ascension extends QuestHandler {
                 }
             } else if (targetId == 205000) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 99) {
                             PacketSendUtility.sendPacket(player, new SM_EMOTION(player, EmotionType.START_FLYTELEPORT, 1001, 0));
                             Skill skill = SkillEngine.getInstance().getSkill(player,1910,1,player);
@@ -334,7 +334,7 @@ public class _1006Ascension extends QuestHandler {
         if (qs == null || qs.getStatus() != QuestStatus.START)
             return false;
         int var = qs.getQuestVars().getQuestVars();
-        if (var == 4 || (var >= 50 && var <= 55)) {
+        if(var == 5 || (var >= 51 && var <= 54)) {
             qs.setQuestVar(3);
             updateQuestStatus(env);
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
@@ -349,7 +349,7 @@ public class _1006Ascension extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs != null && qs.getStatus() == QuestStatus.START) {
             int var = qs.getQuestVars().getQuestVars();
-            if (var == 4 || (var >= 50 && var <= 55) || var == 99) {
+            if(var == 5 || (var >= 51 && var <= 56) || var == 99) {
                 if (player.getWorldId() != 310010000) {
                     qs.setQuestVar(3);
                     updateQuestStatus(env);

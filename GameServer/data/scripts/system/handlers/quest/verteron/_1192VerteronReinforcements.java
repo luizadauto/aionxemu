@@ -53,7 +53,7 @@ public class _1192VerteronReinforcements extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203701: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1352);
                         case 10000:
@@ -62,7 +62,7 @@ public class _1192VerteronReinforcements extends QuestHandler {
                 }
                 case 203833: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1693);
                         case 10001:
@@ -71,7 +71,7 @@ public class _1192VerteronReinforcements extends QuestHandler {
                 }
                 case 203098: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 2375);
                         case 1009:

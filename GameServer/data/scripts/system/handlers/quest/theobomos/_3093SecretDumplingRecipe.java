@@ -57,7 +57,7 @@ public class _3093SecretDumplingRecipe extends QuestHandler {
         if (targetId == 798185) //Bororinerk
         {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182206062, 1))))
@@ -80,7 +80,7 @@ public class _3093SecretDumplingRecipe extends QuestHandler {
         {
 
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     player.getInventory().removeFromBagByItemId(182206062, 1);
@@ -96,7 +96,7 @@ public class _3093SecretDumplingRecipe extends QuestHandler {
         } else if (targetId == 798179) //Jabala
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -110,7 +110,7 @@ public class _3093SecretDumplingRecipe extends QuestHandler {
         } else if (targetId == 203784) //Hestia
         {
             if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 3) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2034);
                 else if (env.getDialogId() == 10002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182208052, 1)))) ;

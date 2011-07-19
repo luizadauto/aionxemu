@@ -60,7 +60,7 @@ public class _1098PearlofProtection extends QuestHandler {
             switch (targetId) {
                 case 790001: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -76,7 +76,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 730008: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:
@@ -93,7 +93,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 730019: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 10002:
@@ -108,7 +108,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 204647: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -123,7 +123,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 203183: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                         case 10004:
@@ -140,7 +140,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 203989: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 5)
                                 return sendQuestDialog(env, 2716);
                         case 10005:
@@ -155,7 +155,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 798155: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 6)
                                 return sendQuestDialog(env, 3057);
                         case 10006:
@@ -170,7 +170,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 204549: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 7)
                                 return sendQuestDialog(env, 3398);
                         case 10007:
@@ -185,7 +185,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 203752: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 8)
                                 return sendQuestDialog(env, 3739);
                         case 10008:
@@ -200,7 +200,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 203164: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 9)
                                 return sendQuestDialog(env, 4080);
                         case 10009:
@@ -215,7 +215,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 203917: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 10)
                                 return sendQuestDialog(env, 1608);
                         case 10010:
@@ -230,7 +230,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 203996: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 11)
                                 return sendQuestDialog(env, 1949);
                         case 10011:
@@ -245,7 +245,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 798176: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 12)
                                 return sendQuestDialog(env, 2290);
                         case 10012:
@@ -260,7 +260,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 798212: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 13)
                                 return sendQuestDialog(env, 2631);
                         case 10013:
@@ -275,7 +275,7 @@ public class _1098PearlofProtection extends QuestHandler {
                 break;
                 case 204535: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 14)
                                 return sendQuestDialog(env, 2972);
                         case 10255:

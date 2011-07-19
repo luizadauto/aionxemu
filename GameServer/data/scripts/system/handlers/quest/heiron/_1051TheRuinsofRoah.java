@@ -79,7 +79,7 @@ public class _1051TheRuinsofRoah extends QuestHandler {
         }
         if (targetId == 204501) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 4)
@@ -104,7 +104,7 @@ public class _1051TheRuinsofRoah extends QuestHandler {
             }
         } else if (targetId == 204582) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                     else if (var == 3)
@@ -129,7 +129,7 @@ public class _1051TheRuinsofRoah extends QuestHandler {
             }
         } else if (targetId == 203882) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2716);
                 case 10005:
@@ -143,12 +143,12 @@ public class _1051TheRuinsofRoah extends QuestHandler {
             }
         } else if (targetId == 278503) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 6)
                         return sendQuestDialog(env, 3057);
                     else if (var == 7)
                         return sendQuestDialog(env, 3398);
-                case 33:
+                case 34:
                     if (QuestService.collectItemCheck(env, true)) {
                         qs.setQuestVarById(0, var + 1);
                         qs.setStatus(QuestStatus.REWARD);

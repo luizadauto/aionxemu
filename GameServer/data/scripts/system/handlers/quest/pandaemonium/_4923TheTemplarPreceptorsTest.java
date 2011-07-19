@@ -52,7 +52,7 @@ public class _4923TheTemplarPreceptorsTest extends QuestHandler {
 
         if (targetId == mainNpcId) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else
                     return defaultQuestStartDialog(env);

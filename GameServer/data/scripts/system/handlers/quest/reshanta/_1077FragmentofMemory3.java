@@ -76,7 +76,7 @@ public class _1077FragmentofMemory3 extends QuestHandler {
         }
         if (targetId == 203704) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -89,7 +89,7 @@ public class _1077FragmentofMemory3 extends QuestHandler {
             }
         } else if (targetId == 798154) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -102,7 +102,7 @@ public class _1077FragmentofMemory3 extends QuestHandler {
             }
         } else if (targetId == 204574) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10002:
@@ -115,7 +115,7 @@ public class _1077FragmentofMemory3 extends QuestHandler {
             }
         } else if (targetId == 204652) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                     else if (var == 6)
@@ -140,7 +140,7 @@ public class _1077FragmentofMemory3 extends QuestHandler {
             }
         } else if (targetId == 204653) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 4)
                         return sendQuestDialog(env, 2375);
                     else if (var != 4)

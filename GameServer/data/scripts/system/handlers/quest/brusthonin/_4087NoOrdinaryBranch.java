@@ -58,7 +58,7 @@ public class _4087NoOrdinaryBranch extends QuestHandler {
             }
         } else if (targetId == 205201) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START) {
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START) {
                     return sendQuestDialog(env, 2375);
                 } else if (env.getDialogId() == 1009) {
                     player.getInventory().removeFromBagByItemId(182209046, 1);

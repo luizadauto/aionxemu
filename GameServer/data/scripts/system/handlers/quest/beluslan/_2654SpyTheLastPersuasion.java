@@ -55,14 +55,14 @@ public class _2654SpyTheLastPersuasion extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 204775) {
             if (qs == null) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
             }
         } else if (targetId == 204655) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START)
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(0);

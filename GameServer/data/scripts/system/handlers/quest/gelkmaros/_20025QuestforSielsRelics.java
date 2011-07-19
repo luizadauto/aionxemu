@@ -132,7 +132,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 				case 10000:
@@ -149,7 +149,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 					else if(var == 4)
@@ -186,7 +186,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 2)
 						return sendQuestDialog(env, 1693);
 					else if(var == 3)
@@ -214,7 +214,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 5)
 						return sendQuestDialog(env, 2716);
 				case 10005:
@@ -231,7 +231,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 6)
 						return sendQuestDialog(env, 3057);
 				case 10006:
@@ -248,7 +248,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 7)
 						return sendQuestDialog(env, 3398);
 				case 10007:
@@ -265,10 +265,10 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 8)
 						return sendQuestDialog(env, 3739);
-				case 33:
+				case 34:
 					if(QuestService.collectItemCheck(env, true))
 					{
 						qs.setQuestVarById(0, var + 1);
@@ -285,7 +285,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 10)
 						return sendQuestDialog(env, 1267);
 				case 10010:
@@ -302,7 +302,7 @@ public class _20025QuestforSielsRelics extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 11)
 						return sendQuestDialog(env, 1608);
 				case 10011:

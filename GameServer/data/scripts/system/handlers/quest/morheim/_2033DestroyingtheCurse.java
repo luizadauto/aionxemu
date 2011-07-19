@@ -84,7 +84,7 @@ public class _2033DestroyingtheCurse extends QuestHandler {
             switch (targetId) {
                 case 204391:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             break;
@@ -101,7 +101,7 @@ public class _2033DestroyingtheCurse extends QuestHandler {
                     break;
                 case 790020:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             switch (var) {
                                 case 1:
                                     return sendQuestDialog(env, 1352);
@@ -125,7 +125,7 @@ public class _2033DestroyingtheCurse extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 33:
+                        case 34:
                             if (var == 2) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setQuestVarById(0, var + 1);
@@ -138,7 +138,7 @@ public class _2033DestroyingtheCurse extends QuestHandler {
                     break;
                 case 204393:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                         case 2376:
@@ -162,7 +162,7 @@ public class _2033DestroyingtheCurse extends QuestHandler {
                 case 204397:
                 case 204398:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 5)
                                 return sendQuestDialog(env, 2716);
                         case 10000:

@@ -54,7 +54,7 @@ public class _1122DeliveringPernossRobe extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 790001) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1352);
                     case 10000:
                         if (player.getInventory().getItemCountByItemId(182200218) > 0) {

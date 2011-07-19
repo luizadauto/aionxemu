@@ -63,7 +63,7 @@ public class _1001TheKerubThreat extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203071) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                         else if (var == 6)
@@ -76,7 +76,7 @@ public class _1001TheKerubThreat extends QuestHandler {
                         return defaultCloseDialog(env, 0, 1);
                     case 10001:
                         return defaultCloseDialog(env, 6, 7);
-                    case 33:
+                    case 34:
                         return defaultQuestItemCheck(env, 7, 8, true, 1694, 2034);
                 }
             }

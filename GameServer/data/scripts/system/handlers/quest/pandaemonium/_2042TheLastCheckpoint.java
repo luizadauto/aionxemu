@@ -63,7 +63,7 @@ public class _2042TheLastCheckpoint extends QuestHandler {
             switch (targetId) {
                 case 204301: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -78,7 +78,7 @@ public class _2042TheLastCheckpoint extends QuestHandler {
                 break;
                 case 204319: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             if (var == 8)

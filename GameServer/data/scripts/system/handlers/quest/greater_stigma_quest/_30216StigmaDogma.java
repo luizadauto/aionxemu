@@ -68,7 +68,7 @@ public class _30216StigmaDogma	extends QuestHandler
 		{
 			if (targetId == 798941) // Pilomenes Start
 			{
-				if (env.getDialogId() == 25)
+				if (env.getDialogId() == 26)
 					return sendQuestDialog(env, 1011);
 				else
 					return defaultQuestStartDialog(env);
@@ -78,7 +78,7 @@ public class _30216StigmaDogma	extends QuestHandler
 		{
 			if (targetId == 798909)
 			{
-				if (env.getDialogId() == 25)
+				if (env.getDialogId() == 26)
 					return sendQuestDialog(env, 2375);
 				else if (env.getDialogId() == 1009)
 				{

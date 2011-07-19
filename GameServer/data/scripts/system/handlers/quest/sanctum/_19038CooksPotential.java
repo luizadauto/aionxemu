@@ -69,7 +69,7 @@ public class _19038CooksPotential extends QuestHandler
 				case secondNpc:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1011);
 							else if(var == 1)
@@ -111,7 +111,7 @@ public class _19038CooksPotential extends QuestHandler
 				case questStartNpc:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 2)
 								return sendQuestDialog(env, 1097);
 							else if(var == 5)

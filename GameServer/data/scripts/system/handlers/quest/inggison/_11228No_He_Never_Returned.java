@@ -90,7 +90,7 @@ public class _11228No_He_Never_Returned extends QuestHandler
 					return defaultQuestStartDialog(env);
 			}
 		}
-		else if(targetId == 257225) //Jennathea
+		else if(targetId == 267225) //Jennathea
 		{
 			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1)
 			{

@@ -60,7 +60,7 @@ public class _20001TravelingtoGelkmaros extends QuestHandler {
             switch (env.getTargetId()) {
                 case 798800:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -68,7 +68,7 @@ public class _20001TravelingtoGelkmaros extends QuestHandler {
                     }
                 case 798409:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 5)
@@ -83,7 +83,7 @@ public class _20001TravelingtoGelkmaros extends QuestHandler {
                     }
                 case 204202:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1694);
                         case 10002:
@@ -91,7 +91,7 @@ public class _20001TravelingtoGelkmaros extends QuestHandler {
                     }
                 case 204073:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -99,7 +99,7 @@ public class _20001TravelingtoGelkmaros extends QuestHandler {
                     }
                 case 204283:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                         case 10004:
@@ -110,7 +110,7 @@ public class _20001TravelingtoGelkmaros extends QuestHandler {
             if (env.getTargetId() == 799225) {
                 if (env.getDialogId() == -1)
                     return sendQuestDialog(env, 10002);
-                else if (env.getDialogId() == 17) {
+                else if (env.getDialogId() == 18) {
                     int[] ids = {20020, 20021, 20022, 20023, 20024, 20025, 20026};
                     for (int id : ids)
                         QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

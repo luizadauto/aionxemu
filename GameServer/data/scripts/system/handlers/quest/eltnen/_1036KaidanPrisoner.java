@@ -74,7 +74,7 @@ public class _1036KaidanPrisoner extends QuestHandler {
         }
         if (targetId == 203904) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -88,7 +88,7 @@ public class _1036KaidanPrisoner extends QuestHandler {
             }
         } else if (targetId == 204045) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 1354:
@@ -106,7 +106,7 @@ public class _1036KaidanPrisoner extends QuestHandler {
             }
         } else if (targetId == 204003) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                     else if (var == 3 && QuestService.collectItemCheck(env, true))
@@ -132,7 +132,7 @@ public class _1036KaidanPrisoner extends QuestHandler {
             }
         } else if (targetId == 204004) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 4)
                         return sendQuestDialog(env, 2375);
                 case 10004:
@@ -147,7 +147,7 @@ public class _1036KaidanPrisoner extends QuestHandler {
             }
         } else if (targetId == 204020) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 5)
                         return sendQuestDialog(env, 2716);
                 case 2717:
@@ -165,7 +165,7 @@ public class _1036KaidanPrisoner extends QuestHandler {
             }
         } else if (targetId == 203901) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 6)
                         return sendQuestDialog(env, 3057);
                 case 1009:

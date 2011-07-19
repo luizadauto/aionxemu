@@ -69,7 +69,7 @@ public class _2916ManInTheLongBlackRobe extends QuestHandler
 				case 204152:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1352);
 						case 10000:
@@ -79,7 +79,7 @@ public class _2916ManInTheLongBlackRobe extends QuestHandler
 				case 204150:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1693);
 						case 10001:
@@ -89,7 +89,7 @@ public class _2916ManInTheLongBlackRobe extends QuestHandler
 				case 204151:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 2)
 								return sendQuestDialog(env, 2034);
 						case 10002:
@@ -99,7 +99,7 @@ public class _2916ManInTheLongBlackRobe extends QuestHandler
 				case 798033:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 3)
 								return sendQuestDialog(env, 2375);
 						case 10003:
@@ -109,7 +109,7 @@ public class _2916ManInTheLongBlackRobe extends QuestHandler
 				case 203673:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 4)
 								return sendQuestDialog(env, 2716);
 						case 10004:
@@ -119,10 +119,10 @@ public class _2916ManInTheLongBlackRobe extends QuestHandler
 				case 204141:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 6)
 								return sendQuestDialog(env, 3057);
-						case 33:
+						case 34:
 							return defaultQuestItemCheck(env, 6, 7, true, 5, 3143);
 					}
 					break;

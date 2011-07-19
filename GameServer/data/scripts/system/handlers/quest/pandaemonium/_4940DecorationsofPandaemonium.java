@@ -60,7 +60,7 @@ public class _4940DecorationsofPandaemonium extends QuestHandler {
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204050) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else if (env.getDialogId() == 1002) {
                     qs.setStatus(QuestStatus.START);
@@ -74,7 +74,7 @@ public class _4940DecorationsofPandaemonium extends QuestHandler {
             switch (targetId) {
                 case 204050: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0) {
                                 if (player.getInventory().getItemCountByItemId(186000079) >= 30) {
                                     qs.setStatus(QuestStatus.COMPLETE);
@@ -96,11 +96,11 @@ public class _4940DecorationsofPandaemonium extends QuestHandler {
                                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                                 return true;
                             }
-                        case 17:
+                        case 18:
                             ItemService.addItems(player, Collections.singletonList(new QuestItems(186000079, 1)));
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;
-                        case 33:
+                        case 34:
                             if (var == 1) {
                                 if (QuestService.collectItemCheck(env, true)) {
                                     qs.setQuestVarById(0, 0);

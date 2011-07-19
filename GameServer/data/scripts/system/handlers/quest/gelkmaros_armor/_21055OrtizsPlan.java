@@ -83,7 +83,7 @@ public class _21055OrtizsPlan extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Dragon Flame (4)
 						//Collect Worthy Hammer (20)
                         //Collect Kinah (200000)

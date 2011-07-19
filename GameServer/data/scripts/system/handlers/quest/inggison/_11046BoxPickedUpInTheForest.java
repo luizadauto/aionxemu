@@ -74,7 +74,7 @@ public class _11046BoxPickedUpInTheForest extends QuestHandler
 		{
 			if(qs != null)
 			{
-				if(env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START)
+				if(env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START)
 				{
 					return sendQuestDialog(env, 2375);
 				}

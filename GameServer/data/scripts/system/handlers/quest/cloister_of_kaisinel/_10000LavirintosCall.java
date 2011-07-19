@@ -92,7 +92,7 @@ public class _10000LavirintosCall extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 					case 10255:
@@ -112,13 +112,13 @@ public class _10000LavirintosCall extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 10002);
 					case 1009:
 						if(var == 0)
 							return sendQuestDialog(env, 5);
-					case 17:
+					case 18:
 						{
 							int rewardExp = player.getRates().getQuestXpRate() * 1093800;
 							int rewardKinah = player.getRates().getQuestXpRate() * 527480;

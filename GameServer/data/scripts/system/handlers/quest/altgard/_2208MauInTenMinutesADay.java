@@ -61,7 +61,7 @@ public class _2208MauInTenMinutesADay extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203591) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182203205, 1))))
@@ -73,7 +73,7 @@ public class _2208MauInTenMinutesADay extends QuestHandler {
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 203589) {
                 int var = qs.getQuestVarById(0);
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     if (var == 0)
                         return sendQuestDialog(env, 1693);
                     else if (var == 1)

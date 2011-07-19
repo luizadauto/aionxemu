@@ -54,7 +54,7 @@ public class _2100OrderoftheCaptain extends QuestHandler {
         if (targetId != 203516)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25) {
+            if (env.getDialogId() == 26) {
                 qs.setQuestVar(1);
                 qs.setStatus(QuestStatus.REWARD);
                 updateQuestStatus(env);
@@ -62,7 +62,7 @@ public class _2100OrderoftheCaptain extends QuestHandler {
             } else
                 return defaultQuestStartDialog(env);
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {2001, 2002, 2003, 2004, 2005, 2006, 2007};
                 for (int id : ids)
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

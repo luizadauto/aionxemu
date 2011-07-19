@@ -54,7 +54,7 @@ public class _2288PutYourMoneyWhereYourMouthIs extends QuestHandler {
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (env.getTargetId() == 203621) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1011);
                     case 1007:
                         return sendQuestDialog(env, 4);
@@ -77,7 +77,7 @@ public class _2288PutYourMoneyWhereYourMouthIs extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == 203621) {
                 if (var == 4) {
-                    if (env.getDialogId() == 25)
+                    if (env.getDialogId() == 26)
                         return sendQuestDialog(env, 1352);
                     if (env.getDialogId() == 1009) {
                         qs.setStatus(QuestStatus.REWARD);

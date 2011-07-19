@@ -64,7 +64,7 @@ public class _4004TheSeedsOfHope extends QuestHandler {
         if (qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 205128) //Randet
             {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 4762);
                 else if (env.getDialogId() == 1013) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182209002, 1))))

@@ -61,13 +61,13 @@ public class _1901KrallicPotion extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 203830) // marmeia
         {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 1011);
             else
                 return defaultQuestStartDialog(env);
         } else {
             if (targetId == 203864) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 1009) {
                     qs.setQuestVar(7);
@@ -85,7 +85,7 @@ public class _1901KrallicPotion extends QuestHandler {
                     switch (targetId) {
                         case 798026:// kunberunerk
                             switch (env.getDialogId()) {
-                                case 25:
+                                case 26:
                                     if (var == 0)
                                         return sendQuestDialog(env, 1352);
                                     else if (var == 5)
@@ -129,7 +129,7 @@ public class _1901KrallicPotion extends QuestHandler {
                             }
                         case 798025:// mapireck
                             switch (env.getDialogId()) {
-                                case 25:
+                                case 26:
                                     if (var == 1)
                                         return sendQuestDialog(env, 1693);
                                     else if (var == 4)
@@ -150,7 +150,7 @@ public class _1901KrallicPotion extends QuestHandler {
                             }
                         case 203131:// maniparas
                             switch (env.getDialogId()) {
-                                case 25:
+                                case 26:
                                     return sendQuestDialog(env, 2034);
                                 case 10003:
                                     qs.setQuestVarById(0, var + 1);// var==3
@@ -161,7 +161,7 @@ public class _1901KrallicPotion extends QuestHandler {
                             }
                         case 798003:// gaphyrk
                             switch (env.getDialogId()) {
-                                case 25:
+                                case 26:
                                     return sendQuestDialog(env, 2375);
                                 case 10004:
                                     if (player.getInventory().getItemCountByItemId(182206000) == 0)

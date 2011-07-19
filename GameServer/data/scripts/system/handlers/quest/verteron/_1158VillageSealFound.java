@@ -61,7 +61,7 @@ public class _1158VillageSealFound extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 798003) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -84,7 +84,7 @@ public class _1158VillageSealFound extends QuestHandler {
             return false;
         } else if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 700003 && var == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVarById(0, 1);

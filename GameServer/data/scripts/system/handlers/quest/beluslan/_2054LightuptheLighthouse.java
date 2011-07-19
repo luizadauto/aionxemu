@@ -88,7 +88,7 @@ public class _2054LightuptheLighthouse extends QuestHandler {
         }
         if (targetId == 204768) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -101,7 +101,7 @@ public class _2054LightuptheLighthouse extends QuestHandler {
             }
         } else if (targetId == 204739) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 1353:
@@ -117,7 +117,7 @@ public class _2054LightuptheLighthouse extends QuestHandler {
             }
         } else if (targetId == 730109) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                 case 10003:
@@ -132,7 +132,7 @@ public class _2054LightuptheLighthouse extends QuestHandler {
             }
         } else if (targetId == 730140) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2120);
                 case 10004:

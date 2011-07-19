@@ -58,7 +58,7 @@ public class _1701GovernorsDirective extends QuestHandler {
         if (targetId != 278501)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 10002);
             else if (env.getDialogId() == 1009) {
                 qs.setStatus(QuestStatus.REWARD);
@@ -68,7 +68,7 @@ public class _1701GovernorsDirective extends QuestHandler {
             }
             return false;
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {1071, 1072, 1073, 1074, 1075, 1076, 1077};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

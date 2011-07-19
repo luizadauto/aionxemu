@@ -61,7 +61,7 @@ public class _2213PoisonRootPotentFruit extends QuestHandler {
         final QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null) {
             if (targetId == 203604) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -94,7 +94,7 @@ public class _2213PoisonRootPotentFruit extends QuestHandler {
                 }
                 case 203604: {
                     if (qs.getQuestVarById(0) == 1) {
-                        if (env.getDialogId() == 25)
+                        if (env.getDialogId() == 26)
                             return sendQuestDialog(env, 2375);
                         else if (env.getDialogId() == 1009) {
                             player.getInventory().removeFromBagByItemId(182203208, 1);

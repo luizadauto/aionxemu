@@ -102,7 +102,7 @@ public class _10024WillTheAetherRain extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 0)
 						return sendQuestDialog(env, 1011);
 					else if(var == 4)
@@ -139,7 +139,7 @@ public class _10024WillTheAetherRain extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 1)
 						return sendQuestDialog(env, 1352);
 					else if(var == 3)
@@ -185,7 +185,7 @@ public class _10024WillTheAetherRain extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 5)
 						return sendQuestDialog(env, 2716);
 					else if(var == 6)
@@ -215,7 +215,7 @@ public class _10024WillTheAetherRain extends QuestHandler
 		{
 			switch(env.getDialogId())
 			{
-				case 25:
+				case 26:
 					if(var == 10)
 						return sendQuestDialog(env, 1608);
 				case 10255:

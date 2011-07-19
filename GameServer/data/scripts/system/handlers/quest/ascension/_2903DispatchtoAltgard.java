@@ -59,7 +59,7 @@ public class _2903DispatchtoAltgard extends QuestHandler {
             targetId = ((Npc) env.getVisibleObject()).getNpcId();
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 204082) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 1002) {
                     if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182207003, 1))))
@@ -77,7 +77,7 @@ public class _2903DispatchtoAltgard extends QuestHandler {
             switch (targetId) {
                 case 204191: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1352);
                             break;
@@ -92,7 +92,7 @@ public class _2903DispatchtoAltgard extends QuestHandler {
                 }
                 case 203559:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1) {
                                 qs.setStatus(QuestStatus.REWARD);
                                 updateQuestStatus(env);

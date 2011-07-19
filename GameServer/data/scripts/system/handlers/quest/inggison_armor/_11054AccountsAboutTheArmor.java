@@ -83,7 +83,7 @@ public class _11054AccountsAboutTheArmor extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Balic Outer Scale (30)
                         //Collect Kinah (150000)
                             if (QuestService.collectItemCheck(env, true))

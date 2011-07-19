@@ -55,7 +55,7 @@ public class _2114TheInsectProblem extends QuestHandler {
         if (targetId == 203533) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1011);
                     case 10000:
                         if (QuestService.startQuest(env, QuestStatus.START)) {
@@ -82,7 +82,7 @@ public class _2114TheInsectProblem extends QuestHandler {
                             return sendQuestDialog(env, 5);
                         else if (var == 20)
                             return sendQuestDialog(env, 6);
-                    case 17:
+                    case 18:
                         if (QuestService.questFinish(env, var / 10 - 1)) {
                             PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
                             return true;

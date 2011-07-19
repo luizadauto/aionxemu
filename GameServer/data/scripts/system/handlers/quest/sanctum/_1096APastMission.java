@@ -56,7 +56,7 @@ public class _1096APastMission extends QuestHandler {
             switch (targetId) {
                 case 203701: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -71,7 +71,7 @@ public class _1096APastMission extends QuestHandler {
                 break;
                 case 203852: {
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:

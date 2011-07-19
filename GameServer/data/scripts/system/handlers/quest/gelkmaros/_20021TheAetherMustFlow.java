@@ -165,7 +165,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
         }
         if (targetId == 799226) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                 case 10000:
@@ -178,7 +178,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
             }
         } else if (targetId == 799247) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 1)
                         return sendQuestDialog(env, 1352);
                 case 10001:
@@ -191,7 +191,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
             }
         } else if (targetId == 799250) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 2)
                         return sendQuestDialog(env, 1693);
                 case 10002:
@@ -204,7 +204,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
             }
         } else if (targetId == 799325) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 3)
                         return sendQuestDialog(env, 2034);
                     else if (var == 5)
@@ -230,7 +230,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
             }
         } else if (targetId == 799503) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 9)
                         return sendQuestDialog(env, 4080);
                 case 10009:
@@ -243,7 +243,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
             }
         } else if (targetId == 799258) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 10)
                         return sendQuestDialog(env, 1267);
                 case 10010:
@@ -256,7 +256,7 @@ public class _20021TheAetherMustFlow extends QuestHandler //TODO: Effect item
             }
         } else if (targetId == 799239) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 11)
                         return sendQuestDialog(env, 1608);
                 case 10255:

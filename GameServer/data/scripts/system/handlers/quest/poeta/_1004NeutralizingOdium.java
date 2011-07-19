@@ -58,7 +58,7 @@ public class _1004NeutralizingOdium extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203082:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 5)
@@ -78,7 +78,7 @@ public class _1004NeutralizingOdium extends QuestHandler {
                     break;
                 case 790001:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1352);
                             else if (var == 3)
@@ -89,7 +89,7 @@ public class _1004NeutralizingOdium extends QuestHandler {
                             return defaultCloseDialog(env, 2, 3);
                         case 10002:
                             return defaultCloseDialog(env, 11, 4, 182200006, 1, 182200005, 1);
-                        case 33:
+                        case 34:
                             return defaultQuestItemCheck(env, 3, 11, false, 1694, 1779);
                     }
                     break;

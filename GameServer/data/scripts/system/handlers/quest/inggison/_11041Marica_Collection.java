@@ -83,7 +83,7 @@ public class _11041Marica_Collection extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Priest Club (10)
 						//Collect Assassin Bandana (20)
                         //Collect Ranger Necklace (15)

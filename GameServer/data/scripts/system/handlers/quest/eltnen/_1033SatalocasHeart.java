@@ -72,7 +72,7 @@ public class _1033SatalocasHeart extends QuestHandler {
         if (targetId == 203900) //Diomedes
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(1);
@@ -89,7 +89,7 @@ public class _1033SatalocasHeart extends QuestHandler {
         } else if (targetId == 203996) //Kimeia
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVar(10);
@@ -101,7 +101,7 @@ public class _1033SatalocasHeart extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 11) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     qs.setQuestVar(qs.getQuestVarById(0) + 1);
                     qs.setStatus(QuestStatus.REWARD);
                     updateQuestStatus(env);

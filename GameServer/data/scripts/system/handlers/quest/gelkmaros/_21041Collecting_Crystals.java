@@ -83,7 +83,7 @@ public class _21041Collecting_Crystals extends QuestHandler
                             return sendQuestDialog(env, 2375);
                          case 2034:
                             return sendQuestDialog(env, 2034);
-                        case 33:
+                        case 34:
                         //Collect Antiquity Crystal (15)
                         //Collect Disposable Aether Refining Device (1)
                             if (QuestService.collectItemCheck(env, true))

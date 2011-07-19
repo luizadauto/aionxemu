@@ -68,7 +68,7 @@ public class _1198TheWritingontheWall extends QuestHandler {
             return true;
         } else if (targetId == 203098) {
             if (qs != null) {
-                if (env.getDialogId() == 25 && qs.getStatus() == QuestStatus.START) {
+                if (env.getDialogId() == 26 && qs.getStatus() == QuestStatus.START) {
                     return sendQuestDialog(env, 2375);
                 } else if (env.getDialogId() == 1009) {
                     player.getInventory().removeFromBagByItemId(182200559, 1);

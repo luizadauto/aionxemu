@@ -59,7 +59,7 @@ public class _1017HeldSacred extends QuestHandler {
 
         if (targetId == 203178 && qs.getStatus() == QuestStatus.START) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     if (var == 0)
                         return sendQuestDialog(env, 1011);
                     else if (var == 1)
@@ -74,7 +74,7 @@ public class _1017HeldSacred extends QuestHandler {
                         return true;
                     }
 
-                case 33:
+                case 34:
                     if (var == 1) {
                         if (QuestService.collectItemCheck(env, true)) {
                             qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);

@@ -88,7 +88,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler {
         switch (env.getTargetId()) {
             case 203098:
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 1011);
                     case 10000:

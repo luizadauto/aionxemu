@@ -53,7 +53,7 @@ public class _1130SummonstotheCitadel extends QuestHandler {
         if (targetId != 203098)
             return false;
         if (qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25) {
+            if (env.getDialogId() == 26) {
                 qs.setQuestVar(1);
                 qs.setStatus(QuestStatus.REWARD);
                 updateQuestStatus(env);
@@ -61,7 +61,7 @@ public class _1130SummonstotheCitadel extends QuestHandler {
             } else
                 return defaultQuestStartDialog(env);
         } else if (qs.getStatus() == QuestStatus.REWARD) {
-            if (env.getDialogId() == 17) {
+            if (env.getDialogId() == 18) {
                 int[] ids = {1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023};
                 for (int id : ids) {
                     QuestService.startQuest(new QuestCookie(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);

@@ -65,7 +65,7 @@ public class _2372ImmortalLove extends QuestHandler
 				case 798080:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 0)
 								return sendQuestDialog(env, 1011);
 						case 10000:
@@ -75,7 +75,7 @@ public class _2372ImmortalLove extends QuestHandler
 				case 798064:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1352);
 							else if(var == 2)
@@ -89,7 +89,7 @@ public class _2372ImmortalLove extends QuestHandler
 				case 204408:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 3)
 								return sendQuestDialog(env, 2034);
 						case 10002:
@@ -99,7 +99,7 @@ public class _2372ImmortalLove extends QuestHandler
 				case 798079:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 4)
 								return sendQuestDialog(env, 2375);
 						case 10255:

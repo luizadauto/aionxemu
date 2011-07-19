@@ -64,7 +64,7 @@ public class _2392BeautifulFeather extends QuestHandler
 			{
 				switch(env.getDialogId())
 				{
-					case 25:
+					case 26:
 						if(var == 0)
 							return sendQuestDialog(env, 1011);
 					case 10000:

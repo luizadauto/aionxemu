@@ -66,7 +66,7 @@ public class _2019SecuringtheSupplyRoute extends QuestHandler {
             switch (targetId) {
                 case 798033:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 4)
@@ -91,7 +91,7 @@ public class _2019SecuringtheSupplyRoute extends QuestHandler {
                     }
                 case 203673:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 5)
                                 return sendQuestDialog(env, 1693);
                         case 1009:

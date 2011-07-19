@@ -70,7 +70,7 @@ public class _1463MessageToASpy extends QuestHandler
 								return sendQuestDialog(env, 2375);
 							else
 								return false;
-						case 25:
+						case 26:
 							if (var == 0)
 							{
 								// reset temp var
@@ -104,7 +104,7 @@ public class _1463MessageToASpy extends QuestHandler
 				case 204424:
 					switch(env.getDialogId())
 					{
-						case 25:
+						case 26:
 							if(var == 1)
 								return sendQuestDialog(env, 1693);
 						case 10001:

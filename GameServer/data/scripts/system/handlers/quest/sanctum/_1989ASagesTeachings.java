@@ -56,7 +56,7 @@ public class _1989ASagesTeachings extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE) {
             if (targetId == 203771) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else
                     return defaultQuestStartDialog(env);
@@ -73,7 +73,7 @@ public class _1989ASagesTeachings extends QuestHandler {
             switch (targetId) {
                 case 203704://Boreas
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.GLADIATOR || playerClass == PlayerClass.TEMPLAR)
                                 return sendQuestDialog(env, 1352);
                             else
@@ -86,7 +86,7 @@ public class _1989ASagesTeachings extends QuestHandler {
                     }
                 case 203705://Jumentis
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.ASSASSIN || playerClass == PlayerClass.RANGER)
                                 return sendQuestDialog(env, 1693);
                             else
@@ -99,7 +99,7 @@ public class _1989ASagesTeachings extends QuestHandler {
                     }
                 case 203706://Charna
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.SORCERER || playerClass == PlayerClass.SPIRIT_MASTER)
                                 return sendQuestDialog(env, 2034);
                             else
@@ -112,7 +112,7 @@ public class _1989ASagesTeachings extends QuestHandler {
                     }
                 case 203707://Thrasymedes
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (playerClass == PlayerClass.CLERIC || playerClass == PlayerClass.CHANTER)
                                 return sendQuestDialog(env, 2375);
                             else
@@ -125,7 +125,7 @@ public class _1989ASagesTeachings extends QuestHandler {
                     }
                 case 203771:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 2716);
                             else if (var == 2)

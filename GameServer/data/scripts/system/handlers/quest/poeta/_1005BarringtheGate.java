@@ -57,7 +57,7 @@ public class _1005BarringtheGate extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203067:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                         case 10000:
@@ -66,7 +66,7 @@ public class _1005BarringtheGate extends QuestHandler {
                     break;
                 case 203081:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 1)
                                 return sendQuestDialog(env, 1352);
                         case 10001:
@@ -75,7 +75,7 @@ public class _1005BarringtheGate extends QuestHandler {
                     break;
                 case 790001:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 2)
                                 return sendQuestDialog(env, 1693);
                         case 10002:
@@ -84,7 +84,7 @@ public class _1005BarringtheGate extends QuestHandler {
                     break;
                 case 203085:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 3)
                                 return sendQuestDialog(env, 2034);
                         case 10003:
@@ -93,7 +93,7 @@ public class _1005BarringtheGate extends QuestHandler {
                     break;
                 case 203086:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 4)
                                 return sendQuestDialog(env, 2375);
                         case 10004:
@@ -113,7 +113,7 @@ public class _1005BarringtheGate extends QuestHandler {
             switch (env.getTargetId()) {
                 case 203067:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 9)
                                 return sendQuestDialog(env, 2716);
                         case 1009:

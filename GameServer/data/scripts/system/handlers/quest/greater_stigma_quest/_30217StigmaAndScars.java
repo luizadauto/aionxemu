@@ -70,7 +70,7 @@ public class _30217StigmaAndScars	extends QuestHandler
 		{
 			if (targetId == 798909) // Reemul Start
 			{
-				if (env.getDialogId() == 25)
+				if (env.getDialogId() == 26)
 					return sendQuestDialog(env, 4762);
 				else
 					return defaultQuestStartDialog(env);
@@ -92,7 +92,7 @@ public class _30217StigmaAndScars	extends QuestHandler
 					{
 						switch (env.getDialogId())
 						{
-							case 25:
+							case 26:
 								return sendQuestDialog(env, 1011);
 							case 10000:
 								qs.setQuestVar(1);
@@ -107,7 +107,7 @@ public class _30217StigmaAndScars	extends QuestHandler
 					{
 						switch (env.getDialogId())
 						{
-							case 25:
+							case 26:
 								return sendQuestDialog(env, 1352);
 							case 10001:
 								qs.setQuestVar(2);
@@ -121,9 +121,9 @@ public class _30217StigmaAndScars	extends QuestHandler
 					{
 						switch (env.getDialogId())
 						{
-							case 25:
+							case 26:
 								return sendQuestDialog(env, 1693);
-							case 33:
+							case 34:
 								if (player.getInventory().getItemCountByItemId(182209618) < 1)
 								{
 									return sendQuestDialog(env, 10001);

@@ -65,7 +65,7 @@ public class _2021KnowYourEnemy extends QuestHandler {
             switch (targetId) {
                 case 203669:
                     switch (env.getDialogId()) {
-                        case 25:
+                        case 26:
                             if (var == 0)
                                 return sendQuestDialog(env, 1011);
                             else if (var == 2) {

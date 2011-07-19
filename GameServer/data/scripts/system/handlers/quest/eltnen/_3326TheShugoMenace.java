@@ -54,7 +54,7 @@ public class _3326TheShugoMenace extends QuestHandler {
 
         if (qs == null || qs.getStatus() == QuestStatus.NONE || qs.getStatus() == QuestStatus.COMPLETE) {
             if (targetId == 798053) {
-                if (env.getDialogId() == 25) {
+                if (env.getDialogId() == 26) {
                     return sendQuestDialog(env, 4);
                 } else
                     return defaultQuestStartDialog(env);
@@ -67,7 +67,7 @@ public class _3326TheShugoMenace extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (targetId == 798053) {
                 switch (env.getDialogId()) {
-                    case 25: {
+                    case 26: {
                         return sendQuestDialog(env, 10002);
                     }
                     case 1009: {

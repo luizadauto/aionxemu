@@ -78,7 +78,7 @@ public class _1031TheMandurisSecret extends QuestHandler {
         if (targetId == 203902) //Aurelius
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1011);
                 else if (env.getDialogId() == 10000) {
                     qs.setQuestVar(1);
@@ -89,7 +89,7 @@ public class _1031TheMandurisSecret extends QuestHandler {
                 } else
                     return defaultQuestStartDialog(env);
             } else if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 7) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1352);
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVar(8);
@@ -107,7 +107,7 @@ public class _1031TheMandurisSecret extends QuestHandler {
         } else if (targetId == 203936) //Archelaos
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 8) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 1693);
                 else if (env.getDialogId() == 10002) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
@@ -122,7 +122,7 @@ public class _1031TheMandurisSecret extends QuestHandler {
         } else if (targetId == 204043) //Melginie
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 10) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 2375);
                 else if (env.getDialogId() == 10004) {
                     qs.setQuestVarById(0, qs.getQuestVarById(0) + 2);
@@ -138,7 +138,7 @@ public class _1031TheMandurisSecret extends QuestHandler {
         {
             if (qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 12) {
                 // Escort is skipped; its dialog id = 2716
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, 3057);
                 else if (env.getDialogId() == 10006) {
                     qs.setStatus(QuestStatus.REWARD);
