@@ -44,6 +44,7 @@ public class SM_ABNORMAL_EFFECT extends AionServerPacket {
         writeC(buf, 1); //unk isdebuff
         writeD(buf, 0); //unk
         writeD(buf, abnormals); //unk
+        writeD(buf, 0);//unk 2.5
 
         writeH(buf, effects.size()); //effects size
 

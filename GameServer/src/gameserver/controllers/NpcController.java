@@ -302,6 +302,10 @@ public class NpcController extends CreatureController<Npc> {
                 }
                 break;
             case 20:
+                // TODO this is 2.1 warehouse
+                // moved to 21 in 2.5, so 20 should be something new
+                break;
+            case 21:
                 // warehouse
                 if (MathUtil.isInRange(npc, player, 10)) // voiding exploit with sending fake client dialog_select
                 // packet
@@ -313,14 +317,14 @@ public class NpcController extends CreatureController<Npc> {
                     WarehouseService.sendWarehouseInfo(player, true);
                 }
                 break;
-            case 25:
+            case 26:
                 // TODO hotfix to prevent opening the legion wh when a quest returns false.
                 break;
-            case 27:
+            case 28:
                 // Consign trade?? npc karinerk, koorunerk
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 13));
                 break;
-            case 29:
+            case 30:
                 // soul healing
                 final long expLost = player.getCommonData().getExpRecoverable();
                 if (expLost == 0)
@@ -361,7 +365,7 @@ public class NpcController extends CreatureController<Npc> {
                     PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.DONT_HAVE_RECOVERED_EXP());
                 }
                 break;
-            case 30:
+            case 31:
                 switch (npc.getNpcId()) {
                     // Triniel Arena (Enter)
                     case 204089:
@@ -379,7 +383,7 @@ public class NpcController extends CreatureController<Npc> {
                         break;
                 }
                 break;
-            case 31:
+            case 32:
                 switch (npc.getNpcId()) {
                     // Triniel Arena (Leave)
                     case 204087:
@@ -397,36 +401,36 @@ public class NpcController extends CreatureController<Npc> {
                         break;
                 }
                 break;
-            case 35:
+            case 36:
                 // Godstone socketing
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 21));
                 break;
-            case 36:
+            case 37:
                 // remove mana stone
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 20));
                 break;
-            case 37:
+            case 38:
                 // modify appearance
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 19));
                 break;
-            case 38:
+            case 39:
                 // flight and teleport
                 TeleportService.showMap(player, targetObjectId, npc.getNpcId());
                 break;
-            case 39:
+            //case 39:
                 // improve extraction
             case 40:
                 // learn tailoring armor smithing etc...
                 CraftSkillUpdateService.getInstance().learnSkill(player, npc);
                 break;
-            case 41:
+            case 42:
                 // expand cube
                 CubeExpandService.expandCube(player, npc);
                 break;
-            case 42:
+            case 43:
                 WarehouseService.expandWarehouse(player, npc);
                 break;
-            case 47:
+            case 48:
                 // legion warehouse
                 if (LegionConfig.LEGION_WAREHOUSE)
                     if (MathUtil.isInRange(npc, player, 10))
@@ -441,45 +445,45 @@ public class NpcController extends CreatureController<Npc> {
                     PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 28));
                 }
                 break;
-            case 53:
+            case 54:
                 // coin reward
                 PacketSendUtility.sendPacket(player, new SM_MESSAGE(0, null, "This feature is not available yet",
                         ChatType.ANNOUNCEMENTS));
                 break;
             case 55:
             case 56:
-                byte changesex = 0; //0 plastic surgery, 1 gender switch
-                byte check_ticket = 2; // 2 no ticket, 1 have ticket
-                if (dialogId == 56) {
-                    //Gender Switch
-                    changesex = 1;
-                    if (player.getInventory().getItemCountByItemId(169660000) > 0 || player.getInventory().getItemCountByItemId(169660001) > 0)
-                        check_ticket = 1;
-                } else {
-                    //Plastic Surgery
-                    if (player.getInventory().getItemCountByItemId(169650000) > 0 || player.getInventory().getItemCountByItemId(169650001) > 0)
-                        check_ticket = 1;
-                }
-                PacketSendUtility.sendPacket(player, new SM_PLASTIC_SURGERY(player, check_ticket, changesex));
+                //Plastic Surgery
+                if (player.getInventory().getItemCountByItemId(169650000) > 0 || player.getInventory().getItemCountByItemId(169650001) > 0)
+                    PacketSendUtility.sendPacket(player, new SM_PLASTIC_SURGERY(player, true, false));  
+                else
+                    PacketSendUtility.sendPacket(player, new SM_PLASTIC_SURGERY(player, false, false));  
                 player.setEditMode(true);
                 break;
-            case 60:
+            case 57:
+                //Gender Switch
+                if (player.getInventory().getItemCountByItemId(169660000) > 0 || player.getInventory().getItemCountByItemId(169660001) > 0)
+                    PacketSendUtility.sendPacket(player, new SM_PLASTIC_SURGERY(player, true, true));  
+                else
+                    PacketSendUtility.sendPacket(player, new SM_PLASTIC_SURGERY(player, false, true));  
+                player.setEditMode(true);
+                break;
+            case 61:
                 // armsfusion
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 29));
                 break;
-            case 61:
+            case 62:
                 // armsbreaking
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 30));
                 break;
-            case 64:
+            case 65:
                 // repurchase
                 PacketSendUtility.sendPacket(player, new SM_REPURCHASE(npc, player));
                 break;
-            case 65:
+            case 66:
                 // adopt pet
                 PacketSendUtility.sendPacket(player, new SM_PET(6));
                 break;
-            case 66:
+            case 67:
                 // surrender pet
                 PacketSendUtility.sendPacket(player, new SM_PET(7));
                 break;

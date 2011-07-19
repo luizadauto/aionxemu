@@ -189,7 +189,7 @@ public class QuestHandler {
             case 14:
             case 15:
             case 16:
-            case 17:
+            case 18:
                 if (QuestService.questFinish(env, reward)) {
                     PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjId, 0));
                     return true;
@@ -428,7 +428,7 @@ public class QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount()))) {
             if (env.getTargetId() == startNpcId) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, dialogId);
                 else
                     return defaultQuestStartDialog(env);
@@ -456,7 +456,7 @@ public class QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount()))) {
             if (env.getTargetId() == startNpcId) {
-                if (env.getDialogId() == 25)
+                if (env.getDialogId() == 26)
                     return sendQuestDialog(env, dialogId);
                 if (itemId != 0 && itemCout != 0) {
                     if (env.getDialogId() == 1002) {

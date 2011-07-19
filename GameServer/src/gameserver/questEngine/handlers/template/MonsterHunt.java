@@ -80,7 +80,7 @@ public class MonsterHunt extends QuestHandler {
             }
             if (env.getTargetId() == endNpc) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         return sendQuestDialog(env, 1352);
                     case 1009:
                         return defaultCloseDialog(env, var, var + 1, true, true);

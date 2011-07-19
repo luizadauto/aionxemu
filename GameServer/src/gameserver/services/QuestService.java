@@ -83,7 +83,7 @@ public final class QuestService {
         questItems.addAll(rewards.getRewardItem());
 
         int dialogId = env.getDialogId();
-        if (dialogId != 17 && dialogId != 0) {
+        if (dialogId != 18 && dialogId != 0) {
             if (template.isUseClassReward()) {
                 QuestItems classRewardItem = null;
                 PlayerClass playerClass = player.getCommonData().getPlayerClass();

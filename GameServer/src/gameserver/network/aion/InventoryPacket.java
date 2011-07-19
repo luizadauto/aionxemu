@@ -91,109 +91,32 @@ public abstract class InventoryPacket extends AionServerPacket {
     }
 
     protected void writeStigmaInfo(ByteBuffer buf, Item item) {
-        writeH(buf, 325); //length of details 45 01
+        writeH(buf, 341); //length of details 45 01
         writeC(buf, 0x6);
-        if (item.isEquipped())
-            writeD(buf, item.getEquipmentSlot());
-        else
-            writeD(buf, 0);
+        writeD(buf, item.isEquipped() ? item.getEquipmentSlot() : 0);
         writeC(buf, 0x7);
-        writeH(buf, 702); //skill id
+        writeH(buf, item.getItemTemplate().getStigma().getSkillid()); // SkillId
         writeD(buf, 0);
         writeH(buf, 0);
-        writeD(buf, 0x3c);  //0x3c
+        writeD(buf, item.getItemTemplate().getStigma().getShard());  // Shard
 
-        writeD(buf, 0);
-        writeD(buf, 0);
+        writeB(buf, new byte[160]);
 
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-
-        writeD(buf, 0);
-        writeD(buf, 0);
         writeD(buf, 1);//1
-        writeD(buf, 0);
 
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
+        writeB(buf, new byte[82]);
 
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeH(buf, 0);
-        writeH(buf, 0x0b); //0b
-
+        writeH(buf, 0x0b); // unk 0B 00
         writeC(buf, 0);
         writeD(buf, item.getItemTemplate().getTemplateId());
+        writeB(buf, new byte[39]);
 
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
+        writeD(buf, 66110); //3E 02 01 00 
+
+        writeB(buf, new byte[27]);
+
+        writeH(buf, item.getEquipmentSlot()); // Item slot
         writeC(buf, 0);
-
-        writeD(buf, 82750); //3E 43 01 00
-
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeD(buf, 0);
-        writeC(buf, 0);
-
-        writeC(buf, 0x22); // 22
-        writeH(buf, 0);
     }
 
     /**
@@ -237,7 +160,7 @@ public abstract class InventoryPacket extends AionServerPacket {
         int sizeLoc;
 
         sizeLoc = buf.position();
-        writeH(buf, 5);
+        writeH(buf, 0x63);
 
         if (!isWeaponSwitch && item.getItemTemplate().getWeaponType().getRequiredSlots() == 2) {
             writeC(buf, 0x0E);
@@ -248,9 +171,6 @@ public abstract class InventoryPacket extends AionServerPacket {
 
         writeC(buf, 0x06);
         writeD(buf, item.isEquipped() ? itemSlotId : 0x00);
-
-        if (isWeaponSwitch)
-            return;
 
         writeC(buf, 0x01);
         writeD(buf, ItemSlot.getSlotsFor(item.getItemTemplate().getItemSlot()).get(0).getSlotIdMask());
@@ -269,6 +189,11 @@ public abstract class InventoryPacket extends AionServerPacket {
         writeD(buf, 0);
 
         writeD(buf, 0);//unk 1.5.1.9
+        
+        writeC(buf, 0); 
+        writeC(buf, 0x0A); 
+        writeH(buf, 0x19); 
+        writeD(buf, 0x07); 
 
         /*
             * This is where item bonuses should be inserted.
@@ -288,6 +213,10 @@ public abstract class InventoryPacket extends AionServerPacket {
             writeS(buf, item.getItemCreator()); // PlayerObjId of crafter
         writeC(buf, 0);
         writeD(buf, RentalService.getInstance().getRentalTimeLeft(item)); // For temp items: Remaining seconds
+
+        writeD(buf, 0);//unk 2.5 
+        writeH(buf, 0);//unk 2.5 
+
         writeC(buf, 0);
         writeD(buf, 0);
         if (!privateStore)
@@ -324,10 +253,10 @@ public abstract class InventoryPacket extends AionServerPacket {
                 StatModifier modifier = itemStone.getFirstModifier();
                 if (modifier != null) {
                     count++;
-                    writeC(buf, modifier.getStat().getItemStoneMask());
+                    writeH(buf, modifier.getStat().getItemStoneMask());
                 }
             }
-            writeB(buf, new byte[(6 - count)]);
+            writeB(buf, new byte[(6 - count) * 2]);
             count = 0;
             for (ManaStone itemStone : itemStones) {
                 if (count == 6)
@@ -341,7 +270,7 @@ public abstract class InventoryPacket extends AionServerPacket {
             }
             writeB(buf, new byte[(6 - count) * 2]);
         } else {
-            writeB(buf, new byte[18]);
+            writeB(buf, new byte[24]);
         }
 
         //for now max 6 stones - write some junk
@@ -360,13 +289,13 @@ public abstract class InventoryPacket extends AionServerPacket {
                 StatModifier modifier = itemStone.getFirstModifier();
                 if (modifier != null) {
                     count++;
-                    writeC(buf, modifier.getStat().getItemStoneMask());
+                    writeH(buf, modifier.getStat().getItemStoneMask());
                     writeH(buf, ((SimpleModifier) modifier).getValue());
                 }
             }
-            writeB(buf, new byte[(6 - count) * 3]);
+            writeB(buf, new byte[(6 - count) * 4]);
         } else {
-            writeB(buf, new byte[18]);
+            writeB(buf, new byte[24]);
         }
 
         //for now max 6 stones - write some junk
@@ -382,7 +311,7 @@ public abstract class InventoryPacket extends AionServerPacket {
         int itemSlotId = item.getEquipmentSlot();
 
         int sizeLoc = buf.position();
-        writeH(buf, 83);
+        writeH(buf, 103);
 
         writeC(buf, 0x06);
         writeD(buf, item.isEquipped() ? itemSlotId : 0);
@@ -403,6 +332,11 @@ public abstract class InventoryPacket extends AionServerPacket {
 
         writeD(buf, 0);
         writeD(buf, 0); //unk 1.5.1.9
+
+        writeC(buf, 0x0A); 
+        writeH(buf, 0x12); 
+        writeC(buf, 0x2B); 
+        writeD(buf, 0x00);
         writeC(buf, 0);
         writeH(buf, item.getItemMask());
         writeQ(buf, item.getItemCount());

@@ -26,6 +26,7 @@ import gameserver.model.gameobjects.player.SkillListEntry;
 import gameserver.model.items.ItemSlot;
 import gameserver.model.templates.item.RequireSkill;
 import gameserver.model.templates.item.Stigma;
+import gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
 import gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import gameserver.network.aion.serverpackets.SM_STIGMA_SKILL_REMOVE;
 import gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
@@ -135,6 +136,7 @@ public class StigmaService {
             
             player.getSkillList().removeSkill(skillId);
             int nameId = DataManager.SKILL_DATA.getSkillTemplate(skillId).getNameId();
+            PacketSendUtility.sendPacket(player, new SM_INVENTORY_UPDATE(resultItem));
             PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300403, new DescriptionId(nameId)));
             PacketSendUtility.sendPacket(player, new SM_STIGMA_SKILL_REMOVE(skillId));
         }

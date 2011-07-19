@@ -69,22 +69,22 @@ public class SM_ATTACK extends AionServerPacket {
         {
             case -60:  // case CRITICAL_BLOCK
             case 4:  // case BLOCK
-                writeH(buf, 32);
+                writeD(buf, 32);
                 break;
             case -62:  // case CRITICAL_PARRY
             case 2:  // case PARRY
-                writeH(buf, 64);
+                writeD(buf, 64);
                 break;
             case -64:  // case CRITICAL_DODGE
             case 0:  // case DODGE
-                writeH(buf, 128);
+                writeD(buf, 128);
                 break;
             case -58:  // case PHYSICAL_CRITICAL_RESIST
             case 6:  // case RESIST
-                writeH(buf, 256); // need more info becuz sometimes 0
+                writeD(buf, 256); // need more info becuz sometimes 0
                 break;
             default:
-                writeH(buf, 0);
+                writeD(buf, 0);
                 break;
         }
 

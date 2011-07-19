@@ -68,7 +68,7 @@ public class WorkOrders extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(workOrdersData.getId());
         if (qs == null || qs.getStatus() == QuestStatus.NONE || qs.getStatus() == QuestStatus.COMPLETE) {
             switch (env.getDialogId()) {
-                case 25:
+                case 26:
                     return sendQuestDialog(env, 4);
                 case 1002:
                     if (player.getInventory().isFull()) {
@@ -84,9 +84,9 @@ public class WorkOrders extends QuestHandler {
                     }
             }
         } else if (qs != null && qs.getStatus() == QuestStatus.START) {
-            if (env.getDialogId() == 25)
+            if (env.getDialogId() == 26)
                 return sendQuestDialog(env, 5);
-            else if (env.getDialogId() == 17) {
+            else if (env.getDialogId() == 18) {
                 int questId = env.getQuestId();
                 QuestWorkItems qwi = DataManager.QUEST_DATA.getQuestById(questId).getQuestWorkItems();
 

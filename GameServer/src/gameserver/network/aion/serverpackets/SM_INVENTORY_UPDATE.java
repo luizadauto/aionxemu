@@ -24,6 +24,7 @@ import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.InventoryPacket;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,12 @@ public class SM_INVENTORY_UPDATE extends InventoryPacket {
     public SM_INVENTORY_UPDATE(List<Item> items) {
         this.items = items;
         this.size = items.size();
+    }
+
+    public SM_INVENTORY_UPDATE(Item item) {
+        this.items = new ArrayList<Item>();
+        this.items.add(item);
+        this.size = 1;
     }
 
     /**

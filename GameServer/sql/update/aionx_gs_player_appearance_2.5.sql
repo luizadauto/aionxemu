@@ -1,0 +1,17 @@
+ALTER TABLE `player_appearance` MODIFY `voice` INT( 11 ) NOT NULL AFTER `player_id`;
+ALTER TABLE `player_appearance` MODIFY `face` INT( 11 ) NOT NULL AFTER `eye_rgb`;
+ALTER TABLE `player_appearance` MODIFY `hair` INT( 11 ) NOT NULL AFTER `face`;
+ALTER TABLE `player_appearance` MODIFY `deco` INT( 11 ) NOT NULL AFTER `hair`;
+ALTER TABLE `player_appearance` MODIFY `tattoo` INT( 11 ) NOT NULL AFTER `deco`;
+ALTER TABLE `player_appearance` MODIFY `arm_length` INT( 11 ) NOT NULL AFTER `facial_rate`;
+ALTER TABLE `player_appearance` MODIFY `leg_length` INT( 11 ) NOT NULL AFTER `arm_length`;
+ALTER TABLE `player_appearance` MODIFY `shoulders` INT( 11 ) NOT NULL AFTER `leg_length`;
+ALTER TABLE `player_appearance` CHANGE `deco`  `decoration` INT( 11 ) NOT NULL;
+ALTER TABLE `player_appearance` CHANGE `cheek`  `cheeks` INT( 11 ) NOT NULL;
+ALTER TABLE `player_appearance` CHANGE `facial_rate`  `facial_ratio` INT( 11 ) NOT NULL;
+ALTER TABLE `player_appearance` CHANGE `jaw_height`  `chin_height` INT( 11 ) NOT NULL;
+ALTER TABLE `player_appearance` CHANGE `chin_jut`  `cheek_bones` INT( 11 ) NOT NULL;
+ALTER TABLE `player_appearance` CHANGE `face_shape`  `jaw_line` INT( 11 ) NOT NULL;
+ALTER TABLE `player_appearance` ADD `face_contour` INT( 11 ) NOT NULL AFTER  `tattoo`;
+ALTER TABLE `player_appearance` ADD `expression` INT( 11 ) NOT NULL AFTER  `face_contour`;
+ALTER TABLE `player_appearance` ADD `face_shape` INT( 11 ) NOT NULL AFTER `facial_ratio`;

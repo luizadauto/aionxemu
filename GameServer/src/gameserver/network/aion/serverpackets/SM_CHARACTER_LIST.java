@@ -54,7 +54,13 @@ public class SM_CHARACTER_LIST extends PlayerInfo {
 
         for (PlayerAccountData playerData : account.getSortedAccountsList()) {
             writePlayerInfo(buf, playerData);
-            writeB(buf, new byte[14]);
+
+            writeD(buf, 0);//unk
+            writeD(buf, 0);//startPunishDate
+            writeD(buf, 0);//endPunishDate
+            writeC(buf, 0);//unk
+            writeC(buf, 0);//unk
+            writeB(buf, new byte[28]);
         }
     }
 }

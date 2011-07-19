@@ -63,6 +63,7 @@ public class CM_DIALOG_SELECT extends AionClientPacket {
         selectableReward = readH(); // selectable reward number in case of last reward for multiple time quests
         lastPage = readH();
         questId = readD();
+        readH(); // unk always 0 2.5.x
     }
 
     /**

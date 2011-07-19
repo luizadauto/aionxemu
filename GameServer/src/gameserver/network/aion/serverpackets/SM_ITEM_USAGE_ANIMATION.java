@@ -69,8 +69,8 @@ public class SM_ITEM_USAGE_ANIMATION extends AionServerPacket {
 
         writeD(buf, time); // unk
         writeC(buf, end); // unk
-        writeC(buf, 1); // unk
-        writeC(buf, 0);
+        writeC(buf, 0); // unk
+        writeC(buf, 1);
         writeD(buf, unk);
     }
 }

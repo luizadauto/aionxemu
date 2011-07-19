@@ -89,10 +89,10 @@ public class ItemCollecting extends QuestHandler {
         if (qs.getStatus() == QuestStatus.START) {
             if (env.getTargetId() == endNpcId) {
                 switch (env.getDialogId()) {
-                    case 25:
+                    case 26:
                         if (var == 0)
                             return sendQuestDialog(env, 2375);
-                    case 33:
+                    case 34:
                         return defaultQuestItemCheck(env, 0, 1, true, 5, 2716);
                 }
             } else if (env.getTargetId() == actionItemId && env.getTargetId() != 0 &&

@@ -76,18 +76,8 @@ public class CM_CREATE_CHARACTER extends AionClientPacket {
         String name = Util.convertName(readS());
 
         playerCommonData.setName(name);
-        // just for sure...
-        //log.info((42 - name.length() * 2) + " == " + (getRemainingBytes() - 76));
-
-        @SuppressWarnings("unused")
-        byte[] shit = readB(42 - (name.length() * 2)); // some shit? 1.5.x
-
-        /*
-           * int i = 1; for(byte b : shit) log.info("["+i+++"]="+b);
-           */
-
-        // just for sure...
-        //log.info("76 == " + (getRemainingBytes()));
+        readB(50 - (name.length() * 2)); // some shit 2.5.x
+        
         playerCommonData.setLevel(1);
         playerCommonData.setGender(readD() == 0 ? Gender.MALE : Gender.FEMALE);
         playerCommonData.setRace(readD() == 0 ? Race.ELYOS : Race.ASMODIANS);
@@ -96,19 +86,24 @@ public class CM_CREATE_CHARACTER extends AionClientPacket {
         playerAppearance = new PlayerAppearance();
 
         playerAppearance.setVoice(readD());
+
         playerAppearance.setSkinRGB(readD());
         playerAppearance.setHairRGB(readD());
         playerAppearance.setEyeRGB(readD());
-        //log.info("EyesColor: " + readD());
         playerAppearance.setLipRGB(readD());
+
         playerAppearance.setFace(readC());
         playerAppearance.setHair(readC());
-        playerAppearance.setDeco(readC());
+        playerAppearance.setDecoration(readC());
         playerAppearance.setTattoo(readC());
 
-        readC(); // always 4 o0 // 5 in 1.5.x
-
-        playerAppearance.setFaceShape(readC());
+        playerAppearance.setFaceContour(readC());
+        playerAppearance.setExpression(readC());
+              
+        readC(); // Always 6 - 2.5.x
+              
+        playerAppearance.setJawLine(readC());
+        
         playerAppearance.setForehead(readC());
 
         playerAppearance.setEyeHeight(readC());
@@ -127,14 +122,16 @@ public class CM_CREATE_CHARACTER extends AionClientPacket {
         playerAppearance.setNoseWidth(readC());
         playerAppearance.setNoseTip(readC());
 
-        playerAppearance.setCheek(readC());
+        playerAppearance.setCheeks(readC());
         playerAppearance.setLipHeight(readC());
         playerAppearance.setMouthSize(readC());
         playerAppearance.setLipSize(readC());
         playerAppearance.setSmile(readC());
         playerAppearance.setLipShape(readC());
-        playerAppearance.setJawHeigh(readC());
-        playerAppearance.setChinJut(readC());
+
+        playerAppearance.setChinHeight(readC());
+        playerAppearance.setCheekBones(readC());
+
         playerAppearance.setEarShape(readC());
         playerAppearance.setHeadSize(readC());
 
@@ -146,24 +143,27 @@ public class CM_CREATE_CHARACTER extends AionClientPacket {
         playerAppearance.setTorso(readC());
         playerAppearance.setChest(readC()); // only woman
         playerAppearance.setWaist(readC());
-
         playerAppearance.setHips(readC());
+
         playerAppearance.setArmThickness(readC());
-
         playerAppearance.setHandSize(readC());
-        playerAppearance.setLegThicnkess(readC());
 
+        playerAppearance.setLegThickness(readC());
         playerAppearance.setFootSize(readC());
-        playerAppearance.setFacialRate(readC());
+        
+        readC(); // always 0
 
-        @SuppressWarnings("unused")
-        byte unk1 = (byte) readC(); // always 0
+        playerAppearance.setFacialRatio(readC());
+
         playerAppearance.setArmLength(readC());
-        playerAppearance.setLegLength(readC()); //wrong??
-        playerAppearance.setShoulders(readC()); // 1.5.x May be ShoulderSize
-        @SuppressWarnings("unused")
-        byte unk2 = (byte) readC(); // always 0
-        readC();
+        playerAppearance.setLegLength(readC());
+        
+        playerAppearance.setShoulders(readC());
+        playerAppearance.setFaceShape(readC());
+            
+        readC(); // always 0
+        readC(); // always 0
+        readC(); // always 0
         playerAppearance.setHeight(readF());
     }
 

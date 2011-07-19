@@ -61,19 +61,24 @@ public class CM_CHARACTER_EDIT extends AionClientPacket {
         Account account = client.getAccount();
         objectId = readD();
         Player player = PlayerService.getPlayer(objectId, account);
-        readB(44);
+        readB(52);
         PlayerCommonData playerCommonData = player.getCommonData();
         PlayerAppearance playerAppearance = player.getPlayerAppearance();
         //Before modify appearance, we do a check of ticket
         int gender = readD();
         gender_change = playerCommonData.getGender().getGenderId() == gender ? false : true;
-        if (!gender_change) {
-            if (player.getInventory().getItemCountByItemId(169650000) == 0 && player.getInventory().getItemCountByItemId(169650001) == 0) {
+        if(!gender_change)
+        {
+            if (player.getInventory().getItemCountByItemId(169650000) == 0 && player.getInventory().getItemCountByItemId(169650001) == 0)
+            {
                 check_ticket = false;
                 return;
             }
-        } else {
-            if (player.getInventory().getItemCountByItemId(169660000) == 0 && player.getInventory().getItemCountByItemId(169660001) == 0) {
+        }
+        else
+        {
+            if (player.getInventory().getItemCountByItemId(169660000) == 0 && player.getInventory().getItemCountByItemId(169660001) == 0)
+            {
                 check_ticket = false;
                 return;
             }
@@ -83,18 +88,24 @@ public class CM_CHARACTER_EDIT extends AionClientPacket {
         readD(); //player class
 
         playerAppearance.setVoice(readD());
+
         playerAppearance.setSkinRGB(readD());
         playerAppearance.setHairRGB(readD());
         playerAppearance.setEyeRGB(readD());
         playerAppearance.setLipRGB(readD());
+
         playerAppearance.setFace(readC());
         playerAppearance.setHair(readC());
-        playerAppearance.setDeco(readC());
+        playerAppearance.setDecoration(readC());
         playerAppearance.setTattoo(readC());
 
-        readC(); // always 4 o0 // 5 in 1.5.x
-
-        playerAppearance.setFaceShape(readC());
+        playerAppearance.setFaceContour(readC());
+        playerAppearance.setExpression(readC());
+              
+        readC(); // Always 6 - 2.5.x
+              
+        playerAppearance.setJawLine(readC());
+        
         playerAppearance.setForehead(readC());
 
         playerAppearance.setEyeHeight(readC());
@@ -113,14 +124,16 @@ public class CM_CHARACTER_EDIT extends AionClientPacket {
         playerAppearance.setNoseWidth(readC());
         playerAppearance.setNoseTip(readC());
 
-        playerAppearance.setCheek(readC());
+        playerAppearance.setCheeks(readC());
         playerAppearance.setLipHeight(readC());
         playerAppearance.setMouthSize(readC());
         playerAppearance.setLipSize(readC());
         playerAppearance.setSmile(readC());
         playerAppearance.setLipShape(readC());
-        playerAppearance.setJawHeigh(readC());
-        playerAppearance.setChinJut(readC());
+
+        playerAppearance.setChinHeight(readC());
+        playerAppearance.setCheekBones(readC());
+
         playerAppearance.setEarShape(readC());
         playerAppearance.setHeadSize(readC());
 
@@ -132,22 +145,27 @@ public class CM_CHARACTER_EDIT extends AionClientPacket {
         playerAppearance.setTorso(readC());
         playerAppearance.setChest(readC()); // only woman
         playerAppearance.setWaist(readC());
-
         playerAppearance.setHips(readC());
+
         playerAppearance.setArmThickness(readC());
-
         playerAppearance.setHandSize(readC());
-        playerAppearance.setLegThicnkess(readC());
 
+        playerAppearance.setLegThickness(readC());
         playerAppearance.setFootSize(readC());
-        playerAppearance.setFacialRate(readC());
 
+        playerAppearance.setFacialRatio(readC());
+        
         readC(); // always 0
+
         playerAppearance.setArmLength(readC());
-        playerAppearance.setLegLength(readC()); //wrong??
-        playerAppearance.setShoulders(readC()); // 1.5.x May be ShoulderSize
+        playerAppearance.setLegLength(readC());
+        
+        playerAppearance.setShoulders(readC());
+        playerAppearance.setFaceShape(readC());
+            
         readC(); // always 0
-        readC();
+        readC(); // always 0
+        readC(); // always 0
         playerAppearance.setHeight(readF());
     }
 

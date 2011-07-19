@@ -75,7 +75,7 @@ public class CM_INVITE_TO_GROUP extends AionClientPacket {
             }
             if (inviteType == 0)
                 GroupService.getInstance().invitePlayerToGroup(inviter, invited);
-            else if (inviteType == 10)
+            else if (inviteType == 12)
                 AllianceService.getInstance().invitePlayerToAlliance(inviter, invited);
             else
                 PacketSendUtility.sendMessage(inviter, "You used an unknown invite type: " + inviteType);

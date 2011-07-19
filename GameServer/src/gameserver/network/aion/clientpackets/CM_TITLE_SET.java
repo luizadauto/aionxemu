@@ -48,7 +48,7 @@ public class CM_TITLE_SET extends AionClientPacket {
      */
     @Override
     protected void readImpl() {
-        titleId = readD();
+        titleId = readC();
     }
 
     /**

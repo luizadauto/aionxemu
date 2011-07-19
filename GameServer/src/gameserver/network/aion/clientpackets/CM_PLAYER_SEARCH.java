@@ -60,9 +60,9 @@ public class CM_PLAYER_SEARCH extends AionClientPacket {
     protected void readImpl() {
         if (!(name = readS()).isEmpty()) {
             name = Util.convertName(name);
-            readB(44 - (name.length() * 2 + 2));
+            readB(52 - (name.length() * 2 + 2));
         } else {
-            readB(42);
+            readB(50);
         }
         region = readD();
         classMask = readD();

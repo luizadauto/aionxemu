@@ -172,6 +172,7 @@ public class SM_CASTSPELL_END extends AionServerPacket {
             }
 
             writeC(buf, 16); // unk
+            writeH(buf, 0x00); // unk 2.5
             writeC(buf, 0); // current carve signet count
 
             writeC(buf, 1); // unk always 1

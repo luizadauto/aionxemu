@@ -27,7 +27,7 @@ public class Appearance extends AdminCommand
 			return;
 		}
     	
-    	String syntax = "Syntax: //appearance <size | voice | hair | face | deco | head_size | tattoo | reset (to reset the appearance)> <value>";
+    	String syntax = "Syntax: //appearance <size | voice | hair | face | decoration | head_size | tattoo | reset (to reset the appearance)> <value>";
     	
     	if (params == null || params.length < 1)
     	{
@@ -177,13 +177,13 @@ public class Appearance extends AdminCommand
 			// Edit the face
 			playerAppearance.setFace(face);
 		}
-		else if (params[0].equals("deco")) // Min: 1, Max: 18
+		else if (params[0].equals("decoration")) // Min: 1, Max: 18
 		{
-			int deco;
+			int decoration;
 			
 			try
 			{
-				deco = Integer.parseInt(params[1]);
+				decoration = Integer.parseInt(params[1]);
 			}
 			catch (NumberFormatException e)
 			{
@@ -192,14 +192,14 @@ public class Appearance extends AdminCommand
 				return;
 			}
 			
-			if (deco < 1 || deco > 18)
+			if (decoration < 1 || decoration > 18)
 			{
 				PacketSendUtility.sendMessage(admin, "Deco: Min value : 1 - Max value : 18");
 				return;
 			}
 			
-			// Edit the deco
-			playerAppearance.setDeco(deco);
+			// Edit the decoration
+			playerAppearance.setDecoration(decoration);
 		}
 		else if (params[0].equals("head_size")) // Min: 0, Max: 100
 		{

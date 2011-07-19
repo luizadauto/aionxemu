@@ -45,10 +45,10 @@ public class CM_QUESTIONNAIRE extends AionClientPacket {
 
     @Override
     protected void readImpl() {
-        objectId = readD(); // when one option given is the Player ID.
+        objectId = readD(); // when one option given is the Survey ID.
         unknown1 = readH(); // seems to be always 34.
-        choice = (readH() - 48); // removing 48 gives the actual option value.
         unknown2 = readH(); // seems to be always 34.
+        choice = (readH() - 48); // removing 48 gives the actual option value.
         unknown3 = readH(); // seems to be always 0.
     }
 

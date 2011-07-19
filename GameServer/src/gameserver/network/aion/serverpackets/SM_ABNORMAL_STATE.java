@@ -39,6 +39,7 @@ public class SM_ABNORMAL_STATE extends AionServerPacket {
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
         writeD(buf, abnormals);
+        writeD(buf, 0x00); //unk 2.5
         writeH(buf, effects.size());
 
         for (Effect effect : effects) {

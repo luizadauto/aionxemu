@@ -68,6 +68,7 @@ public class SM_GROUP_MEMBER_INFO extends AionServerPacket {
         writeC(buf, pcd.getLevel()); //level
         writeC(buf, this.event.getId()); //something events
         writeH(buf, 0x01); //channel
+        writeC(buf, 0x00); //wtf is this? 
         if (this.event == GroupEvent.MOVEMENT) {
             return;
         }

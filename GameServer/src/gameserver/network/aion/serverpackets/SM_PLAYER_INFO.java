@@ -65,14 +65,14 @@ public class SM_PLAYER_INFO extends AionServerPacket {
         final int raceId;
         
         if(player.getAdminNeutral() > 1 || con.getActivePlayer().getAdminNeutral() > 1)
-        		raceId = con.getActivePlayer().getCommonData().getRace().getRaceId();
+                raceId = con.getActivePlayer().getCommonData().getRace().getRaceId();
 
         else if((player.getAdminEnmity() > 1 || con.getActivePlayer().getAdminEnmity() > 1) &&
-        		con.getActivePlayer().getName() != player.getName() && con.getActivePlayer().isFriend(player))
-        		raceId = (con.getActivePlayer().getCommonData().getRace().getRaceId() == 0 ? 1 : 0);
+                con.getActivePlayer().getName() != player.getName() && con.getActivePlayer().isFriend(player))
+                raceId = (con.getActivePlayer().getCommonData().getRace().getRaceId() == 0 ? 1 : 0);
 
         else 
-        		raceId = pcd.getRace().getRaceId();
+                raceId = pcd.getRace().getRaceId();
 
         final int genderId = pcd.getGender().getGenderId();
         final PlayerAppearance playerAppearance = player.getPlayerAppearance();
@@ -90,86 +90,85 @@ public class SM_PLAYER_INFO extends AionServerPacket {
          */
         writeD(buf, player.getTransformedModelId() == 0 ? pcd.getTemplateId() : player.getTransformedModelId());
 
-		/**
-        * if (GSConfig.SERVER_VERSION.startsWith("2"))
-        */ 
-		writeC(buf, 0x00);
-
-        writeC(buf, enemy ? 0x00 : 0x26);
+        writeC(buf, 0x00); // (2.5) 0 default, can be 3
+        writeC(buf, 0x01); // (2.5) 1 default, can be 0 if the previous is 3
+        writeC(buf, 0x00);
+        writeC(buf, 0x00);
+        writeC(buf, 0x00);
+        
+        writeC(buf, enemy ? 0x00 : 38); // (2.5) Old 0x26... o.o
 
         writeC(buf, raceId); // race
         writeC(buf, pcd.getPlayerClass().getClassId());
         writeC(buf, genderId); // sex
         writeH(buf, player.getState());
 
-        byte[] unk = new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-                (byte) 0x00, (byte) 0x00};
+        byte[] unk = new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+            (byte) 0x00, (byte) 0x00 };
         writeB(buf, unk);
 
         writeC(buf, player.getHeading());
 
         String playerName = "";
 
-        if (CustomConfig.GMTAG_DISPLAY) {
-            if (player.getAccessLevel() == 1) {
+        if(CustomConfig.GMTAG_DISPLAY) {
+            if(player.getAccessLevel() == 1 ) {
                 playerName += CustomConfig.GM_LEVEL1.trim();
-            } else if (player.getAccessLevel() == 2) {
+            }
+            else if (player.getAccessLevel() == 2 ) {
                 playerName += CustomConfig.GM_LEVEL2.trim();
-            } else if (player.getAccessLevel() == 3) {
+            }
+            else if (player.getAccessLevel() == 3 ) {
                 playerName += CustomConfig.GM_LEVEL3.trim();
-            } else if (player.getAccessLevel() == 4) {
-                playerName += CustomConfig.GM_LEVEL4.trim();
-            } else if (player.getAccessLevel() == 5) {
-                playerName += CustomConfig.GM_LEVEL5.trim();
-            }			
+            }
         }
 
         playerName += player.getName();
-
+        
         writeS(buf, playerName);
 
-        writeD(buf, pcd.getTitleId());
-        writeC(buf, 0x0);// if set 0x1 can't jump and fly..
+        writeH(buf, pcd.getTitleId());
+        writeH(buf, 0); // (2.5) 0 default, 1 for cute mentor wings around your name <3
         writeH(buf, player.getCastingSkillId());
         writeD(buf, player.isLegionMember() ? player
-                .getLegion().getLegionId() : 0);
+            .getLegion().getLegionId() : 0);
         writeC(buf, player.isLegionMember() ? player
-                .getLegion().getLegionEmblem().getEmblemVer() : 0);
+            .getLegion().getLegionEmblem().getEmblemVer() : 0);
         if (player.isLegionMember()) {
             writeC(buf, player.getLegion().getLegionEmblem().getIsCustom() ? 0x80 : 0x00);
-            writeC(buf, 0xFF);//This is the transparency setting; official is 0xFF for none, but I think changing the cape's color is cool ^^:
+            writeC(buf, 0xFF); // This is the transparency setting; official is 0xFF for none, but I think changing the cape's color is cool ^^:
         } else {
             writeC(buf, 0x00);
             writeC(buf, 0xFF);
         }
         writeC(buf, player.isLegionMember() ? player
-                .getLegion().getLegionEmblem().getColor_r() : 0);
+            .getLegion().getLegionEmblem().getColor_r() : 0);
         writeC(buf, player.isLegionMember() ? player
-                .getLegion().getLegionEmblem().getColor_g() : 0);
+            .getLegion().getLegionEmblem().getColor_g() : 0);
         writeC(buf, player.isLegionMember() ? player
-                .getLegion().getLegionEmblem().getColor_b() : 0);
+            .getLegion().getLegionEmblem().getColor_b() : 0);
         writeS(buf, player.isLegionMember() ? player
-                .getLegion().getLegionName() : "");
+            .getLegion().getLegionName() : "");
 
         int maxHp = player.getLifeStats().getMaxHp();
         int currHp = player.getLifeStats().getCurrentHp();
         writeC(buf, 100 * currHp / maxHp);// %hp
         writeH(buf, pcd.getDp());// current dp
-        writeC(buf, 0x00);// unk (0x00)
+        writeC(buf, 0); // (2.5) 0 default. In their fisrt login, newbies have it 2. Can be 1 sometimes in random players. O_o
 
         List<Item> items = player.getEquipment().getEquippedItemsWithoutStigma();
         short mask = 0;
-        for (Item item : items) {
+        for(Item item : items) {
             mask |= item.getEquipmentSlot();
         }
 
         writeH(buf, mask);
 
-        for (Item item : items) {
-            if (item.getEquipmentSlot() < Short.MAX_VALUE * 2) {
+        for(Item item : items) {
+            if(item.getEquipmentSlot() < Short.MAX_VALUE * 2) {
                 writeD(buf, item.getItemSkinTemplate().getTemplateId());
                 GodStone godStone = item.getGodStone();
-                writeD(buf, godStone != null ? godStone.getItemId() : 0);
+                writeD(buf, godStone != null ? godStone.getItemId() : 0); 
                 writeD(buf, item.getItemColor());
                 writeH(buf, 0x00);// unk (0x00)
             }
@@ -179,14 +178,19 @@ public class SM_PLAYER_INFO extends AionServerPacket {
         writeD(buf, playerAppearance.getHairRGB());
         writeD(buf, playerAppearance.getEyeRGB());
         writeD(buf, playerAppearance.getLipRGB());
+
         writeC(buf, playerAppearance.getFace());
         writeC(buf, playerAppearance.getHair());
-        writeC(buf, playerAppearance.getDeco());
+        writeC(buf, playerAppearance.getDecoration());
         writeC(buf, playerAppearance.getTattoo());
+        
+        writeC(buf, playerAppearance.getFaceContour());
+        writeC(buf, playerAppearance.getExpression());
 
-        writeC(buf, 5);// always 5 o0
+        writeC(buf, 6); // (2.5) 6 default, can be 5... mentor related?
 
-        writeC(buf, playerAppearance.getFaceShape());
+        writeC(buf, playerAppearance.getJawLine());
+        
         writeC(buf, playerAppearance.getForehead());
 
         writeC(buf, playerAppearance.getEyeHeight());
@@ -205,51 +209,57 @@ public class SM_PLAYER_INFO extends AionServerPacket {
         writeC(buf, playerAppearance.getNoseWidth());
         writeC(buf, playerAppearance.getNoseTip());
 
-        writeC(buf, playerAppearance.getCheek());
+        writeC(buf, playerAppearance.getCheeks());
         writeC(buf, playerAppearance.getLipHeight());
         writeC(buf, playerAppearance.getMouthSize());
         writeC(buf, playerAppearance.getLipSize());
         writeC(buf, playerAppearance.getSmile());
         writeC(buf, playerAppearance.getLipShape());
-        writeC(buf, playerAppearance.getJawHeigh());
-        writeC(buf, playerAppearance.getChinJut());
+
+        writeC(buf, playerAppearance.getChinHeight());
+        writeC(buf, playerAppearance.getCheekBones());
+
         writeC(buf, playerAppearance.getEarShape());
         writeC(buf, playerAppearance.getHeadSize());
-        // 1.5.x 0x00, shoulderSize, armLength, legLength (BYTE) after HeadSize
 
         writeC(buf, playerAppearance.getNeck());
         writeC(buf, playerAppearance.getNeckLength());
         writeC(buf, playerAppearance.getShoulderSize());
 
         writeC(buf, playerAppearance.getTorso());
-        writeC(buf, playerAppearance.getChest()); // only woman
+        writeC(buf, playerAppearance.getChest());
         writeC(buf, playerAppearance.getWaist());
-
         writeC(buf, playerAppearance.getHips());
+
         writeC(buf, playerAppearance.getArmThickness());
         writeC(buf, playerAppearance.getHandSize());
-        writeC(buf, playerAppearance.getLegThicnkess());
-
+        
+        writeC(buf, playerAppearance.getLegThickness());
         writeC(buf, playerAppearance.getFootSize());
-        writeC(buf, playerAppearance.getFacialRate());
-
-        writeC(buf, 0x00); // always 0
+        
+        writeC(buf, playerAppearance.getFacialRatio());
+        writeC(buf, 0x00); // 0x00
+        
         writeC(buf, playerAppearance.getArmLength());
         writeC(buf, playerAppearance.getLegLength());
+        
         writeC(buf, playerAppearance.getShoulders());
-        writeC(buf, 0x00); // always 0
-        writeC(buf, 0x00); // 0x00
-
+        writeC(buf, playerAppearance.getFaceShape());
+        
+        writeC(buf, 0x00); // always 0 may be acessLevel
+        
         writeC(buf, playerAppearance.getVoice());
 
         writeF(buf, playerAppearance.getHeight());
+
         writeF(buf, 0.25f); // scale
         writeF(buf, 2.0f); // gravity or slide surface o_O
         writeF(buf, player.getGameStats().getCurrentStat(StatEnum.SPEED) / 1000f); // move speed
 
         writeH(buf, player.getGameStats().getBaseStat(StatEnum.ATTACK_SPEED));
         writeH(buf, player.getGameStats().getCurrentStat(StatEnum.ATTACK_SPEED));
-        writeC(buf, 2);
+        writeC(buf, 0); // It's always 2 when it's my SM_INFO, 0 when I receive from other players. WHY? Trial = 2?
+        // Sometimes these other players send other values also, like 10, 12, 3, and even 2.
 
         writeS(buf, player.hasStore() ? player.getStore().getStoreMessage() : "");// private store message
 
@@ -265,20 +275,24 @@ public class SM_PLAYER_INFO extends AionServerPacket {
         writeF(buf, player.getZ());// z
         writeC(buf, 0x00); // move type
 
-        if (player.isUsingFlyTeleport()) {
+        if(player.isUsingFlyTeleport()) {
             writeD(buf, player.getFlightTeleportId());
             writeD(buf, player.getFlightDistance());
         }
 
         writeC(buf, player.getVisualState()); // visualState
         writeS(buf, player.getCommonData().getNote()); // note show in right down windows if your target on player
-
+        
         writeH(buf, player.getLevel()); // [level]
-        writeH(buf, player.getPlayerSettings().getDisplay()); // unk - 0x04
-        writeH(buf, player.getPlayerSettings().getDeny()); // unk - 0x00
+        writeH(buf, player.getPlayerSettings().getDisplay()); // display helmet/cloak
+        writeH(buf, player.getPlayerSettings().getDeny()); // config for auto deny invites etc
         writeH(buf, player.getAbyssRank().getRank().getId()); // abyss rank
-        writeH(buf, 0x00); // unk - 0x01
-        writeD(buf, player.getTarget() == null ? 0 : player.getTarget().getObjectId());
-        writeC(buf, 0); // suspect id
-	}
+        writeC(buf, 0); // (2.5) 0 default, can be 5 sometimes. O_o
+        writeD(buf, (player.getTarget() == null || player.getTarget().getObjectId() == null) ? 
+            0 : player.getTarget().getObjectId());
+        writeH(buf, 0); // (2.5) 0 default. Can be 4 or 128 when target != 0. If sent wrong, a Supected Bot appears over your head >3
+        writeH(buf, 0); // (2.5) unk1 4 digits something...
+        writeH(buf, 0); // (2.5) unk2 It's 16 when unk1 != 0
+        writeC(buf, 0); // (2.5) 0 default, 1 for mentor title. Suspect id? Only 1 when (unk1 && unk2) != 0
+    }
 }

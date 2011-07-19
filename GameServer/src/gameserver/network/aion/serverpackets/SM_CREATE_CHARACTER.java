@@ -98,7 +98,7 @@ public class SM_CREATE_CHARACTER extends PlayerInfo {
         if (responseCode == RESPONSE_OK) {
             writePlayerInfo(buf, player); // if everything is fine, all the character's data should be sent
         } else {
-            writeB(buf, new byte[448]); // if something is wrong, only return code should be sent in the packet
+            writeB(buf, new byte[512]); // if something is wrong, only return code should be sent in the packet
         }
     }
 }
