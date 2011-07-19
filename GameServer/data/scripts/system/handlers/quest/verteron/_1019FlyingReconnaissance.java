@@ -119,7 +119,7 @@ public class _1019FlyingReconnaissance extends QuestHandler {
         Npc npc = (Npc) env.getVisibleObject();
         if (npc.getLifeStats().getCurrentHp() < npc.getLifeStats().getMaxHp() / 3) {
             defaultQuestMovie(env, 22);
-            npc.getController().onDelete();
+            npc.getLifeStats().reduceHp(npc.getLifeStats().getCurrentHp() + 1, npc);
         }
         return false;
     }
