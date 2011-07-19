@@ -315,6 +315,34 @@ public class GoTo extends AdminCommand {
         } else if (params[0].toLowerCase().equals("marchutan")) {
             TeleportService.teleportTo(admin, 120020000, 1557, 1429, 266, 0);
             PacketSendUtility.sendMessage(admin, "Teleported to Convent of Marchutan.");
+        // 2.5 Maps @Auth Khaos
+        } else if (params[0].toLowerCase().equals("kaisinel2")) {
+            TeleportService.teleportTo(admin, 110070000, 500, 224, 126, 0);
+            PacketSendUtility.sendMessage(admin, "Teleported to Kaisinel Academy.");
+        } else if (params[0].toLowerCase().equals("marchutan2")) {
+            TeleportService.teleportTo(admin, 120080000, 576, 250, 93, 0);
+            PacketSendUtility.sendMessage(admin, "Teleported to Marchutan Priory.");
+        } else if (params[0].toLowerCase().equals("aturam")) {
+            TeleportService.teleportTo(admin, 300240000, 0, 0, 0, 0); // Not use
+            PacketSendUtility.sendMessage(admin, "Teleported to Aturam Sky Fortress.");
+        } else if (params[0].toLowerCase().equals("esoterrace")) {
+            TeleportService.teleportTo(admin, 300250000, 363, 535, 325, 0);
+            PacketSendUtility.sendMessage(admin, "Teleported to Esoterrace.");
+        } else if (params[0].toLowerCase().equals("ladis")) {
+            TeleportService.teleportTo(admin, 300260000, 0, 0, 0, 0); // Not use
+            PacketSendUtility.sendMessage(admin, "Teleported to Ladis Forest.");
+        } else if (params[0].toLowerCase().equals("dorgel")) {
+            TeleportService.teleportTo(admin, 300270000, 0, 0, 0, 0); // Not use
+            PacketSendUtility.sendMessage(admin, "Teleported to Dorgel Manor.");
+        } else if (params[0].toLowerCase().equals("lentor")) {
+            TeleportService.teleportTo(admin, 300280000, 0, 0, 0, 0); // Not use
+            PacketSendUtility.sendMessage(admin, "Teleported to Lentor Outpost.");
+        } else if (params[0].toLowerCase().equals("empyream")) {
+            TeleportService.teleportTo(admin, 300300000, 1787, 797, 470, 0);
+            PacketSendUtility.sendMessage(admin, "Teleported to Empyrean Crucible.");
+        } else if (params[0].toLowerCase().equals("empyream")) {
+            TeleportService.teleportTo(admin, 300310000, 0, 0, 0, 0); // Not use
+            PacketSendUtility.sendMessage(admin, "Teleported to Tahmes.");	
         } else
             PacketSendUtility.sendMessage(admin, "Target location was not found!");
     }

@@ -3985,6 +3985,14 @@
            stigma="true"/>
     <skill skillId="645" name="Lethal Arrow I" minLevel="50" skillLevel="1" race="ALL" classId="RANGER" type="ACTIVE"
            stigma="true"/>
+    <skill skillId="2273" name="Deadshot I" minLevel="13" skillLevel="1" race="ALL" classId="RANGER"
+           type="ACTIVE"/>
+	<skill skillId="2274" name="Deadshot II" minLevel="25" skillLevel="1" race="ALL" classId="RANGER"
+           type="ACTIVE"/>
+	<skill skillId="2275" name="Deadshot III" minLevel="37" skillLevel="1" race="ALL" classId="RANGER"
+           type="ACTIVE"/>
+	<skill skillId="2276" name="Deadshot IV" minLevel="48" skillLevel="1" race="ALL" classId="RANGER"
+           type="ACTIVE"/>
     <skill skillId="8" name="Advanced Sword Training I" minLevel="9" autolearn="true" skillLevel="1" race="ALL"
            classId="ASSASSIN" type="PASSIVE"/>
     <skill skillId="9" name="Advanced Dagger Training I" minLevel="9" autolearn="true" skillLevel="1" race="ALL"
@@ -10528,6 +10536,10 @@
     <skill skillId="234" name="Sure Strike I" minLevel="55" skillLevel="1" race="ALL" classId="FIGHTER" type="ACTIVE"
            stigma="true"/>
     <skill skillId="235" name="Draining Sword I" minLevel="55" skillLevel="1" race="ALL" classId="FIGHTER" type="ACTIVE"
+           stigma="true"/>
+    <skill skillId="2267" name="Absorbing Fury I" minLevel="34" skillLevel="1" race="ALL" classId="FIGHTER" type="ACTIVE"
+           stigma="true"/>
+    <skill skillId="2268" name="Absorbing Fury II" minLevel="46" skillLevel="1" race="ALL" classId="FIGHTER" type="ACTIVE"
            stigma="true"/>
     <skill skillId="1968" name="Remove Shock I" minLevel="40" skillLevel="1" race="ALL" classId="KNIGHT" type="ACTIVE"/>
     <skill skillId="2041" name="Prayer of Resilience II" minLevel="48" skillLevel="1" race="ALL" classId="KNIGHT"
