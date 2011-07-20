@@ -38,7 +38,7 @@ public class SM_STIGMA_SKILL_REMOVE extends AionServerPacket {
      */
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
-        writeH(buf, skillId);
+        writeD(buf, skillId);
         writeC(buf, 1);
         writeC(buf, 1);
     }
