@@ -221,9 +221,14 @@ CREATE TABLE IF NOT EXISTS `legions` (
   `oldrank` int(11) NOT NULL DEFAULT '0',
   `level` int(1) NOT NULL DEFAULT '1',
   `contribution_points` int(11) NOT NULL DEFAULT '0',
-  `legionar_permission2` int(11) NOT NULL DEFAULT '64',
-  `centurion_permission1` int(11) NOT NULL DEFAULT '104',
-  `centurion_permission2` int(11) NOT NULL DEFAULT '8',
+  `deputy_permission1` int(1) NOT NULL DEFAULT '0',
+  `deputy_permission2` int(1) NOT NULL DEFAULT '0',
+  `legionary_permission1` int(1) NOT NULL DEFAULT '0',
+  `legionary_permission2` int(1) NOT NULL DEFAULT '0',
+  `centurion_permission1` int(1) NOT NULL DEFAULT '0',
+  `centurion_permission2` int(1) NOT NULL DEFAULT '0',
+  `volunteer_permission1` int(1) NOT NULL DEFAULT '0',
+  `volunteer_permission2` int(1) NOT NULL DEFAULT '0',
   `disband_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_unique` (`name`)
@@ -277,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `legion_members` (
   `legion_id` int(11) NOT NULL,
   `player_id` int(11) NOT NULL,
   `nickname` varchar(16) NOT NULL DEFAULT '',
-  `rank` enum('BRIGADE_GENERAL','CENTURION','LEGIONARY') NOT NULL DEFAULT 'LEGIONARY',
+  `rank` enum('BRIGADE_GENERAL','SUB_GENERAL','CENTURION','LEGIONARY','NEW_LEGIONARY') NOT NULL DEFAULT 'NEW_LEGIONARY',
   `selfintro` varchar(25) DEFAULT '',
   PRIMARY KEY (`player_id`),
   KEY `player_id` (`player_id`),
@@ -439,8 +444,7 @@ CREATE TABLE IF NOT EXISTS `player_appearance` (
   `leg_length` int(11) NOT NULL,
   `shoulders` int(11) NOT NULL,
   `height` float NOT NULL,
-  PRIMARY KEY (`player_id`),
-  CONSTRAINT `player_id_fk` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

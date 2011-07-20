@@ -1,0 +1,27 @@
+<!-- 
+
+	This file is part of Aion X Emu <aionxemu.com>.
+
+	This is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This software is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser Public License for more details.
+
+	You should have received a copy of the GNU Lesser Public License
+	along with this software.  If not, see <http://www.gnu.org/licenses/>.
+
+Thanks to Matej for helping me.
+map npcid pool interval
+object x y z h
+ -->
+<spawns>
+	<!-- Kargate -->
+	<spawn map="320040000" npcid="204432" pool="1" interval="295">
+		<object x="272.82886" y="176.81439" z="204.34718" h="0"/>
+	</spawn>
+</spawns>

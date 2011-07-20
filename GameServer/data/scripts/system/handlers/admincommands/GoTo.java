@@ -317,10 +317,10 @@ public class GoTo extends AdminCommand {
             PacketSendUtility.sendMessage(admin, "Teleported to Convent of Marchutan.");
         // 2.5 Maps @Auth Khaos
         } else if (params[0].toLowerCase().equals("kaisinel2")) {
-            TeleportService.teleportTo(admin, 110070000, 500, 224, 126, 0);
+            TeleportService.teleportTo(admin, 110070000, 500, 225, 126, 0);
             PacketSendUtility.sendMessage(admin, "Teleported to Kaisinel Academy.");
         } else if (params[0].toLowerCase().equals("marchutan2")) {
-            TeleportService.teleportTo(admin, 120080000, 576, 250, 93, 0);
+            TeleportService.teleportTo(admin, 120080000, 576, 250, 94, 0);
             PacketSendUtility.sendMessage(admin, "Teleported to Marchutan Priory.");
         } else if (params[0].toLowerCase().equals("aturam")) {
             TeleportService.teleportTo(admin, 300240000, 0, 0, 0, 0); // Not use

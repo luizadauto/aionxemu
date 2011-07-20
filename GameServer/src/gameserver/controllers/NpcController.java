@@ -203,7 +203,7 @@ public class NpcController extends CreatureController<Npc> {
                 (
                 (
                         // title ids of npcs
-                        titleId == 315018
+                                titleId == 315018
                                 || titleId == 350474
                                 || titleId == 350473
                                 || titleId == 350212
@@ -213,6 +213,11 @@ public class NpcController extends CreatureController<Npc> {
                                 || titleId == 370003
                                 // aerolinks
                                 || (getOwner().getNpcId() >= 730265 && getOwner().getNpcId() <= 730269)
+                                // balaurea gates
+                                || getOwner().getNpcId() == 730428 // Marchutan Priory => Gelkmaros
+                                || getOwner().getNpcId() == 730427 // Marchutan Priory => Pandaemonium
+                                || getOwner().getNpcId() == 730424 // Kaisinel Academy => Sanctum
+                                || getOwner().getNpcId() == 730425 // Kaisinel Academy => Inggison
                 )
                 ) {
             NpcQuestData npcQD = QuestEngine.getInstance().getNpcQuestData(getOwner().getNpcId());
@@ -262,11 +267,13 @@ public class NpcController extends CreatureController<Npc> {
 
         switch (dialogId) {
             case 2:
+                // buy
                 PacketSendUtility.sendPacket(player, new SM_TRADELIST(npc,
                     TradeService.getTradeListData().getTradeListTemplate(npc.getNpcId()),
                     player.getPrices().getVendorBuyModifier(), player));
                 break;
             case 3:
+                // sell
                 PacketSendUtility.sendPacket(player, new SM_SELL_ITEM(targetObjectId, player.getPrices().getVendorSellModifier(player.getCommonData().getRace())));
                 break;
             case 4:
@@ -321,7 +328,7 @@ public class NpcController extends CreatureController<Npc> {
                 // TODO hotfix to prevent opening the legion wh when a quest returns false.
                 break;
             case 28:
-                // Consign trade?? npc karinerk, koorunerk
+                // trade broker
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 13));
                 break;
             case 30:
@@ -420,6 +427,10 @@ public class NpcController extends CreatureController<Npc> {
             //case 39:
                 // improve extraction
             case 40:
+                // Essencetapping
+                CraftSkillUpdateService.getInstance().learnSkill(player, npc);
+                break;
+            case 41:
                 // learn tailoring armor smithing etc...
                 CraftSkillUpdateService.getInstance().learnSkill(player, npc);
                 break;
@@ -428,6 +439,7 @@ public class NpcController extends CreatureController<Npc> {
                 CubeExpandService.expandCube(player, npc);
                 break;
             case 43:
+                // expand warehouse
                 WarehouseService.expandWarehouse(player, npc);
                 break;
             case 48:
@@ -439,7 +451,7 @@ public class NpcController extends CreatureController<Npc> {
             case 50:
                 // WTF??? Quest dialog packet
                 break;
-            case 52:
+            case 53:
                 if (MathUtil.isInRange(npc, player, 10)) // avoiding exploit with sending fake dialog_select packet
                 {
                     PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 28));
@@ -475,6 +487,14 @@ public class NpcController extends CreatureController<Npc> {
                 // armsbreaking
                 PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 30));
                 break;
+            //case 63:
+                // join guild
+                //GuildService.getInstance().enterGuild(player, npc);
+                //break;
+            //case 64:
+                // leave guild
+                //GuildService.getInstance().exitGuild(player, npc);
+                //break;
             case 65:
                 // repurchase
                 PacketSendUtility.sendPacket(player, new SM_REPURCHASE(npc, player));
@@ -486,6 +506,22 @@ public class NpcController extends CreatureController<Npc> {
             case 67:
                 // surrender pet
                 PacketSendUtility.sendPacket(player, new SM_PET(7));
+                break;
+            case 68:
+                // housing build
+                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 32));
+                break;
+            case 69:
+                // housing destruct
+                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 33));
+                break;
+            case 70:
+                // condition an individual item
+                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 35));
+                break;
+            case 71:
+                // condition all equiped items 
+                PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 35));
                 break;
             case 10000:
                 // generic npc reply (most are teleporters)
