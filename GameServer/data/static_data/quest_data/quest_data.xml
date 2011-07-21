@@ -7662,9 +7662,9 @@
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="4" nameId="2206215" name="Where's Rae This Time?" id="2007">
 		<rewards title="51" exp="11500" gold="8370">
-			<selectable_reward_item count="1" item_id="110100859"/>
-			<selectable_reward_item count="1" item_id="110300814"/>
-			<selectable_reward_item count="1" item_id="110500784"/>
+			<selectable_reward_item count="1" item_id="110101250"/>
+			<selectable_reward_item count="1" item_id="110301182"/>
+			<selectable_reward_item count="1" item_id="110501156"/>
 		</rewards>
 	</quest>
 	<quest race_permitted="ASMODIANS" cannot_giveup="true" cannot_share="true" max_repeat_count="1" minlevel_permitted="9" nameId="2206217" name="Ascension" id="2008">

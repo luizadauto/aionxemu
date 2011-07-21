@@ -79,8 +79,10 @@
 	</monster_hunt>
 	<!-- Scared of Undeads -->
 	<monster_hunt id="4018" start_npc_id="205132">
-		<monster_infos var_id="0" max_kill="20" npc_id="213867" />
-		<monster_infos var_id="1" max_kill="15" npc_id="213869" />
+		<monster_infos var_id="0" max_kill="20" npc_id="213867"/>
+		<monster_infos var_id="0" max_kill="20" npc_id="213868"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="213869"/>
+		<monster_infos var_id="1" max_kill="15" npc_id="213870"/>
 	</monster_hunt>
 	<!-- Everyone Has a Secret -->
 	<item_collecting id="4019" start_npc_id="205127" />
@@ -203,7 +205,7 @@
 	<!-- Plant for Filling -->
 	<item_collecting id="4076" start_npc_id="205158" />
 	<!-- 4077: Porgus Roundup handled by script -->
-	<!-- 4078: TODO: A Light Through the Trees -->
+	<!-- 4078: A Light Through the Trees handled by script -->
 	<!-- Unforgivable Balaur -->
 	<monster_hunt id="4079" start_npc_id="205156">
 		<monster_infos var_id="0" max_kill="20" npc_id="214404" />
@@ -282,5 +284,30 @@
 		<monster_infos var_id="1" max_kill="20" npc_id="214407" />
 		<monster_infos var_id="2" max_kill="15" npc_id="214409" />
 		<monster_infos var_id="2" max_kill="15" npc_id="214410" />
+	</monster_hunt>
+	<!-- Quit Bugging Me! -->
+	<monster_hunt id="4107" start_npc_id="205156">
+		<monster_infos var_id="0" max_kill="25" npc_id="214363"/>
+		<monster_infos var_id="0" max_kill="25" npc_id="214364"/>
+		<monster_infos var_id="1" max_kill="20" npc_id="214406"/>
+		<monster_infos var_id="1" max_kill="20" npc_id="214407"/>
+		<monster_infos var_id="2" max_kill="15" npc_id="214409"/>
+		<monster_infos var_id="2" max_kill="15" npc_id="214410"/>
+	</monster_hunt>
+	<!-- Safari in Sudorville -->
+	<monster_hunt id="4108" start_npc_id="205151">
+		<monster_infos var_id="0" max_kill="20" npc_id="214366"/>
+		<monster_infos var_id="0" max_kill="20" npc_id="214365"/>
+		<monster_infos var_id="1" max_kill="30" npc_id="214370"/>
+		<monster_infos var_id="1" max_kill="30" npc_id="214369"/>
+	</monster_hunt>
+	<!-- A Case of the Snufflers -->
+	<monster_hunt id="4111" start_npc_id="730103">
+		<monster_infos var_id="0" max_kill="10" npc_id="213848"/>
+		<monster_infos var_id="0" max_kill="10" npc_id="213847"/>
+	</monster_hunt>
+	<!-- [Coin/Group] Lord of Darkness -->
+	<monster_hunt id="4112" start_npc_id="205163">
+		<monster_infos var_id="0" max_kill="1" npc_id="214696"/>
 	</monster_hunt>
 </quest_scripts>

@@ -86,6 +86,7 @@
 		<monster_infos var_id="1" max_kill="10" npc_id="211305"/>
 		<monster_infos var_id="2" max_kill="10" npc_id="211297"/>
 		<monster_infos var_id="2" max_kill="10" npc_id="211304"/>
+		<monster_infos var_id="2" max_kill="10" npc_id="212370"/>
     </monster_hunt>
     <!-- Keindor's Message -->
     <report_to id="2319" start_npc_id="730037" end_npc_id="798105"/>

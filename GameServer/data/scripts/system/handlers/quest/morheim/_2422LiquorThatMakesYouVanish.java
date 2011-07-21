@@ -24,9 +24,10 @@ import gameserver.questEngine.model.QuestCookie;
 import gameserver.questEngine.model.QuestState;
 import gameserver.questEngine.model.QuestStatus;
 import gameserver.utils.PacketSendUtility;
+import gameserver.services.TeleportService;
 
 /**
- * @author MrPoke remod By Nephis
+ * @author MrPoke remod By Nephis Updated by Sioth
  */
 public class _2422LiquorThatMakesYouVanish extends QuestHandler {
     private final static int questId = 2422; //WALKER NEED TO SCRIPT
@@ -81,9 +82,8 @@ public class _2422LiquorThatMakesYouVanish extends QuestHandler {
                 else if (env.getDialogId() == 10001) {
                     qs.setQuestVar(2);
                     qs.setStatus(QuestStatus.REWARD);
-                    updateQuestStatus(env);
-                    PacketSendUtility
-                            .sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
+					TeleportService.teleportTo(player, 210020000, 1, 547, 2553, 328, (byte) 20, 0);
+                    updateQuestStatus(env); 
                     return true;
                 } else
                     return defaultQuestStartDialog(env);

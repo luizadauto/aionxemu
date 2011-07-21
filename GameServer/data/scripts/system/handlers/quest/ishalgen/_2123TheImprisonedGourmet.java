@@ -63,9 +63,9 @@ public class _2123TheImprisonedGourmet extends QuestHandler {
                 if (env.getDialogId() == 25 && qs.getQuestVarById(0) == 0) {
                     return sendQuestDialog(env, 1352);
                 } else if (env.getDialogId() == 10000 && qs.getQuestVarById(0) == 0) {
-                    itemCount = player.getInventory().getItemCountByItemId(182004687);
+                    itemCount = player.getInventory().getItemCountByItemId(182203121);
                     if (itemCount > 0) {
-                        player.getInventory().removeFromBagByItemId(182004687, 1);
+                        player.getInventory().removeFromBagByItemId(182203121, 1);
                         qs.setQuestVar(5);
                         updateQuestStatus(env);
                         qs.setStatus(QuestStatus.REWARD);
@@ -89,7 +89,7 @@ public class _2123TheImprisonedGourmet extends QuestHandler {
                 } else if (env.getDialogId() == 10002 && qs.getQuestVarById(0) == 0) {
                     itemCount = player.getInventory().getItemCountByItemId(182203123);
                     if (itemCount > 0) {
-                        player.getInventory().removeFromBagByItemId(1822031236, 1);
+                        player.getInventory().removeFromBagByItemId(182203123, 1);
 						qs.setQuestVar(7);
                         updateQuestStatus(env);
                         qs.setStatus(QuestStatus.REWARD);
