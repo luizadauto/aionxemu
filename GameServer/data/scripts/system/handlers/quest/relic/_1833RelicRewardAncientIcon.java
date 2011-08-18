@@ -51,7 +51,7 @@ public class _1833RelicRewardAncientIcon extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 278644) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount()))) {
-                if (env.getDialogId() == 53) {
+                if (env.getDialogId() == 54) {
                     if (player.getCommonData().getLevel() >= 30) {
                         QuestService.startQuest(env, QuestStatus.START);
                         return sendQuestDialog(env, 1011);

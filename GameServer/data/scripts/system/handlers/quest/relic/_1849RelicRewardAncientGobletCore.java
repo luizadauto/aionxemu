@@ -52,7 +52,7 @@ public class _1849RelicRewardAncientGobletCore extends QuestHandler {
         QuestState qs = player.getQuestStateList().getQuestState(questId);
         if (targetId == 279058) {
             if (qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount()))) {
-                if (env.getDialogId() == 53) {
+                if (env.getDialogId() == 54) {
                     if (player.getCommonData().getLevel() >= 30) {
                         QuestService.startQuest(env, QuestStatus.START);
                         return sendQuestDialog(env, 1011);
