@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 /**
  * In this packets aion client is asking for player abyss rankings
- *
+ * 
  * @author zdead
  */
 public class CM_ABYSS_RANKING_PLAYERS extends AionClientPacket {
@@ -68,7 +68,7 @@ public class CM_ABYSS_RANKING_PLAYERS extends AionClientPacket {
         // calculate rankings and send packet
         if (queriedRace != null) {
             ArrayList<AbyssRankingResult> results = AbyssRankingService.getInstance().getInviduals(queriedRace);
-            PacketSendUtility.sendPacket(getConnection().getActivePlayer(), new SM_ABYSS_RANKING_PLAYERS(results, queriedRace));
+            PacketSendUtility.sendPacket(getConnection().getActivePlayer(), new SM_ABYSS_RANKING_PLAYERS(results,queriedRace, getConnection().getActivePlayer()));
         } else {
             log.warn("Received invalid raceId: " + raceId);
         }

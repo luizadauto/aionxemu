@@ -19,9 +19,11 @@ package gameserver.network.aion.serverpackets;
 
 import gameserver.model.AbyssRankingResult;
 import gameserver.model.Race;
+import gameserver.model.gameobjects.player.Player;
 import gameserver.network.aion.AionConnection;
 import gameserver.network.aion.AionServerPacket;
 import gameserver.services.AbyssRankingService;
+import gameserver.utils.PacketSendUtility;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -32,59 +34,82 @@ import java.util.ArrayList;
 public class SM_ABYSS_RANKING_PLAYERS extends AionServerPacket {
 
     private ArrayList<AbyssRankingResult> data;
+    private ArrayList<AbyssRankingResult> dataTemp;
     private int race;
+    private int action = 0;
+    private int section = 1;
+    private Player player;
 
-    public SM_ABYSS_RANKING_PLAYERS(ArrayList<AbyssRankingResult> data, Race race) {
+    public SM_ABYSS_RANKING_PLAYERS(ArrayList<AbyssRankingResult> data, Race race, Player player) {
         this.data = data;
+        dataTemp = new ArrayList<AbyssRankingResult>();
         this.race = race.getRaceId();
+        this.player = player;
+    }
+
+    public SM_ABYSS_RANKING_PLAYERS(ArrayList<AbyssRankingResult> data, int race, int action, int section, Player player) {
+        this.data = data;
+        dataTemp = new ArrayList<AbyssRankingResult>();
+        this.race = race;
+        this.action = action;
+        this.section = section;
+        this.player = player;
     }
 
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
-		if (data == null)
-			return;
+        int count = 0;
+
         writeD(buf, race);// 0:Elyos 1:Asmo
         writeD(buf, Math.round(AbyssRankingService.getInstance().getTimeOfUpdate() / 1000));//TODO Date
-        writeD(buf, 0x01);
-        writeD(buf, 0x01);// 0:Nothing 1:Update Table
-        writeH(buf, data.size());// list size
+        writeD(buf, section);
+        writeD(buf, action);// 0:Nothing 1:Update Table
+
+        if(data.size() > 46)
+            writeH(buf, 0x2E);
+        else
+            writeH(buf, data.size());
 
         for (AbyssRankingResult rs : data) {
-            writeD(buf, rs.getTopRanking());// Current Rank
-            writeD(buf, rs.getPlayerRank());// AbyssRank
-            writeD(buf, rs.getOldRanking());// Old Rank, TODO: build history table and schedule hourly refresh
-            writeD(buf, rs.getPlayerId()); // PlayerID
-            writeD(buf, race);
-            writeD(buf, rs.getPlayerClass().getClassId());// Class Id
-            writeC(buf, 0); // Sex ? 0=male / 1=female
-            writeC(buf, 0); // Unk
-            writeH(buf, 0); // Unk
-            writeD(buf, rs.getPlayerAP());// Abyss Points
-            writeD(buf, 0); // Unk
-            writeH(buf, rs.getPlayerLevel());
-
-            writeS(buf, rs.getPlayerName());// Player Name
-
-            for (int size = 0; size < (30 - rs.getPlayerName().length() * 2); size++) {
-                writeC(buf, 0x00);
-            }
-            writeH(buf, 0x00);
-            writeD(buf, 0x00);
-            writeD(buf, 0x00);
-            if (rs.getLegionName() == null) {
-                writeS(buf, "");// Legion Name
-                for (int size = 0; size < 62; size++) {
-                    writeC(buf, 0x00);
-                }
+            if(count >= 46) {
+                dataTemp.add(rs);
             } else {
-                writeS(buf, rs.getLegionName());// Legion Name
-                for (int size = 0; size < (62 - rs.getLegionName().length() * 2); size++) {
-                    writeC(buf, 0x00);
-                }
-            }
-            writeH(buf, 0x00);
-        }
+                writeD(buf, rs.getTopRanking());// Current Rank
+                writeD(buf, rs.getPlayerRank());// AbyssRank
+                writeD(buf, rs.getOldRanking());// Old Rank, TODO: build history table and schedule hourly refresh
+                writeD(buf, rs.getPlayerId()); // PlayerID
+                writeD(buf, race);
+                writeD(buf, rs.getPlayerClass().getClassId());// Class Id
+                writeD(buf, 0); // Sex ? 0=male / 1=female
+                writeD(buf, rs.getPlayerAP());// Abyss Points
+                writeD(buf, 0); // Unk
+                writeC(buf, rs.getPlayerLevel());
+                writeC(buf, 0);
 
+                writeS(buf, rs.getPlayerName());// Player Name
+
+                writeB(buf, new byte[50 - (rs.getPlayerName().length() * 2)]);
+
+                if(rs.getLegionName() == null) {
+                writeS(buf, "");
+                writeB(buf, new byte[80]);
+                } else {
+                writeS(buf, rs.getLegionName());// Legion Name
+                writeB(buf, new byte[80 - (rs.getLegionName().length() * 2)]);
+                }
+                count++;
+            }
+        }
+        if (section < 64) {
+            section *= 2 ;
+            if(section == 64)
+                action = 127;
+            else
+                action = 0;
+
+            data = null;
+            PacketSendUtility.sendPacket(player, new SM_ABYSS_RANKING_PLAYERS(dataTemp, race, action, section, player));
+        }
         data = null;
 
     }
