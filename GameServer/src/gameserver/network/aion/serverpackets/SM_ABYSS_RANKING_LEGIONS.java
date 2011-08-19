@@ -41,18 +41,11 @@ public class SM_ABYSS_RANKING_LEGIONS extends AionServerPacket {
 
     @Override
     protected void writeImpl(AionConnection con, ByteBuffer buf) {
-        //if (race == null)
-        //    return;
-	//int count = 0;
 
         writeD(buf, race.getRaceId());// 0:Elyos 1:Asmo
         writeD(buf, Math.round(AbyssRankingService.getInstance().getTimeOfUpdate() / 1000));// Date
         writeD(buf, 0x01);// 0:Nothing 1:Update Table
         writeD(buf, 0x01);// 0:Nothing 1:Update Table
-        //if (data == null || data.isEmpty()) {
-        //    writeH(buf, 0);
-        //    return;
-        //}
         writeH(buf, data.size());// list size
         for (AbyssRankingResult rs : data) {
             writeD(buf, rs.getLegionRank());// Current Rank
@@ -64,12 +57,6 @@ public class SM_ABYSS_RANKING_LEGIONS extends AionServerPacket {
             writeQ(buf, rs.getLegionCP());// Contribution Points
 
             writeS(buf, rs.getLegionName());// Legion Name
-
-            //for (int size = 0; size < (62 - rs.getLegionName().length() * 2); size++) {
-            //    writeC(buf, 0x00);
-            //}
-            //writeB(buf, new byte[78 - (rs.getLegionName().length() * 2)]);
-            //writeH(buf, 0x00);
             writeB(buf, new byte[80 - (rs.getLegionName().length() * 2)]);
         }
         data = null;
